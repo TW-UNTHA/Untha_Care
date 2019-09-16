@@ -1,0 +1,59 @@
+apply plugin: 'com.android.application'
+
+apply plugin: 'kotlin-android'
+
+apply plugin: 'kotlin-android-extensions'
+
+apply plugin: 'kotlin-kapt'
+
+apply plugin: 'kotlinx-serialization'
+
+android {
+    compileSdkVersion compilesdk_version
+    buildToolsVersion "29.0.2"
+    defaultConfig {
+        applicationId "com.untha_care"
+        minSdkVersion minsdk_version
+        targetSdkVersion targetsdk_version
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation "androidx.constraintlayout:constraintlayout:$constraint_layout_version"
+    implementation "androidx.appcompat:appcompat:$android_x_version"
+    implementation "androidx.core:core-ktx:$android_x_version"
+    implementation "androidx.recyclerview:recyclerview:$supportlibrary_x_version"
+    implementation "androidx.cardview:cardview:$supportlibrary_x_version"
+    implementation "androidx.vectordrawable:vectordrawable-animated:$supportlibrary_x_version"
+    implementation "androidx.room:room-runtime:$room_version"
+    implementation "androidx.lifecycle:lifecycle-extensions:$lifecycleExtensionsVersion"
+    implementation "androidx.lifecycle:lifecycle-extensions:$lifecycleVersion"
+    implementation "org.koin:koin-android:$koin_version"
+    implementation "org.koin:koin-android-scope:$koin_version"
+    implementation "org.koin:koin-android-viewmodel:$koin_version"
+    implementation "com.jakewharton.timber:timber:$timber_version"
+    implementation "org.jetbrains.anko:anko:$anko_version"
+    implementation "org.jetbrains.kotlinx:kotlinx-serialization-runtime:0.11.0"
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+    implementation "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:$kotlinx_version"
+    kapt "androidx.room:room-compiler:$room_version"
+    kapt "androidx.lifecycle:lifecycle-compiler:$lifecycleVersion"
+    //Test Implementations
+    testImplementation "junit:junit:$junit_version"
+    testImplementation "junit:junit:$junit_version"
+    testImplementation "org.koin:koin-test:$koin_version"
+    testImplementation "com.nhaarman:mockito-kotlin:$mockito_kotlin_version"
+    androidTestImplementation "androidx.test:runner:$test_runner_version"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_version"
+}
