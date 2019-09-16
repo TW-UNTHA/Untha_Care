@@ -11,7 +11,7 @@ class LawsAndRightsServiceAPI {
 
         val contentType = MediaType.get("application/json")
         val retrofit = Retrofit.Builder()
-            .baseUrl("url_del_sitio")
+            .baseUrl("https://api.github.com/")
             .addConverterFactory(Json.asConverterFactory(contentType))
             .build()
 

@@ -8,5 +8,5 @@ import kotlinx.serialization.Serializable
 @Serializable
 @Entity
 abstract class BaseModel {
-     @PrimaryKey(autoGenerate = true)  var id: Int? = null
+     @PrimaryKey(autoGenerate = true)  var id: Int = 0
 }
