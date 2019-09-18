@@ -18,9 +18,6 @@ release/
 # Gradle files
 .gradle/
 build/
-gradlew
-gradlew.bat
-gradle/wrapper/gradle-wrapper.jar
 
 # Local configuration file (sdk path, etc)
 local.properties
@@ -83,3 +80,7 @@ lint/generated/
 lint/outputs/
 lint/tmp/
 # lint/reports/
+
+.DS_Store
+app/.DS_Store
+
