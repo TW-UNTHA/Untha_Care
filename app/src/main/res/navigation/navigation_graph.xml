@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_graph"
+    app:startDestination="@id/categoryListFragment">
+
+    <fragment
+        android:id="@+id/categoryListFragment"
+        android:name="com.untha_care.viewmodels.listCategoryDerechos.CategoryListFragment"
+        android:label="UnthaApp"
+        tools:layout="@layout/category_derechos_fragment">
+<!--        <action-->
+<!--            android:id="@+id/action_peoplesListFragment_to_addPeopleFragment"-->
+<!--            app:destination="@id/addPeopleFragment" />-->
+<!--        <action-->
+<!--            android:id="@+id/action_peoplesListFragment_to_peopleDetailsFragment"-->
+<!--            app:destination="@id/peopleDetailsFragment" />-->
+    </fragment>
+
+</navigation>

@@ -1,3 +1,7 @@
+#ignore folders
+.idea/.DS_Store
+.DS_Store
+
 # Built application files
 *.apk
 *.ap_
