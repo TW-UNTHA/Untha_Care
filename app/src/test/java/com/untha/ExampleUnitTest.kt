@@ -1,4 +1,4 @@
-package com.untha_care
+package com.untha
 
 import org.junit.Test
 

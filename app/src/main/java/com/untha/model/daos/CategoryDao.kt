@@ -1,9 +1,9 @@
-package com.untha_care.model.daos
+package com.untha.model.daos
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Query
-import com.untha_care.model.models.Category
+import com.untha.model.models.Category
 
 @Dao
 interface CategoryDao : BaseDao<Category> {

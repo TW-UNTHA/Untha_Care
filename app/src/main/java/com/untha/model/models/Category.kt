@@ -1,4 +1,4 @@
-package com.untha_care.model.models
+package com.untha.model.models
 
 import androidx.room.Entity
 

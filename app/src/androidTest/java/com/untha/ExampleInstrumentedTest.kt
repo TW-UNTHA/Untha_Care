@@ -1,4 +1,4 @@
-package com.untha_care
+package com.untha
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

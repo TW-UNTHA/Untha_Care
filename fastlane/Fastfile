@@ -35,4 +35,19 @@ platform :android do
   lane :functional do
     gradle(task: "connectedAndroidTest")
   end
+
+  desc "Builds a new release app"
+  lane :build_prod do
+    gradle(
+      task: "assemble",
+      build_type: "Release",
+      print_command: false,
+      properties: {
+        "android.injected.signing.store.file"=>"/Users/jorgerodriguezchala/Documents/Android/keystore.jks",
+        "android.injected.signing.store.password"=>'g{(J0\/1)Jv#Gz2Tc_EiO?EcvZ!BJ!Nf5-_p)n_rxP?(vK-GkY#54R%uE4WJFjq+7oc5B{',
+        "android.injected.signing.key.alias" =>"untha_care",
+        "android.injected.signing.key.password" =>'~7Q&jKVtu}vt4&=6FIn)GWT^pnj39~HaG4ua+#*@PyG#A7bdY{#mehEr+xSu}(f{a-ixuE'
+      }
+    )
+  end
 end

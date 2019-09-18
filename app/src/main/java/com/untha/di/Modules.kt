@@ -1,12 +1,12 @@
-package com.untha_care.dependency_injection
+package com.untha.di
 
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.room.Room
-import com.untha_care.database.ApplicationDatabase
-import com.untha_care.model.repositories.CategoryRepository
-import com.untha_care.model.services.LawsAndRightsServiceAPI
-import com.untha_care.viewmodels.ExampleViewModel
+import com.untha.database.ApplicationDatabase
+import com.untha.model.repositories.CategoryRepository
+import com.untha.model.services.LawsAndRightsServiceAPI
+import com.untha.viewmodels.ExampleViewModel
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.dsl.module
@@ -24,7 +24,7 @@ val persistenceModule = module {
         ).build()
     }
 
-    factory<CategoryRepository> { CategoryRepository(get()) }
+    factory { CategoryRepository(get()) }
 
     single<SharedPreferences> {
         androidContext().getSharedPreferences(

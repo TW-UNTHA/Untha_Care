@@ -1,9 +1,9 @@
-package com.untha_care.view.activities
+package com.untha.view.activities
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.untha_care.R
-import com.untha_care.viewmodels.ExampleViewModel
+import com.untha.R
+import com.untha.viewmodels.ExampleViewModel
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class MainActivity : AppCompatActivity() {
