@@ -8,10 +8,5 @@ pipeline {
                 sh 'fastlane unit'
             }
         }
-        stage('Running static code analysis') {
-            steps {
-                sh 'fastlane lint'
-            }
-        }
     }
 }
