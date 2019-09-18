@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".viewmodels.listCategoryDerechos.CategoryListFragment">
+    tools:context=".view.activities.fragments.RightsFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/categoryRecyclerView"
@@ -14,6 +14,6 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:listitem="@layout/layout_list_details"/>
+        tools:listitem="@layout/layout_rights_details"/>
 
 </RelativeLayout>

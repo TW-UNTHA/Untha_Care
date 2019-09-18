@@ -1,4 +1,4 @@
-package com.untha_care.viewmodels.listCategoryDerechos
+package com.untha_care.view.activities.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,11 +9,13 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.untha_care.R
 import com.untha_care.model.models.Category
-import kotlinx.android.synthetic.main.category_derechos_fragment.*
+import com.untha_care.view.activities.adapters.RightsAdapter
+import com.untha_care.viewmodels.listCategoryDerechos.RightsViewModel
+import kotlinx.android.synthetic.main.layout_rights.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
-class CategoryListFragment : Fragment(),
-    CategoryListAdapter.OnItemClickListener,
+class RightsFragment : Fragment(),
+    RightsAdapter.OnItemClickListener,
     SearchView.OnQueryTextListener,
     SearchView.OnCloseListener {
 
@@ -21,7 +23,7 @@ class CategoryListFragment : Fragment(),
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    private val viewModel: CategoryListViewModel by viewModel()
+    private val viewModel: RightsViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,7 +34,7 @@ class CategoryListFragment : Fragment(),
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.category_derechos_fragment, container, false)
+        return inflater.inflate(R.layout.layout_rights, container, false)
     }
 
     override fun onQueryTextSubmit(p0: String?): Boolean {
@@ -47,7 +49,7 @@ class CategoryListFragment : Fragment(),
         super.onViewCreated(view, savedInstanceState)
 
         // Start observing people list
-        viewModel.getCategoryList().observe(this, Observer<List<Category>> { categories ->
+        viewModel.getRightsList().observe(this, Observer<List<Category>> { categories ->
             categories?.let {
                 populateCategoryList(categories)
             }
@@ -58,7 +60,8 @@ class CategoryListFragment : Fragment(),
      * Populates categoryRecyclerView with all people info
      */
     private fun populateCategoryList(categoryList: List<Category>) {
-        categoryRecyclerView.adapter  = CategoryListAdapter(categoryList, this)
+        categoryRecyclerView.adapter  =
+            RightsAdapter(categoryList, this)
     }
 
     /**

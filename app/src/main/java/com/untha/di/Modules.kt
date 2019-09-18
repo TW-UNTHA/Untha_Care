@@ -12,15 +12,17 @@ import com.untha.model.repositories.InformationCategoryRepository
 import com.untha.model.repositories.SectionRepository
 import com.untha.model.repositories.SectionStepRepository
 import com.untha.model.services.LawsAndRightsServiceAPI
-import com.untha.viewmodels.CategoryListViewModel
 import com.untha.viewmodels.MainViewModel
+import com.untha_care.model.repositories.RightsRepository
+import com.untha_care.viewmodels.listCategoryDerechos.RightsViewModel
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 val viewModelsModule = module {
     viewModel { MainViewModel(get(), get(), get(), get(), get()) }
-    viewModel { CategoryListViewModel(get()) }
+
+    viewModel { RightsViewModel(get()) }
 }
 
 val persistenceModule = module {
@@ -39,6 +41,7 @@ val persistenceModule = module {
     factory { CategoryWithRelationsRepository(get()) }
 
     factory { CategoryDbService(get(), get(), get(), get()) }
+    factory<RightsRepository> { RightsRepository(get()) }
 
     single<SharedPreferences> {
         androidContext().getSharedPreferences(

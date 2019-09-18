@@ -7,9 +7,9 @@
 
     <fragment
         android:id="@+id/categoryListFragment"
-        android:name="com.untha_care.viewmodels.listCategoryDerechos.CategoryListFragment"
+        android:name="com.untha_care.view.activities.fragments.RightsFragment"
         android:label="UnthaApp"
-        tools:layout="@layout/category_derechos_fragment">
+        tools:layout="@layout/layout_rights">
 <!--        <action-->
 <!--            android:id="@+id/action_peoplesListFragment_to_addPeopleFragment"-->
 <!--            app:destination="@id/addPeopleFragment" />-->

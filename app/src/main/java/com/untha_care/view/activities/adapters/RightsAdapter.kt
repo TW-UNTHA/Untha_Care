@@ -1,4 +1,4 @@
-package com.untha_care.viewmodels.listCategoryDerechos
+package com.untha_care.view.activities.adapters
 
 import android.view.LayoutInflater
 import android.view.View
@@ -6,10 +6,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.untha_care.R
 import com.untha_care.model.models.Category
-import kotlinx.android.synthetic.main.layout_list_details.view.*
-import java.util.*
+import kotlinx.android.synthetic.main.layout_rights_details.view.*
 
-class CategoryListAdapter(
+class RightsAdapter(
     private val items: List<Category>,
     private val clickListener: OnItemClickListener
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -23,7 +22,7 @@ class CategoryListAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.layout_list_details, parent, false)
+            .inflate(R.layout.layout_rights_details, parent, false)
         return ViewHolder(view)
     }
 
