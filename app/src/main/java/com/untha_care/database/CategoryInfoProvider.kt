@@ -16,12 +16,12 @@ class CategoryInfoProvider {
                 "TitleButton1",
                 "DescButton1",
                 "subtitleButton1"
-                ))
+                ).apply { id = 1 })
             categories.add(Category(
                 "TitleButton2",
                 "DescButton2",
                 "subTitleButton2"
-            ))
+            ).apply { id = 2 })
 
             return categories
         }

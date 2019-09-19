@@ -7,21 +7,19 @@ import com.untha_care.model.models.Category
 import com.untha_care.model.repositories.RightsRepository
 
 class RightsViewModel(private val rightsRepository: RightsRepository): ViewModel(){
-    private val rightsList = MediatorLiveData<List<Category>>()
 
-    init {
-        getAllRights()
-    }
 
     fun getRightsList(): LiveData<List<Category>> {
-        return rightsList
+        return getAllRights()
     }
 
 
-    private fun getAllRights() {
+    private fun getAllRights(): LiveData<List<Category>> {
+        val rightsList = MediatorLiveData<List<Category>>()
         rightsList.addSource(rightsRepository.getAll()) { categories ->
             rightsList.postValue(categories)
         }
+        return rightsList
     }
 
 }
