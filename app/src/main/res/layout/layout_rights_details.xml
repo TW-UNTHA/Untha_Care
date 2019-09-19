@@ -6,24 +6,16 @@
     android:layout_height="wrap_content"
     android:clickable="true"
     android:foreground="?android:attr/selectableItemBackground"
-    app:cardBackgroundColor="#145729"
+    app:cardBackgroundColor="#199b9b9b"
     android:focusable="true">
 
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="68dp">
-
-        <!--        <ImageView-->
-        <!--            android:id="@+id/imageViewIcon"-->
-        <!--            android:layout_width="@dimen/profile_image_size"-->
-        <!--            android:layout_height="@dimen/profile_image_size"-->
-        <!--            android:layout_centerVertical="true"-->
-        <!--            android:layout_marginEnd="@dimen/default_margin"-->
-        <!--            app:srcCompat="@drawable/ic_profile_image" />-->
+        android:layout_width="160dp"
+        android:layout_height="160dp">
 
         <TextView
             android:id="@+id/categoryTitle"
-            android:layout_width="match_parent"
+            android:layout_width="160dp"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="-3dp"
@@ -32,27 +24,11 @@
 
         <TextView
             android:id="@+id/categoryDescription"
-            android:layout_width="match_parent"
+            android:layout_width="160dp"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:lines="1" />
-        <!--            android:layout_below="@id/textViewName"-->
-        <!--            android:layout_toEndOf="@id/imageViewIcon"-->
-        <!--            android:drawableStart="@drawable/ic_met_at"-->
 
-
-        <!--        <Button-->
-        <!--            android:id="@+id/buttonContact"-->
-        <!--            style="@style/Widget.AppCompat.Button.Small"-->
-        <!--            android:layout_width="match_parent"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:layout_below="@id/textViewMet"-->
-        <!--            android:layout_toEndOf="@id/imageViewIcon"-->
-        <!--            android:drawableStart="@drawable/ic_contact"-->
-        <!--            android:drawablePadding="@dimen/drawable_padding"-->
-        <!--            android:gravity="center_vertical"-->
-        <!--            android:lines="1"-->
-        <!--            tools:text="@string/hint_contact" />-->
     </RelativeLayout>
 
 </androidx.cardview.widget.CardView>

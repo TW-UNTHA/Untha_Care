@@ -1,4 +1,4 @@
-package com.untha_care.view.fragments
+package com.untha.view.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,10 +7,10 @@ import android.view.ViewGroup
 import android.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import com.untha_care.R
-import com.untha_care.model.models.Category
-import com.untha_care.view.adapters.RightsAdapter
-import com.untha_care.viewmodels.listCategoryDerechos.RightsViewModel
+import com.untha.R
+import com.untha.model.models.Category
+import com.untha.view.adapters.RightsAdapter
+import com.untha.viewmodels.RightsViewModel
 import kotlinx.android.synthetic.main.layout_rights.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
@@ -77,4 +77,3 @@ class RightsFragment : Fragment(),
     }
 
 }
-

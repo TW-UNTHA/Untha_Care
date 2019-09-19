@@ -12,9 +12,9 @@ import com.untha.model.repositories.InformationCategoryRepository
 import com.untha.model.repositories.SectionRepository
 import com.untha.model.repositories.SectionStepRepository
 import com.untha.model.services.LawsAndRightsServiceAPI
+import com.untha.viewmodels.RightsViewModel
 import com.untha.viewmodels.MainViewModel
-import com.untha_care.model.repositories.RightsRepository
-import com.untha_care.viewmodels.listCategoryDerechos.RightsViewModel
+import com.untha.model.repositories.RightsRepository
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.dsl.module

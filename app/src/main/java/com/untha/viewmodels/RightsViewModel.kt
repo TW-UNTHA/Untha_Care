@@ -1,10 +1,10 @@
-package com.untha_care.viewmodels.listCategoryDerechos
+package com.untha.viewmodels
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModel
-import com.untha_care.model.models.Category
-import com.untha_care.model.repositories.RightsRepository
+import com.untha.model.models.Category
+import com.untha.model.repositories.RightsRepository
 
 class RightsViewModel(private val rightsRepository: RightsRepository): ViewModel(){
 

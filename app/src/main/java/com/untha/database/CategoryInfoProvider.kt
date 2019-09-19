@@ -1,6 +1,6 @@
-package com.untha_care.database
+package com.untha.database
 
-import com.untha_care.model.models.Category
+import com.untha.model.models.Category
 
 class CategoryInfoProvider {
 

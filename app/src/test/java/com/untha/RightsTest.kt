@@ -1,15 +1,15 @@
-package com.untha_care
+package com.untha
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.Observer
 import com.nhaarman.mockito_kotlin.mock
-import com.untha_care.dependency_injection.networkModule
-import com.untha_care.dependency_injection.persistenceModule
-import com.untha_care.dependency_injection.viewModelsModule
-import com.untha_care.model.models.Category
-import com.untha_care.model.repositories.RightsRepository
-import com.untha_care.viewmodels.listCategoryDerechos.RightsViewModel
+import com.untha.di.networkModule
+import com.untha.di.persistenceModule
+import com.untha.di.viewModelsModule
+import com.untha.model.models.Category
+import com.untha.model.repositories.RightsRepository
+import com.untha.viewmodels.RightsViewModel
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule

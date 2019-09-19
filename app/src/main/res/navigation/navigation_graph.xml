@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/categoryListFragment"
-        android:name="com.untha_care.view.fragments.RightsFragment"
+        android:name="com.untha.view.fragments.RightsFragment"
         android:label="UnthaApp"
         tools:layout="@layout/layout_rights">
 <!--        <action-->

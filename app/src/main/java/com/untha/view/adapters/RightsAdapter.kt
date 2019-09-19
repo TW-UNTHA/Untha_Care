@@ -1,11 +1,11 @@
-package com.untha_care.view.adapters
+package com.untha.view.adapters
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.untha_care.R
-import com.untha_care.model.models.Category
+import com.untha.R
+import com.untha.model.models.Category
 import kotlinx.android.synthetic.main.layout_rights_details.view.*
 
 class RightsAdapter(
