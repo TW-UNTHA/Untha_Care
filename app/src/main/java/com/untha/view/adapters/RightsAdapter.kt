@@ -39,7 +39,7 @@ class RightsAdapter(
 
         fun bind(category: Category, listener: OnItemClickListener) = with(itemView) {
             categoryTitle.text = category.title
-            categoryDescription.text = category.description
+            //categoryDescription.text = category.description
 //            buttonContact.setOnClickListener {
 //                // Dial contact number
 //                val dialIntent = android.content.Intent(android.content.Intent.ACTION_DIAL)

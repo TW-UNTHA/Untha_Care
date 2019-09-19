@@ -4,9 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.GridLayout
 import android.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.GridLayoutManager
 import com.untha.R
 import com.untha.model.models.Category
 import com.untha.view.adapters.RightsAdapter
@@ -61,6 +63,8 @@ class RightsFragment : Fragment(),
      * Populates categoryRecyclerView with all people info
      */
     private fun populateCategoryList(categoryList: List<Category>) {
+        val layout_manager = GridLayoutManager(activity, 2)
+        categoryRecyclerView.layoutManager = layout_manager
         categoryRecyclerView.adapter  =
             RightsAdapter(categoryList, this)
     }
