@@ -31,6 +31,11 @@ platform :android do
     gradle(task: "lint")
   end
 
+  desc "Runs code static analysis"
+    lane :detekt do
+      gradle(task: "detekt")
+    end
+
   desc "Runs the functional tests"
   lane :functional do
     gradle(task: "connectedAndroidTest")
