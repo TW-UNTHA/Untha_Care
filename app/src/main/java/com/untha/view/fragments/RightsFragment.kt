@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.GridLayout
 import android.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -15,11 +14,16 @@ import com.untha.view.adapters.RightsAdapter
 import com.untha.viewmodels.RightsViewModel
 import kotlinx.android.synthetic.main.layout_rights.*
 import org.koin.android.viewmodel.ext.android.viewModel
+import com.untha.view.util.HorizontalSpaceItemDecoration
+
 
 class RightsFragment : Fragment(),
     RightsAdapter.OnItemClickListener,
     SearchView.OnQueryTextListener,
     SearchView.OnCloseListener {
+
+    private val HORIZONTALITEMSPACE = 18
+
 
     override fun onClose(): Boolean {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
@@ -59,12 +63,16 @@ class RightsFragment : Fragment(),
         })
     }
 
+
     /**
      * Populates categoryRecyclerView with all people info
      */
     private fun populateCategoryList(categoryList: List<Category>) {
         val layout_manager = GridLayoutManager(activity, 2)
         categoryRecyclerView.layoutManager = layout_manager
+
+        categoryRecyclerView.addItemDecoration(HorizontalSpaceItemDecoration(HORIZONTALITEMSPACE))
+
         categoryRecyclerView.adapter  =
             RightsAdapter(categoryList, this)
     }
