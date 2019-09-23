@@ -11,10 +11,10 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.untha.R
 import com.untha.model.models.Category
 import com.untha.view.adapters.RightsAdapter
+import com.untha.view.util.HorizontalSpaceItemDecoration
 import com.untha.viewmodels.RightsViewModel
 import kotlinx.android.synthetic.main.layout_rights.*
 import org.koin.android.viewmodel.ext.android.viewModel
-import com.untha.view.util.HorizontalSpaceItemDecoration
 
 
 class RightsFragment : Fragment(),

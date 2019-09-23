@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.squareup.picasso.Picasso
+import com.bumptech.glide.Glide
 import com.untha.R
 import com.untha.model.models.Category
 import kotlinx.android.synthetic.main.layout_rights_details.view.*
@@ -41,33 +41,11 @@ class RightsAdapter(
         fun bind(category: Category, listener: OnItemClickListener) = with(itemView) {
             categoryTitle.text = category.title.toUpperCase()
 
-            val picasso = Picasso.get()
-
-            //category.image = category.image
-
-
-
-
-
-            //categoryDescription.text = category.description
-//            buttonContact.setOnClickListener {
-//                // Dial contact number
-//                val dialIntent = android.content.Intent(android.content.Intent.ACTION_DIAL)
-//                dialIntent.data = android.net.Uri.parse("tel:${people.contact}")
-//                itemView.context.startActivity(dialIntent)
-//            }
-
-            // RecyclerView on item click
-//            setOnClickListener {
-//                listener.onItemClick(people, it)
-//            }
-
             val idImage = resources.getIdentifier(category.image, "drawable", context.applicationInfo.packageName)
-            picasso.load(idImage)
-                .into(imageRightButton)
 
-
-
+            Glide.with(itemView)
+                .load(idImage)
+                .into(itemView.imageRightButton)
 
         }
 

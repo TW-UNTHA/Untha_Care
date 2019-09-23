@@ -25,9 +25,11 @@
 
     <ImageView
         android:id="@+id/imageRightButton"
-        android:layout_width="125dp"
-        android:layout_height="125dp"
-        android:paddingTop="45dp"
+        android:layout_width="118dp"
+        android:layout_height="118dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:paddingTop="25dp"
         android:layout_centerInParent="true"/>
 
 
