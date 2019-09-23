@@ -42,6 +42,7 @@
         "description": "El empleador debe inscribirte en el Instituto Ecuatoriano de Seguridad Social (IESS), desde el primer día de labores. Dará aviso de tu entrada en los primeros 15 días. Avisará sobre tu salida, sueldos y salarios, accidentes de trabajo y enfermedades que se produzcan en él. Y cumplirá con las demás obligaciones legales sobre seguridad social.Para verificar si estás afiliada sigue estos pasos:",
         "sections": [
           {
+            "id": 1,
             "title": "Obtén tu clave del IESS",
             "steps": [
               {
@@ -63,6 +64,7 @@
             ]
           },
           {
+            "id": 2,
             "title": "Obtén tu certificado de afiliación",
             "steps": [
               {
@@ -106,6 +108,7 @@
       "information": {
         "sections": [
           {
+            "id": 3,
             "title": "",
             "steps": [
               {
@@ -169,6 +172,7 @@
       "information": {
         "sections": [
           {
+            "id": 4,
             "title": "",
             "steps": [
               {
@@ -216,6 +220,7 @@
       "information": {
         "sections": [
           {
+            "id": 5,
             "title": "",
             "steps": [
               {
@@ -239,6 +244,7 @@
       "information": {
         "sections": [
           {
+            "id": 6,
             "title": "",
             "steps": [
               {
@@ -282,6 +288,7 @@
       "information": {
         "sections": [
           {
+            "id": 7,
             "title": "",
             "steps": [
               {
@@ -321,6 +328,7 @@
       "information": {
         "sections": [
           {
+            "id": 8,
             "title": "Constitución de la República del Ecuador",
             "steps": [
               {
@@ -330,6 +338,7 @@
             ]
           },
           {
+            "id": 9,
             "title": "Ley Orgánica para Prevenir y Erradicar la Violencia contra las mujeres",
             "steps": [
               {
@@ -339,6 +348,7 @@
             ]
           },
           {
+            "id": 10,
             "title": "Ley Orgánica para la Justicia Laboral y Reconocimiento del Trabajo en el Hogar",
             "steps": [
               {
@@ -348,6 +358,7 @@
             ]
           },
           {
+            "id": 11,
             "title": "Código del Trabajo",
             "steps": [
               {
@@ -357,6 +368,7 @@
             ]
           },
           {
+            "id": 12,
             "title": "Convención sobre la Eliminación de todas las Formas de Discriminación contra la Mujer",
             "steps": [
               {
@@ -366,6 +378,7 @@
             ]
           },
           {
+            "id": 13,
             "title": "Convención Interamericana para Prevenir, Sancionar y Erradicar la Violencia contra la Mujer, Convención de Belém do Pará",
             "steps": [
               {
@@ -375,6 +388,7 @@
             ]
           },
           {
+            "id": 14,
             "title": "Código Orgánico Integral Penal",
             "steps": [
               {
@@ -384,6 +398,7 @@
             ]
           },
           {
+            "id": 15,
             "title": "Convenio 189 sobre trabajo decente de la Organización Internacional del Trabajo para las trabajadoras y los trabajadores domésticos",
             "steps": [
               {
@@ -393,6 +408,7 @@
             ]
           },
           {
+            "id": 16,
             "title": "Convenio 182 sobre la prohibición de las peores formas de trabajo infantil y la acción inmediata para su eliminación",
             "steps": [
               {
@@ -402,6 +418,7 @@
             ]
           },
           {
+            "id": 17,
             "title": "Ley Orgánica de los Consejos Nacionales para la Igualdad",
             "steps": [
               {
@@ -411,6 +428,7 @@
             ]
           },
           {
+            "id": 18,
             "title": "Agenda Nacional para la Igualdad de las Mujeres y Personas LGBTI",
             "steps": [
               {
@@ -420,6 +438,7 @@
             ]
           },
           {
+            "id": 19,
             "title": "Ley Marco sobre Economía del Cuidado del Parlamento Latinoamericano",
             "steps": [
               {
@@ -429,6 +448,7 @@
             ]
           },
           {
+            "id": 20,
             "title": "Acuerdo Ministerial No 0082: Normativa para la Erradicación de la Discriminación en el Ámbito Laboral",
             "steps": [
               {
