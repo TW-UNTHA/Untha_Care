@@ -3,20 +3,27 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation_graph"
-    app:startDestination="@id/rightsFragment">
+    app:startDestination="@id/mainFragment">
 
     <fragment
         android:id="@+id/mainFragment"
-        android:name="com.untha.view.fragments.RightsFragment"
+        android:name="com.untha.view.fragments.MainFragment"
         android:label="UnthaApp"
-        tools:layout="@layout/main_layout">
+        tools:layout="@layout/main_layout"
+        app:navGraph="@navigation/navigation_graph"
+        app:defaultNavHost="true"
+        app:popUpTo="@+id/mainFragment">
     </fragment>
 
     <fragment
         android:id="@+id/rightsFragment"
         android:name="com.untha.view.fragments.RightsFragment"
         android:label="UnthaApp"
-        tools:layout="@layout/layout_rights">
+        tools:layout="@layout/layout_rights"
+        app:navGraph="@navigation/navigation_graph"
+        app:defaultNavHost="true">
+
     </fragment>
+
 
 </navigation>

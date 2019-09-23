@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     android:id="@+id/mainContainer"
-    android:layout_width="186dp"
-    android:layout_height="186dp"
+    android:layout_width="186sp"
+    android:layout_height="186sp"
     android:background="@drawable/button_radius"
     android:clickable="true"
     android:focusable="true"

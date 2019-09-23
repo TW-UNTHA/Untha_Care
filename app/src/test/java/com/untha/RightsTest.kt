@@ -52,7 +52,9 @@ class RightsTest: KoinTest {
             Category(
                 "my title1",
                 "my description1",
-                "mu subtitle 1"
+                "mu subtitle 1",
+                "my image",
+                "my type"
             )
         )
         val rightsListData = MediatorLiveData<List<Category>>()
