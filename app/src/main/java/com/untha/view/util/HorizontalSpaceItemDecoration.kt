@@ -13,5 +13,6 @@ class HorizontalSpaceItemDecoration(private val horizontalSpaceHeight: Int) :
         state: RecyclerView.State
     ) {
         outRect.left = horizontalSpaceHeight
+        outRect.bottom = horizontalSpaceHeight
     }
 }

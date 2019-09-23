@@ -22,7 +22,7 @@ class RightsFragment : Fragment(),
     SearchView.OnQueryTextListener,
     SearchView.OnCloseListener {
 
-    private val HORIZONTALITEMSPACE = 18
+    private val HORIZONTALITEMSPACE = 20
 
 
     override fun onClose(): Boolean {
@@ -73,8 +73,7 @@ class RightsFragment : Fragment(),
 
         categoryRecyclerView.addItemDecoration(HorizontalSpaceItemDecoration(HORIZONTALITEMSPACE))
 
-        categoryRecyclerView.adapter  =
-            RightsAdapter(categoryList, this)
+        categoryRecyclerView.adapter  = RightsAdapter(categoryList, this)
     }
 
     /**

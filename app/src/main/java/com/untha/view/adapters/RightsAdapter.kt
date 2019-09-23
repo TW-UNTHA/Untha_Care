@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.squareup.picasso.Picasso
 import com.untha.R
 import com.untha.model.models.Category
 import kotlinx.android.synthetic.main.layout_rights_details.view.*
@@ -38,7 +39,16 @@ class RightsAdapter(
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         fun bind(category: Category, listener: OnItemClickListener) = with(itemView) {
-            categoryTitle.text = category.title
+            categoryTitle.text = category.title.toUpperCase()
+
+            val picasso = Picasso.get()
+
+            //category.image = category.image
+
+
+
+
+
             //categoryDescription.text = category.description
 //            buttonContact.setOnClickListener {
 //                // Dial contact number
@@ -51,6 +61,14 @@ class RightsAdapter(
 //            setOnClickListener {
 //                listener.onItemClick(people, it)
 //            }
+
+            val idImage = resources.getIdentifier(category.image, "drawable", context.applicationInfo.packageName)
+            picasso.load(idImage)
+                .into(imageRightButton)
+
+
+
+
         }
 
     }

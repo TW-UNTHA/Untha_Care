@@ -8,7 +8,7 @@ import com.untha.model.models.Category
 @Dao
 interface RightsDao : BaseDao<Category> {
 
-    @Query("SELECT * FROM Category ORDER BY id DESC")
+    @Query("SELECT * FROM Category WHERE type='derechos' ORDER BY id DESC")
     fun getAll(): LiveData<List<Category>>
 
 }
