@@ -1,25 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     android:id="@+id/rightsContainer"
-    android:layout_width="186sp"
-    android:layout_height="186sp"
+    android:layout_width="186dp"
+    android:layout_height="186dp"
     android:background="@drawable/button_radius"
-    android:clickable="true"
-    android:focusable="true"
+
     android:layout_margin="0dp"
     android:layout_marginRight="0dp"
     android:layout_marginLeft="0dp"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <TextView
-        android:id="@+id/categoryTitle"
-        android:clickable="false"
-        style="@style/TitleCategory"/>
+        <TextView
+            android:id="@+id/categoryTitle"
+            style="@style/TitleCategory"
+            />
 
-    <ImageView
-        android:id="@+id/imageRightButton"
-        android:clickable="false"
-        style="@style/ImageCategory" />
+        <ImageView
+            android:id="@+id/imageRightButton"
+            style="@style/ImageCategory"></ImageView>
+
+
+
+
 
 
 </RelativeLayout>

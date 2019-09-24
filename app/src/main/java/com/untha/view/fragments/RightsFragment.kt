@@ -18,6 +18,7 @@ import com.untha.view.util.HorizontalSpaceItemDecoration
 import com.untha.viewmodels.RightsViewModel
 import kotlinx.android.synthetic.main.layout_rights.*
 import kotlinx.android.synthetic.main.layout_rights_details.*
+import kotlinx.android.synthetic.main.main_layout.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
 

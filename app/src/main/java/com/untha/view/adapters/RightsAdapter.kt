@@ -1,11 +1,17 @@
 package com.untha.view.adapters
 
+import android.graphics.Color
+import android.text.Layout
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.RelativeLayout
+import android.widget.Toast
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.untha.R
+import com.untha.R.id.rightsContainer
 import com.untha.model.models.Category
 import kotlinx.android.synthetic.main.layout_rights_details.view.*
 
@@ -42,13 +48,24 @@ class RightsAdapter(
             categoryTitle.text = category.title.toUpperCase()
 
             val idImage = resources.getIdentifier(category.image, "drawable", context.applicationInfo.packageName)
-
             Glide.with(itemView)
                 .load(idImage)
                 .into(itemView.imageRightButton)
+
+            itemView.setOnClickListener {
+                //Toast.makeText(context,"clicked on "+categoryTitle.text, Toast.LENGTH_SHORT).show()
+
+                itemView.findNavController().navigate(R.id.mainFragment)
+
+            }
+
+
 
         }
 
     }
 
 }
+
+
+
