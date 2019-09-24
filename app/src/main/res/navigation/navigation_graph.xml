@@ -8,7 +8,6 @@
     <fragment
         android:id="@+id/mainFragment"
         android:name="com.untha.view.fragments.MainFragment"
-        android:label="UnthaApp"
         tools:layout="@layout/main_layout"
         app:navGraph="@navigation/navigation_graph"
         app:defaultNavHost="true"
@@ -18,7 +17,7 @@
     <fragment
         android:id="@+id/rightsFragment"
         android:name="com.untha.view.fragments.RightsFragment"
-        android:label="UnthaApp"
+
         tools:layout="@layout/layout_rights"
         app:navGraph="@navigation/navigation_graph"
         app:defaultNavHost="true">

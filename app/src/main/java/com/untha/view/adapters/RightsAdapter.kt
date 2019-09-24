@@ -16,8 +16,8 @@ import com.untha.model.models.Category
 import kotlinx.android.synthetic.main.layout_rights_details.view.*
 
 class RightsAdapter(
-    private val items: List<Category>,
-    private val clickListener: OnItemClickListener
+    val items: List<Category>,
+    val clickListener: OnItemClickListener
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     /**

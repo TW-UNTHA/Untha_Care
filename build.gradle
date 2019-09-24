@@ -5,7 +5,7 @@ buildscript {
         kotlin_version = '1.3.50'
         gradle_version = '3.5.0'
         compilesdk_version = 29
-        minsdk_version = 15
+        minsdk_version = 16
         targetsdk_version = 29
         constraint_layout_version = '1.1.3'
         android_x_version = '1.1.0'

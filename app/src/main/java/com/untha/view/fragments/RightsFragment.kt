@@ -1,24 +1,21 @@
 package com.untha.view.fragments
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.RelativeLayout
 import android.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.navigation.findNavController
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.GridLayoutManager
 import com.untha.R
 import com.untha.model.models.Category
+import com.untha.view.activities.MainActivity
 import com.untha.view.adapters.RightsAdapter
 import com.untha.view.util.HorizontalSpaceItemDecoration
 import com.untha.viewmodels.RightsViewModel
 import kotlinx.android.synthetic.main.layout_rights.*
-import kotlinx.android.synthetic.main.layout_rights_details.*
-import kotlinx.android.synthetic.main.main_layout.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
 
@@ -28,6 +25,7 @@ class RightsFragment : Fragment(),
     SearchView.OnCloseListener {
 
     private val HORIZONTALITEMSPACE = 20
+    private lateinit var mainActivity: MainActivity
 
 
     override fun onClose(): Boolean {
@@ -45,6 +43,7 @@ class RightsFragment : Fragment(),
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        mainActivity = this.activity as MainActivity
         return inflater.inflate(R.layout.layout_rights, container, false)
     }
 
@@ -90,6 +89,15 @@ class RightsFragment : Fragment(),
 //        }
 //        view?.findNavController()
 //            ?.navigate(R.id.action_peoplesListFragment_to_peopleDetailsFragment, peopleBundle)
+
     }
+
+    override fun onResume() {
+        super.onResume()
+        mainActivity.supportActionBar?.title = "MIS DERECHOS"
+//        mainActivity.actionBar.setHomeAsUpIndicator()
+    }
+
+
 
 }

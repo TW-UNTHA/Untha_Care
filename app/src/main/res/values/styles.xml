@@ -28,6 +28,19 @@
        <item name="android:layout_width">138sp</item>
        <item name="android:layout_height">138sp</item>
     </style>
+
+    <style name="HeaderNavBar" parent="Theme.AppCompat.DayNight.DarkActionBar">
+        <item name="android:actionBarStyle">@style/HeaderBar</item>
+        <item name="actionBarStyle">@style/HeaderBar</item>
+        <item name="android:fontFamily">@font/proxima_nova_bold</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:homeAsUpIndicator">@drawable/atras</item>
+    </style>
+
+    <style name="HeaderBar" parent="Widget.AppCompat.Light.ActionBar.Solid.Inverse">
+        <item name="android:background">@color/colorHeaderBackground</item>
+        <item name="background">@color/colorHeaderBackground</item>
+    </style>
 </resources>
 
 
