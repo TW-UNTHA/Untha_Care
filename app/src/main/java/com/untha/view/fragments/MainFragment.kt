@@ -4,12 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import com.untha.R
-import com.untha.model.models.Category
+import com.untha.model.transactionalmodels.Category
 import com.untha.view.activities.MainActivity
 import com.untha.view.adapters.RightsAdapter
 import com.untha.viewmodels.RightsViewModel
@@ -18,15 +17,9 @@ import org.koin.android.viewmodel.ext.android.viewModel
 
 
 class MainFragment : Fragment(),
-    RightsAdapter.OnItemClickListener,
-    SearchView.OnQueryTextListener,
-    SearchView.OnCloseListener {
+    RightsAdapter.OnItemClickListener {
     private lateinit var mainActivity: MainActivity
 
-
-    override fun onClose(): Boolean {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
 
     private val viewModel: RightsViewModel by viewModel()
 
@@ -44,15 +37,6 @@ class MainFragment : Fragment(),
         return inflater.inflate(R.layout.main_layout, container, false)
     }
 
-    override fun onQueryTextSubmit(p0: String?): Boolean {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun onQueryTextChange(p0: String?): Boolean {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-//    @RequiresApi(Build.VERSION_CODES.KITKAT)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -61,8 +45,8 @@ class MainFragment : Fragment(),
         }
 
         Navigation.findNavController(view)
-            .getCurrentDestination().setLabel("")
-        }
+            .currentDestination.label = ""
+    }
 
     /**
      * Navigates to people details on item click
@@ -80,7 +64,6 @@ class MainFragment : Fragment(),
 //        mainActivity.actionBar?.setDisplayHomeAsUpEnabled(true)
         mainActivity.supportActionBar?.title = "Lorenxo el gato"
     }
-
 
 
 }

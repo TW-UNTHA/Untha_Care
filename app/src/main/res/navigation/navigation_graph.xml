@@ -8,19 +8,20 @@
     <fragment
         android:id="@+id/mainFragment"
         android:name="com.untha.view.fragments.MainFragment"
-        tools:layout="@layout/main_layout"
-        app:navGraph="@navigation/navigation_graph"
+        android:label="home"
         app:defaultNavHost="true"
-        app:popUpTo="@+id/mainFragment">
-    </fragment>
+        app:navGraph="@navigation/navigation_graph"
+        app:popUpTo="@+id/mainFragment"
+        tools:layout="@layout/main_layout"></fragment>
 
     <fragment
         android:id="@+id/rightsFragment"
         android:name="com.untha.view.fragments.RightsFragment"
 
-        tools:layout="@layout/layout_rights"
+        android:label="MIS DERECHOS"
+        app:defaultNavHost="true"
         app:navGraph="@navigation/navigation_graph"
-        app:defaultNavHost="true">
+        tools:layout="@layout/layout_rights">
 
     </fragment>
 

@@ -11,4 +11,9 @@ class CategoryWithRelationsRepository(database: ApplicationDatabase) {
     fun getAllCategories(): LiveData<List<QueryingCategory>> {
         return categoryWithRelationsDao.getAllCategories()
     }
+
+
+    fun getAllRightsCategories(): LiveData<List<QueryingCategory>> {
+        return categoryWithRelationsDao.getAllRightsCategoriess()
+    }
 }

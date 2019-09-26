@@ -4,9 +4,17 @@ import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Query
 import com.untha.model.models.QueryingCategory
+import androidx.room.Transaction
 
 @Dao
-interface CategoryWithRelationsDao {
+abstract class CategoryWithRelationsDao {
+
+    @Transaction
     @Query("SELECT * FROM CategoryModel")
-    fun getAllCategories(): LiveData<List<QueryingCategory>>
+    abstract fun getAllCategories(): LiveData<List<QueryingCategory>>
+
+    @Transaction
+    @Query("SELECT * FROM CategoryModel WHERE parent_id=2 ORDER BY id ASC")
+    abstract fun getAllRightsCategoriess(): LiveData<List<QueryingCategory>>
+
 }

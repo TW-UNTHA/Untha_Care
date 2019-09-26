@@ -1,13 +1,5 @@
 <resources>
 
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-    </style>
-
     <style name="TitleCategory" parent="TextAppearance.AppCompat">
         <item name="android:textColor">@color/colorTitleCategory</item>
         <item name="android:textStyle">bold</item>
@@ -32,9 +24,7 @@
     <style name="HeaderNavBar" parent="Theme.AppCompat.DayNight.DarkActionBar">
         <item name="android:actionBarStyle">@style/HeaderBar</item>
         <item name="actionBarStyle">@style/HeaderBar</item>
-        <item name="android:fontFamily">@font/proxima_nova_bold</item>
         <item name="android:textSize">20sp</item>
-        <item name="android:homeAsUpIndicator">@drawable/atras</item>
     </style>
 
     <style name="HeaderBar" parent="Widget.AppCompat.Light.ActionBar.Solid.Inverse">

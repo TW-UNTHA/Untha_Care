@@ -1,25 +1,27 @@
 package com.untha.viewmodels
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModel
-import com.untha.model.models.Category
-import com.untha.model.repositories.RightsRepository
+import com.untha.model.mappers.CategoryMapper
+import com.untha.model.models.QueryingCategory
+import com.untha.model.repositories.CategoryWithRelationsRepository
+import com.untha.model.transactionalmodels.Category
 
-class RightsViewModel(private val rightsRepository: RightsRepository): ViewModel(){
+class RightsViewModel(
+    private val categoryWithRelationsRepository: CategoryWithRelationsRepository,
+    private val mapper: CategoryMapper
+) :
+    ViewModel() {
 
 
-    fun getRightsList(): LiveData<List<Category>> {
-        return getAllRights()
+    fun getRightsCategoryModels(): LiveData<List<QueryingCategory>> {
+        return categoryWithRelationsRepository.getAllRightsCategories()
     }
 
-
-    private fun getAllRights(): LiveData<List<Category>> {
-        val rightsList = MediatorLiveData<List<Category>>()
-        rightsList.addSource(rightsRepository.getAll()) { categories ->
-            rightsList.postValue(categories)
+    fun getRightCategories(queryingCategories: List<QueryingCategory>): List<Category> {
+        return queryingCategories.map { queryingCategory ->
+            mapper.mapFromModel(queryingCategory)
         }
-        return rightsList
     }
 
 }

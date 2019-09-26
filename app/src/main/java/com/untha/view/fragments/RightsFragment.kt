@@ -9,8 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import com.untha.R
-import com.untha.model.models.Category
-import com.untha.view.activities.MainActivity
+import com.untha.model.transactionalmodels.Category
 import com.untha.view.adapters.RightsAdapter
 import com.untha.viewmodels.RightsViewModel
 import kotlinx.android.synthetic.main.layout_rights.*
@@ -22,12 +21,6 @@ class RightsFragment : Fragment(),
     SearchView.OnQueryTextListener,
     SearchView.OnCloseListener {
 
-    private lateinit var mainActivity: MainActivity
-
-
-    override fun onClose(): Boolean {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
 
     private val viewModel: RightsViewModel by viewModel()
 
@@ -40,7 +33,6 @@ class RightsFragment : Fragment(),
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        mainActivity = this.activity as MainActivity
         return inflater.inflate(R.layout.layout_rights, container, false)
     }
 
@@ -56,23 +48,21 @@ class RightsFragment : Fragment(),
         super.onViewCreated(view, savedInstanceState)
 
         // Start observing people list
-        viewModel.getRightsList().observe(this, Observer<List<Category>> { categories ->
-            categories?.let {
-                println("categories"+categories)
-                populateCategoryList(categories)
-            }
+        viewModel.getRightsCategoryModels().observe(this, Observer { queryingCategories ->
+            val categories = viewModel.getRightCategories(queryingCategories)
+            populateCategoryList(categories)
         })
     }
-
 
     /**
      * Populates categoryRecyclerView with all people info
      */
     private fun populateCategoryList(categoryList: List<Category>) {
-        val layout_manager = GridLayoutManager(activity, 2)
-        categoryRecyclerView.layoutManager = layout_manager
-        categoryRecyclerView.adapter  = RightsAdapter(categoryList, this)
+        val layoutManager = GridLayoutManager(context, 2)
+        categoryRecyclerView.layoutManager = layoutManager
+        categoryRecyclerView.adapter = RightsAdapter(categoryList, this)
     }
+
 
     /**
      * Navigates to people details on item click
@@ -88,10 +78,11 @@ class RightsFragment : Fragment(),
 
     override fun onResume() {
         super.onResume()
-        mainActivity.supportActionBar?.title = "MIS DERECHOS"
-//        mainActivity.actionBar.setHomeAsUpIndicator()
     }
 
+    override fun onClose(): Boolean {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 
 
 }
