@@ -7,13 +7,11 @@ import android.view.ViewGroup
 import android.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.navigation.Navigation
 import androidx.recyclerview.widget.GridLayoutManager
 import com.untha.R
 import com.untha.model.models.Category
 import com.untha.view.activities.MainActivity
 import com.untha.view.adapters.RightsAdapter
-import com.untha.view.util.HorizontalSpaceItemDecoration
 import com.untha.viewmodels.RightsViewModel
 import kotlinx.android.synthetic.main.layout_rights.*
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -24,7 +22,6 @@ class RightsFragment : Fragment(),
     SearchView.OnQueryTextListener,
     SearchView.OnCloseListener {
 
-    private val HORIZONTALITEMSPACE = 20
     private lateinit var mainActivity: MainActivity
 
 
@@ -74,9 +71,6 @@ class RightsFragment : Fragment(),
     private fun populateCategoryList(categoryList: List<Category>) {
         val layout_manager = GridLayoutManager(activity, 2)
         categoryRecyclerView.layoutManager = layout_manager
-
-        categoryRecyclerView.addItemDecoration(HorizontalSpaceItemDecoration(HORIZONTALITEMSPACE))
-
         categoryRecyclerView.adapter  = RightsAdapter(categoryList, this)
     }
 
