@@ -1,15 +1,14 @@
 package com.untha.model.repositories
 
-import androidx.lifecycle.LiveData
-import com.untha.database.ApplicationDatabase
+import com.untha.model.database.ApplicationDatabase
 import com.untha.model.daos.CategoryDao
-import com.untha.model.models.Category
+import com.untha.model.models.CategoryModel
 
-class CategoryRepository(private val database: ApplicationDatabase) {
+class CategoryRepository(database: ApplicationDatabase) {
 
     private var categoryDao: CategoryDao = database.categoryDao()
 
-    fun getAll(): LiveData<List<Category>> {
-        return categoryDao.getAll()
+    fun insert(categoryModels: List<CategoryModel>) {
+        categoryDao.insert(categoryModels)
     }
 }

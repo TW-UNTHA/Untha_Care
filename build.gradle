@@ -22,6 +22,8 @@ buildscript {
         lifecycleExtensionsVersion = '2.1.0'
         retrofit_version = '2.3.0'
         kotlinx_version = '0.4.0'
+        adapter_livedata_version = '1.0.0'
+        test_ext_version = '1.1.1'
     }
     repositories {
         google()

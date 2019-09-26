@@ -85,7 +85,6 @@ dependencies {
     implementation "androidx.vectordrawable:vectordrawable-animated:$supportlibrary_x_version"
     implementation "androidx.room:room-runtime:$room_version"
     implementation "androidx.lifecycle:lifecycle-extensions:$lifecycleExtensionsVersion"
-    implementation "androidx.lifecycle:lifecycle-extensions:$lifecycleVersion"
     implementation "org.koin:koin-android:$koin_version"
     implementation "org.koin:koin-android-scope:$koin_version"
     implementation "org.koin:koin-android-viewmodel:$koin_version"
@@ -94,6 +93,7 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-serialization-runtime:0.11.0"
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
     implementation "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:$kotlinx_version"
+    implementation "me.linshen.retrofit2:adapter-livedata:$adapter_livedata_version"
     kapt "androidx.room:room-compiler:$room_version"
     kapt "androidx.lifecycle:lifecycle-compiler:$lifecycleVersion"
     //Test Implementations
@@ -101,7 +101,8 @@ dependencies {
     testImplementation "junit:junit:$junit_version"
     testImplementation "org.koin:koin-test:$koin_version"
     testImplementation "com.nhaarman:mockito-kotlin:$mockito_kotlin_version"
+    testImplementation "androidx.arch.core:core-testing:$lifecycleExtensionsVersion"
     androidTestImplementation "androidx.test:runner:$test_runner_version"
     androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_version"
-    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation "androidx.test.ext:junit:$test_ext_version"
 }

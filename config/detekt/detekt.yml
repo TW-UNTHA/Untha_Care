@@ -530,7 +530,7 @@ style:
   UnusedPrivateClass:
     active: false
   UnusedPrivateMember:
-    active: false
+    active: true
     allowedNames: "(_|ignored|expected|serialVersionUID)"
   UseCheckOrError:
     active: false
@@ -544,7 +544,7 @@ style:
   UtilityClassWithPublicConstructor:
     active: false
   VarCouldBeVal:
-    active: false
+    active: true
   WildcardImport:
     active: true
     excludes: "**/test/**,**/androidTest/**,**/*.Test.kt,**/*.Spec.kt,**/*.Spek.kt"

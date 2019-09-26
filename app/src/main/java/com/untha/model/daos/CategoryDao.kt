@@ -3,12 +3,12 @@ package com.untha.model.daos
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Query
-import com.untha.model.models.Category
+import com.untha.model.models.CategoryModel
 
 @Dao
-interface CategoryDao : BaseDao<Category> {
+interface CategoryDao : BaseDao<CategoryModel> {
 
-    @Query("SELECT * FROM Category ORDER BY id DESC")
-    fun getAll(): LiveData<List<Category>>
+    @Query("SELECT * FROM CategoryModel ORDER BY id DESC")
+    fun getAll(): LiveData<List<CategoryModel>>
 
 }
