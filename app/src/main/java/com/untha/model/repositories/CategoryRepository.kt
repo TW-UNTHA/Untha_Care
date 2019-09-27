@@ -17,5 +17,6 @@ class CategoryRepository(database: ApplicationDatabase) {
 //    fun getAll(): LiveData<List<Category>> {
 //        return categoryDao.getAll()
 //    }
+
 }
 

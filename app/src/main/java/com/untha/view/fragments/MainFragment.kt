@@ -58,12 +58,4 @@ class MainFragment : Fragment(),
 //        view?.findNavController()
 //            ?.navigate(R.id.action_peoplesListFragment_to_peopleDetailsFragment, peopleBundle)
     }
-
-    override fun onResume() {
-        super.onResume()
-//        mainActivity.actionBar?.setDisplayHomeAsUpEnabled(true)
-        mainActivity.supportActionBar?.title = "Lorenxo el gato"
-    }
-
-
 }

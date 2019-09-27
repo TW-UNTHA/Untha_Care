@@ -16,5 +16,4 @@ abstract class CategoryWithRelationsDao {
     @Transaction
     @Query("SELECT * FROM CategoryModel WHERE parent_id=2 ORDER BY id ASC")
     abstract fun getAllRightsCategoriess(): LiveData<List<QueryingCategory>>
-
 }
