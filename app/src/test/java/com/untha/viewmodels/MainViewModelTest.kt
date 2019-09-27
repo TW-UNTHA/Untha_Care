@@ -2,11 +2,7 @@ package com.untha.viewmodels
 
 import android.content.SharedPreferences
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.LifecycleRegistry
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Observer
+import androidx.lifecycle.*
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.verify
 import com.nhaarman.mockito_kotlin.verifyZeroInteractions
@@ -16,19 +12,12 @@ import com.untha.di.persistenceModule
 import com.untha.di.viewModelsModule
 import com.untha.model.dbservices.CategoryDbService
 import com.untha.model.mappers.CategoryMapper
-import com.untha.model.models.CategoryInformationModel
-import com.untha.model.models.CategoryModel
-import com.untha.model.models.QueryingCategory
-import com.untha.model.models.QueryingCategoryInformation
-import com.untha.model.models.SectionModel
-import com.untha.model.models.SectionStepModel
-import com.untha.model.models.QueryingSection
 import com.untha.model.repositories.CategoryWithRelationsRepository
 import com.untha.model.services.LawsAndRightsService
 import com.untha.model.transactionalmodels.CategoriesWrapper
 import com.untha.model.transactionalmodels.Category
 import com.untha.utils.Constants
-import com.utils.RandomGenerator
+import com.utils.MockObjects
 import me.linshen.retrofit2.adapter.ApiResponse
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.MatcherAssert.assertThat
@@ -126,7 +115,8 @@ class MainViewModelTest : KoinTest {
     @Test
     fun `should call mapFromModel`() {
         val mainViewModel = MainViewModel(dbService, service, mapper, repository, sharedPreferences)
-        val queryingCategory = mockQueryingCategory()
+
+        val queryingCategory = MockObjects. mockQueryingCategory()
         var categoryResult =
             Category(0, "", nextStep = 0, parentId = 1)
         `when`(mapper.mapFromModel(queryingCategory)).thenReturn(categoryResult)
@@ -237,37 +227,6 @@ class MainViewModelTest : KoinTest {
         mainViewModel.retrieveUpdatedCategories(mockLifeCycleOwner)
 
         verify(mapper).mapToModel(categoryWrapper.categories.first())
-    }
-
-    private fun mockQueryingCategory(): QueryingCategory {
-        var stepModel1 = SectionStepModel(1, RandomGenerator.generateRandomString(5), 1, 1)
-        var sectionModel1 = SectionModel(1, RandomGenerator.generateRandomString(5), 1)
-        var categoryInformationModel1 =
-            CategoryInformationModel(1, RandomGenerator.generateRandomString(5), 1)
-        var categoryModel1 = CategoryModel(
-            1,
-            RandomGenerator.generateRandomString(5),
-            RandomGenerator.generateRandomString(5),
-            RandomGenerator.generateRandomString(5),
-            0,
-            1
-        )
-
-        val queryingSection = QueryingSection().apply {
-            steps = listOf(stepModel1)
-            section = sectionModel1
-        }
-
-        val queryingCategoryInformation =
-            QueryingCategoryInformation().apply {
-                categoryInformationModel = categoryInformationModel1
-                this.queryingSection = listOf(queryingSection)
-            }
-
-        return QueryingCategory().apply {
-            categoryModel = categoryModel1
-            this.queryingCategoryInformation = queryingCategoryInformation
-        }
     }
 
 

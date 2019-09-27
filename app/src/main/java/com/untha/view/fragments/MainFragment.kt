@@ -45,7 +45,7 @@ class MainFragment : Fragment(),
         }
 
         Navigation.findNavController(view)
-            .currentDestination.label = ""
+            .currentDestination?.label = ""
     }
 
     /**

@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">Untha-Care</string>
     <string name="take_me_to_rights">take me to rights</string>
+    <string name="hint_category_title">Title</string>
+    <string name="hint_category_description">Description</string>
+    <string name="subtitle">¿NO SABES QUÉ HACER?</string>
 </resources>
