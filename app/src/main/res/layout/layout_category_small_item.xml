@@ -2,10 +2,8 @@
 
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/rl_small_item"
-
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginStart="8dp"
@@ -14,6 +12,13 @@
     android:background="@drawable/corners_round"
     android:clickable="true"
     android:focusable="true">
+
+    <LinearLayout
+        android:id="@+id/ll_texts"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="?selectableItemBackground"
+        android:orientation="vertical">
 
     <TextView
         android:id="@+id/textViewCategoryTitle"
@@ -25,7 +30,7 @@
         android:textColor="#9b9b9b"
         android:textSize="@dimen/text_size"
         android:lines="2"
-        android:textStyle="bold"
+        android:fontFamily="@font/proxima_nova_bold"
         tools:text="@string/hint_category_title"
         android:padding="3dp"
         />
@@ -33,9 +38,14 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
         android:layout_below="@+id/textViewCategoryTitle"
-        android:gravity="center_vertical" />
+        android:gravity="center_vertical"
+        tools:srcCompat="@tools:sample/avatars"
+
+        />
+    </LinearLayout>
 </RelativeLayout>
 

@@ -32,6 +32,10 @@ class CategoryListAdapter(
 
     }
 
+//   override fun onItemClick(category: Category, itemView: View){
+//
+//        println("saliendo")
+//    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         if (viewType == Constants.MAIN_VIEW) {

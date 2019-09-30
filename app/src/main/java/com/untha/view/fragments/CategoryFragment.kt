@@ -1,4 +1,4 @@
-package com.untha.view.activities
+package com.untha.view.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,6 +12,7 @@ import com.untha.R
 import com.untha.model.transactionalmodels.Category
 import com.untha.utils.Constants
 import com.untha.utils.PixelConverter
+import com.untha.view.activities.CategoryListAdapter
 import com.untha.viewmodels.CategoryViewModel
 import kotlinx.android.synthetic.main.fragment_category.*
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -78,7 +79,7 @@ class CategoryFragment : Fragment(),
         object : GridLayoutManager.SpanSizeLookup() {
 
             override fun getSpanSize(position: Int): Int {
-                return if (categoryListAdapter.getItemViewType(position) === Constants.MAIN_VIEW) {
+                return if (categoryListAdapter.getItemViewType(position) == Constants.MAIN_VIEW) {
                     Constants.SPAN_THREE_COLUMNS
                 } else {
                     Constants.SPAN_ONE_COLUMN

@@ -26,10 +26,8 @@
     </fragment>
     <fragment
         android:id="@+id/categoryFragment"
-        android:name="com.untha.view.activities.CategoryFragment"
-        android:label="CategoryFragment"
-        app:defaultNavHost="true"
-        app:navGraph="@navigation/navigation_graph"/>
+        android:name="com.untha.view.fragments.CategoryFragment"
+        android:label="CategoryFragment" />
 
 
 </navigation>
