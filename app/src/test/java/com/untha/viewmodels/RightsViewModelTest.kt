@@ -11,6 +11,7 @@ import com.untha.model.mappers.CategoryMapper
 import com.untha.model.models.*
 import com.untha.model.repositories.CategoryWithRelationsRepository
 import com.untha.viewmodels.RightsViewModel
+import com.utils.MockObjects
 import com.utils.RandomGenerator
 import org.junit.After
 import org.junit.Before
@@ -58,6 +59,19 @@ class RightsViewModelTest : KoinTest {
     }
 
     @Test
+    fun `should call CategoriesMapper`() {
+        val rightsViewModel: RightsViewModel
+        rightsViewModel =
+            RightsViewModel(repository, mapper)
+        val categoryQuerying = MockObjects.mockQueryingCategory()
+        val categoriesQuerying = listOf<QueryingCategory>(categoryQuerying)
+
+        rightsViewModel.getRightCategories(categoriesQuerying)
+
+        verify(mapper).mapFromModel(categoryQuerying)
+    }
+
+    @Test
     fun `should verify the observable changed when the observer get notified about changes`() {
 
         val rightsViewModel: RightsViewModel
@@ -71,7 +85,9 @@ class RightsViewModelTest : KoinTest {
 
         rightsListData.setValue(rights)
         rightsViewModel = RightsViewModel(repository, mapper)
+
         `when`(repository.getAllRightsCategories()).thenReturn(rightsListData)
+
         val observer = mock<Observer<List<QueryingCategory>>>()
         rightsViewModel.getRightsCategoryModels().observeForever(observer)
         verify(observer).onChanged(rights)
