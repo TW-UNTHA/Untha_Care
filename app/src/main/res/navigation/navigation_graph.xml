@@ -27,7 +27,7 @@
     <fragment
         android:id="@+id/categoryFragment"
         android:name="com.untha.view.fragments.CategoryFragment"
-        android:label="CategoryFragment" />
+        android:label=" " />
 
 
 </navigation>
