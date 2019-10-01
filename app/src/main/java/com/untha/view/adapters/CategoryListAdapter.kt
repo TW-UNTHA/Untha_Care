@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import androidx.core.view.setPadding
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.untha.R
@@ -16,6 +17,7 @@ import com.untha.utils.PixelConverter
 import kotlinx.android.synthetic.main.layout_category_main_item.view.*
 import kotlinx.android.synthetic.main.layout_category_main_item.view.textViewCategoryTitle
 import kotlinx.android.synthetic.main.layout_category_small_item.view.*
+import kotlinx.android.synthetic.main.main_layout.*
 
 
 class CategoryListAdapter(
@@ -133,6 +135,10 @@ class CategoryListAdapter(
 
                 setOnClickListener {
                     listener.onItemClick(category, it)
+                }
+
+                itemView.setOnClickListener {
+                    itemView.findNavController().navigate(R.id.rightsFragment)
                 }
             }
         }

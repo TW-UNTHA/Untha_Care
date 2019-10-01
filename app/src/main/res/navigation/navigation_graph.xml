@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation_graph"
-    app:startDestination="@id/testFragment">
+    app:startDestination="@id/categoryFragment">
 
     <fragment
         android:id="@+id/mainFragment"
@@ -26,12 +26,10 @@
     </fragment>
     <fragment
         android:id="@+id/categoryFragment"
-        android:name="com.untha.view.fragments.CategoryFragment"
-        android:label="CategoryFragment" />
-    <fragment
-        android:id="@+id/testFragment"
-        android:name="com.untha.view.fragments.TestFragment"
-        android:label="TestFragment" />
+        android:name="com.untha.view.activities.CategoryFragment"
+        android:label="CategoryFragment"
+        app:defaultNavHost="true"
+        app:navGraph="@navigation/navigation_graph"/>
 
 
 </navigation>
