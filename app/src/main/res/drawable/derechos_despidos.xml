@@ -5,6 +5,7 @@
     android:viewportWidth="118"
     android:viewportHeight="118"
     tools:ignore="UnusedResources">
+
   <path
       android:pathData="M-36,-426h360v628H-36z"
       android:strokeAlpha="0.083"

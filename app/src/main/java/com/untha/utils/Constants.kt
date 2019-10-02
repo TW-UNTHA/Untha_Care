@@ -21,5 +21,7 @@ object Constants {
     const val TOP_PADDING_MULTIPLIER = 3
 
     const val PADDING_IMAGE_PLAYER_HEADER = 30
-
+    const val GENERIC_PERCENTAGE_PLAYER_HEADER = 2.5
+    const val MARGIN_HIDDEN_PLAYER = -6
+    const val GENERIC_MARGIN_MULTIPLER = 2
 }

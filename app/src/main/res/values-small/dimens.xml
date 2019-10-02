@@ -2,5 +2,5 @@
 <resources>
     <dimen name="text_size">11sp</dimen>
     <dimen name="text_size_main_component">18sp</dimen>
-    <dimen name="text_size_content">17sp</dimen>
+    <dimen name="text_size_content">19sp</dimen>
 </resources>

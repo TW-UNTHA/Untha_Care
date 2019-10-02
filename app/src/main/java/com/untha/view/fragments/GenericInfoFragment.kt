@@ -1,21 +1,17 @@
 package com.untha.view.fragments
 
 import android.annotation.SuppressLint
+import android.graphics.Color
 import android.graphics.Typeface
-import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.core.content.ContextCompat
-import androidx.core.view.marginBottom
-import androidx.core.view.marginTop
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
-import com.untha.R
 import com.untha.model.transactionalmodels.Category
 import com.untha.model.transactionalmodels.Section
 import com.untha.model.transactionalmodels.Step
@@ -29,35 +25,27 @@ import org.jetbrains.anko._LinearLayout
 import org.jetbrains.anko.backgroundColor
 import org.jetbrains.anko.backgroundDrawable
 import org.jetbrains.anko.bottomPadding
-import org.jetbrains.anko.colorAttr
 import org.jetbrains.anko.dip
 import org.jetbrains.anko.imageView
 import org.jetbrains.anko.leftPadding
 import org.jetbrains.anko.matchParent
-import org.jetbrains.anko.relativeLayout
 import org.jetbrains.anko.rightPadding
 import org.jetbrains.anko.scrollView
 import org.jetbrains.anko.support.v4.UI
-import org.jetbrains.anko.textAppearance
 import org.jetbrains.anko.textColor
 import org.jetbrains.anko.textSizeDimen
 import org.jetbrains.anko.textView
 import org.jetbrains.anko.topPadding
 import org.jetbrains.anko.verticalLayout
 import org.jetbrains.anko.wrapContent
-
+import android.text.util.Linkify
+import androidx.core.content.res.ResourcesCompat
+import com.untha.R
+import com.untha.utils.Constants.GENERIC_MARGIN_MULTIPLER
+import com.untha.utils.Constants.MARGIN_HIDDEN_PLAYER
 
 class GenericInfoFragment : Fragment(),
     RightsAdapter.OnItemClickListener {
-
-    companion object {
-        const val topAndBottomPaddingMustBeCalculated = 24
-        const val imageHeightMustBeCalculated = 131
-        const val bottomMarginForDescriptionMustBeCalculated = 10
-        const val bottomMarginForStepsMustBeCalculated = 16
-        const val bottomMarginMustBeCalculated = 18
-        const val leftAndRightPaddingMustBeCalculated = 13
-    }
 
     private lateinit var category: Category
     private val categoryJson = "{\n" +
@@ -81,7 +69,7 @@ class GenericInfoFragment : Fragment(),
             "                \"step_id\": 1,\n" +
             "                \"description\": \"Desde una computadora o celular con conexión al " +
             "internet, ingresa en el vínculo " +
-            "<a href='https://www.iess.gob.ec/solicitudclave/pages/public/principal.jsf\'>Google</a></string>\"\n" +
+            "https://www.iess.gob.ec/solicitudclave/pages/public/principal.jsf\"\n" +
             "              },\n" +
             "              {\n" +
             "                \"step_id\": 2,\n" +
@@ -164,23 +152,19 @@ class GenericInfoFragment : Fragment(),
             verticalLayout {
                 val heightFormula = (PixelConverter.getScreenDpHeight(context) -
                         Constants.SIZE_OF_ACTION_BAR) * Constants.PERCENTAGE_MAIN_LAYOUT
-                val width = PixelConverter.toPixels(heightFormula, context)
 
-                val topFormula = (PixelConverter.getScreenDpHeight(context) -
-                        Constants.SIZE_OF_ACTION_BAR) * Constants.MARGIN_TOP_PERCENTAGE
-                val marginTop = PixelConverter.toPixels(topFormula, context)
+                val marginTop = calculateTopFormula()
 
                 val widthFormula =
                     (PixelConverter.getScreenDpWidth(context)) * Constants.MARGIN_WIDTH_PERCENTAGE
                 val marginLeft = PixelConverter.toPixels(widthFormula, context)
 
-                val params = RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, width)
                 verticalLayout {
                   loadImage(view)
-                    lparams(width = matchParent, height = (heightFormula*2.5).toInt()) {
-                        topMargin = -6
-                        leftMargin = -6
-                        rightMargin = -6
+                    lparams(width = matchParent, height = (heightFormula * Constants.GENERIC_PERCENTAGE_PLAYER_HEADER).toInt()) {
+                        topMargin = MARGIN_HIDDEN_PLAYER
+                        leftMargin = MARGIN_HIDDEN_PLAYER
+                        rightMargin = MARGIN_HIDDEN_PLAYER
                         bottomMargin= 0
                     }
 
@@ -196,55 +180,31 @@ class GenericInfoFragment : Fragment(),
                     }
                     backgroundColor = ContextCompat.getColor(context, R.color.colorBackgroundGenericInfo)
                     lparams(width = matchParent, height = matchParent) {
-                        topMargin =  marginTop*2
-                        leftMargin = marginLeft*2
+                        topMargin =  marginTop * GENERIC_MARGIN_MULTIPLER
+                        leftMargin = marginLeft * GENERIC_MARGIN_MULTIPLER
                         rightMargin = marginLeft
-                        bottomMargin= marginTop*2
+                        bottomMargin= marginTop * GENERIC_MARGIN_MULTIPLER
 
                     }
                 }
-
-
-
-
-
-//                params.setMargins(marginLeft, marginTop, 0, 0)
-//
-//                rl_main_item.layoutParams = params
-//
-//                textViewCategoryTitle.text = category.subtitle
-//
-//                val imageView = findViewById<ImageView>(com.untha.R.id.imageView)
-//                val imageUrl = resources.getIdentifier(
-//                    category.image,
-//                    "drawable",
-//                    context.applicationInfo.packageName
-//                )
-
-
-                lparams(width = matchParent, height = matchParent) {
-                    topPadding = dip(0)
-                    bottomPadding = dip(0)
-                    leftPadding = dip(0)
-                    rightPadding = dip(0)
-                }
-
+                lparams(width = matchParent, height = matchParent)
             }
         }
+    }
+
+    private fun @AnkoViewDslMarker _LinearLayout.calculateTopFormula(): Int {
+        val topFormula = (PixelConverter.getScreenDpHeight(context) -
+                Constants.SIZE_OF_ACTION_BAR) * Constants.MARGIN_TOP_PERCENTAGE
+
+        val marginTop = toPixels(topFormula, context)
+        return marginTop
     }
 
     private fun createMainLayout(): View {
         return UI {
             verticalLayout {
                 backgroundColor = ContextCompat.getColor(context, R.color.colorBackgroundGenericInfo)
-
-
-                lparams(width = matchParent, height = matchParent) {
-                    topPadding = dip(0)
-                    bottomPadding = dip(0)
-                    leftPadding = dip(0)
-                    rightPadding = dip(0)
-                }
+                lparams(width = matchParent, height = matchParent)
             }
         }.view
     }
@@ -254,7 +214,6 @@ class GenericInfoFragment : Fragment(),
             sections.map { section ->
                 textView {
                     text = section.title
-
                     textColor =
                         ContextCompat.getColor(
                             context,
@@ -262,10 +221,9 @@ class GenericInfoFragment : Fragment(),
                         )
                     setTypeface(typeface, Typeface.BOLD)
                 }.lparams(height = wrapContent, width = matchParent) {
-                    bottomMargin = dip(bottomMarginMustBeCalculated)
+                    bottomMargin = dip(calculateTopFormula())
                 }
                 buildSteps(section)
-
             }
         }
     }
@@ -275,30 +233,26 @@ class GenericInfoFragment : Fragment(),
     ) {
         section.steps?.let { steps ->
             steps.map { step ->
-                buildRoundedCircleTextView(step, bottomMarginForStepsMustBeCalculated)
-                buildStepDescriptionTextView(step, bottomMarginForStepsMustBeCalculated)
+                buildRoundedCircleTextView(step)
+                buildStepDescriptionTextView(step)
             }
         }
     }
 
     private fun @AnkoViewDslMarker _LinearLayout.buildStepDescriptionTextView(
-        step: Step,
-        bottomMarginForStepsMustBeCalculated: Int
+        step: Step
     ): TextView {
         return textView {
             text = step.description
-        }.lparams(width = wrapContent, height = wrapContent) {
-            bottomMargin = dip(bottomMarginForStepsMustBeCalculated)
-        }
-
-
-
+            typeface = ResourcesCompat.getFont(context.applicationContext, R.font.proxima_nova_light)
+            linksClickable =  true
+            Linkify.addLinks(this, Linkify.WEB_URLS)
+            setLinkTextColor(resources.getColor(R.color.colorGenericTitle))
+        }.lparams(width = wrapContent, height = wrapContent)
     }
 
     private fun @AnkoViewDslMarker _LinearLayout.buildRoundedCircleTextView(
-        step: Step,
-        bottomMarginForStepsMustBeCalculated: Int
-    ) {
+        step: Step) {
         textView {
             text = step.stepId.toString()
             gravity = Gravity.CENTER
@@ -314,17 +268,20 @@ class GenericInfoFragment : Fragment(),
             )
 
         }.lparams(width = wrapContent, height = wrapContent) {
-            bottomMargin = dip(bottomMarginForStepsMustBeCalculated)
+            bottomMargin = dip(calculateTopFormula())
+            topMargin = dip(calculateTopFormula())
         }
     }
+
 
     private fun @AnkoViewDslMarker _LinearLayout.loadInformationDescription() {
         category.information?.description?.let { description ->
             textView {
                 text = description
                 textSizeDimen = R.dimen.text_size_content
+                typeface = ResourcesCompat.getFont(context.applicationContext, R.font.proxima_nova_light)
             }.lparams(height = wrapContent, width = matchParent) {
-                bottomMargin = dip(bottomMarginForDescriptionMustBeCalculated)
+                bottomMargin = dip( calculateTopFormula())
 
             }
         }
@@ -341,7 +298,6 @@ class GenericInfoFragment : Fragment(),
                 .load(imageUrl)
                 .into(this)
         }
-           // .lparams(height = toPixels(131.0, context), width = toPixels(73.0, context)){
             .lparams(height = matchParent, width = matchParent){
                  bottomPadding = toPixels(Constants.PADDING_IMAGE_PLAYER_HEADER.toDouble(), context)
                  topPadding = toPixels(Constants.PADDING_IMAGE_PLAYER_HEADER.toDouble(), context)
