@@ -2,4 +2,5 @@
 <resources>
     <dimen name="text_size">28sp</dimen>
     <dimen name="text_size_main_component">32.3sp</dimen>
+    <dimen name="text_size_content">26sp</dimen>
 </resources>

@@ -2,4 +2,6 @@
 <resources>
     <color name="colorTitleCategory">#807e81</color>
     <color name="colorHeaderBackground">#602080</color>
+    <color name="colorBackgroundGenericInfo">#99ffffff</color>
+    <color name="colorGenericTitle">#602080</color>
 </resources>

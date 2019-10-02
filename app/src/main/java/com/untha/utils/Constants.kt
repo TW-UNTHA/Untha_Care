@@ -20,4 +20,6 @@ object Constants {
     const val RIGHTS_PADDING = 30
     const val TOP_PADDING_MULTIPLIER = 3
 
+    const val PADDING_IMAGE_PLAYER_HEADER = 30
+
 }

@@ -101,8 +101,8 @@ class CategoryListAdapter(
                 listener.onItemClick(category, it)
             }
         }
-
     }
+
 
     class CategorySmallViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(category: Category, listener: OnItemClickListener) {

@@ -15,19 +15,27 @@
         tools:layout="@layout/main_layout"></fragment>
 
     <fragment
-        android:id="@+id/rightsFragment"
-        android:name="com.untha.view.fragments.RightsFragment"
+    android:id="@+id/rightsFragment"
+    android:name="com.untha.view.fragments.RightsFragment"
 
-        android:label="MIS DERECHOS"
-        app:defaultNavHost="true"
-        app:navGraph="@navigation/navigation_graph"
-        tools:layout="@layout/layout_rights">
+    android:label="MIS DERECHOS"
+    app:defaultNavHost="true"
+    app:navGraph="@navigation/navigation_graph"
+    tools:layout="@layout/layout_rights">
 
     </fragment>
     <fragment
         android:id="@+id/categoryFragment"
         android:name="com.untha.view.fragments.CategoryFragment"
         android:label=" " />
+
+    <fragment
+        android:id="@+id/genericInfoFragment"
+        android:name="com.untha.view.fragments.GenericInfoFragment"
+        android:label="AFILIACIÓN AL IESS"
+        >
+
+        </fragment>
 
 
 </navigation>
