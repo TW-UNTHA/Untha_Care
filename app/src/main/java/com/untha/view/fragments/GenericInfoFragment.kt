@@ -1,21 +1,25 @@
 package com.untha.view.fragments
 
 import android.annotation.SuppressLint
-import android.graphics.Color
 import android.graphics.Typeface
 import android.os.Bundle
+import android.text.util.Linkify
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
+import com.untha.R
 import com.untha.model.transactionalmodels.Category
 import com.untha.model.transactionalmodels.Section
 import com.untha.model.transactionalmodels.Step
 import com.untha.utils.Constants
+import com.untha.utils.Constants.GENERIC_MARGIN_MULTIPLER
+import com.untha.utils.Constants.MARGIN_HIDDEN_PLAYER
 import com.untha.utils.PixelConverter
 import com.untha.utils.PixelConverter.toPixels
 import com.untha.view.adapters.RightsAdapter
@@ -27,9 +31,7 @@ import org.jetbrains.anko.backgroundDrawable
 import org.jetbrains.anko.bottomPadding
 import org.jetbrains.anko.dip
 import org.jetbrains.anko.imageView
-import org.jetbrains.anko.leftPadding
 import org.jetbrains.anko.matchParent
-import org.jetbrains.anko.rightPadding
 import org.jetbrains.anko.scrollView
 import org.jetbrains.anko.support.v4.UI
 import org.jetbrains.anko.textColor
@@ -38,104 +40,19 @@ import org.jetbrains.anko.textView
 import org.jetbrains.anko.topPadding
 import org.jetbrains.anko.verticalLayout
 import org.jetbrains.anko.wrapContent
-import android.text.util.Linkify
-import androidx.core.content.res.ResourcesCompat
-import com.untha.R
-import com.untha.utils.Constants.GENERIC_MARGIN_MULTIPLER
-import com.untha.utils.Constants.MARGIN_HIDDEN_PLAYER
+
 
 class GenericInfoFragment : Fragment(),
     RightsAdapter.OnItemClickListener {
-
     private lateinit var category: Category
-    private val categoryJson = "{\n" +
-            "      \"id\": 6,\n" +
-            "      \"image\": \"home_afiliciacion\",\n" +
-            "      \"title\": \"VERIFICAR AFILIACIÓN\",\n" +
-            "      \"information\": {\n" +
-            "        \"description\": \"El empleador debe inscribirte en el Instituto " +
-            "Ecuatoriano de Seguridad Social (IESS), desde el primer día de labores. " +
-            "Dará aviso de tu entrada en los primeros 15 días. Avisará sobre tu salida, sueldos " +
-            "y salarios, accidentes de trabajo y enfermedades que se produzcan en él. Y cumplirá " +
-            "con las demás obligaciones legales sobre seguridad social.Para verificar si estás" +
-            " afiliada" +
-            " sigue estos pasos:\",\n" +
-            "        \"sections\": [\n" +
-            "          {\n" +
-            "            \"id\": 1,\n" +
-            "            \"title\": \"Obtén tu clave del IESS\",\n" +
-            "            \"steps\": [\n" +
-            "              {\n" +
-            "                \"step_id\": 1,\n" +
-            "                \"description\": \"Desde una computadora o celular con conexión al " +
-            "internet, ingresa en el vínculo " +
-            "https://www.iess.gob.ec/solicitudclave/pages/public/principal.jsf\"\n" +
-            "              },\n" +
-            "              {\n" +
-            "                \"step_id\": 2,\n" +
-            "                \"description\": \"Ingresa tu número de cédula y sigue las " +
-            "instrucciones hasta que aparezca el botón “Finalizar”\"\n" +
-            "              },\n" +
-            "              {\n" +
-            "                \"step_id\": 3,\n" +
-            "                \"description\": \"Busca en tu correo un mail del IESS llamado " +
-            "“Activación de clave” (antes de esto se te solicitará un correo elctrónico)." +
-            " Selecciona el botón “Click para continuar” en el correo que te llegó\"\n" +
-            "              },\n" +
-            "              {\n" +
-            "                \"step_id\": 4,\n" +
-            "                \"description\": \"Ingresa una nueva clave y repite la misma clave" +
-            " para confirmar\"\n" +
-            "              }\n" +
-            "            ]\n" +
-            "          },\n" +
-            "          {\n" +
-            "            \"id\": 2,\n" +
-            "            \"title\": \"Obtén tu certificado de afiliación\",\n" +
-            "            \"steps\": [\n" +
-            "              {\n" +
-            "                \"step_id\": 1,\n" +
-            "                \"description\": \"Una vez que tengas tu clave del IESS, ingresa al " +
-            "siguiente vínculo " +
-            "https://www.iess.gob.ec/afiliado-web/pages/opcionesGenerales" +
-            "/seleccionCertificadoDeAfiliacion.jsf\"\n" +
-            "              },\n" +
-            "              {\n" +
-            "                \"step_id\": 2,\n" +
-            "                \"description\": \"Selecciona la opción “Certificado de Afiliación " +
-            "al Seguro General”\"\n" +
-            "              },\n" +
-            "              {\n" +
-            "                \"step_id\": 3,\n" +
-            "                \"description\": \"Ingresa tu número de cédula y después tu" +
-            " clave\"\n" +
-            "              },\n" +
-            "              {\n" +
-            "                \"step_id\": 4,\n" +
-            "                \"description\": \"Selecciona la opción ingresar\"\n" +
-            "              },\n" +
-            "              {\n" +
-            "                \"step_id\": 5,\n" +
-            "                \"description\": \"Si tu cédula y clave son los correctos, se " +
-            "descargará un certificado que indica que tu empleador te ha afiliado, y la fecha " +
-            "del" +
-            " último aporte al IESS\"\n" +
-            "              }\n" +
-            "            ]\n" +
-            "          }\n" +
-            "        ]\n" +
-            "      },\n" +
-            "      \"parent_id\": null,\n" +
-            "      \"next_step\": null\n" +
-            "    }"
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        category = Json.parse(
-            Category.serializer(), categoryJson
-        )
-        setHasOptionsMenu(true)
-        println(category)
+        val bundle = arguments
+            val categoryModel  = bundle?.get("category")
+            category = Json.parse(
+                Category.serializer(),
+                categoryModel.toString().replace("stepId", "step_id"))
+            setHasOptionsMenu(true)
     }
 
     override fun onCreateView(
@@ -147,7 +64,9 @@ class GenericInfoFragment : Fragment(),
 
     @SuppressLint("ResourceAsColor")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
         super.onViewCreated(view, savedInstanceState)
+
         with(view as _LinearLayout) {
             verticalLayout {
                 val heightFormula = (PixelConverter.getScreenDpHeight(context) -
@@ -161,11 +80,11 @@ class GenericInfoFragment : Fragment(),
 
                 verticalLayout {
                   loadImage(view)
-                    lparams(width = matchParent, height = (heightFormula * Constants.GENERIC_PERCENTAGE_PLAYER_HEADER).toInt()) {
+                    lparams(width = matchParent, height = (heightFormula *
+                            Constants.GENERIC_PERCENTAGE_PLAYER_HEADER).toInt()) {
                         topMargin = MARGIN_HIDDEN_PLAYER
                         leftMargin = MARGIN_HIDDEN_PLAYER
                         rightMargin = MARGIN_HIDDEN_PLAYER
-                        bottomMargin= 0
                     }
 
                     backgroundDrawable =  ContextCompat.getDrawable(
@@ -272,7 +191,6 @@ class GenericInfoFragment : Fragment(),
             topMargin = dip(calculateTopFormula())
         }
     }
-
 
     private fun @AnkoViewDslMarker _LinearLayout.loadInformationDescription() {
         category.information?.description?.let { description ->

@@ -21,9 +21,8 @@ class CategoryFragment : Fragment(),
 
     CategoryListAdapter.OnItemClickListener {
     override fun onItemClick(category: Category, itemView: View) {
-        println("//////////////////////hola.................")
+         print("")
     }
-
 
     private lateinit var categoryListAdapter: CategoryListAdapter
 
@@ -86,4 +85,5 @@ class CategoryFragment : Fragment(),
                 }
             }
         }
+
 }

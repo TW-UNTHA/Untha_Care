@@ -9,7 +9,7 @@ data class Category(
     val title: String,
     val subtitle: String? = null,
     val image: String? = null,
-    @SerialName("parent_id") val parentId: Int?,
-    @SerialName("next_step") val nextStep: Int?,
+    @SerialName("parent_id") val parentId: Int? = null,
+    @SerialName("next_step") val nextStep: Int? = null,
     val information: CategoryInformation? = null
 )

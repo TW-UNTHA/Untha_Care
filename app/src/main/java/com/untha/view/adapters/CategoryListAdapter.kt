@@ -1,6 +1,7 @@
 package com.untha.view.activities
 
 import android.content.Context
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +11,7 @@ import androidx.core.view.setPadding
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.google.gson.Gson
 import com.untha.R
 import com.untha.model.transactionalmodels.Category
 import com.untha.utils.Constants
@@ -17,32 +19,20 @@ import com.untha.utils.PixelConverter
 import kotlinx.android.synthetic.main.layout_category_main_item.view.*
 import kotlinx.android.synthetic.main.layout_category_main_item.view.textViewCategoryTitle
 import kotlinx.android.synthetic.main.layout_category_small_item.view.*
-import kotlinx.android.synthetic.main.main_layout.*
-
 
 class CategoryListAdapter(
     private val items: List<Category>,
     private val clickListener: OnItemClickListener,
     private val context: Context?
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-
-
     interface OnItemClickListener {
         fun onItemClick(category: Category, itemView: View)
-
     }
-
-//   override fun onItemClick(category: Category, itemView: View){
-//
-//        println("saliendo")
-//    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         if (viewType == Constants.MAIN_VIEW) {
             val view = LayoutInflater.from(parent.context)
                 .inflate(com.untha.R.layout.layout_category_main_item, parent, false)
-
-
             return CategoryMainViewHolder(view)
         }
         val view = LayoutInflater.from(parent.context)
@@ -68,15 +58,12 @@ class CategoryListAdapter(
     class CategoryMainViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(category: Category, listener: OnItemClickListener) = with(itemView) {
 
-
             val heightFormula = (PixelConverter.getScreenDpHeight(context) -
                     Constants.SIZE_OF_ACTION_BAR) * Constants.PERCENTAGE_MAIN_LAYOUT
             val width = PixelConverter.toPixels(heightFormula, context)
-
             val topFormula = (PixelConverter.getScreenDpHeight(context) -
                     Constants.SIZE_OF_ACTION_BAR) * Constants.MARGIN_TOP_PERCENTAGE
             val marginTop = PixelConverter.toPixels(topFormula, context)
-
             val widthFormula =
                 (PixelConverter.getScreenDpWidth(context)) * Constants.MARGIN_WIDTH_PERCENTAGE
             val marginLeft = PixelConverter.toPixels(widthFormula, context)
@@ -85,7 +72,6 @@ class CategoryListAdapter(
             params.setMargins(marginLeft, marginTop, 0, 0)
 
             rl_main_item.layoutParams = params
-
             textViewCategoryTitle.text = category.subtitle
 
             val imageView = findViewById<ImageView>(com.untha.R.id.imageView)
@@ -107,8 +93,6 @@ class CategoryListAdapter(
     class CategorySmallViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(category: Category, listener: OnItemClickListener) {
             with(itemView) {
-
-
                 val heightFormula =
                     (PixelConverter.getScreenDpHeight(context) -
                             Constants.SIZE_OF_ACTION_BAR) * Constants.PERCENTAGE_SMALL_LAYOUT
@@ -128,11 +112,13 @@ class CategoryListAdapter(
                 textViewCategoryTitle.text = category.title
                 val imageView = findViewById<ImageView>(R.id.imageView)
                 imageView.setPadding((heightFormula / Constants.PERCENTAGE_PADDING_SMALL_IMAGE_VIEW).toInt())
+
                 val imageUrl = resources.getIdentifier(
                     category.image,
                     "drawable",
                     context.applicationInfo.packageName
                 )
+
                 Glide.with(itemView)
                     .load(imageUrl)
                     .into(imageView)
@@ -142,13 +128,21 @@ class CategoryListAdapter(
                 }
 
                 itemView.setOnClickListener {
-                    itemView.findNavController().navigate(R.id.rightsFragment)
+                    if (category.id == 2) {
+                        itemView.findNavController().navigate(R.id.rightsFragment)
+                    }else{
+                        val jsonCategory = Gson().toJson(category)
+                        val categoryBundle = Bundle().apply {
+                            putSerializable("category", jsonCategory)
+                        }
+                        itemView?.findNavController()
+                            ?.navigate(R.id.genericInfoFragment, categoryBundle)
+                    }
                 }
             }
         }
 
     }
-
 
     override fun getItemViewType(position: Int): Int {
         if (position == 0) {
