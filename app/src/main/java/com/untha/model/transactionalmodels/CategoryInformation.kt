@@ -7,4 +7,4 @@ data class CategoryInformation(
     val id: Int = 0,
     val description: String? = null,
     val sections: List<Section>? = null
-)
+): java.io.Serializable

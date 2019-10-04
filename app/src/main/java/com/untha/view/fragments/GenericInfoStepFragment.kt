@@ -18,12 +18,8 @@ import com.untha.model.transactionalmodels.Category
 import com.untha.model.transactionalmodels.Section
 import com.untha.model.transactionalmodels.Step
 import com.untha.utils.Constants
-import com.untha.utils.Constants.GENERIC_MARGIN_MULTIPLER
-import com.untha.utils.Constants.MARGIN_HIDDEN_PLAYER
 import com.untha.utils.PixelConverter
 import com.untha.utils.PixelConverter.toPixels
-import com.untha.view.adapters.RightsAdapter
-import kotlinx.serialization.json.Json
 import org.jetbrains.anko.AnkoViewDslMarker
 import org.jetbrains.anko._LinearLayout
 import org.jetbrains.anko.backgroundColor
@@ -41,18 +37,12 @@ import org.jetbrains.anko.topPadding
 import org.jetbrains.anko.verticalLayout
 import org.jetbrains.anko.wrapContent
 
-
-class GenericInfoFragment : Fragment(),
-    RightsAdapter.OnItemClickListener {
+class GenericInfoStepFragment : Fragment(){
     private lateinit var category: Category
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val bundle = arguments
-            val categoryModel  = bundle?.get("category")
-            category = Json.parse(
-                Category.serializer(),
-                categoryModel.toString().replace("stepId", "step_id"))
-            setHasOptionsMenu(true)
+            category = bundle?.get("category") as Category
     }
 
     override fun onCreateView(
@@ -64,27 +54,22 @@ class GenericInfoFragment : Fragment(),
 
     @SuppressLint("ResourceAsColor")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
         super.onViewCreated(view, savedInstanceState)
-
         with(view as _LinearLayout) {
             verticalLayout {
                 val heightFormula = (PixelConverter.getScreenDpHeight(context) -
                         Constants.SIZE_OF_ACTION_BAR) * Constants.PERCENTAGE_MAIN_LAYOUT
 
-                val marginTop = calculateTopFormula()
-
-                val widthFormula =
-                    (PixelConverter.getScreenDpWidth(context)) * Constants.MARGIN_WIDTH_PERCENTAGE
-                val marginLeft = PixelConverter.toPixels(widthFormula, context)
+                val marginTop = calculateTopMargin()
+                val marginLeft = calculateMarginLeftAndRight()
 
                 verticalLayout {
-                  loadImage(view)
+                    loadImage(view)
                     lparams(width = matchParent, height = (heightFormula *
                             Constants.GENERIC_PERCENTAGE_PLAYER_HEADER).toInt()) {
-                        topMargin = MARGIN_HIDDEN_PLAYER
-                        leftMargin = MARGIN_HIDDEN_PLAYER
-                        rightMargin = MARGIN_HIDDEN_PLAYER
+                        topMargin = Constants.MARGIN_HIDDEN_PLAYER
+                        leftMargin = Constants.MARGIN_HIDDEN_PLAYER
+                        rightMargin = Constants.MARGIN_HIDDEN_PLAYER
                     }
 
                     backgroundDrawable =  ContextCompat.getDrawable(
@@ -99,11 +84,9 @@ class GenericInfoFragment : Fragment(),
                     }
                     backgroundColor = ContextCompat.getColor(context, R.color.colorBackgroundGenericInfo)
                     lparams(width = matchParent, height = matchParent) {
-                        topMargin =  marginTop * GENERIC_MARGIN_MULTIPLER
-                        leftMargin = marginLeft * GENERIC_MARGIN_MULTIPLER
+                        leftMargin = marginLeft * Constants.GENERIC_STEP_MARGIN_MULTIPLIER
                         rightMargin = marginLeft
-                        bottomMargin= marginTop * GENERIC_MARGIN_MULTIPLER
-
+                        bottomMargin= marginTop * Constants.GENERIC_STEP_MARGIN_MULTIPLIER
                     }
                 }
                 lparams(width = matchParent, height = matchParent)
@@ -111,12 +94,16 @@ class GenericInfoFragment : Fragment(),
         }
     }
 
-    private fun @AnkoViewDslMarker _LinearLayout.calculateTopFormula(): Int {
+    private fun @AnkoViewDslMarker _LinearLayout.calculateMarginLeftAndRight(): Int {
+        val widthFormula =
+            (PixelConverter.getScreenDpWidth(context)) * Constants.MARGIN_WIDTH_PERCENTAGE
+        return toPixels(widthFormula, context)
+    }
+
+    private fun @AnkoViewDslMarker _LinearLayout.calculateTopMargin(): Int {
         val topFormula = (PixelConverter.getScreenDpHeight(context) -
                 Constants.SIZE_OF_ACTION_BAR) * Constants.MARGIN_TOP_PERCENTAGE
-
-        val marginTop = toPixels(topFormula, context)
-        return marginTop
+        return toPixels(topFormula, context)
     }
 
     private fun createMainLayout(): View {
@@ -140,7 +127,7 @@ class GenericInfoFragment : Fragment(),
                         )
                     setTypeface(typeface, Typeface.BOLD)
                 }.lparams(height = wrapContent, width = matchParent) {
-                    bottomMargin = dip(calculateTopFormula())
+                    bottomMargin = dip(calculateTopMargin())
                 }
                 buildSteps(section)
             }
@@ -187,8 +174,8 @@ class GenericInfoFragment : Fragment(),
             )
 
         }.lparams(width = wrapContent, height = wrapContent) {
-            bottomMargin = dip(calculateTopFormula())
-            topMargin = dip(calculateTopFormula())
+            bottomMargin = dip(calculateTopMargin())
+            topMargin = dip(calculateTopMargin())
         }
     }
 
@@ -199,7 +186,8 @@ class GenericInfoFragment : Fragment(),
                 textSizeDimen = R.dimen.text_size_content
                 typeface = ResourcesCompat.getFont(context.applicationContext, R.font.proxima_nova_light)
             }.lparams(height = wrapContent, width = matchParent) {
-                bottomMargin = dip( calculateTopFormula())
+                bottomMargin = dip( calculateTopMargin())
+                topMargin = dip( calculateTopMargin())
 
             }
         }
@@ -222,10 +210,4 @@ class GenericInfoFragment : Fragment(),
             }
     }
 
-    /**
-     * Navigates to people details on item click
-     */
-    override fun onItemClick(category: Category, itemView: View) {
-        println("toque el boton")
-    }
 }

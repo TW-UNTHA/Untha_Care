@@ -11,7 +11,6 @@ import androidx.core.view.setPadding
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.google.gson.Gson
 import com.untha.R
 import com.untha.model.transactionalmodels.Category
 import com.untha.utils.Constants
@@ -131,10 +130,11 @@ class CategoryListAdapter(
                     if (category.id == 2) {
                         itemView.findNavController().navigate(R.id.rightsFragment)
                     }else{
-                        val jsonCategory = Gson().toJson(category)
+
                         val categoryBundle = Bundle().apply {
-                            putSerializable("category", jsonCategory)
+                            putSerializable("category", category)
                         }
+
                         itemView?.findNavController()
                             ?.navigate(R.id.genericInfoFragment, categoryBundle)
                     }

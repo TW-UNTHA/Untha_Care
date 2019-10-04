@@ -31,7 +31,7 @@
 
     <fragment
         android:id="@+id/genericInfoFragment"
-        android:name="com.untha.view.fragments.GenericInfoFragment"
+        android:name="com.untha.view.fragments.GenericInfoStepFragment"
         android:label="AFILIACIÓN AL IESS"
         >
 
