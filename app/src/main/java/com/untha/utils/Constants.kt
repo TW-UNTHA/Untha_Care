@@ -1,6 +1,7 @@
 package com.untha.utils
 
 object Constants {
+    const val PRIMER_ELEMENTO_MAIN_ITEM_RECYCLE_VIEW = 0
     const val CATEGORIES_VERSION = "version"
     const val SIZE_OF_ACTION_BAR = 120
     const val MARGIN_TOP_PERCENTAGE = 0.01406

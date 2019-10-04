@@ -20,32 +20,31 @@
         android:background="?selectableItemBackground"
         android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/textViewCategoryTitle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="3dp"
-        android:gravity="center_horizontal"
-        android:lineSpacingExtra="4sp"
-        android:textColor="#9b9b9b"
-        android:textSize="@dimen/text_size"
-        android:lines="2"
-        android:fontFamily="@font/proxima_nova_bold"
-        tools:text="@string/hint_category_title"
-        android:padding="3dp"
-        />
+        <TextView
+            android:id="@+id/textViewCategoryTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:fontFamily="@font/proxima_nova_bold"
+            android:gravity="center_horizontal"
+            android:lineSpacingExtra="4sp"
+            android:lines="2"
+            android:padding="3dp"
+            android:textColor="#9b9b9b"
+            android:textSize="@dimen/text_size"
+            tools:text="@string/hint_category_title" />
 
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
 
-        android:layout_below="@+id/textViewCategoryTitle"
-        android:gravity="center_vertical"
-        tools:srcCompat="@tools:sample/avatars"
+            android:layout_below="@+id/textViewCategoryTitle"
+            android:gravity="center_vertical"
+            tools:srcCompat="@tools:sample/avatars"
 
-        />
+            />
     </LinearLayout>
 </RelativeLayout>
 
