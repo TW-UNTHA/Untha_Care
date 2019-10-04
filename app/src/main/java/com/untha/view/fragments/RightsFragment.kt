@@ -58,20 +58,6 @@ class RightsFragment : Fragment(),
     }
 
 
-    /**
-     * Navigates to people details on item click
-     */
-    override fun onItemClick(category: Category, itemView: View) {
-//        val peopleBundle = Bundle().apply {
-//            putInt(getString(R.string.people_id), people.id)
-//        }
-//        view?.findNavController()
-//            ?.navigate(R.id.action_peoplesListFragment_to_peopleDetailsFragment, peopleBundle)
-
-    }
-
-
-
     private fun setMarginsToRecyclerView() {
 
         val topFormula =

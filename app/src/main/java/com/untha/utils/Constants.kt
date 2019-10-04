@@ -17,8 +17,7 @@ object Constants {
 
     const val REFERENCE_DENSITY = 160
     const val PERCENTAGE_SMALL_RIGHTS= 0.33
-    const val RIGHTS_PADDING = 30
-    const val TOP_PADDING_MULTIPLIER = 3
+    const val PERCENTAGE_PADDING_IMAGE_RIGHTS = 6
 
     const val PADDING_IMAGE_PLAYER_HEADER = 30
     const val GENERIC_PERCENTAGE_PLAYER_HEADER = 2.5

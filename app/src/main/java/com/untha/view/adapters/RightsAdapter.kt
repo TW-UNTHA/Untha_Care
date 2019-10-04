@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.RelativeLayout
+import androidx.core.view.setPadding
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.untha.R
@@ -70,11 +71,7 @@ class RightsAdapter(
             rightsContainer.layoutParams = params
 
             val imageView = findViewById<ImageView>(R.id.imageRightButton)
-            imageView.setPadding( Constants.RIGHTS_PADDING,
-                Constants.RIGHTS_PADDING * Constants.TOP_PADDING_MULTIPLIER,
-                Constants.RIGHTS_PADDING,
-                Constants.RIGHTS_PADDING)
-
+            imageView.setPadding((heightScreen / Constants.PERCENTAGE_PADDING_IMAGE_RIGHTS).toInt())
             val idImage = resources.getIdentifier(
                 category.image,
                 "drawable",
