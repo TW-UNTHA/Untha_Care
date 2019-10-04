@@ -71,7 +71,6 @@ class GenericInfoStepFragment : Fragment(){
                         leftMargin = Constants.MARGIN_HIDDEN_PLAYER
                         rightMargin = Constants.MARGIN_HIDDEN_PLAYER
                     }
-
                     backgroundDrawable =  ContextCompat.getDrawable(
                         context,R.drawable.hearder_info_generic
                     )
@@ -128,6 +127,7 @@ class GenericInfoStepFragment : Fragment(){
                     setTypeface(typeface, Typeface.BOLD)
                 }.lparams(height = wrapContent, width = matchParent) {
                     bottomMargin = dip(calculateTopMargin())
+                    topMargin = dip(calculateTopMargin())
                 }
                 buildSteps(section)
             }
@@ -154,6 +154,7 @@ class GenericInfoStepFragment : Fragment(){
             linksClickable =  true
             Linkify.addLinks(this, Linkify.WEB_URLS)
             setLinkTextColor(resources.getColor(R.color.colorGenericTitle))
+            textSizeDimen = R.dimen.text_size_content
         }.lparams(width = wrapContent, height = wrapContent)
     }
 
@@ -186,7 +187,6 @@ class GenericInfoStepFragment : Fragment(){
                 textSizeDimen = R.dimen.text_size_content
                 typeface = ResourcesCompat.getFont(context.applicationContext, R.font.proxima_nova_light)
             }.lparams(height = wrapContent, width = matchParent) {
-                bottomMargin = dip( calculateTopMargin())
                 topMargin = dip( calculateTopMargin())
 
             }
