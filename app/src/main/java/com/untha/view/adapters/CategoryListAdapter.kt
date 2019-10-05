@@ -96,7 +96,6 @@ class CategoryListAdapter(
                 .into(imageView)
             val prefix = "Ir a , "
             val title = textViewCategoryTitle!!.text.toString()
-
             val buttonLayout = findViewById<RelativeLayout>(com.untha.R.id.rl_main_item)
             buttonLayout.setOnLongClickListener { ToSpeech.speakOut(prefix + title, textToSpeech) }
 
