@@ -69,7 +69,7 @@ class CategoryFragment : BaseFragment(),
         val gridLayoutManager = GridLayoutManager(context, Constants.SPAN_THREE_COLUMNS)
         gridLayoutManager.spanSizeLookup = onSpanSizeLookup
         categoryRecyclerView.layoutManager = gridLayoutManager
-        categoryListAdapter = CategoryListAdapter(categoryList, this, context)
+        categoryListAdapter = CategoryListAdapter(categoryList, this, textToSpeech)
         categoryRecyclerView.adapter = categoryListAdapter
     }
 

@@ -97,6 +97,7 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     implementation "me.linshen.retrofit2:adapter-livedata:$adapter_livedata_version"
+    implementation 'com.google.android.gms:play-services-auth:11.0.4'
     kapt "androidx.room:room-compiler:$room_version"
     kapt "androidx.lifecycle:lifecycle-compiler:$lifecycleVersion"
     //Test Implementations
@@ -144,6 +145,5 @@ dependencies {
 
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
-
 
 }
