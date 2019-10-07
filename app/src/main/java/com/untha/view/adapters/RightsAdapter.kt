@@ -1,11 +1,13 @@
 package com.untha.view.adapters
 
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import androidx.core.view.setPadding
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.untha.R
@@ -80,6 +82,20 @@ class RightsAdapter(
             Glide.with(itemView)
                 .load(idImage)
                 .into(itemView.imageRightButton)
+
+            itemView.setOnClickListener {
+                if (category.id == 2) {
+                    itemView.findNavController().navigate(R.id.rightsFragment)
+                } else {
+
+                    val categoryBundle = Bundle().apply {
+                        putSerializable("category", category)
+                    }
+
+                    itemView?.findNavController()
+                        ?.navigate(R.id.genericInfoFragment, categoryBundle)
+                }
+            }
         }
 
     }
