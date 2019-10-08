@@ -19,6 +19,7 @@ import com.untha.model.transactionalmodels.Step
 import com.untha.utils.Constants
 import com.untha.utils.PixelConverter
 import com.untha.utils.PixelConverter.toPixels
+import com.untha.view.activities.MainActivity
 import org.jetbrains.anko.AnkoViewDslMarker
 import org.jetbrains.anko._LinearLayout
 import org.jetbrains.anko.backgroundColor
@@ -35,6 +36,9 @@ import org.jetbrains.anko.verticalLayout
 import org.jetbrains.anko.wrapContent
 
 class GenericInfoStepFragment : Fragment(){
+
+    private  lateinit var  mainActivity: MainActivity
+
     private lateinit var category: Category
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,6 +50,7 @@ class GenericInfoStepFragment : Fragment(){
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        mainActivity = this.activity as MainActivity
         return createMainLayout()
     }
 
@@ -223,6 +228,11 @@ class GenericInfoStepFragment : Fragment(){
                }
            }
        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        mainActivity.supportActionBar?.title = category.information?.alias
     }
 
 

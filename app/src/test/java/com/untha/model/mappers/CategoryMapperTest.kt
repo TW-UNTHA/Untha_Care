@@ -40,6 +40,7 @@ class CategoryMapperTest {
             CategoryInformation(
                 description = generateRandomString(5),
                 image = generateRandomString(size = 5),
+                alias = generateRandomString(size = 5),
                 sections = listOf(section, section2)
             )
         val category = Category(
@@ -62,6 +63,7 @@ class CategoryMapperTest {
             category.id,
             categoryInformation.description!!,
             categoryInformation.image!!,
+            categoryInformation.alias!!,
             category.id,
             listOf(sectionModel, sectionModel2)
         )
@@ -99,8 +101,8 @@ class CategoryMapperTest {
         val stepModel3 = SectionStepModel(3, generateRandomString(5), 2, 2)
         val sectionModel1 = SectionModel(1, generateRandomString(5), 1)
         val sectionModel2 = SectionModel(2, generateRandomString(5), 2)
-        val categoryInformationModel1 = CategoryInformationModel(1, generateRandomString(5), generateRandomString(5),1)
-        val categoryInformationModel2 = CategoryInformationModel(2, generateRandomString(5), generateRandomString(5),2)
+        val categoryInformationModel1 = CategoryInformationModel(1, generateRandomString(5), generateRandomString(5),generateRandomString(5),1)
+        val categoryInformationModel2 = CategoryInformationModel(2, generateRandomString(5), generateRandomString(5),generateRandomString(5),2)
         val categoryModel1 = CategoryModel(
             1,
             generateRandomString(5),
@@ -170,6 +172,7 @@ class CategoryMapperTest {
                 id = categoryInformationModel1.id,
                 description = categoryInformationModel1.description,
                 image =  categoryInformationModel1.image,
+                alias =  categoryInformationModel1.alias,
                 sections = listOf(expectedSection)
             )
 
@@ -178,6 +181,7 @@ class CategoryMapperTest {
                 id = categoryInformationModel2.id,
                 description = categoryInformationModel2.description,
                 image = categoryInformationModel2.image,
+                alias =  categoryInformationModel2.alias,
                 sections = listOf(expectedSection2)
             )
         val expectedCategory = Category(
