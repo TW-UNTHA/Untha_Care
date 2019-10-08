@@ -403,7 +403,7 @@
             "title": "Convención Interamericana para Prevenir, Sancionar y Erradicar la Violencia contra la Mujer, Convención de Belém do Pará",
             "steps": [
               {
-                "step_id": "",
+                "step_id": 1,
                 "description": "Reconoce que la violencia contra las mujeres es una violación de los derechos humanos, y que es responsabilidad del Estado tomar medidas concretas para prevenirla y erradicarla."
               }
             ]
