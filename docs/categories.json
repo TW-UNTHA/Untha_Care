@@ -393,7 +393,7 @@
             "title": "Convención sobre la Eliminación de todas las Formas de Discriminación contra la Mujer",
             "steps": [
               {
-                "step_id": "",
+                "step_id": 1,
                 "description": "Ecuador acepta las obligaciones para eliminar todas las formas de discriminación contra las mujeres, garantizar la igualdad entre hombres y mujeres, y se ponen a disposición de su Comité de Seguimiento. Así, la rendición de cuentas a nivel internacional apoya los esfuerzos a nivel nacional para estimular al Estado a promover y garantizar los derechos de las mujeres."
               }
             ]
@@ -463,7 +463,7 @@
             "title": "Ley Marco sobre Economía del Cuidado del Parlamento Latinoamericano",
             "steps": [
               {
-                "step_id": "",
+                "step_id": 1,
                 "description": "Garantiza el ejercicio pleno de los derechos de las personas en situación de dependencia y de las personas encargadas del cuidado; compromete a sus Estados miembros a crear Sistemas Integrales de Cuidados en sus países."
               }
             ]
@@ -473,7 +473,7 @@
             "title": "Acuerdo Ministerial No 0082: Normativa para la Erradicación de la Discriminación en el Ámbito Laboral",
             "steps": [
               {
-                "step_id": "",
+                "step_id": 1,
                 "description": "Es obligatoria para los sectores público y privado, que deben reconocer los derechos de las personas y de los grupos de atención prioritaria o en condiciones de vulnerabilidad."
               }
             ]
