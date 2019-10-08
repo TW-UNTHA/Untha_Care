@@ -353,7 +353,7 @@
             "title": "Constitución de la República del Ecuador",
             "steps": [
               {
-                "step_id": "",
+                "step_id": 1,
                 "description": "Tiene como principio la igualdad y la no discriminación. Garantiza el derecho a la integridad personal: Una vida libre de violecia, pública y privada. Dispone que el derecho a la seguridad social es irrenunciable, solidario, obligatorio, universal, equitativo, y debe atender las necesidades indivuales y colectivas."
               }
             ]
@@ -363,7 +363,7 @@
             "title": "Ley Orgánica para Prevenir y Erradicar la Violencia contra las mujeres",
             "steps": [
               {
-                "step_id": "",
+                "step_id": 1,
                 "description": "Señala los tipos de violencia: física, psicológica, sexual, económica y patrimonial, simbólica, gíneco-obstétrica. Promueve el Sistema de Prevención y Erradicación de Violencia contra las mujeres para prevenir, atender, proteger y reparar a las víctimas; y también el Registro Único y el Observatorio, como mecanismos para cosntruir políticas públicas que erradiquen la violencia contra las mujeres en Ecuador."
               }
             ]
@@ -373,7 +373,7 @@
             "title": "Ley Orgánica para la Justicia Laboral y Reconocimiento del Trabajo en el Hogar",
             "steps": [
               {
-                "step_id": "",
+                "step_id": 1,
                 "description": "Prohíbe el despido intempestivo de personas trabajadoras en estado de embarazo. Reconoce el derecho a la seguridad social de las personas que realizan trabajo del hogar no remunerado (aquellas que realizan de manera exclusiva tareas de cuidado del hogar sin percibir pago ni apoyo económico alguno), garantizando su derecho a recibir pensión de jubilación, invalidez y muerte."
               }
             ]
@@ -383,7 +383,7 @@
             "title": "Código del Trabajo",
             "steps": [
               {
-                "step_id": "",
+                "step_id": 1,
                 "description": "Establece igual trabajo por igual remuneración, sin discriminación alguna. Dispone las obligaciones del empleador, ordenando garantizar la igualdad de oportunidades y no discriminación de trabajadores individuales o en contratos colectivos."
               }
             ]
@@ -413,7 +413,7 @@
             "title": "Código Orgánico Integral Penal",
             "steps": [
               {
-                "step_id": "",
+                "step_id": 1,
                 "description": "Considera delitos tres tipos de violencia contra la mujer o miembros del núcleo familiar: física, psicológica y sexual. Y juzga otros delitos que atentan contra la dignidad humana y la inviolabilidad de la vida: el femicidio, la trata de personas, diversas formas de explotación, la violencia intrafamiliar, delitos contra la integridad sexual y reproductiva, delitos de odio."
               }
             ]
@@ -423,7 +423,7 @@
             "title": "Convenio 189 sobre trabajo decente de la Organización Internacional del Trabajo para las trabajadoras y los trabajadores domésticos",
             "steps": [
               {
-                "step_id": "",
+                "step_id": 1,
                 "description": "Reconoce la gran contribución de los trabajadores domésticos a la economía mundial. Está a favor de eliminar todas las formas de trabajo forzoso u obligatorio, el trabajo infantil y la discriminación en sus diferentes formas."
               }
             ]
@@ -433,7 +433,7 @@
             "title": "Convenio 182 sobre la prohibición de las peores formas de trabajo infantil y la acción inmediata para su eliminación",
             "steps": [
               {
-                "step_id": "",
+                "step_id": 1,
                 "description": "Persigue la acción inmediata para librar de todas las formas de trabajo a los niños y niñas, y asegurar su rehabilitación, su inserción social y atender las necesidades de sus familias. Considera que el trabajo doméstico sigue siendo poco apreciado e invisible, y que lo realizan las mujeres y las niñas, muchas de ellas migrantes o que forman parte de comunidades desfavorecidas, muy vulnerables a la discriminación en el trabajo, así como a otros abusos de sus derechos humanos."
               }
             ]
@@ -443,7 +443,7 @@
             "title": "Ley Orgánica de los Consejos Nacionales para la Igualdad",
             "steps": [
               {
-                "step_id": "",
+                "step_id": 1,
                 "description": "Asegura la vigencia y el ejercicio de los derechos consagrados en la Constitución y en los Instrumentos Internacionales de Derechos Humanos, y promueve erradicar los actos, usos, prácticas, costumbres y estereotipos que discriminan."
               }
             ]
@@ -453,7 +453,7 @@
             "title": "Agenda Nacional para la Igualdad de las Mujeres y Personas LGBTI",
             "steps": [
               {
-                "step_id": "",
+                "step_id": 1,
                 "description": "En su Eje 2: Sostenibilidad de la Vida, establece la política y acciones para promover los derechos económicos y laborales, abordando el TRH y el trabajo no remunerado y de cuidados."
               }
             ]
