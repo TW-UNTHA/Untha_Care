@@ -140,7 +140,7 @@
               },
               {
                 "step_id": 5,
-                "description": "Tienes derecho a cobrar horas extras si se requiere tu servicio una vez cumplida tu jornada completa o parcial de trabajo (incluso si la modalidad es puertas adentro). Si las horas extra son durante el día hasta las 12 de la noche, tu empleador paga cada hora suplementaria con el 50% de recargo. Si son desde las 12 de la noche a las 6 de la mañana o o durante el fin de semana tendrán el 100% de recargo"
+                "description": "Tienes derecho a cobrar horas extras si se requiere tu servicio una vez cumplida tu jornada completa o parcial de trabajo (incluso si la modalidad es puertas adentro).\n Si las horas extra son durante el día hasta las 12 de la noche, tu empleador paga cada hora suplementaria con el 50% de recargo.\n  Si son desde las 12 de la noche a las 6 de la mañana o o durante el fin de semana tendrán el 100% de recargo"
               },
               {
                 "step_id": 6,
@@ -320,19 +320,19 @@
               },
               {
                 "step_id": 3,
-                "description": "El contrato puede terminar por estas causas: \n •Tu voluntad de terminar el contrato •Acuerdo entre ti y tu empleador, o causas previstas en el contrato •Conclusión de la obra o período establecido para el trabajo •Muerte o incapacidad del empleador o de la trabajadora •Condiciones que imposibiliten el trabajo, como un incendio, terremoto o acontecimientos que no se pudieron evitar •Carta de renuncia presentada por la trabajadora"
+                "description": "El contrato puede terminar por estas causas: \n •Tu voluntad de terminar el contrato \n •Acuerdo entre ti y tu empleador, o causas previstas en el contrato \n •Conclusión de la obra o período establecido para el trabajo \n •Muerte o incapacidad del empleador o de la trabajadora \n •Condiciones que imposibiliten el trabajo, como un incendio, terremoto o acontecimientos que no se pudieron evitar \n •Carta de renuncia presentada por la trabajadora"
               },
               {
                 "step_id": 4,
-                "description": "Tu empleador puede terminar el contrato por estas causas: •La voluntad de tu empleador de terminar el contrato •Faltas injustificadas, impuntualidad o abandono del trabajo por más de 3 días seguidos sin causa •Desobediencias graves a reglamentos internos •Conducta inmoral de la trabajadora •Injuriar a tu empleador, familiares o personas cercanas al mismo •Ineptitud al desempeñar tu trabajo •Denuncias injustificadas a tu empleador sobre obligaciones en el IESS. En caso de que la denuncia sea justificada, tu estabilidad estará asegurado por 2 años en trabajos permanentes •Por no cumplir medidades de seguridad, higiene y prevención exigidas por ley o por no cumplir órdenes médicas •Por acosar laboralmente a otras personas •Antes del visto bueno, el trabajador, sus representatntes y el empleador tienen derecho a ser oídos por una autoridad laboral"
+                "description": "Tu empleador puede terminar el contrato por estas causas: \n •La voluntad de tu empleador de terminar el contrato \n •Faltas injustificadas, impuntualidad o abandono del trabajo por más de 3 días seguidos sin causa \n •Desobediencias graves a reglamentos internos \n •Conducta inmoral de la trabajadora \n •Injuriar a tu empleador, familiares o personas cercanas al mismo \n •Ineptitud al desempeñar tu trabajo \n •Denuncias injustificadas a tu empleador sobre obligaciones en el IESS. En caso de que la denuncia sea justificada, tu estabilidad estará asegurado por 2 años en trabajos permanentes \n •Por no cumplir medidades de seguridad, higiene y prevención exigidas por ley o por no cumplir órdenes médicas \n •Por acosar laboralmente a otras personas \n •Antes del visto bueno, el trabajador, sus representatntes y el empleador tienen derecho a ser oídos por una autoridad laboral"
               },
               {
                 "step_id": 5,
-                "description": "Puedes dar por terminado un contrato por estos motivos: •Por injuria de tu empleador, sus familiares o personas cercanas. Si las injurias son discriminatorias, la indemnización es la que ordena el artículo 195.3 del Código del trabajo •Por disminución, falta de pago o puntualidad en el pago •Por que se te exige hacer trabajos que no se habían acordado •Por sufrir acoso laboral permitido o cometido por parte de tu empleador o sus representantes"
+                "description": "Puedes dar por terminado un contrato por estos motivos: \n •Por injuria de tu empleador, sus familiares o personas cercanas. Si las injurias son discriminatorias, la indemnización es la que ordena el artículo 195.3 del Código del trabajo \n •Por disminución, falta de pago o puntualidad en el pago \n •Por que se te exige hacer trabajos que no se habían acordado \n  •Por sufrir acoso laboral permitido o cometido por parte de tu empleador o sus representantes"
               },
               {
                 "step_id": 6,
-                "description": "Si tu empleador te despide intempestivamente, deberás ser indemnizada de esta forma: •Tres meses de remuneración si has trabajado hasta tres años •Un mes de remuneración por cada año de servicio sin trabajas más de tres años. No puede pasar de 25 remuneraciones •Un año completo de remuneraciones si has trabajado un año •Si trabaja a destajo, es decir por unidades de trabajo entregadas, se fija la remuneración mensual en base al promedio recibido en el último año de trabajo o el tiempo que haya servido •Si has trabajado entre 20 y 25 años ininterrumpidamente, además, tendrñas derecho a una proporción de la jubilación patronal •Si tu empleador termina el contrato sin causa justa, deberá ratificarse ante una autoridad de trabajo y depositar el valor en las siguientes 48 horas, si no lo hace, la trabajadora se reintegrará a sus labores de inmediato"
+                "description": "Si tu empleador te despide intempestivamente, deberás ser indemnizada de esta forma: \n •Tres meses de remuneración si has trabajado hasta tres años \n  •Un mes de remuneración por cada año de servicio sin trabajas más de tres años. No puede pasar de 25 remuneraciones \n  •Un año completo de remuneraciones si has trabajado un año \n  •Si trabaja a destajo, es decir por unidades de trabajo entregadas, se fija la remuneración mensual en base al promedio recibido en el último año de trabajo o el tiempo que haya servido \n  •Si has trabajado entre 20 y 25 años ininterrumpidamente, además, tendrñas derecho a una proporción de la jubilación patronal \n  •Si tu empleador termina el contrato sin causa justa, deberá ratificarse ante una autoridad de trabajo y depositar el valor en las siguientes 48 horas, si no lo hace, la trabajadora se reintegrará a sus labores de inmediato"
               }
             ]
           }
@@ -353,7 +353,7 @@
             "title": "Constitución de la República del Ecuador",
             "steps": [
               {
-                "step_id": 1,
+                "step_id": "",
                 "description": "Tiene como principio la igualdad y la no discriminación. Garantiza el derecho a la integridad personal: Una vida libre de violecia, pública y privada. Dispone que el derecho a la seguridad social es irrenunciable, solidario, obligatorio, universal, equitativo, y debe atender las necesidades indivuales y colectivas."
               }
             ]
@@ -363,7 +363,7 @@
             "title": "Ley Orgánica para Prevenir y Erradicar la Violencia contra las mujeres",
             "steps": [
               {
-                "step_id": 1,
+                "step_id": "",
                 "description": "Señala los tipos de violencia: física, psicológica, sexual, económica y patrimonial, simbólica, gíneco-obstétrica. Promueve el Sistema de Prevención y Erradicación de Violencia contra las mujeres para prevenir, atender, proteger y reparar a las víctimas; y también el Registro Único y el Observatorio, como mecanismos para cosntruir políticas públicas que erradiquen la violencia contra las mujeres en Ecuador."
               }
             ]
@@ -373,7 +373,7 @@
             "title": "Ley Orgánica para la Justicia Laboral y Reconocimiento del Trabajo en el Hogar",
             "steps": [
               {
-                "step_id": 1,
+                "step_id": "",
                 "description": "Prohíbe el despido intempestivo de personas trabajadoras en estado de embarazo. Reconoce el derecho a la seguridad social de las personas que realizan trabajo del hogar no remunerado (aquellas que realizan de manera exclusiva tareas de cuidado del hogar sin percibir pago ni apoyo económico alguno), garantizando su derecho a recibir pensión de jubilación, invalidez y muerte."
               }
             ]
@@ -383,7 +383,7 @@
             "title": "Código del Trabajo",
             "steps": [
               {
-                "step_id": 1,
+                "step_id": "",
                 "description": "Establece igual trabajo por igual remuneración, sin discriminación alguna. Dispone las obligaciones del empleador, ordenando garantizar la igualdad de oportunidades y no discriminación de trabajadores individuales o en contratos colectivos."
               }
             ]
@@ -393,7 +393,7 @@
             "title": "Convención sobre la Eliminación de todas las Formas de Discriminación contra la Mujer",
             "steps": [
               {
-                "step_id": 1,
+                "step_id": "",
                 "description": "Ecuador acepta las obligaciones para eliminar todas las formas de discriminación contra las mujeres, garantizar la igualdad entre hombres y mujeres, y se ponen a disposición de su Comité de Seguimiento. Así, la rendición de cuentas a nivel internacional apoya los esfuerzos a nivel nacional para estimular al Estado a promover y garantizar los derechos de las mujeres."
               }
             ]
@@ -403,7 +403,7 @@
             "title": "Convención Interamericana para Prevenir, Sancionar y Erradicar la Violencia contra la Mujer, Convención de Belém do Pará",
             "steps": [
               {
-                "step_id": 1,
+                "step_id": "",
                 "description": "Reconoce que la violencia contra las mujeres es una violación de los derechos humanos, y que es responsabilidad del Estado tomar medidas concretas para prevenirla y erradicarla."
               }
             ]
@@ -413,7 +413,7 @@
             "title": "Código Orgánico Integral Penal",
             "steps": [
               {
-                "step_id": 1,
+                "step_id": "",
                 "description": "Considera delitos tres tipos de violencia contra la mujer o miembros del núcleo familiar: física, psicológica y sexual. Y juzga otros delitos que atentan contra la dignidad humana y la inviolabilidad de la vida: el femicidio, la trata de personas, diversas formas de explotación, la violencia intrafamiliar, delitos contra la integridad sexual y reproductiva, delitos de odio."
               }
             ]
@@ -423,7 +423,7 @@
             "title": "Convenio 189 sobre trabajo decente de la Organización Internacional del Trabajo para las trabajadoras y los trabajadores domésticos",
             "steps": [
               {
-                "step_id": 1,
+                "step_id": "",
                 "description": "Reconoce la gran contribución de los trabajadores domésticos a la economía mundial. Está a favor de eliminar todas las formas de trabajo forzoso u obligatorio, el trabajo infantil y la discriminación en sus diferentes formas."
               }
             ]
@@ -433,7 +433,7 @@
             "title": "Convenio 182 sobre la prohibición de las peores formas de trabajo infantil y la acción inmediata para su eliminación",
             "steps": [
               {
-                "step_id": 1,
+                "step_id": "",
                 "description": "Persigue la acción inmediata para librar de todas las formas de trabajo a los niños y niñas, y asegurar su rehabilitación, su inserción social y atender las necesidades de sus familias. Considera que el trabajo doméstico sigue siendo poco apreciado e invisible, y que lo realizan las mujeres y las niñas, muchas de ellas migrantes o que forman parte de comunidades desfavorecidas, muy vulnerables a la discriminación en el trabajo, así como a otros abusos de sus derechos humanos."
               }
             ]
@@ -443,7 +443,7 @@
             "title": "Ley Orgánica de los Consejos Nacionales para la Igualdad",
             "steps": [
               {
-                "step_id": 1,
+                "step_id": "",
                 "description": "Asegura la vigencia y el ejercicio de los derechos consagrados en la Constitución y en los Instrumentos Internacionales de Derechos Humanos, y promueve erradicar los actos, usos, prácticas, costumbres y estereotipos que discriminan."
               }
             ]
@@ -453,7 +453,7 @@
             "title": "Agenda Nacional para la Igualdad de las Mujeres y Personas LGBTI",
             "steps": [
               {
-                "step_id": 1,
+                "step_id": "",
                 "description": "En su Eje 2: Sostenibilidad de la Vida, establece la política y acciones para promover los derechos económicos y laborales, abordando el TRH y el trabajo no remunerado y de cuidados."
               }
             ]
@@ -463,7 +463,7 @@
             "title": "Ley Marco sobre Economía del Cuidado del Parlamento Latinoamericano",
             "steps": [
               {
-                "step_id": 1,
+                "step_id": "",
                 "description": "Garantiza el ejercicio pleno de los derechos de las personas en situación de dependencia y de las personas encargadas del cuidado; compromete a sus Estados miembros a crear Sistemas Integrales de Cuidados en sus países."
               }
             ]
@@ -473,7 +473,7 @@
             "title": "Acuerdo Ministerial No 0082: Normativa para la Erradicación de la Discriminación en el Ámbito Laboral",
             "steps": [
               {
-                "step_id": 1,
+                "step_id": "",
                 "description": "Es obligatoria para los sectores público y privado, que deben reconocer los derechos de las personas y de los grupos de atención prioritaria o en condiciones de vulnerabilidad."
               }
             ]
