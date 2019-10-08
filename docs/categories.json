@@ -353,7 +353,7 @@
             "title": "Constitución de la República del Ecuador",
             "steps": [
               {
-                "step_id": 1,
+                "step_id": "",
                 "description": "Tiene como principio la igualdad y la no discriminación. Garantiza el derecho a la integridad personal: Una vida libre de violecia, pública y privada. Dispone que el derecho a la seguridad social es irrenunciable, solidario, obligatorio, universal, equitativo, y debe atender las necesidades indivuales y colectivas."
               }
             ]
@@ -363,7 +363,7 @@
             "title": "Ley Orgánica para Prevenir y Erradicar la Violencia contra las mujeres",
             "steps": [
               {
-                "step_id": 1,
+                "step_id": "",
                 "description": "Señala los tipos de violencia: física, psicológica, sexual, económica y patrimonial, simbólica, gíneco-obstétrica. Promueve el Sistema de Prevención y Erradicación de Violencia contra las mujeres para prevenir, atender, proteger y reparar a las víctimas; y también el Registro Único y el Observatorio, como mecanismos para cosntruir políticas públicas que erradiquen la violencia contra las mujeres en Ecuador."
               }
             ]
