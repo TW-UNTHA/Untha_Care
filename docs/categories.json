@@ -353,7 +353,7 @@
             "title": "Constitución de la República del Ecuador",
             "steps": [
               {
-                "step_id": 1,
+                "step_id": null,
                 "description": "Tiene como principio la igualdad y la no discriminación. Garantiza el derecho a la integridad personal: Una vida libre de violecia, pública y privada. Dispone que el derecho a la seguridad social es irrenunciable, solidario, obligatorio, universal, equitativo, y debe atender las necesidades indivuales y colectivas."
               }
             ]
