@@ -1,5 +1,4 @@
 package com.untha.view.fragments
-
 import android.annotation.SuppressLint
 import android.graphics.Typeface
 import android.os.Bundle
@@ -24,7 +23,6 @@ import org.jetbrains.anko.AnkoViewDslMarker
 import org.jetbrains.anko._LinearLayout
 import org.jetbrains.anko.backgroundColor
 import org.jetbrains.anko.backgroundDrawable
-import org.jetbrains.anko.bottomPadding
 import org.jetbrains.anko.dip
 import org.jetbrains.anko.imageView
 import org.jetbrains.anko.matchParent
@@ -33,7 +31,6 @@ import org.jetbrains.anko.support.v4.UI
 import org.jetbrains.anko.textColor
 import org.jetbrains.anko.textSizeDimen
 import org.jetbrains.anko.textView
-import org.jetbrains.anko.topPadding
 import org.jetbrains.anko.verticalLayout
 import org.jetbrains.anko.wrapContent
 
@@ -57,28 +54,28 @@ class GenericInfoStepFragment : Fragment(){
         super.onViewCreated(view, savedInstanceState)
         with(view as _LinearLayout) {
             verticalLayout {
+
                 val heightFormula = (PixelConverter.getScreenDpHeight(context) -
-                        Constants.SIZE_OF_ACTION_BAR) * Constants.PERCENTAGE_MAIN_LAYOUT
+                        Constants.SIZE_OF_ACTION_BAR) * Constants.GENERIC_PERCENTAGE_PLAYER_HEADER
+                val totalHeight = PixelConverter.toPixels(heightFormula, context)
 
                 val marginTop = calculateTopMargin()
                 val marginLeft = calculateMarginLeftAndRight()
 
                 verticalLayout {
                     loadImage(view)
-                    lparams(width = matchParent, height = (heightFormula *
-                            Constants.GENERIC_PERCENTAGE_PLAYER_HEADER).toInt()) {
-                        topMargin = Constants.MARGIN_HIDDEN_PLAYER
-                        leftMargin = Constants.MARGIN_HIDDEN_PLAYER
-                        rightMargin = Constants.MARGIN_HIDDEN_PLAYER
-                    }
                     backgroundDrawable =  ContextCompat.getDrawable(
                         context,R.drawable.hearder_info_generic
                     )
+
+                }.lparams(width = ViewGroup.LayoutParams.MATCH_PARENT ,height = totalHeight ){
+                    topMargin=Constants.MARGIN_HIDDEN_PLAYER
+                    leftMargin=Constants.MARGIN_HIDDEN_PLAYER
+                    rightMargin=Constants.MARGIN_HIDDEN_PLAYER
                 }
 
                 scrollView {
                     verticalLayout {
-
                         loadInformationDescription()
                         buildSections()
                     }
@@ -90,10 +87,25 @@ class GenericInfoStepFragment : Fragment(){
                         bottomMargin= marginTop * Constants.GENERIC_STEP_MARGIN_MULTIPLIER
                     }
                 }
-                lparams(width = matchParent, height = matchParent)
-            }
+
+            }.lparams(width = matchParent, height = matchParent)
         }
     }
+
+    private fun @AnkoViewDslMarker _LinearLayout.loadImage(view: View) {
+        imageView {
+            val imageUrl = resources.getIdentifier(
+                category.information?.image,
+                "drawable",
+                context.applicationInfo.packageName
+            )
+            Glide.with(view)
+                .load(imageUrl)
+                .into(this)
+
+        }.lparams(width = matchParent, height = matchParent)
+    }
+
 
     private fun @AnkoViewDslMarker _LinearLayout.calculateMarginLeftAndRight(): Int {
         val widthFormula =
@@ -131,6 +143,10 @@ class GenericInfoStepFragment : Fragment(){
                                     R.color.colorGenericTitle
                                 )
                             setTypeface(typeface, Typeface.BOLD)
+                            textSizeDimen = R.dimen.text_size_content
+
+
+
                         }.lparams(height = wrapContent, width = matchParent) {
                             bottomMargin = dip(calculateTopMargin())
                             topMargin = dip(calculateTopMargin())
@@ -161,6 +177,7 @@ class GenericInfoStepFragment : Fragment(){
         return textView {
             text = step.description
             typeface = ResourcesCompat.getFont(context.applicationContext, R.font.proxima_nova_light)
+            this.gravity = Gravity.AXIS_Y_SHIFT
             linksClickable =  true
             Linkify.addLinks(this, Linkify.WEB_URLS)
             setLinkTextColor(resources.getColor(R.color.colorGenericTitle))
@@ -170,23 +187,25 @@ class GenericInfoStepFragment : Fragment(){
 
     private fun @AnkoViewDslMarker _LinearLayout.buildRoundedCircleTextView(
         step: Step) {
-        textView {
-            text = step.stepId.toString()
-            gravity = Gravity.CENTER
-            textColor =
-                ContextCompat.getColor(
+        step.stepId?.let {
+            textView {
+                text = step.stepId.toString()
+                gravity = Gravity.CENTER
+                textColor =
+                    ContextCompat.getColor(
+                        context,
+                        android.R.color.white
+                    )
+                setTypeface(typeface, Typeface.BOLD)
+                backgroundDrawable = ContextCompat.getDrawable(
                     context,
-                    android.R.color.white
+                    R.drawable.circular_background
                 )
-            setTypeface(typeface, Typeface.BOLD)
-            backgroundDrawable = ContextCompat.getDrawable(
-                context,
-                R.drawable.circular_background
-            )
-
-        }.lparams(width = wrapContent, height = wrapContent) {
-            bottomMargin = dip(calculateTopMargin())
-            topMargin = dip(calculateTopMargin())
+                textSizeDimen = R.dimen.text_size_content
+            }.lparams(width = wrapContent, height = wrapContent) {
+                bottomMargin = dip(calculateTopMargin())
+                topMargin = dip(calculateTopMargin())
+            }
         }
     }
 
@@ -206,21 +225,6 @@ class GenericInfoStepFragment : Fragment(){
        }
     }
 
-    private fun @AnkoViewDslMarker _LinearLayout.loadImage(view: View) {
-        imageView {
-            val imageUrl = resources.getIdentifier(
-                category.image,
-                "drawable",
-                context.applicationInfo.packageName
-            )
-            Glide.with(view)
-                .load(imageUrl)
-                .into(this)
-        }
-            .lparams(height = matchParent, width = matchParent){
-                 bottomPadding = toPixels(Constants.PADDING_IMAGE_PLAYER_HEADER.toDouble(), context)
-                 topPadding = toPixels(Constants.PADDING_IMAGE_PLAYER_HEADER.toDouble(), context)
-            }
-    }
+
 
 }

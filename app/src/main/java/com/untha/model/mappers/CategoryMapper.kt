@@ -20,6 +20,7 @@ class CategoryMapper {
 
         val categoryInformation = CategoryInformationModel(
             category.id, category.information?.description ?: "",
+            category.information?.image ?: "",
             category.id
         )
 
@@ -63,6 +64,7 @@ class CategoryMapper {
         val categoryInformation = CategoryInformation(
             queryingCategory.queryingCategoryInformation?.categoryInformationModel?.id ?: 0,
             queryingCategory.queryingCategoryInformation?.categoryInformationModel?.description,
+            queryingCategory.queryingCategoryInformation?.categoryInformationModel?.image,
             getSections(queryingCategory)
         )
 

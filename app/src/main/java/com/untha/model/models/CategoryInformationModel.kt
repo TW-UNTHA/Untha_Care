@@ -20,6 +20,7 @@ import kotlinx.serialization.Serializable
 data class CategoryInformationModel(
     @PrimaryKey var id: Int = 0,
     var description: String = "",
+    var image: String = "",
     @ColumnInfo(name = "category_id")
     var categoryId: Int = 0,
     @Ignore

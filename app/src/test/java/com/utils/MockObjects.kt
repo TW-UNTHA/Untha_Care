@@ -8,7 +8,7 @@ object MockObjects {
         var stepModel1 = SectionStepModel(1, RandomGenerator.generateRandomString(5), 1, 1)
         var sectionModel1 = SectionModel(1, RandomGenerator.generateRandomString(5), 1)
         var categoryInformationModel1 =
-            CategoryInformationModel(1, RandomGenerator.generateRandomString(5), 1)
+            CategoryInformationModel(1, RandomGenerator.generateRandomString(5),RandomGenerator.generateRandomString(5) ,1)
         var categoryModel1 = CategoryModel(
             1,
             RandomGenerator.generateRandomString(5),

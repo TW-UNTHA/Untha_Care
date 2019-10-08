@@ -19,6 +19,6 @@ import kotlinx.serialization.Serializable
 data class SectionStepModel(
     @PrimaryKey(autoGenerate = true) var id: Int = 0,
     var description: String = "",
-    @ColumnInfo(name = "step_id") val stepId: Int,
+    @ColumnInfo(name = "step_id") val stepId: Int ? = null,
     @ColumnInfo(name = "section_id") val sectionId: Int
 ) : BaseModel()
