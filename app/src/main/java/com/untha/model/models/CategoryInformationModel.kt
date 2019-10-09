@@ -21,7 +21,8 @@ data class CategoryInformationModel(
     @PrimaryKey var id: Int = 0,
     var description: String = "",
     var image: String = "",
-    var alias: String = "",
+    @ColumnInfo(name = "screen_title")
+    var screenTitle: String = "",
     @ColumnInfo(name = "category_id")
     var categoryId: Int = 0,
     @Ignore

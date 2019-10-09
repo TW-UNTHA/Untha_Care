@@ -91,6 +91,7 @@ class GenericInfoStepFragment : Fragment() {
                 }
             }.lparams(width = matchParent, height = matchParent)
         }
+        mainActivity.supportActionBar?.title = category.information?.screenTitle
     }
 
     private fun @AnkoViewDslMarker _LinearLayout.loadImage(view: View) {
@@ -229,11 +230,5 @@ class GenericInfoStepFragment : Fragment() {
             }
         }
     }
-
-    override fun onResume() {
-        super.onResume()
-        mainActivity.supportActionBar?.title = category.information?.alias
-    }
-
 
 }
