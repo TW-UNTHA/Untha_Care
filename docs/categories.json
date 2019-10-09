@@ -219,7 +219,7 @@
             "steps": [
               {
                 "step_id": null,
-                "description": "•   <b>Email</b>: <a>unthaecuador@gmail.com</a><br>• 	<b>Telf:</b> <a>0960639550</a><br>• 	<b>Facebook</b>: <a>Asociación de trabajadoras remuneradas del hogar</a><br>."
+                "description": "•   <b>Email</b>: <a href = 'mailto:unthaecuador@gmail.com'>unthaecuador@gmail.com</a><br>• 	<b>Telf:</b> <a href = 'tel:0960639550'>0960639550</a><br>• 	<b>Facebook</b>: <a href='https://www.facebook.com/atrhecuador/'>Asociación de trabajadoras remuneradas del hogar</a><br>."
               }
             ]
           }
