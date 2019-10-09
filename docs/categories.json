@@ -48,7 +48,7 @@
       "information": {
         "description": "El empleador debe inscribirte en el Instituto Ecuatoriano de Seguridad Social (IESS), desde el primer día de labores. Dará aviso de tu entrada en los primeros 15 días. Avisará sobre tu salida, sueldos y salarios, accidentes de trabajo y enfermedades que se produzcan en él. Y cumplirá con las demás obligaciones legales sobre seguridad social.Para verificar si estás afiliada sigue estos pasos:",
         "image": "info_afiliacion",
-        "alias": "AFILIACIÓN AL IESS",
+        "screen_title": "AFILIACIÓN AL IESS",
         "sections": [
           {
             "id": 1,
@@ -118,7 +118,7 @@
       "next_step": 9,
       "information": {
         "image": "info_salario",
-        "alias": "SALARIO Y BENEFICIOS",
+        "screen_title": "SALARIO Y BENEFICIOS",
         "sections": [
           {
             "id": 3,
@@ -185,7 +185,7 @@
       "next_step": 10,
       "information": {
         "image": "info_vacaciones",
-        "alias": "JORNADA Y VACACIONES",
+        "screen_title": "JORNADA Y VACACIONES",
         "sections": [
           {
             "id": 4,
@@ -236,7 +236,7 @@
       "next_step": 11,
       "information": {
         "image": "info_embarazo",
-        "alias": "MATERNIDAD",
+        "screen_title": "MATERNIDAD",
         "sections": [
           {
             "id": 5,
@@ -263,7 +263,7 @@
       "next_step": 12,
       "information": {
         "image": "info_adolescentes",
-        "alias": "NIÑAS Y ADOLESCENTES",
+        "screen_title": "NIÑAS Y ADOLESCENTES",
         "sections": [
           {
             "id": 6,
@@ -310,7 +310,7 @@
       "next_step": 13,
       "information": {
         "image": "info_despidos",
-        "alias": "DESPIDOS Y TÉRMINO",
+        "screen_title": "DESPIDOS Y TÉRMINO",
         "sections": [
           {
             "id": 7,
@@ -353,7 +353,7 @@
       "next_step": null,
       "information": {
         "image": "info_leyes",
-        "alias": "LEYES",
+        "screen_title": "LEYES",
         "sections": [
           {
             "id": 8,
