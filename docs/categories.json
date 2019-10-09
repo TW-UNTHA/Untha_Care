@@ -148,7 +148,7 @@
             "steps": [
               {
                 "step_id": 1,
-                "description": "Desde una computadora o celular con conexión al internet, ingresa en el vínculo <a href='https://www.iess.gob.ec/solicitudclave/pages/public/principal.jsf'></a>"
+                "description": "Desde una computadora o celular con conexión al internet, ingresa en el vínculo <a href='https://www.iess.gob.ec/solicitudclave/pages/public/principal.jsf'>https://www.iess.gob.ec/solicitudclave/pages/public/principal.jsf</a>"
               },
               {
                 "step_id": 2,
@@ -170,7 +170,7 @@
             "steps": [
               {
                 "step_id": 1,
-                "description": "Una vez que tengas tu clave del IESS, ingresa al siguiente vínculo <a href='https://www.iess.gob.ec/afiliado-web/pages/opcionesGenerales/seleccionCertificadoDeAfiliacion.jsf'></a>"
+                "description": "Una vez que tengas tu clave del IESS, ingresa al siguiente vínculo <a href='https://www.iess.gob.ec/afiliado-web/pages/opcionesGenerales/seleccionCertificadoDeAfiliacion.jsf'>https://www.iess.gob.ec/solicitudclave/pages/public/principal.jsf</a>"
               },
               {
                 "step_id": 2,
