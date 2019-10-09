@@ -28,7 +28,7 @@
       "image": "home_denuncias",
       "title": "CÓMO HACER DENUNCIAS",
       "information": {
-        "description": "DENUNCIAS LABORALES \n\n\n Presenta este tipo de denuncia cuando tus derechos laborales no se están cumpliendo. Por ejemplo, cuando existen irregularidades en tu salario, liquidación, afiliación al IESS, vacaciones, etcétera.",
+        "description": "DENUNCIAS LABORALES <br><br><br> Presenta este tipo de denuncia cuando tus derechos laborales no se están cumpliendo. Por ejemplo, cuando existen irregularidades en tu salario, liquidación, afiliación al IESS, vacaciones, etcétera.",
         "image": "info_denuncias",
         "screen_title": "DENUNCIAS",
         "sections": [
@@ -38,7 +38,7 @@
             "steps": [
               {
                 "step_id": null,
-                "description": "• 	Direcciones Regionales del Trabajo \n• 	Inspectorías de Trabajo \n• 	Llamar al 1800 266822 \n• 	Defensoría Pública"
+                "description": "•   Direcciones Regionales del Trabajo <br>•  Inspectorías de Trabajo <br>•   Llamar al 1800 266822 <br>•   Defensoría Pública"
               }
             ]
           },
@@ -58,7 +58,7 @@
             "steps": [
               {
                 "step_id": null,
-                "description": "	•	Unidad Judicial de Violencia contra la Mujer y la Famlia \n•	Fiscalía \n•	1800 266 833 - Ministerio de Trabajo \n\nSi el Delito es de emergencia, llamar a:\n•	911 - Servicio Integrado de Seguridad"
+                "description": "  • Unidad Judicial de Violencia contra la Mujer y la Famlia <br>•  Fiscalía <br>•  1800 266 833 - Ministerio de Trabajo <br><br> Si el Delito es de emergencia, llamar a:<br>•  911 - Servicio Integrado de Seguridad"
               }
             ]
           },
@@ -148,7 +148,7 @@
             "steps": [
               {
                 "step_id": 1,
-                "description": "Desde una computadora o celular con conexión al internet, ingresa en el vínculo https://www.iess.gob.ec/solicitudclave/pages/public/principal.jsf"
+                "description": "Desde una computadora o celular con conexión al internet, ingresa en el vínculo <a href='https://www.iess.gob.ec/solicitudclave/pages/public/principal.jsf'></a>"
               },
               {
                 "step_id": 2,
@@ -170,7 +170,7 @@
             "steps": [
               {
                 "step_id": 1,
-                "description": "Una vez que tengas tu clave del IESS, ingresa al siguiente vínculo https://www.iess.gob.ec/afiliado-web/pages/opcionesGenerales/seleccionCertificadoDeAfiliacion.jsf"
+                "description": "Una vez que tengas tu clave del IESS, ingresa al siguiente vínculo <a href='https://www.iess.gob.ec/afiliado-web/pages/opcionesGenerales/seleccionCertificadoDeAfiliacion.jsf'></a>"
               },
               {
                 "step_id": 2,
@@ -209,7 +209,7 @@
             "steps": [
               {
                 "step_id": null,
-                "description": "La Unión de Trabajadoras Remuneradas del Hogar y Afines es un sindicato que busca que se conozcan y garanticen los derechos de las trabajadoras remuneradas del hogar y no sufran violencia.\n\nBuscamos organizar a las trabajadoras, y  empoderarlas con información y acompañandolas para exigir el cumplimiento de sus derechos humanos y laborales."
+                "description": "La Unión de Trabajadoras Remuneradas del Hogar y Afines es un sindicato que busca que se conozcan y garanticen los derechos de las trabajadoras remuneradas del hogar y no sufran violencia.<br><br> Buscamos organizar a las trabajadoras, y  empoderarlas con información y acompañandolas para exigir el cumplimiento de sus derechos humanos y laborales."
               }
             ]
           },
@@ -219,7 +219,7 @@
             "steps": [
               {
                 "step_id": null,
-                "description": "•   <b>Email</b>: <a href = 'mailto:unthaecuador@gmail.com'>unthaecuador@gmail.com</a><br>• 	<b>Telf:</b> <a href = 'tel:0960639550'>0960639550</a><br>• 	<b>Facebook</b>: <a href='https://www.facebook.com/atrhecuador/'>Asociación de trabajadoras remuneradas del hogar</a><br>."
+                "description": "•   <b>Email</b>: <a href = 'mailto:unthaecuador@gmail.com'>unthaecuador@gmail.com</a><br>•   <b>Telf:</b> <a href = 'tel:0960639550'>0960639550</a><br>•   <b>Facebook</b>: <a href='https://www.facebook.com/atrhecuador/'>Asociación de trabajadoras remuneradas del hogar</a><br>."
               }
             ]
           }
@@ -260,7 +260,7 @@
               },
               {
                 "step_id": 5,
-                "description": "Tienes derecho a cobrar horas extras si se requiere tu servicio una vez cumplida tu jornada completa o parcial de trabajo (incluso si la modalidad es puertas adentro).\n Si las horas extra son durante el día hasta las 12 de la noche, tu empleador paga cada hora suplementaria con el 50% de recargo.\n  Si son desde las 12 de la noche a las 6 de la mañana o o durante el fin de semana tendrán el 100% de recargo"
+                "description": "Tienes derecho a cobrar horas extras si se requiere tu servicio una vez cumplida tu jornada completa o parcial de trabajo (incluso si la modalidad es puertas adentro).<br> Si las horas extra son durante el día hasta las 12 de la noche, tu empleador paga cada hora suplementaria con el 50% de recargo.<br>  Si son desde las 12 de la noche a las 6 de la mañana o o durante el fin de semana tendrán el 100% de recargo"
               },
               {
                 "step_id": 6,
@@ -444,19 +444,19 @@
               },
               {
                 "step_id": 3,
-                "description": "El contrato puede terminar por estas causas: \n\n• Tu voluntad de terminar el contrato \n\n• Acuerdo entre ti y tu empleador, o causas previstas en el contrato \n\n• Conclusión de la obra o período establecido para el trabajo \n\n• Muerte o incapacidad del empleador o de la trabajadora \n\n• Condiciones que imposibiliten el trabajo, como un incendio, terremoto o acontecimientos que no se pudieron evitar \n\n• Carta de renuncia presentada por la trabajadora"
+                "description": "El contrato puede terminar por estas causas: <br><br> • Tu voluntad de terminar el contrato <br><br> • Acuerdo entre ti y tu empleador, o causas previstas en el contrato <br><br> • Conclusión de la obra o período establecido para el trabajo <br><br> • Muerte o incapacidad del empleador o de la trabajadora <br><br> • Condiciones que imposibiliten el trabajo, como un incendio, terremoto o acontecimientos que no se pudieron evitar <br><br> • Carta de renuncia presentada por la trabajadora"
               },
               {
                 "step_id": 4,
-                "description": "Tu empleador puede terminar el contrato por estas causas: \n\n• La voluntad de tu empleador de terminar el contrato \n\n• Faltas injustificadas, impuntualidad o abandono del trabajo por más de 3 días seguidos sin causa \n\n• Desobediencias graves a reglamentos internos \n\n• Conducta inmoral de la trabajadora \n\n• Injuriar a tu empleador, familiares o personas cercanas al mismo \n\n• Ineptitud al desempeñar tu trabajo \n\n• Denuncias injustificadas a tu empleador sobre obligaciones en el IESS. En caso de que la denuncia sea justificada, tu estabilidad estará asegurado por 2 años en trabajos permanentes \n\n• Por no cumplir medidades de seguridad, higiene y prevención exigidas por ley o por no cumplir órdenes médicas \n\n• Por acosar laboralmente a otras personas \n\n• Antes del visto bueno, el trabajador, sus representatntes y el empleador tienen derecho a ser oídos por una autoridad laboral"
+                "description": "Tu empleador puede terminar el contrato por estas causas: <br><br> • La voluntad de tu empleador de terminar el contrato <br><br> • Faltas injustificadas, impuntualidad o abandono del trabajo por más de 3 días seguidos sin causa <br><br> • Desobediencias graves a reglamentos internos <br><br> • Conducta inmoral de la trabajadora <br><br> • Injuriar a tu empleador, familiares o personas cercanas al mismo <br><br> • Ineptitud al desempeñar tu trabajo <br><br> • Denuncias injustificadas a tu empleador sobre obligaciones en el IESS. En caso de que la denuncia sea justificada, tu estabilidad estará asegurado por 2 años en trabajos permanentes <br><br> • Por no cumplir medidades de seguridad, higiene y prevención exigidas por ley o por no cumplir órdenes médicas <br><br> • Por acosar laboralmente a otras personas <br><br> • Antes del visto bueno, el trabajador, sus representatntes y el empleador tienen derecho a ser oídos por una autoridad laboral"
               },
               {
                 "step_id": 5,
-                "description": "Puedes dar por terminado un contrato por estos motivos: \n\n• Por injuria de tu empleador, sus familiares o personas cercanas. Si las injurias son discriminatorias, la indemnización es la que ordena el artículo 195.3 del Código del trabajo \n\n• Por disminución, falta de pago o puntualidad en el pago \n\n• Por que se te exige hacer trabajos que no se habían acordado \n\n• Por sufrir acoso laboral permitido o cometido por parte de tu empleador o sus representantes"
+                "description": "Puedes dar por terminado un contrato por estos motivos: <br><br> • Por injuria de tu empleador, sus familiares o personas cercanas. Si las injurias son discriminatorias, la indemnización es la que ordena el artículo 195.3 del Código del trabajo <br><br> • Por disminución, falta de pago o puntualidad en el pago <br><br> • Por que se te exige hacer trabajos que no se habían acordado <br><br> • Por sufrir acoso laboral permitido o cometido por parte de tu empleador o sus representantes"
               },
               {
                 "step_id": 6,
-                "description": "Si tu empleador te despide intempestivamente, deberás ser indemnizada de esta forma: \n\n• Tres meses de remuneración si has trabajado hasta tres años \n\n• Un mes de remuneración por cada año de servicio sin trabajas más de tres años. No puede pasar de 25 remuneraciones \n\n• Un año completo de remuneraciones si has trabajado un año \n\n• Si trabaja a destajo, es decir por unidades de trabajo entregadas, se fija la remuneración mensual en base al promedio recibido en el último año de trabajo o el tiempo que haya servido \n\n• Si has trabajado entre 20 y 25 años ininterrumpidamente, además, tendrñas derecho a una proporción de la jubilación patronal \n\n• Si tu empleador termina el contrato sin causa justa, deberá ratificarse ante una autoridad de trabajo y depositar el valor en las siguientes 48 horas, si no lo hace, la trabajadora se reintegrará a sus labores de inmediato"
+                "description": "Si tu empleador te despide intempestivamente, deberás ser indemnizada de esta forma: <br><br> • Tres meses de remuneración si has trabajado hasta tres años <br><br> • Un mes de remuneración por cada año de servicio sin trabajas más de tres años. No puede pasar de 25 remuneraciones <br><br> • Un año completo de remuneraciones si has trabajado un año <br><br> • Si trabaja a destajo, es decir por unidades de trabajo entregadas, se fija la remuneración mensual en base al promedio recibido en el último año de trabajo o el tiempo que haya servido <br><br> • Si has trabajado entre 20 y 25 años ininterrumpidamente, además, tendrñas derecho a una proporción de la jubilación patronal <br><br> • Si tu empleador termina el contrato sin causa justa, deberá ratificarse ante una autoridad de trabajo y depositar el valor en las siguientes 48 horas, si no lo hace, la trabajadora se reintegrará a sus labores de inmediato"
               }
             ]
           }
