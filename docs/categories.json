@@ -199,6 +199,32 @@
       "id": 7,
       "image": "home_sindicato",
       "title": "ÚNETE AL SINDICATO",
+      "information": {
+        "image": "info_sindicato",
+        "screen_title": "UNTHA",
+        "sections": [
+          {
+            "id": 26,
+            "title": "¿Qué es UNTHA?",
+            "steps": [
+              {
+                "step_id": null,
+                "description": "La Unión de Trabajadoras Remuneradas del Hogar y Afines es un sindicato que busca que se conozcan y garanticen los derechos de las trabajadoras remuneradas del hogar y no sufran violencia.\n\nBuscamos organizar a las trabajadoras, y  empoderarlas con información y acompañandolas para exigir el cumplimiento de sus derechos humanos y laborales."
+              }
+            ]
+          },
+          {
+            "id": 27,
+            "title": "¿Cómo puedes unirte o contactarnos?",
+            "steps": [
+              {
+                "step_id": null,
+                "description": "•   Email: unthaecuador@gmail.com\n• 	Telf: 0960639550\n• 	Facebook: Asociación de trabajadoras remuneradas del hogar\n."
+              }
+            ]
+          }
+        ]
+       },
       "parent_id": null,
       "next_step": null
     },
