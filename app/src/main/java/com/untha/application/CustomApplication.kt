@@ -16,7 +16,7 @@ class CustomApplication : Application() {
     override fun onCreate() {
         super.onCreate()
 
-        ProviderInstaller.installIfNeeded(getApplicationContext())
+        ProviderInstaller.installIfNeeded(applicationContext)
         val sslContext = SSLContext.getInstance("TLSv1.2")
         sslContext.init(null, null, null)
         sslContext.createSSLEngine()

@@ -1,23 +1,21 @@
-package com.untha.view.activities
+package com.untha.view.adapters
 
 import android.os.Build
 import android.os.Bundle
 import android.speech.tts.TextToSpeech
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.RelativeLayout
-import androidx.annotation.RequiresApi
 import androidx.core.view.setPadding
-import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.untha.R
 import com.untha.model.transactionalmodels.Category
 import com.untha.utils.Constants
 import com.untha.utils.PixelConverter
-import com.untha.utils.ToSpeech
 import kotlinx.android.synthetic.main.layout_category_main_item.view.*
 import kotlinx.android.synthetic.main.layout_category_main_item.view.textViewCategoryTitle
 import kotlinx.android.synthetic.main.layout_category_small_item.view.*
@@ -25,20 +23,25 @@ import kotlinx.android.synthetic.main.layout_category_small_item.view.*
 class CategoryListAdapter(
     private val items: List<Category>,
     private val clickListener: OnItemClickListener,
-    private val textToSpeech: TextToSpeech?
+    private val onLongClickListener: OnItemLongClickListener
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+
     interface OnItemClickListener {
         fun onItemClick(category: Category, itemView: View)
+    }
+
+    interface OnItemLongClickListener {
+        fun onItemLongClick(itemView: View, text: String): Boolean
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         if (viewType == Constants.MAIN_VIEW) {
             val view = LayoutInflater.from(parent.context)
-                .inflate(com.untha.R.layout.layout_category_main_item, parent, false)
+                .inflate(R.layout.layout_category_main_item, parent, false)
             return CategoryMainViewHolder(view)
         }
         val view = LayoutInflater.from(parent.context)
-            .inflate(com.untha.R.layout.layout_category_small_item, parent, false)
+            .inflate(R.layout.layout_category_small_item, parent, false)
 
         return CategorySmallViewHolder(view)
     }
@@ -48,43 +51,48 @@ class CategoryListAdapter(
         return items.size
     }
 
-    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (position == Constants.MAIN_VIEW) {
             (holder as CategoryMainViewHolder).bind(
                 items[position],
-                clickListener,
-                textToSpeech
+                clickListener, onLongClickListener
             )
         } else {
-            (holder as CategorySmallViewHolder).bind(items[position], clickListener, textToSpeech)
+            (holder as CategorySmallViewHolder).bind(
+                items[position],
+                clickListener,
+                onLongClickListener
+            )
         }
     }
 
-    class CategoryMainViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
+    inner class CategoryMainViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(
             category: Category,
-            listener: OnItemClickListener,
-            textToSpeech: TextToSpeech?
+            clickListener: OnItemClickListener,
+            longClickListener: OnItemLongClickListener
         ) = with(itemView) {
-            val heightFormula = (PixelConverter.getScreenDpHeight(context) -
-                    Constants.SIZE_OF_ACTION_BAR) * Constants.PERCENTAGE_MAIN_LAYOUT
-            val width = PixelConverter.toPixels(heightFormula, context)
-            val topFormula = (PixelConverter.getScreenDpHeight(context) -
-                    Constants.SIZE_OF_ACTION_BAR) * Constants.MARGIN_TOP_PERCENTAGE
-            val marginTop = PixelConverter.toPixels(topFormula, context)
-            val widthFormula =
-                (PixelConverter.getScreenDpWidth(context)) * Constants.MARGIN_WIDTH_PERCENTAGE
-            val marginLeft = PixelConverter.toPixels(widthFormula, context)
-
-            val params = RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, width)
-            params.setMargins(marginLeft, marginTop, 0, 0)
-
-            rl_main_item.layoutParams = params
             textViewCategoryTitle.text = category.subtitle
+            setLayoutParams2(
+                Constants.PERCENTAGE_MAIN_HEIGHT_LAYOUT,
+                Constants.MARGIN_TOP_PERCENTAGE,
+                rl_main_item, context
+            )
+            loadImage(category)
+            setOnClickListener { view ->
+                clickListener.onItemClick(category, view)
+            }
+            setOnLongClickListener {
+                val prefix = "Ir a, "
+                val text = prefix + category.title
+                longClickListener.onItemLongClick(itemView, text)
+            }
+        }
 
-            val imageView = findViewById<ImageView>(com.untha.R.id.imageView)
+        private fun View.loadImage(
+            category: Category
+        ) {
+            val imageView = findViewById<ImageView>(R.id.imageView)
             val imageUrl = resources.getIdentifier(
                 category.image,
                 "drawable",
@@ -93,93 +101,85 @@ class CategoryListAdapter(
             Glide.with(itemView)
                 .load(imageUrl).fitCenter()
                 .into(imageView)
-            val prefix = "Ir a , "
-            val title = textViewCategoryTitle!!.text.toString()
-            val buttonLayout = findViewById<RelativeLayout>(com.untha.R.id.rl_main_item)
-            buttonLayout.setOnLongClickListener { ToSpeech.speakOut(prefix + title, textToSpeech) }
-
-            setOnClickListener {
-                listener.onItemClick(category, it)
-            }
         }
     }
 
 
-    class CategorySmallViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
-        @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
+    inner class CategorySmallViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(
             category: Category,
-            listener: OnItemClickListener,
-            textToSpeech: TextToSpeech?
+            clickListener: OnItemClickListener,
+            longClickListener: OnItemLongClickListener
         ) {
             with(itemView) {
-                val heightFormula =
-                    (PixelConverter.getScreenDpHeight(context) -
-                            Constants.SIZE_OF_ACTION_BAR) * Constants.PERCENTAGE_SMALL_LAYOUT
-                val width = PixelConverter.toPixels(heightFormula, context)
-
-                val widthFormula =
-                    PixelConverter.getScreenDpWidth(context) * Constants.MARGIN_WIDTH_PERCENTAGE
-                val marginLeft = PixelConverter.toPixels(widthFormula, context)
-
-                val topFormula = (PixelConverter.getScreenDpHeight(context) -
-                        Constants.SIZE_OF_ACTION_BAR) * Constants.MARGIN_SMALL_TOP_PERCENTAGE
-                val marginTop = PixelConverter.toPixels(topFormula, context)
-
-                val params = RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, width)
-                params.setMargins(marginLeft, marginTop, 0, 0)
-                rl_small_item.layoutParams = params
 
                 textViewCategoryTitle.text = category.title
-                val imageView = findViewById<ImageView>(com.untha.R.id.imageView)
-                imageView.setPadding((heightFormula / Constants.PERCENTAGE_PADDING_SMALL_IMAGE_VIEW).toInt())
-
-                val imageUrl = resources.getIdentifier(
-                    category.image,
-                    "drawable",
-                    context.applicationInfo.packageName
+                setLayoutParams2(
+                    Constants.PERCENTAGE_SMALL_HEIGHT_LAYOUT,
+                    Constants.MARGIN_SMALL_TOP_PERCENTAGE,
+                    rl_small_item, context
                 )
-
-                Glide.with(itemView)
-                    .load(imageUrl)
-                    .into(imageView)
+                loadSmallImage(category)
 
                 val prefix = "Ir a , "
-
-                val title = textViewCategoryTitle!!.text.toString()
-                val buttonLayout = findViewById<RelativeLayout>(com.untha.R.id.rl_small_item)
-                buttonLayout.setOnLongClickListener {
-                    ToSpeech.speakOut(
-                        prefix + title,
-                        textToSpeech
-                    )
-                }
-
+                val text = prefix + category.title
                 setOnClickListener {
-                    listener.onItemClick(category, it)
+                    clickListener.onItemClick(category, itemView)
+                }
+                setOnLongClickListener {
+                    longClickListener.onItemLongClick(itemView, text)
                 }
 
-                itemView.setOnClickListener {
-                    if (category.id == 2) {
-                        itemView.findNavController().navigate(R.id.rightsFragment)
-                    } else {
-
-                        val categoryBundle = Bundle().apply {
-                            putSerializable("category", category)
-                        }
-
-                        itemView?.findNavController()
-                            ?.navigate(R.id.genericInfoFragment, categoryBundle)
-                    }
-                }
             }
         }
 
+        private fun View.loadSmallImage(
+            category: Category
+        ) {
+            val imageView = findViewById<ImageView>(R.id.imageView)
+            val cardHeightInDps =
+                (PixelConverter.getScreenDpHeight(context) -
+                        Constants.SIZE_OF_ACTION_BAR) * Constants.PERCENTAGE_SMALL_HEIGHT_LAYOUT
+            imageView.setPadding((cardHeightInDps / Constants.PERCENTAGE_PADDING_SMALL_IMAGE_VIEW).toInt())
+
+            val imageUrl = resources.getIdentifier(
+                category.image,
+                "drawable",
+                context.applicationInfo.packageName
+            )
+
+            Glide.with(itemView)
+                .load(imageUrl)
+                .into(imageView)
+        }
+
+    }
+
+
+    private fun setLayoutParams2(
+        percentageHeightLayout: Double,
+        marginTopPercentage: Double,
+        relativeLayout: RelativeLayout, context: Context
+    ) {
+        val cardHeightInDps =
+            (PixelConverter.getScreenDpHeight(context) -
+                    Constants.SIZE_OF_ACTION_BAR) * percentageHeightLayout
+        val width = PixelConverter.toPixels(cardHeightInDps, context)
+        val topMarginDps = (PixelConverter.getScreenDpHeight(context) -
+                Constants.SIZE_OF_ACTION_BAR) * marginTopPercentage
+        val marginTop = PixelConverter.toPixels(topMarginDps, context)
+        val cardWidthInDps =
+            PixelConverter.getScreenDpWidth(context) * Constants.MARGIN_WIDTH_PERCENTAGE
+        val marginLeft = PixelConverter.toPixels(cardWidthInDps, context)
+
+
+        val params = RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, width)
+        params.setMargins(marginLeft, marginTop, 0, 0)
+        relativeLayout.layoutParams = params
     }
 
     override fun getItemViewType(position: Int): Int {
-        if (position == Constants.PRIMER_ELEMENTO_MAIN_ITEM_RECYCLE_VIEW) {
+        if (position == Constants.MAIN_ITEM_RECYCLE_VIEW) {
             return Constants.MAIN_VIEW
         }
         return Constants.SMALL_VIEW

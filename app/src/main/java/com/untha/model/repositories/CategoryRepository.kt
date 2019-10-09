@@ -6,17 +6,12 @@ import com.untha.model.models.CategoryModel
 
 class CategoryRepository(database: ApplicationDatabase) {
 
-  //  private var categoryDao: RightsDao
     private var categoryDao: CategoryDao = database.categoryDao()
 
 
     fun insert(categoryModels: List<CategoryModel>) {
         categoryDao.insert(categoryModels)
     }
-
-//    fun getAll(): LiveData<List<Category>> {
-//        return categoryDao.getAll()
-//    }
 
 }
 

@@ -12,7 +12,7 @@ interface CategoryWithRelationsDao {
     fun getAllCategories(): LiveData<List<QueryingCategory>>
 
     @Query("SELECT * FROM CategoryModel WHERE parent_id=2 ORDER BY id ASC")
-    fun getAllRightsCategoriess(): LiveData<List<QueryingCategory>>
+    fun getAllRightsCategories(): LiveData<List<QueryingCategory>>
 
     @Query("SELECT * FROM CategoryModel WHERE parent_id is null")
     fun findMain(): LiveData<List<QueryingCategory>>

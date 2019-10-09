@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.RelativeLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.untha.R
 import com.untha.model.transactionalmodels.Category
@@ -19,8 +20,7 @@ import org.koin.android.viewmodel.ext.android.viewModel
 
 
 class RightsFragment : Fragment(),
-    RightsAdapter.OnItemClickListener{
-
+    RightsAdapter.OnItemClickListener {
 
     private val viewModel: RightsViewModel by viewModel()
 
@@ -37,20 +37,16 @@ class RightsFragment : Fragment(),
         return inflater.inflate(R.layout.layout_rights, container, false)
     }
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setMarginsToRecyclerView()
-        // Start observing people list
         viewModel.getRightsCategoryModels().observe(this, Observer { queryingCategories ->
             val categories = viewModel.getRightCategories(queryingCategories)
+            println("Llega aqui")
             populateCategoryList(categories)
         })
     }
 
-    /**
-     * Populates categoryRecyclerView with all people info
-     */
     private fun populateCategoryList(categoryList: List<Category>) {
         val layoutManager = GridLayoutManager(context, Constants.SPAN_TWO_COLUMNS)
         categoryRecyclerView.layoutManager = layoutManager
@@ -60,11 +56,10 @@ class RightsFragment : Fragment(),
 
     private fun setMarginsToRecyclerView() {
 
-        val topFormula =
+        val marginInDps =
             PixelConverter.getScreenDpHeight(context) * Constants.MARGIN_TOP_PERCENTAGE
         context?.let { context ->
-            val pixelBottomMargin = PixelConverter.toPixels(topFormula, context)
-
+            val pixelBottomMargin = PixelConverter.toPixels(marginInDps, context)
 
             val param = RelativeLayout.LayoutParams(
                 RelativeLayout.LayoutParams.MATCH_PARENT,
@@ -74,4 +69,13 @@ class RightsFragment : Fragment(),
             categoryRecyclerView.layoutParams = param
         }
     }
+
+    override fun onItemClick(category: Category, itemView: View) {
+        val categoryBundle = Bundle().apply {
+            putSerializable(Constants.CATEGORY_PARAMETER, category)
+        }
+        itemView.findNavController()
+            .navigate(R.id.genericInfoFragment, categoryBundle)
+    }
+
 }

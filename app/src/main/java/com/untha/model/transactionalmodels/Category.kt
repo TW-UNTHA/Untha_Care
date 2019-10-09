@@ -4,7 +4,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class Category (
+data class Category(
     val id: Int,
     val title: String,
     val subtitle: String? = null,
@@ -12,4 +12,4 @@ data class Category (
     @SerialName("parent_id") val parentId: Int? = null,
     @SerialName("next_step") val nextStep: Int? = null,
     val information: CategoryInformation? = null
-): java.io.Serializable
+) : java.io.Serializable

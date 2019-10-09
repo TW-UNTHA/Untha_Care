@@ -1,5 +1,5 @@
 package com.untha.view.fragments
-import android.annotation.SuppressLint
+
 import android.graphics.Typeface
 import android.os.Bundle
 import android.text.util.Linkify
@@ -35,15 +35,15 @@ import org.jetbrains.anko.textView
 import org.jetbrains.anko.verticalLayout
 import org.jetbrains.anko.wrapContent
 
-class GenericInfoStepFragment : Fragment(){
+class GenericInfoStepFragment : Fragment() {
 
-    private  lateinit var  mainActivity: MainActivity
+    private lateinit var mainActivity: MainActivity
 
     private lateinit var category: Category
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val bundle = arguments
-            category = bundle?.get("category") as Category
+        category = bundle?.get(Constants.CATEGORY_PARAMETER) as Category
     }
 
     override fun onCreateView(
@@ -54,29 +54,26 @@ class GenericInfoStepFragment : Fragment(){
         return createMainLayout()
     }
 
-    @SuppressLint("ResourceAsColor")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         with(view as _LinearLayout) {
             verticalLayout {
-
-                val heightFormula = (PixelConverter.getScreenDpHeight(context) -
+                val imageSizeInDps = (PixelConverter.getScreenDpHeight(context) -
                         Constants.SIZE_OF_ACTION_BAR) * Constants.GENERIC_PERCENTAGE_PLAYER_HEADER
-                val totalHeight = PixelConverter.toPixels(heightFormula, context)
-
+                val imageHeight = toPixels(imageSizeInDps, context)
                 val marginTop = calculateTopMargin()
                 val marginLeft = calculateMarginLeftAndRight()
 
                 verticalLayout {
                     loadImage(view)
-                    backgroundDrawable =  ContextCompat.getDrawable(
-                        context,R.drawable.hearder_info_generic
+                    backgroundDrawable = ContextCompat.getDrawable(
+                        context, R.drawable.hearder_info_generic
                     )
 
-                }.lparams(width = ViewGroup.LayoutParams.MATCH_PARENT ,height = totalHeight ){
-                    topMargin=Constants.MARGIN_HIDDEN_PLAYER
-                    leftMargin=Constants.MARGIN_HIDDEN_PLAYER
-                    rightMargin=Constants.MARGIN_HIDDEN_PLAYER
+                }.lparams(width = ViewGroup.LayoutParams.MATCH_PARENT, height = imageHeight) {
+                    topMargin = Constants.MARGIN_HIDDEN_PLAYER
+                    leftMargin = Constants.MARGIN_HIDDEN_PLAYER
+                    rightMargin = Constants.MARGIN_HIDDEN_PLAYER
                 }
 
                 scrollView {
@@ -84,15 +81,14 @@ class GenericInfoStepFragment : Fragment(){
                         loadInformationDescription()
                         buildSections()
                     }
-
-                    backgroundColor = ContextCompat.getColor(context, R.color.colorBackgroundGenericInfo)
+                    backgroundColor =
+                        ContextCompat.getColor(context, R.color.colorBackgroundGenericInfo)
                     lparams(width = matchParent, height = matchParent) {
                         leftMargin = marginLeft * Constants.GENERIC_STEP_MARGIN_MULTIPLIER
                         rightMargin = marginLeft
-                        bottomMargin= marginTop * Constants.GENERIC_STEP_MARGIN_MULTIPLIER
+                        bottomMargin = marginTop * Constants.GENERIC_STEP_MARGIN_MULTIPLIER
                     }
                 }
-
             }.lparams(width = matchParent, height = matchParent)
         }
     }
@@ -127,7 +123,8 @@ class GenericInfoStepFragment : Fragment(){
     private fun createMainLayout(): View {
         return UI {
             verticalLayout {
-                backgroundColor = ContextCompat.getColor(context, R.color.colorBackgroundGenericInfo)
+                backgroundColor =
+                    ContextCompat.getColor(context, R.color.colorBackgroundGenericInfo)
                 lparams(width = matchParent, height = matchParent)
             }
         }.view
@@ -138,10 +135,10 @@ class GenericInfoStepFragment : Fragment(){
         category.information?.sections?.let { sections ->
             sections.map { section ->
                 val title = section.title
-                if(title.isNotEmpty()){
-                    title?.let {
+                if (title.isNotEmpty()) {
+                    title.let {
                         textView {
-                            text =title
+                            text = title
                             textColor =
                                 ContextCompat.getColor(
                                     context,
@@ -151,14 +148,12 @@ class GenericInfoStepFragment : Fragment(){
                             textSizeDimen = R.dimen.text_size_content
 
 
-
                         }.lparams(height = wrapContent, width = matchParent) {
                             bottomMargin = dip(calculateTopMargin())
                             topMargin = dip(calculateTopMargin())
                         }
                     }
                 }
-
                 buildSteps(section)
 
             }
@@ -181,17 +176,19 @@ class GenericInfoStepFragment : Fragment(){
     ): TextView {
         return textView {
             text = step.description
-            typeface = ResourcesCompat.getFont(context.applicationContext, R.font.proxima_nova_light)
+            typeface =
+                ResourcesCompat.getFont(context.applicationContext, R.font.proxima_nova_light)
             this.gravity = Gravity.AXIS_Y_SHIFT
-            linksClickable =  true
+            linksClickable = true
             Linkify.addLinks(this, Linkify.WEB_URLS)
-            setLinkTextColor(resources.getColor(R.color.colorGenericTitle))
+            setLinkTextColor(ContextCompat.getColor(context, R.color.colorGenericTitle))
             textSizeDimen = R.dimen.text_size_content
         }.lparams(width = wrapContent, height = wrapContent)
     }
 
     private fun @AnkoViewDslMarker _LinearLayout.buildRoundedCircleTextView(
-        step: Step) {
+        step: Step
+    ) {
         step.stepId?.let {
             textView {
                 text = step.stepId.toString()
@@ -216,25 +213,27 @@ class GenericInfoStepFragment : Fragment(){
 
     private fun @AnkoViewDslMarker _LinearLayout.loadInformationDescription() {
 
-        val description = category?.information?.description
-        if(description?.isNotEmpty()!!){
-           description?.let {
-               textView {
-                   text = description
-                   textSizeDimen = R.dimen.text_size_content
-                   typeface = ResourcesCompat.getFont(context.applicationContext, R.font.proxima_nova_light)
-               }.lparams(height = wrapContent, width = matchParent) {
-                   topMargin = dip( calculateTopMargin())
-               }
-           }
-       }
+        val description = category.information?.description
+        if (description?.isNotEmpty() == true) {
+            description.let {
+                textView {
+                    text = description
+                    textSizeDimen = R.dimen.text_size_content
+                    typeface = ResourcesCompat.getFont(
+                        context.applicationContext,
+                        R.font.proxima_nova_light
+                    )
+                }.lparams(height = wrapContent, width = matchParent) {
+                    topMargin = dip(calculateTopMargin())
+                }
+            }
+        }
     }
 
     override fun onResume() {
         super.onResume()
         mainActivity.supportActionBar?.title = category.information?.alias
     }
-
 
 
 }

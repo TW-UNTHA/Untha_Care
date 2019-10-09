@@ -1,9 +1,8 @@
-package com.untha.viewmodels
+package com.untha.model.models
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.untha.model.mappers.CategoryMapper
-import com.untha.model.models.QueryingCategory
 import com.untha.model.repositories.CategoryWithRelationsRepository
 import com.untha.model.transactionalmodels.Category
 

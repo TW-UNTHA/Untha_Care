@@ -10,6 +10,7 @@ import com.untha.di.networkModule
 import com.untha.di.persistenceModule
 import com.untha.di.viewModelsModule
 import com.untha.model.mappers.CategoryMapper
+import com.untha.model.models.CategoryViewModel
 import com.untha.model.models.QueryingCategory
 import com.untha.model.repositories.CategoryWithRelationsRepository
 import com.utils.MockObjects

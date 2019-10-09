@@ -9,4 +9,4 @@ data class CategoryInformation(
     val image: String? = null,
     val alias: String? = null,
     val sections: List<Section>? = null
-): java.io.Serializable
+) : java.io.Serializable

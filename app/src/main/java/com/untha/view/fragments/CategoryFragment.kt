@@ -7,24 +7,48 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.RelativeLayout
 import androidx.lifecycle.Observer
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.untha.R
+import com.untha.model.models.CategoryViewModel
 import com.untha.model.transactionalmodels.Category
 import com.untha.utils.Constants
 import com.untha.utils.PixelConverter
-import com.untha.view.activities.CategoryListAdapter
-import com.untha.viewmodels.CategoryViewModel
+import com.untha.utils.ToSpeech
+import com.untha.view.adapters.CategoryListAdapter
 import kotlinx.android.synthetic.main.fragment_category.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class CategoryFragment : BaseFragment(),
-    CategoryListAdapter.OnItemClickListener {
+    CategoryListAdapter.OnItemClickListener, CategoryListAdapter.OnItemLongClickListener {
+
+    companion object {
+        const val RIGHTS_CATEGORY = 2
+        const val ROUTES_CATEGORY = 1
+    }
+
     private lateinit var categoryListAdapter: CategoryListAdapter
     private val categoryViewModel: CategoryViewModel by viewModel()
 
 
     override fun onItemClick(category: Category, itemView: View) {
-        println("default just by gradle.detekt")
+        when (category.id) {
+            RIGHTS_CATEGORY -> itemView.findNavController().navigate(R.id.rightsFragment)
+            ROUTES_CATEGORY -> println("To be implemented")
+            else -> {
+                val categoryBundle = Bundle().apply {
+                    putSerializable("category", category)
+                }
+
+                itemView.findNavController()
+                    .navigate(R.id.genericInfoFragment, categoryBundle)
+            }
+        }
+    }
+
+    override fun onItemLongClick(itemView: View, text: String): Boolean {
+        ToSpeech.speakOut(text, textToSpeech)
+        return true
     }
 
     override fun onCreateView(
@@ -69,7 +93,7 @@ class CategoryFragment : BaseFragment(),
         val gridLayoutManager = GridLayoutManager(context, Constants.SPAN_THREE_COLUMNS)
         gridLayoutManager.spanSizeLookup = onSpanSizeLookup
         categoryRecyclerView.layoutManager = gridLayoutManager
-        categoryListAdapter = CategoryListAdapter(categoryList, this, textToSpeech)
+        categoryListAdapter = CategoryListAdapter(categoryList, this, this)
         categoryRecyclerView.adapter = categoryListAdapter
     }
 
