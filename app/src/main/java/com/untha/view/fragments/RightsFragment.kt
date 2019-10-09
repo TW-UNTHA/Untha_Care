@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.RelativeLayout
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
@@ -19,7 +18,7 @@ import kotlinx.android.synthetic.main.layout_rights.categoryRecyclerView
 import org.koin.android.viewmodel.ext.android.viewModel
 
 
-class RightsFragment : Fragment(),
+class RightsFragment : BaseFragment(),
     RightsAdapter.OnItemClickListener {
 
     private val viewModel: RightsViewModel by viewModel()
@@ -42,7 +41,6 @@ class RightsFragment : Fragment(),
         setMarginsToRecyclerView()
         viewModel.getRightsCategoryModels().observe(this, Observer { queryingCategories ->
             val categories = viewModel.getRightCategories(queryingCategories)
-            println("Llega aqui")
             populateCategoryList(categories)
         })
     }
@@ -75,7 +73,7 @@ class RightsFragment : Fragment(),
             putSerializable(Constants.CATEGORY_PARAMETER, category)
         }
         itemView.findNavController()
-            .navigate(R.id.genericInfoFragment, categoryBundle)
+            .navigate(R.id.genericInfoFragment, categoryBundle, navOptions, null)
     }
 
 }

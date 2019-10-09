@@ -3,10 +3,20 @@ package com.untha.view.fragments
 import android.speech.tts.TextToSpeech
 import android.util.Log
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavOptions
+import com.untha.R
 import java.util.*
 
 open class BaseFragment : Fragment(), TextToSpeech.OnInitListener {
     var textToSpeech: TextToSpeech? = null
+
+    val navOptions =
+        NavOptions.Builder().setEnterAnim(R.anim.slide_in_left)
+            .setExitAnim(R.anim.slide_out_right)
+            .setPopEnterAnim(R.anim.slide_in_left)
+            .setPopExitAnim(R.anim.slide_out_right).build()
+
+
     override fun onInit(status: Int) {
         val language = "spa"
         val country = "MEX"

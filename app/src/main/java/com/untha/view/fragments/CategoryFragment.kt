@@ -33,15 +33,19 @@ class CategoryFragment : BaseFragment(),
 
     override fun onItemClick(category: Category, itemView: View) {
         when (category.id) {
-            RIGHTS_CATEGORY -> itemView.findNavController().navigate(R.id.rightsFragment)
+            RIGHTS_CATEGORY -> itemView.findNavController().navigate(
+                R.id.rightsFragment,
+                null,
+                navOptions,
+                null
+            )
             ROUTES_CATEGORY -> println("To be implemented")
             else -> {
                 val categoryBundle = Bundle().apply {
                     putSerializable("category", category)
                 }
-
                 itemView.findNavController()
-                    .navigate(R.id.genericInfoFragment, categoryBundle)
+                    .navigate(R.id.genericInfoFragment, categoryBundle, navOptions, null)
             }
         }
     }
