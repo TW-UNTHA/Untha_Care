@@ -82,8 +82,53 @@
       "image": "home_contratos",
       "title": "CONTRATOS",
       "information": {
-        "description": "",
+        "description": "Obtener un contrato de trabajo es importante porque permite formalizar tu relación con tu empleador. Las clausulas de tu contrato te ayudarán a identificar y reportar incumplimiento de las mismas o de tus derechos. Un contrato verbal es aceptado, pero se recomienda tener un contrato escrito porque es más fácil usarlo como prueba si lo llegas a necesitar.",
         "image": "info_contratos"
+        "screen_title": "CONTRATOS",
+        "sections": [
+          {
+            "id": 25,
+            "title": "¿Qué debe tener un contrato?",
+            "steps": [ 
+                  {
+                    "step_id": 1,
+                    "description": "Tus responsabilidades y las actividades que realizarás"
+                  },
+                  {
+                    "step_id": 2,
+                    "description": "Tu horario de trabajo o la duración de tu jornada y los días de trabajo. Es preferible que sea a tiempo completo, es decir 8 horas diaras por 5 días a la semana o tiempo parcial, 4 horas diarias"
+                  },
+                  {
+                    "step_id": 3,
+                    "description": "El monto de tu salario que no puede ser menor al mínimo básico unificado si trabajas a tiempo completo, o un proporcional al mismo si trabajas a tiempo parcial y la regularidad con la que se te harán los pagos."
+                  },                  
+                  {
+                    "step_id": 4,
+                    "description": "Información y montos correspondientes al pago de horas extra"
+                  }, 
+                  {
+                    "step_id": 5,
+                    "description": "Información sobre tus vacaciones, que no pueden ser menores a 15 días al año después del primer año de trabajo"
+                  },
+                  {
+                    "step_id": 6,
+                    "description": "Información sobre el período de prueba que no puede ser mayor a 15 días"
+                  }, 
+                  {
+                    "step_id": 7,
+                    "description": "Los motivos por los que el empleador puede terminar el contrato o despedirte. Estos motivos nunca pueden ser tu embarazo, edad, apariencia o tu estado de salud física o mental"
+                  }, 
+                  {
+                    "step_id": 8,
+                    "description": "Datos sobre tu empleador o empresa y el lugar donde trabajarás"
+                  }, 
+                  {
+                    "step_id": 9,
+                    "description": "Tus datos personales"
+                  }
+             ]
+          }
+        ] 
       },
       "parent_id": null,
       "next_step": null
