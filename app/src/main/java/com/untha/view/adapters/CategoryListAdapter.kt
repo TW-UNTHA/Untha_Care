@@ -1,8 +1,5 @@
 package com.untha.view.adapters
 
-import android.os.Build
-import android.os.Bundle
-import android.speech.tts.TextToSpeech
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
