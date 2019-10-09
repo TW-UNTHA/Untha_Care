@@ -27,6 +27,53 @@
       "id": 4,
       "image": "home_denuncias",
       "title": "CÓMO HACER DENUNCIAS",
+      "information": {
+        "description": "DENUNCIAS LABORALES \n\n\n Presenta este tipo de denuncia cuando tus derechos laborales no se están cumpliendo. Por ejemplo, cuando existen irregularidades en tu salario, liquidación, afiliación al IESS, vacaciones, etcétera.",
+        "image": "info_denuncias",
+        "screen_title": "DENUNCIAS",
+        "sections": [
+          {
+            "id": 2,
+            "title": "¿En dónde?",
+            "steps": [
+              {
+                "step_id": null,
+                "description": "• 	Direcciones Regionales del Trabajo \n• 	Inspectorías de Trabajo \n• 	Llamar al 1800 266822 \n• 	Defensoría Pública"
+              }
+            ]
+          },
+         {
+            "id": 2,
+            "title": "¿Cómo?",
+            "steps": [
+              {
+                "step_id": null,
+                "description": "Presenta un oficia con tus datos de identidad y contacto y los de tu empleador e indica los motivos por los que estás denunciando. Prueba lo que ha pasado usando grabaciones de llamadas, mensajes de texto, fotografías, documentos escritos. Cuando presentes una denuncia solicita un número para hacerle seguimiento. Deben darte una respuesta en un plazo máximo de 15 días. "
+              }
+            ]
+          },
+         {
+            "id": 3,
+            "title": "¿En dónde?",
+            "steps": [
+              {
+                "step_id": null,
+                "description": "	•	Unidad Judicial de Violencia contra la Mujer y la Famlia \n•	Fiscalía \n•	1800 266 833 - Ministerio de Trabajo \n\nSi el Delito es de emergencia, llamar a:\n•	911 - Servicio Integrado de Seguridad"
+              }
+            ]
+          },
+          {
+            "id": 2,
+            "title": "¿Cómo?",
+            "steps": [
+              {
+                "step_id": null,
+                "description": "Necesitas llevar tu cédula de identidad, no necesitas un abogado y es totalmente gratuito"
+              }
+            ]
+          }
+        ]
+      },
       "parent_id": null,
       "next_step": null
     },
