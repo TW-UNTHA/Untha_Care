@@ -33,7 +33,7 @@
         "screen_title": "DENUNCIAS",
         "sections": [
           {
-            "id": 2,
+            "id": 21,
             "title": "¿En dónde?",
             "steps": [
               {
@@ -43,7 +43,7 @@
             ]
           },
          {
-            "id": 2,
+            "id": 22,
             "title": "¿Cómo?",
             "steps": [
               {
@@ -53,7 +53,7 @@
             ]
           },
          {
-            "id": 3,
+            "id": 23,
             "title": "¿En dónde?",
             "steps": [
               {
@@ -63,7 +63,7 @@
             ]
           },
           {
-            "id": 2,
+            "id": 24,
             "title": "¿Cómo?",
             "steps": [
               {
