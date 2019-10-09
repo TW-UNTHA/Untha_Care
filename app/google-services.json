@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "7372000327",
+    "firebase_url": "https://untha-care.firebaseio.com",
+    "project_id": "untha-care",
+    "storage_bucket": "untha-care.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:7372000327:android:77572190660413f55c3562",
+        "android_client_info": {
+          "package_name": "com.untha"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "7372000327-qf1h8gmkvqv9v2naanl7j7rvt31l2atm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDl8uslskuxZNnwmIqvlAlgWuWrPI04yZc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "7372000327-qf1h8gmkvqv9v2naanl7j7rvt31l2atm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
