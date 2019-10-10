@@ -27,7 +27,7 @@
       "id": 4,
       "image": "home_denuncias",
       "title": "CÓMO HACER DENUNCIAS",
-      "information": {
+      "information": [ {
         "description": "DENUNCIAS LABORALES <br><br><br> Presenta este tipo de denuncia cuando tus derechos laborales no se están cumpliendo. Por ejemplo, cuando existen irregularidades en tu salario, liquidación, afiliación al IESS, vacaciones, etcétera.",
         "image": "info_denuncias",
         "screen_title": "DENUNCIAS",
@@ -73,7 +73,7 @@
             ]
           }
         ]
-      },
+      }],
       "parent_id": null,
       "next_step": null
     },
@@ -81,7 +81,7 @@
       "id": 5,
       "image": "home_contratos",
       "title": "CONTRATOS",
-      "information": {
+      "information":[ {
         "description": "Obtener un contrato de trabajo es importante porque permite formalizar tu relación con tu empleador. Las clausulas de tu contrato te ayudarán a identificar y reportar incumplimiento de las mismas o de tus derechos. Un contrato verbal es aceptado, pero se recomienda tener un contrato escrito porque es más fácil usarlo como prueba si lo llegas a necesitar.",
         "image": "info_contratos"
         "screen_title": "CONTRATOS",
@@ -129,7 +129,7 @@
              ]
           }
         ] 
-      },
+      }],
       "parent_id": null,
       "next_step": null
     },
@@ -137,7 +137,7 @@
       "id": 6,
       "image": "home_afiliciacion",
       "title": "VERIFICAR AFILIACIÓN",
-      "information": {
+      "information":[{
         "description": "El empleador debe inscribirte en el Instituto Ecuatoriano de Seguridad Social (IESS), desde el primer día de labores. Dará aviso de tu entrada en los primeros 15 días. Avisará sobre tu salida, sueldos y salarios, accidentes de trabajo y enfermedades que se produzcan en él. Y cumplirá con las demás obligaciones legales sobre seguridad social.Para verificar si estás afiliada sigue estos pasos:",
         "image": "info_afiliacion",
         "screen_title": "AFILIACIÓN AL IESS",
@@ -191,7 +191,7 @@
             ]
           }
         ]
-      },
+      }],
       "parent_id": null,
       "next_step": null
     },
@@ -199,7 +199,7 @@
       "id": 7,
       "image": "home_sindicato",
       "title": "ÚNETE AL SINDICATO",
-      "information": {
+      "information": [{
         "image": "info_sindicato",
         "screen_title": "UNTHA",
         "sections": [
@@ -224,7 +224,7 @@
             ]
           }
         ]
-       },
+       }],
       "parent_id": null,
       "next_step": null
     },
@@ -234,7 +234,7 @@
       "title": "SALARIO Y BENEFICIOS",
       "parent_id": 2,
       "next_step": 9,
-      "information": {
+      "information": [{
         "image": "info_salario",
         "screen_title": "SALARIO Y BENEFICIOS",
         "sections": [
@@ -293,7 +293,7 @@
             ]
           }
         ]
-      }
+      }]
     },
     {
       "id": 9,
@@ -301,7 +301,7 @@
       "title": "JORNADA DE TRABAJO Y VACACIONES",
       "parent_id": 2,
       "next_step": 10,
-      "information": {
+      "information":[{
         "image": "info_vacaciones",
         "screen_title": "JORNADA Y VACACIONES",
         "sections": [
@@ -344,7 +344,7 @@
             ]
           }
         ]
-      }
+      }]
     },
     {
       "id": 10,
@@ -352,7 +352,7 @@
       "title": "EMBARAZO",
       "parent_id": 2,
       "next_step": 11,
-      "information": {
+      "information": [{
         "image": "info_embarazo",
         "screen_title": "MATERNIDAD",
         "sections": [
@@ -371,7 +371,7 @@
             ]
           }
         ]
-      }
+      }]
     },
     {
       "id": 11,
@@ -379,7 +379,7 @@
       "title": "NIÑAS Y ADOLESCENTES ",
       "parent_id": 2,
       "next_step": 12,
-      "information": {
+      "information": [{
         "image": "info_adolescentes",
         "screen_title": "NIÑAS Y ADOLESCENTES",
         "sections": [
@@ -418,7 +418,7 @@
             ]
           }
         ]
-      }
+      }]
     },
     {
       "id": 12,
@@ -426,7 +426,7 @@
       "title": "DESPIDOS Y TÉRMINO DE CONTRATOS",
       "parent_id": 2,
       "next_step": 13,
-      "information": {
+      "information": [{
         "image": "info_despidos",
         "screen_title": "DESPIDOS Y TÉRMINO",
         "sections": [
@@ -461,7 +461,7 @@
             ]
           }
         ]
-      }
+      }]
     },
     {
       "id": 13,
@@ -469,7 +469,7 @@
       "image": "derechos_leyes",
       "parent_id": 2,
       "next_step": null,
-      "information": {
+      "information": [{
         "image": "info_leyes",
         "screen_title": "LEYES",
         "sections": [
@@ -604,7 +604,7 @@
             ]
           }
         ]
-      }
+      }]
     }
   ]
 }
