@@ -8,7 +8,7 @@ import kotlinx.serialization.Serializable
 class QueryingCategoryInformation {
 
     @Embedded
-    var categoryInformationModel: CategoryInformationModel? = null
+    var categoryInformation: CategoryInformationModel? = null
 
     @Relation(
         parentColumn = "id",

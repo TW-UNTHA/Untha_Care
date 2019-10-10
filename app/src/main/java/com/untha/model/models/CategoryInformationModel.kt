@@ -17,8 +17,9 @@ import kotlinx.serialization.Serializable
         onDelete = CASCADE
     )]
 )
+
 data class CategoryInformationModel(
-    @PrimaryKey var id: Int = 0,
+    @PrimaryKey(autoGenerate = true) var id: Int,
     var description: String = "",
     var image: String = "",
     @ColumnInfo(name = "screen_title")
@@ -27,4 +28,6 @@ data class CategoryInformationModel(
     var categoryId: Int = 0,
     @Ignore
     var sections: List<SectionModel>? = null
-) : BaseModel()
+) : BaseModel() {
+    constructor() : this(0, "", "","", 0)
+}

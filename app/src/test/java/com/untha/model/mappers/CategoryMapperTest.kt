@@ -38,6 +38,7 @@ class CategoryMapperTest {
         )
         val categoryInformation =
             CategoryInformation(
+                1,
                 description = generateRandomString(5),
                 image = generateRandomString(size = 5),
                 screenTitle = generateRandomString(size = 5),
@@ -50,7 +51,7 @@ class CategoryMapperTest {
             generateRandomString(5),
             generateIntBetween0AndTwenty(),
             generateIntBetween0AndTwenty(),
-            categoryInformation
+            listOf(categoryInformation)
         )
 
         val stepModel = SectionStepModel(0, step.description, step.stepId, section.id)
@@ -60,7 +61,7 @@ class CategoryMapperTest {
         val sectionModel2 =
             SectionModel(section2.id, section2.title, category.id, listOf(stepModel2))
         val informationModel = CategoryInformationModel(
-            category.id,
+            categoryInformation.id,
             categoryInformation.description!!,
             categoryInformation.image!!,
             categoryInformation.screenTitle!!,
@@ -75,17 +76,12 @@ class CategoryMapperTest {
             category.image,
             category.parentId,
             category.nextStep,
-            informationModel
+            listOf(informationModel)
         )
 
         val categoryMapper = CategoryMapper()
         val result = categoryMapper.mapToModel(category)
-
-        assertThat(result.categoryInformationModel, `is`(informationModel))
-        assertThat(result.categoryInformationModel?.sections!![0], `is`(sectionModel))
-        assertThat(result.categoryInformationModel?.sections!![0].steps!![0], `is`(stepModel))
-        assertThat(result.categoryInformationModel?.sections!![1], `is`(sectionModel2))
-        assertThat(result.categoryInformationModel?.sections!![1].steps!![0], `is`(stepModel2))
+        assertThat(result.categoryInformationModel, `is`(categoryModel.categoryInformationModel))
         assertThat(result.id, `is`(categoryModel.id))
         assertThat(result.title, `is`(categoryModel.title))
         assertThat(result.subtitle, `is`(categoryModel.subtitle))
@@ -127,13 +123,13 @@ class CategoryMapperTest {
 
         val queryingCategoryInformation =
             QueryingCategoryInformation().apply {
-                categoryInformationModel = categoryInformationModel1
+                categoryInformation=categoryInformationModel1
                 this.queryingSection = listOf(queryingSection)
             }
 
         val queryingCategory = QueryingCategory().apply {
             categoryModel = categoryModel1
-            this.queryingCategoryInformation = queryingCategoryInformation
+            this.queryingCategoryInformation = listOf(queryingCategoryInformation)
         }
 
 
@@ -144,13 +140,13 @@ class CategoryMapperTest {
 
         val queryingCategoryInformation2 =
             QueryingCategoryInformation().apply {
-                categoryInformationModel = categoryInformationModel2
+                categoryInformation = categoryInformationModel2
                 this.queryingSection = listOf(queryingSection2)
             }
 
         val queryingCategory2 = QueryingCategory().apply {
             categoryModel = categoryModel2
-            this.queryingCategoryInformation = queryingCategoryInformation2
+            this.queryingCategoryInformation = listOf(queryingCategoryInformation2)
         }
 
         val expectedStep = Step(stepModel1.stepId!!, stepModel1.description)
@@ -191,7 +187,7 @@ class CategoryMapperTest {
             categoryModel1.image,
             categoryModel1.parentId,
             categoryModel1.nextStep,
-            expectedCategoryInformation
+            listOf(expectedCategoryInformation)
         )
 
         val expectedCategory2 = Category(
@@ -201,7 +197,7 @@ class CategoryMapperTest {
             categoryModel2.image,
             categoryModel2.parentId,
             categoryModel2.nextStep,
-            expectedCategoryInformation2
+            listOf(expectedCategoryInformation2)
         )
 
         val categoryMapper = CategoryMapper()

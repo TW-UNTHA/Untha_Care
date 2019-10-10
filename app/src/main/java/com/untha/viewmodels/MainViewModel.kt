@@ -65,7 +65,9 @@ class MainViewModel(
         val categoryInformationModels = mutableListOf<CategoryInformationModel>()
         categoryModels.map { category ->
             category.categoryInformationModel?.let { categoryInformationModel ->
-                categoryInformationModels.add(categoryInformationModel)
+                categoryInformationModel.map {categoryInformation->
+                    categoryInformationModels.add(categoryInformation)
+                }
             }
 
         }
@@ -80,8 +82,11 @@ class MainViewModel(
         val informationSections = mutableListOf<SectionModel>()
         categoryModels.map { category ->
             category.categoryInformationModel?.let { categoryInformationModel ->
-                categoryInformationModel.sections?.let { sections ->
-                    informationSections.addAll(sections)
+                categoryInformationModel.map {categoryInformation->
+                    categoryInformation.sections?.let { informationSections.addAll(it) }
+//                    categoryInformation.sections?.map {sections->
+//                        informationSections.addAll(listOf(sections))
+//                    }
                 }
             }
         }
@@ -92,7 +97,7 @@ class MainViewModel(
         println(message)
         val sectionSteps = mutableListOf<SectionStepModel>()
         categoryModels.map { category ->
-            category.categoryInformationModel?.let { categoryInformationModel ->
+            category.categoryInformationModel?.map { categoryInformationModel ->
                 categoryInformationModel.sections?.map { section ->
                     section.steps?.let { sectionSteps.addAll(it) }
                 }

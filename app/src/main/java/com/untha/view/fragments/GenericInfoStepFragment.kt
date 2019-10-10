@@ -13,6 +13,7 @@ import androidx.core.text.parseAsHtml
 import com.bumptech.glide.Glide
 import com.untha.R
 import com.untha.model.transactionalmodels.Category
+import com.untha.model.transactionalmodels.CategoryInformation
 import com.untha.model.transactionalmodels.Section
 import com.untha.model.transactionalmodels.Step
 import com.untha.utils.Constants
@@ -78,7 +79,6 @@ class GenericInfoStepFragment : BaseFragment() {
                 scrollView {
                     verticalLayout {
                         loadInformationDescription()
-                        buildSections()
                     }
                     backgroundColor =
                         ContextCompat.getColor(context, R.color.colorBackgroundGenericInfo)
@@ -90,13 +90,13 @@ class GenericInfoStepFragment : BaseFragment() {
                 }
             }.lparams(width = matchParent, height = matchParent)
         }
-        mainActivity.supportActionBar?.title = category.information?.screenTitle
+        mainActivity.supportActionBar?.title = category.information?.get(0)?.screenTitle
     }
 
     private fun @AnkoViewDslMarker _LinearLayout.loadImage(view: View) {
         imageView {
             val imageUrl = resources.getIdentifier(
-                category.information?.image,
+                category.information?.get(0)?.image,
                 "drawable",
                 context.applicationInfo.packageName
             )
@@ -130,10 +130,8 @@ class GenericInfoStepFragment : BaseFragment() {
         }.view
     }
 
-    private fun @AnkoViewDslMarker _LinearLayout.buildSections() {
-
-        category.information?.sections?.let { sections ->
-            sections.map { section ->
+    private fun @AnkoViewDslMarker _LinearLayout.buildSections(categoryInformation: CategoryInformation) {
+        categoryInformation.sections?.map { section ->
                 val title = section.title
                 if (title.isNotEmpty()) {
                     title.let {
@@ -153,9 +151,7 @@ class GenericInfoStepFragment : BaseFragment() {
                     }
                 }
                 buildSteps(section)
-
             }
-        }
     }
 
     private fun @AnkoViewDslMarker _LinearLayout.buildSteps(
@@ -208,21 +204,24 @@ class GenericInfoStepFragment : BaseFragment() {
     }
 
     private fun @AnkoViewDslMarker _LinearLayout.loadInformationDescription() {
-
-        val description = category.information?.description
-        if (description?.isNotEmpty() == true) {
-            description.let {
-                textView {
-                    text = description
-                    textSizeDimen = R.dimen.text_size_content
-                    typeface = ResourcesCompat.getFont(
-                        context.applicationContext,
-                        R.font.proxima_nova_light
-                    )
-                }.lparams(height = wrapContent, width = matchParent) {
-                    topMargin = dip(calculateTopMargin())
+        category.information?.map { categoryInformation ->
+            val description = categoryInformation.description?.parseAsHtml()
+            if (description?.isNotEmpty() == true) {
+                description.let {
+                    textView {
+                        text = description
+                        textSizeDimen = R.dimen.text_size_content
+                        typeface = ResourcesCompat.getFont(
+                            context.applicationContext,
+                            R.font.proxima_nova_light
+                        )
+                    }.lparams(height = wrapContent, width = matchParent) {
+                        topMargin = dip(calculateTopMargin())
+                    }
                 }
             }
+
+            buildSections(categoryInformation)
         }
     }
 

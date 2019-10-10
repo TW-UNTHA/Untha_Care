@@ -11,5 +11,5 @@ data class Category(
     val image: String? = null,
     @SerialName("parent_id") val parentId: Int? = null,
     @SerialName("next_step") val nextStep: Int? = null,
-    val information: CategoryInformation? = null
+    val information: List<CategoryInformation>? = null
 ) : java.io.Serializable

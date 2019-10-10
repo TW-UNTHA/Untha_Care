@@ -9,6 +9,7 @@ class QueryingSection {
 
     @Embedded
     var section: SectionModel? = null
+
     @Relation(parentColumn = "id", entityColumn = "section_id", entity = SectionStepModel::class)
     var steps: List<SectionStepModel>? = null
 }

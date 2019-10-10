@@ -18,7 +18,7 @@ data class CategoryModel(
     @ColumnInfo(name = "next_step")
     var nextStep: Int? = null,
     @Ignore
-    var categoryInformationModel: CategoryInformationModel? = null
+    var categoryInformationModel: List<CategoryInformationModel>? = null
 ) : BaseModel() {
     constructor() : this(0, "")
 }

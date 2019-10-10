@@ -115,13 +115,13 @@ class RightsViewModelTest : KoinTest {
 
         val queryingCategoryInformation =
             QueryingCategoryInformation().apply {
-                categoryInformationModel = categoryInformationModel1
+                categoryInformation = categoryInformationModel1
                 this.queryingSection = listOf(queryingSection)
             }
 
         return QueryingCategory().apply {
             categoryModel = categoryModel1
-            this.queryingCategoryInformation = queryingCategoryInformation
+            this.queryingCategoryInformation = listOf(queryingCategoryInformation)
         }
     }
 

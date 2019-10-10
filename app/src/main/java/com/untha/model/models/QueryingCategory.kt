@@ -9,11 +9,11 @@ class QueryingCategory {
 
     @Embedded
     var categoryModel: CategoryModel? = null
-
     @Relation(
         parentColumn = "id",
         entityColumn = "category_id",
         entity = CategoryInformationModel::class
     )
-    var queryingCategoryInformation: QueryingCategoryInformation? = null
+    var queryingCategoryInformation: List<QueryingCategoryInformation>? = null
+
 }
