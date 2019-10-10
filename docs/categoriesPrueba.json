@@ -29,7 +29,7 @@
       "title": "CÓMO HACER DENUNCIAS",
       "information": [ {
         "id": 1,
-        "description": "DENUNCIAS LABORALES <br><br><br> Presenta este tipo de denuncia cuando tus derechos laborales no se están cumpliendo. Por ejemplo, cuando existen irregularidades en tu salario, liquidación, afiliación al IESS, vacaciones, etcétera.",
+        "description": "<b>DENUNCIAS LABORALES</b> <br><br><br> Presenta este tipo de denuncia cuando tus derechos laborales no se están cumpliendo. Por ejemplo, cuando existen irregularidades en tu salario, liquidación, afiliación al IESS, vacaciones, etcétera.",
         "image": "info_denuncias",
         "screen_title": "DENUNCIAS",
         "sections": [
@@ -57,7 +57,7 @@
       },
       {
         "id": 11,
-        "description": "DENUNCIAS FISCALES <br><br><br> Presenta este tipo de denuncia cuando eres víctima de violencia física y de cualquier tipo. Por ejemplo, si sufres de humillaciones, burlas, discriminación, encierro, golpes o amenazas.",
+        "description": "<b>DENUNCIAS FISCALES</b> <br><br><br> Presenta este tipo de denuncia cuando eres víctima de violencia física y de cualquier tipo. Por ejemplo, si sufres de humillaciones, burlas, discriminación, encierro, golpes o amenazas.",
         "image": "info_denuncias",
         "screen_title": "DENUNCIAS",
         "sections": [
@@ -623,6 +623,22 @@
           }
         ]
       }]
+    },
+   {
+      "id": 14,
+      "image": "ruta_derechos",
+      "title": "RUTA DE DERECHOS LABORALES",
+      "subtitle": "SIGUE LAS RUTAS DE AYUDA",
+      "parent_id": null,
+      "next_step": null
+    },
+    {
+      "id": 15,
+      "image": "ruta_violencia",
+      "title": "RUTA DE VIOLENCIA LABORAL",
+      "subtitle": "SIGUE LAS RUTAS DE AYUDA",
+      "parent_id": null,
+      "next_step": null
     }
   ]
 }
