@@ -52,19 +52,27 @@
                 "description": "Presenta un oficia con tus datos de identidad y contacto y los de tu empleador e indica los motivos por los que estás denunciando. Prueba lo que ha pasado usando grabaciones de llamadas, mensajes de texto, fotografías, documentos escritos. Cuando presentes una denuncia solicita un número para hacerle seguimiento. Deben darte una respuesta en un plazo máximo de 15 días. "
               }
             ]
-          },
-         {
-            "id": 23,
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "description": "DENUNCIAS FISCALES <br><br><br> Presenta este tipo de denuncia cuando eres víctima de violencia física y de cualquier tipo. Por ejemplo, si sufres de humillaciones, burlas, discriminación, encierro, golpes o amenazas.",
+        "image": "info_denuncias",
+        "screen_title": "DENUNCIAS",
+        "sections": [
+          {
+            "id": 21,
             "title": "¿En dónde?",
             "steps": [
               {
                 "step_id": null,
-                "description": "  • Unidad Judicial de Violencia contra la Mujer y la Famlia <br>•  Fiscalía <br>•  1800 266 833 - Ministerio de Trabajo <br><br> Si el Delito es de emergencia, llamar a:<br>•  911 - Servicio Integrado de Seguridad"
+                "description": "	•	Unidad Judicial de Violencia contra la Mujer y la Famlia <br>•	Fiscalía <br>•	<a href = 'tel:1800 266 833'>1800 266 833</a> - Ministerio de Trabajo <br>Si el Delito es de emergencia, llamar a:<br>•	<a href = 'tel:911'>911</a> - Servicio Integrado de Seguridad"
               }
             ]
           },
-          {
-            "id": 24,
+         {
+            "id": 22,
             "title": "¿Cómo?",
             "steps": [
               {
