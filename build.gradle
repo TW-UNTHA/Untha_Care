@@ -16,7 +16,7 @@ buildscript {
         test_runner_version = '1.2.0'
         espresso_version = '3.2.0'
         anko_version = '0.10.8'
-        room_version = '2.2.0-rc01'
+        room_version = '2.2.0'
         timber_version = '4.7.1'
         supportlibrary_x_version = '1.0.0'
         lifecycleVersion = '2.0.0'
@@ -25,7 +25,10 @@ buildscript {
         kotlinx_version = '0.4.0'
         adapter_livedata_version = '1.0.0'
         test_ext_version = '1.1.1'
-        nav_version = "2.1.0"
+        nav_version = '2.1.0'
+        google_play_services_version = '17.0.0'
+        glide_version = '4.9.0'
+        recycler_view_version = '1.0.0'
     }
     repositories {
         google()
