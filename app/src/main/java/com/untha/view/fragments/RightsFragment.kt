@@ -38,6 +38,7 @@ class RightsFragment : BaseFragment(),
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        firebaseAnalytics.setCurrentScreen(activity!!, "Rights Page", null)
         setMarginsToRecyclerView()
         viewModel.getRightsCategoryModels().observe(this, Observer { queryingCategories ->
             val categories = viewModel.getRightCategories(queryingCategories)
@@ -53,7 +54,6 @@ class RightsFragment : BaseFragment(),
 
 
     private fun setMarginsToRecyclerView() {
-
         val marginInDps =
             PixelConverter.getScreenDpHeight(context) * Constants.MARGIN_TOP_PERCENTAGE
         context?.let { context ->

@@ -56,6 +56,7 @@ class GenericInfoStepFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        firebaseAnalytics.setCurrentScreen(activity!!, "Step Page", null)
         with(view as _LinearLayout) {
             verticalLayout {
                 val imageSizeInDps = (PixelConverter.getScreenDpHeight(context) -

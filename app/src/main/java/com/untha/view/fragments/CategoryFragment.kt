@@ -9,6 +9,7 @@ import android.widget.RelativeLayout
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import com.google.firebase.analytics.FirebaseAnalytics
 import com.untha.R
 import com.untha.model.models.CategoryViewModel
 import com.untha.model.transactionalmodels.Category
@@ -32,6 +33,8 @@ class CategoryFragment : BaseFragment(),
 
 
     override fun onItemClick(category: Category, itemView: View) {
+        logAnalyticsEvent(category.id.toString(), category.title, "category", FirebaseAnalytics.Event.SELECT_CONTENT)
+
         when (category.id) {
             RIGHTS_CATEGORY -> itemView.findNavController().navigate(
                 R.id.rightsFragment,
@@ -62,11 +65,11 @@ class CategoryFragment : BaseFragment(),
     ): View? {
         this.textToSpeech = TextToSpeech(context, this)
         return inflater.inflate(R.layout.fragment_category, container, false)
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        firebaseAnalytics.setCurrentScreen(activity!!, "Category Page", null)
         setMarginsToRecyclerView()
         categoryViewModel.findMainCategories().observe(this, Observer { queryingCategories ->
             val categories = categoryViewModel.getCategories(queryingCategories)
@@ -74,14 +77,11 @@ class CategoryFragment : BaseFragment(),
         })
     }
 
-
     private fun setMarginsToRecyclerView() {
-
         val topFormula =
             (PixelConverter.getScreenDpHeight(context) - Constants.SIZE_OF_ACTION_BAR) * Constants.MARGIN_TOP_PERCENTAGE
         context?.let { context ->
             val pixelBottomMargin = PixelConverter.toPixels(topFormula, context)
-
 
             val param = RelativeLayout.LayoutParams(
                 RelativeLayout.LayoutParams.MATCH_PARENT,
@@ -93,7 +93,6 @@ class CategoryFragment : BaseFragment(),
     }
 
     private fun populateCategoryList(categoryList: List<Category>) {
-
         val gridLayoutManager = GridLayoutManager(context, Constants.SPAN_THREE_COLUMNS)
         gridLayoutManager.spanSizeLookup = onSpanSizeLookup
         categoryRecyclerView.layoutManager = gridLayoutManager
@@ -102,9 +101,7 @@ class CategoryFragment : BaseFragment(),
     }
 
     var onSpanSizeLookup: GridLayoutManager.SpanSizeLookup =
-
         object : GridLayoutManager.SpanSizeLookup() {
-
             override fun getSpanSize(position: Int): Int {
                 return if (categoryListAdapter.getItemViewType(position) == Constants.MAIN_VIEW) {
                     Constants.SPAN_THREE_COLUMNS

@@ -1,14 +1,17 @@
 package com.untha.view.fragments
 
+import android.os.Bundle
 import android.speech.tts.TextToSpeech
 import android.util.Log
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavOptions
 import com.untha.R
 import java.util.*
+import com.google.firebase.analytics.FirebaseAnalytics
 
 open class BaseFragment : Fragment(), TextToSpeech.OnInitListener {
     var textToSpeech: TextToSpeech? = null
+    lateinit var firebaseAnalytics: FirebaseAnalytics
 
     val navOptions =
         NavOptions.Builder().setEnterAnim(R.anim.slide_in_left)
@@ -31,12 +34,27 @@ open class BaseFragment : Fragment(), TextToSpeech.OnInitListener {
         }
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        context?.let {
+            firebaseAnalytics = FirebaseAnalytics.getInstance(it)
+        }
+    }
+
     override fun onDestroy() {
         if (textToSpeech != null) {
             textToSpeech!!.stop()
             textToSpeech!!.shutdown()
         }
         super.onDestroy()
+    }
+
+    fun logAnalyticsEvent(id: String, name: String, contentType: String, event: String) {
+        val bundle = Bundle()
+        bundle.putString(FirebaseAnalytics.Param.ITEM_ID, id)
+        bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, name)
+        bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, contentType)
+        firebaseAnalytics.logEvent(event, bundle)
     }
 
 }
