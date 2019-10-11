@@ -39,7 +39,7 @@
             "steps": [
               {
                 "step_id": null,
-                "description": "•   Direcciones Regionales del Trabajo <br>•  Inspectorías de Trabajo <br>•   Llamar al 1800 266822 <br>•   Defensoría Pública"
+                "description": "•   Direcciones Regionales del Trabajo <br>•  Inspectorías de Trabajo <br>•   Llamar al <a href = 'tel:1800 266822'>1800 266822</a> <br>•   Defensoría Pública"
               }
             ]
           },
@@ -623,22 +623,6 @@
           }
         ]
       }]
-    },
-   {
-      "id": 14,
-      "image": "ruta_derechos",
-      "title": "RUTA DE DERECHOS LABORALES",
-      "subtitle": "SIGUE LAS RUTAS DE AYUDA",
-      "parent_id": null,
-      "next_step": null
-    },
-    {
-      "id": 15,
-      "image": "ruta_violencia",
-      "title": "RUTA DE VIOLENCIA LABORAL",
-      "subtitle": "SIGUE LAS RUTAS DE AYUDA",
-      "parent_id": null,
-      "next_step": null
-    }
+    }  
   ]
 }
