@@ -2,7 +2,6 @@ package com.untha.view.fragments
 
 import android.graphics.Typeface
 import android.os.Bundle
-import android.text.util.Linkify
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
+import androidx.core.text.parseAsHtml
 import com.bumptech.glide.Glide
 import com.untha.R
 import com.untha.model.transactionalmodels.Category
@@ -146,8 +146,6 @@ class GenericInfoStepFragment : BaseFragment() {
                                 )
                             setTypeface(typeface, Typeface.BOLD)
                             textSizeDimen = R.dimen.text_size_content
-
-
                         }.lparams(height = wrapContent, width = matchParent) {
                             bottomMargin = dip(calculateTopMargin())
                             topMargin = dip(calculateTopMargin())
@@ -175,12 +173,10 @@ class GenericInfoStepFragment : BaseFragment() {
         step: Step
     ): TextView {
         return textView {
-            text = step.description
+            text = step.description.parseAsHtml()
+            movementMethod = android.text.method.LinkMovementMethod.getInstance()
             typeface =
                 ResourcesCompat.getFont(context.applicationContext, R.font.proxima_nova_light)
-            this.gravity = Gravity.AXIS_Y_SHIFT
-            linksClickable = true
-            Linkify.addLinks(this, Linkify.WEB_URLS)
             setLinkTextColor(ContextCompat.getColor(context, R.color.colorGenericTitle))
             textSizeDimen = R.dimen.text_size_content
         }.lparams(width = wrapContent, height = wrapContent)
