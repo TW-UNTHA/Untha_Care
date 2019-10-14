@@ -45,9 +45,8 @@ class RightsAdapter(
                 categoryTitle.text = category.title.toUpperCase()
                 loadImage(category)
                 itemView.setOnClickListener {
-                  val nextStepCategory =  items.firstOrNull{
-                       category.nextStep != null && it.id == category.nextStep
-
+                    val nextStepCategory = items.firstOrNull {
+                        category.information?.get(0)?.nextStep != null && it.id == category.information[0]?.nextStep
                     }
                     listener.onItemClick(category,nextStepCategory, itemView)
                 }
