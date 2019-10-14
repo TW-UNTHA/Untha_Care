@@ -9,5 +9,6 @@ data class CategoryInformation(
     val description: String? = null,
     val image: String? = null,
     @SerialName("screen_title") val screenTitle: String? = null,
+    @SerialName("next_step") val nextStep: Int? = null,
     val sections: List<Section>? = null
 ) : java.io.Serializable

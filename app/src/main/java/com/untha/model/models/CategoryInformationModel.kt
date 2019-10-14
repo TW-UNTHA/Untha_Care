@@ -24,6 +24,8 @@ data class CategoryInformationModel(
     var image: String = "",
     @ColumnInfo(name = "screen_title")
     var screenTitle: String = "",
+    @ColumnInfo(name = "next_step")
+    var nextStep: Int? = null,
     @ColumnInfo(name = "category_id")
     var categoryId: Int = 0,
     @Ignore

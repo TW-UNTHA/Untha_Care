@@ -14,8 +14,7 @@ object MockObjects {
             RandomGenerator.generateRandomString(5),
             RandomGenerator.generateRandomString(5),
             RandomGenerator.generateRandomString(5),
-            0,
-            1
+            0
         )
 
         val queryingSection = QueryingSection().apply {

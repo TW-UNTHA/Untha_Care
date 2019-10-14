@@ -118,7 +118,7 @@ class MainViewModelTest : KoinTest {
 
         val queryingCategory = MockObjects. mockQueryingCategory()
         var categoryResult =
-            Category(0, "", nextStep = 0, parentId = 1)
+            Category(0, "", parentId = 1)
         `when`(mapper.mapFromModel(queryingCategory)).thenReturn(categoryResult)
         val categories: List<Category> = mainViewModel.getCategories(listOf(queryingCategory))
 

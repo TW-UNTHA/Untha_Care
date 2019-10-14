@@ -23,6 +23,7 @@ class CategoryMapper {
                 categoryInformation.description?: "",
                 categoryInformation.image ?: "",
                 categoryInformation.screenTitle ?: "",
+                categoryInformation.nextStep,
                 category.id,
                 sections = mapperSectionsModel(categoryInformation.sections, categoryInformation.id)
             ))
@@ -35,7 +36,6 @@ class CategoryMapper {
             category.subtitle,
             category.image,
             category.parentId,
-            category.nextStep,
             informationModels
         )
     }
@@ -71,7 +71,6 @@ class CategoryMapper {
             queryingCategory.categoryModel?.subtitle,
             queryingCategory.categoryModel?.image,
             queryingCategory.categoryModel?.parentId,
-            queryingCategory.categoryModel?.nextStep,
             getInformation(queryingCategory)
         )
 
@@ -81,7 +80,6 @@ class CategoryMapper {
             queryingCategory.categoryModel?.subtitle,
             queryingCategory.categoryModel?.image,
             queryingCategory.categoryModel?.parentId,
-            queryingCategory.categoryModel?.nextStep,
             getInformation(queryingCategory)
         )
     }
@@ -93,6 +91,7 @@ class CategoryMapper {
                      categoryInformationModel.categoryInformation?.description?:"",
                      categoryInformationModel.categoryInformation?.image?:"",
                      categoryInformationModel.categoryInformation?.screenTitle?:"",
+                     categoryInformationModel.categoryInformation?.nextStep,
                      getSections(categoryInformationModel)
                  )
          }

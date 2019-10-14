@@ -50,7 +50,6 @@ class CategoryMapperTest {
             generateRandomString(5),
             generateRandomString(5),
             generateIntBetween0AndTwenty(),
-            generateIntBetween0AndTwenty(),
             listOf(categoryInformation)
         )
 
@@ -65,6 +64,7 @@ class CategoryMapperTest {
             categoryInformation.description!!,
             categoryInformation.image!!,
             categoryInformation.screenTitle!!,
+            categoryInformation.nextStep,
             category.id,
             listOf(sectionModel, sectionModel2)
         )
@@ -75,7 +75,6 @@ class CategoryMapperTest {
             category.subtitle,
             category.image,
             category.parentId,
-            category.nextStep,
             listOf(informationModel)
         )
 
@@ -86,7 +85,6 @@ class CategoryMapperTest {
         assertThat(result.title, `is`(categoryModel.title))
         assertThat(result.subtitle, `is`(categoryModel.subtitle))
         assertThat(result.parentId, `is`(categoryModel.parentId))
-        assertThat(result.nextStep, `is`(categoryModel.nextStep))
     }
 
     @Test
@@ -104,16 +102,14 @@ class CategoryMapperTest {
             generateRandomString(5),
             generateRandomString(5),
             generateRandomString(5),
-            0,
-            1
+            0
         )
         val categoryModel2 = CategoryModel(
             2,
             generateRandomString(5),
             generateRandomString(5),
             generateRandomString(5),
-            1,
-            2
+            1
         )
 
         val queryingSection = QueryingSection().apply {
@@ -169,6 +165,7 @@ class CategoryMapperTest {
                 description = categoryInformationModel1.description,
                 image =  categoryInformationModel1.image,
                 screenTitle =  categoryInformationModel1.screenTitle,
+                nextStep = categoryInformationModel1.nextStep,
                 sections = listOf(expectedSection)
             )
 
@@ -178,6 +175,7 @@ class CategoryMapperTest {
                 description = categoryInformationModel2.description,
                 image = categoryInformationModel2.image,
                 screenTitle =  categoryInformationModel2.screenTitle,
+                nextStep = categoryInformationModel2.nextStep,
                 sections = listOf(expectedSection2)
             )
         val expectedCategory = Category(
@@ -186,7 +184,6 @@ class CategoryMapperTest {
             categoryModel1.subtitle,
             categoryModel1.image,
             categoryModel1.parentId,
-            categoryModel1.nextStep,
             listOf(expectedCategoryInformation)
         )
 
@@ -196,7 +193,6 @@ class CategoryMapperTest {
             categoryModel2.subtitle,
             categoryModel2.image,
             categoryModel2.parentId,
-            categoryModel2.nextStep,
             listOf(expectedCategoryInformation2)
         )
 

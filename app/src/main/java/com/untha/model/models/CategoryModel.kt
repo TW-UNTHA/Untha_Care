@@ -15,8 +15,6 @@ data class CategoryModel(
     var image: String? = "",
     @ColumnInfo(name = "parent_id")
     var parentId: Int? = null,
-    @ColumnInfo(name = "next_step")
-    var nextStep: Int? = null,
     @Ignore
     var categoryInformationModel: List<CategoryInformationModel>? = null
 ) : BaseModel() {
