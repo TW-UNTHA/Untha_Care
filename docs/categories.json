@@ -57,7 +57,7 @@
       },
       {
         "id": 11,
-        "description": "<b>DENUNCIAS FISCALES</b> <br><br><br> Presenta este tipo de denuncia cuando eres víctima de violencia física y de cualquier tipo. Por ejemplo, si sufres de humillaciones, burlas, discriminación, encierro, golpes o amenazas.",
+        "description": "<p style=\"color: '#602080';\">_________________________________</p><b>DENUNCIAS FISCALES</b> <br><br><br> Presenta este tipo de denuncia cuando eres víctima de violencia física y de cualquier tipo. Por ejemplo, si sufres de humillaciones, burlas, discriminación, encierro, golpes o amenazas.",
         "image": "info_denuncias",
         "screen_title": "DENUNCIAS",
         "sections": [
