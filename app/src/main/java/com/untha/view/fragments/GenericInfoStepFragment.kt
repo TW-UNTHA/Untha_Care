@@ -16,7 +16,6 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.text.parseAsHtml
-import androidx.core.view.marginBottom
 import androidx.navigation.findNavController
 import com.bumptech.glide.Glide
 import com.untha.R
@@ -83,7 +82,7 @@ class GenericInfoStepFragment : BaseFragment(),
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        firebaseAnalytics.setCurrentScreen(activity!!, "Step Page", null)
+        firebaseAnalytics.setCurrentScreen(activity!!, Constants.STEP_PAGE_, null)
         with(view as _LinearLayout) {
             verticalLayout {
                 val imageSizeInDps = (PixelConverter.getScreenDpHeight(context) -
@@ -126,13 +125,7 @@ class GenericInfoStepFragment : BaseFragment(),
                                             context
                                         )
 
-                                    linearLayout {
-                                        padding = dip(Constants.PERCENTAGE_PADDING_ELEMENT_NEXT_STEP_IMAGE)
-                                        loadImageNestStep(view)
-
-                                    }.lparams(
-                                        width = widthScreenImagePixel
-                                    )
+                                    buildImageNextStep(view, widthScreenImagePixel)
 
                                     verticalLayout {
                                         padding = dip(Constants.PERCENTAGE_PADDING_ELEMENT_NEXT_STEP)

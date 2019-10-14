@@ -47,6 +47,7 @@ class RightsAdapter(
                 itemView.setOnClickListener {
                   val nextStepCategory =  items.firstOrNull{
                        category.nextStep != null && it.id == category.nextStep
+
                     }
                     listener.onItemClick(category,nextStepCategory, itemView)
                 }
