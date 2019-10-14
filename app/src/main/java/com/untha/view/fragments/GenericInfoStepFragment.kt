@@ -16,7 +16,7 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.text.parseAsHtml
-import androidx.fragment.app.Fragment
+import androidx.core.view.marginBottom
 import androidx.navigation.findNavController
 import com.bumptech.glide.Glide
 import com.untha.R
@@ -101,28 +101,15 @@ class GenericInfoStepFragment : BaseFragment(),
                     verticalLayout {
                         loadInformationDescription()
 
-
                         categoryNextStep?.let {
 
                             categoryNextStep?.let {
-                                val SIZE_HEIGHT_NEXT_STEP = 0.1981
                                 val heightFormula =
-                                    (PixelConverter.getScreenDpHeight(context)) * SIZE_HEIGHT_NEXT_STEP
+                                    (PixelConverter.getScreenDpHeight(context)) * Constants.SIZE_HEIGHT_NEXT_STEP
 
-
-                                val REST_IMAGE = 116
-                                val REST_BORDER = 26
-                                val PERCENTAGE_TEXT = (218 * 100) / 360
-
-                                val PERCENTAGE_HEIGHT = (103 * 100) / 576
-
-                                val heightScreenc =
-                                    (PixelConverter.getScreenDpHeight(context) - Constants.SIZE_OF_ACTION_BAR) * PERCENTAGE_HEIGHT
-
-                                val heightScreen =
-                                    PixelConverter.toPixels(heightScreenc.toDouble(), context)
 
                                 linearLayout {
+
                                     orientation = LinearLayout.HORIZONTAL
                                     backgroundColor =
                                         ContextCompat.getColor(context, R.color.colorGenericTitle)
@@ -132,54 +119,40 @@ class GenericInfoStepFragment : BaseFragment(),
                                     )
 
                                     val widthScreenImage =
-                                        (PixelConverter.getScreenDpHeight(context)) * SIZE_HEIGHT_NEXT_STEP
+                                        (PixelConverter.getScreenDpHeight(context)) * Constants.SIZE_HEIGHT_NEXT_STEP
                                     val widthScreenImagePixel =
                                         PixelConverter.toPixels(
                                             widthScreenImage.toDouble(),
                                             context
                                         )
 
-                                    verticalLayout {
+                                    linearLayout {
+                                        padding = dip(Constants.PERCENTAGE_PADDING_ELEMENT_NEXT_STEP_IMAGE)
                                         loadImageNestStep(view)
 
                                     }.lparams(
                                         width = widthScreenImagePixel
-
-                                    )
-
-                                    val widthScreen =
-                                        ((PixelConverter.getScreenDpWidth(context)) - (REST_BORDER + REST_IMAGE))
-                                    val widthScreenPixel =
-                                        PixelConverter.toPixels(widthScreen.toDouble(), context)
-                                    println("widthScreenPixel" + widthScreenPixel)
-                                    println(
-                                        "getScreenDpWidth" + PixelConverter.getScreenDpWidth(
-                                            context
-                                        )
                                     )
 
                                     verticalLayout {
-                                        buildNext()//Siguiente
+                                        padding = dip(Constants.PERCENTAGE_PADDING_ELEMENT_NEXT_STEP)
+
+                                        buildNextStep()
                                         buildTitle()
 
                                     }.lparams(
                                         width = matchParent
                                     )
                                     setOnClickListener {
-                                        println("setOnClickListenerGISF")
                                         onItemClick(category, categoryNextStep, view)
                                     }
 
                                 }.lparams(
-                                    width = matchParent, height = dip(heightFormula.toInt())
-
-//                                    width = matchParent, height = (heightFormula *
-//                                                Constants.GENERIC_PERCENTAGE_PLAYER_HEADER_NEXT_ITEM).toInt()
-                                )
+                                    width = matchParent, height = dip(heightFormula.toInt()) ) {
+                                    topMargin = dip(Constants.TOP_MARGIN_NEXT_STEP)
+                                }
 
                             }
-
-
                         }
                     }
                     backgroundColor =
@@ -211,7 +184,6 @@ class GenericInfoStepFragment : BaseFragment(),
             scaleType= ImageView.ScaleType.FIT_XY
         }.lparams(width = matchParent, height = imageHeight)
     }
-
 
     private fun @AnkoViewDslMarker _LinearLayout.calculateMarginLeftAndRight(): Int {
         val widthFormula =
@@ -332,22 +304,8 @@ class GenericInfoStepFragment : BaseFragment(),
         }
     }
 
-    //this is the old method
-    private fun @AnkoViewDslMarker _LinearLayout.buildNextOld() {
-        textView {
-            val title = "SIGUIENTE:"
-            gravity = Gravity.LEFT
-            text = title
-            textColor =
-                ContextCompat.getColor(
-                    context,
-                    R.color.colorGenericTitle
-                )
-            setTypeface(typeface, Typeface.BOLD)
-        }
-    }
 
-    private fun @AnkoViewDslMarker _LinearLayout.buildNext() {
+    private fun @AnkoViewDslMarker _LinearLayout.buildNextStep() {
         textView {
             val title = "SIGUIENTE:"
             gravity = Gravity.LEFT
@@ -378,19 +336,13 @@ class GenericInfoStepFragment : BaseFragment(),
                 )
 
             setTypeface(typeface, Typeface.NORMAL)
-//           textSizeDimen = R.dimen.text_size_content
         }
     }
 
     private fun @AnkoViewDslMarker _LinearLayout.loadImageNestStep(view: View) {
-        val imageNextStepSizeInDps = (PixelConverter.getScreenDpHeight(context) -
-                Constants.SIZE_OF_ACTION_BAR) * Constants.GENERIC_PERCENTAGE_PLAYER_HEADER
-//        val imageNextStepHeight = toPixels(103.00, context)
-//        val imageNextStepWidth = toPixels(150.00, context)
-
         imageView {
-            padding = 5
-            Gravity.CENTER
+
+            Gravity.LEFT
 
             val imageUrl = resources.getIdentifier(
                 categoryNextStep?.image,
