@@ -68,9 +68,10 @@ class RightsFragment : BaseFragment(),
         }
     }
 
-    override fun onItemClick(category: Category, itemView: View) {
+    override fun onItemClick(category: Category,categoryNextStep: Category?, itemView: View) {
         val categoryBundle = Bundle().apply {
             putSerializable(Constants.CATEGORY_PARAMETER, category)
+            putSerializable(Constants.CATEGORY_PARAMETER_NEXT_STEP, categoryNextStep)
         }
         itemView.findNavController()
             .navigate(R.id.genericInfoFragment, categoryBundle, navOptions, null)

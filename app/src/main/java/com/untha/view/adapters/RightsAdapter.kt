@@ -21,7 +21,7 @@ class RightsAdapter(
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     interface OnItemClickListener {
-        fun onItemClick(category: Category, itemView: View)
+        fun onItemClick(category: Category,categoryNextStep: Category?, itemView: View)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -38,14 +38,17 @@ class RightsAdapter(
         return items.size
     }
 
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(category: Category, listener: OnItemClickListener) =
             with(itemView) {
                 setLayoutParams()
                 categoryTitle.text = category.title.toUpperCase()
                 loadImage(category)
                 itemView.setOnClickListener {
-                    listener.onItemClick(category, itemView)
+                  val nextStepCategory =  items.firstOrNull{
+                       category.nextStep != null && it.id == category.nextStep
+                    }
+                    listener.onItemClick(category,nextStepCategory, itemView)
                 }
             }
 

@@ -7,7 +7,6 @@ import org.jetbrains.anko.windowManager
 
 object PixelConverter {
 
-
     fun toPixels(dp: Double, context: Context): Int {
         return TypedValue.applyDimension(
             TypedValue.COMPLEX_UNIT_DIP,
