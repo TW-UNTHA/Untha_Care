@@ -1,6 +1,9 @@
 package com.untha.application
 
 import android.app.Application
+import android.content.Context
+import androidx.multidex.MultiDex
+import androidx.multidex.MultiDexApplication
 import com.google.android.gms.security.ProviderInstaller
 import com.untha.di.mapperModule
 import com.untha.di.networkModule
@@ -11,7 +14,7 @@ import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
 import javax.net.ssl.SSLContext
 
-class CustomApplication : Application() {
+class CustomApplication : MultiDexApplication() {
 
     override fun onCreate() {
         super.onCreate()
@@ -26,5 +29,10 @@ class CustomApplication : Application() {
             androidContext(this@CustomApplication)
             modules(listOf(persistenceModule, networkModule, viewModelsModule, mapperModule))
         }
+    }
+
+    override fun attachBaseContext(base: Context) {
+        super.attachBaseContext(base)
+        MultiDex.install(this)
     }
 }
