@@ -6,22 +6,19 @@
       "image": "home_rutas",
       "title": "¿NO SABES QUÉ HACER?",
       "subtitle": "SIGUE LAS RUTAS DE AYUDA",
-      "parent_id": null,
-      "next_step": null
+      "parent_id": null
     },
     {
       "id": 2,
       "image": "home_derechos",
       "title": "MIS DERECHOS",
-      "parent_id": null,
-      "next_step": null
+      "parent_id": null
     },
     {
       "id": 3,
       "image": "home_beneficios",
       "title": "CALCULAR MIS BENEFICIOS",
-      "parent_id": null,
-      "next_step": null
+      "parent_id": null
     },
     {
       "id": 4,
@@ -32,6 +29,7 @@
         "description": "<b>DENUNCIAS LABORALES</b> <br><br><br> Presenta este tipo de denuncia cuando tus derechos laborales no se están cumpliendo. Por ejemplo, cuando existen irregularidades en tu salario, liquidación, afiliación al IESS, vacaciones, etcétera.",
         "image": "info_denuncias",
         "screen_title": "DENUNCIAS",
+        "next_step": null,
         "sections": [
           {
             "id": 21,
@@ -39,7 +37,7 @@
             "steps": [
               {
                 "step_id": null,
-                "description": "•   Direcciones Regionales del Trabajo <br>•  Inspectorías de Trabajo <br>•   Llamar al 1800 266822 <br>•   Defensoría Pública"
+                "description": "•&nbsp;&nbsp;&nbsp;Direcciones Regionales del Trabajo <br>•&nbsp;&nbsp;&nbsp;Inspectorías de Trabajo <br>•&nbsp;&nbsp;&nbsp;Llamar al <a href = 'tel:1800 266822'>1800 266822</a> <br>•&nbsp;&nbsp;&nbsp;Defensoría Pública"
               }
             ]
           },
@@ -60,6 +58,7 @@
         "description": "<b>DENUNCIAS FISCALES</b> <br><br><br> Presenta este tipo de denuncia cuando eres víctima de violencia física y de cualquier tipo. Por ejemplo, si sufres de humillaciones, burlas, discriminación, encierro, golpes o amenazas.",
         "image": "info_denuncias",
         "screen_title": "DENUNCIAS",
+        "next_step": null,
         "sections": [
           {
             "id": 23,
@@ -67,7 +66,7 @@
             "steps": [
               {
                 "step_id": null,
-                "description": "	•	Unidad Judicial de Violencia contra la Mujer y la Famlia <br>•	Fiscalía <br>•	<a href = 'tel:1800 266 833'>1800 266 833</a> - Ministerio de Trabajo <br>Si el Delito es de emergencia, llamar a:<br>•	<a href = 'tel:911'>911</a> - Servicio Integrado de Seguridad"
+                "description": "•&nbsp;&nbsp;&nbsp;Unidad Judicial de Violencia contra la Mujer y la Famlia <br>•&nbsp;&nbsp;&nbsp;Fiscalía <br>•&nbsp;&nbsp;&nbsp;<a href = 'tel:1800 266 833'>1800 266 833</a> - Ministerio de Trabajo <br>Si el Delito es de emergencia, llamar a:<br>•&nbsp;&nbsp;&nbsp;<a href = 'tel:911'>911</a> - Servicio Integrado de Seguridad"
               }
             ]
           },
@@ -83,8 +82,7 @@
           }
         ]
       }],
-      "parent_id": null,
-      "next_step": null
+      "parent_id": null
     },
     {
       "id": 5,
@@ -93,8 +91,9 @@
       "information":[ {
         "id": 2,
         "description": "Obtener un contrato de trabajo es importante porque permite formalizar tu relación con tu empleador. Las clausulas de tu contrato te ayudarán a identificar y reportar incumplimiento de las mismas o de tus derechos. Un contrato verbal es aceptado, pero se recomienda tener un contrato escrito porque es más fácil usarlo como prueba si lo llegas a necesitar.",
-        "image": "info_contratos"
+        "image": "info_contratos",
         "screen_title": "CONTRATOS",
+        "next_step": null,
         "sections": [
           {
             "id": 25,
@@ -140,8 +139,7 @@
           }
         ] 
       }],
-      "parent_id": null,
-      "next_step": null
+      "parent_id": null
     },
     {
       "id": 6,
@@ -152,6 +150,7 @@
         "description": "El empleador debe inscribirte en el Instituto Ecuatoriano de Seguridad Social (IESS), desde el primer día de labores. Dará aviso de tu entrada en los primeros 15 días. Avisará sobre tu salida, sueldos y salarios, accidentes de trabajo y enfermedades que se produzcan en él. Y cumplirá con las demás obligaciones legales sobre seguridad social.Para verificar si estás afiliada sigue estos pasos:",
         "image": "info_afiliacion",
         "screen_title": "AFILIACIÓN AL IESS",
+        "next_step": null,
         "sections": [
           {
             "id": 1,
@@ -203,7 +202,6 @@
           }
         ]
       }],
-      "parent_id": null,
       "next_step": null
     },
     {
@@ -214,6 +212,7 @@
         "id": 4,
         "image": "info_sindicato",
         "screen_title": "UNTHA",
+        "next_step": null,
         "sections": [
           {
             "id": 26,
@@ -231,25 +230,24 @@
             "steps": [
               {
                 "step_id": null,
-                "description": "•   <b>Email</b>: <a href = 'mailto:unthaecuador@gmail.com'>unthaecuador@gmail.com</a><br>•   <b>Telf:</b> <a href = 'tel:0960639550'>0960639550</a><br>•   <b>Facebook</b>: <a href='https://www.facebook.com/atrhecuador/'>Asociación de trabajadoras remuneradas del hogar</a><br>."
+                "description": "•<b>&nbsp;&nbsp;&nbsp;Email</b>: <a href = 'mailto:unthaecuador@gmail.com'>unthaecuador@gmail.com</a><br>•<b>&nbsp;&nbsp;&nbsp;Telf:</b> <a href = 'tel:0960639550'>0960639550</a><br>•   <b>&nbsp;&nbsp;&nbsp;Facebook</b>: <a href='https://www.facebook.com/atrhecuador/'>Asociación de trabajadoras remuneradas del hogar</a><br>."
               }
             ]
           }
         ]
        }],
-      "parent_id": null,
-      "next_step": null
+      "parent_id": null
     },
     {
       "id": 8,
       "image": "derechos_salario",
       "title": "SALARIO Y BENEFICIOS",
       "parent_id": 2,
-      "next_step": 9,
       "information": [{
         "id": 5,
         "image": "info_salario",
         "screen_title": "SALARIO Y BENEFICIOS",
+        "next_step": 9,
         "sections": [
           {
             "id": 3,
@@ -313,11 +311,11 @@
       "image": "derechos_vacaciones",
       "title": "JORNADA DE TRABAJO Y VACACIONES",
       "parent_id": 2,
-      "next_step": 10,
       "information":[{
         "id": 6,
         "image": "info_vacaciones",
         "screen_title": "JORNADA Y VACACIONES",
+        "next_step": 10,
         "sections": [
           {
             "id": 4,
@@ -365,11 +363,11 @@
       "image": "derechos_embarazo",
       "title": "EMBARAZO",
       "parent_id": 2,
-      "next_step": 11,
       "information": [{
         "id": 7,
         "image": "info_embarazo",
         "screen_title": "MATERNIDAD",
+        "next_step": 11,
         "sections": [
           {
             "id": 5,
@@ -393,11 +391,11 @@
       "image": "derechos_adolescentes",
       "title": "NIÑAS Y ADOLESCENTES ",
       "parent_id": 2,
-      "next_step": 12,
       "information": [{
         "id": 8,
         "image": "info_adolescentes",
         "screen_title": "NIÑAS Y ADOLESCENTES",
+        "next_step": 12,
         "sections": [
           {
             "id": 6,
@@ -441,11 +439,11 @@
       "image": "derechos_despidos",
       "title": "DESPIDOS Y TÉRMINO DE CONTRATOS",
       "parent_id": 2,
-      "next_step": 13,
       "information": [{
         "id": 9,
         "image": "info_despidos",
         "screen_title": "DESPIDOS Y TÉRMINO",
+        "next_step": 13,
         "sections": [
           {
             "id": 7,
@@ -485,11 +483,11 @@
       "title": "LEYES",
       "image": "derechos_leyes",
       "parent_id": 2,
-      "next_step": null,
       "information": [{
         "id": 10,
         "image": "info_leyes",
         "screen_title": "LEYES",
+        "next_step": null,
         "sections": [
           {
             "id": 8,
@@ -623,22 +621,6 @@
           }
         ]
       }]
-    },
-   {
-      "id": 14,
-      "image": "ruta_derechos",
-      "title": "RUTA DE DERECHOS LABORALES",
-      "subtitle": "SIGUE LAS RUTAS DE AYUDA",
-      "parent_id": null,
-      "next_step": null
-    },
-    {
-      "id": 15,
-      "image": "ruta_violencia",
-      "title": "RUTA DE VIOLENCIA LABORAL",
-      "subtitle": "SIGUE LAS RUTAS DE AYUDA",
-      "parent_id": null,
-      "next_step": null
-    }
+    }  
   ]
 }
