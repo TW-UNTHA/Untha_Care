@@ -32,8 +32,13 @@ class CategoryFragment : BaseFragment(),
     private val categoryViewModel: CategoryViewModel by viewModel()
 
 
-    override fun onItemClick(category: Category,categories:ArrayList<Category>, itemView: View) {
-        logAnalyticsEvent(category.id.toString(), category.title, "category", FirebaseAnalytics.Event.SELECT_CONTENT)
+    override fun onItemClick(category: Category, categories: ArrayList<Category>, itemView: View) {
+        logAnalyticsEvent(
+            category.id.toString(),
+            category.title,
+            "category",
+            FirebaseAnalytics.Event.SELECT_CONTENT
+        )
 
         when (category.id) {
             RIGHTS_CATEGORY -> itemView.findNavController().navigate(

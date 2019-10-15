@@ -10,7 +10,6 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.content.ContextCompat
@@ -34,11 +33,11 @@ import org.jetbrains.anko._LinearLayout
 import org.jetbrains.anko.backgroundColor
 import org.jetbrains.anko.backgroundDrawable
 import org.jetbrains.anko.dip
+import org.jetbrains.anko.imageView
 import org.jetbrains.anko.linearLayout
 import org.jetbrains.anko.matchParent
 import org.jetbrains.anko.padding
 import org.jetbrains.anko.scrollView
-import org.jetbrains.anko.support.v4.UI
 import org.jetbrains.anko.textColor
 import org.jetbrains.anko.textSizeDimen
 import org.jetbrains.anko.textView
@@ -46,7 +45,7 @@ import org.jetbrains.anko.verticalLayout
 import org.jetbrains.anko.wrapContent
 import org.koin.android.viewmodel.ext.android.viewModel
 import timber.log.Timber
-import java.lang.Exception
+import org.jetbrains.anko.support.v4.UI
 
 class GenericInfoStepFragment : BaseFragment() {
 
@@ -69,15 +68,8 @@ class GenericInfoStepFragment : BaseFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val bundle = arguments
-        println("!!GenericInfoStepFragmentBundle ${bundle}")
-
         category = bundle?.get(Constants.CATEGORY_PARAMETER) as Category
-        println("!!GenericInfoStepFragmentcategory ${category}")
-
         categories = bundle.get(Constants.CATEGORIES) as List<Category>?
-        println("!!GenericInfoStepFragmentcategoryNextStep${categories?.size}")
-        println("!!GenericInfoStepFragmentcategoryNextStep ${categories}")
-
         categories?.let {
             viewModel.getNextSteps(category, it)
         }
@@ -104,7 +96,7 @@ class GenericInfoStepFragment : BaseFragment() {
                 val marginLeft = calculateMarginLeftAndRight()
 
                 verticalLayout {
-                    loadImage(view, imageHeight)
+                    loadImage(view, imageHeight,category)
                     drawLine()
                 }.lparams(width = ViewGroup.LayoutParams.MATCH_PARENT, height = wrapContent)
 
@@ -154,7 +146,7 @@ class GenericInfoStepFragment : BaseFragment() {
 
             buildImageNextStep(view, widthScreenImagePixel, categoryNextStep)
 
-            buildTitleNextStep(information, categoryNextStep)
+            buildTitleNextStep(categoryNextStep)
             setOnClickListener {
                 onItemClick(categoryNextStep, categories as ArrayList<Category>, view)
             }
@@ -167,16 +159,6 @@ class GenericInfoStepFragment : BaseFragment() {
     }
 
 
-    private fun @AnkoViewDslMarker _LinearLayout.loadImage(
-        view: View,
-        imageHeight: Int,category: Category
-    )linearLayout {
-            padding = dip(Constants.PERCENTAGE_PADDING_ELEMENT_NEXT_STEP_IMAGE)
-            loadImageNestStep(view, category)
-        }.lparams(
-            width = widthScreenImagePixel
-        )
-    }
 
 
     private fun @AnkoViewDslMarker _LinearLayout.calculateMarginLeftAndRight(): Int {
@@ -302,7 +284,7 @@ class GenericInfoStepFragment : BaseFragment() {
                         viewModel.categoriesNextStep[index],
                         categoryInformation
                     )
-                } catch (ex: Exception) {
+                } catch (ex: ArrayIndexOutOfBoundsException) {
                     Timber.e(ex)
                 }
             }
@@ -310,11 +292,10 @@ class GenericInfoStepFragment : BaseFragment() {
     }
 
     private fun @AnkoViewDslMarker _LinearLayout.buildTitleNextStep(
-        information: CategoryInformation,
         categoryNextStep: Category
     ) {
         verticalLayout {
-            padding = dip(Constants.PERCENTAGE_PADDING_ELEMENT_NEXT_STEP)
+            //            padding = dip(Constants.PERCENTAGE_PADDING_ELEMENT_NEXT_STEP)
             buildNextStep(categoryNextStep)
             buildTitle(categoryNextStep)
         }.lparams(
@@ -342,43 +323,12 @@ class GenericInfoStepFragment : BaseFragment() {
         }
     }
 
-    private fun @AnkoViewDslMarker _LinearLayout.buildTitle(categoryNextStep: Category) {
-        textView {
-            val title = categoryNextStep.title
-            textSizeDimen = R.dimen.text_size_content
-            gravity = Gravity.LEFT
-            text = title
-            textColor =
-                ContextCompat.getColor(
-                    context,
-                    R.color.colorGenericTitle
-                )
 
-            setTypeface(typeface, Typeface.NORMAL)
-        }
-    }
-
-    private fun @AnkoViewDslMarker _LinearLayout.loadImageNestStep(view: View) {
-        imageView {
-
-            Gravity.LEFT
-
-            val imageUrl = resources.getIdentifier(
-                categoryNextStep?.image,
-                "drawable",
-                context.applicationInfo.packageName
-            )
-            Glide.with(view)
-                .load(imageUrl)
-                .into(this)
-
-        }.lparams(
-        )
-    }
     private fun _LinearLayout.drawLine() {
-        imageView{
-            val widthLine =  toPixels(PixelConverter.getScreenDpWidth(context).toDouble(), context)
-            val bitmap = Bitmap.createBitmap(widthLine, HEIGHT_LINE_HEADER_GENERIC, Bitmap.Config.ARGB_8888)
+        imageView {
+            val widthLine = toPixels(PixelConverter.getScreenDpWidth(context).toDouble(), context)
+            val bitmap =
+                Bitmap.createBitmap(widthLine, HEIGHT_LINE_HEADER_GENERIC, Bitmap.Config.ARGB_8888)
             val canvas = Canvas(bitmap)
             canvas.drawColor(Color.LTGRAY)
             val paint = Paint()
@@ -387,7 +337,8 @@ class GenericInfoStepFragment : BaseFragment() {
             paint.strokeWidth = widthLine.toFloat()
             paint.isAntiAlias = true
             val offset = COORDINATES_LINE_HEADER_GENERIC
-            canvas.drawLine(offset.toFloat(), (canvas.height / 2).toFloat(),
+            canvas.drawLine(
+                offset.toFloat(), (canvas.height / 2).toFloat(),
                 (canvas.width - offset).toFloat(),
                 (canvas.height / 2).toFloat(),
                 paint
@@ -397,4 +348,18 @@ class GenericInfoStepFragment : BaseFragment() {
 
     }
 
+
+    private fun @AnkoViewDslMarker _LinearLayout.buildImageNextStep(
+        view: View,
+        widthScreenImagePixel: Int,
+        category: Category
+    ) {
+        linearLayout {
+            padding = dip(Constants.PERCENTAGE_PADDING_ELEMENT_NEXT_STEP_IMAGE)
+            loadImageNextStep(view, category)
+        }.lparams(
+            width = widthScreenImagePixel
+        )
+    }
 }
+
