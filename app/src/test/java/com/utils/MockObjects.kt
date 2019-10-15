@@ -1,19 +1,32 @@
 package com.utils
 
-import com.untha.model.models.*
+import com.untha.model.models.CategoryInformationModel
+import com.untha.model.models.CategoryModel
+import com.untha.model.models.QueryingCategory
+import com.untha.model.models.QueryingCategoryInformation
+import com.untha.model.models.QueryingSection
+import com.untha.model.models.SectionModel
+import com.untha.model.models.SectionStepModel
 
 object MockObjects {
 
-     fun mockQueryingCategory(): QueryingCategory {
+    fun mockQueryingCategory(): QueryingCategory {
         var stepModel1 = SectionStepModel(1, RandomGenerator.generateRandomString(5), 1, 1)
         var sectionModel1 = SectionModel(1, RandomGenerator.generateRandomString(5), 1)
         var categoryInformationModel1 =
-            CategoryInformationModel(1, RandomGenerator.generateRandomString(5),RandomGenerator.generateRandomString(5) , RandomGenerator.generateRandomString(5) ,1)
+            CategoryInformationModel(
+                1,
+                RandomGenerator.generateRandomString(5),
+                RandomGenerator.generateRandomString(5),
+                RandomGenerator.generateRandomString(5),
+                1
+            )
         var categoryModel1 = CategoryModel(
             1,
             RandomGenerator.generateRandomString(5),
             RandomGenerator.generateRandomString(5),
             RandomGenerator.generateRandomString(5),
+            false,
             0
         )
 

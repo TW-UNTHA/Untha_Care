@@ -9,6 +9,7 @@ data class Category(
     val title: String,
     val subtitle: String? = null,
     val image: String? = null,
+    @SerialName(value = "is_route") val isRoute: Boolean = false,
     @SerialName("parent_id") val parentId: Int? = null,
     val information: List<CategoryInformation>? = null
 ) : java.io.Serializable

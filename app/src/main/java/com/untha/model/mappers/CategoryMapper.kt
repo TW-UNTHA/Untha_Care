@@ -17,16 +17,21 @@ class CategoryMapper {
 
         val informationModels: MutableList<CategoryInformationModel> = mutableListOf()
 
-        category.information?.map {categoryInformation ->
-            informationModels.add(CategoryInformationModel(
-                categoryInformation.id,
-                categoryInformation.description?: "",
-                categoryInformation.image ?: "",
-                categoryInformation.screenTitle ?: "",
-                categoryInformation.nextStep,
-                category.id,
-                sections = mapperSectionsModel(categoryInformation.sections, categoryInformation.id)
-            ))
+        category.information?.map { categoryInformation ->
+            informationModels.add(
+                CategoryInformationModel(
+                    categoryInformation.id,
+                    categoryInformation.description ?: "",
+                    categoryInformation.image ?: "",
+                    categoryInformation.screenTitle ?: "",
+                    categoryInformation.nextStep,
+                    category.id,
+                    sections = mapperSectionsModel(
+                        categoryInformation.sections,
+                        categoryInformation.id
+                    )
+                )
+            )
 
         }
 
@@ -35,6 +40,7 @@ class CategoryMapper {
             category.title,
             category.subtitle,
             category.image,
+            category.isRoute,
             category.parentId,
             informationModels
         )
@@ -44,22 +50,29 @@ class CategoryMapper {
             List<SectionModel>? {
         val sectionModels: MutableList<SectionModel> = mutableListOf()
         sections?.map {
-        sectionModels.add(SectionModel(it.id, it.title, idCategoryInformation, mapperStepsModel(it.steps, it.id)))
-       }
+            sectionModels.add(
+                SectionModel(
+                    it.id,
+                    it.title,
+                    idCategoryInformation,
+                    mapperStepsModel(it.steps, it.id)
+                )
+            )
+        }
         return sectionModels
     }
 
-    private fun mapperStepsModel(steps: List<Step>?, sectionId:Int): List<SectionStepModel>? {
+    private fun mapperStepsModel(steps: List<Step>?, sectionId: Int): List<SectionStepModel>? {
         val stepModels: MutableList<SectionStepModel> = mutableListOf()
 
         steps?.map { step ->
-                stepModels.add(
-                    SectionStepModel(
-                        description = step.description,
-                        stepId = step.stepId,
-                        sectionId = sectionId
-                    )
+            stepModels.add(
+                SectionStepModel(
+                    description = step.description,
+                    stepId = step.stepId,
+                    sectionId = sectionId
                 )
+            )
         }
         return stepModels
     }
@@ -70,6 +83,7 @@ class CategoryMapper {
             queryingCategory.categoryModel?.title ?: "",
             queryingCategory.categoryModel?.subtitle,
             queryingCategory.categoryModel?.image,
+            queryingCategory.categoryModel?.isRoute ?: false,
             queryingCategory.categoryModel?.parentId,
             getInformation(queryingCategory)
         )
@@ -79,22 +93,23 @@ class CategoryMapper {
             queryingCategory.categoryModel?.title ?: "",
             queryingCategory.categoryModel?.subtitle,
             queryingCategory.categoryModel?.image,
+            queryingCategory.categoryModel?.isRoute ?: false,
             queryingCategory.categoryModel?.parentId,
             getInformation(queryingCategory)
         )
     }
 
-    private fun getInformation(queryingCategory: QueryingCategory?) : List<CategoryInformation>? {
-          return queryingCategory?.queryingCategoryInformation?.map { categoryInformationModel->
-                 CategoryInformation(
-                        categoryInformationModel.categoryInformation?.id?:0,
-                     categoryInformationModel.categoryInformation?.description?:"",
-                     categoryInformationModel.categoryInformation?.image?:"",
-                     categoryInformationModel.categoryInformation?.screenTitle?:"",
-                     categoryInformationModel.categoryInformation?.nextStep,
-                     getSections(categoryInformationModel)
-                 )
-         }
+    private fun getInformation(queryingCategory: QueryingCategory?): List<CategoryInformation>? {
+        return queryingCategory?.queryingCategoryInformation?.map { categoryInformationModel ->
+            CategoryInformation(
+                categoryInformationModel.categoryInformation?.id ?: 0,
+                categoryInformationModel.categoryInformation?.description ?: "",
+                categoryInformationModel.categoryInformation?.image ?: "",
+                categoryInformationModel.categoryInformation?.screenTitle ?: "",
+                categoryInformationModel.categoryInformation?.nextStep,
+                getSections(categoryInformationModel)
+            )
+        }
     }
 
     private fun getSections(queryingCategoryInformation: QueryingCategoryInformation) =

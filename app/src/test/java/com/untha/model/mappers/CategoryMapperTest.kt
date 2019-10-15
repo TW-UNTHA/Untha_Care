@@ -49,6 +49,7 @@ class CategoryMapperTest {
             generateRandomString(5),
             generateRandomString(5),
             generateRandomString(5),
+            true,
             generateIntBetween0AndTwenty(),
             listOf(categoryInformation)
         )
@@ -74,6 +75,7 @@ class CategoryMapperTest {
             category.title,
             category.subtitle,
             category.image,
+            category.isRoute,
             category.parentId,
             listOf(informationModel)
         )
@@ -95,13 +97,26 @@ class CategoryMapperTest {
         val stepModel3 = SectionStepModel(3, generateRandomString(5), 2, 2)
         val sectionModel1 = SectionModel(1, generateRandomString(5), 1)
         val sectionModel2 = SectionModel(2, generateRandomString(5), 2)
-        val categoryInformationModel1 = CategoryInformationModel(1, generateRandomString(5), generateRandomString(5),generateRandomString(5),1)
-        val categoryInformationModel2 = CategoryInformationModel(2, generateRandomString(5), generateRandomString(5),generateRandomString(5),2)
+        val categoryInformationModel1 = CategoryInformationModel(
+            1,
+            generateRandomString(5),
+            generateRandomString(5),
+            generateRandomString(5),
+            1
+        )
+        val categoryInformationModel2 = CategoryInformationModel(
+            2,
+            generateRandomString(5),
+            generateRandomString(5),
+            generateRandomString(5),
+            2
+        )
         val categoryModel1 = CategoryModel(
             1,
             generateRandomString(5),
             generateRandomString(5),
             generateRandomString(5),
+            false,
             0
         )
         val categoryModel2 = CategoryModel(
@@ -109,6 +124,7 @@ class CategoryMapperTest {
             generateRandomString(5),
             generateRandomString(5),
             generateRandomString(5),
+            true,
             1
         )
 
@@ -119,7 +135,7 @@ class CategoryMapperTest {
 
         val queryingCategoryInformation =
             QueryingCategoryInformation().apply {
-                categoryInformation=categoryInformationModel1
+                categoryInformation = categoryInformationModel1
                 this.queryingSection = listOf(queryingSection)
             }
 
@@ -163,8 +179,8 @@ class CategoryMapperTest {
             CategoryInformation(
                 id = categoryInformationModel1.id,
                 description = categoryInformationModel1.description,
-                image =  categoryInformationModel1.image,
-                screenTitle =  categoryInformationModel1.screenTitle,
+                image = categoryInformationModel1.image,
+                screenTitle = categoryInformationModel1.screenTitle,
                 nextStep = categoryInformationModel1.nextStep,
                 sections = listOf(expectedSection)
             )
@@ -174,7 +190,7 @@ class CategoryMapperTest {
                 id = categoryInformationModel2.id,
                 description = categoryInformationModel2.description,
                 image = categoryInformationModel2.image,
-                screenTitle =  categoryInformationModel2.screenTitle,
+                screenTitle = categoryInformationModel2.screenTitle,
                 nextStep = categoryInformationModel2.nextStep,
                 sections = listOf(expectedSection2)
             )
@@ -183,6 +199,7 @@ class CategoryMapperTest {
             categoryModel1.title,
             categoryModel1.subtitle,
             categoryModel1.image,
+            categoryModel1.isRoute,
             categoryModel1.parentId,
             listOf(expectedCategoryInformation)
         )
@@ -192,6 +209,7 @@ class CategoryMapperTest {
             categoryModel2.title,
             categoryModel2.subtitle,
             categoryModel2.image,
+            categoryModel2.isRoute,
             categoryModel2.parentId,
             listOf(expectedCategoryInformation2)
         )

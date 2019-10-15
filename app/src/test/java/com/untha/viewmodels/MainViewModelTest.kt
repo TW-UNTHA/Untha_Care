@@ -83,6 +83,7 @@ class MainViewModelTest : KoinTest {
                     "Mis derechos stub",
                     "mis derechos descripcion",
                     "imagen",
+                    false,
                     0,
                     null
                 )
@@ -116,7 +117,7 @@ class MainViewModelTest : KoinTest {
     fun `should call mapFromModel`() {
         val mainViewModel = MainViewModel(dbService, service, mapper, repository, sharedPreferences)
 
-        val queryingCategory = MockObjects. mockQueryingCategory()
+        val queryingCategory = MockObjects.mockQueryingCategory()
         var categoryResult =
             Category(0, "", parentId = 1)
         `when`(mapper.mapFromModel(queryingCategory)).thenReturn(categoryResult)
@@ -138,6 +139,7 @@ class MainViewModelTest : KoinTest {
                     "Mis derechos stub",
                     "mis derechos descripcion",
                     "imagen",
+                    false,
                     0,
                     null
                 )
@@ -168,6 +170,7 @@ class MainViewModelTest : KoinTest {
                     "Mis derechos stub",
                     "mis derechos descripcion",
                     "imagen",
+                    false,
                     0,
                     null
                 )
@@ -204,6 +207,7 @@ class MainViewModelTest : KoinTest {
                     "Mis derechos stub",
                     "mis derechos descripcion",
                     "imagen",
+                    true,
                     0,
                     null
                 )

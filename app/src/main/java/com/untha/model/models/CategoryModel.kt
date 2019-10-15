@@ -13,6 +13,8 @@ data class CategoryModel(
     var title: String = "",
     var subtitle: String? = "",
     var image: String? = "",
+    @ColumnInfo(name = "is_route")
+    var isRoute: Boolean = false,
     @ColumnInfo(name = "parent_id")
     var parentId: Int? = null,
     @Ignore
