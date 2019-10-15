@@ -1,11 +1,16 @@
 package com.untha.view.fragments
 
+import android.graphics.Bitmap
+import android.graphics.Canvas
+import android.graphics.Color
+import android.graphics.Paint
 import android.graphics.Typeface
 import android.os.Bundle
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
@@ -17,6 +22,8 @@ import com.untha.model.transactionalmodels.CategoryInformation
 import com.untha.model.transactionalmodels.Section
 import com.untha.model.transactionalmodels.Step
 import com.untha.utils.Constants
+import com.untha.utils.Constants.COORDINATES_LINE_HEADER_GENERIC
+import com.untha.utils.Constants.HEIGHT_LINE_HEADER_GENERIC
 import com.untha.utils.PixelConverter
 import com.untha.utils.PixelConverter.toPixels
 import com.untha.view.activities.MainActivity
@@ -66,16 +73,9 @@ class GenericInfoStepFragment : BaseFragment() {
                 val marginLeft = calculateMarginLeftAndRight()
 
                 verticalLayout {
-                    loadImage(view)
-                    backgroundDrawable = ContextCompat.getDrawable(
-                        context, R.drawable.hearder_info_generic
-                    )
-
-                }.lparams(width = ViewGroup.LayoutParams.MATCH_PARENT, height = imageHeight) {
-                    topMargin = Constants.MARGIN_HIDDEN_PLAYER
-                    leftMargin = Constants.MARGIN_HIDDEN_PLAYER
-                    rightMargin = Constants.MARGIN_HIDDEN_PLAYER
-                }
+                    loadImage(view, imageHeight)
+                    drawLine()
+                }.lparams(width = ViewGroup.LayoutParams.MATCH_PARENT, height = wrapContent)
 
                 scrollView {
                     verticalLayout {
@@ -94,7 +94,10 @@ class GenericInfoStepFragment : BaseFragment() {
         mainActivity.supportActionBar?.title = category.information?.get(0)?.screenTitle
     }
 
-    private fun @AnkoViewDslMarker _LinearLayout.loadImage(view: View) {
+    private fun @AnkoViewDslMarker _LinearLayout.loadImage(
+        view: View,
+        imageHeight: Int
+    ) {
         imageView {
             val imageUrl = resources.getIdentifier(
                 category.information?.get(0)?.image,
@@ -104,8 +107,8 @@ class GenericInfoStepFragment : BaseFragment() {
             Glide.with(view)
                 .load(imageUrl)
                 .into(this)
-
-        }.lparams(width = matchParent, height = matchParent)
+            scaleType= ImageView.ScaleType.FIT_XY
+        }.lparams(width = matchParent, height = imageHeight)
     }
 
 
@@ -224,6 +227,28 @@ class GenericInfoStepFragment : BaseFragment() {
 
             buildSections(categoryInformation)
         }
+    }
+
+    private fun _LinearLayout.drawLine() {
+        imageView{
+            val widthLine =  toPixels(PixelConverter.getScreenDpWidth(context).toDouble(), context)
+            val bitmap = Bitmap.createBitmap(widthLine, HEIGHT_LINE_HEADER_GENERIC, Bitmap.Config.ARGB_8888)
+            val canvas = Canvas(bitmap)
+            canvas.drawColor(Color.LTGRAY)
+            val paint = Paint()
+            paint.color = Color.LTGRAY
+            paint.style = Paint.Style.STROKE
+            paint.strokeWidth = widthLine.toFloat()
+            paint.isAntiAlias = true
+            val offset = COORDINATES_LINE_HEADER_GENERIC
+            canvas.drawLine(offset.toFloat(), (canvas.height / 2).toFloat(),
+                (canvas.width - offset).toFloat(),
+                (canvas.height / 2).toFloat(),
+                paint
+            )
+            setImageBitmap(bitmap)
+        }.lparams(width = wrapContent, height = wrapContent)
+
     }
 
 }
