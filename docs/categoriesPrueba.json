@@ -33,7 +33,7 @@
           "description": "<b>DENUNCIAS LABORALES</b> <br><br><br> Presenta este tipo de denuncia cuando tus derechos laborales no se están cumpliendo. Por ejemplo, cuando existen irregularidades en tu salario, liquidación, afiliación al IESS, vacaciones, etcétera.",
           "image": "info_denuncias",
           "screen_title": "DENUNCIAS",
-          "next_step": null,
+          "next_step": 14,
           "sections": [
             {
               "id": 21,
@@ -62,7 +62,7 @@
           "description": "<b>DENUNCIAS FISCALES</b> <br><br><br> Presenta este tipo de denuncia cuando eres víctima de violencia física y de cualquier tipo. Por ejemplo, si sufres de humillaciones, burlas, discriminación, encierro, golpes o amenazas.",
           "image": "info_denuncias",
           "screen_title": "DENUNCIAS",
-          "next_step": null,
+          "next_step": 15,
           "sections": [
             {
               "id": 23,
