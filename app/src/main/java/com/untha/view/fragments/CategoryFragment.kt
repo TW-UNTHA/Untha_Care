@@ -16,23 +16,23 @@ import com.untha.model.transactionalmodels.Category
 import com.untha.utils.Constants
 import com.untha.utils.PixelConverter
 import com.untha.utils.ToSpeech
-import com.untha.view.adapters.CategoryListAdapter
+import com.untha.view.adapters.CategoryAdapter
 import kotlinx.android.synthetic.main.fragment_category.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class CategoryFragment : BaseFragment(),
-    CategoryListAdapter.OnItemClickListener, CategoryListAdapter.OnItemLongClickListener {
+    CategoryAdapter.OnItemClickListener, CategoryAdapter.OnItemLongClickListener {
 
     companion object {
         const val RIGHTS_CATEGORY = 2
         const val ROUTES_CATEGORY = 1
     }
 
-    private lateinit var categoryListAdapter: CategoryListAdapter
+    private lateinit var categoryListAdapter: CategoryAdapter
     private val categoryViewModel: CategoryViewModel by viewModel()
 
 
-    override fun onItemClick(category: Category, itemView: View) {
+    override fun onItemClick(category: Category,categories:ArrayList<Category>, itemView: View) {
         logAnalyticsEvent(category.id.toString(), category.title, "category", FirebaseAnalytics.Event.SELECT_CONTENT)
 
         when (category.id) {
@@ -45,7 +45,8 @@ class CategoryFragment : BaseFragment(),
             ROUTES_CATEGORY -> println("To be implemented")
             else -> {
                 val categoryBundle = Bundle().apply {
-                    putSerializable("category", category)
+                    putSerializable(Constants.CATEGORY_PARAMETER, category)
+                    putSerializable(Constants.CATEGORIES, categories)
                 }
                 itemView.findNavController()
                     .navigate(R.id.genericInfoFragment, categoryBundle, navOptions, null)
@@ -96,7 +97,7 @@ class CategoryFragment : BaseFragment(),
         val gridLayoutManager = GridLayoutManager(context, Constants.SPAN_THREE_COLUMNS)
         gridLayoutManager.spanSizeLookup = onSpanSizeLookup
         categoryRecyclerView.layoutManager = gridLayoutManager
-        categoryListAdapter = CategoryListAdapter(categoryList, this, this)
+        categoryListAdapter = CategoryAdapter(categoryList, this, this)
         categoryRecyclerView.adapter = categoryListAdapter
     }
 

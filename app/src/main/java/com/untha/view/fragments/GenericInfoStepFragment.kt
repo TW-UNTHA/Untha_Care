@@ -17,7 +17,6 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.text.parseAsHtml
 import androidx.navigation.findNavController
-import com.bumptech.glide.Glide
 import com.untha.R
 import com.untha.model.transactionalmodels.Category
 import com.untha.model.transactionalmodels.CategoryInformation
@@ -29,13 +28,12 @@ import com.untha.utils.Constants.HEIGHT_LINE_HEADER_GENERIC
 import com.untha.utils.PixelConverter
 import com.untha.utils.PixelConverter.toPixels
 import com.untha.view.activities.MainActivity
-import com.untha.view.adapters.RightsAdapter
+import com.untha.viewmodels.GenericInfoStepFragmentViewModel
 import org.jetbrains.anko.AnkoViewDslMarker
 import org.jetbrains.anko._LinearLayout
 import org.jetbrains.anko.backgroundColor
 import org.jetbrains.anko.backgroundDrawable
 import org.jetbrains.anko.dip
-import org.jetbrains.anko.imageView
 import org.jetbrains.anko.linearLayout
 import org.jetbrains.anko.matchParent
 import org.jetbrains.anko.padding
@@ -46,19 +44,23 @@ import org.jetbrains.anko.textSizeDimen
 import org.jetbrains.anko.textView
 import org.jetbrains.anko.verticalLayout
 import org.jetbrains.anko.wrapContent
+import org.koin.android.viewmodel.ext.android.viewModel
+import timber.log.Timber
+import java.lang.Exception
 
-class GenericInfoStepFragment : BaseFragment(),
-    RightsAdapter.OnItemClickListener {
+class GenericInfoStepFragment : BaseFragment() {
 
     private lateinit var category: Category
-    private var categoryNextStep: Category? = null
+    private var categories: List<Category>? = null
     private lateinit var mainActivity: MainActivity
+    private val viewModel: GenericInfoStepFragmentViewModel by viewModel()
 
 
-    override fun onItemClick(category: Category, categoryNextStep: Category?, itemView: View) {
+    fun onItemClick(category: Category, categories: ArrayList<Category>?, itemView: View) {
         val categoryBundle = Bundle().apply {
-            putSerializable(Constants.CATEGORY_PARAMETER, categoryNextStep)
-            putSerializable(Constants.CATEGORY_PARAMETER_NEXT_STEP, category)
+            putSerializable(Constants.CATEGORIES, categories)
+            putSerializable(Constants.CATEGORY_PARAMETER, category)
+
         }
         itemView.findNavController()
             .navigate(R.id.genericInfoFragment, categoryBundle)
@@ -67,9 +69,18 @@ class GenericInfoStepFragment : BaseFragment(),
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val bundle = arguments
-        category = bundle?.get(Constants.CATEGORY_PARAMETER) as Category
-        categoryNextStep = bundle.get(Constants.CATEGORY_PARAMETER_NEXT_STEP) as Category
+        println("!!GenericInfoStepFragmentBundle ${bundle}")
 
+        category = bundle?.get(Constants.CATEGORY_PARAMETER) as Category
+        println("!!GenericInfoStepFragmentcategory ${category}")
+
+        categories = bundle.get(Constants.CATEGORIES) as List<Category>?
+        println("!!GenericInfoStepFragmentcategoryNextStep${categories?.size}")
+        println("!!GenericInfoStepFragmentcategoryNextStep ${categories}")
+
+        categories?.let {
+            viewModel.getNextSteps(category, it)
+        }
     }
 
     override fun onCreateView(
@@ -81,6 +92,7 @@ class GenericInfoStepFragment : BaseFragment(),
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
         super.onViewCreated(view, savedInstanceState)
         firebaseAnalytics.setCurrentScreen(activity!!, Constants.STEP_PAGE_, null)
         with(view as _LinearLayout) {
@@ -98,55 +110,9 @@ class GenericInfoStepFragment : BaseFragment(),
 
                 scrollView {
                     verticalLayout {
-                        loadInformationDescription()
-
-                        categoryNextStep?.let {
-
-                            categoryNextStep?.let {
-                                val heightFormula =
-                                    (PixelConverter.getScreenDpHeight(context)) * Constants.SIZE_HEIGHT_NEXT_STEP
+                        loadInformationDescription(view)
 
 
-                                linearLayout {
-
-                                    orientation = LinearLayout.HORIZONTAL
-                                    backgroundColor =
-                                        ContextCompat.getColor(context, R.color.colorGenericTitle)
-                                    isClickable = true
-                                    backgroundDrawable = ContextCompat.getDrawable(
-                                        context, R.drawable.corners_round_next_item
-                                    )
-
-                                    val widthScreenImage =
-                                        (PixelConverter.getScreenDpHeight(context)) * Constants.SIZE_HEIGHT_NEXT_STEP
-                                    val widthScreenImagePixel =
-                                        PixelConverter.toPixels(
-                                            widthScreenImage.toDouble(),
-                                            context
-                                        )
-
-                                    buildImageNextStep(view, widthScreenImagePixel)
-
-                                    verticalLayout {
-                                        padding = dip(Constants.PERCENTAGE_PADDING_ELEMENT_NEXT_STEP)
-
-                                        buildNextStep()
-                                        buildTitle()
-
-                                    }.lparams(
-                                        width = matchParent
-                                    )
-                                    setOnClickListener {
-                                        onItemClick(category, categoryNextStep, view)
-                                    }
-
-                                }.lparams(
-                                    width = matchParent, height = dip(heightFormula.toInt()) ) {
-                                    topMargin = dip(Constants.TOP_MARGIN_NEXT_STEP)
-                                }
-
-                            }
-                        }
                     }
                     backgroundColor =
                         ContextCompat.getColor(context, R.color.colorBackgroundGenericInfo)
@@ -161,22 +127,57 @@ class GenericInfoStepFragment : BaseFragment(),
         mainActivity.supportActionBar?.title = category.information?.get(0)?.screenTitle
     }
 
+    private fun @AnkoViewDslMarker _LinearLayout.buildButtonNextStep(
+        view: View,
+        categoryNextStep: Category, information: CategoryInformation
+    ): LinearLayout {
+        val heightFormula =
+            (PixelConverter.getScreenDpHeight(context)) * Constants.SIZE_HEIGHT_NEXT_STEP
+
+        return linearLayout {
+
+            orientation = LinearLayout.HORIZONTAL
+            backgroundColor =
+                ContextCompat.getColor(context, R.color.colorGenericTitle)
+            isClickable = true
+            backgroundDrawable = ContextCompat.getDrawable(
+                context, R.drawable.corners_round_next_item
+            )
+
+            val widthScreenImage =
+                (PixelConverter.getScreenDpHeight(context)) * Constants.SIZE_HEIGHT_NEXT_STEP
+            val widthScreenImagePixel =
+                toPixels(
+                    widthScreenImage.toDouble(),
+                    context
+                )
+
+            buildImageNextStep(view, widthScreenImagePixel, categoryNextStep)
+
+            buildTitleNextStep(information, categoryNextStep)
+            setOnClickListener {
+                onItemClick(categoryNextStep, categories as ArrayList<Category>, view)
+            }
+
+        }.lparams(
+            width = matchParent, height = dip(heightFormula.toInt())
+        ) {
+            topMargin = dip(Constants.TOP_MARGIN_NEXT_STEP)
+        }
+    }
+
+
     private fun @AnkoViewDslMarker _LinearLayout.loadImage(
         view: View,
-        imageHeight: Int
-    ) {
-        imageView {
-            val imageUrl = resources.getIdentifier(
-                category.information?.get(0)?.image,
-                "drawable",
-                context.applicationInfo.packageName
-            )
-            Glide.with(view)
-                .load(imageUrl)
-                .into(this)
-            scaleType= ImageView.ScaleType.FIT_XY
-        }.lparams(width = matchParent, height = imageHeight)
+        imageHeight: Int,category: Category
+    )linearLayout {
+            padding = dip(Constants.PERCENTAGE_PADDING_ELEMENT_NEXT_STEP_IMAGE)
+            loadImageNestStep(view, category)
+        }.lparams(
+            width = widthScreenImagePixel
+        )
     }
+
 
     private fun @AnkoViewDslMarker _LinearLayout.calculateMarginLeftAndRight(): Int {
         val widthFormula =
@@ -275,8 +276,8 @@ class GenericInfoStepFragment : BaseFragment(),
         }
     }
 
-    private fun @AnkoViewDslMarker _LinearLayout.loadInformationDescription() {
-        category.information?.map { categoryInformation ->
+    private fun @AnkoViewDslMarker _LinearLayout.loadInformationDescription(view: View) {
+        category.information?.mapIndexed { index, categoryInformation ->
             val description = categoryInformation.description?.parseAsHtml()
             if (description?.isNotEmpty() == true) {
                 description.let {
@@ -294,13 +295,38 @@ class GenericInfoStepFragment : BaseFragment(),
             }
 
             buildSections(categoryInformation)
+            if (viewModel.categoriesNextStep.isNotEmpty()) {
+                try {
+                    buildButtonNextStep(
+                        view,
+                        viewModel.categoriesNextStep[index],
+                        categoryInformation
+                    )
+                } catch (ex: Exception) {
+                    Timber.e(ex)
+                }
+            }
         }
     }
 
+    private fun @AnkoViewDslMarker _LinearLayout.buildTitleNextStep(
+        information: CategoryInformation,
+        categoryNextStep: Category
+    ) {
+        verticalLayout {
+            padding = dip(Constants.PERCENTAGE_PADDING_ELEMENT_NEXT_STEP)
+            buildNextStep(categoryNextStep)
+            buildTitle(categoryNextStep)
+        }.lparams(
+            width = matchParent
+        )
+    }
 
-    private fun @AnkoViewDslMarker _LinearLayout.buildNextStep() {
+    private fun @AnkoViewDslMarker _LinearLayout.buildNextStep(categoryNextStep: Category) {
         textView {
-            val title = "SIGUIENTE:"
+            val title =
+                if (categoryNextStep.subtitle.isNullOrEmpty()) "SIGUIENTE" else categoryNextStep.subtitle
+
             gravity = Gravity.LEFT
             text = title
             textColor =
@@ -316,9 +342,9 @@ class GenericInfoStepFragment : BaseFragment(),
         }
     }
 
-    private fun @AnkoViewDslMarker _LinearLayout.buildTitle() {
+    private fun @AnkoViewDslMarker _LinearLayout.buildTitle(categoryNextStep: Category) {
         textView {
-            val title = categoryNextStep?.information?.get(0)?.screenTitle
+            val title = categoryNextStep.title
             textSizeDimen = R.dimen.text_size_content
             gravity = Gravity.LEFT
             text = title

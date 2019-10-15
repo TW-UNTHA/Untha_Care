@@ -15,7 +15,6 @@ import org.koin.core.context.startKoin
 import javax.net.ssl.SSLContext
 
 
-
 class CustomApplication : MultiDexApplication() {
 
     override fun onCreate() {
@@ -32,6 +31,7 @@ class CustomApplication : MultiDexApplication() {
             modules(listOf(persistenceModule, networkModule, viewModelsModule, mapperModule))
         }
     }
+
     override fun attachBaseContext(base: Context) {
         super.attachBaseContext(base)
         MultiDex.install(this)

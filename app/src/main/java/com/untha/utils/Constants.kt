@@ -4,7 +4,7 @@ object Constants {
 
     const val CATEGORIES_VERSION = "version"
     const val CATEGORY_PARAMETER = "category"
-    const val CATEGORY_PARAMETER_NEXT_STEP = "categoryNextStep"
+    const val CATEGORIES = "CATEGORIES"
     const val STEP_PAGE_ = "Step Page"
     const val MAIN_ITEM_RECYCLE_VIEW = 0
     const val SIZE_OF_ACTION_BAR = 120

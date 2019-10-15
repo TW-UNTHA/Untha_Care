@@ -17,14 +17,14 @@ import kotlinx.android.synthetic.main.layout_category_main_item.view.*
 import kotlinx.android.synthetic.main.layout_category_main_item.view.textViewCategoryTitle
 import kotlinx.android.synthetic.main.layout_category_small_item.view.*
 
-class CategoryListAdapter(
+class CategoryAdapter(
     private val items: List<Category>,
     private val clickListener: OnItemClickListener,
     private val onLongClickListener: OnItemLongClickListener
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     interface OnItemClickListener {
-        fun onItemClick(category: Category, itemView: View)
+        fun onItemClick(category: Category, categories: ArrayList<Category>, itemView: View)
     }
 
     interface OnItemLongClickListener {
@@ -52,7 +52,8 @@ class CategoryListAdapter(
         if (position == Constants.MAIN_VIEW) {
             (holder as CategoryMainViewHolder).bind(
                 items[position],
-                clickListener, onLongClickListener
+                clickListener,
+                onLongClickListener
             )
         } else {
             (holder as CategorySmallViewHolder).bind(
@@ -77,7 +78,7 @@ class CategoryListAdapter(
             )
             loadImage(category)
             setOnClickListener { view ->
-                clickListener.onItemClick(category, view)
+                clickListener.onItemClick(category, items as ArrayList<Category>, itemView)
             }
             setOnLongClickListener {
                 val prefix = "Ir a, "
@@ -121,7 +122,7 @@ class CategoryListAdapter(
                 val prefix = "Ir a , "
                 val text = prefix + category.title
                 setOnClickListener {
-                    clickListener.onItemClick(category, itemView)
+                    clickListener.onItemClick(category, items as ArrayList<Category>, itemView)
                 }
                 setOnLongClickListener {
                     longClickListener.onItemLongClick(itemView, text)

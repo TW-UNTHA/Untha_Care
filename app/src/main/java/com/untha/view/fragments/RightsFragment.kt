@@ -49,7 +49,7 @@ class RightsFragment : BaseFragment(),
     private fun populateCategoryList(categoryList: List<Category>) {
         val layoutManager = GridLayoutManager(context, Constants.SPAN_TWO_COLUMNS)
         categoryRecyclerView.layoutManager = layoutManager
-        categoryRecyclerView.adapter = RightsAdapter(categoryList, this)
+        categoryRecyclerView.adapter = RightsAdapter(categoryList as ArrayList<Category>, this)
     }
 
 
@@ -68,10 +68,14 @@ class RightsFragment : BaseFragment(),
         }
     }
 
-    override fun onItemClick(category: Category,categoryNextStep: Category?, itemView: View) {
+    override fun onItemClick(
+        category: Category,
+        categories: List<Category>?,
+        itemView: View
+    ) {
         val categoryBundle = Bundle().apply {
             putSerializable(Constants.CATEGORY_PARAMETER, category)
-            putSerializable(Constants.CATEGORY_PARAMETER_NEXT_STEP, categoryNextStep)
+            putSerializable(Constants.CATEGORIES, categories as ArrayList<Category>?)
         }
         itemView.findNavController()
             .navigate(R.id.genericInfoFragment, categoryBundle, navOptions, null)
