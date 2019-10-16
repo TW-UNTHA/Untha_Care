@@ -16,6 +16,8 @@ apply plugin: 'io.fabric'
 
 apply plugin: 'com.google.gms.google-services'
 
+apply plugin: 'com.google.firebase.firebase-perf'
+
 android {
     compileSdkVersion compilesdk_version
     buildToolsVersion "29.0.2"
@@ -107,6 +109,7 @@ dependencies {
     // Firebase
     implementation "com.google.firebase:firebase-analytics:$firebase_version"
     implementation "com.google.firebase:firebase-core:$firebase_version"
+    implementation "com.google.firebase:firebase-perf:$firebase_performance_version"
     implementation "com.android.support:multidex:$multidex_version"
     implementation "com.crashlytics.sdk.android:crashlytics:$crashlytics_version"
     kapt "androidx.room:room-compiler:$room_version"
