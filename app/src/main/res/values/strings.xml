@@ -4,5 +4,8 @@
     <string name="hint_category_title">Title</string>
     <string name="hint_category_description">Description</string>
     <string name="subtitle">¿NO SABES QUÉ HACER?</string>
+    <string name="error_description">La aplicacación necesita Google PlayStore para funcionar</string>
+    <string name="error">Error</string>
+    <string name="salir">Salir</string>
     <string name="category_id" />
 </resources>
