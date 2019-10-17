@@ -36,7 +36,7 @@
           "next_step": 14,
           "sections": [
             {
-              "id": 21,
+              "id": 1,
               "title": "¿En dónde?",
               "steps": [
                 {
@@ -46,7 +46,7 @@
               ]
             },
             {
-              "id": 22,
+              "id": 2,
               "title": "¿Cómo?",
               "steps": [
                 {
@@ -58,14 +58,14 @@
           ]
         },
         {
-          "id": 11,
+          "id": 2,
           "description": "<b>DENUNCIAS FISCALES</b> <br><br><br> Presenta este tipo de denuncia cuando eres víctima de violencia física y de cualquier tipo. Por ejemplo, si sufres de humillaciones, burlas, discriminación, encierro, golpes o amenazas.",
           "image": "info_denuncias",
           "screen_title": "DENUNCIAS",
           "next_step": 15,
           "sections": [
             {
-              "id": 23,
+              "id": 3,
               "title": "¿En dónde?",
               "steps": [
                 {
@@ -75,7 +75,7 @@
               ]
             },
             {
-              "id": 24,
+              "id": 4,
               "title": "¿Cómo?",
               "steps": [
                 {
@@ -96,14 +96,14 @@
       "title": "CONTRATOS",
       "information": [
         {
-          "id": 2,
+          "id": 3,
           "description": "Obtener un contrato de trabajo es importante porque permite formalizar tu relación con tu empleador. Las clausulas de tu contrato te ayudarán a identificar y reportar incumplimiento de las mismas o de tus derechos. Un contrato verbal es aceptado, pero se recomienda tener un contrato escrito porque es más fácil usarlo como prueba si lo llegas a necesitar.",
           "image": "info_contratos",
           "screen_title": "CONTRATOS",
           "next_step": null,
           "sections": [
             {
-              "id": 25,
+              "id": 5,
               "title": "¿Qué debe tener un contrato?",
               "steps": [
                 {
@@ -156,14 +156,14 @@
       "title": "VERIFICAR AFILIACIÓN",
       "information": [
         {
-          "id": 3,
+          "id": 4,
           "description": "El empleador debe inscribirte en el Instituto Ecuatoriano de Seguridad Social (IESS), desde el primer día de labores. Dará aviso de tu entrada en los primeros 15 días. Avisará sobre tu salida, sueldos y salarios, accidentes de trabajo y enfermedades que se produzcan en él. Y cumplirá con las demás obligaciones legales sobre seguridad social.Para verificar si estás afiliada sigue estos pasos:",
           "image": "info_afiliacion",
           "screen_title": "AFILIACIÓN AL IESS",
           "next_step": null,
           "sections": [
             {
-              "id": 1,
+              "id": 6,
               "title": "Obtén tu clave del IESS",
               "steps": [
                 {
@@ -185,7 +185,7 @@
               ]
             },
             {
-              "id": 2,
+              "id": 7,
               "title": "Obtén tu certificado de afiliación",
               "steps": [
                 {
@@ -220,13 +220,13 @@
       "title": "ÚNETE AL SINDICATO",
       "information": [
         {
-          "id": 4,
+          "id": 5,
           "image": "info_sindicato",
           "screen_title": "UNTHA",
           "next_step": null,
           "sections": [
             {
-              "id": 26,
+              "id": 8,
               "title": "¿Qué es UNTHA?",
               "steps": [
                 {
@@ -236,7 +236,7 @@
               ]
             },
             {
-              "id": 27,
+              "id": 9,
               "title": "¿Cómo puedes unirte o contactarnos?",
               "steps": [
                 {
@@ -259,13 +259,13 @@
       "is_route": false,
       "information": [
         {
-          "id": 5,
+          "id": 6,
           "image": "info_salario",
           "screen_title": "SALARIO Y BENEFICIOS",
           "next_step": 9,
           "sections": [
             {
-              "id": 3,
+              "id": 10,
               "title": "",
               "steps": [
                 {
@@ -330,13 +330,13 @@
       "is_route": false,
       "information": [
         {
-          "id": 6,
+          "id": 7,
           "image": "info_vacaciones",
           "screen_title": "JORNADA Y VACACIONES",
           "next_step": 10,
           "sections": [
             {
-              "id": 4,
+              "id": 11,
               "title": "",
               "steps": [
                 {
@@ -385,13 +385,13 @@
       "is_route": false,
       "information": [
         {
-          "id": 7,
+          "id": 8,
           "image": "info_embarazo",
           "screen_title": "MATERNIDAD",
           "next_step": 11,
           "sections": [
             {
-              "id": 5,
+              "id": 12,
               "title": "",
               "steps": [
                 {
@@ -416,13 +416,13 @@
       "is_route": false,
       "information": [
         {
-          "id": 8,
+          "id": 9,
           "image": "info_adolescentes",
           "screen_title": "NIÑAS Y ADOLESCENTES",
           "next_step": 12,
           "sections": [
             {
-              "id": 6,
+              "id": 13,
               "title": "",
               "steps": [
                 {
@@ -467,13 +467,13 @@
       "is_route": false,
       "information": [
         {
-          "id": 9,
+          "id": 10,
           "image": "info_despidos",
           "screen_title": "DESPIDOS Y TÉRMINO",
           "next_step": 13,
           "sections": [
             {
-              "id": 7,
+              "id": 14,
               "title": "",
               "steps": [
                 {
@@ -514,13 +514,13 @@
       "is_route": false,
       "information": [
         {
-          "id": 10,
+          "id": 11,
           "image": "info_leyes",
           "screen_title": "LEYES",
           "next_step": null,
           "sections": [
             {
-              "id": 8,
+              "id": 15,
               "title": "Constitución de la República del Ecuador",
               "steps": [
                 {
@@ -530,7 +530,7 @@
               ]
             },
             {
-              "id": 9,
+              "id": 16,
               "title": "Ley Orgánica para Prevenir y Erradicar la Violencia contra las mujeres",
               "steps": [
                 {
@@ -540,7 +540,7 @@
               ]
             },
             {
-              "id": 10,
+              "id": 17,
               "title": "Ley Orgánica para la Justicia Laboral y Reconocimiento del Trabajo en el Hogar",
               "steps": [
                 {
@@ -550,7 +550,7 @@
               ]
             },
             {
-              "id": 11,
+              "id": 18,
               "title": "Código del Trabajo",
               "steps": [
                 {
@@ -560,7 +560,7 @@
               ]
             },
             {
-              "id": 12,
+              "id": 19,
               "title": "Convención sobre la Eliminación de todas las Formas de Discriminación contra la Mujer",
               "steps": [
                 {
@@ -570,7 +570,7 @@
               ]
             },
             {
-              "id": 13,
+              "id": 20,
               "title": "Convención Interamericana para Prevenir, Sancionar y Erradicar la Violencia contra la Mujer, Convención de Belém do Pará",
               "steps": [
                 {
@@ -580,7 +580,7 @@
               ]
             },
             {
-              "id": 14,
+              "id": 21,
               "title": "Código Orgánico Integral Penal",
               "steps": [
                 {
@@ -590,7 +590,7 @@
               ]
             },
             {
-              "id": 15,
+              "id": 22,
               "title": "Convenio 189 sobre trabajo decente de la Organización Internacional del Trabajo para las trabajadoras y los trabajadores domésticos",
               "steps": [
                 {
@@ -600,7 +600,7 @@
               ]
             },
             {
-              "id": 16,
+              "id": 23,
               "title": "Convenio 182 sobre la prohibición de las peores formas de trabajo infantil y la acción inmediata para su eliminación",
               "steps": [
                 {
@@ -610,7 +610,7 @@
               ]
             },
             {
-              "id": 17,
+              "id": 24,
               "title": "Ley Orgánica de los Consejos Nacionales para la Igualdad",
               "steps": [
                 {
@@ -620,7 +620,7 @@
               ]
             },
             {
-              "id": 18,
+              "id": 25,
               "title": "Agenda Nacional para la Igualdad de las Mujeres y Personas LGBTI",
               "steps": [
                 {
@@ -630,7 +630,7 @@
               ]
             },
             {
-              "id": 19,
+              "id": 26,
               "title": "Ley Marco sobre Economía del Cuidado del Parlamento Latinoamericano",
               "steps": [
                 {
@@ -640,7 +640,7 @@
               ]
             },
             {
-              "id": 20,
+              "id": 27,
               "title": "Acuerdo Ministerial No 0082: Normativa para la Erradicación de la Discriminación en el Ámbito Laboral",
               "steps": [
                 {
