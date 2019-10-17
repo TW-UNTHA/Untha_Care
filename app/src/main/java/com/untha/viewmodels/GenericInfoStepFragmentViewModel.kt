@@ -10,19 +10,8 @@ class GenericInfoStepFragmentViewModel : ViewModel() {
 
 
     fun getNextSteps(category: Category, categories: List<Category>) {
-
-        val nextStepCategories = categories.map { actualCategory ->
-            actualCategory.id
-        }
-        val nextSteps1 = category.information?.map { info -> info.nextStep }
-
-        var result: List<Int> = listOf()
-        if (nextSteps1 != null) {
-            result = nextStepCategories.intersect(nextSteps1).filterNotNull()
-        }
-
-        val nextStepsCategories2 = categories.filter { it.id in result }
-
-        categoriesNextStep.addAll(nextStepsCategories2)
+        val nextStepIds = category.information?.map { info -> info.nextStep } ?: listOf()
+        val nextStepCategories = categories.filter { it.id in nextStepIds }
+        categoriesNextStep.addAll(nextStepCategories)
     }
 }
