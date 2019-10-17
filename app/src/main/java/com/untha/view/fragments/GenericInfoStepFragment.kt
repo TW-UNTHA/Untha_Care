@@ -62,7 +62,7 @@ class GenericInfoStepFragment : BaseFragment() {
 
         }
         itemView.findNavController()
-            .navigate(R.id.genericInfoFragment, categoryBundle)
+            .navigate(R.id.genericInfoFragment, categoryBundle, navOptions, null)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -96,7 +96,7 @@ class GenericInfoStepFragment : BaseFragment() {
                 val marginLeft = calculateMarginLeftAndRight()
 
                 verticalLayout {
-                    loadImage(view, imageHeight,category)
+                    loadImage(view, imageHeight, category)
                     drawLine()
                 }.lparams(width = ViewGroup.LayoutParams.MATCH_PARENT, height = wrapContent)
 
@@ -157,8 +157,6 @@ class GenericInfoStepFragment : BaseFragment() {
             topMargin = dip(Constants.TOP_MARGIN_NEXT_STEP)
         }
     }
-
-
 
 
     private fun @AnkoViewDslMarker _LinearLayout.calculateMarginLeftAndRight(): Int {
