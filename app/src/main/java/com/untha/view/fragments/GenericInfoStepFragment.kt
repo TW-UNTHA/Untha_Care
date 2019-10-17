@@ -36,7 +36,6 @@ import org.jetbrains.anko.dip
 import org.jetbrains.anko.imageView
 import org.jetbrains.anko.linearLayout
 import org.jetbrains.anko.matchParent
-import org.jetbrains.anko.padding
 import org.jetbrains.anko.scrollView
 import org.jetbrains.anko.support.v4.UI
 import org.jetbrains.anko.textColor
@@ -325,27 +324,6 @@ class GenericInfoStepFragment : BaseFragment() {
             }
     }
 
-    private fun @AnkoViewDslMarker _LinearLayout.buildNextStep(categoryNextStep: Category) {
-        textView {
-            val title =
-                if (categoryNextStep.subtitle.isNullOrEmpty()) "SIGUIENTE" else categoryNextStep.subtitle
-
-            gravity = Gravity.LEFT
-            text = title
-            textColor =
-                ContextCompat.getColor(
-                    context,
-                    colorGenericTitle
-                )
-            setTypeface(typeface, Typeface.BOLD)
-            textSizeDimen = R.dimen.text_size_content_next_step
-        }.lparams(height = wrapContent, width = matchParent) {
-            bottomMargin = dip(calculateTopMargin())
-            topMargin = dip(calculateTopMargin())
-            rightMargin = calculateMarginLeftAndRight()
-        }
-    }
-
 
     private fun _LinearLayout.drawLine(color: Int, height:Int) {
         imageView {
@@ -372,24 +350,5 @@ class GenericInfoStepFragment : BaseFragment() {
 
     }
 
-
-    private fun @AnkoViewDslMarker _LinearLayout.buildImageNextStep(
-        view: View,
-        category: Category
-    ) {
-        val widthImageDp =
-            (PixelConverter.getScreenDpWidth(context)) * Constants.WIDTH_IMAGE
-        val widthImagePixel =
-            toPixels(
-                widthImageDp.toDouble(),
-                context
-            )
-        linearLayout {
-            padding = dip(Constants.PERCENTAGE_PADDING_ELEMENT_NEXT_STEP_IMAGE)
-            loadImageNextStep(view, category)
-        }.lparams(
-            width = widthImagePixel
-        )
-    }
 }
 

@@ -9,6 +9,7 @@ import com.bumptech.glide.Glide
 import com.untha.R
 import com.untha.model.transactionalmodels.Category
 import com.untha.utils.Constants
+import com.untha.utils.PixelConverter
 import org.jetbrains.anko.AnkoViewDslMarker
 import org.jetbrains.anko._LinearLayout
 import org.jetbrains.anko.dip
@@ -93,16 +94,24 @@ fun @AnkoViewDslMarker _LinearLayout.loadImage(
 
 fun @AnkoViewDslMarker _LinearLayout.buildImageNextStep(
     view: View,
-    widthScreenImagePixel: Int,
     category: Category
 ) {
+    val widthImageDp =
+        (PixelConverter.getScreenDpWidth(context)) * Constants.WIDTH_IMAGE
+    val widthImagePixel =
+        PixelConverter.toPixels(
+            widthImageDp.toDouble(),
+            context
+        )
     linearLayout {
         padding = dip(Constants.PERCENTAGE_PADDING_ELEMENT_NEXT_STEP_IMAGE)
         loadImageNextStep(view, category)
     }.lparams(
-        width = widthScreenImagePixel
+        width = widthImagePixel
     )
 }
+
+
 
 
 
