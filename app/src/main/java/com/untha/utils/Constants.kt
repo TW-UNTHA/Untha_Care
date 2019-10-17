@@ -6,6 +6,7 @@ object Constants {
     const val CATEGORY_PARAMETER = "category"
     const val CATEGORIES = "CATEGORIES"
     const val STEP_PAGE_ = "Step Page"
+    const val SUBTITLE_NEXT_STEP = "SIGUIENTE"
     const val MAIN_ITEM_RECYCLE_VIEW = 0
     const val SIZE_OF_ACTION_BAR = 120
     const val MARGIN_TOP_PERCENTAGE = 0.01406
@@ -28,7 +29,6 @@ object Constants {
     const val MARGIN_HIDDEN_PLAYER = -6
     const val GENERIC_STEP_MARGIN_MULTIPLIER = 2
     const val SIZE_HEIGHT_NEXT_STEP = 0.1981
-    const val PERCENTAGE_PADDING_ELEMENT_NEXT_STEP = 10
     const val PERCENTAGE_PADDING_ELEMENT_NEXT_STEP_IMAGE = 15
     const val TOP_MARGIN_NEXT_STEP = 17
 
@@ -36,4 +36,7 @@ object Constants {
 
     const val HEIGHT_LINE_HEADER_GENERIC = 8
     const val COORDINATES_LINE_HEADER_GENERIC = 25
+
+    const val WIDTH_IMAGE = 0.35329
+    const val WIDTH_BLOCK_OF_TEXT = 0.646706
 }

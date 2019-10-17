@@ -38,6 +38,7 @@ import org.jetbrains.anko.linearLayout
 import org.jetbrains.anko.matchParent
 import org.jetbrains.anko.padding
 import org.jetbrains.anko.scrollView
+import org.jetbrains.anko.support.v4.UI
 import org.jetbrains.anko.textColor
 import org.jetbrains.anko.textSizeDimen
 import org.jetbrains.anko.textView
@@ -45,7 +46,6 @@ import org.jetbrains.anko.verticalLayout
 import org.jetbrains.anko.wrapContent
 import org.koin.android.viewmodel.ext.android.viewModel
 import timber.log.Timber
-import org.jetbrains.anko.support.v4.UI
 
 class GenericInfoStepFragment : BaseFragment() {
 
@@ -121,13 +121,12 @@ class GenericInfoStepFragment : BaseFragment() {
 
     private fun @AnkoViewDslMarker _LinearLayout.buildButtonNextStep(
         view: View,
-        categoryNextStep: Category, information: CategoryInformation
+        categoryNextStep: Category
     ): LinearLayout {
         val heightFormula =
             (PixelConverter.getScreenDpHeight(context)) * Constants.SIZE_HEIGHT_NEXT_STEP
 
         return linearLayout {
-
             orientation = LinearLayout.HORIZONTAL
             backgroundColor =
                 ContextCompat.getColor(context, R.color.colorGenericTitle)
@@ -135,18 +134,9 @@ class GenericInfoStepFragment : BaseFragment() {
             backgroundDrawable = ContextCompat.getDrawable(
                 context, R.drawable.corners_round_next_item
             )
+            buildImageNextStep(view, categoryNextStep)
+            buildBlockTextNextSteps(categoryNextStep)
 
-            val widthScreenImage =
-                (PixelConverter.getScreenDpHeight(context)) * Constants.SIZE_HEIGHT_NEXT_STEP
-            val widthScreenImagePixel =
-                toPixels(
-                    widthScreenImage.toDouble(),
-                    context
-                )
-
-            buildImageNextStep(view, widthScreenImagePixel, categoryNextStep)
-
-            buildTitleNextStep(categoryNextStep)
             setOnClickListener {
                 onItemClick(categoryNextStep, categories as ArrayList<Category>, view)
             }
@@ -158,6 +148,42 @@ class GenericInfoStepFragment : BaseFragment() {
         }
     }
 
+    private fun @AnkoViewDslMarker _LinearLayout.buildBlockTextNextSteps(
+        categoryNextStep: Category
+    ) {
+        val widthBlockDp =
+            (PixelConverter.getScreenDpWidth(context)) * Constants.WIDTH_BLOCK_OF_TEXT
+        val widthBlockPixel =
+            toPixels(
+                widthBlockDp.toDouble(),
+                context
+            )
+        verticalLayout {
+            buildNextStepSubtitle(categoryNextStep)
+            buildNextStepTitle(categoryNextStep)
+        }.lparams(
+            width = matchParent,
+            height = dip(widthBlockPixel)
+        )
+    }
+
+    private fun @AnkoViewDslMarker _LinearLayout.buildNextStepSubtitle(categoryNextStep: Category) {
+        textView {
+            val title = categoryNextStep.subtitle ?: Constants.SUBTITLE_NEXT_STEP
+            gravity = Gravity.LEFT
+            text = title
+            textSizeDimen = R.dimen.text_size_content
+            textColor =
+                ContextCompat.getColor(
+                    context,
+                    R.color.colorGenericTitle
+                )
+            setTypeface(typeface, Typeface.BOLD)
+        }.lparams(height = wrapContent, width = matchParent) {
+            bottomMargin = dip(calculateTopMargin())
+            topMargin = dip(calculateTopMargin())
+        }
+    }
 
     private fun @AnkoViewDslMarker _LinearLayout.calculateMarginLeftAndRight(): Int {
         val widthFormula =
@@ -279,45 +305,12 @@ class GenericInfoStepFragment : BaseFragment() {
                 try {
                     buildButtonNextStep(
                         view,
-                        viewModel.categoriesNextStep[index],
-                        categoryInformation
+                        viewModel.categoriesNextStep[index]
                     )
                 } catch (ex: ArrayIndexOutOfBoundsException) {
                     Timber.e(ex)
                 }
             }
-        }
-    }
-
-    private fun @AnkoViewDslMarker _LinearLayout.buildTitleNextStep(
-        categoryNextStep: Category
-    ) {
-        verticalLayout {
-            //            padding = dip(Constants.PERCENTAGE_PADDING_ELEMENT_NEXT_STEP)
-            buildNextStep(categoryNextStep)
-            buildTitle(categoryNextStep)
-        }.lparams(
-            width = matchParent
-        )
-    }
-
-    private fun @AnkoViewDslMarker _LinearLayout.buildNextStep(categoryNextStep: Category) {
-        textView {
-            val title =
-                if (categoryNextStep.subtitle.isNullOrEmpty()) "SIGUIENTE" else categoryNextStep.subtitle
-
-            gravity = Gravity.LEFT
-            text = title
-            textColor =
-                ContextCompat.getColor(
-                    context,
-                    R.color.colorGenericTitle
-                )
-            setTypeface(typeface, Typeface.BOLD)
-            textSizeDimen = R.dimen.text_size_content
-        }.lparams(height = wrapContent, width = matchParent) {
-            bottomMargin = dip(calculateTopMargin())
-            topMargin = dip(calculateTopMargin())
         }
     }
 
@@ -349,14 +342,20 @@ class GenericInfoStepFragment : BaseFragment() {
 
     private fun @AnkoViewDslMarker _LinearLayout.buildImageNextStep(
         view: View,
-        widthScreenImagePixel: Int,
         category: Category
     ) {
+        val widthImageDp =
+            (PixelConverter.getScreenDpWidth(context)) * Constants.WIDTH_IMAGE
+        val widthImagePixel =
+            toPixels(
+                widthImageDp.toDouble(),
+                context
+            )
         linearLayout {
             padding = dip(Constants.PERCENTAGE_PADDING_ELEMENT_NEXT_STEP_IMAGE)
             loadImageNextStep(view, category)
         }.lparams(
-            width = widthScreenImagePixel
+            width = widthImagePixel
         )
     }
 }

@@ -45,22 +45,25 @@ class CategoryAdapter(
 
 
     override fun getItemCount(): Int {
-        return items.size
+        return items.filter { !it.isRoute }.size
     }
 
+
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        if (position == Constants.MAIN_VIEW) {
-            (holder as CategoryMainViewHolder).bind(
-                items[position],
-                clickListener,
-                onLongClickListener
-            )
-        } else {
-            (holder as CategorySmallViewHolder).bind(
-                items[position],
-                clickListener,
-                onLongClickListener
-            )
+        if (!items[position].isRoute) {
+            if (position == Constants.MAIN_VIEW) {
+                (holder as CategoryMainViewHolder).bind(
+                    items[position],
+                    clickListener,
+                    onLongClickListener
+                )
+            } else {
+                (holder as CategorySmallViewHolder).bind(
+                    items[position],
+                    clickListener,
+                    onLongClickListener
+                )
+            }
         }
     }
 
@@ -110,6 +113,7 @@ class CategoryAdapter(
             longClickListener: OnItemLongClickListener
         ) {
             with(itemView) {
+
 
                 textViewCategoryTitle.text = category.title
                 setLayoutParams2(
