@@ -8,10 +8,14 @@ import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.untha.R
 import com.untha.model.transactionalmodels.Category
+import com.untha.utils.Constants
 import org.jetbrains.anko.AnkoViewDslMarker
 import org.jetbrains.anko._LinearLayout
+import org.jetbrains.anko.dip
 import org.jetbrains.anko.imageView
+import org.jetbrains.anko.linearLayout
 import org.jetbrains.anko.matchParent
+import org.jetbrains.anko.padding
 import org.jetbrains.anko.textColor
 import org.jetbrains.anko.textSizeDimen
 import org.jetbrains.anko.textView
@@ -48,10 +52,10 @@ fun @AnkoViewDslMarker _LinearLayout.loadImage(view: View, category: Category) {
     }.lparams(width = matchParent, height = matchParent)
 }
 
-fun @AnkoViewDslMarker _LinearLayout.buildNextStepTitle(categoryNextStep: Category) {
+fun @AnkoViewDslMarker _LinearLayout.buildNextStepTitle(categoryNextStep: Category, margin:Int) {
     textView {
         val title = categoryNextStep.title
-        textSizeDimen = R.dimen.text_size_content
+        textSizeDimen = R.dimen.text_size_content_next_step
         gravity = Gravity.LEFT
         text = title
         textColor =
@@ -61,9 +65,12 @@ fun @AnkoViewDslMarker _LinearLayout.buildNextStepTitle(categoryNextStep: Catego
             )
 
         setTypeface(typeface, Typeface.NORMAL)
+
+
+    }.lparams{
+        rightMargin = margin
     }
 }
-
 
 fun @AnkoViewDslMarker _LinearLayout.loadImage(
     view: View,
@@ -83,4 +90,19 @@ fun @AnkoViewDslMarker _LinearLayout.loadImage(
         scaleType = ImageView.ScaleType.FIT_XY
     }.lparams(width = matchParent, height = imageHeight)
 }
+
+fun @AnkoViewDslMarker _LinearLayout.buildImageNextStep(
+    view: View,
+    widthScreenImagePixel: Int,
+    category: Category
+) {
+    linearLayout {
+        padding = dip(Constants.PERCENTAGE_PADDING_ELEMENT_NEXT_STEP_IMAGE)
+        loadImageNextStep(view, category)
+    }.lparams(
+        width = widthScreenImagePixel
+    )
+}
+
+
 

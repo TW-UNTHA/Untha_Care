@@ -4,5 +4,6 @@
     <color name="colorHeaderBackground">#602080</color>
     <color name="colorBackgroundGenericInfo">#99ffffff</color>
     <color name="colorGenericTitle">#602080</color>
+    <color name="colorGenericLineHeader">#829b9b9b</color>
     <color name="link">#ffff31</color>
 </resources>

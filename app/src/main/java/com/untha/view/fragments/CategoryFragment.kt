@@ -25,6 +25,7 @@ class CategoryFragment : BaseFragment(),
 
     companion object {
         const val RIGHTS_CATEGORY = 2
+        const val CALCULATOR_CATEGORY = 3
         const val ROUTES_CATEGORY = 1
     }
 
@@ -47,6 +48,8 @@ class CategoryFragment : BaseFragment(),
                 navOptions,
                 null
             )
+
+            CALCULATOR_CATEGORY -> println("To be implemented")
             ROUTES_CATEGORY -> println("To be implemented")
             else -> {
                 val categoryBundle = Bundle().apply {
