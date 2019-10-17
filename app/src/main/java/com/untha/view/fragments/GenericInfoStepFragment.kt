@@ -22,8 +22,6 @@ import com.untha.model.transactionalmodels.CategoryInformation
 import com.untha.model.transactionalmodels.Section
 import com.untha.model.transactionalmodels.Step
 import com.untha.utils.Constants
-import com.untha.utils.Constants.COORDINATES_LINE_HEADER_GENERIC
-import com.untha.utils.Constants.HEIGHT_LINE_HEADER_GENERIC
 import com.untha.utils.PixelConverter
 import com.untha.utils.PixelConverter.toPixels
 import com.untha.view.activities.MainActivity
@@ -153,11 +151,7 @@ class GenericInfoStepFragment : BaseFragment() {
     ) {
         val widthBlockDp =
             (PixelConverter.getScreenDpWidth(context)) * Constants.WIDTH_BLOCK_OF_TEXT
-        val widthBlockPixel =
-            toPixels(
-                widthBlockDp.toDouble(),
-                context
-            )
+        val widthBlockPixel = toPixels(widthBlockDp.toDouble(), context)
         verticalLayout {
             buildNextStepSubtitle(categoryNextStep)
             buildNextStepTitle(categoryNextStep)
@@ -319,7 +313,7 @@ class GenericInfoStepFragment : BaseFragment() {
         imageView {
             val widthLine = toPixels(PixelConverter.getScreenDpWidth(context).toDouble(), context)
             val bitmap =
-                Bitmap.createBitmap(widthLine, HEIGHT_LINE_HEADER_GENERIC, Bitmap.Config.ARGB_8888)
+                Bitmap.createBitmap(widthLine, Constants.HEIGHT_LINE_HEADER_GENERIC, Bitmap.Config.ARGB_8888)
             val canvas = Canvas(bitmap)
             canvas.drawColor(Color.LTGRAY)
             val paint = Paint()
@@ -327,7 +321,7 @@ class GenericInfoStepFragment : BaseFragment() {
             paint.style = Paint.Style.STROKE
             paint.strokeWidth = widthLine.toFloat()
             paint.isAntiAlias = true
-            val offset = COORDINATES_LINE_HEADER_GENERIC
+            val offset = Constants.COORDINATES_LINE_HEADER_GENERIC
             canvas.drawLine(
                 offset.toFloat(), (canvas.height / 2).toFloat(),
                 (canvas.width - offset).toFloat(),
