@@ -7,6 +7,6 @@ import retrofit2.http.GET
 
 interface LawsAndRightsService {
 
-    @GET("categoriesPrueba.json")
+    @GET("categories.json")
     fun getCategories(): LiveData<ApiResponse<CategoriesWrapper>>
 }
