@@ -139,10 +139,10 @@ class CategoryAdapter(
             category: Category
         ) {
             val imageView = findViewById<ImageView>(R.id.imageView)
+
             val cardHeightInDps =
-                (PixelConverter.getScreenDpHeight(context) -
-                        Constants.SIZE_OF_ACTION_BAR) * Constants.PERCENTAGE_SMALL_HEIGHT_LAYOUT
-            imageView.setPadding((cardHeightInDps / Constants.PERCENTAGE_PADDING_SMALL_IMAGE_VIEW).toInt())
+                (PixelConverter.getScreenDpWidth(context)) * Constants.SIZE_MARGIN_IMAGE
+            imageView.setPadding(cardHeightInDps.toInt())
 
             val imageUrl = resources.getIdentifier(
                 category.image,

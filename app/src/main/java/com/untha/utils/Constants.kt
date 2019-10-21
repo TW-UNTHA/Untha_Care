@@ -39,4 +39,6 @@ object Constants {
 
     const val WIDTH_IMAGE = 0.35329
     const val WIDTH_BLOCK_OF_TEXT = 0.646706
+
+    const val SIZE_MARGIN_IMAGE = 0.103773
 }
