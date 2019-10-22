@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <dimen name="text_size">16sp</dimen>
-    <dimen name="text_size_main_component">17sp</dimen>
-    <dimen name="text_size_content">18sp</dimen>
-    <dimen name="text_size_content_next_step">18sp</dimen>
-</resources>

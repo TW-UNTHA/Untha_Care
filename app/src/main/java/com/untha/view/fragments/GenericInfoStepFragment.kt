@@ -106,14 +106,12 @@ class GenericInfoStepFragment : BaseFragment() {
                     lparams(width = matchParent, height = matchParent) {
                         leftMargin = marginLeft * Constants.GENERIC_STEP_MARGIN_MULTIPLIER
                         rightMargin = marginLeft
-                        bottomMargin = 5
-//                        bottomMargin = marginTop * Constants.GENERIC_STEP_MARGIN_MULTIPLIER
+                        bottomMargin = marginTop * Constants.GENERIC_STEP_MARGIN_MULTIPLIER
                     }
                 }
             }.lparams(width = matchParent, height = matchParent)
         }
         mainActivity.supportActionBar?.title = category.information?.get(0)?.screenTitle
-        mainActivity.supportActionBar?.title
     }
 
     private fun @AnkoViewDslMarker _LinearLayout.buildButtonNextStep(
@@ -187,7 +185,7 @@ class GenericInfoStepFragment : BaseFragment() {
             val title = categoryNextStep.subtitle ?: Constants.SUBTITLE_NEXT_STEP
             gravity = Gravity.LEFT
             text = title
-            textSizeDimen = R.dimen.text_size_content_next_step
+            textSizeDimen = R.dimen.text_size_content
             textColor =
                 ContextCompat.getColor(
                     context,

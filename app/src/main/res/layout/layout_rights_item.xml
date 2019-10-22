@@ -20,10 +20,7 @@
 
 	<TextView
 		android:id="@+id/categoryTitle"
-		style="@style/TitleCategory"
-		android:lines="3"
-
-		/>
+		style="@style/TitleCategory"/>
 
 
 	<ImageView
