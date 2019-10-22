@@ -6,7 +6,6 @@
       "image": "home_rutas",
       "title": "¿NO SABES QUÉ HACER?",
       "subtitle": "SIGUE LAS RUTAS DE AYUDA",
-      "title_next_step":null,
       "parent_id": null,
       "is_route": false
     },
@@ -14,7 +13,6 @@
       "id": 2,
       "image": "home_derechos",
       "title": "MIS DERECHOS",
-      "title_next_step":null,
       "parent_id": null,
       "is_route": false
     },
@@ -22,7 +20,6 @@
       "id": 3,
       "image": "home_beneficios",
       "title": "CALCULAR MIS BENEFICIOS",
-      "title_next_step":null,
       "parent_id": null,
       "is_route": false
     },
@@ -30,7 +27,6 @@
       "id": 4,
       "image": "home_denuncias",
       "title": "CÓMO HACER DENUNCIAS",
-      "title_next_step":null,
       "information": [
         {
           "id": 1,
@@ -98,7 +94,6 @@
       "id": 5,
       "image": "home_contratos",
       "title": "CONTRATOS",
-      "title_next_step":null,
       "information": [
         {
           "id": 3,
@@ -159,7 +154,6 @@
       "id": 6,
       "image": "home_afiliciacion",
       "title": "VERIFICAR AFILIACIÓN",
-      "title_next_step":null,
       "information": [
         {
           "id": 4,
@@ -224,7 +218,6 @@
       "id": 7,
       "image": "home_sindicato",
       "title": "ÚNETE AL SINDICATO",
-      "title_next_step":null,
       "information": [
         {
           "id": 5,
@@ -262,7 +255,6 @@
       "id": 8,
       "image": "derechos_salario",
       "title": "SALARIO Y BENEFICIOS",
-      "title_next_step":null,
       "parent_id": 2,
       "is_route": false,
       "information": [
@@ -334,7 +326,6 @@
       "id": 9,
       "image": "derechos_vacaciones",
       "title": "JORNADA DE TRABAJO Y VACACIONES",
-      "title_next_step":null,
       "parent_id": 2,
       "is_route": false,
       "information": [
@@ -390,7 +381,6 @@
       "id": 10,
       "image": "derechos_embarazo",
       "title": "EMBARAZO",
-      "title_next_step":null,
       "parent_id": 2,
       "is_route": false,
       "information": [
@@ -422,7 +412,6 @@
       "id": 11,
       "image": "derechos_adolescentes",
       "title": "NIÑAS Y ADOLESCENTES ",
-      "title_next_step":null,
       "parent_id": 2,
       "is_route": false,
       "information": [
@@ -474,7 +463,6 @@
       "id": 12,
       "image": "derechos_despidos",
       "title": "DESPIDOS Y TÉRMINO DE CONTRATOS",
-      "title_next_step":null,
       "parent_id": 2,
       "is_route": false,
       "information": [
@@ -521,7 +509,6 @@
     {
       "id": 13,
       "title": "LEYES",
-      "title_next_step":null,
       "image": "derechos_leyes",
       "parent_id": 2,
       "is_route": false,
@@ -671,7 +658,6 @@
       "image": "rutas_derechos_laborales",
       "title": "CONOCE SI SE ESTÁN CUMPLIENDO TUS DERECHOS",
       "subtitle": "CUESTIONARIO DE DERECHOS LABORALES:",
-      "title_next_step":null,
       "parent_id": null,
       "is_route": true
     },
@@ -680,7 +666,6 @@
       "image": "rutas_violencia_laboral",
       "title": "CONOCE SI ERES VÍCTIMA DE VIOLENCIA",
       "subtitle": "CUESTIONARIO DE VIOLENCIA LABORAL:",
-      "title_next_step":null,
       "parent_id": null,
       "is_route": true
     }
