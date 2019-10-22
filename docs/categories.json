@@ -658,6 +658,7 @@
       "image": "rutas_derechos_laborales",
       "title": "CONOCE SI SE ESTÁN CUMPLIENDO TUS DERECHOS",
       "subtitle": "CUESTIONARIO DE DERECHOS LABORALES:",
+      "title_next_step":null,
       "parent_id": null,
       "is_route": true
     },
@@ -666,6 +667,7 @@
       "image": "rutas_violencia_laboral",
       "title": "CONOCE SI ERES VÍCTIMA DE VIOLENCIA",
       "subtitle": "CUESTIONARIO DE VIOLENCIA LABORAL:",
+      "title_next_step":null,
       "parent_id": null,
       "is_route": true
     }
