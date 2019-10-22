@@ -14,27 +14,27 @@ import org.junit.runners.JUnit4
 import org.koin.test.KoinTest
 
 @RunWith(JUnit4::class)
-class GenericInfoStepFragmentViewModelTest : KoinTest {
+class GenericInfoStepViewModelTest : KoinTest {
 
     @get:Rule
     val rule = InstantTaskExecutorRule()
 
     @Test
     fun shouldGiveMeZeroWhenNextStepsAreNull() {
-        val genericInfoStepFragmentViewModelMock: GenericInfoStepFragmentViewModel =
-            GenericInfoStepFragmentViewModel()
+        val genericInfoStepViewModelMock: GenericInfoStepViewModel =
+            GenericInfoStepViewModel()
         val categories: ArrayList<Category> = arrayListOf()
         val category: Category = getCategoryMock(1, "DERECHOS", null)
 
-        genericInfoStepFragmentViewModelMock.getNextSteps(category, categories)
+        genericInfoStepViewModelMock.getNextSteps(category, categories)
 
-        Assert.assertEquals(0, genericInfoStepFragmentViewModelMock.categoriesNextStep.size)
+        Assert.assertEquals(0, genericInfoStepViewModelMock.categoriesNextStep.size)
     }
 
     @Test
     fun shouldGiveMeOneElementWhenNextStepsIsDiferentOfNull() {
-        val genericInfoStepFragmentViewModelMock: GenericInfoStepFragmentViewModel =
-            GenericInfoStepFragmentViewModel()
+        val genericInfoStepViewModelMock: GenericInfoStepViewModel =
+            GenericInfoStepViewModel()
         val categories: ArrayList<Category> = arrayListOf()
         var categoryOne: Category = getCategoryMock(1, "DERECHOS", 2)
         var categoryTwo: Category = getCategoryMock(2, "MATERNIDAD", 3)
@@ -42,17 +42,17 @@ class GenericInfoStepFragmentViewModelTest : KoinTest {
         categories.add(categoryTwo)
         val category: Category = getCategoryMock(1, "DERECHOS", 2)
 
-        genericInfoStepFragmentViewModelMock.getNextSteps(category, categories)
+        genericInfoStepViewModelMock.getNextSteps(category, categories)
 
-        Assert.assertEquals(1, genericInfoStepFragmentViewModelMock.categoriesNextStep.size)
+        Assert.assertEquals(1, genericInfoStepViewModelMock.categoriesNextStep.size)
 
-        Assert.assertEquals("MATERNIDAD", genericInfoStepFragmentViewModelMock.categoriesNextStep[0].title)
+        Assert.assertEquals("MATERNIDAD", genericInfoStepViewModelMock.categoriesNextStep[0].title)
     }
 
     @Test
     fun shouldReturnTheNextStepCategoryObject() {
-        val genericInfoStepFragmentViewModelMock: GenericInfoStepFragmentViewModel =
-            GenericInfoStepFragmentViewModel()
+        val genericInfoStepViewModelMock: GenericInfoStepViewModel =
+            GenericInfoStepViewModel()
         val categories: ArrayList<Category> = arrayListOf()
         var categoryOne: Category = getCategoryMock(1, "DERECHOS", 2)
         var categoryTwo: Category = getCategoryMock(2, "MATERNIDAD", 3)
@@ -60,9 +60,9 @@ class GenericInfoStepFragmentViewModelTest : KoinTest {
         categories.add(categoryTwo)
         val category: Category = getCategoryMock(1, "DERECHOS", 2)
 
-        genericInfoStepFragmentViewModelMock.getNextSteps(category, categories)
+        genericInfoStepViewModelMock.getNextSteps(category, categories)
 
-        Assert.assertEquals("MATERNIDAD", genericInfoStepFragmentViewModelMock.categoriesNextStep[0].title)
+        Assert.assertEquals("MATERNIDAD", genericInfoStepViewModelMock.categoriesNextStep[0].title)
     }
 
     private fun getCategoryMock(id: Int, title: String, nextStep: Int?): Category {

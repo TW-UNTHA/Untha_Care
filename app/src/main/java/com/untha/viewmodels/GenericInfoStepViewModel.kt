@@ -3,7 +3,7 @@ package com.untha.viewmodels
 import androidx.lifecycle.ViewModel
 import com.untha.model.transactionalmodels.Category
 
-class GenericInfoStepFragmentViewModel : ViewModel() {
+class GenericInfoStepViewModel : ViewModel() {
 
     var categoriesNextStep: ArrayList<Category> = arrayListOf()
         private set

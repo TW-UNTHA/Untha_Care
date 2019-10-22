@@ -13,7 +13,7 @@ import com.untha.model.repositories.SectionRepository
 import com.untha.model.repositories.SectionStepRepository
 import com.untha.model.services.LawsAndRightsServiceAPI
 import com.untha.model.models.CategoryViewModel
-import com.untha.viewmodels.GenericInfoStepFragmentViewModel
+import com.untha.viewmodels.GenericInfoStepViewModel
 import com.untha.viewmodels.RightsViewModel
 import com.untha.viewmodels.MainViewModel
 import org.koin.android.ext.koin.androidContext
@@ -24,7 +24,7 @@ val viewModelsModule = module {
     viewModel { MainViewModel(get(), get(), get(), get(), get()) }
     viewModel { CategoryViewModel(get(), get()) }
     viewModel { RightsViewModel(get(), get()) }
-    viewModel { GenericInfoStepFragmentViewModel() }
+    viewModel { GenericInfoStepViewModel() }
 
 }
 

@@ -24,7 +24,7 @@ import com.untha.utils.Constants
 import com.untha.utils.PixelConverter
 import com.untha.utils.PixelConverter.toPixels
 import com.untha.view.activities.MainActivity
-import com.untha.viewmodels.GenericInfoStepFragmentViewModel
+import com.untha.viewmodels.GenericInfoStepViewModel
 import org.jetbrains.anko.AnkoViewDslMarker
 import org.jetbrains.anko._LinearLayout
 import org.jetbrains.anko.backgroundColor
@@ -51,7 +51,7 @@ class GenericInfoStepFragment : BaseFragment() {
     private lateinit var category: Category
     private var categories: List<Category>? = null
     private lateinit var mainActivity: MainActivity
-    private val viewModel: GenericInfoStepFragmentViewModel by viewModel()
+    private val viewModel: GenericInfoStepViewModel by viewModel()
 
 
     fun onItemClick(category: Category, categories: ArrayList<Category>?, itemView: View) {
