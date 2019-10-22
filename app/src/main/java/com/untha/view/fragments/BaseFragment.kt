@@ -47,12 +47,23 @@ open class BaseFragment : Fragment(), TextToSpeech.OnInitListener {
         super.onDestroy()
     }
 
-    fun logAnalyticsEvent(id: String, name: String, contentType: String, event: String) {
-        val bundle = Bundle()
-        bundle.putString(FirebaseAnalytics.Param.ITEM_ID, id)
-        bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, name)
-        bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, contentType)
-        firebaseAnalytics.logEvent(event, bundle)
-    }
+    fun logAnalyticsEvent(
+        firstOptionalField: Pair<String, String>?,
+        secondOptionalField: Pair<String, String>?,
+        event: String
+    ) {
 
+        if (firstOptionalField == null && secondOptionalField == null) {
+            firebaseAnalytics.logEvent(event, null)
+        } else {
+            val bundle = Bundle()
+            if (firstOptionalField != null) {
+                bundle.putString(firstOptionalField.first, firstOptionalField.second)
+            }
+            if (secondOptionalField != null) {
+                bundle.putString(secondOptionalField.first, secondOptionalField.second)
+            }
+            firebaseAnalytics.logEvent(event, bundle)
+        }
+    }
 }

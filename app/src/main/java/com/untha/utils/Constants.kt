@@ -19,10 +19,9 @@ object Constants {
     const val SMALL_VIEW = 1
     const val PERCENTAGE_SMALL_HEIGHT_LAYOUT = 0.3
     const val MARGIN_SMALL_TOP_PERCENTAGE = 0.01093
-    const val PERCENTAGE_PADDING_SMALL_IMAGE_VIEW = 3
 
     const val REFERENCE_DENSITY = 160
-    const val PERCENTAGE_SMALL_RIGHTS= 0.33
+    const val PERCENTAGE_SMALL_RIGHTS = 0.33
     const val PERCENTAGE_PADDING_IMAGE_RIGHTS = 6
 
     const val GENERIC_PERCENTAGE_PLAYER_HEADER = 0.427
@@ -31,7 +30,6 @@ object Constants {
     const val SIZE_LINE_HEIGHT_NEXT_STEP = 3
     const val PERCENTAGE_PADDING_ELEMENT_NEXT_STEP_IMAGE = 15
     const val TOP_MARGIN_NEXT_STEP = 17
-
 
 
     const val HEIGHT_LINE_HEADER_GENERIC = 8

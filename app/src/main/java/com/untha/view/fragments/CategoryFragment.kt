@@ -9,11 +9,11 @@ import android.widget.RelativeLayout
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import com.google.firebase.analytics.FirebaseAnalytics
 import com.untha.R
 import com.untha.model.models.CategoryViewModel
 import com.untha.model.transactionalmodels.Category
 import com.untha.utils.Constants
+import com.untha.utils.FirebaseEvents
 import com.untha.utils.PixelConverter
 import com.untha.utils.ToSpeech
 import com.untha.view.adapters.CategoryAdapter
@@ -35,12 +35,9 @@ class CategoryFragment : BaseFragment(),
 
     override fun onItemClick(category: Category, categories: ArrayList<Category>, itemView: View) {
         logAnalyticsEvent(
-            category.id.toString(),
-            category.title,
-            "category",
-            FirebaseAnalytics.Event.SELECT_CONTENT
+            null, null,
+            FirebaseEvents.CLICK_CATEGORY + category.title
         )
-
         when (category.id) {
             RIGHTS_CATEGORY -> itemView.findNavController().navigate(
                 R.id.rightsFragment,
