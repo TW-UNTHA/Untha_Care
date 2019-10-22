@@ -185,7 +185,7 @@ class GenericInfoStepFragment : BaseFragment() {
             val title = categoryNextStep.subtitle ?: Constants.SUBTITLE_NEXT_STEP
             gravity = Gravity.LEFT
             text = title
-            textSizeDimen = R.dimen.text_size_content
+            textSizeDimen = R.dimen.text_size_content_next_step
             textColor =
                 ContextCompat.getColor(
                     context,
