@@ -29,10 +29,13 @@ import org.jetbrains.anko.AnkoViewDslMarker
 import org.jetbrains.anko._LinearLayout
 import org.jetbrains.anko.backgroundColor
 import org.jetbrains.anko.backgroundDrawable
+import org.jetbrains.anko.bottomPadding
 import org.jetbrains.anko.dip
 import org.jetbrains.anko.imageView
+import org.jetbrains.anko.leftPadding
 import org.jetbrains.anko.linearLayout
 import org.jetbrains.anko.matchParent
+import org.jetbrains.anko.rightPadding
 import org.jetbrains.anko.scrollView
 import org.jetbrains.anko.support.v4.UI
 import org.jetbrains.anko.textColor
@@ -104,9 +107,9 @@ class GenericInfoStepFragment : BaseFragment() {
                     backgroundColor =
                         ContextCompat.getColor(context, R.color.colorBackgroundGenericInfo)
                     lparams(width = matchParent, height = matchParent) {
-                        leftMargin = marginLeft * Constants.GENERIC_STEP_MARGIN_MULTIPLIER
-                        rightMargin = marginLeft
-                        bottomMargin = marginTop * Constants.GENERIC_STEP_MARGIN_MULTIPLIER
+                        leftPadding = marginLeft * Constants.GENERIC_STEP_MARGIN_MULTIPLIER
+                        rightPadding = marginLeft * Constants.GENERIC_STEP_MARGIN_MULTIPLIER
+                        bottomPadding = marginTop * Constants.GENERIC_STEP_MARGIN_MULTIPLIER
                     }
                 }
             }.lparams(width = matchParent, height = matchParent)
