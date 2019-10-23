@@ -5,6 +5,7 @@ import android.graphics.Canvas
 import android.graphics.Paint
 import android.graphics.Typeface
 import android.os.Bundle
+import android.util.TypedValue
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -29,6 +30,7 @@ import org.jetbrains.anko.AnkoViewDslMarker
 import org.jetbrains.anko._LinearLayout
 import org.jetbrains.anko.backgroundColor
 import org.jetbrains.anko.backgroundDrawable
+import org.jetbrains.anko.backgroundResource
 import org.jetbrains.anko.bottomPadding
 import org.jetbrains.anko.dip
 import org.jetbrains.anko.imageView
@@ -94,7 +96,7 @@ class GenericInfoStepFragment : BaseFragment() {
                 val marginLeft = calculateMarginLeftAndRight()
 
                 verticalLayout {
-                    loadImage(view, imageHeight,category)
+                    loadImage(view, imageHeight, category)
                     drawLine(R.color.colorGenericLineHeader, Constants.HEIGHT_LINE_HEADER_GENERIC)
                 }.lparams(width = ViewGroup.LayoutParams.MATCH_PARENT, height = wrapContent)
 
@@ -132,18 +134,31 @@ class GenericInfoStepFragment : BaseFragment() {
             backgroundDrawable = ContextCompat.getDrawable(
                 context, R.drawable.corners_round_next_item
             )
-            buildImageNextStep(view, categoryNextStep)
-            buildBlockTextNextSteps(categoryNextStep)
+            linearLayout {
 
-            setOnClickListener {
-                onItemClick(categoryNextStep, categories as ArrayList<Category>, view)
+                buildImageNextStep(view, categoryNextStep)
+                buildBlockTextNextSteps(categoryNextStep)
+
+                setOnClickListener {
+                    onItemClick(categoryNextStep, categories as ArrayList<Category>, view)
+                }
+                backgroundResource = getSelectableItemBackground().resourceId
             }
-
         }.lparams(
             width = matchParent, height = dip(heightFormula.toInt())
         ) {
             topMargin = dip(Constants.TOP_MARGIN_NEXT_STEP)
         }
+    }
+
+    private fun @AnkoViewDslMarker _LinearLayout.getSelectableItemBackground(): TypedValue {
+        val outValue = TypedValue()
+        context.theme.resolveAttribute(
+            android.R.attr.selectableItemBackground,
+            outValue,
+            true
+        )
+        return outValue
     }
 
     private fun @AnkoViewDslMarker _LinearLayout.buildBlockTextNextSteps(
@@ -313,7 +328,7 @@ class GenericInfoStepFragment : BaseFragment() {
     }
 
 
-    private fun _LinearLayout.drawLine(color: Int, height:Int) {
+    private fun _LinearLayout.drawLine(color: Int, height: Int) {
         imageView {
             val widthLine = toPixels(PixelConverter.getScreenDpWidth(context).toDouble(), context)
             val bitmap =
