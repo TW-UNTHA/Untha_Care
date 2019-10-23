@@ -4,6 +4,12 @@ pipeline {
    agent any
    stages {
 
+      stage('Downloading Firebase file') {
+         steps {
+            sh "curl -o ${WORKSPACE}/app/google-services.json ${BUILD_JSON_QA}"
+         }
+      }
+
       stage('Running unit tests') {
          steps {
             sh 'fastlane unit'
@@ -30,17 +36,16 @@ pipeline {
 
       stage('Uploading QA Version') {
          steps {
-            sh "curl -o ${WORKSPACE}/app/google-services.json ${BUILD_JSON_QA}"
             sh 'fastlane distribute group:thoughtworks'
          }
       }
    }
    post {
-       always {
-          echo 'I will always say Hello again!'
-               emailext body: "${currentBuild.currentResult}: Job ${env.JOB_NAME} build ${env.BUILD_NUMBER}\n More info at: ${env.BUILD_URL}",
-               recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']],
+      always {
+         echo 'I will always say Hello again!'
+         emailext body: "${currentBuild.currentResult}: Job ${env.JOB_NAME} build ${env.BUILD_NUMBER}\n More info at: ${env.BUILD_URL}",
+            recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']],
                subject: "Jenkins Build ${currentBuild.currentResult}: Job ${env.JOB_NAME}"
-       }
+      }
    }
 }
