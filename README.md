@@ -1,4 +1,4 @@
-#Pasos necesarios para correr el proyecto
+# Pasos necesarios para correr el proyecto
 
 1. Clonar el proyecto desde el repositorio Github
 2. Instalar java 8, setear la variable JAVA_HOME
@@ -10,7 +10,7 @@
 8. Crear un dispositivo virtual para ejecutar la aplicación, [aquí](https://developer.android.com/studio/run/managing-avds?hl=es) los pasos de como hacerlo
 9. Ejecutar la aplicación en el dispositivo previamente creado.
     
-#Para continuar con el desarrollo de la aplicación
+# Para continuar con el desarrollo de la aplicación
 
 Es importante copiar el archivo pre-commit que está en la carpeta Untha_Care, en la dirección Untha_Care/.git/hooks.
 
