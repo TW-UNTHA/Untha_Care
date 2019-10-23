@@ -669,18 +669,18 @@
     {
       "id": 14,
       "image": "rutas_derechos_laborales",
-      "title": "CONOCE SI SE ESTÁN CUMPLIENDO TUS DERECHOS",
+      "title": "RUTAS DE DERECHOS LABORALES",
       "subtitle": "CUESTIONARIO DE DERECHOS LABORALES:",
-      "title_next_step":null,
+      "title_next_step":"CONOCE SI SE ESTÁN CUMPLIENDO TUS DERECHOS",
       "parent_id": null,
       "is_route": true
     },
     {
       "id": 15,
       "image": "rutas_violencia_laboral",
-      "title": "CONOCE SI ERES VÍCTIMA DE VIOLENCIA",
+      "title": "RUTA DE VIOLENCIA",
       "subtitle": "CUESTIONARIO DE VIOLENCIA LABORAL:",
-      "title_next_step":null,
+      "title_next_step":"CONOCE SI ERES VÍCTIMA DE VIOLENCIA",
       "parent_id": null,
       "is_route": true
     }
