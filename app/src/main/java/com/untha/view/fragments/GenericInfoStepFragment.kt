@@ -134,6 +134,7 @@ class GenericInfoStepFragment : BaseFragment() {
                 context, R.drawable.corners_round_next_item
             )
             linearLayout {
+                orientation = LinearLayout.HORIZONTAL
 
                 buildImageNextStep(view, categoryNextStep)
                 buildBlockTextNextSteps(categoryNextStep)
@@ -142,7 +143,8 @@ class GenericInfoStepFragment : BaseFragment() {
                     onItemClick(categoryNextStep, categories as ArrayList<Category>, view)
                 }
                 backgroundResource = getSelectableItemBackground().resourceId
-            }
+            }.lparams(
+                width = matchParent, height =matchParent)
         }.lparams(
             width = matchParent, height = dip(heightFormula.toInt())
         ) {
