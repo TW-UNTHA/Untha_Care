@@ -10,11 +10,11 @@ import com.untha.di.networkModule
 import com.untha.di.persistenceModule
 import com.untha.di.viewModelsModule
 import com.untha.model.mappers.CategoryMapper
-import com.untha.model.models.CategoryViewModel
 import com.untha.model.models.QueryingCategory
 import com.untha.model.repositories.CategoryWithRelationsRepository
 import com.utils.MockObjects
 import org.junit.After
+import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -62,17 +62,48 @@ class CategoryViewModelTest : KoinTest {
         val categoryViewModel: CategoryViewModel
 
         categoryViewModel =
-            CategoryViewModel(mockCategoryWithRelationsRepository, mockCategoryMapper)
+            CategoryViewModel(
+                mockCategoryWithRelationsRepository,
+                mockCategoryMapper
+            )
         categoryViewModel.findMainCategories()
 
         verify(mockCategoryWithRelationsRepository).findMainCategories()
+    }
+
+
+    @Test
+    fun `should call CategoriesRoutes`() {
+
+        val categoryMapper = CategoryMapper()
+        val categoryQueryingRoute = MockObjects.mockQueryingCategory()
+        val categoryRoute = categoryQueryingRoute.categoryModel
+
+        val categoryViewModel = CategoryViewModel(
+                mockCategoryWithRelationsRepository,
+                categoryMapper
+            )
+
+        categoryViewModel.getCategories(listOf(categoryQueryingRoute))
+
+        val categoriesRoutes = categoryViewModel.getCategoryRoutes()
+
+        assertEquals(categoryRoute?.title, categoriesRoutes[0].title)
+        assertEquals(categoryRoute?.subtitle, categoriesRoutes[0].subtitle)
+        assertEquals(categoryRoute?.titleNextStep, categoriesRoutes[0].titleNextStep)
+        assertEquals(categoryRoute?.image, categoriesRoutes[0].image)
+        assertEquals(categoryRoute?.isRoute, categoriesRoutes[0].isRoute)
+
     }
 
     @Test
     fun `should call CategoriesMapper`() {
         val categoryViewModel: CategoryViewModel
         categoryViewModel =
-            CategoryViewModel(mockCategoryWithRelationsRepository, mockCategoryMapper)
+            CategoryViewModel(
+                mockCategoryWithRelationsRepository,
+                mockCategoryMapper
+            )
         val categoryQuerying = MockObjects.mockQueryingCategory()
         val categoriesQuerying = listOf<QueryingCategory>(categoryQuerying)
 
@@ -90,7 +121,10 @@ class CategoryViewModelTest : KoinTest {
         val queryingCategories = MediatorLiveData<List<QueryingCategory>>()
         queryingCategories.value = categoriesQuerying
         categoryViewModel =
-            CategoryViewModel(mockCategoryWithRelationsRepository, mockCategoryMapper)
+            CategoryViewModel(
+                mockCategoryWithRelationsRepository,
+                mockCategoryMapper
+            )
 
         `when`(mockCategoryWithRelationsRepository.findMainCategories()).thenReturn(
             queryingCategories

@@ -12,6 +12,7 @@ data class CategoryModel(
     @PrimaryKey var id: Int,
     var title: String = "",
     var subtitle: String? = "",
+    var titleNextStep: String? = null,
     var image: String? = "",
     @ColumnInfo(name = "is_route")
     var isRoute: Boolean = false,

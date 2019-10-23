@@ -24,4 +24,9 @@
         android:id="@+id/genericInfoFragment"
         android:name="com.untha.view.fragments.GenericInfoStepFragment"
         android:label="AFILIACIÓN AL IESS" />
+
+    <fragment
+        android:id="@+id/mainRouteFragment"
+        android:name="com.untha.view.fragments.MainRouteFragment"
+        android:label="RUTAS DE AYUDA " />
 </navigation>

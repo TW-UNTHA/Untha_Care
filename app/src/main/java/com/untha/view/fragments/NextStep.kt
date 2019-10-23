@@ -54,9 +54,9 @@ fun @AnkoViewDslMarker _LinearLayout.loadImage(view: View, category: Category) {
     }.lparams(width = matchParent, height = matchParent)
 }
 
-fun @AnkoViewDslMarker _LinearLayout.buildNextStepTitle(categoryNextStep: Category, margin:Int) {
+fun @AnkoViewDslMarker _LinearLayout.buildNextStepTitle(categoryNextStep: Category) {
     textView {
-        val title = categoryNextStep.title
+        val title = categoryNextStep.titleNextStep
         textSizeDimen = R.dimen.text_size_content_next_step
         gravity = Gravity.LEFT
         text = title
@@ -65,12 +65,7 @@ fun @AnkoViewDslMarker _LinearLayout.buildNextStepTitle(categoryNextStep: Catego
                 context,
                 R.color.colorGenericTitle
             )
-
         setTypeface(typeface, Typeface.NORMAL)
-
-
-    }.lparams{
-        rightMargin = margin
     }
 }
 

@@ -10,7 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.untha.R
-import com.untha.model.models.CategoryViewModel
+import com.untha.viewmodels.CategoryViewModel
 import com.untha.model.transactionalmodels.Category
 import com.untha.utils.Constants
 import com.untha.utils.ContentType
@@ -32,7 +32,6 @@ class CategoryFragment : BaseFragment(),
     private lateinit var categoryListAdapter: CategoryAdapter
     private val categoryViewModel: CategoryViewModel by viewModel()
 
-
     override fun onItemClick(category: Category, categories: ArrayList<Category>, itemView: View) {
         logAnalyticsSelectContentWithId(
             category.title, ContentType.CATEGORY
@@ -46,7 +45,23 @@ class CategoryFragment : BaseFragment(),
             )
 
             CALCULATOR_CATEGORY -> println("To be implemented")
-            ROUTES_CATEGORY -> println("To be implemented")
+
+
+            ROUTES_CATEGORY -> {
+                val categoriesRoutes = Bundle().apply {
+                    putSerializable(
+                        Constants.CATEGORIES_ROUTES,
+                        categoryViewModel.getCategoryRoutes()
+                    )
+                }
+                itemView.findNavController().navigate(
+                    R.id.mainRouteFragment,
+                    categoriesRoutes,
+                    navOptions,
+                    null
+                )
+            }
+
             else -> {
                 val categoryBundle = Bundle().apply {
                     putSerializable(Constants.CATEGORY_PARAMETER, category)
@@ -79,8 +94,8 @@ class CategoryFragment : BaseFragment(),
         }
         setMarginsToRecyclerView()
         categoryViewModel.findMainCategories().observe(this, Observer { queryingCategories ->
-            val categories = categoryViewModel.getCategories(queryingCategories)
-            populateCategoryList(categories)
+            categoryViewModel.getCategories(queryingCategories)
+            categoryViewModel.categories?.let { populateCategoryList(it) }
         })
     }
 

@@ -12,7 +12,7 @@ import com.untha.model.repositories.InformationCategoryRepository
 import com.untha.model.repositories.SectionRepository
 import com.untha.model.repositories.SectionStepRepository
 import com.untha.model.services.LawsAndRightsServiceAPI
-import com.untha.model.models.CategoryViewModel
+import com.untha.viewmodels.CategoryViewModel
 import com.untha.viewmodels.GenericInfoStepViewModel
 import com.untha.viewmodels.RightsViewModel
 import com.untha.viewmodels.MainViewModel

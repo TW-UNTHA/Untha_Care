@@ -2,13 +2,17 @@ package com.untha.utils
 
 object Constants {
 
+    const val CATEGORIES_ROUTES= "CATEGORIES_ROUTES"
     const val CATEGORIES_VERSION = "version"
     const val CATEGORY_PARAMETER = "category"
     const val CATEGORIES = "CATEGORIES"
+    const val STEP_PAGE_ = "Step Page"
+    const val CLICK_ROUTE_TITLE = "Click_route_"
     const val SUBTITLE_NEXT_STEP = "SIGUIENTE"
     const val MAIN_ITEM_RECYCLE_VIEW = 0
     const val SIZE_OF_ACTION_BAR = 120
     const val MARGIN_TOP_PERCENTAGE = 0.01406
+    const val MARGIN_BOTTOM_MIDDLE_NEXT_STEP =2
     const val SPAN_THREE_COLUMNS = 3
     const val SPAN_TWO_COLUMNS = 2
     const val SPAN_ONE_COLUMN = 1
@@ -38,4 +42,9 @@ object Constants {
     const val WIDTH_BLOCK_OF_TEXT = 0.646706
 
     const val SIZE_MARGIN_IMAGE = 0.103773
+
+    const val SIZE_OF_ACTION_BAR_ROUTE = 55
+    const val SIZE_ROUTE_CATEGORY = 0.4423
+    const val MARGIN_TOP_PERCENTAGE_MAIN_ROUTE = 0.01937
+    const val MARGIN_LATERAL_PERCENTAGE_MAIN_ROUTE = 0.035
 }

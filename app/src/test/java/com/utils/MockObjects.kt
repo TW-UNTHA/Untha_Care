@@ -26,9 +26,12 @@ object MockObjects {
             RandomGenerator.generateRandomString(5),
             RandomGenerator.generateRandomString(5),
             RandomGenerator.generateRandomString(5),
-            false,
+            RandomGenerator.generateRandomString(5),
+            true,
             0
         )
+
+
 
         val queryingSection = QueryingSection().apply {
             steps = listOf(stepModel1)

@@ -164,7 +164,7 @@ class GenericInfoStepFragment : BaseFragment() {
         val widthBlockPixel = toPixels(widthBlockDp, context)
         verticalLayout {
             buildNextStepSubtitle(categoryNextStep)
-            buildNextStepTitle(categoryNextStep, dip(calculateTopMargin()))
+            buildNextStepTitle(categoryNextStep)
         }.lparams(
             width = matchParent,
             height = dip(widthBlockPixel)
@@ -206,7 +206,8 @@ class GenericInfoStepFragment : BaseFragment() {
                 )
             setTypeface(typeface, Typeface.BOLD)
         }.lparams(height = wrapContent, width = matchParent) {
-            bottomMargin = dip(calculateTopMargin())
+            rightMargin = dip(calculateTopMargin())
+            bottomMargin = dip(calculateTopMargin()) / Constants.MARGIN_BOTTOM_MIDDLE_NEXT_STEP
             topMargin = dip(calculateTopMargin())
         }
     }

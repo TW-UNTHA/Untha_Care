@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+        <LinearLayout
+            android:id="@+id/route_laboral"
+            android:layout_width="wrap_content"
+            android:layout_height="86dp"
+            android:layout_marginStart="48dp"
+            android:layout_marginLeft="48dp"
+            android:layout_marginTop="40dp"
+            android:background="@drawable/corners_round"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:focusable="true">
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/app_name"
+                tools:text="Mis derechos" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/route_violencia"
+            android:layout_width="wrap_content"
+            android:layout_height="114dp"
+            android:layout_marginStart="41dp"
+            android:layout_marginLeft="41dp"
+            android:layout_marginBottom="164dp"
+            android:background="@drawable/corners_round"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:focusable="true">
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_size"
+                android:textColor="#9b9b9b"
+                android:lineSpacingExtra="14sp"
+                android:text="@string/error_description"
+                tools:text="RUTA DE VIOLENCIA LABORAL" />
+        </LinearLayout>
+
+</LinearLayout >

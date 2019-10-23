@@ -93,6 +93,7 @@ class GenericInfoStepViewModelTest : KoinTest {
             title,
             RandomGenerator.generateRandomString(5),
             RandomGenerator.generateRandomString(5),
+            RandomGenerator.generateRandomString(5),
             true,
             RandomGenerator.generateIntBetween0AndTwenty(),
             listOf(categoryInformation)

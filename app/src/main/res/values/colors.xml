@@ -6,4 +6,15 @@
     <color name="colorGenericTitle">#602080</color>
     <color name="colorGenericLineHeader">#829b9b9b</color>
     <color name="link">#ffff31</color>
+
+    <color name="colorTitleCategoryRoute">#9b9b9b</color>
+    <color name="colorShapeCategoryRoute">#6b9b9b9b</color>
+    <color name="colorBackgroundMainRoute">#f3eef5</color>
+    <color name="colorBackgroundCategoryRoute">#ffffff</color>
+
+
+
+
+
+
 </resources>
