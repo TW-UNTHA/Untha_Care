@@ -262,7 +262,7 @@
       "id": 8,
       "image": "derechos_salario",
       "title": "SALARIO Y BENEFICIOS",
-      "title_next_step":null,
+      "title_next_step":"SALARIO Y BENEFICIOS",
       "parent_id": 2,
       "is_route": false,
       "information": [
@@ -334,7 +334,7 @@
       "id": 9,
       "image": "derechos_vacaciones",
       "title": "JORNADA DE TRABAJO Y VACACIONES",
-      "title_next_step":null,
+      "title_next_step":"JORNADA DE TRABAJO Y VACACIONES",
       "parent_id": 2,
       "is_route": false,
       "information": [
@@ -390,7 +390,7 @@
       "id": 10,
       "image": "derechos_embarazo",
       "title": "EMBARAZO",
-      "title_next_step":null,
+      "title_next_step":"EMBARAZO",
       "parent_id": 2,
       "is_route": false,
       "information": [
@@ -421,8 +421,8 @@
     {
       "id": 11,
       "image": "derechos_adolescentes",
-      "title": "NIÑAS Y ADOLESCENTES ",
-      "title_next_step":null,
+      "title": "NIÑAS Y ADOLESCENTES",
+      "title_next_step":"NIÑAS Y ADOLESCENTES",
       "parent_id": 2,
       "is_route": false,
       "information": [
@@ -474,7 +474,7 @@
       "id": 12,
       "image": "derechos_despidos",
       "title": "DESPIDOS Y TÉRMINO DE CONTRATOS",
-      "title_next_step":null,
+      "title_next_step":"DESPIDOS Y TÉRMINO DE CONTRATOS",
       "parent_id": 2,
       "is_route": false,
       "information": [
