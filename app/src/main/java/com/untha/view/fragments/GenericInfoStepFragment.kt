@@ -85,7 +85,9 @@ class GenericInfoStepFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         super.onViewCreated(view, savedInstanceState)
-        firebaseAnalytics.setCurrentScreen(activity!!, Constants.STEP_PAGE_, null)
+        activity?.let {
+            firebaseAnalytics.setCurrentScreen(it, "${category.title} Page", null)
+        }
         with(view as _LinearLayout) {
             verticalLayout {
                 val imageSizeInDps = (PixelConverter.getScreenDpHeight(context) -
@@ -144,7 +146,8 @@ class GenericInfoStepFragment : BaseFragment() {
                 }
                 backgroundResource = getSelectableItemBackground().resourceId
             }.lparams(
-                width = matchParent, height =matchParent)
+                width = matchParent, height = matchParent
+            )
         }.lparams(
             width = matchParent, height = dip(heightFormula.toInt())
         ) {

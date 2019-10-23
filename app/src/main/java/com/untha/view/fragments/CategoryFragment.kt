@@ -13,7 +13,7 @@ import com.untha.R
 import com.untha.model.models.CategoryViewModel
 import com.untha.model.transactionalmodels.Category
 import com.untha.utils.Constants
-import com.untha.utils.FirebaseEvents
+import com.untha.utils.ContentType
 import com.untha.utils.PixelConverter
 import com.untha.utils.ToSpeech
 import com.untha.view.adapters.CategoryAdapter
@@ -34,9 +34,8 @@ class CategoryFragment : BaseFragment(),
 
 
     override fun onItemClick(category: Category, categories: ArrayList<Category>, itemView: View) {
-        logAnalyticsEvent(
-            null, null,
-            FirebaseEvents.CLICK_CATEGORY + category.title
+        logAnalyticsSelectContentWithId(
+            category.title, ContentType.CATEGORY
         )
         when (category.id) {
             RIGHTS_CATEGORY -> itemView.findNavController().navigate(
@@ -75,7 +74,9 @@ class CategoryFragment : BaseFragment(),
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        firebaseAnalytics.setCurrentScreen(activity!!, "Category Page", null)
+        activity?.let {
+            firebaseAnalytics.setCurrentScreen(it, "Category Page", null)
+        }
         setMarginsToRecyclerView()
         categoryViewModel.findMainCategories().observe(this, Observer { queryingCategories ->
             val categories = categoryViewModel.getCategories(queryingCategories)

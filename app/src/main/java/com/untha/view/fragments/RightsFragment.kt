@@ -38,7 +38,9 @@ class RightsFragment : BaseFragment(),
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        firebaseAnalytics.setCurrentScreen(activity!!, "Rights Page", null)
+        activity?.let {
+            firebaseAnalytics.setCurrentScreen(it, "Rights Page", null)
+        }
         setMarginsToRecyclerView()
         viewModel.getRightsCategoryModels().observe(this, Observer { queryingCategories ->
             val categories = viewModel.getRightCategories(queryingCategories)

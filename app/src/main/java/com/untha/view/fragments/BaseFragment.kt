@@ -8,6 +8,8 @@ import androidx.navigation.NavOptions
 import com.untha.R
 import java.util.*
 import com.google.firebase.analytics.FirebaseAnalytics
+import com.untha.utils.ContentType
+import com.untha.utils.FirebaseEvent
 
 open class BaseFragment : Fragment(), TextToSpeech.OnInitListener {
     var textToSpeech: TextToSpeech? = null
@@ -47,23 +49,20 @@ open class BaseFragment : Fragment(), TextToSpeech.OnInitListener {
         super.onDestroy()
     }
 
-    fun logAnalyticsEvent(
-        firstOptionalField: Pair<String, String>?,
-        secondOptionalField: Pair<String, String>?,
-        event: String
-    ) {
+    fun logAnalyticsSelectContentWithId(name: String, contentType: ContentType) {
+        val bundle = Bundle()
+        bundle.putString(FirebaseAnalytics.Param.ITEM_ID, name)
+        bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, contentType.description)
+        firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle)
+    }
 
-        if (firstOptionalField == null && secondOptionalField == null) {
-            firebaseAnalytics.logEvent(event, null)
-        } else {
-            val bundle = Bundle()
-            if (firstOptionalField != null) {
-                bundle.putString(firstOptionalField.first, firstOptionalField.second)
-            }
-            if (secondOptionalField != null) {
-                bundle.putString(secondOptionalField.first, secondOptionalField.second)
-            }
-            firebaseAnalytics.logEvent(event, bundle)
-        }
+    fun logAnalyticsCustomEvent(event: FirebaseEvent) {
+        firebaseAnalytics.logEvent(event.description, null)
+    }
+
+    fun logAnalyticsCustomContentTypeWithId(contentType: ContentType, event: FirebaseEvent) {
+        val bundle = Bundle()
+        bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, contentType.description)
+        firebaseAnalytics.logEvent(event.description, bundle)
     }
 }
