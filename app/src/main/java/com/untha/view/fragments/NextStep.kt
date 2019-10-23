@@ -1,6 +1,7 @@
 package com.untha.view.fragments
 
 import android.graphics.Typeface
+import android.util.TypedValue
 import android.view.Gravity
 import android.view.View
 import android.widget.ImageView
@@ -109,6 +110,16 @@ fun @AnkoViewDslMarker _LinearLayout.buildImageNextStep(
     }.lparams(
         width = widthImagePixel
     )
+}
+
+fun @AnkoViewDslMarker _LinearLayout.getSelectableItemBackground(): TypedValue {
+    val outValue = TypedValue()
+    context.theme.resolveAttribute(
+        android.R.attr.selectableItemBackground,
+        outValue,
+        true
+    )
+    return outValue
 }
 
 

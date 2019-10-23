@@ -151,15 +151,6 @@ class GenericInfoStepFragment : BaseFragment() {
         }
     }
 
-    private fun @AnkoViewDslMarker _LinearLayout.getSelectableItemBackground(): TypedValue {
-        val outValue = TypedValue()
-        context.theme.resolveAttribute(
-            android.R.attr.selectableItemBackground,
-            outValue,
-            true
-        )
-        return outValue
-    }
 
     private fun @AnkoViewDslMarker _LinearLayout.buildBlockTextNextSteps(
         categoryNextStep: Category
