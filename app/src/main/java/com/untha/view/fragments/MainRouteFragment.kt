@@ -142,7 +142,6 @@ class MainRouteFragment : BaseFragment() {
                 .into(this)
             scaleType = ImageView.ScaleType.FIT_CENTER
         }.lparams(width = matchParent, height = wrapContent){
-           // topMargin=calculateTopMargin()
             weight = 1.0F
         }
     }
