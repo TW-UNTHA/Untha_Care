@@ -1,4 +1,4 @@
-package com.untha.view.Extension
+package com.untha.view.extension
 
 import android.graphics.Typeface
 import android.util.TypedValue
