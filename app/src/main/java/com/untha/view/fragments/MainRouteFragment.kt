@@ -11,6 +11,7 @@ import com.bumptech.glide.Glide
 import com.untha.R
 import com.untha.model.transactionalmodels.Category
 import com.untha.utils.Constants
+import com.untha.utils.ContentType
 import com.untha.utils.PixelConverter
 import com.untha.view.activities.MainActivity
 import org.jetbrains.anko.AnkoViewDslMarker
@@ -61,11 +62,8 @@ class MainRouteFragment : BaseFragment() {
     private fun @AnkoViewDslMarker _LinearLayout.buildRoute(view: View) {
         categoriesRoutes?.map { categoryRoute ->
             activity?.let {
-                firebaseAnalytics.setCurrentScreen(
-                    it,
-                    "${Constants.CLICK_ROUTE_TITLE}${categoryRoute.title}",
-                    null
-                )
+                logAnalyticsSelectContentWithId(
+                    "${Constants.CLICK_ROUTE_TITLE}${categoryRoute.title}",ContentType.ROUTE)
             }
             verticalLayout {
                 isClickable = true
