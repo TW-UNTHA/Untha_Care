@@ -1,109 +1,115 @@
 {
-  "0": {
-    "type": "SingleOption",
-    "content": "¿Cuales de estas situaciones has vivido?",
-    "instruction": "Selecciona todas las que apliquen",
-    "options": [
-      {
-        "value": "",
-        "fault": "null"
-      },
-      {
-        "value": "Mentiras",
-        "fault": "null"
-      },
-      {
-        "value": "Te ignoran",
-        "fault": "null"
-      },
-      {
-        "value": "Celos",
-        "fault": "null"
-      },
-      {
-        "value": "Ofensas",
-        "fault": "null"
-      },
-      {
-        "value": "Humillaciones",
-        "fault": "null"
-      },
-      {
-        "value": "Intimidaciones",
-        "fault": "null"
-      },
-      {
-        "value": "Amenazas",
-        "fault": "null"
-      },
-      {
-        "value": "Control excesivo",
-        "fault": "null"
-      }
-    ]
-  },
-  "1": {
-    "type": "SingleOption",
-    "content": "¿Cuales de estas situaciones has vivido?",
-    "instruction": "Selecciona todas las que apliquen",
-    "options": [
-      {
-        "value": "Prohibiciones",
-        "fault": "null"
-      },
-      {
-        "value": "Destruyen tus cosas",
-        "fault": "null"
-      },
-      {
-        "value": "Te manosean",
-        "fault": "null"
-      },
-      {
-        "value": "Te agreden",
-        "fault": "null"
-      }
-    ]
-  },
-  "2": {
-    "type": "SingleOption",
-    "content": "¿Cuales de estas situaciones has vivido?",
-    "instruction": "Selecciona todas las que apliquen",
-    "options": [
-      {
-        "value": "Empujones",
-        "fault": "null"
-      },
-      {
-        "value": "Golpes",
-        "fault": "null"
-      },
-      {
-        "value": "Patazos",
-        "fault": "null"
-      },
-      {
-        "value": "Encierros",
-        "fault": "null"
-      },
-      {
-        "value": "Aislamiento",
-        "fault": "null"
-      },
-      {
-        "value": "Amenzas con objetos",
-        "fault": "null"
-      },
-      {
-        "value": "Violación",
-        "fault": "null"
-      },
-      {
-        "value": "Amenazas de muerte",
-        "fault": "null"
-      }
-    ]
-  }
+  "version": "1",
+  "questions": [
+    {
+      "id": "O",
+      "type": "SingleOption",
+      "content": "¿Cuales de estas situaciones has vivido?",
+      "instruction": "Selecciona todas las que apliquen",
+      "options": [
+        {
+          "value": "",
+          "fault": "null"
+        },
+        {
+          "value": "Mentiras",
+          "fault": "null"
+        },
+        {
+          "value": "Te ignoran",
+          "fault": "null"
+        },
+        {
+          "value": "Celos",
+          "fault": "null"
+        },
+        {
+          "value": "Ofensas",
+          "fault": "null"
+        },
+        {
+          "value": "Humillaciones",
+          "fault": "null"
+        },
+        {
+          "value": "Intimidaciones",
+          "fault": "null"
+        },
+        {
+          "value": "Amenazas",
+          "fault": "null"
+        },
+        {
+          "value": "Control excesivo",
+          "fault": "null"
+        }
+      ]
+    },
+    {
+      "id": "1",
+      "type": "SingleOption",
+      "content": "¿Cuales de estas situaciones has vivido?",
+      "instruction": "Selecciona todas las que apliquen",
+      "options": [
+        {
+          "value": "Prohibiciones",
+          "fault": "null"
+        },
+        {
+          "value": "Destruyen tus cosas",
+          "fault": "null"
+        },
+        {
+          "value": "Te manosean",
+          "fault": "null"
+        },
+        {
+          "value": "Te agreden",
+          "fault": "null"
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "type": "SingleOption",
+      "content": "¿Cuales de estas situaciones has vivido?",
+      "instruction": "Selecciona todas las que apliquen",
+      "options": [
+        {
+          "value": "Empujones",
+          "fault": "null"
+        },
+        {
+          "value": "Golpes",
+          "fault": "null"
+        },
+        {
+          "value": "Patazos",
+          "fault": "null"
+        },
+        {
+          "value": "Encierros",
+          "fault": "null"
+        },
+        {
+          "value": "Aislamiento",
+          "fault": "null"
+        },
+        {
+          "value": "Amenzas con objetos",
+          "fault": "null"
+        },
+        {
+          "value": "Violación",
+          "fault": "null"
+        },
+        {
+          "value": "Amenazas de muerte",
+          "fault": "null"
+        }
+      ]
+    }
+  ]
 }
 
 
