@@ -2,6 +2,7 @@ package com.untha.utils
 
 object Constants {
 
+
     const val CATEGORIES_ROUTES= "CATEGORIES_ROUTES"
     const val CATEGORIES_VERSION = "version"
     const val CATEGORY_PARAMETER = "category"
@@ -47,4 +48,5 @@ object Constants {
     const val SIZE_ROUTE_CATEGORY = 0.4423
     const val MARGIN_TOP_PERCENTAGE_MAIN_ROUTE = 0.01937
     const val MARGIN_LATERAL_PERCENTAGE_MAIN_ROUTE = 0.035
+    const val SHADOW_PADDING_SIZE = 5
 }

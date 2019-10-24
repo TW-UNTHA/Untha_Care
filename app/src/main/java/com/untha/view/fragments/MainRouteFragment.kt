@@ -19,6 +19,7 @@ import org.jetbrains.anko.attr
 import org.jetbrains.anko.backgroundColor
 import org.jetbrains.anko.backgroundDrawable
 import org.jetbrains.anko.backgroundResource
+import org.jetbrains.anko.dip
 import org.jetbrains.anko.imageView
 import org.jetbrains.anko.matchParent
 import org.jetbrains.anko.support.v4.UI
@@ -82,7 +83,7 @@ class MainRouteFragment : BaseFragment() {
 
             }.lparams(matchParent, calculateHeightRoute()){
                 topMargin=calculateTopMargin()
-                rightMargin=calculateLateralMargin()
+                rightMargin=calculateLateralMargin() - dip(Constants.SHADOW_PADDING_SIZE)
                 leftMargin=calculateLateralMargin()
                 weight = 1.0F
             }
