@@ -7,14 +7,19 @@ import okhttp3.MediaType
 import retrofit2.Retrofit
 
 class RetrofitService {
-    fun getRetrofitService(): CategoriesService {
-        val contentType = MediaType.get("application/json")
-        val retrofit = Retrofit.Builder()
-            .baseUrl("https://tw-untha.github.io/Untha_Care/")
-            .addConverterFactory(Json.asConverterFactory(contentType))
-            .addCallAdapterFactory(LiveDataCallAdapterFactory())
-            .build()
+    val contentType = MediaType.get("application/json")
+    val retrofit = Retrofit.Builder()
+        .baseUrl("https://tw-untha.github.io/Untha_Care/")
+        .addConverterFactory(Json.asConverterFactory(contentType))
+        .addCallAdapterFactory(LiveDataCallAdapterFactory())
+        .build()
+
+    fun getRetrofitCategoryService(): CategoriesService {
         return retrofit.create(CategoriesService::class.java)
+    }
+
+    fun getRetrofitRouteService(): RoutesService {
+        return retrofit.create(RoutesService::class.java)
     }
 }
 

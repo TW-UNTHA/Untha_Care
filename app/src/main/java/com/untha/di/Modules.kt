@@ -54,7 +54,8 @@ val persistenceModule = module {
 }
 
 val networkModule = module {
-    single { RetrofitService().getRetrofitService() }
+    single { RetrofitService().getRetrofitCategoryService() }
+    single { RetrofitService().getRetrofitRouteService() }
 }
 
 val mapperModule = module {
