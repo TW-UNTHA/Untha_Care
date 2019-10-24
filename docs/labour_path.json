@@ -2,19 +2,19 @@
   "0": {
     "type": "SingleOption",
     "content": "¿Actualmente trabajas como Trabajadora Remunerada del Hogar?",
-    "instruccion": "",
+    "instruction": "",
     "options": [
       {
         "value": "Si",
         "fault": "null",
         "goTo": "1",
-        "recomendation": "null"
+        "recommendation": "null"
       },
       {
         "value": "No",
         "fault": "null",
         "goTo": "18",
-        "recomendation": "null"
+        "recommendation": "null"
       }
     ]
   },
@@ -26,7 +26,7 @@
         "value": "15 años o menos",
         "fault": "null",
         "goTo": "-1",
-        "recomendation": "R1"
+        "recommendation": "R1"
       },
       {
         "value": "16 o 17 años",
@@ -39,23 +39,23 @@
         "goTo": "3"
       }
     ],
-    "instruccion": ""
+    "instruction": ""
   },
   "2": {
     "type": "SingleOption",
     "content": "¿Tu empleador entrego tu registro de trabajo como menor?",
-    "instruccion": "Este registro debe ser entregado al director regional de trabajo",
+    "instruction": "Este registro debe ser entregado al director regional de trabajo",
     "options": [
       {
         "value": "Si",
         "fault": "null",
-        "recomendation": "null",
+        "recommendation": "null",
         "goTo": "3"
       },
       {
         "value": "No",
         "fault": "null",
-        "recomendation": "F1",
+        "recommendation": "F1",
         "goTo": "4"
       }
     ]
@@ -63,24 +63,24 @@
   "3": {
     "type": "SingleOption",
     "content": "¿Cuántas hortas trabajas a la semana?",
-    "instruccion": "Este registro debe ser entregado al director regional de trabajo",
+    "instruction": "Este registro debe ser entregado al director regional de trabajo",
     "options": [
       {
         "value": "Medio tiempo: 20",
         "fault": "null",
-        "recomendation": "null",
+        "recommendation": "null",
         "goTo": "5"
       },
       {
         "value": "Tiempo completo: 40",
         "fault": "null",
-        "recomendation": "null",
+        "recommendation": "null",
         "goTo": "5"
       },
       {
         "value": "Siempre cambia, trabajo por horas",
         "fault": "null",
-        "recomendation": "R2",
+        "recommendation": "R2",
         "goTo": "5"
       }
     ]
@@ -88,24 +88,24 @@
   "4": {
     "type": "SingleOption",
     "content": "¿Cuántas horas trabajas a la semana?",
-    "instruccion": "Este registro debe ser entregado al director regional de trabajo",
+    "instruction": "Este registro debe ser entregado al director regional de trabajo",
     "options": [
       {
         "value": "Mas de 30",
         "fault": "null",
-        "recomendation": "null",
+        "recommendation": "null",
         "goTo": "3"
       },
       {
         "value": "Entre 20 y 30",
         "fault": "null",
-        "recomendation": "null",
+        "recommendation": "null",
         "goTo": "3"
       },
       {
         "value": "Menos de 20",
         "fault": "null",
-        "recomendation": "R2",
+        "recommendation": "R2",
         "goTo": "3"
       }
     ]
@@ -113,18 +113,18 @@
   "5": {
     "type": "SingleOption",
     "content": "¿Cuándo trabajas mas del tiempo acordado con tu empleador, te pagan horas extras?",
-    "instruccion": "Este registro debe ser entregado al director regional de trabajo",
+    "instruction": "Este registro debe ser entregado al director regional de trabajo",
     "options": [
       {
         "value": "Si",
         "fault": "null",
-        "recomendation": "null",
+        "recommendation": "null",
         "goTo": "9"
       },
       {
         "value": "No",
         "fault": "F5",
-        "recomendation": "null",
+        "recommendation": "null",
         "goTo": "9"
       }
     ]
@@ -132,18 +132,18 @@
   "6": {
     "type": "SingleOption",
     "content": "¿Tienes al menos 2 horas diaras para dedicarlas a estudiar?",
-    "instruccion": "",
+    "instruction": "",
     "options": [
       {
         "value": "Si",
         "fault": "null",
-        "recomendation": "null",
+        "recommendation": "null",
         "goTo": "7"
       },
       {
         "value": "No",
         "fault": "F3",
-        "recomendation": "null",
+        "recommendation": "null",
         "goTo": "7"
       }
     ]
@@ -151,18 +151,18 @@
   "7": {
     "type": "SingleOption",
     "content": "¿Trabajas en las noches?",
-    "instruccion": "",
+    "instruction": "",
     "options": [
       {
         "value": "Si",
         "fault": "F4",
-        "recomendation": "null",
+        "recommendation": "null",
         "goTo": "8"
       },
       {
         "value": "No",
         "fault": "null",
-        "recomendation": "null",
+        "recommendation": "null",
         "goTo": "8"
       }
     ]
@@ -170,80 +170,80 @@
   "8": {
     "type": "MultipleOption",
     "content": "Indica si trabajas en una o mas de las siguientes actividades:",
-    "instruccion": "",
+    "instruction": "",
     "goto": "9",
     "fault": "F12",
     "options": [
       {
         "value": "Trabajo sin paga (esclavitud)",
         "fault": "F12",
-        "recomendation": "null",
+        "recommendation": "null",
         "goTo": "--"
       },
       {
         "value": "Trabajo por deuda",
         "fault": "F12",
-        "recomendation": "null",
+        "recommendation": "null",
         "goTo": "--"
       },
       {
         "value": "En contra de su voluntad",
         "fault": "F12",
-        "recomendation": "null",
+        "recommendation": "null",
         "goTo": "--"
       },
       {
         "value": "Conflictos armados",
         "fault": "F12",
-        "recomendation": "null",
+        "recommendation": "null",
         "goTo": "--"
       },
       {
         "value": "Prostitución",
         "fault": "null",
-        "recomendation": "null",
+        "recommendation": "null",
         "goTo": "--"
       },
       {
         "value": "Pornografía",
         "fault": "F12",
-        "recomendation": "null",
+        "recommendation": "null",
         "goTo": "--"
       },
       {
         "value": "Producción, venta o tráfico de alcohol, drogas u otras sustancias tóxicas y explosivas",
         "fault": "F12",
-        "recomendation": "null",
+        "recommendation": "null",
         "goTo": "--"
       },
       {
         "value": "Carga pesada",
         "fault": "F12",
-        "recomendation": "null",
+        "recommendation": "null",
         "goTo": "--"
       },
       {
         "value": "Pescar a bordo",
         "fault": "F12",
-        "recomendation": "null",
+        "recommendation": "null",
         "goTo": "--"
       },
       {
         "value": "Usar maquinaria o materiales peligrosos",
         "fault": "F12",
-        "recomendation": "null",
+        "recommendation": "null",
         "goTo": "--"
       },
       {
         "value": "Ser guardia de seguridad",
         "fault": "F12",
-        "recomendation": "null",
+        "recommendation": "null",
         "goTo": "--"
       },
       {
         "value": "Ninguna de las anteriores",
         "fault": "null",
-        "recomendation": "null",
+        "recommendation": "null",
         "goTo": ""
       }
     ]
@@ -251,30 +251,30 @@
   "9": {
     "type": "SingleOption",
     "content": "¿Cuánto ganas al mes",
-    "instruccion": "",
+    "instruction": "",
     "options": [
       {
         "value": "Menos de $394",
         "fault": "F9",
-        "recomendation": "null",
+        "recommendation": "null",
         "goTo": "10"
       },
       {
         "value": "$394 o mas",
         "fault": "null",
-        "recomendation": "null",
+        "recommendation": "null",
         "goTo": "10"
       },
       {
         "value": "Mas de $197",
         "fault": "null",
-        "recomendation": "null",
+        "recommendation": "null",
         "goTo": "10"
       },
       {
         "value": "Cualquier otro",
         "fault": "F9",
-        "recomendation": "null",
+        "recommendation": "null",
         "goTo": "10"
       }
     ]
@@ -282,18 +282,18 @@
   "10": {
     "type": "SingleOption",
     "content": "¿Tu empleador te afilio alm IESS?",
-    "instruccion": "",
+    "instruction": "",
     "options": [
       {
         "value": "Si",
         "fault": "null",
-        "recomendation": "null",
+        "recommendation": "null",
         "goTo": "11"
       },
       {
         "value": "No",
         "fault": "F7",
-        "recomendation": "null",
+        "recommendation": "null",
         "goTo": "11"
       }
     ]
@@ -301,18 +301,18 @@
   "11": {
     "type": "SingleOption",
     "content": "¿Te pagan puntualmente cada mes?",
-    "instruccion": "",
+    "instruction": "",
     "options": [
       {
         "value": "Si",
         "fault": "null",
-        "recomendation": "null",
+        "recommendation": "null",
         "goTo": "12"
       },
       {
         "value": "No",
         "fault": "F8",
-        "recomendation": "null",
+        "recommendation": "null",
         "goTo": "12"
       }
     ]
@@ -320,24 +320,24 @@
   "13": {
     "type": "SingleOption",
     "content": "¿Tienes un contrato con tu empleador?",
-    "instruccion": "",
+    "instruction": "",
     "options": [
       {
         "value": "Escrito",
         "fault": "null",
-        "recomendation": "null",
+        "recommendation": "null",
         "goTo": "14"
       },
       {
         "value": "Oral",
         "fault": "null",
-        "recomendation": "R3",
+        "recommendation": "R3",
         "goTo": "14"
       },
       {
         "value": "No tengo",
         "fault": "F6",
-        "recomendation": "null",
+        "recommendation": "null",
         "goTo": "14"
       }
     ]
@@ -345,18 +345,18 @@
   "14": {
     "type": "SingleOption",
     "content": "¿Estás embarazada?",
-    "instruccion": "",
+    "instruction": "",
     "options": [
       {
         "value": "Si",
         "fault": "null",
-        "recomendation": "null",
+        "recommendation": "null",
         "goTo": "15"
       },
       {
         "value": "No",
         "fault": "null",
-        "recomendation": "null",
+        "recommendation": "null",
         "goTo": "16"
       }
     ]
@@ -364,18 +364,18 @@
   "15": {
     "type": "SingleOption",
     "content": "¿Tienes permiso de maternidad de 3 meses?",
-    "instruccion": "Tiempo dedicado para el parto, totalmemte pagado",
+    "instruction": "Tiempo dedicado para el parto, totalmemte pagado",
     "options": [
       {
         "value": "Si",
         "fault": "null",
-        "recomendation": "null",
+        "recommendation": "null",
         "goTo": "16"
       },
       {
         "value": "No",
         "fault": "F10",
-        "recomendation": "null",
+        "recommendation": "null",
         "goTo": "16"
       }
     ]
@@ -383,18 +383,18 @@
   "16": {
     "type": "SingleOption",
     "content": "¿Tienes hijo menor a un año?",
-    "instruccion": "",
+    "instruction": "",
     "options": [
       {
         "value": "Si",
         "fault": "null",
-        "recomendation": "null",
+        "recommendation": "null",
         "goTo": "17"
       },
       {
         "value": "No",
         "fault": "null",
-        "recomendation": "null",
+        "recommendation": "null",
         "goTo": "18"
       }
     ]
@@ -402,18 +402,18 @@
   "17": {
     "type": "SingleOption",
     "content": "¿Tienes o tuviste permiso de lactancia de 2 horas diarias?",
-    "instruccion": "",
+    "instruction": "",
     "options": [
       {
         "value": "Si",
         "fault": "null",
-        "recomendation": "null",
+        "recommendation": "null",
         "goTo": "-1"
       },
       {
         "value": "No",
         "fault": "F11",
-        "recomendation": "null",
+        "recommendation": "null",
         "goTo": "-1"
       }
     ]
@@ -421,18 +421,18 @@
   "18": {
     "type": "SingleOption",
     "content": "¿Fuiste despedido del trabajo?",
-    "instruccion": "",
+    "instruction": "",
     "options": [
       {
         "value": "Si",
         "fault": "null",
-        "recomendation": "null",
+        "recommendation": "null",
         "goTo": "19"
       },
       {
         "value": "No",
         "fault": "null",
-        "recomendation": "R5",
+        "recommendation": "R5",
         "goTo": "-1"
       }
     ]
@@ -440,38 +440,38 @@
   "19": {
     "type": "MultipleOption",
     "content": "¿Te despidieron por alguna de estas razonas?",
-    "instruccion": "Selecciona todas las que aplique",
+    "instruction": "Selecciona todas las que aplique",
     "fault": "F13",
     "goto": "20",
     "options": [
       {
         "value": "Estaba embarazada",
         "fault": "null",
-        "recomendation": "null",
+        "recommendation": "null",
         "goTo": "null"
       },
       {
         "value": "Mi físico o salud  se han desgastado como consecuencia de mis años de trabajo",
         "fault": "null",
-        "recomendation": "null",
+        "recommendation": "null",
         "goTo": "null"
       },
       {
         "value": "Mi color de piel, género, o estado civil",
         "fault": "null",
-        "recomendation": "null",
+        "recommendation": "null",
         "goTo": "null"
       },
       {
         "value": "No me justificaron la desición",
         "fault": "null",
-        "recomendation": "null",
+        "recommendation": "null",
         "goTo": "null"
       },
       {
         "value": "Ninguna de las anteriores",
         "fault": "null",
-        "recomendation": "null",
+        "recommendation": "null",
         "goto": "null"
       }
     ]
@@ -479,63 +479,63 @@
   "20": {
     "type": "SingleOption",
     "content": "¿Te despidieron por alguna de estas razones?",
-    "instruccion": "Selecciona todas las que apliquen",
+    "instruction": "Selecciona todas las que apliquen",
     "fault": "null",
-    "recomendation": "R4",
+    "recommendation": "R4",
     "goto": "21",
     "options": [
       {
         "value": "No asistí al trabajo por 3 días sin justificación",
         "fault": "null",
-        "recomendation": "null",
+        "recommendation": "null",
         "goTo": "null"
       },
       {
         "value": "Me atrasé constantemente",
         "fault": "null",
-        "recomendation": "null",
+        "recommendation": "null",
         "goTo": "-1"
       },
       {
         "value": "Mentí sobre mi empleador",
         "fault": "null",
-        "recomendation": "null",
+        "recommendation": "null",
         "goTo": "-1"
       },
       {
         "value": "No cumpli mi trabajo",
         "fault": "null",
-        "recomendation": "null",
+        "recommendation": "null",
         "goTo": "-1"
       },
       {
         "value": "Incumplí alguna clausula del contrato",
         "fault": "null",
-        "recomendation": "null",
+        "recommendation": "null",
         "goTo": "-1"
       },
       {
         "value": "Denuncié injustificadamente a mi empleador",
         "fault": "null",
-        "recomendation": "null",
+        "recommendation": "null",
         "goTo": "-1"
       },
       {
         "value": "No cumpliste normas  de higiene, seguridad o prevención",
         "fault": "null",
-        "recomendation": "null",
+        "recommendation": "null",
         "goTo": "-1"
       },
       {
         "value": "Irrespeté a otras personas durante el trabajo",
         "fault": "null",
-        "recomendation": "null",
+        "recommendation": "null",
         "goTo": "-1"
       },
       {
         "value": "Ninguna de las anteriores",
         "fault": "null",
-        "recomendation": "null",
+        "recommendation": "null",
         "goTo": "-1"
       }
     ]
@@ -543,18 +543,18 @@
   "21": {
     "type": "SingleOption",
     "content": "¿Te entregaron una notificación escrita de despido?",
-    "instruccion": "",
+    "instruction": "",
     "options": [
       {
         "value": "Si",
         "fault": "null",
-        "recomendation": "null",
+        "recommendation": "null",
         "goTo": "-1"
       },
       {
         "value": "No",
         "fault": "F14",
-        "recomendation": "null",
+        "recommendation": "null",
         "goTo": "-1"
       }
     ]
