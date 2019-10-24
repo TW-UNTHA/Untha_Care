@@ -1,4 +1,4 @@
-package com.untha.view.fragments
+package com.untha.view.Extension
 
 import android.graphics.Typeface
 import android.util.TypedValue
@@ -36,8 +36,7 @@ fun _LinearLayout.loadImageNextStep(view: View, categoryNextStep: Category) {
             .load(imageUrl)
             .into(this)
 
-    }.lparams(
-    )
+    }
 }
 
 fun @AnkoViewDslMarker _LinearLayout.loadImage(view: View, category: Category) {

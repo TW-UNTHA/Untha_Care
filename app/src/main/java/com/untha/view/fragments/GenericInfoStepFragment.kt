@@ -23,6 +23,10 @@ import com.untha.model.transactionalmodels.Step
 import com.untha.utils.Constants
 import com.untha.utils.PixelConverter
 import com.untha.utils.PixelConverter.toPixels
+import com.untha.view.Extension.buildImageNextStep
+import com.untha.view.Extension.buildNextStepTitle
+import com.untha.view.Extension.getSelectableItemBackground
+import com.untha.view.Extension.loadImage
 import com.untha.view.activities.MainActivity
 import com.untha.viewmodels.GenericInfoStepViewModel
 import org.jetbrains.anko.AnkoViewDslMarker
