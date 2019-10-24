@@ -14,14 +14,14 @@ import com.untha.model.models.SectionModel
 import com.untha.model.models.SectionStepModel
 import com.untha.model.transactionalmodels.Category
 import com.untha.model.repositories.CategoryWithRelationsRepository
-import com.untha.model.services.LawsAndRightsService
+import com.untha.model.services.CategoriesService
 import com.untha.utils.Constants
 import me.linshen.retrofit2.adapter.ApiErrorResponse
 import me.linshen.retrofit2.adapter.ApiSuccessResponse
 
 class MainViewModel(
     private val categoryDbService: CategoryDbService,
-    private val lawsAndRightsService: LawsAndRightsService,
+    private val categoriesService: CategoriesService,
     private val categoryMapper: CategoryMapper,
     private val categoryWithRelationsRepository: CategoryWithRelationsRepository,
     private val sharedPreferences: SharedPreferences
@@ -30,7 +30,7 @@ class MainViewModel(
     private val categoryModels: MutableList<CategoryModel> = mutableListOf()
 
     fun retrieveUpdatedCategories(owner: LifecycleOwner) {
-        lawsAndRightsService.getCategories()
+        categoriesService.getCategories()
             .observe(owner, Observer { response ->
                 when (response) {
                     is ApiSuccessResponse -> {

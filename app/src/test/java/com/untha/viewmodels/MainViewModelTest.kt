@@ -13,7 +13,7 @@ import com.untha.di.viewModelsModule
 import com.untha.model.dbservices.CategoryDbService
 import com.untha.model.mappers.CategoryMapper
 import com.untha.model.repositories.CategoryWithRelationsRepository
-import com.untha.model.services.LawsAndRightsService
+import com.untha.model.services.CategoriesService
 import com.untha.model.transactionalmodels.CategoriesWrapper
 import com.untha.model.transactionalmodels.Category
 import com.untha.utils.Constants
@@ -40,7 +40,7 @@ import retrofit2.Response
 class MainViewModelTest : KoinTest {
 
     private val dbService by inject<CategoryDbService>()
-    private val service by inject<LawsAndRightsService>()
+    private val service by inject<CategoriesService>()
     private val mapper by inject<CategoryMapper>()
     private val repository by inject<CategoryWithRelationsRepository>()
     private val sharedPreferences by inject<SharedPreferences>()
@@ -61,7 +61,7 @@ class MainViewModelTest : KoinTest {
             )
         }
         declareMock<CategoryDbService>()
-        declareMock<LawsAndRightsService>()
+        declareMock<CategoriesService>()
         declareMock<CategoryMapper>()
         declareMock<CategoryWithRelationsRepository>()
         declareMock<SharedPreferences>()

@@ -11,7 +11,7 @@ import com.untha.model.repositories.CategoryWithRelationsRepository
 import com.untha.model.repositories.InformationCategoryRepository
 import com.untha.model.repositories.SectionRepository
 import com.untha.model.repositories.SectionStepRepository
-import com.untha.model.services.LawsAndRightsServiceAPI
+import com.untha.model.services.RetrofitService
 import com.untha.viewmodels.CategoryViewModel
 import com.untha.viewmodels.GenericInfoStepViewModel
 import com.untha.viewmodels.RightsViewModel
@@ -54,7 +54,7 @@ val persistenceModule = module {
 }
 
 val networkModule = module {
-    single { LawsAndRightsServiceAPI().getLawsAndRightsService() }
+    single { RetrofitService().getRetrofitService() }
 }
 
 val mapperModule = module {
