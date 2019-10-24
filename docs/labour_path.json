@@ -1,562 +1,605 @@
 {
-  "0": {
-    "type": "SingleOption",
-    "content": "¿Actualmente trabajas como Trabajadora Remunerada del Hogar?",
-    "instruction": "",
-    "options": [
-      {
-        "value": "Si",
-        "fault": "null",
-        "goTo": "1",
-        "recommendation": "null"
-      },
-      {
-        "value": "No",
-        "fault": "null",
-        "goTo": "18",
-        "recommendation": "null"
-      }
-    ]
-  },
-  "1": {
-    "type": "SingleOption",
-    "content": "¿Cuántos años tienes?",
-    "options": [
-      {
-        "value": "15 años o menos",
-        "fault": "null",
-        "goTo": "-1",
-        "recommendation": "R1"
-      },
-      {
-        "value": "16 o 17 años",
-        "fault": "F1",
-        "goTo": "2"
-      },
-      {
-        "value": "18 años o más",
-        "fault": "F2",
-        "goTo": "3"
-      }
-    ],
-    "instruction": ""
-  },
-  "2": {
-    "type": "SingleOption",
-    "content": "¿Tu empleador entrego tu registro de trabajo como menor?",
-    "instruction": "Este registro debe ser entregado al director regional de trabajo",
-    "options": [
-      {
-        "value": "Si",
-        "fault": "null",
-        "recommendation": "null",
-        "goTo": "3"
-      },
-      {
-        "value": "No",
-        "fault": "null",
-        "recommendation": "F1",
-        "goTo": "4"
-      }
-    ]
-  },
-  "3": {
-    "type": "SingleOption",
-    "content": "¿Cuántas hortas trabajas a la semana?",
-    "instruction": "Este registro debe ser entregado al director regional de trabajo",
-    "options": [
-      {
-        "value": "Medio tiempo: 20",
-        "fault": "null",
-        "recommendation": "null",
-        "goTo": "5"
-      },
-      {
-        "value": "Tiempo completo: 40",
-        "fault": "null",
-        "recommendation": "null",
-        "goTo": "5"
-      },
-      {
-        "value": "Siempre cambia, trabajo por horas",
-        "fault": "null",
-        "recommendation": "R2",
-        "goTo": "5"
-      }
-    ]
-  },
-  "4": {
-    "type": "SingleOption",
-    "content": "¿Cuántas horas trabajas a la semana?",
-    "instruction": "Este registro debe ser entregado al director regional de trabajo",
-    "options": [
-      {
-        "value": "Mas de 30",
-        "fault": "null",
-        "recommendation": "null",
-        "goTo": "3"
-      },
-      {
-        "value": "Entre 20 y 30",
-        "fault": "null",
-        "recommendation": "null",
-        "goTo": "3"
-      },
-      {
-        "value": "Menos de 20",
-        "fault": "null",
-        "recommendation": "R2",
-        "goTo": "3"
-      }
-    ]
-  },
-  "5": {
-    "type": "SingleOption",
-    "content": "¿Cuándo trabajas mas del tiempo acordado con tu empleador, te pagan horas extras?",
-    "instruction": "Este registro debe ser entregado al director regional de trabajo",
-    "options": [
-      {
-        "value": "Si",
-        "fault": "null",
-        "recommendation": "null",
-        "goTo": "9"
-      },
-      {
-        "value": "No",
-        "fault": "F5",
-        "recommendation": "null",
-        "goTo": "9"
-      }
-    ]
-  },
-  "6": {
-    "type": "SingleOption",
-    "content": "¿Tienes al menos 2 horas diaras para dedicarlas a estudiar?",
-    "instruction": "",
-    "options": [
-      {
-        "value": "Si",
-        "fault": "null",
-        "recommendation": "null",
-        "goTo": "7"
-      },
-      {
-        "value": "No",
-        "fault": "F3",
-        "recommendation": "null",
-        "goTo": "7"
-      }
-    ]
-  },
-  "7": {
-    "type": "SingleOption",
-    "content": "¿Trabajas en las noches?",
-    "instruction": "",
-    "options": [
-      {
-        "value": "Si",
-        "fault": "F4",
-        "recommendation": "null",
-        "goTo": "8"
-      },
-      {
-        "value": "No",
-        "fault": "null",
-        "recommendation": "null",
-        "goTo": "8"
-      }
-    ]
-  },
-  "8": {
-    "type": "MultipleOption",
-    "content": "Indica si trabajas en una o mas de las siguientes actividades:",
-    "instruction": "",
-    "goto": "9",
-    "fault": "F12",
-    "options": [
-      {
-        "value": "Trabajo sin paga (esclavitud)",
-        "fault": "F12",
-        "recommendation": "null",
-        "goTo": "--"
-      },
-      {
-        "value": "Trabajo por deuda",
-        "fault": "F12",
-        "recommendation": "null",
-        "goTo": "--"
-      },
-      {
-        "value": "En contra de su voluntad",
-        "fault": "F12",
-        "recommendation": "null",
-        "goTo": "--"
-      },
-      {
-        "value": "Conflictos armados",
-        "fault": "F12",
-        "recommendation": "null",
-        "goTo": "--"
-      },
-      {
-        "value": "Prostitución",
-        "fault": "null",
-        "recommendation": "null",
-        "goTo": "--"
-      },
-      {
-        "value": "Pornografía",
-        "fault": "F12",
-        "recommendation": "null",
-        "goTo": "--"
-      },
-      {
-        "value": "Producción, venta o tráfico de alcohol, drogas u otras sustancias tóxicas y explosivas",
-        "fault": "F12",
-        "recommendation": "null",
-        "goTo": "--"
-      },
-      {
-        "value": "Carga pesada",
-        "fault": "F12",
-        "recommendation": "null",
-        "goTo": "--"
-      },
-      {
-        "value": "Pescar a bordo",
-        "fault": "F12",
-        "recommendation": "null",
-        "goTo": "--"
-      },
-      {
-        "value": "Usar maquinaria o materiales peligrosos",
-        "fault": "F12",
-        "recommendation": "null",
-        "goTo": "--"
-      },
-      {
-        "value": "Ser guardia de seguridad",
-        "fault": "F12",
-        "recommendation": "null",
-        "goTo": "--"
-      },
-      {
-        "value": "Ninguna de las anteriores",
-        "fault": "null",
-        "recommendation": "null",
-        "goTo": ""
-      }
-    ]
-  },
-  "9": {
-    "type": "SingleOption",
-    "content": "¿Cuánto ganas al mes",
-    "instruction": "",
-    "options": [
-      {
-        "value": "Menos de $394",
-        "fault": "F9",
-        "recommendation": "null",
-        "goTo": "10"
-      },
-      {
-        "value": "$394 o mas",
-        "fault": "null",
-        "recommendation": "null",
-        "goTo": "10"
-      },
-      {
-        "value": "Mas de $197",
-        "fault": "null",
-        "recommendation": "null",
-        "goTo": "10"
-      },
-      {
-        "value": "Cualquier otro",
-        "fault": "F9",
-        "recommendation": "null",
-        "goTo": "10"
-      }
-    ]
-  },
-  "10": {
-    "type": "SingleOption",
-    "content": "¿Tu empleador te afilio alm IESS?",
-    "instruction": "",
-    "options": [
-      {
-        "value": "Si",
-        "fault": "null",
-        "recommendation": "null",
-        "goTo": "11"
-      },
-      {
-        "value": "No",
-        "fault": "F7",
-        "recommendation": "null",
-        "goTo": "11"
-      }
-    ]
-  },
-  "11": {
-    "type": "SingleOption",
-    "content": "¿Te pagan puntualmente cada mes?",
-    "instruction": "",
-    "options": [
-      {
-        "value": "Si",
-        "fault": "null",
-        "recommendation": "null",
-        "goTo": "12"
-      },
-      {
-        "value": "No",
-        "fault": "F8",
-        "recommendation": "null",
-        "goTo": "12"
-      }
-    ]
-  },
-  "13": {
-    "type": "SingleOption",
-    "content": "¿Tienes un contrato con tu empleador?",
-    "instruction": "",
-    "options": [
-      {
-        "value": "Escrito",
-        "fault": "null",
-        "recommendation": "null",
-        "goTo": "14"
-      },
-      {
-        "value": "Oral",
-        "fault": "null",
-        "recommendation": "R3",
-        "goTo": "14"
-      },
-      {
-        "value": "No tengo",
-        "fault": "F6",
-        "recommendation": "null",
-        "goTo": "14"
-      }
-    ]
-  },
-  "14": {
-    "type": "SingleOption",
-    "content": "¿Estás embarazada?",
-    "instruction": "",
-    "options": [
-      {
-        "value": "Si",
-        "fault": "null",
-        "recommendation": "null",
-        "goTo": "15"
-      },
-      {
-        "value": "No",
-        "fault": "null",
-        "recommendation": "null",
-        "goTo": "16"
-      }
-    ]
-  },
-  "15": {
-    "type": "SingleOption",
-    "content": "¿Tienes permiso de maternidad de 3 meses?",
-    "instruction": "Tiempo dedicado para el parto, totalmemte pagado",
-    "options": [
-      {
-        "value": "Si",
-        "fault": "null",
-        "recommendation": "null",
-        "goTo": "16"
-      },
-      {
-        "value": "No",
-        "fault": "F10",
-        "recommendation": "null",
-        "goTo": "16"
-      }
-    ]
-  },
-  "16": {
-    "type": "SingleOption",
-    "content": "¿Tienes hijo menor a un año?",
-    "instruction": "",
-    "options": [
-      {
-        "value": "Si",
-        "fault": "null",
-        "recommendation": "null",
-        "goTo": "17"
-      },
-      {
-        "value": "No",
-        "fault": "null",
-        "recommendation": "null",
-        "goTo": "18"
-      }
-    ]
-  },
-  "17": {
-    "type": "SingleOption",
-    "content": "¿Tienes o tuviste permiso de lactancia de 2 horas diarias?",
-    "instruction": "",
-    "options": [
-      {
-        "value": "Si",
-        "fault": "null",
-        "recommendation": "null",
-        "goTo": "-1"
-      },
-      {
-        "value": "No",
-        "fault": "F11",
-        "recommendation": "null",
-        "goTo": "-1"
-      }
-    ]
-  },
-  "18": {
-    "type": "SingleOption",
-    "content": "¿Fuiste despedido del trabajo?",
-    "instruction": "",
-    "options": [
-      {
-        "value": "Si",
-        "fault": "null",
-        "recommendation": "null",
-        "goTo": "19"
-      },
-      {
-        "value": "No",
-        "fault": "null",
-        "recommendation": "R5",
-        "goTo": "-1"
-      }
-    ]
-  },
-  "19": {
-    "type": "MultipleOption",
-    "content": "¿Te despidieron por alguna de estas razonas?",
-    "instruction": "Selecciona todas las que aplique",
-    "fault": "F13",
-    "goto": "20",
-    "options": [
-      {
-        "value": "Estaba embarazada",
-        "fault": "null",
-        "recommendation": "null",
-        "goTo": "null"
-      },
-      {
-        "value": "Mi físico o salud  se han desgastado como consecuencia de mis años de trabajo",
-        "fault": "null",
-        "recommendation": "null",
-        "goTo": "null"
-      },
-      {
-        "value": "Mi color de piel, género, o estado civil",
-        "fault": "null",
-        "recommendation": "null",
-        "goTo": "null"
-      },
-      {
-        "value": "No me justificaron la desición",
-        "fault": "null",
-        "recommendation": "null",
-        "goTo": "null"
-      },
-      {
-        "value": "Ninguna de las anteriores",
-        "fault": "null",
-        "recommendation": "null",
-        "goto": "null"
-      }
-    ]
-  },
-  "20": {
-    "type": "SingleOption",
-    "content": "¿Te despidieron por alguna de estas razones?",
-    "instruction": "Selecciona todas las que apliquen",
-    "fault": "null",
-    "recommendation": "R4",
-    "goto": "21",
-    "options": [
-      {
-        "value": "No asistí al trabajo por 3 días sin justificación",
-        "fault": "null",
-        "recommendation": "null",
-        "goTo": "null"
-      },
-      {
-        "value": "Me atrasé constantemente",
-        "fault": "null",
-        "recommendation": "null",
-        "goTo": "-1"
-      },
-      {
-        "value": "Mentí sobre mi empleador",
-        "fault": "null",
-        "recommendation": "null",
-        "goTo": "-1"
-      },
-      {
-        "value": "No cumpli mi trabajo",
-        "fault": "null",
-        "recommendation": "null",
-        "goTo": "-1"
-      },
-      {
-        "value": "Incumplí alguna clausula del contrato",
-        "fault": "null",
-        "recommendation": "null",
-        "goTo": "-1"
-      },
-      {
-        "value": "Denuncié injustificadamente a mi empleador",
-        "fault": "null",
-        "recommendation": "null",
-        "goTo": "-1"
-      },
-      {
-        "value": "No cumpliste normas  de higiene, seguridad o prevención",
-        "fault": "null",
-        "recommendation": "null",
-        "goTo": "-1"
-      },
-      {
-        "value": "Irrespeté a otras personas durante el trabajo",
-        "fault": "null",
-        "recommendation": "null",
-        "goTo": "-1"
-      },
-      {
-        "value": "Ninguna de las anteriores",
-        "fault": "null",
-        "recommendation": "null",
-        "goTo": "-1"
-      }
-    ]
-  },
-  "21": {
-    "type": "SingleOption",
-    "content": "¿Te entregaron una notificación escrita de despido?",
-    "instruction": "",
-    "options": [
-      {
-        "value": "Si",
-        "fault": "null",
-        "recommendation": "null",
-        "goTo": "-1"
-      },
-      {
-        "value": "No",
-        "fault": "F14",
-        "recommendation": "null",
-        "goTo": "-1"
-      }
-    ]
-  }
+  "version": 1,
+  "questions": [
+    {
+      "id": "0",
+      "type": "SingleOption",
+      "content": "¿Actualmente trabajas como Trabajadora Remunerada del Hogar?",
+      "instruction": "",
+      "options": [
+        {
+          "value": "Si",
+          "fault": "null",
+          "goTo": "1",
+          "recommendation": "null"
+        },
+        {
+          "value": "No",
+          "fault": "null",
+          "goTo": "18",
+          "recommendation": "null"
+        }
+      ]
+    },
+    {
+      "id": "1",
+      "type": "SingleOption",
+      "content": "¿Cuántos años tienes?",
+      "options": [
+        {
+          "value": "15 años o menos",
+          "fault": "null",
+          "goTo": "-1",
+          "recommendation": "R1"
+        },
+        {
+          "value": "16 o 17 años",
+          "fault": "F1",
+          "goTo": "2"
+        },
+        {
+          "value": "18 años o más",
+          "fault": "F2",
+          "goTo": "3"
+        }
+      ],
+      "instruction": ""
+    },
+
+    {
+      "id": "2",
+      "type": "SingleOption",
+      "content": "¿Tu empleador entrego tu registro de trabajo como menor?",
+      "instruction": "Este registro debe ser entregado al director regional de trabajo",
+      "options": [
+        {
+          "value": "Si",
+          "fault": "null",
+          "recommendation": "null",
+          "goTo": "3"
+        },
+        {
+          "value": "No",
+          "fault": "null",
+          "recommendation": "F1",
+          "goTo": "4"
+        }
+      ]
+    },
+
+    {
+      "id": "3",
+      "type": "SingleOption",
+      "content": "¿Cuántas hortas trabajas a la semana?",
+      "instruction": "Este registro debe ser entregado al director regional de trabajo",
+      "options": [
+        {
+          "value": "Medio tiempo: 20",
+          "fault": "null",
+          "recommendation": "null",
+          "goTo": "5"
+        },
+        {
+          "value": "Tiempo completo: 40",
+          "fault": "null",
+          "recommendation": "null",
+          "goTo": "5"
+        },
+        {
+          "value": "Siempre cambia, trabajo por horas",
+          "fault": "null",
+          "recommendation": "R2",
+          "goTo": "5"
+        }
+      ]
+    },
+
+    {
+      "id": "4",
+      "type": "SingleOption",
+      "content": "¿Cuántas horas trabajas a la semana?",
+      "instruction": "Este registro debe ser entregado al director regional de trabajo",
+      "options": [
+        {
+          "value": "Mas de 30",
+          "fault": "null",
+          "recommendation": "null",
+          "goTo": "3"
+        },
+        {
+          "value": "Entre 20 y 30",
+          "fault": "null",
+          "recommendation": "null",
+          "goTo": "3"
+        },
+        {
+          "value": "Menos de 20",
+          "fault": "null",
+          "recommendation": "R2",
+          "goTo": "3"
+        }
+      ]
+    },
+
+    {
+      "id": "5",
+      "type": "SingleOption",
+      "content": "¿Cuándo trabajas mas del tiempo acordado con tu empleador, te pagan horas extras?",
+      "instruction": "Este registro debe ser entregado al director regional de trabajo",
+      "options": [
+        {
+          "value": "Si",
+          "fault": "null",
+          "recommendation": "null",
+          "goTo": "9"
+        },
+        {
+          "value": "No",
+          "fault": "F5",
+          "recommendation": "null",
+          "goTo": "9"
+        }
+      ]
+    },
+
+    {
+      "id": "6",
+      "type": "SingleOption",
+      "content": "¿Tienes al menos 2 horas diaras para dedicarlas a estudiar?",
+      "instruction": "",
+      "options": [
+        {
+          "value": "Si",
+          "fault": "null",
+          "recommendation": "null",
+          "goTo": "7"
+        },
+        {
+          "value": "No",
+          "fault": "F3",
+          "recommendation": "null",
+          "goTo": "7"
+        }
+      ]
+    },
+
+    {
+      "id": "7",
+      "type": "SingleOption",
+      "content": "¿Trabajas en las noches?",
+      "instruction": "",
+      "options": [
+        {
+          "value": "Si",
+          "fault": "F4",
+          "recommendation": "null",
+          "goTo": "8"
+        },
+        {
+          "value": "No",
+          "fault": "null",
+          "recommendation": "null",
+          "goTo": "8"
+        }
+      ]
+    },
+
+    {
+      "id": "8",
+      "type": "MultipleOption",
+      "content": "Indica si trabajas en una o mas de las siguientes actividades:",
+      "instruction": "",
+      "goto": "9",
+      "fault": "F12",
+      "options": [
+        {
+          "value": "Trabajo sin paga (esclavitud)",
+          "fault": "F12",
+          "recommendation": "null",
+          "goTo": "--"
+        },
+        {
+          "value": "Trabajo por deuda",
+          "fault": "F12",
+          "recommendation": "null",
+          "goTo": "--"
+        },
+        {
+          "value": "En contra de su voluntad",
+          "fault": "F12",
+          "recommendation": "null",
+          "goTo": "--"
+        },
+        {
+          "value": "Conflictos armados",
+          "fault": "F12",
+          "recommendation": "null",
+          "goTo": "--"
+        },
+        {
+          "value": "Prostitución",
+          "fault": "null",
+          "recommendation": "null",
+          "goTo": "--"
+        },
+        {
+          "value": "Pornografía",
+          "fault": "F12",
+          "recommendation": "null",
+          "goTo": "--"
+        },
+        {
+          "value": "Producción, venta o tráfico de alcohol, drogas u otras sustancias tóxicas y explosivas",
+          "fault": "F12",
+          "recommendation": "null",
+          "goTo": "--"
+        },
+        {
+          "value": "Carga pesada",
+          "fault": "F12",
+          "recommendation": "null",
+          "goTo": "--"
+        },
+        {
+          "value": "Pescar a bordo",
+          "fault": "F12",
+          "recommendation": "null",
+          "goTo": "--"
+        },
+        {
+          "value": "Usar maquinaria o materiales peligrosos",
+          "fault": "F12",
+          "recommendation": "null",
+          "goTo": "--"
+        },
+        {
+          "value": "Ser guardia de seguridad",
+          "fault": "F12",
+          "recommendation": "null",
+          "goTo": "--"
+        },
+        {
+          "value": "Ninguna de las anteriores",
+          "fault": "null",
+          "recommendation": "null",
+          "goTo": ""
+        }
+      ]
+    },
+
+    {
+      "id": "9",
+      "type": "SingleOption",
+      "content": "¿Cuánto ganas al mes",
+      "instruction": "",
+      "options": [
+        {
+          "value": "Menos de $394",
+          "fault": "F9",
+          "recommendation": "null",
+          "goTo": "10"
+        },
+        {
+          "value": "$394 o mas",
+          "fault": "null",
+          "recommendation": "null",
+          "goTo": "10"
+        },
+        {
+          "value": "Mas de $197",
+          "fault": "null",
+          "recommendation": "null",
+          "goTo": "10"
+        },
+        {
+          "value": "Cualquier otro",
+          "fault": "F9",
+          "recommendation": "null",
+          "goTo": "10"
+        }
+      ]
+    },
+
+    {
+      "id": "10",
+      "type": "SingleOption",
+      "content": "¿Tu empleador te afilio alm IESS?",
+      "instruction": "",
+      "options": [
+        {
+          "value": "Si",
+          "fault": "null",
+          "recommendation": "null",
+          "goTo": "11"
+        },
+        {
+          "value": "No",
+          "fault": "F7",
+          "recommendation": "null",
+          "goTo": "11"
+        }
+      ]
+    },
+
+    {
+      "id": "11",
+      "type": "SingleOption",
+      "content": "¿Te pagan puntualmente cada mes?",
+      "instruction": "",
+      "options": [
+        {
+          "value": "Si",
+          "fault": "null",
+          "recommendation": "null",
+          "goTo": "12"
+        },
+        {
+          "value": "No",
+          "fault": "F8",
+          "recommendation": "null",
+          "goTo": "12"
+        }
+      ]
+    },
+
+    {
+      "id": "12",
+      "type": "SingleOption",
+      "content": "¿Tienes un contrato con tu empleador?",
+      "instruction": "",
+      "options": [
+        {
+          "value": "Escrito",
+          "fault": "null",
+          "recommendation": "null",
+          "goTo": "14"
+        },
+        {
+          "value": "Oral",
+          "fault": "null",
+          "recommendation": "R3",
+          "goTo": "14"
+        },
+        {
+          "value": "No tengo",
+          "fault": "F6",
+          "recommendation": "null",
+          "goTo": "14"
+        }
+      ]
+    },
+
+    {
+      "id": "13",
+      "type": "SingleOption",
+      "content": "¿Estás embarazada?",
+      "instruction": "",
+      "options": [
+        {
+          "value": "Si",
+          "fault": "null",
+          "recommendation": "null",
+          "goTo": "15"
+        },
+        {
+          "value": "No",
+          "fault": "null",
+          "recommendation": "null",
+          "goTo": "16"
+        }
+      ]
+    },
+
+    {
+      "id": "14",
+      "type": "SingleOption",
+      "content": "¿Tienes permiso de maternidad de 3 meses?",
+      "instruction": "Tiempo dedicado para el parto, totalmemte pagado",
+      "options": [
+        {
+          "value": "Si",
+          "fault": "null",
+          "recommendation": "null",
+          "goTo": "16"
+        },
+        {
+          "value": "No",
+          "fault": "F10",
+          "recommendation": "null",
+          "goTo": "16"
+        }
+      ]
+    },
+
+    {
+      "id": "15",
+      "type": "SingleOption",
+      "content": "¿Tienes hijo menor a un año?",
+      "instruction": "",
+      "options": [
+        {
+          "value": "Si",
+          "fault": "null",
+          "recommendation": "null",
+          "goTo": "17"
+        },
+        {
+          "value": "No",
+          "fault": "null",
+          "recommendation": "null",
+          "goTo": "18"
+        }
+      ]
+    },
+
+    {
+      "id": "16",
+      "type": "SingleOption",
+      "content": "¿Tienes o tuviste permiso de lactancia de 2 horas diarias?",
+      "instruction": "",
+      "options": [
+        {
+          "value": "Si",
+          "fault": "null",
+          "recommendation": "null",
+          "goTo": "-1"
+        },
+        {
+          "value": "No",
+          "fault": "F11",
+          "recommendation": "null",
+          "goTo": "-1"
+        }
+      ]
+    },
+
+    {
+      "id": "17",
+      "type": "SingleOption",
+      "content": "¿Fuiste despedido del trabajo?",
+      "instruction": "",
+      "options": [
+        {
+          "value": "Si",
+          "fault": "null",
+          "recommendation": "null",
+          "goTo": "19"
+        },
+        {
+          "value": "No",
+          "fault": "null",
+          "recommendation": "R5",
+          "goTo": "-1"
+        }
+      ]
+    },
+
+    {
+      "id": "18",
+      "type": "MultipleOption",
+      "content": "¿Te despidieron por alguna de estas razonas?",
+      "instruction": "Selecciona todas las que aplique",
+      "fault": "F13",
+      "goto": "20",
+      "options": [
+        {
+          "value": "Estaba embarazada",
+          "fault": "null",
+          "recommendation": "null",
+          "goTo": "null"
+        },
+        {
+          "value": "Mi físico o salud  se han desgastado como consecuencia de mis años de trabajo",
+          "fault": "null",
+          "recommendation": "null",
+          "goTo": "null"
+        },
+        {
+          "value": "Mi color de piel, género, o estado civil",
+          "fault": "null",
+          "recommendation": "null",
+          "goTo": "null"
+        },
+        {
+          "value": "No me justificaron la desición",
+          "fault": "null",
+          "recommendation": "null",
+          "goTo": "null"
+        },
+        {
+          "value": "Ninguna de las anteriores",
+          "fault": "null",
+          "recommendation": "null",
+          "goto": "null"
+        }
+      ]
+    },
+
+    {
+      "id": "19",
+      "type": "SingleOption",
+      "content": "¿Te despidieron por alguna de estas razones?",
+      "instruction": "Selecciona todas las que apliquen",
+      "fault": "null",
+      "recommendation": "R4",
+      "goto": "21",
+      "options": [
+        {
+          "value": "No asistí al trabajo por 3 días sin justificación",
+          "fault": "null",
+          "recommendation": "null",
+          "goTo": "null"
+        },
+        {
+          "value": "Me atrasé constantemente",
+          "fault": "null",
+          "recommendation": "null",
+          "goTo": "-1"
+        },
+        {
+          "value": "Mentí sobre mi empleador",
+          "fault": "null",
+          "recommendation": "null",
+          "goTo": "-1"
+        },
+        {
+          "value": "No cumpli mi trabajo",
+          "fault": "null",
+          "recommendation": "null",
+          "goTo": "-1"
+        },
+        {
+          "value": "Incumplí alguna clausula del contrato",
+          "fault": "null",
+          "recommendation": "null",
+          "goTo": "-1"
+        },
+        {
+          "value": "Denuncié injustificadamente a mi empleador",
+          "fault": "null",
+          "recommendation": "null",
+          "goTo": "-1"
+        },
+        {
+          "value": "No cumpliste normas  de higiene, seguridad o prevención",
+          "fault": "null",
+          "recommendation": "null",
+          "goTo": "-1"
+        },
+        {
+          "value": "Irrespeté a otras personas durante el trabajo",
+          "fault": "null",
+          "recommendation": "null",
+          "goTo": "-1"
+        },
+        {
+          "value": "Ninguna de las anteriores",
+          "fault": "null",
+          "recommendation": "null",
+          "goTo": "-1"
+        }
+      ]
+    },
+
+    {
+      "id": "20",
+      "type": "SingleOption",
+      "content": "¿Te entregaron una notificación escrita de despido?",
+      "instruction": "",
+      "options": [
+        {
+          "value": "Si",
+          "fault": "null",
+          "recommendation": "null",
+          "goTo": "-1"
+        },
+        {
+          "value": "No",
+          "fault": "F14",
+          "recommendation": "null",
+          "goTo": "-1"
+        }
+      ]
+    }
+  ]
 }
