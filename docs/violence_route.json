@@ -1,0 +1,115 @@
+{
+  "version": "1",
+  "questions": [
+    {
+      "id": "O",
+      "type": "SingleOption",
+      "content": "¿Cuales de estas situaciones has vivido?",
+      "explanation": "Selecciona todas las que apliquen",
+      "options": [
+        {
+          "value": "",
+          "result": "null"
+        },
+        {
+          "value": "Mentiras",
+          "result": "null"
+        },
+        {
+          "value": "Te ignoran",
+          "result": "null"
+        },
+        {
+          "value": "Celos",
+          "result": "null"
+        },
+        {
+          "value": "Ofensas",
+          "result": "null"
+        },
+        {
+          "value": "Humillaciones",
+          "result": "null"
+        },
+        {
+          "value": "Intimidaciones",
+          "result": "null"
+        },
+        {
+          "value": "Amenazas",
+          "result": "null"
+        },
+        {
+          "value": "Control excesivo",
+          "result": "null"
+        }
+      ]
+    },
+    {
+      "id": "1",
+      "type": "SingleOption",
+      "content": "¿Cuales de estas situaciones has vivido?",
+      "explanation": "Selecciona todas las que apliquen",
+      "options": [
+        {
+          "value": "Prohibiciones",
+          "result": "null"
+        },
+        {
+          "value": "Destruyen tus cosas",
+          "result": "null"
+        },
+        {
+          "value": "Te manosean",
+          "result": "null"
+        },
+        {
+          "value": "Te agreden",
+          "result": "null"
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "type": "SingleOption",
+      "content": "¿Cuales de estas situaciones has vivido?",
+      "explanation": "Selecciona todas las que apliquen",
+      "options": [
+        {
+          "value": "Empujones",
+          "result": "null"
+        },
+        {
+          "value": "Golpes",
+          "result": "null"
+        },
+        {
+          "value": "Patazos",
+          "result": "null"
+        },
+        {
+          "value": "Encierros",
+          "result": "null"
+        },
+        {
+          "value": "Aislamiento",
+          "result": "null"
+        },
+        {
+          "value": "Amenzas con objetos",
+          "result": "null"
+        },
+        {
+          "value": "Violación",
+          "result": "null"
+        },
+        {
+          "value": "Amenazas de muerte",
+          "result": "null"
+        }
+      ]
+    }
+  ]
+}
+
+
