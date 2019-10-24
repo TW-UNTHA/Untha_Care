@@ -59,15 +59,21 @@ class MainRouteFragment : BaseFragment() {
     }
 
     private fun @AnkoViewDslMarker _LinearLayout.buildRoute(view: View) {
-        categoriesRoutes?.map {
-            firebaseAnalytics.setCurrentScreen(activity!!, Constants.CLICK_ROUTE_TITLE+it.title, null)
+        categoriesRoutes?.map { categoryRoute ->
+            activity?.let {
+                firebaseAnalytics.setCurrentScreen(
+                    it,
+                    "${Constants.CLICK_ROUTE_TITLE}${categoryRoute.title}",
+                    null
+                )
+            }
             verticalLayout {
-                isClickable=true
+                isClickable = true
                 textView {
-                    text = it.title
+                    text = categoryRoute.title
                     textSizeDimen = R.dimen.text_size
                     textColor =
-                    ContextCompat.getColor(context, R.color.colorTitleCategoryRoute)
+                        ContextCompat.getColor(context, R.color.colorTitleCategoryRoute)
                     setTypeface(typeface, Typeface.BOLD)
                 }.lparams{
                     topMargin=calculateTopMargin()
@@ -76,7 +82,7 @@ class MainRouteFragment : BaseFragment() {
                     weight = 1.0F
                 }
 
-                loadImageRoute( view,it)
+                loadImageRoute( view,categoryRoute)
                 backgroundDrawable = ContextCompat.getDrawable(
                     context, R.drawable.drawable_main_route
                 )
@@ -94,24 +100,24 @@ class MainRouteFragment : BaseFragment() {
        val cardHeightInDps =
            (PixelConverter.getScreenDpHeight(context) -
                    Constants.SIZE_OF_ACTION_BAR_ROUTE) * Constants.SIZE_ROUTE_CATEGORY
-       val height = context?.let { PixelConverter.toPixels(cardHeightInDps, it) }
-       return height!!
+
+       val height =  PixelConverter.toPixels(cardHeightInDps, context)
+       return height
    }
 
     private fun calculateTopMargin(): Int{
         val topMarginDps = (PixelConverter.getScreenDpHeight(context) -
                 Constants.SIZE_OF_ACTION_BAR) * Constants.MARGIN_TOP_PERCENTAGE_MAIN_ROUTE
 
-        val marginTop = context?.let { PixelConverter.toPixels(topMarginDps, it) }
-        return marginTop!!
+        val marginTop =  PixelConverter.toPixels(topMarginDps, context)
+        return marginTop
 
     }
     private fun calculateLateralMargin(): Int{
         val cardWidthInDps =
             PixelConverter.getScreenDpWidth(context) * Constants.MARGIN_LATERAL_PERCENTAGE_MAIN_ROUTE
-
-        val marginLateral = context?.let { PixelConverter.toPixels(cardWidthInDps, it) }
-        return marginLateral!!
+        val marginLateral = PixelConverter.toPixels(cardWidthInDps, context)
+        return marginLateral
 
     }
 

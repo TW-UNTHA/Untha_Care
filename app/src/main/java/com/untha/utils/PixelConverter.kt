@@ -7,11 +7,11 @@ import org.jetbrains.anko.windowManager
 
 object PixelConverter {
 
-    fun toPixels(dp: Double, context: Context): Int {
+    fun toPixels(dp: Double, context: Context?): Int {
         return TypedValue.applyDimension(
             TypedValue.COMPLEX_UNIT_DIP,
             dp.toFloat(),
-            context.resources.displayMetrics
+            context?.resources?.displayMetrics
         ).toInt()
     }
 
@@ -37,4 +37,6 @@ object PixelConverter {
         context?.windowManager?.defaultDisplay?.getMetrics(displayMetrics)
         return displayMetrics.densityDpi
     }
+
+
 }

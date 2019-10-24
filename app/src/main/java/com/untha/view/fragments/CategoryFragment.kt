@@ -46,8 +46,10 @@ class CategoryFragment : BaseFragment(),
 
             CALCULATOR_CATEGORY -> println("To be implemented")
 
-
             ROUTES_CATEGORY -> {
+                activity?.let {
+                    firebaseAnalytics.setCurrentScreen(it, Constants.CLICK_ROUTE_START_TITLE, null)
+                }
                 val categoriesRoutes = Bundle().apply {
                     putSerializable(
                         Constants.CATEGORIES_ROUTES,
