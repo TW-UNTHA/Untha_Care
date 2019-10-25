@@ -7,6 +7,7 @@
       "content": "¿Actualmente trabajas como Trabajadora Remunerada del Hogar?",
       "explanation": "",
       "goTo": null,
+      "result": null,
       "options": [
         {
           "value": "Si",
@@ -25,6 +26,7 @@
       "type": "SingleOption",
       "content": "¿Cuántos años tienes?",
       "goTo": null,
+      "result": null,
       "options": [
         {
           "value": "15 años o menos",
@@ -44,13 +46,13 @@
       ],
       "explanation": ""
     },
-
     {
       "id": 2,
       "type": "SingleOption",
       "content": "¿Tu empleador entrego tu registro de trabajo como menor?",
       "explanation": "Este registro debe ser entregado al director regional de trabajo",
       "goTo": null,
+      "result": null,
       "options": [
         {
           "value": "Si",
@@ -64,13 +66,13 @@
         }
       ]
     },
-
     {
       "id": 3,
       "type": "SingleOption",
       "content": "¿Cuántas hortas trabajas a la semana?",
       "explanation": "Este registro debe ser entregado al director regional de trabajo",
       "goTo": null,
+      "result": null,
       "options": [
         {
           "value": "Medio tiempo: 20",
@@ -89,13 +91,13 @@
         }
       ]
     },
-
     {
       "id": 4,
       "type": "SingleOption",
       "content": "¿Cuántas horas trabajas a la semana?",
       "explanation": "Este registro debe ser entregado al director regional de trabajo",
       "goTo": null,
+      "result": null,
       "options": [
         {
           "value": "Mas de 30",
@@ -114,13 +116,13 @@
         }
       ]
     },
-
     {
       "id": 5,
       "type": "SingleOption",
       "content": "¿Cuándo trabajas mas del tiempo acordado con tu empleador, te pagan horas extras?",
       "explanation": "Este registro debe ser entregado al director regional de trabajo",
       "goTo": null,
+      "result": null,
       "options": [
         {
           "value": "Si",
@@ -134,13 +136,13 @@
         }
       ]
     },
-
     {
       "id": 6,
       "type": "SingleOption",
       "content": "¿Tienes al menos 2 horas diaras para dedicarlas a estudiar?",
       "explanation": "",
       "goTo": null,
+      "result": null,
       "options": [
         {
           "value": "Si",
@@ -154,13 +156,13 @@
         }
       ]
     },
-
     {
       "id": 7,
       "type": "SingleOption",
       "content": "¿Trabajas en las noches?",
       "explanation": "",
       "goTo": null,
+      "result": null,
       "options": [
         {
           "value": "Si",
@@ -174,7 +176,6 @@
         }
       ]
     },
-
     {
       "id": 8,
       "type": "MultipleOption",
@@ -206,7 +207,7 @@
         {
           "value": "Prostitución",
           "result": "null",
-          "goTo":null
+          "goTo": null
         },
         {
           "value": "Pornografía",
@@ -245,13 +246,13 @@
         }
       ]
     },
-
     {
       "id": 9,
       "type": "SingleOption",
       "content": "¿Cuánto ganas al mes",
       "explanation": "",
       "goTo": null,
+      "result": null,
       "options": [
         {
           "value": "Menos de $394",
@@ -275,13 +276,13 @@
         }
       ]
     },
-
     {
       "id": 10,
       "type": "SingleOption",
       "content": "¿Tu empleador te afilio alm IESS?",
       "explanation": "",
       "goTo": null,
+      "result": null,
       "options": [
         {
           "value": "Si",
@@ -295,13 +296,13 @@
         }
       ]
     },
-
     {
       "id": 11,
       "type": "SingleOption",
       "content": "¿Te pagan puntualmente cada mes?",
       "explanation": "",
       "goTo": null,
+      "result": null,
       "options": [
         {
           "value": "Si",
@@ -315,13 +316,13 @@
         }
       ]
     },
-
     {
       "id": 12,
       "type": "SingleOption",
       "content": "¿Tienes un contrato con tu empleador?",
       "explanation": "",
       "goTo": null,
+      "result": null,
       "options": [
         {
           "value": "Escrito",
@@ -340,13 +341,13 @@
         }
       ]
     },
-
     {
       "id": 13,
       "type": "SingleOption",
       "content": "¿Estás embarazada?",
       "explanation": "",
       "goTo": null,
+      "result": null,
       "options": [
         {
           "value": "Si",
@@ -360,13 +361,13 @@
         }
       ]
     },
-
     {
       "id": 14,
       "type": "SingleOption",
       "content": "¿Tienes permiso de maternidad de 3 meses?",
       "explanation": "Tiempo dedicado para el parto, totalmemte pagado",
       "goTo": null,
+      "result": null,
       "options": [
         {
           "value": "Si",
@@ -380,13 +381,13 @@
         }
       ]
     },
-
     {
       "id": 15,
       "type": "SingleOption",
       "content": "¿Tienes hijo menor a un año?",
       "explanation": "",
       "goTo": null,
+      "result": null,
       "options": [
         {
           "value": "Si",
@@ -400,13 +401,13 @@
         }
       ]
     },
-
     {
       "id": 16,
       "type": "SingleOption",
       "content": "¿Tienes o tuviste permiso de lactancia de 2 horas diarias?",
       "explanation": "",
       "goTo": null,
+      "result": null,
       "options": [
         {
           "value": "Si",
@@ -420,13 +421,13 @@
         }
       ]
     },
-
     {
       "id": 17,
       "type": "SingleOption",
       "content": "¿Fuiste despedido del trabajo?",
       "explanation": "",
       "goTo": null,
+      "result": null,
       "options": [
         {
           "value": "Si",
@@ -440,7 +441,6 @@
         }
       ]
     },
-
     {
       "id": 18,
       "type": "MultipleOption",
@@ -476,7 +476,6 @@
         }
       ]
     },
-
     {
       "id": 19,
       "type": "SingleOption",
@@ -532,13 +531,13 @@
         }
       ]
     },
-
     {
       "id": 20,
       "type": "SingleOption",
       "content": "¿Te entregaron una notificación escrita de despido?",
       "explanation": "",
       "goTo": null,
+      "result": "R4",
       "options": [
         {
           "value": "Si",
