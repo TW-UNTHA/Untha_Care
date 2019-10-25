@@ -29,9 +29,6 @@ class GenericSimpleQuestionFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         with(view as _LinearLayout) {
             verticalLayout {
-
-
-
             }
         }
     }
