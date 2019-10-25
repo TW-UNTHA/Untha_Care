@@ -8,4 +8,5 @@
     <string name="error">Error</string>
     <string name="salir">Salir</string>
     <string name="category_id" />
+    <string name="start_progress">Start Progress</string>
 </resources>

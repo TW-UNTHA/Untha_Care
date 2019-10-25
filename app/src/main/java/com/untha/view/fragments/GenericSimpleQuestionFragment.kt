@@ -9,10 +9,10 @@ import com.untha.R
 import com.untha.view.activities.MainActivity
 import org.jetbrains.anko._LinearLayout
 import org.jetbrains.anko.backgroundColor
+import org.jetbrains.anko.horizontalProgressBar
 import org.jetbrains.anko.matchParent
 import org.jetbrains.anko.support.v4.UI
 import org.jetbrains.anko.verticalLayout
-
 
 class GenericSimpleQuestionFragment : BaseFragment() {
     private lateinit var mainActivity: MainActivity
@@ -21,7 +21,9 @@ class GenericSimpleQuestionFragment : BaseFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         mainActivity = this.activity as MainActivity
+
         return createMainLayout()
     }
 
@@ -29,11 +31,13 @@ class GenericSimpleQuestionFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         with(view as _LinearLayout) {
             verticalLayout {
+                loadHorizontalProgressBar()
             }
         }
     }
 
-    private fun createMainLayout(): View {
+    private fun createMainLayout(
+    ): View {
         return UI {
             verticalLayout {
                 backgroundColor =
@@ -43,4 +47,12 @@ class GenericSimpleQuestionFragment : BaseFragment() {
         }.view
     }
 
+    private fun _LinearLayout.loadHorizontalProgressBar() {
+        horizontalProgressBar {
+            //progress = loadWidthProgress
+            progressDrawable = ContextCompat.getDrawable(
+                context, R.drawable.progress_bar
+            )
+        }
+    }
 }

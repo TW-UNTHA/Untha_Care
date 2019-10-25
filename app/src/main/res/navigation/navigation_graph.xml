@@ -32,5 +32,5 @@
     <fragment
         android:id="@+id/genericSimpleQuestionFragment"
         android:name="com.untha.view.fragments.GenericSimpleQuestionFragment"
-        android:label="DERECHOS LABORALES " />
+        android:label="RUTAS DE AYUDA " />
 </navigation>
