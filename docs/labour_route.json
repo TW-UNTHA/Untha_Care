@@ -11,12 +11,12 @@
       "options": [
         {
           "value": "Si",
-          "result": "null",
+          "result": null,
           "goTo": 1
         },
         {
           "value": "No",
-          "result": "null",
+          "result": null,
           "goTo": 18
         }
       ]
@@ -56,7 +56,7 @@
       "options": [
         {
           "value": "Si",
-          "result": "null",
+          "result": null,
           "goTo": 3
         },
         {
@@ -76,12 +76,12 @@
       "options": [
         {
           "value": "Medio tiempo: 20",
-          "result": "null",
+          "result": null,
           "goTo": 5
         },
         {
           "value": "Tiempo completo: 40",
-          "result": "null",
+          "result": null,
           "goTo": 5
         },
         {
@@ -101,12 +101,12 @@
       "options": [
         {
           "value": "Mas de 30",
-          "result": "null",
+          "result": null,
           "goTo": 3
         },
         {
           "value": "Entre 20 y 30",
-          "result": "null",
+          "result": null,
           "goTo": 3
         },
         {
@@ -126,7 +126,7 @@
       "options": [
         {
           "value": "Si",
-          "result": "null",
+          "result": null,
           "goTo": 9
         },
         {
@@ -146,7 +146,7 @@
       "options": [
         {
           "value": "Si",
-          "result": "null",
+          "result": null,
           "goTo": 7
         },
         {
@@ -171,7 +171,7 @@
         },
         {
           "value": "No",
-          "result": "null",
+          "result": null,
           "goTo": 8
         }
       ]
@@ -206,7 +206,7 @@
         },
         {
           "value": "Prostitución",
-          "result": "null",
+          "result": null,
           "goTo": null
         },
         {
@@ -241,7 +241,7 @@
         },
         {
           "value": "Ninguna de las anteriores",
-          "result": "null",
+          "result": null,
           "goTo": null
         }
       ]
@@ -261,12 +261,12 @@
         },
         {
           "value": "$394 o mas",
-          "result": "null",
+          "result": null,
           "goTo": 10
         },
         {
           "value": "Mas de $197",
-          "result": "null",
+          "result": null,
           "goTo": 10
         },
         {
@@ -286,7 +286,7 @@
       "options": [
         {
           "value": "Si",
-          "result": "null",
+          "result": null,
           "goTo": 11
         },
         {
@@ -306,7 +306,7 @@
       "options": [
         {
           "value": "Si",
-          "result": "null",
+          "result": null,
           "goTo": 12
         },
         {
@@ -326,7 +326,7 @@
       "options": [
         {
           "value": "Escrito",
-          "result": "null",
+          "result": null,
           "goTo": 14
         },
         {
@@ -351,12 +351,12 @@
       "options": [
         {
           "value": "Si",
-          "result": "null",
+          "result": null,
           "goTo": 15
         },
         {
           "value": "No",
-          "result": "null",
+          "result": null,
           "goTo": 16
         }
       ]
@@ -371,7 +371,7 @@
       "options": [
         {
           "value": "Si",
-          "result": "null",
+          "result": null,
           "goTo": 16
         },
         {
@@ -391,12 +391,12 @@
       "options": [
         {
           "value": "Si",
-          "result": "null",
+          "result": null,
           "goTo": 17
         },
         {
           "value": "No",
-          "result": "null",
+          "result": null,
           "goTo": 18
         }
       ]
@@ -411,7 +411,7 @@
       "options": [
         {
           "value": "Si",
-          "result": "null",
+          "result": null,
           "goTo": -1
         },
         {
@@ -431,7 +431,7 @@
       "options": [
         {
           "value": "Si",
-          "result": "null",
+          "result": null,
           "goTo": 19
         },
         {
@@ -451,27 +451,27 @@
       "options": [
         {
           "value": "Estaba embarazada",
-          "result": "null",
+          "result": null,
           "goTo": null
         },
         {
           "value": "Mi físico o salud  se han desgastado como consecuencia de mis años de trabajo",
-          "result": "null",
+          "result": null,
           "goTo": null
         },
         {
           "value": "Mi color de piel, género, o estado civil",
-          "result": "null",
+          "result": null,
           "goTo": null
         },
         {
           "value": "No me justificaron la desición",
-          "result": "null",
+          "result": null,
           "goTo": null
         },
         {
           "value": "Ninguna de las anteriores",
-          "result": "null",
+          "result": null,
           "goTo": null
         }
       ]
@@ -486,47 +486,47 @@
       "options": [
         {
           "value": "No asistí al trabajo por 3 días sin justificación",
-          "result": "null",
+          "result": null,
           "goTo": null
         },
         {
           "value": "Me atrasé constantemente",
-          "result": "null",
+          "result": null,
           "goTo": -1
         },
         {
           "value": "Mentí sobre mi empleador",
-          "result": "null",
+          "result": null,
           "goTo": -1
         },
         {
           "value": "No cumpli mi trabajo",
-          "result": "null",
+          "result": null,
           "goTo": -1
         },
         {
           "value": "Incumplí alguna clausula del contrato",
-          "result": "null",
+          "result": null,
           "goTo": -1
         },
         {
           "value": "Denuncié injustificadamente a mi empleador",
-          "result": "null",
+          "result": null,
           "goTo": -1
         },
         {
           "value": "No cumpliste normas  de higiene, seguridad o prevención",
-          "result": "null",
+          "result": null,
           "goTo": -1
         },
         {
           "value": "Irrespeté a otras personas durante el trabajo",
-          "result": "null",
+          "result": null,
           "goTo": -1
         },
         {
           "value": "Ninguna de las anteriores",
-          "result": "null",
+          "result": null,
           "goTo": -1
         }
       ]
@@ -541,7 +541,7 @@
       "options": [
         {
           "value": "Si",
-          "result": "null",
+          "result": null,
           "goTo": -1
         },
         {
