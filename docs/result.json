@@ -2,213 +2,213 @@
   "version": "1",
   "results": [
     {
-      "id": "0",
+      "id": 0,
       "type": "recommendation",
       "identifier": "R1",
       "content": "Al ser menor de edad, te recomendamos comunicarte con UNTHA para que te asesore sobre tus derechos laborales",
       "categories": [
         {
-          "id": "7"
+          "id": 7
         }
       ]
     },
     {
-      "id": "1",
+      "id": 1,
       "type": "recommendation",
       "identifier": "R2",
       "content": "Te recomendamos establecer un contrato a tiempo completo o parcial con tu empleador porque esto puede dar lugar a una violación de tus derechos laborales",
       "categories": [
         {
-          "id": "5"
+          "id": 5
         }
       ]
     },
     {
-      "id": "2",
+      "id": 2,
       "type": "recommendation",
       "identifier": "R3",
       "content": "Te recomendamos tener un contrato escrito para que lo uses en caso de una falta a. tus derechos",
       "categories": [
         {
-          "id": "5"
+          "id": 5
         }
       ]
     },
     {
-      "id": "3",
+      "id": 3,
       "type": "recommendation",
       "identifier": "R4",
       "content": "Te recomendamos tener un contrato escrito para que lo uses en caso de una falta a. tus derechos",
       "categories": [
         {
-          "id": "12"
+          "id": 12
         },
         {
-          "id": "3"
+          "id": 3
         }
       ]
     },
     {
-      "id": "4",
+      "id": 4,
       "type": "recommendation",
       "identifier": "R5",
       "content": "Recomendamos que exigas tu liquidación en caso de renuncias. Si has trabajado por más de un año debes exigir el pago de tu deshaucio por escrito en la carta de renuncia.",
       "categories": [
         {
-          "id": "3"
+          "id": 3
         }
       ]
     },
     {
-      "id": "5",
+      "id": 5,
       "type": "fault",
       "identifier": "F1",
       "content": "Tu empleador no ha entregado el registro de trabajo de menores al Director de Trabajo",
       "categories": [
         {
-          "id": "11"
+          "id": 11
         }
       ]
     },
     {
-      "id": "6",
+      "id": 6,
       "type": "fault",
       "identifier": "F2",
       "content": "Tu empleador te hace trabajar más horas de las que tienes permitidas como menor de edad (30 semanales, 6 al día)",
       "categories": [
         {
-          "id": "11"
+          "id": 11
         }
       ]
     },
     {
-      "id": "7",
+      "id": 7,
       "type": "fault",
       "identifier": "F3",
       "content": "Tu empelador no esta cumpliendo con tu derecho al estudio  o con la jornada permitida para tu trabajo",
       "categories": [
         {
-          "id": "11"
+          "id": 11
         }
       ]
     },
     {
-      "id": "8",
+      "id": 8,
       "type": "fault",
       "identifier": "F4",
       "content": "Tu empleador está incumpliendo tu horario laboral como menor de edad al hacerte trabajar en las noches",
       "categories": [
         {
-          "id": "11"
+          "id": 11
         }
       ]
     },
     {
-      "id": "9",
+      "id": 9,
       "type": "fault",
       "identifier": "F5",
       "content": "Tu empledor no te  paga horas extras cuando trabajas tiempo adicional",
       "categories": [
         {
-          "id": "8"
+          "id": 8
         },
         {
-          "id": "3"
+          "id": 3
         }
       ]
     },
     {
-      "id": "10",
+      "id": 10,
       "type": "fault",
       "identifier": "F6",
       "content": "Tu empleador no te ha dado un contrato, esto puede dar lugar a irregularidades que no puedas denunciar",
       "categories": [
         {
-          "id": "5"
+          "id": 5
         }
       ]
     },
     {
-      "id": "11",
+      "id": 11,
       "type": "fault",
       "identifier": "F7",
       "content": "Tu empleador no te ha afiliado al IESS",
       "categories": []
     },
     {
-      "id": "12",
+      "id": 12,
       "type": "fault",
       "identifier": "F8",
       "content": "Tu empleador no te paga puntualmente",
       "categories": [
         {
-          "id": "8"
+          "id": 8
         }
       ]
     },
     {
-      "id": "13",
+      "id": 13,
       "type": "fault",
       "identifier": "F9",
       "content": "Es posible que tu empleador no te esté pagando el salario justo de acuerdo a tus horarios de trabajo",
       "categories": [
         {
-          "id": "3"
+          "id": 3
         },
         {
-          "id": "8"
+          "id": 8
         }
       ]
     },
     {
-      "id": "14",
+      "id": 14,
       "type": "fault",
       "identifier": "F10",
       "content": "Tu empleador no te dio el permiso de maternidad obligatorio",
       "categories": [
         {
-          "id": "10"
+          "id": 10
         }
       ]
     },
     {
-      "id": "15",
+      "id": 15,
       "type": "fault",
       "identifier": "F11",
       "content": "Tu empleador no te dio el permiso de lactancia obligatorio",
       "categories": [
         {
-          "id": "10"
+          "id": 10
         }
       ]
     },
     {
-      "id": "16",
+      "id": 16,
       "type": "fault",
       "identifier": "F12",
       "content": "Tu empleador te está haciendo trabajar en actividades ilegales para menores de edad",
       "categories": [
         {
-          "id": "7"
+          "id": 7
         }
       ]
     },
     {
-      "id": "17",
+      "id": 17,
       "type": "fault",
       "identifier": "F13",
       "content": "Es posible que tu empleador te despidio intempestivamente y deben pagarte idemnización en 48 horas.",
       "categories": [
         {
-          "id": "12"
+          "id": 12
         },
         {
-          "id": "3"
+          "id": 3
         }
       ]
     },
     {
-      "id": "18",
+      "id": 18,
       "type": "fault",
       "identifier": "F14",
       "content": "No recibiste notificación escrita de despido, solicítala para exigir pagos de liquidación o indemnización",
