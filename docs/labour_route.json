@@ -6,6 +6,7 @@
       "type": "SingleOption",
       "content": "¿Actualmente trabajas como Trabajadora Remunerada del Hogar?",
       "explanation": "",
+      "goTo": null,
       "options": [
         {
           "value": "Si",
@@ -23,6 +24,7 @@
       "id": 1,
       "type": "SingleOption",
       "content": "¿Cuántos años tienes?",
+      "goTo": null,
       "options": [
         {
           "value": "15 años o menos",
@@ -48,6 +50,7 @@
       "type": "SingleOption",
       "content": "¿Tu empleador entrego tu registro de trabajo como menor?",
       "explanation": "Este registro debe ser entregado al director regional de trabajo",
+      "goTo": null,
       "options": [
         {
           "value": "Si",
@@ -67,6 +70,7 @@
       "type": "SingleOption",
       "content": "¿Cuántas hortas trabajas a la semana?",
       "explanation": "Este registro debe ser entregado al director regional de trabajo",
+      "goTo": null,
       "options": [
         {
           "value": "Medio tiempo: 20",
@@ -91,6 +95,7 @@
       "type": "SingleOption",
       "content": "¿Cuántas horas trabajas a la semana?",
       "explanation": "Este registro debe ser entregado al director regional de trabajo",
+      "goTo": null,
       "options": [
         {
           "value": "Mas de 30",
@@ -115,6 +120,7 @@
       "type": "SingleOption",
       "content": "¿Cuándo trabajas mas del tiempo acordado con tu empleador, te pagan horas extras?",
       "explanation": "Este registro debe ser entregado al director regional de trabajo",
+      "goTo": null,
       "options": [
         {
           "value": "Si",
@@ -134,6 +140,7 @@
       "type": "SingleOption",
       "content": "¿Tienes al menos 2 horas diaras para dedicarlas a estudiar?",
       "explanation": "",
+      "goTo": null,
       "options": [
         {
           "value": "Si",
@@ -153,6 +160,7 @@
       "type": "SingleOption",
       "content": "¿Trabajas en las noches?",
       "explanation": "",
+      "goTo": null,
       "options": [
         {
           "value": "Si",
@@ -243,6 +251,7 @@
       "type": "SingleOption",
       "content": "¿Cuánto ganas al mes",
       "explanation": "",
+      "goTo": null,
       "options": [
         {
           "value": "Menos de $394",
@@ -272,6 +281,7 @@
       "type": "SingleOption",
       "content": "¿Tu empleador te afilio alm IESS?",
       "explanation": "",
+      "goTo": null,
       "options": [
         {
           "value": "Si",
@@ -291,6 +301,7 @@
       "type": "SingleOption",
       "content": "¿Te pagan puntualmente cada mes?",
       "explanation": "",
+      "goTo": null,
       "options": [
         {
           "value": "Si",
@@ -310,6 +321,7 @@
       "type": "SingleOption",
       "content": "¿Tienes un contrato con tu empleador?",
       "explanation": "",
+      "goTo": null,
       "options": [
         {
           "value": "Escrito",
@@ -334,6 +346,7 @@
       "type": "SingleOption",
       "content": "¿Estás embarazada?",
       "explanation": "",
+      "goTo": null,
       "options": [
         {
           "value": "Si",
@@ -353,6 +366,7 @@
       "type": "SingleOption",
       "content": "¿Tienes permiso de maternidad de 3 meses?",
       "explanation": "Tiempo dedicado para el parto, totalmemte pagado",
+      "goTo": null,
       "options": [
         {
           "value": "Si",
@@ -372,6 +386,7 @@
       "type": "SingleOption",
       "content": "¿Tienes hijo menor a un año?",
       "explanation": "",
+      "goTo": null,
       "options": [
         {
           "value": "Si",
@@ -391,6 +406,7 @@
       "type": "SingleOption",
       "content": "¿Tienes o tuviste permiso de lactancia de 2 horas diarias?",
       "explanation": "",
+      "goTo": null,
       "options": [
         {
           "value": "Si",
@@ -410,6 +426,7 @@
       "type": "SingleOption",
       "content": "¿Fuiste despedido del trabajo?",
       "explanation": "",
+      "goTo": null,
       "options": [
         {
           "value": "Si",
@@ -521,6 +538,7 @@
       "type": "SingleOption",
       "content": "¿Te entregaron una notificación escrita de despido?",
       "explanation": "",
+      "goTo": null,
       "options": [
         {
           "value": "Si",
