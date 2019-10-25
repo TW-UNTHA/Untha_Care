@@ -172,7 +172,7 @@
       "type": "MultipleOption",
       "content": "Indica si trabajas en una o mas de las siguientes actividades:",
       "explanation": "",
-      "goto": "9",
+      "goTo": "9",
       "result": "F12",
       "options": [
         {
@@ -430,7 +430,7 @@
       "content": "¿Te despidieron por alguna de estas razonas?",
       "explanation": "Selecciona todas las que aplique",
       "result": "F13",
-      "goto": "20",
+      "goTo": "20",
       "options": [
         {
           "value": "Estaba embarazada",
@@ -455,7 +455,7 @@
         {
           "value": "Ninguna de las anteriores",
           "result": "null",
-          "goto": "null"
+          "goTo": "null"
         }
       ]
     },
@@ -466,7 +466,7 @@
       "content": "¿Te despidieron por alguna de estas razones?",
       "explanation": "Selecciona todas las que apliquen",
       "result": "R4",
-      "goto": "21",
+      "goTo": "21",
       "options": [
         {
           "value": "No asistí al trabajo por 3 días sin justificación",
