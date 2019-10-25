@@ -2,7 +2,12 @@ package com.untha.viewmodels
 
 import android.content.SharedPreferences
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import androidx.lifecycle.*
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.LifecycleRegistry
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
+import com.nhaarman.mockito_kotlin.any
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.verify
 import com.nhaarman.mockito_kotlin.verifyZeroInteractions
@@ -14,8 +19,10 @@ import com.untha.model.dbservices.CategoryDbService
 import com.untha.model.mappers.CategoryMapper
 import com.untha.model.repositories.CategoryWithRelationsRepository
 import com.untha.model.services.CategoriesService
+import com.untha.model.services.RoutesService
 import com.untha.model.transactionalmodels.CategoriesWrapper
 import com.untha.model.transactionalmodels.Category
+import com.untha.model.transactionalmodels.Route
 import com.untha.utils.Constants
 import com.utils.MockObjects
 import me.linshen.retrofit2.adapter.ApiResponse
@@ -34,13 +41,20 @@ import org.koin.test.inject
 import org.koin.test.mock.declareMock
 import org.mockito.Mockito.`when`
 import retrofit2.Response
+import android.R.id.edit
+import com.nhaarman.mockito_kotlin.doNothing
+import com.nhaarman.mockito_kotlin.whenever
+import kotlinx.serialization.json.Json
+import org.mockito.Mock
+import org.mockito.Mockito.mock
 
 
 @RunWith(JUnit4::class)
 class MainViewModelTest : KoinTest {
 
     private val dbService by inject<CategoryDbService>()
-    private val service by inject<CategoriesService>()
+    private val categoriesService by inject<CategoriesService>()
+    private val routesService by inject<RoutesService>()
     private val mapper by inject<CategoryMapper>()
     private val repository by inject<CategoryWithRelationsRepository>()
     private val sharedPreferences by inject<SharedPreferences>()
@@ -65,6 +79,7 @@ class MainViewModelTest : KoinTest {
         declareMock<CategoryMapper>()
         declareMock<CategoryWithRelationsRepository>()
         declareMock<SharedPreferences>()
+        declareMock<RoutesService>()
     }
 
     @After
@@ -75,7 +90,14 @@ class MainViewModelTest : KoinTest {
     @Test
     fun `should call transform method to get a list of Category Models`() {
         val mockLifeCycleOwner = mockLifecycleOwner()
-        val mainViewModel = MainViewModel(dbService, service, mapper, repository, sharedPreferences)
+        val mainViewModel = MainViewModel(
+            dbService,
+            categoriesService,
+            mapper,
+            repository,
+            sharedPreferences,
+            routesService
+        )
         var categoryWrapper = CategoriesWrapper(
             1, listOf(
                 Category(
@@ -94,10 +116,10 @@ class MainViewModelTest : KoinTest {
         var apiResponse = ApiResponse.create(response)
         val updatedCategories = MutableLiveData<ApiResponse<CategoriesWrapper>>()
         updatedCategories.value = apiResponse
-        `when`(service.getCategories()).thenReturn(updatedCategories)
+        `when`(categoriesService.getCategories()).thenReturn(updatedCategories)
 
         val observer = mock<Observer<ApiResponse<CategoriesWrapper>>>()
-        service.getCategories().observeForever(observer)
+        categoriesService.getCategories().observeForever(observer)
 
         mainViewModel.retrieveUpdatedCategories(mockLifeCycleOwner)
 
@@ -107,7 +129,14 @@ class MainViewModelTest : KoinTest {
 
     @Test
     fun `should call get all categories`() {
-        val mainViewModel = MainViewModel(dbService, service, mapper, repository, sharedPreferences)
+        val mainViewModel = MainViewModel(
+            dbService,
+            categoriesService,
+            mapper,
+            repository,
+            sharedPreferences,
+            routesService
+        )
 
         mainViewModel.retrieveAllCategories()
 
@@ -116,7 +145,14 @@ class MainViewModelTest : KoinTest {
 
     @Test
     fun `should call mapFromModel`() {
-        val mainViewModel = MainViewModel(dbService, service, mapper, repository, sharedPreferences)
+        val mainViewModel = MainViewModel(
+            dbService,
+            categoriesService,
+            mapper,
+            repository,
+            sharedPreferences,
+            routesService
+        )
 
         val queryingCategory = MockObjects.mockQueryingCategory()
         var categoryResult =
@@ -132,7 +168,14 @@ class MainViewModelTest : KoinTest {
     @Test
     fun `should call method getInt from SharedPreferences when API response is success`() {
         val mockLifeCycleOwner = mockLifecycleOwner()
-        val mainViewModel = MainViewModel(dbService, service, mapper, repository, sharedPreferences)
+        val mainViewModel = MainViewModel(
+            dbService,
+            categoriesService,
+            mapper,
+            repository,
+            sharedPreferences,
+            routesService
+        )
         var categoryWrapper = CategoriesWrapper(
             1, listOf(
                 Category(
@@ -151,10 +194,10 @@ class MainViewModelTest : KoinTest {
         var apiResponse = ApiResponse.create(response)
         val updatedCategories = MutableLiveData<ApiResponse<CategoriesWrapper>>()
         updatedCategories.value = apiResponse
-        `when`(service.getCategories()).thenReturn(updatedCategories)
+        `when`(categoriesService.getCategories()).thenReturn(updatedCategories)
 
         val observer = mock<Observer<ApiResponse<CategoriesWrapper>>>()
-        service.getCategories().observeForever(observer)
+        categoriesService.getCategories().observeForever(observer)
 
         mainViewModel.retrieveUpdatedCategories(mockLifeCycleOwner)
 
@@ -164,7 +207,14 @@ class MainViewModelTest : KoinTest {
     @Test
     fun `should not call mapper when version number is equal to  api response version number`() {
         val mockLifeCycleOwner = mockLifecycleOwner()
-        val mainViewModel = MainViewModel(dbService, service, mapper, repository, sharedPreferences)
+        val mainViewModel = MainViewModel(
+            dbService,
+            categoriesService,
+            mapper,
+            repository,
+            sharedPreferences,
+            routesService
+        )
         var categoryWrapper = CategoriesWrapper(
             1, listOf(
                 Category(
@@ -183,7 +233,7 @@ class MainViewModelTest : KoinTest {
         var apiResponse = ApiResponse.create(response)
         val updatedCategories = MutableLiveData<ApiResponse<CategoriesWrapper>>()
         updatedCategories.value = apiResponse
-        `when`(service.getCategories()).thenReturn(updatedCategories)
+        `when`(categoriesService.getCategories()).thenReturn(updatedCategories)
         `when`(
             sharedPreferences.getInt(
                 Constants.CATEGORIES_VERSION,
@@ -192,7 +242,7 @@ class MainViewModelTest : KoinTest {
         ).thenReturn(categoryWrapper.version)
 
         val observer = mock<Observer<ApiResponse<CategoriesWrapper>>>()
-        service.getCategories().observeForever(observer)
+        categoriesService.getCategories().observeForever(observer)
 
         mainViewModel.retrieveUpdatedCategories(mockLifeCycleOwner)
 
@@ -202,7 +252,14 @@ class MainViewModelTest : KoinTest {
     @Test
     fun `should call category mapper when version number is not equal to  api response version number`() {
         val mockLifeCycleOwner = mockLifecycleOwner()
-        val mainViewModel = MainViewModel(dbService, service, mapper, repository, sharedPreferences)
+        val mainViewModel = MainViewModel(
+            dbService,
+            categoriesService,
+            mapper,
+            repository,
+            sharedPreferences,
+            routesService
+        )
         var categoryWrapper = CategoriesWrapper(
             1, listOf(
                 Category(
@@ -221,7 +278,7 @@ class MainViewModelTest : KoinTest {
         var apiResponse = ApiResponse.create(response)
         val updatedCategories = MutableLiveData<ApiResponse<CategoriesWrapper>>()
         updatedCategories.value = apiResponse
-        `when`(service.getCategories()).thenReturn(updatedCategories)
+        `when`(categoriesService.getCategories()).thenReturn(updatedCategories)
         `when`(
             sharedPreferences.getInt(
                 Constants.CATEGORIES_VERSION,
@@ -230,12 +287,109 @@ class MainViewModelTest : KoinTest {
         ).thenReturn(0)
 
         val observer = mock<Observer<ApiResponse<CategoriesWrapper>>>()
-        service.getCategories().observeForever(observer)
+        categoriesService.getCategories().observeForever(observer)
 
         mainViewModel.retrieveUpdatedCategories(mockLifeCycleOwner)
 
         verify(mapper).mapToModel(categoryWrapper.categories.first())
     }
+
+    @Test
+    fun `should save data in share preferences `() {
+
+        val mockLifeCycleOwner = mockLifecycleOwner()
+
+        val route = Route(1, listOf())
+        val mainViewModel = MainViewModel(
+            dbService,
+            categoriesService,
+            mapper,
+            repository,
+            sharedPreferences,
+            routesService
+        )
+
+        var response = Response.success(route)
+        var apiResponse = ApiResponse.create(response)
+        val updatedRoute = MutableLiveData<ApiResponse<Route>>()
+        updatedRoute.value = apiResponse
+        `when`(routesService.getLabourRoute()).thenReturn(updatedRoute)
+        val observer = mock<Observer<ApiResponse<Route>>>()
+        routesService.getLabourRoute().observeForever(observer)
+        val editor = mock(SharedPreferences.Editor::class.java)
+
+        `when`(sharedPreferences.edit()).thenReturn(editor)
+        whenever(
+            editor.putString(
+                Constants.LABOUR_ROUTE,
+                Json.stringify(Route.serializer(), route)
+            )
+        ).thenReturn(editor)
+        doNothing().whenever(editor).apply()
+
+        mainViewModel.loadLabourRoute(mockLifeCycleOwner)
+
+        verify(observer).onChanged(apiResponse)
+        verify(sharedPreferences.edit())
+            .putString(
+                Constants.LABOUR_ROUTE,
+                Json.stringify(
+                    Route.serializer(),
+                    route
+                )
+            )
+        verify(editor).apply()
+
+    }
+
+    @Test
+    fun `should save data in share preferences when violence route result is succesfull `() {
+
+        val mockLifeCycleOwner = mockLifecycleOwner()
+
+        val route = Route(1, listOf())
+        val mainViewModel = MainViewModel(
+            dbService,
+            categoriesService,
+            mapper,
+            repository,
+            sharedPreferences,
+            routesService
+        )
+
+        var response = Response.success(route)
+        var apiResponse = ApiResponse.create(response)
+        val updatedRoute = MutableLiveData<ApiResponse<Route>>()
+        updatedRoute.value = apiResponse
+        `when`(routesService.getViolenceRoute()).thenReturn(updatedRoute)
+        val observer = mock<Observer<ApiResponse<Route>>>()
+        routesService.getViolenceRoute().observeForever(observer)
+        val editor = mock(SharedPreferences.Editor::class.java)
+
+        `when`(sharedPreferences.edit()).thenReturn(editor)
+        whenever(
+            editor.putString(
+                Constants.VIOLENCE_ROUTE,
+                Json.stringify(Route.serializer(), route)
+            )
+        ).thenReturn(editor)
+        doNothing().whenever(editor).apply()
+
+        mainViewModel.loadViolenceRoute(mockLifeCycleOwner)
+
+        verify(observer).onChanged(apiResponse)
+        verify(sharedPreferences.edit())
+            .putString(
+                Constants.VIOLENCE_ROUTE,
+                Json.stringify(
+                    Route.serializer(),
+                    route
+                )
+            )
+        verify(editor).apply()
+
+    }
+
 
 
     private fun mockLifecycleOwner(): LifecycleOwner {
@@ -245,7 +399,6 @@ class MainViewModelTest : KoinTest {
         `when`<Lifecycle>(owner.lifecycle).thenReturn(lifecycle)
         return owner
     }
-
 }
 
 

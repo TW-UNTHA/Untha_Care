@@ -10,6 +10,9 @@ import com.untha.di.viewModelsModule
 import com.untha.model.mappers.CategoryMapper
 import com.untha.model.models.*
 import com.untha.model.repositories.CategoryWithRelationsRepository
+import com.untha.model.services.CategoriesService
+import com.untha.model.services.RetrofitService
+import com.untha.model.services.RoutesService
 import com.untha.viewmodels.RightsViewModel
 import com.utils.MockObjects
 import com.utils.RandomGenerator
@@ -33,6 +36,8 @@ class RightsViewModelTest : KoinTest {
 
     private val repository by inject<CategoryWithRelationsRepository>()
     private val mapper by inject<CategoryMapper>()
+    private val routesService by inject<RoutesService>()
+
 
     @get:Rule
     val rule = InstantTaskExecutorRule()
@@ -51,6 +56,7 @@ class RightsViewModelTest : KoinTest {
         }
         declareMock<CategoryMapper>()
         declareMock<CategoryWithRelationsRepository>()
+        declareMock<RoutesService>()
     }
 
     @After
@@ -62,7 +68,7 @@ class RightsViewModelTest : KoinTest {
     fun `should call CategoriesMapper`() {
         val rightsViewModel: RightsViewModel
         rightsViewModel =
-            RightsViewModel(repository, mapper)
+            RightsViewModel(repository, mapper, routesService)
         val categoryQuerying = MockObjects.mockQueryingCategory()
         val categoriesQuerying = listOf<QueryingCategory>(categoryQuerying)
 
@@ -84,7 +90,7 @@ class RightsViewModelTest : KoinTest {
         )
 
         rightsListData.setValue(rights)
-        rightsViewModel = RightsViewModel(repository, mapper)
+        rightsViewModel = RightsViewModel(repository, mapper, routesService)
 
         `when`(repository.getAllRightsCategories()).thenReturn(rightsListData)
 

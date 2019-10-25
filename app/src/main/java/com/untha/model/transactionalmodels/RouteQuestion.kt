@@ -8,5 +8,7 @@ data class RouteQuestion(
     val type: String,
     val content: String,
     val explanation: String,
-    val options: List<RouteOption>? = null
+    val goTo: Int?,
+    val result: String?,
+    val options: List<RouteOption>
 )

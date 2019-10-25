@@ -15,7 +15,10 @@ import com.untha.model.models.SectionStepModel
 import com.untha.model.transactionalmodels.Category
 import com.untha.model.repositories.CategoryWithRelationsRepository
 import com.untha.model.services.CategoriesService
+import com.untha.model.services.RoutesService
+import com.untha.model.transactionalmodels.Route
 import com.untha.utils.Constants
+import kotlinx.serialization.json.Json
 import me.linshen.retrofit2.adapter.ApiErrorResponse
 import me.linshen.retrofit2.adapter.ApiSuccessResponse
 
@@ -24,7 +27,9 @@ class MainViewModel(
     private val categoriesService: CategoriesService,
     private val categoryMapper: CategoryMapper,
     private val categoryWithRelationsRepository: CategoryWithRelationsRepository,
-    private val sharedPreferences: SharedPreferences
+    private val sharedPreferences: SharedPreferences,
+    private val routesService: RoutesService
+
 ) : ViewModel() {
 
     private val categoryModels: MutableList<CategoryModel> = mutableListOf()
@@ -55,6 +60,7 @@ class MainViewModel(
             })
     }
 
+
     fun retrieveAllCategories(): LiveData<List<QueryingCategory>> {
         return categoryWithRelationsRepository.getAllCategories()
     }
@@ -65,7 +71,7 @@ class MainViewModel(
         val categoryInformationModels = mutableListOf<CategoryInformationModel>()
         categoryModels.map { category ->
             category.categoryInformationModel?.let { categoryInformationModel ->
-                categoryInformationModel.map {categoryInformation->
+                categoryInformationModel.map { categoryInformation ->
                     categoryInformationModels.add(categoryInformation)
                 }
             }
@@ -82,7 +88,7 @@ class MainViewModel(
         val informationSections = mutableListOf<SectionModel>()
         categoryModels.map { category ->
             category.categoryInformationModel?.let { categoryInformationModel ->
-                categoryInformationModel.map {categoryInformation->
+                categoryInformationModel.map { categoryInformation ->
                     categoryInformation.sections?.let { informationSections.addAll(it) }
 //                    categoryInformation.sections?.map {sections->
 //                        informationSections.addAll(listOf(sections))
@@ -112,6 +118,39 @@ class MainViewModel(
 
     fun getCategories(categoriesQuerying: List<QueryingCategory>): List<Category> {
         return categoriesQuerying.map { categoryMapper.mapFromModel(it) }
+    }
+
+    fun loadLabourRoute(owner: LifecycleOwner) {
+
+        routesService.getLabourRoute()
+            .observe(owner, Observer { response ->
+                when (response) {
+                    is ApiSuccessResponse -> {
+
+                        sharedPreferences.edit()
+                            .putString(
+                                Constants.LABOUR_ROUTE,
+                                Json.stringify(Route.serializer(), response.body)
+                            ).apply()
+                    }
+                }
+            })
+    }
+
+    fun loadViolenceRoute(owner: LifecycleOwner) {
+        routesService.getViolenceRoute()
+            .observe(owner, Observer { response ->
+                when (response) {
+                    is ApiSuccessResponse -> {
+
+                        sharedPreferences.edit()
+                            .putString(
+                                Constants.VIOLENCE_ROUTE,
+                                Json.stringify(Route.serializer(), response.body)
+                            ).apply()
+                    }
+                }
+            })
     }
 }
 

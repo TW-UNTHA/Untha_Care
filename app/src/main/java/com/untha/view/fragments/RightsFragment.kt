@@ -15,6 +15,8 @@ import com.untha.utils.PixelConverter
 import com.untha.view.adapters.RightsAdapter
 import com.untha.viewmodels.RightsViewModel
 import kotlinx.android.synthetic.main.layout_rights.categoryRecyclerView
+import me.linshen.retrofit2.adapter.ApiErrorResponse
+import me.linshen.retrofit2.adapter.ApiSuccessResponse
 import org.koin.android.viewmodel.ext.android.viewModel
 
 
@@ -41,6 +43,7 @@ class RightsFragment : BaseFragment(),
         activity?.let {
             firebaseAnalytics.setCurrentScreen(it, "Rights Page", null)
         }
+        config()
         setMarginsToRecyclerView()
         viewModel.getRightsCategoryModels().observe(this, Observer { queryingCategories ->
             val categories = viewModel.getRightCategories(queryingCategories)
@@ -81,6 +84,22 @@ class RightsFragment : BaseFragment(),
         }
         itemView.findNavController()
             .navigate(R.id.genericInfoFragment, categoryBundle, navOptions, null)
+    }
+
+    fun config() {
+        viewModel.getRoutes().observe(this, Observer {
+            print("getRoutes!!!")
+            when (it) {
+
+                is ApiSuccessResponse -> {
+                    print("!!!!!!!!!!!!!")
+                    println(it.body)
+                }
+                is ApiErrorResponse -> {
+                    println("Errror!!!!!!!!!!!!! $it.errorMessage")
+                }
+            }
+        })
     }
 
 }
