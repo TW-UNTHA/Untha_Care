@@ -31,6 +31,6 @@
         android:label="RUTAS DE AYUDA " />
     <fragment
         android:id="@+id/genericSimpleQuestionFragment"
-        android:name="com.untha.view.fragments.GenericSimpleQuestionFragment"
+        android:name="com.untha.view.fragments.SingleSelectionQuestionFragment"
         android:label="RUTAS DE AYUDA " />
 </navigation>

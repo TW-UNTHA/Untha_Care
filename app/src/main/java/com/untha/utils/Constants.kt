@@ -51,4 +51,9 @@ object Constants {
     const val SHADOW_PADDING_SIZE = 5
     const val LABOUR_ROUTE = "labour-route"
     const val VIOLENCE_ROUTE = "violence-route"
+
+    const val TEMPORAL_LOAD_PROGRESS_BAR = 13
+    const val MARGIN_SINGLE_SELECTION_QUESTION = 24
+    const val SIZE_IMAGE_AUDIO_ROUTE = 100
+    const val MARGIN_QUESTION_ROUTE = 36
 }

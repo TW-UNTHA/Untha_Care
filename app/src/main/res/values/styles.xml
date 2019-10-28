@@ -33,6 +33,11 @@
         <item name="background">@color/colorHeaderBackground</item>
     </style>
 
+
+    <style name="MyButtonStyle" parent="Widget.AppCompat.Button">
+        <item name="android:colorButtonNormal">#ffffff</item>
+    </style>
+
 </resources>
 
 
