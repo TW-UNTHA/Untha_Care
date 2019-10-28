@@ -16,8 +16,10 @@ import com.untha.model.models.SectionModel
 import com.untha.model.models.SectionStepModel
 import com.untha.model.repositories.CategoryWithRelationsRepository
 import com.untha.model.services.CategoriesService
+import com.untha.model.services.ResultService
 import com.untha.model.services.RoutesService
 import com.untha.model.transactionalmodels.Category
+import com.untha.model.transactionalmodels.ResultWrapper
 import com.untha.model.transactionalmodels.Route
 import com.untha.utils.Constants
 import kotlinx.serialization.json.Json
@@ -30,7 +32,8 @@ class MainViewModel(
     private val categoryMapper: CategoryMapper,
     private val categoryWithRelationsRepository: CategoryWithRelationsRepository,
     private val sharedPreferences: SharedPreferences,
-    private val routesService: RoutesService
+    private val routesService: RoutesService,
+    private val resultService: ResultService
 
 ) : ViewModel() {
 
@@ -56,7 +59,7 @@ class MainViewModel(
                         }
                     }
                     is ApiErrorResponse -> {
-                        println("Errror!!!!!!!!!!!!! $response.errorMessage")
+                        println("Error! $response.errorMessage")
                     }
                 }
             })
@@ -69,7 +72,6 @@ class MainViewModel(
 
 
     private fun categoriesSavedCallback(message: String) {
-        println(message)
         val categoryInformationModels = mutableListOf<CategoryInformationModel>()
         categoryModels.map { category ->
             category.categoryInformationModel?.let { categoryInformationModel ->
@@ -92,9 +94,6 @@ class MainViewModel(
             category.categoryInformationModel?.let { categoryInformationModel ->
                 categoryInformationModel.map { categoryInformation ->
                     categoryInformation.sections?.let { informationSections.addAll(it) }
-//                    categoryInformation.sections?.map {sections->
-//                        informationSections.addAll(listOf(sections))
-//                    }
                 }
             }
         }
@@ -150,6 +149,41 @@ class MainViewModel(
                     }
                 }
             })
+    }
+
+
+    fun loadResult(owner: LifecycleOwner) {
+        resultService.getResult()
+            .observe(owner, Observer { response ->
+                when (response) {
+                    is ApiSuccessResponse -> {
+                        sharedPreferences.edit()
+                            .putString(
+                                Constants.RESULT,
+                                Json.stringify(ResultWrapper.serializer(), response.body)
+                            ).apply()
+                    }
+                }
+            })
+    }
+
+    fun loadDefaultResult(context: Context) {
+        val result = context.resources.openRawResource(R.raw.result)
+            .bufferedReader().use { it.readText() }
+        sharedPreferences.edit()
+            .putString(
+                Constants.RESULT,
+                result
+            ).apply()
+    }
+
+    fun loadResultFromSharedPreferences(): ResultWrapper {
+        val jsonResult = sharedPreferences.getString(Constants.RESULT, "N/A")
+        return if (jsonResult == null) {
+            ResultWrapper(0, listOf())
+        } else {
+            Json.parse(ResultWrapper.serializer(), jsonResult)
+        }
     }
 
     fun loadDefaultLabourRoute(context: Context) {

@@ -2,12 +2,12 @@
   "version": 1,
   "questions": [
     {
-      "id": 0,
+      "id": 1,
       "type": "SingleOption",
       "content": "¿Cuales de estas situaciones has vivido?",
       "explanation": "Selecciona todas las que apliquen",
       "goTo": null,
-      "result":null,
+      "result": null,
       "options": [
         {
           "value": "Chantajes",
@@ -53,17 +53,7 @@
           "value": "Control excesivo",
           "result": null,
           "goTo": null
-        }
-      ]
-    },
-    {
-      "id": 1,
-      "type": "SingleOption",
-      "content": "¿Cuales de estas situaciones has vivido?",
-      "explanation": "Selecciona todas las que apliquen",
-      "goTo": null,
-      "result": null,
-      "options": [
+        },
         {
           "value": "Prohibiciones",
           "result": null,
@@ -83,17 +73,7 @@
           "value": "Te agreden",
           "result": null,
           "goTo": null
-        }
-      ]
-    },
-    {
-      "id": 2,
-      "type": "SingleOption",
-      "content": "¿Cuales de estas situaciones has vivido?",
-      "explanation": "Selecciona todas las que apliquen",
-      "goTo": null,
-      "result": null,
-      "options": [
+        },
         {
           "value": "Empujones",
           "result": null,

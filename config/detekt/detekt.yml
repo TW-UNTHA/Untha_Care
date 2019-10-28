@@ -93,7 +93,7 @@ complexity:
     thresholdInObjects: 15
     thresholdInEnums: 15
     ignoreDeprecated: false
-    ignorePrivate: false
+    ignorePrivate: true
     ignoreOverridden: true
 
 empty-blocks:

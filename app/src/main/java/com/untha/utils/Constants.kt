@@ -50,6 +50,7 @@ object Constants {
     const val MARGIN_LATERAL_PERCENTAGE_MAIN_ROUTE = 0.035
     const val SHADOW_PADDING_SIZE = 5
     const val LABOUR_ROUTE = "labour-route"
+    const val RESULT = "result"
     const val VIOLENCE_ROUTE = "violence-route"
 
     const val TEMPORAL_LOAD_PROGRESS_BAR = 13

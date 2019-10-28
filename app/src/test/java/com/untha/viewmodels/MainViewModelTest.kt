@@ -7,7 +7,6 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LifecycleRegistry
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
-import com.nhaarman.mockito_kotlin.any
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.verify
 import com.nhaarman.mockito_kotlin.verifyZeroInteractions
@@ -41,19 +40,17 @@ import org.koin.test.inject
 import org.koin.test.mock.declareMock
 import org.mockito.Mockito.`when`
 import retrofit2.Response
-import android.R.id.edit
 import android.content.Context
 import android.content.res.Resources
 import com.nhaarman.mockito_kotlin.doNothing
 import com.nhaarman.mockito_kotlin.whenever
 import com.untha.R
-import kotlinx.serialization.ImplicitReflectionSerializer
+import com.untha.model.services.ResultService
+import com.untha.model.transactionalmodels.Result
+import com.untha.model.transactionalmodels.ResultWrapper
 import kotlinx.serialization.json.Json
-import kotlinx.serialization.parse
-import org.mockito.Mock
 import org.mockito.Mockito.mock
 import java.io.ByteArrayInputStream
-import java.io.InputStream
 
 
 @RunWith(JUnit4::class)
@@ -62,6 +59,7 @@ class MainViewModelTest : KoinTest {
     private val dbService by inject<CategoryDbService>()
     private val categoriesService by inject<CategoriesService>()
     private val routesService by inject<RoutesService>()
+    private val resultService by inject<ResultService>()
     private val mapper by inject<CategoryMapper>()
     private val repository by inject<CategoryWithRelationsRepository>()
     private val sharedPreferences by inject<SharedPreferences>()
@@ -87,6 +85,7 @@ class MainViewModelTest : KoinTest {
         declareMock<CategoryWithRelationsRepository>()
         declareMock<SharedPreferences>()
         declareMock<RoutesService>()
+        declareMock<ResultService>()
     }
 
     @After
@@ -103,7 +102,8 @@ class MainViewModelTest : KoinTest {
             mapper,
             repository,
             sharedPreferences,
-            routesService
+            routesService,
+            resultService
         )
         var categoryWrapper = CategoriesWrapper(
             1, listOf(
@@ -142,7 +142,8 @@ class MainViewModelTest : KoinTest {
             mapper,
             repository,
             sharedPreferences,
-            routesService
+            routesService,
+            resultService
         )
 
         mainViewModel.retrieveAllCategories()
@@ -158,7 +159,8 @@ class MainViewModelTest : KoinTest {
             mapper,
             repository,
             sharedPreferences,
-            routesService
+            routesService,
+            resultService
         )
 
         val queryingCategory = MockObjects.mockQueryingCategory()
@@ -181,7 +183,8 @@ class MainViewModelTest : KoinTest {
             mapper,
             repository,
             sharedPreferences,
-            routesService
+            routesService,
+            resultService
         )
         var categoryWrapper = CategoriesWrapper(
             1, listOf(
@@ -220,7 +223,8 @@ class MainViewModelTest : KoinTest {
             mapper,
             repository,
             sharedPreferences,
-            routesService
+            routesService,
+            resultService
         )
         var categoryWrapper = CategoriesWrapper(
             1, listOf(
@@ -265,7 +269,8 @@ class MainViewModelTest : KoinTest {
             mapper,
             repository,
             sharedPreferences,
-            routesService
+            routesService,
+            resultService
         )
         var categoryWrapper = CategoriesWrapper(
             1, listOf(
@@ -313,7 +318,8 @@ class MainViewModelTest : KoinTest {
             mapper,
             repository,
             sharedPreferences,
-            routesService
+            routesService,
+            resultService
         )
 
         var response = Response.success(route)
@@ -361,7 +367,8 @@ class MainViewModelTest : KoinTest {
             mapper,
             repository,
             sharedPreferences,
-            routesService
+            routesService,
+            resultService
         )
 
         val response = Response.success(route)
@@ -397,6 +404,54 @@ class MainViewModelTest : KoinTest {
     }
 
     @Test
+    fun `should save data in share preferences when result is successful `() {
+
+        val mockLifeCycleOwner = mockLifecycleOwner()
+
+        val result = ResultWrapper(1, listOf())
+        val mainViewModel = MainViewModel(
+            dbService,
+            categoriesService,
+            mapper,
+            repository,
+            sharedPreferences,
+            routesService,
+            resultService
+        )
+
+        val response = Response.success(result)
+        val apiResponse = ApiResponse.create(response)
+        val updatedResult = MutableLiveData<ApiResponse<ResultWrapper>>()
+        updatedResult.value = apiResponse
+        `when`(resultService.getResult()).thenReturn(updatedResult)
+        val observer = mock<Observer<ApiResponse<ResultWrapper>>>()
+        resultService.getResult().observeForever(observer)
+        val editor = mock(SharedPreferences.Editor::class.java)
+
+        `when`(sharedPreferences.edit()).thenReturn(editor)
+        whenever(
+            editor.putString(
+                Constants.RESULT,
+                Json.stringify(ResultWrapper.serializer(), result)
+            )
+        ).thenReturn(editor)
+        doNothing().whenever(editor).apply()
+
+        mainViewModel.loadResult(mockLifeCycleOwner)
+
+        verify(observer).onChanged(apiResponse)
+        verify(sharedPreferences.edit())
+            .putString(
+                Constants.RESULT,
+                Json.stringify(
+                    ResultWrapper.serializer(),
+                    result
+                )
+            )
+        verify(editor).apply()
+    }
+
+    @Test
     fun `should save labour default route to sharedPreferences `() {
         val mainViewModel = MainViewModel(
             dbService,
@@ -404,7 +459,8 @@ class MainViewModelTest : KoinTest {
             mapper,
             repository,
             sharedPreferences,
-            routesService
+            routesService,
+            resultService
         )
         val context = mock(Context::class.java)
         val resources = mock(Resources::class.java)
@@ -455,6 +511,58 @@ class MainViewModelTest : KoinTest {
     }
 
     @Test
+    fun `should save result default  to sharedPreferences `() {
+        val mainViewModel = MainViewModel(
+            dbService,
+            categoriesService,
+            mapper,
+            repository,
+            sharedPreferences,
+            routesService,
+            resultService
+        )
+        val context = mock(Context::class.java)
+        val resources = mock(Resources::class.java)
+        val json = "{\n" +
+                "  \"version\": \"1\",\n" +
+                "  \"results\": [\n" +
+                "    {\n" +
+                "      \"id\": 0,\n" +
+                "      \"type\": \"recommendation\",\n" +
+                "      \"identifier\": \"R1\",\n" +
+                "      \"content\": \"Al ser menor de edad, te recomendamos comunicarte con UNTHA para que te asesore sobre tus derechos laborales\",\n" +
+                "      \"categories\": [\n" +
+                "        {\n" +
+                "          \"id\": 7\n" +
+                "        }\n" +
+                "      ]\n" +
+                "    }" +
+                "}"
+        val inputStream = ByteArrayInputStream(json.toByteArray())
+        `when`(context.resources).thenReturn(resources)
+        `when`(resources.openRawResource(R.raw.result)).thenReturn(inputStream)
+        val editor = mock(SharedPreferences.Editor::class.java)
+        `when`(sharedPreferences.edit()).thenReturn(editor)
+        whenever(
+            editor.putString(
+                Constants.RESULT,
+                json
+            )
+        ).thenReturn(editor)
+        doNothing().whenever(editor).apply()
+
+        mainViewModel.loadDefaultResult(context)
+
+        verify(sharedPreferences.edit())
+            .putString(
+                Constants.RESULT,
+                json
+            )
+        verify(editor).apply()
+    }
+
+
+    @Test
     fun `should save violence default route to sharedPreferences`() {
         val mainViewModel = MainViewModel(
             dbService,
@@ -462,7 +570,8 @@ class MainViewModelTest : KoinTest {
             mapper,
             repository,
             sharedPreferences,
-            routesService
+            routesService,
+            resultService
         )
         val context = mock(Context::class.java)
         val resources = mock(Resources::class.java)
@@ -520,7 +629,8 @@ class MainViewModelTest : KoinTest {
             mapper,
             repository,
             sharedPreferences,
-            routesService
+            routesService,
+            resultService
         )
         val jsonRoute = "{\n" +
                 "  \"version\": 1,\n" +
@@ -553,6 +663,37 @@ class MainViewModelTest : KoinTest {
         assertThat(resultRoute, `is`(route))
     }
 
+
+    @Test
+    fun `should get result from shared preferences`() {
+        val mainViewModel = MainViewModel(
+            dbService,
+            categoriesService,
+            mapper,
+            repository,
+            sharedPreferences,
+            routesService,
+            resultService
+        )
+        val jsonResult = "{\n" +
+                "  \"version\": 1,\n" +
+                "  \"results\": [\n" +
+                "    {\n" +
+                "      \"id\": \"R1\",\n" +
+                "      \"type\": \"recommendation\",\n" +
+                "      \"content\": \"Al ser menor de edad, te recomendamos comunicarte con UNTHA para que te asesore sobre tus derechos laborales\",\n" +
+                "      \"categories\":  [7]\n" +
+                "    }]}"
+
+
+        `when`(sharedPreferences.getString(Constants.RESULT, "N/A")).thenReturn(jsonResult)
+        val result = Json.parse(ResultWrapper.serializer(), jsonResult)
+
+        val resultFromSharePreferences = mainViewModel.loadResultFromSharedPreferences()
+
+        assertThat(resultFromSharePreferences, `is`(result))
+    }
+
     @Test
     fun `should return an empty violence route when shared preferences return null`() {
         val mainViewModel = MainViewModel(
@@ -561,7 +702,8 @@ class MainViewModelTest : KoinTest {
             mapper,
             repository,
             sharedPreferences,
-            routesService
+            routesService,
+            resultService
         )
         `when`(sharedPreferences.getString(Constants.VIOLENCE_ROUTE, null)).thenReturn(null)
 
@@ -578,7 +720,8 @@ class MainViewModelTest : KoinTest {
             mapper,
             repository,
             sharedPreferences,
-            routesService
+            routesService,
+            resultService
         )
         val jsonRoute = "{\n" +
                 "  \"version\": 1,\n" +
@@ -619,7 +762,8 @@ class MainViewModelTest : KoinTest {
             mapper,
             repository,
             sharedPreferences,
-            routesService
+            routesService,
+            resultService
         )
         `when`(sharedPreferences.getString(Constants.LABOUR_ROUTE, null)).thenReturn(null)
 
