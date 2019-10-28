@@ -41,9 +41,9 @@ class SingleSelectionQuestionFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         with(view as _LinearLayout) {
             verticalLayout {
-                verticalLayout {
-                    loadHorizontalProgressBar(Constants.TEMPORAL_LOAD_PROGRESS_BAR)
-                }
+
+                loadHorizontalProgressBar(Constants.TEMPORAL_LOAD_PROGRESS_BAR)
+
                 verticalLayout {
                     loadImageAudio(view)
                 }
@@ -72,7 +72,6 @@ class SingleSelectionQuestionFragment : BaseFragment() {
     }
 
     private fun _LinearLayout.loadHorizontalProgressBar(loadProgress: Int) {
-
         verticalLayout {
             horizontalProgressBar {
                 progress = loadProgress
@@ -84,7 +83,6 @@ class SingleSelectionQuestionFragment : BaseFragment() {
     }
 
     private fun _LinearLayout.loadImageAudio(view: View) {
-
         imageView {
             gravity = Gravity.CENTER
             Glide.with(view)
@@ -97,13 +95,11 @@ class SingleSelectionQuestionFragment : BaseFragment() {
     }
 
     private fun _LinearLayout.question() {
-        verticalLayout {
-            textView {
-                gravity = Gravity.CENTER
-                text = "¿Qué tipo de jornada de trabajo tienes?"
-            }.lparams(width = wrapContent, height = wrapContent) {
-                margin = dip(Constants.MARGIN_QUESTION_ROUTE)
-            }
+        textView {
+            gravity = Gravity.CENTER
+            text = "¿Qué tipo de jornada de trabajo tienes?"
+        }.lparams(width = wrapContent, height = wrapContent) {
+            margin = dip(Constants.MARGIN_QUESTION_ROUTE)
         }
     }
 

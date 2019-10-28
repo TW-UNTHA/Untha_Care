@@ -29,7 +29,7 @@ import org.jetbrains.anko.textView
 import org.jetbrains.anko.verticalLayout
 import org.jetbrains.anko.wrapContent
 
-class MainRouteFragment : BaseFragment() {
+class RoutesFragment : BaseFragment() {
     private var categoriesRoutes: List<Category>? = null
 
 

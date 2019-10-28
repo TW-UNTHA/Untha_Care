@@ -27,7 +27,7 @@
 
     <fragment
         android:id="@+id/mainRouteFragment"
-        android:name="com.untha.view.fragments.MainRouteFragment"
+        android:name="com.untha.view.fragments.RoutesFragment"
         android:label="RUTAS DE AYUDA " />
     <fragment
         android:id="@+id/genericSimpleQuestionFragment"
