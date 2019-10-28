@@ -33,7 +33,8 @@
         <item name="background">@color/colorHeaderBackground</item>
     </style>
 
-    <style name="AppTheme" parent="Theme.AppCompat.Light"></style>
+
+    <style name="MyButtonStyle" parent="Theme.AppCompat.Light"></style>
 
 </resources>
 
