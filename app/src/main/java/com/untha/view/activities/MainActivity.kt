@@ -19,9 +19,17 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        viewModel.retrieveUpdatedCategories(this)
+        loadApplicationData()
         navigationController = findNavController(navigationHostFragment)
         NavigationUI.setupActionBarWithNavController(this, navigationController)
+    }
+
+    private fun loadApplicationData() {
+        viewModel.retrieveUpdatedCategories(this)
+        viewModel.loadDefaultLabourRoute(this)
+        viewModel.loadDefaultViolenceRoute(this)
+        viewModel.loadLabourRoute(this)
+        viewModel.loadViolenceRoute(this)
     }
 
     override fun onSupportNavigateUp() = navigationController.navigateUp()

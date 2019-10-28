@@ -7,17 +7,17 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import com.untha.R
-import com.untha.model.mappers.CategoryMapper
 import com.untha.model.dbservices.CategoryDbService
+import com.untha.model.mappers.CategoryMapper
+import com.untha.model.models.CategoryInformationModel
 import com.untha.model.models.CategoryModel
 import com.untha.model.models.QueryingCategory
-import com.untha.model.models.CategoryInformationModel
 import com.untha.model.models.SectionModel
 import com.untha.model.models.SectionStepModel
-import com.untha.model.transactionalmodels.Category
 import com.untha.model.repositories.CategoryWithRelationsRepository
 import com.untha.model.services.CategoriesService
 import com.untha.model.services.RoutesService
+import com.untha.model.transactionalmodels.Category
 import com.untha.model.transactionalmodels.Route
 import com.untha.utils.Constants
 import kotlinx.serialization.json.Json
@@ -123,7 +123,6 @@ class MainViewModel(
     }
 
     fun loadLabourRoute(owner: LifecycleOwner) {
-
         routesService.getLabourRoute()
             .observe(owner, Observer { response ->
                 when (response) {
@@ -171,6 +170,24 @@ class MainViewModel(
                 Constants.VIOLENCE_ROUTE,
                 route
             ).apply()
+    }
+
+    fun loadViolenceRouteFromSharedPreferences(): Route {
+        val jsonRoute = sharedPreferences.getString(Constants.VIOLENCE_ROUTE, null)
+        return if (jsonRoute == null) {
+            Route(0, listOf())
+        } else {
+            Json.parse(Route.serializer(), jsonRoute)
+        }
+    }
+
+    fun loadLabourRouteFromSharedPreferences(): Route {
+        val jsonRoute = sharedPreferences.getString(Constants.LABOUR_ROUTE, null)
+        return if (jsonRoute == null) {
+            Route(0, listOf())
+        } else {
+            Json.parse(Route.serializer(), jsonRoute)
+        }
     }
 }
 

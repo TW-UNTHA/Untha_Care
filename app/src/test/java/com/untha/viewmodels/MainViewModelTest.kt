@@ -47,7 +47,9 @@ import android.content.res.Resources
 import com.nhaarman.mockito_kotlin.doNothing
 import com.nhaarman.mockito_kotlin.whenever
 import com.untha.R
+import kotlinx.serialization.ImplicitReflectionSerializer
 import kotlinx.serialization.json.Json
+import kotlinx.serialization.parse
 import org.mockito.Mock
 import org.mockito.Mockito.mock
 import java.io.ByteArrayInputStream
@@ -510,6 +512,121 @@ class MainViewModelTest : KoinTest {
         verify(editor).apply()
     }
 
+    @Test
+    fun `should get violence route from shared preferences`() {
+        val mainViewModel = MainViewModel(
+            dbService,
+            categoriesService,
+            mapper,
+            repository,
+            sharedPreferences,
+            routesService
+        )
+        val jsonRoute = "{\n" +
+                "  \"version\": 1,\n" +
+                "  \"questions\": [\n" +
+                "    {\n" +
+                "      \"id\": 0,\n" +
+                "      \"type\": \"SingleOption\",\n" +
+                "      \"content\": \"¿Actualmente trabajas como Trabajadora Remunerada del Hogar?\",\n" +
+                "      \"explanation\": \"\",\n" +
+                "      \"goTo\": null,\n" +
+                "      \"result\": null,\n" +
+                "      \"options\": [\n" +
+                "        {\n" +
+                "          \"value\": \"Si\",\n" +
+                "          \"result\": null,\n" +
+                "          \"goTo\": 1\n" +
+                "        },\n" +
+                "        {\n" +
+                "          \"value\": \"No\",\n" +
+                "          \"result\": null,\n" +
+                "          \"goTo\": 18\n" +
+                "        }\n" +
+                "      ]\n" +
+                "    }]}"
+        `when`(sharedPreferences.getString(Constants.VIOLENCE_ROUTE, null)).thenReturn(jsonRoute)
+        val route = Json.parse(Route.serializer(), jsonRoute)
+
+        val resultRoute = mainViewModel.loadViolenceRouteFromSharedPreferences()
+
+        assertThat(resultRoute, `is`(route))
+    }
+
+    @Test
+    fun `should return an empty violence route when shared preferences return null`() {
+        val mainViewModel = MainViewModel(
+            dbService,
+            categoriesService,
+            mapper,
+            repository,
+            sharedPreferences,
+            routesService
+        )
+        `when`(sharedPreferences.getString(Constants.VIOLENCE_ROUTE, null)).thenReturn(null)
+
+        val resultRoute = mainViewModel.loadViolenceRouteFromSharedPreferences()
+
+        assertThat(resultRoute, `is`(Route(0, listOf())))
+    }
+
+    @Test
+    fun `should get labour route from shared preferences`() {
+        val mainViewModel = MainViewModel(
+            dbService,
+            categoriesService,
+            mapper,
+            repository,
+            sharedPreferences,
+            routesService
+        )
+        val jsonRoute = "{\n" +
+                "  \"version\": 1,\n" +
+                "  \"questions\": [\n" +
+                "    {\n" +
+                "      \"id\": 0,\n" +
+                "      \"type\": \"SingleOption\",\n" +
+                "      \"content\": \"¿Actualmente trabajas como Trabajadora Remunerada del Hogar?\",\n" +
+                "      \"explanation\": \"\",\n" +
+                "      \"goTo\": null,\n" +
+                "      \"result\": null,\n" +
+                "      \"options\": [\n" +
+                "        {\n" +
+                "          \"value\": \"Si\",\n" +
+                "          \"result\": null,\n" +
+                "          \"goTo\": 1\n" +
+                "        },\n" +
+                "        {\n" +
+                "          \"value\": \"No\",\n" +
+                "          \"result\": null,\n" +
+                "          \"goTo\": 18\n" +
+                "        }\n" +
+                "      ]\n" +
+                "    }]}"
+        `when`(sharedPreferences.getString(Constants.LABOUR_ROUTE, null)).thenReturn(jsonRoute)
+        val route = Json.parse(Route.serializer(), jsonRoute)
+
+        val resultRoute = mainViewModel.loadLabourRouteFromSharedPreferences()
+
+        assertThat(resultRoute, `is`(route))
+    }
+
+    @Test
+    fun `should return an empty labour route when shared preferences return null`() {
+        val mainViewModel = MainViewModel(
+            dbService,
+            categoriesService,
+            mapper,
+            repository,
+            sharedPreferences,
+            routesService
+        )
+        `when`(sharedPreferences.getString(Constants.LABOUR_ROUTE, null)).thenReturn(null)
+
+        val resultRoute = mainViewModel.loadLabourRouteFromSharedPreferences()
+
+        assertThat(resultRoute, `is`(Route(0, listOf())))
+    }
 
     private fun mockLifecycleOwner(): LifecycleOwner {
         val owner = mock<LifecycleOwner>()
