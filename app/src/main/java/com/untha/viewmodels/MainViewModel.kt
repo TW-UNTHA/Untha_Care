@@ -206,23 +206,6 @@ class MainViewModel(
             ).apply()
     }
 
-    fun loadViolenceRouteFromSharedPreferences(): Route {
-        val jsonRoute = sharedPreferences.getString(Constants.VIOLENCE_ROUTE, null)
-        return if (jsonRoute == null) {
-            Route(0, listOf())
-        } else {
-            Json.parse(Route.serializer(), jsonRoute)
-        }
-    }
-
-    fun loadLabourRouteFromSharedPreferences(): Route {
-        val jsonRoute = sharedPreferences.getString(Constants.LABOUR_ROUTE, null)
-        return if (jsonRoute == null) {
-            Route(0, listOf())
-        } else {
-            Json.parse(Route.serializer(), jsonRoute)
-        }
-    }
 }
 
 

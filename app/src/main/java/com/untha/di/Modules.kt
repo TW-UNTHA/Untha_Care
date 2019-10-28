@@ -16,6 +16,8 @@ import com.untha.viewmodels.CategoryViewModel
 import com.untha.viewmodels.GenericInfoStepViewModel
 import com.untha.viewmodels.RightsViewModel
 import com.untha.viewmodels.MainViewModel
+import com.untha.viewmodels.RoutesViewModel
+import com.untha.viewmodels.SingleSelectionQuestionViewModel
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.dsl.module
@@ -25,6 +27,8 @@ val viewModelsModule = module {
     viewModel { CategoryViewModel(get(), get()) }
     viewModel { RightsViewModel(get(), get(), get()) }
     viewModel { GenericInfoStepViewModel() }
+    viewModel { RoutesViewModel(get()) }
+    viewModel { SingleSelectionQuestionViewModel() }
 
 }
 

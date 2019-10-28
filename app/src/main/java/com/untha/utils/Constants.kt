@@ -2,7 +2,7 @@ package com.untha.utils
 
 object Constants {
 
-
+    const val ROUTE_LABOUR= "ROUTE_LABOUR"
     const val CATEGORIES_ROUTES= "CATEGORIES_ROUTES"
     const val CATEGORIES_VERSION = "version"
     const val CATEGORY_PARAMETER = "category"
@@ -57,4 +57,6 @@ object Constants {
     const val MARGIN_SINGLE_SELECTION_QUESTION = 24
     const val SIZE_IMAGE_AUDIO_ROUTE = 100
     const val MARGIN_QUESTION_ROUTE = 36
+    const val START_QUESTION_ROUTE_LABOUR =3
+
 }

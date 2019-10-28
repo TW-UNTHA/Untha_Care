@@ -7,12 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.core.content.ContextCompat
+import androidx.navigation.findNavController
 import com.bumptech.glide.Glide
 import com.untha.R
 import com.untha.model.transactionalmodels.Category
 import com.untha.utils.Constants
 import com.untha.utils.ContentType
 import com.untha.utils.PixelConverter
+import com.untha.viewmodels.RoutesViewModel
 import org.jetbrains.anko.AnkoViewDslMarker
 import org.jetbrains.anko._LinearLayout
 import org.jetbrains.anko.attr
@@ -28,10 +30,25 @@ import org.jetbrains.anko.textSizeDimen
 import org.jetbrains.anko.textView
 import org.jetbrains.anko.verticalLayout
 import org.jetbrains.anko.wrapContent
+import org.koin.android.viewmodel.ext.android.viewModel
 
 class RoutesFragment : BaseFragment() {
     private var categoriesRoutes: List<Category>? = null
+    private val routeViewModel : RoutesViewModel by viewModel()
+    companion object{
+        const val ROUTE_LABOUR =14
+        const val ROUTE_VIOLENCE =15
+    }
 
+    fun onItemClickRouteLabour(itemView: View) {
+        val routeLabour = Bundle().apply {
+            putSerializable(
+                Constants.ROUTE_LABOUR,
+                routeViewModel.loadLabourRouteFromSharedPreferences())
+        }
+        itemView.findNavController()
+            .navigate(R.id.singleSelectQuestionFragment, routeLabour, navOptions, null)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,14 +74,14 @@ class RoutesFragment : BaseFragment() {
     }
 
     private fun @AnkoViewDslMarker _LinearLayout.buildRoute(view: View) {
-        categoriesRoutes?.map { categoryRoute ->
+        categoriesRoutes?.map { route ->
             logAnalyticsSelectContentWithId(
-                "${Constants.CLICK_ROUTE_TITLE}${categoryRoute.title}", ContentType.ROUTE
+                "${Constants.CLICK_ROUTE_TITLE}${route.title}", ContentType.ROUTE
             )
             verticalLayout {
                 isClickable = true
                 textView {
-                    text = categoryRoute.title
+                    text = route.title
                     textSizeDimen = R.dimen.text_size
                     textColor =
                         ContextCompat.getColor(context, R.color.colorTitleCategoryRoute)
@@ -73,19 +90,25 @@ class RoutesFragment : BaseFragment() {
                     topMargin = calculateTopMargin()
                     rightMargin = calculateLateralMargin()
                     leftMargin = calculateLateralMargin()
-                    weight = 1.0F
                 }
 
-                loadImageRoute(view, categoryRoute)
+                loadImageRoute(view, route)
                 backgroundDrawable = ContextCompat.getDrawable(
                     context, R.drawable.drawable_main_route
                 )
+                when (route.id) {
+                    ROUTE_LABOUR->{
+                        setOnClickListener {
+                            onItemClickRouteLabour(view)
+                        }
+                    }
+                    ROUTE_VIOLENCE-> println("TO BE IMPLEMENTED")
+                }
 
             }.lparams(matchParent, calculateHeightRoute()) {
                 topMargin = calculateTopMargin()
                 rightMargin = calculateLateralMargin() - dip(Constants.SHADOW_PADDING_SIZE)
                 leftMargin = calculateLateralMargin()
-                weight = 1.0F
             }
         }
 
@@ -111,7 +134,6 @@ class RoutesFragment : BaseFragment() {
         val cardWidthInDps =
             PixelConverter.getScreenDpWidth(context) * Constants.MARGIN_LATERAL_PERCENTAGE_MAIN_ROUTE
         return PixelConverter.toPixels(cardWidthInDps, context)
-
     }
 
     private fun createMainLayout(): View {
@@ -139,9 +161,7 @@ class RoutesFragment : BaseFragment() {
                 .load(imageUrl)
                 .into(this)
             scaleType = ImageView.ScaleType.FIT_CENTER
-        }.lparams(width = matchParent, height = wrapContent) {
-            weight = 1.0F
-        }
+        }.lparams(width = matchParent, height = wrapContent)
     }
 
 }
