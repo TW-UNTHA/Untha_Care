@@ -1,10 +1,12 @@
 package com.untha.viewmodels
 
+import android.content.Context
 import android.content.SharedPreferences
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
+import com.untha.R
 import com.untha.model.mappers.CategoryMapper
 import com.untha.model.dbservices.CategoryDbService
 import com.untha.model.models.CategoryModel
@@ -126,7 +128,6 @@ class MainViewModel(
             .observe(owner, Observer { response ->
                 when (response) {
                     is ApiSuccessResponse -> {
-
                         sharedPreferences.edit()
                             .putString(
                                 Constants.LABOUR_ROUTE,
@@ -142,7 +143,6 @@ class MainViewModel(
             .observe(owner, Observer { response ->
                 when (response) {
                     is ApiSuccessResponse -> {
-
                         sharedPreferences.edit()
                             .putString(
                                 Constants.VIOLENCE_ROUTE,
@@ -151,6 +151,26 @@ class MainViewModel(
                     }
                 }
             })
+    }
+
+    fun loadDefaultLabourRoute(context: Context) {
+        val route = context.resources.openRawResource(R.raw.labour_route)
+            .bufferedReader().use { it.readText() }
+        sharedPreferences.edit()
+            .putString(
+                Constants.LABOUR_ROUTE,
+                route
+            ).apply()
+    }
+
+    fun loadDefaultViolenceRoute(context: Context) {
+        val route = context.resources.openRawResource(R.raw.violence_route)
+            .bufferedReader().use { it.readText() }
+        sharedPreferences.edit()
+            .putString(
+                Constants.VIOLENCE_ROUTE,
+                route
+            ).apply()
     }
 }
 

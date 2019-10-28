@@ -1,0 +1,142 @@
+{
+  "version": 1,
+  "questions": [
+    {
+      "id": 0,
+      "type": "SingleOption",
+      "content": "¿Cuales de estas situaciones has vivido?",
+      "explanation": "Selecciona todas las que apliquen",
+      "goTo": null,
+      "result":null,
+      "options": [
+        {
+          "value": "Chantajes",
+          "result": null,
+          "goTo": null
+        },
+        {
+          "value": "Mentiras",
+          "result": null,
+          "goTo": null
+        },
+        {
+          "value": "Te ignoran",
+          "result": null,
+          "goTo": null
+        },
+        {
+          "value": "Celos",
+          "result": null,
+          "goTo": null
+        },
+        {
+          "value": "Ofensas",
+          "result": null,
+          "goTo": null
+        },
+        {
+          "value": "Humillaciones",
+          "result": null,
+          "goTo": null
+        },
+        {
+          "value": "Intimidaciones",
+          "result": null,
+          "goTo": null
+        },
+        {
+          "value": "Amenazas",
+          "result": null,
+          "goTo": null
+        },
+        {
+          "value": "Control excesivo",
+          "result": null,
+          "goTo": null
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "type": "SingleOption",
+      "content": "¿Cuales de estas situaciones has vivido?",
+      "explanation": "Selecciona todas las que apliquen",
+      "goTo": null,
+      "result": null,
+      "options": [
+        {
+          "value": "Prohibiciones",
+          "result": null,
+          "goTo": null
+        },
+        {
+          "value": "Destruyen tus cosas",
+          "result": null,
+          "goTo": null
+        },
+        {
+          "value": "Te manosean",
+          "result": null,
+          "goTo": null
+        },
+        {
+          "value": "Te agreden",
+          "result": null,
+          "goTo": null
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "type": "SingleOption",
+      "content": "¿Cuales de estas situaciones has vivido?",
+      "explanation": "Selecciona todas las que apliquen",
+      "goTo": null,
+      "result": null,
+      "options": [
+        {
+          "value": "Empujones",
+          "result": null,
+          "goTo": null
+        },
+        {
+          "value": "Golpes",
+          "result": null,
+          "goTo": null
+        },
+        {
+          "value": "Patazos",
+          "result": null,
+          "goTo": null
+        },
+        {
+          "value": "Encierros",
+          "result": null,
+          "goTo": null
+        },
+        {
+          "value": "Aislamiento",
+          "result": null,
+          "goTo": null
+        },
+        {
+          "value": "Amenzas con objetos",
+          "result": null,
+          "goTo": null
+        },
+        {
+          "value": "Violación",
+          "result": null,
+          "goTo": null
+        },
+        {
+          "value": "Amenazas de muerte",
+          "result": null,
+          "goTo": null
+        }
+      ]
+    }
+  ]
+}
+
+

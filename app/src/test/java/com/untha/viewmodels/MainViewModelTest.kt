@@ -42,11 +42,16 @@ import org.koin.test.mock.declareMock
 import org.mockito.Mockito.`when`
 import retrofit2.Response
 import android.R.id.edit
+import android.content.Context
+import android.content.res.Resources
 import com.nhaarman.mockito_kotlin.doNothing
 import com.nhaarman.mockito_kotlin.whenever
+import com.untha.R
 import kotlinx.serialization.json.Json
 import org.mockito.Mock
 import org.mockito.Mockito.mock
+import java.io.ByteArrayInputStream
+import java.io.InputStream
 
 
 @RunWith(JUnit4::class)
@@ -343,7 +348,7 @@ class MainViewModelTest : KoinTest {
     }
 
     @Test
-    fun `should save data in share preferences when violence route result is succesfull `() {
+    fun `should save data in share preferences when violence route result is successful `() {
 
         val mockLifeCycleOwner = mockLifecycleOwner()
 
@@ -357,8 +362,8 @@ class MainViewModelTest : KoinTest {
             routesService
         )
 
-        var response = Response.success(route)
-        var apiResponse = ApiResponse.create(response)
+        val response = Response.success(route)
+        val apiResponse = ApiResponse.create(response)
         val updatedRoute = MutableLiveData<ApiResponse<Route>>()
         updatedRoute.value = apiResponse
         `when`(routesService.getViolenceRoute()).thenReturn(updatedRoute)
@@ -387,9 +392,123 @@ class MainViewModelTest : KoinTest {
                 )
             )
         verify(editor).apply()
-
     }
 
+    @Test
+    fun `should save labour default route to sharedPreferences `() {
+        val mainViewModel = MainViewModel(
+            dbService,
+            categoriesService,
+            mapper,
+            repository,
+            sharedPreferences,
+            routesService
+        )
+        val context = mock(Context::class.java)
+        val resources = mock(Resources::class.java)
+        val json = "{\n" +
+                "  \"version\": 1,\n" +
+                "  \"questions\": [\n" +
+                "    {\n" +
+                "      \"id\": 0,\n" +
+                "      \"type\": \"SingleOption\",\n" +
+                "      \"content\": \"¿Actualmente trabajas como Trabajadora Remunerada del Hogar?\",\n" +
+                "      \"explanation\": \"\",\n" +
+                "      \"goTo\": null,\n" +
+                "      \"result\": null,\n" +
+                "      \"options\": [\n" +
+                "        {\n" +
+                "          \"value\": \"Si\",\n" +
+                "          \"result\": null,\n" +
+                "          \"goTo\": 1\n" +
+                "        },\n" +
+                "        {\n" +
+                "          \"value\": \"No\",\n" +
+                "          \"result\": null,\n" +
+                "          \"goTo\": 18\n" +
+                "        }\n" +
+                "      ]\n" +
+                "    }}"
+        val inputStream = ByteArrayInputStream(json.toByteArray())
+        `when`(context.resources).thenReturn(resources)
+        `when`(resources.openRawResource(R.raw.labour_route)).thenReturn(inputStream)
+        val editor = mock(SharedPreferences.Editor::class.java)
+        `when`(sharedPreferences.edit()).thenReturn(editor)
+        whenever(
+            editor.putString(
+                Constants.LABOUR_ROUTE,
+                json
+            )
+        ).thenReturn(editor)
+        doNothing().whenever(editor).apply()
+
+        mainViewModel.loadDefaultLabourRoute(context)
+
+        verify(sharedPreferences.edit())
+            .putString(
+                Constants.LABOUR_ROUTE,
+                json
+            )
+        verify(editor).apply()
+    }
+
+    @Test
+    fun `should save violence default route to sharedPreferences`() {
+        val mainViewModel = MainViewModel(
+            dbService,
+            categoriesService,
+            mapper,
+            repository,
+            sharedPreferences,
+            routesService
+        )
+        val context = mock(Context::class.java)
+        val resources = mock(Resources::class.java)
+        val json = "{\n" +
+                "  \"version\": 1,\n" +
+                "  \"questions\": [\n" +
+                "    {\n" +
+                "      \"id\": 0,\n" +
+                "      \"type\": \"SingleOption\",\n" +
+                "      \"content\": \"¿Actualmente trabajas como Trabajadora Remunerada del Hogar?\",\n" +
+                "      \"explanation\": \"\",\n" +
+                "      \"goTo\": null,\n" +
+                "      \"result\": null,\n" +
+                "      \"options\": [\n" +
+                "        {\n" +
+                "          \"value\": \"Si\",\n" +
+                "          \"result\": null,\n" +
+                "          \"goTo\": 1\n" +
+                "        },\n" +
+                "        {\n" +
+                "          \"value\": \"No\",\n" +
+                "          \"result\": null,\n" +
+                "          \"goTo\": 18\n" +
+                "        }\n" +
+                "      ]\n" +
+                "    }}"
+        val inputStream = ByteArrayInputStream(json.toByteArray())
+        `when`(context.resources).thenReturn(resources)
+        `when`(resources.openRawResource(R.raw.violence_route)).thenReturn(inputStream)
+        val editor = mock(SharedPreferences.Editor::class.java)
+        `when`(sharedPreferences.edit()).thenReturn(editor)
+        whenever(
+            editor.putString(
+                Constants.VIOLENCE_ROUTE,
+                json
+            )
+        ).thenReturn(editor)
+        doNothing().whenever(editor).apply()
+
+        mainViewModel.loadDefaultViolenceRoute(context)
+
+        verify(sharedPreferences.edit())
+            .putString(
+                Constants.VIOLENCE_ROUTE,
+                json
+            )
+        verify(editor).apply()
+    }
 
 
     private fun mockLifecycleOwner(): LifecycleOwner {
