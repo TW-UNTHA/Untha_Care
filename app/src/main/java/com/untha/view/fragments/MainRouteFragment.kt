@@ -13,7 +13,6 @@ import com.untha.model.transactionalmodels.Category
 import com.untha.utils.Constants
 import com.untha.utils.ContentType
 import com.untha.utils.PixelConverter
-import com.untha.view.activities.MainActivity
 import org.jetbrains.anko.AnkoViewDslMarker
 import org.jetbrains.anko._LinearLayout
 import org.jetbrains.anko.attr
@@ -31,7 +30,6 @@ import org.jetbrains.anko.verticalLayout
 import org.jetbrains.anko.wrapContent
 
 class MainRouteFragment : BaseFragment() {
-    private lateinit var mainActivity: MainActivity
     private var categoriesRoutes: List<Category>? = null
 
 
@@ -46,7 +44,6 @@ class MainRouteFragment : BaseFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        mainActivity = this.activity as MainActivity
         return createMainLayout()
     }
 
@@ -61,10 +58,9 @@ class MainRouteFragment : BaseFragment() {
 
     private fun @AnkoViewDslMarker _LinearLayout.buildRoute(view: View) {
         categoriesRoutes?.map { categoryRoute ->
-            activity?.let {
-                logAnalyticsSelectContentWithId(
-                    "${Constants.CLICK_ROUTE_TITLE}${categoryRoute.title}",ContentType.ROUTE)
-            }
+            logAnalyticsSelectContentWithId(
+                "${Constants.CLICK_ROUTE_TITLE}${categoryRoute.title}", ContentType.ROUTE
+            )
             verticalLayout {
                 isClickable = true
                 textView {
@@ -73,49 +69,48 @@ class MainRouteFragment : BaseFragment() {
                     textColor =
                         ContextCompat.getColor(context, R.color.colorTitleCategoryRoute)
                     setTypeface(typeface, Typeface.BOLD)
-                }.lparams{
-                    topMargin=calculateTopMargin()
-                    rightMargin=calculateLateralMargin()
-                    leftMargin=calculateLateralMargin()
+                }.lparams {
+                    topMargin = calculateTopMargin()
+                    rightMargin = calculateLateralMargin()
+                    leftMargin = calculateLateralMargin()
                     weight = 1.0F
                 }
 
-                loadImageRoute( view,categoryRoute)
+                loadImageRoute(view, categoryRoute)
                 backgroundDrawable = ContextCompat.getDrawable(
                     context, R.drawable.drawable_main_route
                 )
 
-            }.lparams(matchParent, calculateHeightRoute()){
-                topMargin=calculateTopMargin()
-                rightMargin=calculateLateralMargin() - dip(Constants.SHADOW_PADDING_SIZE)
-                leftMargin=calculateLateralMargin()
+            }.lparams(matchParent, calculateHeightRoute()) {
+                topMargin = calculateTopMargin()
+                rightMargin = calculateLateralMargin() - dip(Constants.SHADOW_PADDING_SIZE)
+                leftMargin = calculateLateralMargin()
                 weight = 1.0F
             }
         }
 
     }
-   private fun calculateHeightRoute(): Int{
-       val cardHeightInDps =
-           (PixelConverter.getScreenDpHeight(context) -
-                   Constants.SIZE_OF_ACTION_BAR_ROUTE) * Constants.SIZE_ROUTE_CATEGORY
 
-       val height =  PixelConverter.toPixels(cardHeightInDps, context)
-       return height
-   }
+    private fun calculateHeightRoute(): Int {
+        val cardHeightInDps =
+            (PixelConverter.getScreenDpHeight(context) -
+                    Constants.SIZE_OF_ACTION_BAR_ROUTE) * Constants.SIZE_ROUTE_CATEGORY
 
-    private fun calculateTopMargin(): Int{
+        return PixelConverter.toPixels(cardHeightInDps, context)
+    }
+
+    private fun calculateTopMargin(): Int {
         val topMarginDps = (PixelConverter.getScreenDpHeight(context) -
                 Constants.SIZE_OF_ACTION_BAR) * Constants.MARGIN_TOP_PERCENTAGE_MAIN_ROUTE
 
-        val marginTop =  PixelConverter.toPixels(topMarginDps, context)
-        return marginTop
+        return PixelConverter.toPixels(topMarginDps, context)
 
     }
-    private fun calculateLateralMargin(): Int{
+
+    private fun calculateLateralMargin(): Int {
         val cardWidthInDps =
             PixelConverter.getScreenDpWidth(context) * Constants.MARGIN_LATERAL_PERCENTAGE_MAIN_ROUTE
-        val marginLateral = PixelConverter.toPixels(cardWidthInDps, context)
-        return marginLateral
+        return PixelConverter.toPixels(cardWidthInDps, context)
 
     }
 
@@ -132,11 +127,10 @@ class MainRouteFragment : BaseFragment() {
     private fun @AnkoViewDslMarker _LinearLayout.loadImageRoute(
         view: View,
         category: Category
-    )
-    {
+    ) {
         imageView {
             val imageUrl = resources.getIdentifier(
-                category?.image,
+                category.image,
                 "drawable",
                 context.applicationInfo.packageName
             )
@@ -145,7 +139,7 @@ class MainRouteFragment : BaseFragment() {
                 .load(imageUrl)
                 .into(this)
             scaleType = ImageView.ScaleType.FIT_CENTER
-        }.lparams(width = matchParent, height = wrapContent){
+        }.lparams(width = matchParent, height = wrapContent) {
             weight = 1.0F
         }
     }
