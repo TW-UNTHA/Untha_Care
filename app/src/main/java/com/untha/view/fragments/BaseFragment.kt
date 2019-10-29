@@ -5,11 +5,11 @@ import android.speech.tts.TextToSpeech
 import android.util.Log
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavOptions
-import com.untha.R
-import java.util.*
 import com.google.firebase.analytics.FirebaseAnalytics
+import com.untha.R
 import com.untha.utils.ContentType
 import com.untha.utils.FirebaseEvent
+import java.util.*
 
 open class BaseFragment : Fragment(), TextToSpeech.OnInitListener {
     var textToSpeech: TextToSpeech? = null
@@ -58,6 +58,10 @@ open class BaseFragment : Fragment(), TextToSpeech.OnInitListener {
 
     fun logAnalyticsCustomEvent(event: FirebaseEvent) {
         firebaseAnalytics.logEvent(event.description, null)
+    }
+
+    fun logAnalyticsCustomEvent(event: String) {
+        firebaseAnalytics.logEvent(event, null)
     }
 
     fun logAnalyticsCustomContentTypeWithId(contentType: ContentType, event: FirebaseEvent) {

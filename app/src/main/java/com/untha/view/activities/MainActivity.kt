@@ -37,7 +37,6 @@ class MainActivity : AppCompatActivity() {
             viewModel.loadResult(this)
         } else {
             viewModel.loadDefaultLabourRoute(this)
-            viewModel.loadDefaultLabourRoute(this)
             viewModel.loadDefaultViolenceRoute(this)
             viewModel.loadDefaultResult(this)
         }

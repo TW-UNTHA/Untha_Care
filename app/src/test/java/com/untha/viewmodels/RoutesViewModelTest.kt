@@ -31,7 +31,7 @@ import org.mockito.Mockito
 
 
 @RunWith(JUnit4::class)
-class RoutesViewModelTest: KoinTest {
+class RoutesViewModelTest : KoinTest {
     private val sharedPreferences by inject<SharedPreferences>()
 
     @get:Rule
@@ -84,26 +84,30 @@ class RoutesViewModelTest: KoinTest {
                 "  \"version\": 1,\n" +
                 "  \"questions\": [\n" +
                 "    {\n" +
-                "      \"id\": 0,\n" +
+                "      \"id\": 1,\n" +
                 "      \"type\": \"SingleOption\",\n" +
-                "      \"content\": \"¿Actualmente trabajas como Trabajadora Remunerada del Hogar?\",\n" +
+                "      \"content\": \"¿Actualmente trabajas como Trabajadora Remunerada del" +
+                " Hogar?\",\n" +
                 "      \"explanation\": \"\",\n" +
                 "      \"goTo\": null,\n" +
                 "      \"result\": null,\n" +
                 "      \"options\": [\n" +
                 "        {\n" +
                 "          \"value\": \"Si\",\n" +
+                "          \"hint\": \"R1P1R1\",\n" +
                 "          \"result\": null,\n" +
-                "          \"goTo\": 1\n" +
+                "          \"goTo\": 2\n" +
                 "        },\n" +
                 "        {\n" +
                 "          \"value\": \"No\",\n" +
+                "          \"hint\": \"R1P1R2\",\n" +
                 "          \"result\": null,\n" +
-                "          \"goTo\": 18\n" +
+                "          \"goTo\": 19\n" +
                 "        }\n" +
                 "      ]\n" +
                 "    }]}"
-        Mockito.`when`(sharedPreferences.getString(Constants.VIOLENCE_ROUTE, null)).thenReturn(jsonRoute)
+        Mockito.`when`(sharedPreferences.getString(Constants.VIOLENCE_ROUTE, null))
+            .thenReturn(jsonRoute)
         val route = Json.parse(Route.serializer(), jsonRoute)
 
         val resultRoute = routesViewModel.loadViolenceRouteFromSharedPreferences()
@@ -121,26 +125,30 @@ class RoutesViewModelTest: KoinTest {
                 "  \"version\": 1,\n" +
                 "  \"questions\": [\n" +
                 "    {\n" +
-                "      \"id\": 0,\n" +
+                "      \"id\": 1,\n" +
                 "      \"type\": \"SingleOption\",\n" +
-                "      \"content\": \"¿Actualmente trabajas como Trabajadora Remunerada del Hogar?\",\n" +
+                "      \"content\": \"¿Actualmente trabajas como Trabajadora Remunerada del" +
+                " Hogar?\",\n" +
                 "      \"explanation\": \"\",\n" +
                 "      \"goTo\": null,\n" +
                 "      \"result\": null,\n" +
                 "      \"options\": [\n" +
                 "        {\n" +
                 "          \"value\": \"Si\",\n" +
+                "          \"hint\": \"R1P1R1\",\n" +
                 "          \"result\": null,\n" +
-                "          \"goTo\": 1\n" +
+                "          \"goTo\": 2\n" +
                 "        },\n" +
                 "        {\n" +
                 "          \"value\": \"No\",\n" +
+                "          \"hint\": \"R1P1R2\",\n" +
                 "          \"result\": null,\n" +
-                "          \"goTo\": 18\n" +
+                "          \"goTo\": 19\n" +
                 "        }\n" +
                 "      ]\n" +
                 "    }]}"
-        Mockito.`when`(sharedPreferences.getString(Constants.LABOUR_ROUTE, null)).thenReturn(jsonRoute)
+        Mockito.`when`(sharedPreferences.getString(Constants.LABOUR_ROUTE, null))
+            .thenReturn(jsonRoute)
         val route = Json.parse(Route.serializer(), jsonRoute)
 
         val resultRoute = routesViewModel.loadLabourRouteFromSharedPreferences()
