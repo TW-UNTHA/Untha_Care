@@ -160,4 +160,12 @@ class SingleSelectionQuestionFragment: BaseFragment() {
         return PixelConverter.toPixels(cardHeightInDps, context)
     }
 
+    private fun saveOptionAnswer(answer: String){
+
+    }
+
+    private fun loadQuestionAnswerFromSharedPreferences(){
+
+    }
+
 }
