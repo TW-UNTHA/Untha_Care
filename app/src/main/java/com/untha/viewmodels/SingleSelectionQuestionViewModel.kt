@@ -9,12 +9,9 @@ class SingleSelectionQuestionViewModel : ViewModel() {
     fun loadQuestionLabourRoute(goTo:Int , questions: List<RouteQuestion>): RouteQuestion? {
         return questions.last { it.id == goTo }
     }
-    fun loadAnswerOption(){
+    //fun loadAnswerOption(){
 
-
-
-
-    }
+    //}
 
 
 }
