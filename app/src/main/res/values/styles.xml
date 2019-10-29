@@ -34,7 +34,9 @@
     </style>
 
 
-    <style name="MyButtonStyle" parent="Theme.AppCompat.Light"></style>
+    <style name="MyButtonStyle" parent="Theme.AppCompat.Light">
+        <item name="colorButtonNormal" >@color/colorBackgroundCategoryRoute</item>
+    </style>
 
 </resources>
 

@@ -25,6 +25,7 @@ import org.jetbrains.anko.sdk27.coroutines.onClick
 import org.jetbrains.anko.support.v4.UI
 import org.jetbrains.anko.support.v4.dip
 import org.jetbrains.anko.textColor
+import org.jetbrains.anko.textSizeDimen
 import org.jetbrains.anko.textView
 import org.jetbrains.anko.themedButton
 import org.jetbrains.anko.verticalLayout
@@ -95,7 +96,7 @@ class SingleSelectionQuestionFragment : BaseFragment() {
                 .load(R.drawable.icon_question_audio)
                 .into(this)
         }.lparams(width = Constants.SIZE_IMAGE_AUDIO_ROUTE, height = Constants.SIZE_IMAGE_AUDIO_ROUTE) {
-            topMargin = dip(Constants.SIZE_IMAGE_AUDIO_ROUTE)
+            topMargin = dip(Constants.MARGIN_QUESTION_ROUTE)
         }
     }
 
@@ -103,18 +104,20 @@ class SingleSelectionQuestionFragment : BaseFragment() {
         textView {
             gravity = Gravity.CENTER
             text = routeQuestion?.content
+            textSizeDimen = R.dimen.text_size_content
         }.lparams(width = wrapContent, height = wrapContent) {
-            margin = dip(Constants.MARGIN_QUESTION_ROUTE)
+            margin = dip(Constants.MARGIN_SINGLE_SELECTION_QUESTION)
         }
     }
 
     private fun _LinearLayout.option(option: RouteOption) {
         themedButton(theme = R.style.MyButtonStyle){
             text= option.value
+            textSizeDimen = R.dimen.text_size_content
             textColor = ContextCompat.getColor(context, R.color.colorHeaderBackground)
             allCaps = false
             onClick { /* Todo on click */}
-        }.lparams(width = matchParent)
+        }.lparams(width = matchParent, height=dip(Constants.MARGIN_OPTION_QUESTION ))
     }
 
 }
