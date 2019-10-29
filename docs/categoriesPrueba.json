@@ -34,13 +34,13 @@
       "information": [
         {
           "id": 1,
-          "description": "<b>DENUNCIAS LABORALES</b> <br><br><br>",
+          "description": "<b>DENUNCIAS LABORALES</b><br><br><br>",
           "image": "info_denuncias",
           "screen_title": "DENUNCIAS",
           "next_step": 14,
           "sections": [
             {
-              "id": 28,
+              "id": 1,
               "title": "¿Cuándo puedes denunciar?",
               "steps": [
                 {
@@ -50,7 +50,7 @@
               ]
             },
             {
-              "id": 1,
+              "id": 2,
               "title": "¿En dónde?",
               "steps": [
                 {
@@ -60,7 +60,7 @@
               ]
             },
             {
-              "id": 2,
+              "id": 3,
               "title": "¿Cómo?",
               "steps": [
                 {
@@ -73,28 +73,28 @@
         },
         {
           "id": 2,
-          "description": "<b>DENUNCIAS FISCALES</b> <br><br><br> Presenta este tipo de denuncia cuando eres víctima de violencia física y de cualquier tipo. Por ejemplo, si sufres de humillaciones, burlas, discriminación, encierro, golpes o amenazas.",
+          "description": "<b>DENUNCIAS POR VIOLENCIA</b><br><br><br> Presenta este tipo denuncia cuando has sido víctima de cualquier tipo de violencia. Por ejemplo, si sufres humillaciones, burlas, discriminación,encierro, golpes, amenazas o cualquier abuso sexual no deseado. ",
           "image": "info_denuncias",
           "screen_title": "DENUNCIAS",
           "next_step": 15,
           "sections": [
             {
-              "id": 3,
+              "id": 4,
               "title": "¿En dónde?",
               "steps": [
                 {
                   "step_id": null,
-                  "description": "•&nbsp;&nbsp;&nbsp;Unidad Judicial de Violencia contra la Mujer y la Famlia <br>•&nbsp;&nbsp;&nbsp;Fiscalía <br>•&nbsp;&nbsp;&nbsp;Ministerio de Trabajo - <a href = 'tel:1800 266 833'>1800 266 833</a> <br><br>Si el Delito es de emergencia, llamar a:<br>•&nbsp;&nbsp;&nbsp;Servicio Integrado de Seguridad - <a href = 'tel:911'>911</a>"
+                  "description": "•   Unidad Judicial de Violencia contra la Mujer o Miembros del Núcleo Familiar <br>•   Fiscalía <br>•   Llamar al- <a href = 'tel: 151'> 151 - Defensoría Pública</a> <br><br>Si se requiere auxilio inmediato, llamar a:<br>•    <a href = 'tel:911'>911</a> - Servicio Integrado de Seguridad "
                 }
               ]
             },
             {
-              "id": 4,
+              "id": 5,
               "title": "¿Cómo?",
               "steps": [
                 {
                   "step_id": null,
-                  "description": "Necesitas llevar tu cédula de identidad, no necesitas un abogado y es totalmente gratuito."
+                  "description": "•Necesitas llevar tu cédula de identidad.<br>• Si no la tienes, no te preocupes, de igual manera te atenderán. <br>•No necesitas un abogado.<br>•Es totalmente gratuito. "
                 }
               ]
             }
@@ -117,9 +117,8 @@
           "screen_title": "CONTRATOS",
           "next_step": null,
           "sections": [
-
             {
-              "id": 5,
+              "id": 6,
               "title": "¿Qué debe tener un contrato?",
               "steps": [
                 {
@@ -153,7 +152,7 @@
               ]
             },
             {
-              "id": 30,
+              "id": 7,
               "title": "Contratos modelos",
               "steps": [
                 {
@@ -188,7 +187,7 @@
           "next_step": null,
           "sections": [
             {
-              "id": 29,
+              "id": 8,
               "title": "¿Qué ofrece el IESS a sus afiliadas?",
               "steps": [
                 {
@@ -198,7 +197,7 @@
               ]
             },
             {
-              "id": 6,
+              "id": 9,
               "title": "Obtén tu clave del IESS",
               "steps": [
                 {
@@ -220,7 +219,7 @@
               ]
             },
             {
-              "id": 7,
+              "id": 10,
               "title": "Obtén tu certificado de afiliación",
               "steps": [
                 {
@@ -262,7 +261,7 @@
           "next_step": null,
           "sections": [
             {
-              "id": 8,
+              "id": 11,
               "title": "¿Qué es UNTHA?",
               "steps": [
                 {
@@ -272,12 +271,12 @@
               ]
             },
             {
-              "id": 9,
+              "id": 12,
               "title": "¿Cómo puedes unirte o contactarnos?",
               "steps": [
                 {
                   "step_id": null,
-                  "description": "•<b>&nbsp;&nbsp;&nbsp;Email</b>: <a href = 'mailto:unthaecuador@gmail.com'>unthaecuador@gmail.com</a><br>•<b>&nbsp;&nbsp;&nbsp;Telf:</b> <a href = 'tel:0960639550'>0960639550</a><br>•<b>&nbsp;&nbsp;&nbsp;Facebook</b>: <a href='https://www.facebook.com/atrhecuador/'>Unión Nacional de Trabajadoras del Hogar y Afines</a><br>."
+                  "description": "•<b>&nbsp;&nbsp;&nbsp;Email </b>: <a href = 'mailto:unthaecuador@gmail.com'>unthaecuador@gmail.com</a><br><br>•<b>&nbsp;&nbsp;&nbsp;Telf:</b> <a href = 'tel:0960639550'>0960639550</a><br><br>•<b>&nbsp;&nbsp;&nbsp;Facebook</b>: <a href='https://www.facebook.com/atrhecuador/'>Unión Nacional de Trabajadoras del Hogar y Afines</a><br>."
                 }
               ]
             }
@@ -302,7 +301,7 @@
           "next_step": 9,
           "sections": [
             {
-              "id": 10,
+              "id": 13,
               "title": "",
               "steps": [
                 {
@@ -370,7 +369,7 @@
           "next_step": 10,
           "sections": [
             {
-              "id": 11,
+              "id": 14,
               "title": "",
               "steps": [
                 {
@@ -426,7 +425,7 @@
           "next_step": 11,
           "sections": [
             {
-              "id": 12,
+              "id": 15,
               "title": "",
               "steps": [
                 {
@@ -458,7 +457,7 @@
           "next_step": 12,
           "sections": [
             {
-              "id": 13,
+              "id": 16,
               "title": "",
               "steps": [
                 {
@@ -510,7 +509,7 @@
           "next_step": 13,
           "sections": [
             {
-              "id": 14,
+              "id": 17,
               "title": "",
               "steps": [
                 {
@@ -558,7 +557,7 @@
           "next_step": null,
           "sections": [
             {
-              "id": 15,
+              "id": 18,
               "title": "Constitución de la República del Ecuador",
               "steps": [
                 {
@@ -568,7 +567,7 @@
               ]
             },
             {
-              "id": 16,
+              "id": 19,
               "title": "Convención sobre la Eliminación de todas las Formas de Discriminación contra la Mujer",
               "steps": [
                 {
@@ -578,7 +577,7 @@
               ]
             },
             {
-              "id": 17,
+              "id": 20,
               "title": "Convención Interamericana para Prevenir, Sancionar y Erradicar la Violencia contra la Mujer, Convención de Belém do Pará",
               "steps": [
                 {
@@ -588,7 +587,7 @@
               ]
             },
             {
-              "id": 18,
+              "id": 21,
               "title": "Convenio 182 sobre la prohibición de las peores formas de trabajo infantil y la acción inmediata para su eliminación",
               "steps": [
                 {
@@ -598,7 +597,7 @@
               ]
             },
             {
-              "id": 19,
+              "id": 22,
               "title": "Convenio 189 sobre trabajo decente de la Organización Internacional del Trabajo para las trabajadoras y los trabajadores domésticos",
               "steps": [
                 {
@@ -608,7 +607,7 @@
               ]
             },
             {
-              "id": 20,
+              "id": 23,
               "title": "Convenio y Recomendación para eliminar el acoso y la violencia en el mundo del trabajo de la OIT",
               "steps": [
                 {
@@ -618,7 +617,7 @@
               ]
             },
             {
-              "id": 21,
+              "id": 24,
               "title": "Ley Modelo sobre Economía del Cuidado del Parlamento Latinoamericano",
               "steps": [
                 {
@@ -628,7 +627,7 @@
               ]
             },
             {
-              "id": 22,
+              "id": 25,
               "title": "Ley Orgánica Integral para Prevenir y Erradicar la Violencia contra las mujeres",
               "steps": [
                 {
@@ -638,7 +637,7 @@
               ]
             },
             {
-              "id": 23,
+              "id": 26,
               "title": "Ley Orgánica de Justicia Laboral y Reconocimiento del Trabajo en el Hogar",
               "steps": [
                 {
@@ -648,7 +647,7 @@
               ]
             },
             {
-              "id": 24,
+              "id": 27,
               "title": "Ley Orgánica de los Consejos Nacionales para la Igualdad",
               "steps": [
                 {
@@ -658,7 +657,7 @@
               ]
             },
             {
-              "id": 25,
+              "id": 28,
               "title": "Código Orgánico Integral Penal (COIP)",
               "steps": [
                 {
@@ -668,7 +667,7 @@
               ]
             },
             {
-              "id": 26,
+              "id": 29,
               "title": "Código del Trabajo",
               "steps": [
                 {
@@ -678,7 +677,7 @@
               ]
             },
             {
-              "id": 27,
+              "id": 30,
               "title": "Establece igual trabajo por igual remuneración, sin discriminación alguna. Dispone las obligaciones del empleador, ordenando garantizar la igualdad de oportunidades y no discriminación de trabajadores individuales o en contratos colectivos.",
               "steps": [
                 {
@@ -688,7 +687,7 @@
               ]
             },
             {
-              "id": 33,
+              "id": 31,
               "title": "Acuerdo Ministerial No 0082: Normativa para la Erradicación de la Discriminación en el Ámbito Laboral",
               "steps": [
                 {
