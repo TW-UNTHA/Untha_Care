@@ -34,7 +34,7 @@
       "information": [
         {
           "id": 1,
-          "description": "<b>DENUNCIAS LABORALES</b><br><br><br>",
+          "description": "<b>DENUNCIAS LABORALES</b><br><br>",
           "image": "info_denuncias",
           "screen_title": "DENUNCIAS",
           "next_step": 14,
@@ -84,7 +84,7 @@
               "steps": [
                 {
                   "step_id": null,
-                  "description": "•   Unidad Judicial de Violencia contra la Mujer o Miembros del Núcleo Familiar <br>•   Fiscalía <br>•   Llamar al- <a href = 'tel: 151'> 151 - Defensoría Pública</a> <br><br>Si se requiere auxilio inmediato, llamar a:<br>•    <a href = 'tel:911'>911</a> - Servicio Integrado de Seguridad "
+                  "description": "•&nbsp;&nbsp;&nbsp;Unidad Judicial de Violencia contra la Mujer o Miembros del Núcleo Familiar <br>•&nbsp;&nbsp;&nbsp;Fiscalía <br>•&nbsp;&nbsp;&nbsp;Llamar al <a href = 'tel:151'>151</a> - Defensoría Pública <br><br>Si se requiere auxilio inmediato, llamar a:<br>•&nbsp;&nbsp;&nbsp;<a href = 'tel:911'>911</a> - Servicio Integrado de Seguridad "
                 }
               ]
             },
@@ -94,7 +94,7 @@
               "steps": [
                 {
                   "step_id": null,
-                  "description": "•Necesitas llevar tu cédula de identidad.<br>• Si no la tienes, no te preocupes, de igual manera te atenderán. <br>•No necesitas un abogado.<br>•Es totalmente gratuito. "
+                  "description": "•&nbsp;&nbsp;&nbsp;Necesitas llevar tu cédula de identidad. Si no la tienes, no te preocupes, de igual manera te atenderán. <br>•&nbsp;&nbsp;&nbsp;No necesitas un abogado.<br>•&nbsp;&nbsp;&nbsp;Es totalmente gratuito. "
                 }
               ]
             }
@@ -156,20 +156,12 @@
               "title": "Contratos modelos",
               "steps": [
                 {
-                  "step_id": 1,
-                  "description": "Ingresa al siguiente vínculo para acceder a contratos modelos de: tiempo completo y tiempo parcial: <a href:'http://www.trabajo.gob.ec/modelos-de-contratos-para-trabajadoras-remuneradas-del-hogar-trabajo-domestico'>http://www.trabajo.gob.ec/modelos-de-contratos-para-trabajadoras-remuneradas-del-hogar-trabajo-domestico</a> <br><br> <b>Recuerda</b>, tu empleador no puede despedirte por ninguno de estos motivos: embarazo, edad, apariencia, estado de salud física o mental o por diversidad sexual o religiosa. "
+                  "step_id": null,
+                  "description": "Ingresa al siguiente vínculo para acceder a contratos modelos de: tiempo completo y tiempo parcial: <a 'href:http://www.trabajo.gob.ec/modelos-de-contratos-para-trabajadoras-remuneradas-del-hogar-trabajo-domestico'>http://www.trabajo.gob.ec/modelos-de-contratos-para-trabajadoras-remuneradas-del-hogar-trabajo-domestico</a> <br><br> <b>Recuerda</b>, tu empleador no puede despedirte por ninguno de estos motivos: embarazo, edad, apariencia, estado de salud física o mental o por diversidad sexual o religiosa. "
                 }
               ]
             }
           ]
-        },
-        {
-          "id": 12,
-          "description": "Obtener un contrato de trabajo es importante porque permite formalizar tu relación laboral con tu empleador. Las cláusulas de tu contrato te ayudarán a identificar y reportar incumplimiento de las mismas o de tus derechos. <br><br>  <b>Recuerda, </b> <br><br> un contrato verbal es aceptado, pero se recomienda tener un contrato escrito porque es más fácil usarlo como prueba si lo llegas a necesitar.",
-          "image": "info_contratos",
-          "screen_title": "CONTRATOS",
-          "next_step": null,
-          "sections": []
         }
       ]
     },
@@ -192,7 +184,7 @@
               "steps": [
                 {
                   "step_id": null,
-                  "description": "•&nbsp;&nbsp;&nbsp;Salud (seguro de salud individual y familiar). <br>•&nbsp;&nbsp;&nbsp;Riesgos de trabajo (accidentes de trabajo y enfermedades).<br>•&nbsp;&nbsp;&nbsp;Pensiones (vejez, invalidez y muerte). <br><br>•&nbsp;&nbsp;&nbsp;Para mayor información consulta la página: <a href = 'https://www.iess.gob.ec'>https://www.iess.gob.ec </a> <br><br><b>Recuerda </b> que tu empleador/a debe afiliarte al IESS. ¡Es tu derecho! <br><br> Para verificar si estás afiliada sigue estos pasos: <br><br>"
+                  "description": "•&nbsp;&nbsp;&nbsp;Salud (seguro de salud individual y familiar). <br>•&nbsp;&nbsp;&nbsp;Riesgos de trabajo (accidentes de trabajo y enfermedades).<br>•&nbsp;&nbsp;&nbsp;Pensiones (vejez, invalidez y muerte). <br><br>Para mayor información consulta la página: <a href = 'https://www.iess.gob.ec'>https://www.iess.gob.ec </a> <br><br><b>Recuerda, </b> tu empleador/a debe afiliarte al IESS. ¡Es tu derecho! <br><br> Para verificar si estás afiliada sigue estos pasos: <br>"
                 }
               ]
             },
@@ -210,7 +202,7 @@
                 },
                 {
                   "step_id": 3,
-                  "description": "Busca en tu correo un mail del IESS llamado “Activación de clave” (antes de esto se te solicitará un correo elctrónico). Selecciona el botón “Click para continuar” en el correo que te llegó."
+                  "description": "Busca en tu correo electrónico un mail del IESS llamado “Activación de clave” (antes de esto se te solicitará un correo elctrónico). Selecciona el botón “Click para continuar” en el correo que te llegó."
                 },
                 {
                   "step_id": 4,
@@ -289,7 +281,7 @@
     {
       "id": 8,
       "image": "derechos_salario",
-      "title": "SALARIO Y BENEFICIOS",
+      "title": "BENEFICIOS",
       "title_next_step": "SALARIO Y BENEFICIOS",
       "parent_id": 2,
       "is_route": false,
@@ -306,7 +298,7 @@
               "steps": [
                 {
                   "step_id": 1,
-                  "description": "Tienes derecho a recibir por lo menos un salario básico unificado si trabajas a tiempo completo, es decir: ganar mínimo $394 por trabajar máximo cinco días a la semana o 40 horas semanales. "
+                  "description": " Si trabajas puertas adentro o puertas afuera tienes derecho a recibir alimentos, uniformes (si se requiere) y albergue (en medida de las posibilidades) sin que estos te sean descontados de tu remuneración, además tienes derecho a tener facilidades para acceder a tu educación. <br>Tienes derecho a recibir por lo menos un salario básico unificado si trabajas a tiempo completo, es decir: ganar mínimo $394 por trabajar máximo cinco días a la semana o 40 horas semanales. "
                 },
                 {
                   "step_id": 2,
@@ -378,7 +370,7 @@
                 },
                 {
                   "step_id": 2,
-                  "description": "Las horas extras no deben pasar de 4 en un día ni de 12 en la semana."
+                  "description": "Tienes derecho a cobrar horas extras (ordinarias y suplementarias) si se requiere tu servicio una vez cumplida tu jornada completa o parcial de trabajo (incluso si la modalidad es puertas adentro).<br><b>Recuerda,</b>las horas extras no deben pasar de 4 en un día, ni de 12 en la semana."
                 },
                 {
                   "step_id": 3,
@@ -386,7 +378,7 @@
                 },
                 {
                   "step_id": 4,
-                  "description": "Una vez cumplido el año de trabajo con el mismo empleador, tienes derecho a 15 días de vacaciones pagadas. Despué de los 5 años, tiene un día adicional de vacaciones por cada año trabajado."
+                  "description": "Una vez cumplido el año de trabajo con el mismo empleador, tienes derecho a 15 días de vacaciones pagadas. Después de los 5 años, tiene un día adicional de vacaciones por cada año trabajado."
                 },
                 {
                   "step_id": 5,
@@ -398,7 +390,7 @@
                 },
                 {
                   "step_id": 7,
-                  "description": "Tienes derecho a cobrar horas extras (ordinarias y suplementarias) si se requiere tu servicio una vez cumplida tu jornada completa o parcial de trabajo (incluso si la modalidad es puertas adentro)."
+                  "description": ""
                 },
                 {
                   "step_id": 8,
@@ -413,7 +405,7 @@
     {
       "id": 10,
       "image": "derechos_embarazo",
-      "title": "EMBARAZO",
+      "title": "EMBARAZO Y MATERNIDAD",
       "title_next_step": "EMBARAZO Y MATERNIDAD",
       "parent_id": 2,
       "is_route": false,
@@ -421,7 +413,7 @@
         {
           "id": 8,
           "image": "info_embarazo",
-          "screen_title": "EMABARAZO Y MATERNIDAD",
+          "screen_title": "EMBARAZO Y MATERNIDAD",
           "next_step": 11,
           "sections": [
             {
@@ -434,7 +426,7 @@
                 },
                 {
                   "step_id": 2,
-                  "description": "Tienes derecho a acceder al período de lactancia; es decir, tendrás permiso para salir dos horas antes de tu horario habitual hasta que tu bebé cumpla 12 meses, una vez cumplido tu licencia de maternidad."
+                  "description": "Tienes derecho a acceder al período de lactancia; es decir, tendrás permiso para salir dos horas antes de tu horario habitual hasta que tu bebé cumpla 12 meses, una vez cumplida tu licencia de maternidad."
                 }
               ]
             }
@@ -462,7 +454,7 @@
               "steps": [
                 {
                   "step_id": 1,
-                  "description": "Si tienes menos de 15 años, está prohibido que trabajes. <br><br><b>Recuerda, </b><br><br>si esto no se cumple, tu empleador deberá pagarte el doble de remuneración y será sancionado con una multa. "
+                  "description": "Si tienes menos de 15 años, está prohibido que trabajes. <br><br><b>Recuerda, </b>si esto no se cumple, tu empleador deberá pagarte el doble de remuneración y será sancionado con una multa. "
                 },
                 {
                   "step_id": 2,
@@ -474,7 +466,7 @@
                 },
                 {
                   "step_id": 4,
-                  "description": "Si eres menor de 18 años, se prohibe que trabajes en las noches."
+                  "description": "Si eres menor de 18 años, se prohibe que trabajes en las noches. <b>Recuerda: </b><br><br>La esclavitud, servidumbre por deudas, trabajo obligatorio, conflictos armados, prostitución o pornografía son penalizadas en el Ecuador. <br>No deberías producir, traficar y/o vender drogas, alcohol, sustancias tóxicas y/o explosivas. Tampoco puedes trabajar en lugares donde estas se produzcan porque son inseguras y riesgosas para tu salud. Está prohibido que cargues o descargues navíos, manejes correas o sierras, fundir y pulir vidrios o metales, pescar a bordo, o ser guardián de seguridad."
                 },
                 {
                   "step_id": 5,
@@ -483,10 +475,6 @@
                 {
                   "step_id": 6,
                   "description": "Tu contrato debe ser hecho por escrito y una copia debe registrarse en el Municipio e Inspección del Trabajo respectivo o en el Consejo Cantonal. Tu empleador tiene un plazo de 30 días para cumplir con esta obligación."
-                },
-                {
-                  "step_id": 7,
-                  "description": "<b>Recuerda: </b><br><br>La esclavitud, servidumbre por deudas, trabajo obligatorio, conflictos armados, prostitución o pornografía son penalizadas en el Ecuador. <br>No deberías producir, traficar y/o vender drogas, alcohol, sustancias tóxicas y/o explosivas. Tampoco puedes trabajar en lugares donde estas se produzcan porque son inseguras y riesgosas para tu salud. Está prohibido que cargues o descargues navíos, manejes correas o cierras, fundir y pulir vidrios o metales, pescar a bordo, o ser guardián de seguridad."
                 }
               ]
             }
@@ -522,19 +510,19 @@
                 },
                 {
                   "step_id": 3,
-                  "description": "El contrato puede terminar por estas causas: •&nbsp;&nbsp;&nbsp;Tu voluntad de terminar el contrato<br>•&nbsp;&nbsp;&nbsp;Acuerdo entre ti y tu empleador, o causas previstas en el contrato<br>•&nbsp;&nbsp;&nbsp;Conclusión de la obra o período establecido para el trabajo<br>•&nbsp;&nbsp;&nbsp;Muerte o incapacidad del empleador o de la trabajadora<br>•&nbsp;&nbsp;&nbsp;Condiciones que imposibiliten el trabajo, como un incendio, terremoto o acontecimientos que no se pudieron evitar<br>•&nbsp;&nbsp;&nbsp;Carta de renuncia presentada por la trabajadora.<br><br>"
+                  "description": "El contrato puede terminar por estas causas:<br> •&nbsp;&nbsp;&nbsp;Tu voluntad de terminar el contrato<br>•&nbsp;&nbsp;&nbsp;Acuerdo entre tu empleador y tú, o causas previstas en el contrato<br>•&nbsp;&nbsp;&nbsp;Conclusión de la obra o período establecido para el trabajo<br>•&nbsp;&nbsp;&nbsp;Muerte o incapacidad del empleador o de la trabajadora<br>•&nbsp;&nbsp;&nbsp;Condiciones que imposibiliten el trabajo, como un incendio, terremoto o acontecimientos que no se pudieron evitar<br>•&nbsp;&nbsp;&nbsp;Carta de renuncia presentada por la trabajadora.<br><br>"
                 },
                 {
                   "step_id": 4,
-                  "description": "Tu empleador puede terminar el contrato por estas causas: •&nbsp;&nbsp;&nbsp;La voluntad de tu empleador de terminar el contrato<br>•&nbsp;&nbsp;&nbsp;Faltas injustificadas, impuntualidad o abandono del trabajo por más de 3 días seguidos sin causa<br>•&nbsp;&nbsp;&nbsp;Desobediencias graves a reglamentos internos<br>•&nbsp;&nbsp;&nbsp;Conducta inmoral de la trabajadora<br>•&nbsp;&nbsp;&nbsp;Injuriar a tu empleador, familiares o personas cercanas al mismo<br>•&nbsp;&nbsp;&nbsp;Ineptitud al desempeñar tu trabajo<br>•&nbsp;&nbsp;&nbsp;Denuncias injustificadas a tu empleador sobre obligaciones en el IESS. En caso de que la denuncia sea justificada, tu estabilidad estará asegurado por 2 años en trabajos permanentes<br>•&nbsp;&nbsp;&nbsp;Por acosar laboralmente a otras personas<br>•&nbsp;&nbsp;&nbsp;Antes del visto bueno, el trabajador, sus representatntes y el empleador tienen derecho a ser oídos por una autoridad laboral.<br><br>"
+                  "description": "Tu empleador puede terminar el contrato por estas causas:<br> •&nbsp;&nbsp;&nbsp;La voluntad de tu empleador de terminar el contrato<br>•&nbsp;&nbsp;&nbsp;Faltas injustificadas, impuntualidad o abandono del trabajo por más de 3 días seguidos sin causa<br>•&nbsp;&nbsp;&nbsp;Desobediencias graves a reglamentos internos<br>•&nbsp;&nbsp;&nbsp;Conducta inmoral de la trabajadora<br>•&nbsp;&nbsp;&nbsp;Injuriar a tu empleador, familiares o personas cercanas al mismo<br>•&nbsp;&nbsp;&nbsp;Ineptitud al desempeñar tu trabajo<br>•&nbsp;&nbsp;&nbsp;Denuncias injustificadas a tu empleador sobre obligaciones en el IESS. En caso de que la denuncia sea justificada, tu estabilidad estará asegurado por 2 años en trabajos permanentes<br>•&nbsp;&nbsp;&nbsp;Por acosar laboralmente a otras personas<br><b>Recuerda</b>, antes del visto bueno, el trabajador, sus representantes y el empleador tienen derecho a ser oídos por una autoridad laboral.<br><br>",
                 },
                 {
                   "step_id": 5,
-                  "description": " Puedes dar por terminado un contrato por estos motivos: •&nbsp;&nbsp;&nbsp;Por injuria de tu empleador, sus familiares o personas cercanas. Si las injurias son discriminatorias, la indemnización es la que ordena el artículo 195.3 del Código de Trabajo por \"injurias discriminatorias\" que establece que se \"recibirá la indemnización equivalente al valor de un año de la remuneración que venía percibiendo, además de la general que corresponda por despido intempestivo.\"<br>•&nbsp;&nbsp;&nbsp;Por disminución, falta de pago o impuntualidad en el pago<br>•&nbsp;&nbsp;&nbsp;Por que se te exige hacer trabajos que no se habían acordado<br>•&nbsp;&nbsp;&nbsp;Por sufrir acoso laboral o cometido por parte de tu empleador o sus representantes.<br><br>"
+                  "description": " Puedes dar por terminado un contrato por estos motivos:<br> •&nbsp;&nbsp;&nbsp;Por injuria de tu empleador, sus familiares o personas cercanas. Si las injurias son discriminatorias, la indemnización es la que ordena el artículo 195.3 del Código de Trabajo por \"injurias discriminatorias\" que establece que se \"recibirá la indemnización equivalente al valor de un año de la remuneración que venía percibiendo, además de la general que corresponda por despido intempestivo.<br>•&nbsp;&nbsp;&nbsp;Por disminución, falta de pago o impuntualidad en el pago<br>•&nbsp;&nbsp;&nbsp;Por que se te exige hacer trabajos que no se habían acordado<br>•&nbsp;&nbsp;&nbsp;Por sufrir acoso laboral o cometido por parte de tu empleador o sus representantes.<br><br>"
                 },
                 {
                   "step_id": 6,
-                  "description": "Si tu empleador te despide intempestivamente, deberás ser indemnizada de esta forma: •&nbsp;&nbsp;&nbsp;Tres meses de remuneración si has trabajado hasta tres años<br>•&nbsp;&nbsp;&nbsp;Un mes de remuneración por cada año de servicio sin trabajas más de tres años. No puede pasar de 25 remuneraciones<br>•&nbsp;&nbsp;&nbsp;Un año completo de remuneraciones si has trabajado un año<br>•&nbsp;&nbsp;&nbsp;Si trabaja a destajo, es decir por unidades de trabajo entregadas, se fija la remuneración mensual en base al promedio recibido en el último año de trabajo o el tiempo que haya servido<br>•&nbsp;&nbsp;&nbsp;Si has trabajado entre 20 y 25 años ininterrumpidamente, además, tendrás derecho a una proporción de la jubilación patronal<br>•&nbsp;&nbsp;&nbsp;Si tu empleador termina el contrato sin causa justa, deberá ratificarse ante una autoridad de trabajo y depositar el valor en las siguientes 48 horas, si no lo hace, la trabajadora se reintegrará a sus labores de inmediato.<br><br>"
+                  "description": "Si tu empleador te despide intempestivamente, deberás ser indemnizada de esta forma:<br>•&nbsp;&nbsp;&nbsp;Tres meses de remuneración si has trabajado hasta tres años<br>•&nbsp;&nbsp;&nbsp;Un mes de remuneración por cada año de servicio sin trabajas más de tres años. No puede pasar de 25 remuneraciones<br>•&nbsp;&nbsp;&nbsp;Un año completo de remuneraciones si has trabajado un año<br>•&nbsp;&nbsp;&nbsp;Si trabaja a destajo, es decir por unidades de trabajo entregadas, se fija la remuneración mensual en base al promedio recibido en el último año de trabajo o el tiempo que haya servido<br>•&nbsp;&nbsp;&nbsp;Si has trabajado entre 20 y 25 años ininterrumpidamente, además, tendrás derecho a una proporción de la jubilación patronal<br>•&nbsp;&nbsp;&nbsp;Si tu empleador termina el contrato sin causa justa, deberá ratificarse ante una autoridad de trabajo y depositar el valor en las siguientes 48 horas, si no lo hace, la trabajadora se reintegrará a sus labores de inmediato.<br><br>"
                 }
               ]
             }
@@ -678,7 +666,7 @@
             },
             {
               "id": 30,
-              "title": "Establece igual trabajo por igual remuneración, sin discriminación alguna. Dispone las obligaciones del empleador, ordenando garantizar la igualdad de oportunidades y no discriminación de trabajadores individuales o en contratos colectivos.",
+              "title": "Agenda Nacional para la Igualdad de las Mujeres y Personas LGBTI",
               "steps": [
                 {
                   "step_id": null,
