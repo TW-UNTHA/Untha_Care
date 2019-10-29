@@ -1,24 +1,29 @@
 package com.untha.view.fragments
 
 import android.os.Bundle
+import android.speech.tts.TextToSpeech
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.core.content.ContextCompat
-import com.bumptech.glide.Glide
+import androidx.core.content.res.ResourcesCompat
 import com.untha.R
 import com.untha.model.transactionalmodels.Route
 import com.untha.model.transactionalmodels.RouteOption
 import com.untha.model.transactionalmodels.RouteQuestion
 import com.untha.utils.Constants
+import com.untha.utils.PixelConverter
+import com.untha.utils.ToSpeech
 import com.untha.view.activities.MainActivity
 import com.untha.view.extension.loadHorizontalProgressBar
 import com.untha.viewmodels.SingleSelectionQuestionViewModel
 import org.jetbrains.anko._LinearLayout
 import org.jetbrains.anko.allCaps
 import org.jetbrains.anko.backgroundColor
-import org.jetbrains.anko.imageView
+import org.jetbrains.anko.imageButton
+import org.jetbrains.anko.imageResource
 import org.jetbrains.anko.margin
 import org.jetbrains.anko.matchParent
 import org.jetbrains.anko.sdk27.coroutines.onClick
@@ -32,12 +37,14 @@ import org.jetbrains.anko.verticalLayout
 import org.jetbrains.anko.wrapContent
 import org.koin.android.viewmodel.ext.android.viewModel
 
-class SingleSelectionQuestionFragment : BaseFragment() {
+class SingleSelectionQuestionFragment: BaseFragment() {
     private lateinit var mainActivity: MainActivity
     private lateinit var routeLabour: Route
     private var routeQuestion: RouteQuestion? = null
     private var goTo:Int = Constants.START_QUESTION_ROUTE_LABOUR
     private val questionViewModel:SingleSelectionQuestionViewModel? by viewModel()
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,6 +59,7 @@ class SingleSelectionQuestionFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View? {
         mainActivity = this.activity as MainActivity
+        this.textToSpeech = TextToSpeech(context, this)
         return createMainLayout()
     }
 
@@ -62,7 +70,7 @@ class SingleSelectionQuestionFragment : BaseFragment() {
             verticalLayout {
                 loadHorizontalProgressBar(Constants.TEMPORAL_LOAD_PROGRESS_BAR)
                 verticalLayout {
-                    loadImageAudio(view)
+                    loadImageAudio()
                 }
                 verticalLayout {
                     question()
@@ -72,7 +80,7 @@ class SingleSelectionQuestionFragment : BaseFragment() {
                         option(option)
                     }
                 }
-            }.lparams {
+            }.lparams(width= matchParent, height = matchParent) {
                 margin = dip(Constants.MARGIN_SINGLE_SELECTION_QUESTION)
             }
         }
@@ -89,24 +97,44 @@ class SingleSelectionQuestionFragment : BaseFragment() {
         }.view
     }
 
-    private fun _LinearLayout.loadImageAudio(view: View) {
-        imageView {
+    private fun _LinearLayout.loadImageAudio() {
+        imageButton {
             gravity = Gravity.CENTER
-            Glide.with(view)
-                .load(R.drawable.icon_question_audio)
-                .into(this)
-        }.lparams(width = Constants.SIZE_IMAGE_AUDIO_ROUTE, height = Constants.SIZE_IMAGE_AUDIO_ROUTE) {
-            topMargin = dip(Constants.MARGIN_QUESTION_ROUTE)
+            adjustViewBounds=true
+            scaleType = ImageView.ScaleType.FIT_XY
+            imageResource = R.drawable.icon_question_audio
+            val textQuestion = routeQuestion?.content
+            val contentQuestion ="${textQuestion} ${contentAudioOptions()}"
+            background = null
+            setOnLongClickListener {
+                contentQuestion.let {ToSpeech.speakOut(it, textToSpeech) }
+                true
+            }
+        }.lparams(width = wrapContent,
+            height = wrapContent){
         }
+    }
+
+    private fun contentAudioOptions(): String {
+        var contentOptions = ""
+        routeQuestion?.options?.map {option->
+            contentOptions += "${option.value} \n"
+        }
+        return contentOptions
     }
 
     private fun _LinearLayout.question() {
         textView {
-            gravity = Gravity.CENTER
             text = routeQuestion?.content
             textSizeDimen = R.dimen.text_size_content
+            typeface = ResourcesCompat.getFont(
+                context.applicationContext,
+                R.font.proxima_nova_light
+            )
         }.lparams(width = wrapContent, height = wrapContent) {
-            margin = dip(Constants.MARGIN_SINGLE_SELECTION_QUESTION)
+            gravity = Gravity.CENTER
+            topMargin = dip(Constants.MARGIN_SINGLE_SELECTION_QUESTION)
+            bottomMargin = dip(Constants.MARGIN_SINGLE_SELECTION_QUESTION)
         }
     }
 
@@ -116,8 +144,20 @@ class SingleSelectionQuestionFragment : BaseFragment() {
             textSizeDimen = R.dimen.text_size_content
             textColor = ContextCompat.getColor(context, R.color.colorHeaderBackground)
             allCaps = false
+            typeface = ResourcesCompat.getFont(
+                context.applicationContext,
+                R.font.proxima_nova_bold
+            )
             onClick { /* Todo on click */}
-        }.lparams(width = matchParent, height=dip(Constants.MARGIN_OPTION_QUESTION ))
+        }.lparams(width = matchParent,
+            height=calculateHeightComponentsQuestion(Constants.SIZE_HEIGHT_PERCENTAGE_OPTION_BUTTON))
+    }
+
+    private fun calculateHeightComponentsQuestion(heightComponent: Double): Int {
+        val cardHeightInDps =
+            (PixelConverter.getScreenDpHeight(context) -
+                    Constants.SIZE_OF_ACTION_BAR_ROUTE) * heightComponent
+        return PixelConverter.toPixels(cardHeightInDps, context)
     }
 
 }

@@ -2,6 +2,7 @@ package com.untha.view.extension
 
 import androidx.core.content.ContextCompat
 import com.untha.R
+
 import org.jetbrains.anko._LinearLayout
 import org.jetbrains.anko.horizontalProgressBar
 import org.jetbrains.anko.matchParent
@@ -17,3 +18,4 @@ fun _LinearLayout.loadHorizontalProgressBar(loadProgress: Int) {
         }.lparams(width = matchParent)
     }
 }
+

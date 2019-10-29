@@ -55,9 +55,11 @@ object Constants {
 
     const val TEMPORAL_LOAD_PROGRESS_BAR = 13
     const val MARGIN_SINGLE_SELECTION_QUESTION = 24
-    const val SIZE_IMAGE_AUDIO_ROUTE = 100
+    const val SIZE_IMAGE_AUDIO_ROUTE = 0.08
     const val MARGIN_QUESTION_ROUTE = 36
     const val START_QUESTION_ROUTE_LABOUR =4
-    const val MARGIN_OPTION_QUESTION =58
+    const val SIZE_HEIGHT_PERCENTAGE_OPTION_BUTTON=0.09
+
+
 
 }
