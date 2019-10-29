@@ -61,14 +61,18 @@ class SingleSelectionQuestionTest: KoinTest {
 
     @Test
     fun `should save single option answer when select a option with fault`(){
-        val option1 = RouteOption("Medio tiempo: 20",
+        val option1 = RouteOption(
+            "Medio tiempo: 20",
             null,
-            6
+            "RF",
+            8
         )
 
-        val option2 = RouteOption("Siempre cambia, trabajo por horas",
+        val option2 = RouteOption(
+            "Siempre cambia, trabajo por horas",
+            null,
             "R2",
-            6
+            8
 
         )
 
