@@ -69,7 +69,7 @@
     {
       "id": 4,
       "type": "SingleOption",
-      "content": "¿Cuántas hortas trabajas a la semana?",
+      "content": "¿Qué tipo de jornada de trabajo tienes?",
       "explanation": "Este registro debe ser entregado al director regional de trabajo",
       "goTo": null,
       "result": null,
