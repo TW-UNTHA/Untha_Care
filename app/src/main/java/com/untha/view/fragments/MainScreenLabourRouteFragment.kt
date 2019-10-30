@@ -81,7 +81,7 @@ class MainScreenLabourRouteFragment : BaseFragment() {
                     linkUltimoResultado()
                 }
             }.lparams(width = matchParent, height = matchParent) {
-                margin = dip(Constants.MARGIN_SINGLE_SELECTION_QUESTION)
+                margin = dip(Constants.TEMPORAL_MARGIN_SCREEN_LABOUR_ROUTE)
             }
         }
     }
@@ -148,8 +148,8 @@ class MainScreenLabourRouteFragment : BaseFragment() {
             )
         }.lparams(width = wrapContent, height = wrapContent) {
             gravity = Gravity.CENTER
-            topMargin = dip(Constants.MARGIN_SINGLE_SELECTION_QUESTION)
-            bottomMargin = dip(Constants.MARGIN_SINGLE_SELECTION_QUESTION)
+            topMargin = dip(Constants.TEMPORAL_MARGIN_SCREEN_LABOUR_ROUTE)
+            bottomMargin = dip(Constants.TEMPORAL_MARGIN_SCREEN_LABOUR_ROUTE)
         }
     }
 
@@ -186,8 +186,8 @@ class MainScreenLabourRouteFragment : BaseFragment() {
             }
         }.lparams(width = wrapContent, height = wrapContent) {
             gravity = Gravity.CENTER
-            topMargin = dip(Constants.MARGIN_SINGLE_SELECTION_QUESTION)
-            bottomMargin = dip(Constants.MARGIN_SINGLE_SELECTION_QUESTION)
+            topMargin = dip(Constants.TEMPORAL_MARGIN_SCREEN_LABOUR_ROUTE)
+            bottomMargin = dip(Constants.TEMPORAL_MARGIN_SCREEN_LABOUR_ROUTE)
         }
 
     }

@@ -68,6 +68,8 @@ object Constants {
     const val START_QUESTION_ROUTE_LABOUR = 4
     const val FAULT_ANSWER = "fault-answers"
 
+
+    const val TEMPORAL_MARGIN_SCREEN_LABOUR_ROUTE = 12
     const val NAME_SCREEN_LABOUR_ROUTE = "DERECHOS LABORALES"
 
 }
