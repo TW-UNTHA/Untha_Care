@@ -8,6 +8,7 @@ import androidx.navigation.ui.NavigationUI
 import com.untha.viewmodels.MainViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.android.viewmodel.ext.android.viewModel
+import android.R
 
 
 class MainActivity : AppCompatActivity() {
@@ -22,6 +23,7 @@ class MainActivity : AppCompatActivity() {
         loadData()
         navigationController = findNavController(navigationHostFragment)
         NavigationUI.setupActionBarWithNavController(this, navigationController)
+
     }
 
     fun isConnected(): Boolean {
@@ -43,4 +45,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onSupportNavigateUp() = navigationController.navigateUp()
+
+
 }

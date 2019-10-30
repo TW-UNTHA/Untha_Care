@@ -28,7 +28,7 @@ val viewModelsModule = module {
     viewModel { RightsViewModel(get(), get(), get()) }
     viewModel { GenericInfoStepViewModel() }
     viewModel { RoutesViewModel(get()) }
-    viewModel { SingleSelectionQuestionViewModel() }
+    viewModel { SingleSelectionQuestionViewModel(get()) }
 
 }
 
