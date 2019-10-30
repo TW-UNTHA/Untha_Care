@@ -4,4 +4,5 @@
     <dimen name="text_size_main_component">18sp</dimen>
     <dimen name="text_size_content">19sp</dimen>
     <dimen name="text_size_content_next_step">19sp</dimen>
+    <dimen name="text_size_question_route">21sp</dimen>
 </resources>

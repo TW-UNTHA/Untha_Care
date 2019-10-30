@@ -9,4 +9,5 @@
     <string name="salir">Salir</string>
     <string name="category_id" />
     <string name="start_progress">Start Progress</string>
+    <string name="labour_route_result_link">Ver mi último resultado</string>
 </resources>

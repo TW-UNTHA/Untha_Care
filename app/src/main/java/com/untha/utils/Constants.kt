@@ -10,6 +10,11 @@ object Constants {
     const val CLICK_ROUTE_TITLE = "Click_route_"
     const val CLICK_ROUTE_START_TITLE = "Click_start_route_route_title"
     const val SUBTITLE_NEXT_STEP = "SIGUIENTE"
+    const val ROUTE_BUTTON_TEXT = "Empezar"
+    const val ROUTE_LINK = "Ver mi último resultado"
+
+
+
     const val MAIN_ITEM_RECYCLE_VIEW = 0
     const val SIZE_OF_ACTION_BAR = 120
     const val MARGIN_TOP_PERCENTAGE = 0.01406

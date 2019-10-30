@@ -33,4 +33,9 @@
         android:id="@+id/singleSelectQuestionFragment"
         android:name="com.untha.view.fragments.SingleSelectionQuestionFragment"
         android:label="RUTAS DE AYUDA " />
+    <fragment
+        android:id="@+id/mainScreenLabourRouteFragment"
+        android:name="com.untha.view.fragments.MainScreenLabourRouteFragment"
+        android:label="DERECHOS LABORALES" />
+
 </navigation>

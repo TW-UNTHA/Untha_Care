@@ -35,7 +35,11 @@
 
 
     <style name="MyButtonStyle" parent="Theme.AppCompat.Light">
-        <item name="colorButtonNormal" >@color/colorBackgroundCategoryRoute</item>
+        <item name="colorButtonNormal">@color/colorBackgroundCategoryRoute</item>
+    </style>
+
+    <style name="ButtonNext" parent="Theme.AppCompat.Light">
+        <item name="colorButtonNormal">@color/colorGenericTitle</item>
     </style>
 
 </resources>

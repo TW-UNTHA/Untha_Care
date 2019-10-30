@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <dimen name="text_size">11sp</dimen>
-    <dimen name="text_size_main_component">12sp</dimen>
-    <dimen name="text_size_content">13sp</dimen>
-    <dimen name="text_size_content_next_step">12sp</dimen>
-    <dimen name="text_size_question_route">18sp</dimen>
-</resources>
