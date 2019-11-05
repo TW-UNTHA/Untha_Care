@@ -24,7 +24,7 @@ import org.koin.dsl.module
 
 val viewModelsModule = module {
     viewModel { MainViewModel(get(), get(), get(), get(), get(),get(), get()) }
-    viewModel { CategoryViewModel(get(), get()) }
+    viewModel { CategoryViewModel(get(), get(), get()) }
     viewModel { RightsViewModel(get(), get(), get()) }
     viewModel { GenericInfoStepViewModel() }
     viewModel { RoutesViewModel(get()) }

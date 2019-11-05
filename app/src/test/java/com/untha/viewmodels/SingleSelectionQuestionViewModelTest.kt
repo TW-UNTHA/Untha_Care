@@ -35,7 +35,7 @@ import org.mockito.Mockito.`when`
 import org.mockito.Mockito.mock
 
 @RunWith(JUnit4::class)
-class SingleSelectionQuestionTest: KoinTest {
+class SingleSelectionQuestionViewModelTest: KoinTest {
     private val sharedPreferences by inject<SharedPreferences>()
 
     @get:Rule
@@ -68,7 +68,7 @@ class SingleSelectionQuestionTest: KoinTest {
 
     }
     @Test
-    fun `should save single option answer when select a option with fault y`(){
+    fun `should save single option answer when select a option with fault`(){
         val questionViewModel = SingleSelectionQuestionViewModel(
         sharedPreferences
     )

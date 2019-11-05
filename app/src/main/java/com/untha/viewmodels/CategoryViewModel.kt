@@ -1,15 +1,20 @@
 package com.untha.viewmodels
 
+import android.content.SharedPreferences
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.untha.model.mappers.CategoryMapper
 import com.untha.model.models.QueryingCategory
 import com.untha.model.repositories.CategoryWithRelationsRepository
 import com.untha.model.transactionalmodels.Category
+import com.untha.utils.Constants
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.list
 
 class CategoryViewModel(
     private val categoryWithRelationsRepository: CategoryWithRelationsRepository,
-    private val categoryMapper: CategoryMapper
+    private val categoryMapper: CategoryMapper,
+    private val sharedPreferences: SharedPreferences
 ) : ViewModel() {
 
     var categories: ArrayList<Category> = arrayListOf()
@@ -29,5 +34,20 @@ class CategoryViewModel(
     fun getCategoryRoutes(): ArrayList<Category> {
         return categories.filter { it.isRoute } as ArrayList
     }
+
+    fun saveCategoriesSharedPreferences(categories: List<Category>){
+        sharedPreferences.edit()
+            .putString(
+                Constants.CATEGORIES_ROUTES,
+                Json.stringify(Category.serializer().list, categories)
+
+            ).apply()
+    }
+
+    fun loadCategoriesRoutesFromSharedPreferences(): ArrayList<Category>? {
+        val jsonCategoriesRoutes = sharedPreferences.getString(Constants.CATEGORIES_ROUTES, "")
+        return jsonCategoriesRoutes?.let { Json.parse(Category.serializer().list, it) } as ArrayList<Category>
+    }
+
 
 }

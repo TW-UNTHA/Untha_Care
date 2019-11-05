@@ -8,7 +8,6 @@
     <fragment
         android:id="@+id/rightsFragment"
         android:name="com.untha.view.fragments.RightsFragment"
-        android:label="MIS DERECHOS"
         app:defaultNavHost="true"
         app:enterAnim="@anim/slide_in_right"
         app:exitAnim="@anim/slide_out_left"
@@ -27,8 +26,11 @@
 
     <fragment
         android:id="@+id/mainRouteFragment"
-        android:name="com.untha.view.fragments.RoutesFragment"
-        android:label="RUTAS DE AYUDA " />
+        android:name="com.untha.view.fragments.RoutesFragment" >
+        <action
+            android:id="@+id/action_mainRouteFragment_to_categoryFragment"
+            app:popUpTo="@id/categoryFragment" />
+    </fragment>
     <fragment
         android:id="@+id/singleSelectQuestionFragment"
         android:name="com.untha.view.fragments.SingleSelectionQuestionFragment"

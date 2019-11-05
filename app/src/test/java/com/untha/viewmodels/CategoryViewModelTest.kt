@@ -1,10 +1,13 @@
 package com.untha.viewmodels
 
+import android.content.SharedPreferences
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.Observer
+import com.nhaarman.mockito_kotlin.doNothing
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.verify
+import com.nhaarman.mockito_kotlin.whenever
 import com.untha.di.mapperModule
 import com.untha.di.networkModule
 import com.untha.di.persistenceModule
@@ -12,7 +15,15 @@ import com.untha.di.viewModelsModule
 import com.untha.model.mappers.CategoryMapper
 import com.untha.model.models.QueryingCategory
 import com.untha.model.repositories.CategoryWithRelationsRepository
+import com.untha.model.transactionalmodels.Category
+import com.untha.model.transactionalmodels.Route
+import com.untha.model.transactionalmodels.RouteOption
+import com.untha.utils.Constants
 import com.utils.MockObjects
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.list
+import org.hamcrest.CoreMatchers
+import org.hamcrest.MatcherAssert
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Before
@@ -25,6 +36,7 @@ import org.koin.core.context.stopKoin
 import org.koin.test.KoinTest
 import org.koin.test.inject
 import org.koin.test.mock.declareMock
+import org.mockito.Mockito
 import org.mockito.Mockito.`when`
 
 @RunWith(JUnit4::class)
@@ -32,6 +44,7 @@ class CategoryViewModelTest : KoinTest {
 
     private val mockCategoryWithRelationsRepository by inject<CategoryWithRelationsRepository>()
     private val mockCategoryMapper by inject<CategoryMapper>()
+    private val sharedPreferences by inject<SharedPreferences>()
 
     @get:Rule
     val rule = InstantTaskExecutorRule()
@@ -50,6 +63,7 @@ class CategoryViewModelTest : KoinTest {
         }
         declareMock<CategoryWithRelationsRepository>()
         declareMock<CategoryMapper>()
+        declareMock<SharedPreferences>()
     }
 
     @After
@@ -64,7 +78,8 @@ class CategoryViewModelTest : KoinTest {
         categoryViewModel =
             CategoryViewModel(
                 mockCategoryWithRelationsRepository,
-                mockCategoryMapper
+                mockCategoryMapper,
+                sharedPreferences
             )
         categoryViewModel.findMainCategories()
 
@@ -81,7 +96,8 @@ class CategoryViewModelTest : KoinTest {
 
         val categoryViewModel = CategoryViewModel(
                 mockCategoryWithRelationsRepository,
-                categoryMapper
+                categoryMapper,
+                sharedPreferences
             )
 
         categoryViewModel.getCategories(listOf(categoryQueryingRoute))
@@ -102,7 +118,8 @@ class CategoryViewModelTest : KoinTest {
         categoryViewModel =
             CategoryViewModel(
                 mockCategoryWithRelationsRepository,
-                mockCategoryMapper
+                mockCategoryMapper,
+                sharedPreferences
             )
         val categoryQuerying = MockObjects.mockQueryingCategory()
         val categoriesQuerying = listOf<QueryingCategory>(categoryQuerying)
@@ -114,17 +131,16 @@ class CategoryViewModelTest : KoinTest {
 
     @Test
     fun `should return at least one element`() {
-        val categoryViewModel: CategoryViewModel
+        val categoryViewModel = CategoryViewModel(
+            mockCategoryWithRelationsRepository,
+            mockCategoryMapper,
+            sharedPreferences
+        )
         val categoryQuerying = MockObjects.mockQueryingCategory()
         val categoriesQuerying = mutableListOf<QueryingCategory>()
         categoriesQuerying.add(categoryQuerying)
         val queryingCategories = MediatorLiveData<List<QueryingCategory>>()
         queryingCategories.value = categoriesQuerying
-        categoryViewModel =
-            CategoryViewModel(
-                mockCategoryWithRelationsRepository,
-                mockCategoryMapper
-            )
 
         `when`(mockCategoryWithRelationsRepository.findMainCategories()).thenReturn(
             queryingCategories
@@ -134,4 +150,59 @@ class CategoryViewModelTest : KoinTest {
 
         verify(observer).onChanged(categoriesQuerying)
     }
+
+    @Test
+    fun `should save categories route`(){
+        val categoryMapper = CategoryMapper()
+        val categoryQueryingRoute = MockObjects.mockQueryingCategory()
+        val categoryViewModel = CategoryViewModel(
+            mockCategoryWithRelationsRepository,
+            categoryMapper,
+            sharedPreferences
+        )
+
+        categoryViewModel.getCategories(listOf(categoryQueryingRoute))
+
+        val categoriesRoutes = categoryViewModel.getCategoryRoutes()
+        val editor = Mockito.mock(SharedPreferences.Editor::class.java)
+        `when`(sharedPreferences.edit()).thenReturn(editor)
+
+        whenever(
+            editor.putString(
+                Constants.CATEGORIES_ROUTES,
+                Json.stringify(Category.serializer().list, categoriesRoutes)
+            )
+        ).thenReturn(editor)
+
+        doNothing().whenever(editor).apply()
+        categoryViewModel.saveCategoriesSharedPreferences(categoriesRoutes)
+
+        verify(sharedPreferences.edit())
+            .putString(
+                Constants.CATEGORIES_ROUTES,
+                Json.stringify(Category.serializer().list, categoriesRoutes)
+            )
+        verify(editor).apply()
+    }
+
+    @Test
+    fun `should get categories routes from shared preferencecds`() {
+        val categoryMapper = CategoryMapper()
+        val categoryQueryingRoute = MockObjects.mockQueryingCategory()
+        val categoryViewModel = CategoryViewModel(
+            mockCategoryWithRelationsRepository,
+            categoryMapper,
+            sharedPreferences
+        )
+
+        categoryViewModel.getCategories(listOf(categoryQueryingRoute))
+        val categoriesRoutes = categoryViewModel.getCategoryRoutes()
+        `when`(sharedPreferences.getString(Constants.CATEGORIES_ROUTES, ""))
+            .thenReturn(Json.stringify(Category.serializer().list, categoriesRoutes))
+        val resultRoute = categoryViewModel.loadCategoriesRoutesFromSharedPreferences()
+        MatcherAssert.assertThat(resultRoute, CoreMatchers.`is`(categoriesRoutes))
+
+
+    }
+
 }

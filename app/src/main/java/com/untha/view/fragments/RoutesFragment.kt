@@ -14,6 +14,7 @@ import com.untha.model.transactionalmodels.Category
 import com.untha.utils.Constants
 import com.untha.utils.ContentType
 import com.untha.utils.PixelConverter
+import com.untha.view.activities.MainActivity
 import com.untha.viewmodels.RoutesViewModel
 import org.jetbrains.anko.AnkoViewDslMarker
 import org.jetbrains.anko._LinearLayout
@@ -32,9 +33,11 @@ import org.jetbrains.anko.verticalLayout
 import org.jetbrains.anko.wrapContent
 import org.koin.android.viewmodel.ext.android.viewModel
 
+
 class RoutesFragment : BaseFragment() {
     private var categoriesRoutes: List<Category>? = null
     private val routeViewModel : RoutesViewModel by viewModel()
+    private lateinit var mainActivity: MainActivity
     companion object{
         const val ROUTE_LABOUR =14
         const val ROUTE_VIOLENCE =15
@@ -56,21 +59,29 @@ class RoutesFragment : BaseFragment() {
         categoriesRoutes = bundle?.get(Constants.CATEGORIES_ROUTES) as List<Category>
     }
 
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        mainActivity = this.activity as MainActivity
+        mainActivity.supportActionBar?.setDisplayHomeAsUpEnabled(true)
         return createMainLayout()
+
+
     }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         with(view as _LinearLayout) {
             verticalLayout {
                 buildRoute(view)
             }
         }
+        mainActivity.customActionBar(Constants.NAME_SCREEN_ROUTES, false)
     }
 
     private fun @AnkoViewDslMarker _LinearLayout.buildRoute(view: View) {

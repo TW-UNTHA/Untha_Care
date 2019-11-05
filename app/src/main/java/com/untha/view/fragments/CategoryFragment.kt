@@ -10,13 +10,14 @@ import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.untha.R
-import com.untha.viewmodels.CategoryViewModel
 import com.untha.model.transactionalmodels.Category
 import com.untha.utils.Constants
 import com.untha.utils.ContentType
 import com.untha.utils.PixelConverter
 import com.untha.utils.ToSpeech
+import com.untha.view.activities.MainActivity
 import com.untha.view.adapters.CategoryAdapter
+import com.untha.viewmodels.CategoryViewModel
 import kotlinx.android.synthetic.main.fragment_category.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
@@ -31,6 +32,9 @@ class CategoryFragment : BaseFragment(),
 
     private lateinit var categoryListAdapter: CategoryAdapter
     private val categoryViewModel: CategoryViewModel by viewModel()
+    private lateinit var mainActivity: MainActivity
+
+
 
     override fun onItemClick(category: Category, categories: ArrayList<Category>, itemView: View) {
         logAnalyticsSelectContentWithId(
@@ -47,13 +51,17 @@ class CategoryFragment : BaseFragment(),
             CALCULATOR_CATEGORY -> println("To be implemented")
 
             ROUTES_CATEGORY -> {
+                val  routes: ArrayList<Category> = categoryViewModel.getCategoryRoutes()
                 activity?.let {
                     firebaseAnalytics.setCurrentScreen(it, Constants.CLICK_ROUTE_START_TITLE, null)
                 }
+
+                categoryViewModel.saveCategoriesSharedPreferences(routes)
+
                 val categoriesRoutes = Bundle().apply {
                     putSerializable(
                         Constants.CATEGORIES_ROUTES,
-                        categoryViewModel.getCategoryRoutes()
+                        routes
                     )
                 }
                 itemView.findNavController().navigate(
@@ -86,6 +94,7 @@ class CategoryFragment : BaseFragment(),
         savedInstanceState: Bundle?
     ): View? {
         this.textToSpeech = TextToSpeech(context, this)
+        mainActivity = this.activity as MainActivity
         return inflater.inflate(R.layout.fragment_category, container, false)
     }
 
@@ -99,6 +108,7 @@ class CategoryFragment : BaseFragment(),
             categoryViewModel.getCategories(queryingCategories)
             categoryViewModel.categories?.let { populateCategoryList(it) }
         })
+        mainActivity.customActionBar("", false)
     }
 
     private fun setMarginsToRecyclerView() {

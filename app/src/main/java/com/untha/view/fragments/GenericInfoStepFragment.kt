@@ -121,7 +121,9 @@ class GenericInfoStepFragment : BaseFragment() {
                 }
             }.lparams(width = matchParent, height = matchParent)
         }
-        mainActivity.supportActionBar?.title = category.information?.get(0)?.screenTitle
+        mainActivity.customActionBar(category.information?.get(0)?.screenTitle.toString(),
+            false)
+
     }
 
     private fun @AnkoViewDslMarker _LinearLayout.buildButtonNextStep(

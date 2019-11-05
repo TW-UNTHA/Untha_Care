@@ -1,15 +1,19 @@
 package com.untha.view.activities
 
 import android.os.Bundle
+import android.widget.ImageView
+import android.widget.LinearLayout
+import android.widget.TextView
+import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment.findNavController
 import androidx.navigation.ui.NavigationUI
+import com.untha.R
 import com.untha.viewmodels.MainViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.android.viewmodel.ext.android.viewModel
-import android.R
-
 
 class MainActivity : AppCompatActivity() {
 
@@ -23,7 +27,6 @@ class MainActivity : AppCompatActivity() {
         loadData()
         navigationController = findNavController(navigationHostFragment)
         NavigationUI.setupActionBarWithNavController(this, navigationController)
-
     }
 
     fun isConnected(): Boolean {
@@ -44,7 +47,21 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    fun customActionBar(title:String, enableCustomBar:Boolean){
+        val layoutActionBar = layoutInflater.inflate(R.layout.action_bar, null)
+        val titleView = layoutActionBar.findViewById(R.id.title_actiov_bar) as TextView
+        val close = layoutActionBar?.findViewById(R.id.icon_go_back_route) as ImageView
+        titleView.text=title
+        val layout = ActionBar.LayoutParams(
+            LinearLayout.LayoutParams.MATCH_PARENT,
+            LinearLayout.LayoutParams.MATCH_PARENT
+        )
+        supportActionBar?.setCustomView(layoutActionBar, layout)
+        supportActionBar?.setDisplayShowCustomEnabled(true)
+        close.isVisible = enableCustomBar
+    }
+
     override fun onSupportNavigateUp() = navigationController.navigateUp()
 
-
 }
+

@@ -12,6 +12,7 @@ import com.untha.R
 import com.untha.model.transactionalmodels.Category
 import com.untha.utils.Constants
 import com.untha.utils.PixelConverter
+import com.untha.view.activities.MainActivity
 import com.untha.view.adapters.RightsAdapter
 import com.untha.viewmodels.RightsViewModel
 import kotlinx.android.synthetic.main.layout_rights.categoryRecyclerView
@@ -24,6 +25,7 @@ class RightsFragment : BaseFragment(),
     RightsAdapter.OnItemClickListener {
 
     private val viewModel: RightsViewModel by viewModel()
+    private lateinit var mainActivity: MainActivity
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,7 +36,7 @@ class RightsFragment : BaseFragment(),
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
+        mainActivity = this.activity as MainActivity
         return inflater.inflate(R.layout.layout_rights, container, false)
     }
 
@@ -49,6 +51,7 @@ class RightsFragment : BaseFragment(),
             val categories = viewModel.getRightCategories(queryingCategories)
             populateCategoryList(categories)
         })
+        mainActivity.customActionBar(Constants.NAME_SCREEN_RIGHTS, false)
     }
 
     private fun populateCategoryList(categoryList: List<Category>) {

@@ -11,9 +11,6 @@ object Constants {
     const val CLICK_ROUTE_START_TITLE = "Click_start_route_route_title"
     const val SUBTITLE_NEXT_STEP = "SIGUIENTE"
     const val ROUTE_BUTTON_TEXT = "Empezar"
-    const val ROUTE_LINK = "Ver mi último resultado"
-
-
 
     const val MAIN_ITEM_RECYCLE_VIEW = 0
     const val SIZE_OF_ACTION_BAR = 120
@@ -65,11 +62,15 @@ object Constants {
     const val SIZE_HEIGHT_PERCENTAGE_OPTION_BUTTON=0.09
 
     const val TEMPORAL_LOAD_PROGRESS_BAR = 13
-    const val START_QUESTION_ROUTE_LABOUR = 4
+    const val START_QUESTION_ROUTE_LABOUR = 3
     const val FAULT_ANSWER = "fault-answers"
 
 
     const val TEMPORAL_MARGIN_SCREEN_LABOUR_ROUTE = 12
+    const val DUPLICATE_MARGIN_LATERAL= 2
+    const val STYLE_ANSWER_TWO_OPTION= 2
     const val NAME_SCREEN_LABOUR_ROUTE = "DERECHOS LABORALES"
+    const val NAME_SCREEN_RIGHTS = "MIS DERECHOS"
+    const val NAME_SCREEN_ROUTES= "RUTAS DE AYUDA"
 
 }
