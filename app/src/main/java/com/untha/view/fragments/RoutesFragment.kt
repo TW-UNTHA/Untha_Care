@@ -33,7 +33,6 @@ import org.jetbrains.anko.verticalLayout
 import org.jetbrains.anko.wrapContent
 import org.koin.android.viewmodel.ext.android.viewModel
 
-
 class RoutesFragment : BaseFragment() {
     private var categoriesRoutes: List<Category>? = null
     private val routeViewModel : RoutesViewModel by viewModel()
@@ -50,7 +49,8 @@ class RoutesFragment : BaseFragment() {
                 routeViewModel.loadLabourRouteFromSharedPreferences())
         }
         itemView.findNavController()
-            .navigate(R.id.singleSelectQuestionFragment, routeLabour, navOptions, null)
+            .navigate(R.id.mainScreenLabourRouteFragment, routeLabour, navOptions, null)
+//            .navigate(R.id.singleSelectQuestionFragment, routeLabour, navOptions, null)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -75,7 +75,6 @@ class RoutesFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         with(view as _LinearLayout) {
             verticalLayout {
                 buildRoute(view)

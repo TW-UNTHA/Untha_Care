@@ -2,20 +2,19 @@ package com.untha.utils
 
 object Constants {
 
-    const val ROUTE_LABOUR= "ROUTE_LABOUR"
-    const val CATEGORIES_ROUTES= "CATEGORIES_ROUTES"
+    const val ROUTE_LABOUR = "ROUTE_LABOUR"
+    const val CATEGORIES_ROUTES = "CATEGORIES_ROUTES"
     const val CATEGORIES_VERSION = "version"
     const val CATEGORY_PARAMETER = "category"
     const val CATEGORIES = "CATEGORIES"
     const val CLICK_ROUTE_TITLE = "Click_route_"
     const val CLICK_ROUTE_START_TITLE = "Click_start_route_route_title"
     const val SUBTITLE_NEXT_STEP = "SIGUIENTE"
-    const val ROUTE_BUTTON_TEXT = "Empezar"
 
     const val MAIN_ITEM_RECYCLE_VIEW = 0
     const val SIZE_OF_ACTION_BAR = 120
     const val MARGIN_TOP_PERCENTAGE = 0.01406
-    const val MARGIN_BOTTOM_MIDDLE_NEXT_STEP =2
+    const val MARGIN_BOTTOM_MIDDLE_NEXT_STEP = 2
     const val SPAN_THREE_COLUMNS = 3
     const val SPAN_TWO_COLUMNS = 2
     const val SPAN_ONE_COLUMN = 1
@@ -60,7 +59,7 @@ object Constants {
     const val MARGIN_HEIGHT_SELECTION_QUESTION = 0.054
     const val MARGIN_HEIGHT_QUESTION = 0.17
     const val SIZE_IMAGE_PERCENTAGE_AUDIO_ROUTE = 0.094
-    const val SIZE_HEIGHT_PERCENTAGE_OPTION_BUTTON=0.09
+    const val SIZE_HEIGHT_PERCENTAGE_OPTION_BUTTON = 0.09
 
     const val TEMPORAL_LOAD_PROGRESS_BAR = 13
     const val START_QUESTION_ROUTE_LABOUR = 4
@@ -68,10 +67,10 @@ object Constants {
 
 
     const val TEMPORAL_MARGIN_SCREEN_LABOUR_ROUTE = 12
-    const val DUPLICATE_MARGIN_LATERAL= 2
-    const val STYLE_ANSWER_TWO_OPTION= 2
+    const val DUPLICATE_MARGIN_LATERAL = 2
+    const val STYLE_ANSWER_TWO_OPTION = 2
     const val NAME_SCREEN_LABOUR_ROUTE = "DERECHOS LABORALES"
     const val NAME_SCREEN_RIGHTS = "MIS DERECHOS"
-    const val NAME_SCREEN_ROUTES= "RUTAS DE AYUDA"
+    const val NAME_SCREEN_ROUTES = "RUTAS DE AYUDA"
 
 }

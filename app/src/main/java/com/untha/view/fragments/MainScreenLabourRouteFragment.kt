@@ -10,22 +10,27 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
+import androidx.core.text.parseAsHtml
 import com.bumptech.glide.Glide
 import com.untha.R
 import com.untha.utils.Constants
+import com.untha.utils.ContentType
+import com.untha.utils.FirebaseEvent
 import com.untha.utils.PixelConverter
 import com.untha.utils.ToSpeech
 import com.untha.view.activities.MainActivity
 import org.jetbrains.anko.AnkoViewDslMarker
 import org.jetbrains.anko._LinearLayout
+import org.jetbrains.anko.alignParentBottom
 import org.jetbrains.anko.allCaps
 import org.jetbrains.anko.backgroundColor
+import org.jetbrains.anko.backgroundDrawable
 import org.jetbrains.anko.dip
 import org.jetbrains.anko.imageButton
 import org.jetbrains.anko.imageResource
 import org.jetbrains.anko.imageView
-import org.jetbrains.anko.margin
 import org.jetbrains.anko.matchParent
+import org.jetbrains.anko.relativeLayout
 import org.jetbrains.anko.sdk27.coroutines.onClick
 import org.jetbrains.anko.support.v4.UI
 import org.jetbrains.anko.textColor
@@ -38,6 +43,20 @@ import org.jetbrains.anko.wrapContent
 class MainScreenLabourRouteFragment : BaseFragment() {
     private lateinit var mainActivity: MainActivity
 
+    companion object {
+        const val SPACE_BETWEEN_LINK_AND_BUTTON = 11
+        const val HEIGHT_OF_BUTTON = 0.09375
+        const val MARGINS = (((18 * 100) / 640) / 100F).toDouble()
+
+        const val HEIGHT_BUTTON = ((((60) * 100) / 640) / 100F).toDouble()
+        const val HEIGHT_DESCRIPTION = (((120 * 100) / 640) / 100F).toDouble()
+        const val MAIN_ROUTE_MESSAGE =
+            "¡Hola! Voy a hacerte unas preguntas para identificar si se están cumpliendo tus derechos laborales"
+        const val ROUTE_BUTTON_TEXT = "Empezar"
+        const val SPACE_AUDIO_WITH_IMAGE = 28
+        val SPACE_TITLE_WITH_AUDIO = 14
+        val SPACE_DESCRIPTION_WITH_TITLE = 18
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,33 +74,55 @@ class MainScreenLabourRouteFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         with(view as _LinearLayout) {
+            val widthMainComponent =
+                (PixelConverter.getScreenDpWidth(context) - Constants.SIZE_OF_ACTION_BAR) * MARGINS
+            val marginMainComponent = PixelConverter.toPixels(widthMainComponent, context)
             verticalLayout {
                 verticalLayout {
+
                     loadImageRoute(view)
-                }
+                }.lparams(width = matchParent, height = wrapContent)
+
+
                 verticalLayout {
+
                     loadImageAudio()
+                }.lparams(width = matchParent, height = wrapContent) {
+                    topMargin = dip(SPACE_AUDIO_WITH_IMAGE)
                 }
 
                 verticalLayout {
-                    showMessage("Hola!", R.font.proxima_nova_bold)
+                    showMessage("¡Hola!", R.font.proxima_nova_bold)
                 }
 
+                val height =
+                    (PixelConverter.getScreenDpHeight(context) - Constants.SIZE_OF_ACTION_BAR) * HEIGHT_DESCRIPTION
+
                 verticalLayout {
-                    showMessage(
-                        "Voy a hacerte unas preguntas para identificar si se estan cumpliendo tus derechos laborales",
+                    showMessageDescription(
+                        "Voy a hacerte unas preguntas para identificar si se están cumpliendo tus derechos laborales",
                         R.font.proxima_nova_light
                     )
+                }.lparams(width = wrapContent, height = dip(height.toFloat())) {
+                    gravity = Gravity.CENTER
                 }
-                verticalLayout {
-                    buttonNext()
-                }
-                verticalLayout {
-                    linkUltimoResultado()
-                }
+                relativeLayout {
+                    gravity = Gravity.BOTTOM or Gravity.CENTER
+
+                    verticalLayout {
+                        buttonNext()
+                        linkLastResult()
+                    }.lparams(width = matchParent, height = wrapContent) {
+                        alignParentBottom()
+                    }
+                }.lparams(width = matchParent, height = wrapContent)
             }.lparams(width = matchParent, height = matchParent) {
-                margin = dip(Constants.TEMPORAL_MARGIN_SCREEN_LABOUR_ROUTE)
+                topMargin = dip(marginMainComponent)
+                leftMargin = dip(marginMainComponent)
+                rightMargin = dip(marginMainComponent)
+                bottomMargin = dip(marginMainComponent)
             }
         }
     }
@@ -115,30 +156,32 @@ class MainScreenLabourRouteFragment : BaseFragment() {
     }
 
     private fun _LinearLayout.loadImageAudio() {
+        val height = HEIGHT_BUTTON
+        println("sizeNormal${calculateHeightButtonAudio(Constants.SIZE_IMAGE_PERCENTAGE_AUDIO_ROUTE)}")
         imageButton {
-            val mainRouteMessage =
-                "Hola! Voy a hacerte unas preguntas para identificar si se estan cumpliendo tus derechos laborales"
-
-            gravity = Gravity.CENTER
             adjustViewBounds = true
             scaleType = ImageView.ScaleType.FIT_XY
             imageResource = R.drawable.icon_question_audio
-
-            val textQuestion = mainRouteMessage
-            val contentQuestion = "${textQuestion}"
+            gravity = Gravity.CENTER
             background = null
-            setOnLongClickListener {
+            val contentQuestion = "${MAIN_ROUTE_MESSAGE}"
+            onClick {
+                logAnalyticsCustomContentTypeWithId(ContentType.AUDIO, FirebaseEvent.AUDIO)
                 contentQuestion.let { ToSpeech.speakOut(it, textToSpeech) }
-                true
             }
         }.lparams(
-            width = wrapContent,
-            height = wrapContent
+            width = dip(calculateHeightButtonAudio(Constants.SIZE_IMAGE_PERCENTAGE_AUDIO_ROUTE)),
+            height = dip(calculateHeightButtonAudio(Constants.SIZE_IMAGE_PERCENTAGE_AUDIO_ROUTE))
         ) {
+//            minimumWidth = dip(71)
+//            minimumHeight = dip(71)
+
         }
+
     }
 
     private fun _LinearLayout.showMessage(message: String, idTypeFont: Int) {
+
         textView {
             gravity = Gravity.CENTER
             text = message
@@ -148,29 +191,48 @@ class MainScreenLabourRouteFragment : BaseFragment() {
             )
         }.lparams(width = wrapContent, height = wrapContent) {
             gravity = Gravity.CENTER
-            topMargin = dip(Constants.TEMPORAL_MARGIN_SCREEN_LABOUR_ROUTE)
-            bottomMargin = dip(Constants.TEMPORAL_MARGIN_SCREEN_LABOUR_ROUTE)
+            topMargin = dip(SPACE_TITLE_WITH_AUDIO)
+            bottomMargin = dip(SPACE_DESCRIPTION_WITH_TITLE)
         }
     }
 
+    private fun _LinearLayout.showMessageDescription(message: String, idTypeFont: Int) {
+        textView {
+            gravity = Gravity.CENTER
+            text = message.parseAsHtml()
+            textSizeDimen = R.dimen.text_size_question_route
+            typeface = ResourcesCompat.getFont(
+                context.applicationContext, idTypeFont
+            )
+        }
+    }
+
+
     private fun _LinearLayout.buttonNext() {
+        val height =
+            (PixelConverter.getScreenDpHeight(context) - Constants.SIZE_OF_ACTION_BAR) * HEIGHT_OF_BUTTON
         themedButton(theme = R.style.ButtonNext) {
-            text = Constants.ROUTE_BUTTON_TEXT
+            text = ROUTE_BUTTON_TEXT
             textSizeDimen = R.dimen.text_size_question_route
             textColor = ContextCompat.getColor(context, R.color.colorBackgroundCategoryRoute)
             allCaps = false
+            backgroundDrawable =
+                ContextCompat.getDrawable(
+                    context,
+                    R.drawable.drawable_multiple_option_next_button
+                )
             typeface = ResourcesCompat.getFont(
                 context.applicationContext,
                 R.font.proxima_nova_bold
             )
-            onClick { /* Todo on click */ }
-        }.lparams(
-            width = matchParent,
-            height = calculateHeightComponentsQuestion(Constants.SIZE_HEIGHT_PERCENTAGE_OPTION_BUTTON)
-        )
+            onClick {
+                logAnalyticsCustomContentTypeWithId(ContentType.ROUTE, FirebaseEvent.ROUTE)
+            }
+        }.lparams(width = matchParent, height = dip(height.toFloat()))
+
     }
 
-    private fun _LinearLayout.linkUltimoResultado() {
+    private fun _LinearLayout.linkLastResult() {
         textView {
             gravity = Gravity.CENTER
             text = getString(R.string.labour_route_result_link)
@@ -181,21 +243,18 @@ class MainScreenLabourRouteFragment : BaseFragment() {
             )
             paintFlags = Paint.UNDERLINE_TEXT_FLAG
             isClickable = true
-            onClick { view ->
-                println("printing message")
+            onClick {
+                logAnalyticsCustomContentTypeWithId(ContentType.LINK, FirebaseEvent.LINK)
             }
-        }.lparams(width = wrapContent, height = wrapContent) {
-            gravity = Gravity.CENTER
-            topMargin = dip(Constants.TEMPORAL_MARGIN_SCREEN_LABOUR_ROUTE)
-            bottomMargin = dip(Constants.TEMPORAL_MARGIN_SCREEN_LABOUR_ROUTE)
+        }.lparams(width = matchParent, height = wrapContent) {
+            topMargin = dip(SPACE_BETWEEN_LINK_AND_BUTTON)
         }
 
     }
-
-    private fun calculateHeightComponentsQuestion(heightComponent: Double): Int {
+    private fun calculateHeightButtonAudio(percentageComponent: Double): Float {
         val cardHeightInDps =
             (PixelConverter.getScreenDpHeight(context) -
-                    Constants.SIZE_OF_ACTION_BAR_ROUTE) * heightComponent
-        return PixelConverter.toPixels(cardHeightInDps, context)
+                    Constants.SIZE_OF_ACTION_BAR_ROUTE) * percentageComponent
+        return cardHeightInDps.toFloat()
     }
 }
