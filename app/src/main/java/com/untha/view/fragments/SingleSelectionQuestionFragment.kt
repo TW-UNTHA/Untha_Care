@@ -12,7 +12,6 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.navigation.findNavController
 import com.untha.R
 import com.untha.model.transactionalmodels.Route
-import com.untha.model.transactionalmodels.RouteOption
 import com.untha.model.transactionalmodels.RouteQuestion
 import com.untha.utils.Constants
 import com.untha.utils.ContentType
@@ -40,7 +39,6 @@ import org.jetbrains.anko.textSizeDimen
 import org.jetbrains.anko.textView
 import org.jetbrains.anko.themedButton
 import org.jetbrains.anko.verticalLayout
-import org.jetbrains.anko.wrapContent
 import org.koin.android.viewmodel.ext.android.viewModel
 
 
@@ -72,7 +70,6 @@ class SingleSelectionQuestionFragment: BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         categoryViewModel.getCategoryRoutes()
         with(view as _LinearLayout) {
             verticalLayout {
@@ -83,12 +80,17 @@ class SingleSelectionQuestionFragment: BaseFragment() {
                 verticalLayout {
                     question()
                 }
-                linearLayout {
-                    val sizeOptions = routeQuestion?.options?.size?:0
-                    routeQuestion?.options?.map{option->
-                        option(option, styleDisplayOptions(sizeOptions))
+                val sizeOptions = routeQuestion?.options?.size?:0
+                if(hasTwoOptions(sizeOptions)){
+                    linearLayout {
+                        options(styleDisplayOptions(sizeOptions))
+                    }
+                }else{
+                    verticalLayout {
+                        options(styleDisplayOptions(sizeOptions))
                     }
                 }
+
             }.lparams(width= matchParent, height = matchParent) {
                 margin=calculateWidthComponentsQuestion(Constants.MARGIN_SINGLE_SELECTION_QUESTION)
             }
@@ -102,6 +104,13 @@ class SingleSelectionQuestionFragment: BaseFragment() {
             return calculateWidthOption()/Constants.STYLE_ANSWER_TWO_OPTION
         }
         return  calculateWidthOption()
+    }
+
+    private fun hasTwoOptions(numOptions:Int):Boolean{
+        if(numOptions==Constants.STYLE_ANSWER_TWO_OPTION){
+            return true
+        }
+        return false
     }
 
     private fun goBackScreenRoutes(){
@@ -160,35 +169,38 @@ class SingleSelectionQuestionFragment: BaseFragment() {
         textView {
             text = routeQuestion?.content
             textSizeDimen = R.dimen.text_size_question_route
-            typeface = ResourcesCompat.getFont(
-                context.applicationContext,
-                R.font.proxima_nova_light
-            )
-            gravity = Gravity.CENTER
-        }.lparams(width = wrapContent, height = wrapContent) {
-            bottomMargin = calculateHeightComponentsQuestion(Constants.MARGIN_HEIGHT_SELECTION_QUESTION)
+            typeface = ResourcesCompat.getFont(context.applicationContext,
+                R.font.proxima_nova_light)
+            gravity = Gravity.CENTER_HORIZONTAL
+        }.lparams(width = matchParent, height = matchParent) {
+            bottomMargin = calculateHeightComponentsQuestion(Constants.MARGIN_HEIGHT_QUESTION)
 
         }
     }
 
-    private fun _LinearLayout.option(option: RouteOption, width:Int) {
-        themedButton(theme = R.style.MyButtonStyle){
-            text= option.value
-            textSizeDimen = R.dimen.text_size_question_route
-            textColor = ContextCompat.getColor(context, R.color.colorHeaderBackground)
-            allCaps = false
-            typeface = ResourcesCompat.getFont(
-                context.applicationContext,
-                R.font.proxima_nova_bold
-            )
-            onClick {
-                option.hint?.let { it -> logAnalyticsCustomEvent(it) }
-                option.result?.let {
-                        it -> questionViewModel?.saveAnswerOption(it)
-                }
+    private fun _LinearLayout.options( width:Int) {
+        routeQuestion?.options?.map{option->
+            verticalLayout {
+                themedButton(theme = R.style.MyButtonStyle){
+                    text= option.value
+                    textSizeDimen = R.dimen.text_size_question_route
+                    textColor = ContextCompat.getColor(context, R.color.colorHeaderBackground)
+                    allCaps = false
+                    typeface = ResourcesCompat.getFont(
+                        context.applicationContext,
+                        R.font.proxima_nova_bold
+                    )
+                    onClick {
+                        option.hint?.let { it -> logAnalyticsCustomEvent(it) }
+                        option.result?.let {
+                                it -> questionViewModel?.saveAnswerOption(it)
+                        }
+                    }
+                }.lparams(width = width,
+                    height=calculateHeightComponentsQuestion(Constants.SIZE_HEIGHT_PERCENTAGE_OPTION_BUTTON))
+
             }
-        }.lparams(width = width,
-            height=calculateHeightComponentsQuestion(Constants.SIZE_HEIGHT_PERCENTAGE_OPTION_BUTTON))
+        }
 
     }
 
