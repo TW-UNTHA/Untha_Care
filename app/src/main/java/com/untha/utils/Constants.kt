@@ -2,6 +2,7 @@ package com.untha.utils
 
 object Constants {
 
+    const val LABOUR_ROUTE_PAGE = "Main labour route page"
     const val ROUTE_LABOUR = "ROUTE_LABOUR"
     const val CATEGORIES_ROUTES = "CATEGORIES_ROUTES"
     const val CATEGORIES_VERSION = "version"
@@ -10,6 +11,7 @@ object Constants {
     const val CLICK_ROUTE_TITLE = "Click_route_"
     const val CLICK_ROUTE_START_TITLE = "Click_start_route_route_title"
     const val SUBTITLE_NEXT_STEP = "SIGUIENTE"
+
     const val MAIN_ITEM_RECYCLE_VIEW = 0
     const val SIZE_OF_ACTION_BAR = 120
     const val MARGIN_TOP_PERCENTAGE = 0.01406
@@ -48,8 +50,10 @@ object Constants {
     const val MARGIN_SINGLE_SELECTION_QUESTION = 0.049
     const val MARGIN_HEIGHT_SELECTION_QUESTION = 0.054
     const val MARGIN_HEIGHT_QUESTION = 0.17
-    const val SIZE_IMAGE_PERCENTAGE_AUDIO_ROUTE = 0.094
+    const val SIZE_IMAGE_PERCENTAGE_AUDIO_ROUTE = ((((50) * 100) / 640) / 100F).toDouble()
+
     const val SIZE_HEIGHT_PERCENTAGE_OPTION_BUTTON = 0.09
+
     const val TEMPORAL_LOAD_PROGRESS_BAR = 13
     const val START_QUESTION_ROUTE_LABOUR = 4
     const val FAULT_ANSWER = "fault-answers"
@@ -72,5 +76,8 @@ object Constants {
     const val SINGLE_QUESTION_PAGE = "Single Question Page"
     const val MULTIPLE_QUESTION_PAGE: String = "Multiple Question Page"
     const val ROUTES_PAGE = "Routes Page"
+
+    const val HEIGHT_OF_BUTTON = 0.09375
+
 
 }

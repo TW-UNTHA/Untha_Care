@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.activity.OnBackPressedCallback
 import androidx.core.content.ContextCompat
-import androidx.navigation.Navigation.findNavController
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import com.bumptech.glide.Glide
@@ -59,6 +58,7 @@ class RoutesFragment : BaseFragment() {
         activity?.onBackPressedDispatcher?.addCallback(this, callback)
     }
 
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -77,8 +77,8 @@ class RoutesFragment : BaseFragment() {
             )
         }
         itemView.findNavController()
-//            .navigate(R.id.mainScreenLabourRouteFragment, routeLabour, navOptions, null)
-            .navigate(R.id.multipleSelectionQuestionFragment, routeLabour, navOptions, null)
+            .navigate(R.id.mainScreenLabourRouteFragment, routeLabour, navOptions, null)
+//            .navigate(R.id.multipleSelectionQuestionFragment, routeLabour, navOptions, null)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

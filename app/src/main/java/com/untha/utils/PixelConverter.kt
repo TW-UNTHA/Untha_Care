@@ -37,6 +37,5 @@ object PixelConverter {
         context?.windowManager?.defaultDisplay?.getMetrics(displayMetrics)
         return displayMetrics.densityDpi
     }
-
-
 }
+
