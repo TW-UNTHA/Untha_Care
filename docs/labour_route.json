@@ -82,13 +82,13 @@
       "result": null,
       "options": [
         {
-          "value": "Medio tiempo: 20",
+          "value": "Medio tiempo: 20 horas",
           "result": null,
           "hint": "R1P4R1",
           "goTo": 6
         },
         {
-          "value": "Tiempo completo: 40",
+          "value": "Tiempo completo: 40 horas",
           "hint": "R1P4R2",
           "result": null,
           "goTo": 6
