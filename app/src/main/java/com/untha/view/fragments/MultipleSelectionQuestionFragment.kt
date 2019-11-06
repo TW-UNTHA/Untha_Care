@@ -13,6 +13,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
+import androidx.navigation.findNavController
 import com.untha.R
 import com.untha.model.transactionalmodels.Route
 import com.untha.model.transactionalmodels.RouteOption
@@ -22,7 +23,9 @@ import com.untha.utils.FirebaseEvent
 import com.untha.utils.MultipleSelectionOption
 import com.untha.utils.PixelConverter
 import com.untha.utils.ToSpeech
+import com.untha.view.activities.MainActivity
 import com.untha.view.extension.loadHorizontalProgressBar
+import com.untha.viewmodels.CategoryViewModel
 import com.untha.viewmodels.MultipleSelectionQuestionViewModel
 import org.jetbrains.anko.AnkoViewDslMarker
 import org.jetbrains.anko._LinearLayout
@@ -48,6 +51,7 @@ import org.koin.android.viewmodel.ext.android.viewModel
 
 class MultipleSelectionQuestionFragment : BaseFragment() {
     private val viewModel: MultipleSelectionQuestionViewModel by viewModel()
+    private val categoryViewModel: CategoryViewModel by viewModel()
     private lateinit var labourRoute: Route
     private var goTo: Int? = null
     private var isNoneOfTheAboveSelected = false
@@ -62,6 +66,23 @@ class MultipleSelectionQuestionFragment : BaseFragment() {
         goTo = bundle.get(Constants.GO_TO) as Int?
             ?: Constants.GO_TO_TEST_VALUE_FOR_MULTIPLE_OPTION_QUESTION
         viewModel.loadQuestion(goTo, labourRoute)
+        (activity as MainActivity).customActionBar(Constants.NAME_SCREEN_LABOUR_ROUTE, true)
+        goBackScreenRoutes()
+    }
+
+    private fun goBackScreenRoutes() {
+        val categoriesRoutes = Bundle().apply {
+            putSerializable(
+                Constants.CATEGORIES_ROUTES,
+                categoryViewModel.loadCategoriesRoutesFromSharedPreferences()
+            )
+        }
+        val layoutActionBar = (activity as MainActivity).supportActionBar?.customView
+        val close = layoutActionBar?.findViewById(R.id.icon_go_back_route) as ImageView
+        close.onClick {
+            view?.findNavController()
+                ?.navigate(R.id.mainRouteFragment, categoriesRoutes, navOptions, null)
+        }
     }
 
     override fun onCreateView(
