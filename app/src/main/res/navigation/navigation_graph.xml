@@ -40,4 +40,8 @@
         android:name="com.untha.view.fragments.MainScreenLabourRouteFragment"
         android:label="DERECHOS LABORALES" />
 
+    <fragment
+        android:id="@+id/multipleSelectionQuestionFragment"
+        android:name="com.untha.view.fragments.MultipleSelectionQuestionFragment"
+        android:label="MultipleSelectionQuestionFragment" />
 </navigation>

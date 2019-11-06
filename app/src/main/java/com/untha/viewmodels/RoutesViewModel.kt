@@ -25,5 +25,5 @@ class RoutesViewModel(
         } else {
             Json.parse(Route.serializer(), jsonRoute)
         }
-      }
+    }
 }

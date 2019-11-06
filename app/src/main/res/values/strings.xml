@@ -10,4 +10,6 @@
     <string name="category_id" />
     <string name="start_progress">Start Progress</string>
     <string name="labour_route_result_link">Ver mi último resultado</string>
+    <string name="next">Siguiente</string>
+    <string name="choose_at_least_one_option">Es necesario seleccionar al menos una opción</string>
 </resources>

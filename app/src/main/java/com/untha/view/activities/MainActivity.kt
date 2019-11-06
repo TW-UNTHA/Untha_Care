@@ -37,9 +37,12 @@ class MainActivity : AppCompatActivity() {
     private fun loadData() {
         if (isConnected()) {
             viewModel.retrieveUpdatedCategories(this)
-            viewModel.loadLabourRoute(this)
-            viewModel.loadViolenceRoute(this)
-            viewModel.loadResult(this)
+//            viewModel.loadLabourRoute(this)
+//            viewModel.loadViolenceRoute(this)
+//            viewModel.loadResult(this)
+            viewModel.loadDefaultLabourRoute(this)
+            viewModel.loadDefaultViolenceRoute(this)
+            viewModel.loadDefaultResult(this)
         } else {
             viewModel.loadDefaultLabourRoute(this)
             viewModel.loadDefaultViolenceRoute(this)
