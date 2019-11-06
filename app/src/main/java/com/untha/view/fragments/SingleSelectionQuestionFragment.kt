@@ -46,7 +46,7 @@ class SingleSelectionQuestionFragment: BaseFragment() {
     private lateinit var mainActivity: MainActivity
     private lateinit var routeLabour: Route
     private var routeQuestion: RouteQuestion? = null
-    private var goTo:Int = Constants.START_QUESTION_ROUTE_LABOUR
+    private var goTo: Int? = null
     private val questionViewModel:SingleSelectionQuestionViewModel? by viewModel()
     private val categoryViewModel: CategoryViewModel by viewModel()
 
@@ -54,8 +54,10 @@ class SingleSelectionQuestionFragment: BaseFragment() {
         super.onCreate(savedInstanceState)
         val bundle = arguments
         routeLabour = bundle?.get(Constants.ROUTE_LABOUR) as Route
-        routeQuestion = questionViewModel?.loadQuestionLabourRoute(goTo, routeLabour.questions)
+        goTo = bundle.get(Constants.GO_TO) as Int?
+            ?: Constants.START_QUESTION_ROUTE_LABOUR
 
+        routeQuestion = questionViewModel?.loadQuestionLabourRoute(goTo, routeLabour.questions)
     }
 
     override fun onCreateView(

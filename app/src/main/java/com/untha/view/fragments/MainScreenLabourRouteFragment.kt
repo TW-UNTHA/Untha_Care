@@ -11,6 +11,7 @@ import android.widget.ImageView
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.text.parseAsHtml
+import androidx.navigation.findNavController
 import com.bumptech.glide.Glide
 import com.untha.R
 import com.untha.utils.Constants
@@ -19,6 +20,7 @@ import com.untha.utils.FirebaseEvent
 import com.untha.utils.PixelConverter
 import com.untha.utils.ToSpeech
 import com.untha.view.activities.MainActivity
+import com.untha.viewmodels.RoutesViewModel
 import org.jetbrains.anko.AnkoViewDslMarker
 import org.jetbrains.anko._LinearLayout
 import org.jetbrains.anko.alignParentBottom
@@ -39,9 +41,11 @@ import org.jetbrains.anko.textView
 import org.jetbrains.anko.themedButton
 import org.jetbrains.anko.verticalLayout
 import org.jetbrains.anko.wrapContent
+import org.koin.android.viewmodel.ext.android.viewModel
 
 class MainScreenLabourRouteFragment : BaseFragment() {
     private lateinit var mainActivity: MainActivity
+    private val routeViewModel : RoutesViewModel by viewModel()
 
     companion object {
         const val SPACE_BETWEEN_LINK_AND_BUTTON = 11
@@ -112,7 +116,7 @@ class MainScreenLabourRouteFragment : BaseFragment() {
                     gravity = Gravity.BOTTOM or Gravity.CENTER
 
                     verticalLayout {
-                        buttonNext()
+                        buttonNext(view)
                         linkLastResult()
                     }.lparams(width = matchParent, height = wrapContent) {
                         alignParentBottom()
@@ -208,7 +212,7 @@ class MainScreenLabourRouteFragment : BaseFragment() {
     }
 
 
-    private fun _LinearLayout.buttonNext() {
+    private fun _LinearLayout.buttonNext(view: _LinearLayout) {
         val height =
             (PixelConverter.getScreenDpHeight(context) - Constants.SIZE_OF_ACTION_BAR) * HEIGHT_OF_BUTTON
         themedButton(theme = R.style.ButtonNext) {
@@ -226,7 +230,17 @@ class MainScreenLabourRouteFragment : BaseFragment() {
                 R.font.proxima_nova_bold
             )
             onClick {
-                logAnalyticsCustomContentTypeWithId(ContentType.ROUTE, FirebaseEvent.ROUTE)
+
+                val goToBundle = Bundle().apply {
+                    putInt("goTo",Constants.START_QUESTION_ROUTE_LABOUR)
+                    putSerializable(
+                        Constants.ROUTE_LABOUR,
+                        routeViewModel.loadLabourRouteFromSharedPreferences())
+                }
+                view.findNavController()
+                    .navigate(R.id.singleSelectQuestionFragment, goToBundle, navOptions, null)
+
+            logAnalyticsCustomContentTypeWithId(ContentType.ROUTE, FirebaseEvent.ROUTE)
             }
         }.lparams(width = matchParent, height = dip(height.toFloat()))
 

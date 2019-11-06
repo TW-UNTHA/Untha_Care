@@ -9,7 +9,7 @@ class SingleSelectionQuestionViewModel(
     private val sharedPreferences: SharedPreferences
 ) : ViewModel() {
 
-    fun loadQuestionLabourRoute(goTo:Int , questions: List<RouteQuestion>): RouteQuestion? {
+    fun loadQuestionLabourRoute(goTo:Int? , questions: List<RouteQuestion>): RouteQuestion? {
         return questions.last { it.id == goTo }
     }
 

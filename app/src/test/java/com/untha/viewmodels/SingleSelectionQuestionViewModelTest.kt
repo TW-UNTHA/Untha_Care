@@ -16,9 +16,10 @@ import com.untha.model.services.CategoriesService
 import com.untha.model.services.ResultService
 import com.untha.model.services.RoutesService
 import com.untha.model.transactionalmodels.RouteOption
+import com.untha.model.transactionalmodels.RouteQuestion
 import com.untha.utils.Constants
 import org.hamcrest.CoreMatchers
-import org.hamcrest.MatcherAssert
+import org.hamcrest.MatcherAssert.assertThat
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
@@ -30,7 +31,6 @@ import org.koin.core.context.stopKoin
 import org.koin.test.KoinTest
 import org.koin.test.inject
 import org.koin.test.mock.declareMock
-import org.mockito.Mockito
 import org.mockito.Mockito.`when`
 import org.mockito.Mockito.mock
 
@@ -110,7 +110,40 @@ class SingleSelectionQuestionViewModelTest: KoinTest {
         `when`(sharedPreferences.getString(Constants.FAULT_ANSWER, ""))
             .thenReturn(option.result)
         val resultRoute = singleSelectionQuestionViewModel.loadAnswerOptionFromSharedPreferences()
-        MatcherAssert.assertThat(resultRoute, CoreMatchers.`is`(option.result))
+        assertThat(resultRoute, CoreMatchers.`is`(option.result))
+    }
+
+    @Test
+    fun `should get question labour when receive parameter goTo`() {
+
+        val singleSelectionQuestionViewModel = SingleSelectionQuestionViewModel(sharedPreferences)
+
+        val option = RouteOption(
+            "Siempre cambia, trabajo por horas", "R1P4R2",
+            "R2",
+            4
+        )
+        val optionTwo = RouteOption(
+            "15 años o menos",
+            "R1P2R1", "R1",
+            6
+        )
+
+        val optionSelected = optionTwo.goTo
+
+        val questionOne = RouteQuestion(6,"SingleOption",
+            "¿Cuántos años tienes",
+
+            "", null, null, listOf(option))
+        val questionTwo = RouteQuestion(1,"SingleOption",
+            "¿Actualmente trabajas como Trabajadora Remunerada del Hogar?",
+            "", null, null, listOf(optionTwo))
+
+        val questionLabourRoute = optionSelected?.let {
+            singleSelectionQuestionViewModel.loadQuestionLabourRoute(
+                it,listOf(questionOne, questionTwo))
+        }
+        assertThat(questionLabourRoute,CoreMatchers.`is`(questionOne ))
     }
 
 }
