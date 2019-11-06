@@ -8,7 +8,7 @@ open class BaseViewModel(
     private val sharedPreferences: SharedPreferences
 ) : ViewModel() {
 
-    fun saveAnswerOption(fault: String) {
+    fun saveAnswerOption(fault: String?) {
         val faultAnswers = loadAnswerOptionFromSharedPreferences() ?: ""
         sharedPreferences.edit()
             .putString(

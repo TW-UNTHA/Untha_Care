@@ -2,6 +2,9 @@ package com.untha.viewmodels
 
 import android.content.SharedPreferences
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import com.nhaarman.mockito_kotlin.doNothing
+import com.nhaarman.mockito_kotlin.verify
+import com.nhaarman.mockito_kotlin.whenever
 import com.untha.di.mapperModule
 import com.untha.di.networkModule
 import com.untha.di.persistenceModule
@@ -13,9 +16,8 @@ import com.untha.model.services.CategoriesService
 import com.untha.model.services.ResultService
 import com.untha.model.services.RoutesService
 import com.untha.model.transactionalmodels.RouteOption
-import com.untha.model.transactionalmodels.RouteQuestion
-import org.hamcrest.CoreMatchers
-import org.hamcrest.MatcherAssert.assertThat
+import com.untha.utils.Constants
+import kotlinx.serialization.json.Json
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
@@ -27,9 +29,10 @@ import org.koin.core.context.stopKoin
 import org.koin.test.KoinTest
 import org.koin.test.inject
 import org.koin.test.mock.declareMock
+import org.mockito.Mockito
 
 @RunWith(JUnit4::class)
-class SingleSelectionQuestionViewModelTest: KoinTest {
+class BaseViewModelTest: KoinTest {
     private val sharedPreferences by inject<SharedPreferences>()
 
     @get:Rule
@@ -63,37 +66,39 @@ class SingleSelectionQuestionViewModelTest: KoinTest {
     }
 
     @Test
-    fun `should get question labour when receive parameter goTo`() {
+    fun `should save single option answer when select a option with fault`(){
 
-        val singleSelectionQuestionViewModel = SingleSelectionQuestionViewModel(sharedPreferences)
-
+        val baseViewModel = BaseViewModel(sharedPreferences)
         val option = RouteOption(
             "Siempre cambia, trabajo por horas", "R1P4R2",
             "R2",
-            4
-        )
-        val optionTwo = RouteOption(
-            "15 años o menos",
-            "R1P2R1", "R1",
             6
         )
+        val editor = Mockito.mock(SharedPreferences.Editor::class.java)
 
-        val optionSelected = optionTwo.goTo
+        Mockito.`when`(sharedPreferences.edit()).thenReturn(editor)
 
-        val questionOne = RouteQuestion(6,"SingleOption",
-            "¿Cuántos años tienes",
+        Mockito.`when`(sharedPreferences.getString(Constants.FAULT_ANSWER, ""))
+            .thenReturn(Json.stringify(RouteOption.serializer(), option))
 
-            "", null, null, listOf(option))
-        val questionTwo = RouteQuestion(1,"SingleOption",
-            "¿Actualmente trabajas como Trabajadora Remunerada del Hogar?",
-            "", null, null, listOf(optionTwo))
+        val defaultAnswers = sharedPreferences.getString(Constants.FAULT_ANSWER, "")
 
-        val questionLabourRoute = optionSelected?.let {
-            singleSelectionQuestionViewModel.loadQuestionLabourRoute(
-                it,listOf(questionOne, questionTwo))
-        }
-        assertThat(questionLabourRoute,CoreMatchers.`is`(questionOne ))
+        whenever(
+            editor.putString(
+                Constants.FAULT_ANSWER,
+                "$defaultAnswers ${option.result}"
+            )
+        ).thenReturn(editor)
+        doNothing().whenever(editor).apply()
+       baseViewModel.saveAnswerOption(option.result)
+
+        verify(sharedPreferences.edit())
+            .putString(
+                Constants.FAULT_ANSWER,
+                "$defaultAnswers ${option.result}"
+
+            )
+        verify(editor).apply()
     }
 
 }
-
