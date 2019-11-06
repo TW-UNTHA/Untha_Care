@@ -66,7 +66,12 @@ class MultipleSelectionQuestionFragment : BaseFragment() {
         goTo = bundle.get(Constants.GO_TO) as Int?
             ?: Constants.GO_TO_TEST_VALUE_FOR_MULTIPLE_OPTION_QUESTION
         viewModel.loadQuestion(goTo, labourRoute)
-        (activity as MainActivity).customActionBar(Constants.NAME_SCREEN_LABOUR_ROUTE, true)
+        (activity as MainActivity).customActionBar(
+            Constants.NAME_SCREEN_LABOUR_ROUTE,
+            enableCustomBar = true,
+            needsBackButton = true,
+            backMethod = null
+        )
         goBackScreenRoutes()
     }
 
@@ -96,7 +101,13 @@ class MultipleSelectionQuestionFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Constants.ROUTE_LABOUR
+        activity?.let {
+            firebaseAnalytics.setCurrentScreen(
+                it,
+                Constants.MULTIPLE_QUESTION_PAGE + "_${viewModel.question?.id}",
+                null
+            )
+        }
         with(view as _LinearLayout) {
             verticalLayout {
                 loadHorizontalProgressBar(Constants.TEMPORAL_LOAD_PROGRESS_BAR)

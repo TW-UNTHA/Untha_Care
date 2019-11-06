@@ -19,6 +19,10 @@ open class BaseFragment : Fragment(), TextToSpeech.OnInitListener {
         .setPopEnterAnim(R.anim.slide_in_left).setExitAnim(R.anim.slide_out_left)
         .setPopExitAnim(R.anim.slide_out_right).build()
 
+    val navOptionsToBackNavigation = NavOptions.Builder().setEnterAnim(R.anim.slide_in_left)
+        .setPopEnterAnim(R.anim.slide_in_right).setExitAnim(R.anim.slide_out_right)
+        .setPopExitAnim(R.anim.slide_out_left).build()
+
 
     override fun onInit(status: Int) {
         val language = "spa"

@@ -10,7 +10,6 @@ object Constants {
     const val CLICK_ROUTE_TITLE = "Click_route_"
     const val CLICK_ROUTE_START_TITLE = "Click_start_route_route_title"
     const val SUBTITLE_NEXT_STEP = "SIGUIENTE"
-
     const val MAIN_ITEM_RECYCLE_VIEW = 0
     const val SIZE_OF_ACTION_BAR = 120
     const val MARGIN_TOP_PERCENTAGE = 0.01406
@@ -25,11 +24,9 @@ object Constants {
     const val PERCENTAGE_SMALL_HEIGHT_LAYOUT = 0.3
     const val MARGIN_SMALL_TOP_PERCENTAGE = 0.01093
     const val REFERENCE_DENSITY = 160
-
     const val PERCENTAGE_SMALL_RIGHTS = 0.33
     const val PERCENTAGE_PADDING_IMAGE_RIGHTS = 6
     const val GENERIC_PERCENTAGE_PLAYER_HEADER = 0.427
-
     const val GENERIC_STEP_MARGIN_MULTIPLIER = 2
     const val SIZE_HEIGHT_NEXT_STEP = 0.1981
     const val SIZE_LINE_HEIGHT_NEXT_STEP = 3
@@ -56,7 +53,6 @@ object Constants {
     const val TEMPORAL_LOAD_PROGRESS_BAR = 13
     const val START_QUESTION_ROUTE_LABOUR = 4
     const val FAULT_ANSWER = "fault-answers"
-    const val TEMPORAL_MARGIN_SCREEN_LABOUR_ROUTE = 12
     const val DUPLICATE_MARGIN_LATERAL = 2
     const val STYLE_ANSWER_TWO_OPTION = 2
     const val NAME_SCREEN_LABOUR_ROUTE = "DERECHOS LABORALES"
@@ -71,5 +67,10 @@ object Constants {
     const val MARGIN_LEFT_RIGHT_MULTIPLE_OPTION_SCREEN_PERCENTAGE = 0.0241
     const val HALF_SCREEN_WEIGHT = 0.5F
     const val FULL_SCREEN_WEIGHT = 1F
+    //Screen Names
+    const val CATEGORY_PAGE = "Category Page"
+    const val SINGLE_QUESTION_PAGE = "Single Question Page"
+    const val MULTIPLE_QUESTION_PAGE: String = "Multiple Question Page"
+    const val ROUTES_PAGE = "Routes Page"
 
 }

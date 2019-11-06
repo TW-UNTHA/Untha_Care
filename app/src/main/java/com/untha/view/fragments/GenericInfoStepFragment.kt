@@ -121,8 +121,10 @@ class GenericInfoStepFragment : BaseFragment() {
                 }
             }.lparams(width = matchParent, height = matchParent)
         }
-        mainActivity.customActionBar(category.information?.get(0)?.screenTitle.toString(),
-            false)
+        mainActivity.customActionBar(
+            category.information?.get(0)?.screenTitle.toString(),
+            enableCustomBar = false, needsBackButton = true, backMethod = null
+        )
 
     }
 

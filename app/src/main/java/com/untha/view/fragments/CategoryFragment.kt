@@ -35,6 +35,31 @@ class CategoryFragment : BaseFragment(),
     private lateinit var mainActivity: MainActivity
 
 
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        this.textToSpeech = TextToSpeech(context, this)
+        mainActivity = this.activity as MainActivity
+        return inflater.inflate(R.layout.fragment_category, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        activity?.let {
+            firebaseAnalytics.setCurrentScreen(it, Constants.CATEGORY_PAGE, null)
+        }
+        setMarginsToRecyclerView()
+        categoryViewModel.findMainCategories().observe(this, Observer { queryingCategories ->
+            categoryViewModel.getCategories(queryingCategories)
+            populateCategoryList(categoryViewModel.categories)
+        })
+        mainActivity.customActionBar(
+            "", enableCustomBar = false, needsBackButton = false,
+            backMethod = null
+        )
+    }
 
     override fun onItemClick(category: Category, categories: ArrayList<Category>, itemView: View) {
         logAnalyticsSelectContentWithId(
@@ -51,7 +76,7 @@ class CategoryFragment : BaseFragment(),
             CALCULATOR_CATEGORY -> println("To be implemented")
 
             ROUTES_CATEGORY -> {
-                val  routes: ArrayList<Category> = categoryViewModel.getCategoryRoutes()
+                val routes: ArrayList<Category> = categoryViewModel.getCategoryRoutes()
                 activity?.let {
                     firebaseAnalytics.setCurrentScreen(it, Constants.CLICK_ROUTE_START_TITLE, null)
                 }
@@ -88,29 +113,6 @@ class CategoryFragment : BaseFragment(),
         return true
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        this.textToSpeech = TextToSpeech(context, this)
-        mainActivity = this.activity as MainActivity
-        return inflater.inflate(R.layout.fragment_category, container, false)
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        activity?.let {
-            firebaseAnalytics.setCurrentScreen(it, "Category Page", null)
-        }
-        setMarginsToRecyclerView()
-        categoryViewModel.findMainCategories().observe(this, Observer { queryingCategories ->
-            categoryViewModel.getCategories(queryingCategories)
-            categoryViewModel.categories?.let { populateCategoryList(it) }
-        })
-        mainActivity.customActionBar("", false)
-    }
-
     private fun setMarginsToRecyclerView() {
         val topFormula =
             (PixelConverter.getScreenDpHeight(context) - Constants.SIZE_OF_ACTION_BAR) * Constants.MARGIN_TOP_PERCENTAGE
@@ -134,7 +136,7 @@ class CategoryFragment : BaseFragment(),
         categoryRecyclerView.adapter = categoryListAdapter
     }
 
-    var onSpanSizeLookup: GridLayoutManager.SpanSizeLookup =
+    private var onSpanSizeLookup: GridLayoutManager.SpanSizeLookup =
         object : GridLayoutManager.SpanSizeLookup() {
             override fun getSpanSize(position: Int): Int {
                 return if (categoryListAdapter.getItemViewType(position) == Constants.MAIN_VIEW) {

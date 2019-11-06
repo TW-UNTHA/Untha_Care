@@ -51,7 +51,12 @@ class RightsFragment : BaseFragment(),
             val categories = viewModel.getRightCategories(queryingCategories)
             populateCategoryList(categories)
         })
-        mainActivity.customActionBar(Constants.NAME_SCREEN_RIGHTS, false)
+        mainActivity.customActionBar(
+            Constants.NAME_SCREEN_RIGHTS,
+            enableCustomBar = false,
+            needsBackButton = true,
+            backMethod = null
+        )
     }
 
     private fun populateCategoryList(categoryList: List<Category>) {

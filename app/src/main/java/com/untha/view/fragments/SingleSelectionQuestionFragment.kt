@@ -42,7 +42,7 @@ import org.jetbrains.anko.verticalLayout
 import org.koin.android.viewmodel.ext.android.viewModel
 
 
-class SingleSelectionQuestionFragment: BaseFragment() {
+class SingleSelectionQuestionFragment : BaseFragment() {
     private lateinit var mainActivity: MainActivity
     private lateinit var routeLabour: Route
     private var routeQuestion: RouteQuestion? = null
@@ -73,6 +73,13 @@ class SingleSelectionQuestionFragment: BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         categoryViewModel.getCategoryRoutes()
+        activity?.let {
+            firebaseAnalytics.setCurrentScreen(
+                it,
+                Constants.SINGLE_QUESTION_PAGE + "_${routeQuestion?.id}",
+                null
+            )
+        }
         with(view as _LinearLayout) {
             verticalLayout {
                 loadHorizontalProgressBar(Constants.TEMPORAL_LOAD_PROGRESS_BAR)
@@ -82,50 +89,57 @@ class SingleSelectionQuestionFragment: BaseFragment() {
                 verticalLayout {
                     question()
                 }
-                val sizeOptions = routeQuestion?.options?.size?:0
-                if(hasTwoOptions(sizeOptions)){
+                val sizeOptions = routeQuestion?.options?.size ?: 0
+                if (hasTwoOptions(sizeOptions)) {
                     linearLayout {
                         options(styleDisplayOptions(sizeOptions))
                     }
-                }else{
+                } else {
                     verticalLayout {
                         options(styleDisplayOptions(sizeOptions))
                     }
                 }
 
-            }.lparams(width= matchParent, height = matchParent) {
-                margin=calculateWidthComponentsQuestion(Constants.MARGIN_SINGLE_SELECTION_QUESTION)
+            }.lparams(width = matchParent, height = matchParent) {
+                margin =
+                    calculateWidthComponentsQuestion(Constants.MARGIN_SINGLE_SELECTION_QUESTION)
             }
         }
-        mainActivity.customActionBar(Constants.NAME_SCREEN_LABOUR_ROUTE, true)
+        mainActivity.customActionBar(
+            Constants.NAME_SCREEN_LABOUR_ROUTE,
+            enableCustomBar = true,
+            needsBackButton = true,
+            backMethod = null
+        )
         goBackScreenRoutes()
     }
 
-    private fun styleDisplayOptions(numOptions:Int):Int{
-        if(numOptions==Constants.STYLE_ANSWER_TWO_OPTION){
-            return calculateWidthOption()/Constants.STYLE_ANSWER_TWO_OPTION
+    private fun styleDisplayOptions(numOptions: Int): Int {
+        if (numOptions == Constants.STYLE_ANSWER_TWO_OPTION) {
+            return calculateWidthOption() / Constants.STYLE_ANSWER_TWO_OPTION
         }
-        return  calculateWidthOption()
+        return calculateWidthOption()
     }
 
-    private fun hasTwoOptions(numOptions:Int):Boolean{
-        if(numOptions==Constants.STYLE_ANSWER_TWO_OPTION){
+    private fun hasTwoOptions(numOptions: Int): Boolean {
+        if (numOptions == Constants.STYLE_ANSWER_TWO_OPTION) {
             return true
         }
         return false
     }
 
-    private fun goBackScreenRoutes(){
+    private fun goBackScreenRoutes() {
         val categoriesRoutes = Bundle().apply {
-            putSerializable(Constants.CATEGORIES_ROUTES,
+            putSerializable(
+                Constants.CATEGORIES_ROUTES,
                 categoryViewModel.loadCategoriesRoutesFromSharedPreferences()
             )
         }
         val layoutActionBar = mainActivity.supportActionBar?.customView
         val close = layoutActionBar?.findViewById(R.id.icon_go_back_route) as ImageView
         close.onClick {
-            view?.findNavController()?.
-            navigate(R.id.mainRouteFragment, categoriesRoutes, navOptions, null)
+            view?.findNavController()
+                ?.navigate(R.id.mainRouteFragment, categoriesRoutes, navOptions, null)
         }
     }
 
@@ -147,21 +161,24 @@ class SingleSelectionQuestionFragment: BaseFragment() {
             imageResource = R.drawable.icon_question_audio
             backgroundResource = attr(R.attr.selectableItemBackgroundBorderless).resourceId
             val textQuestion = routeQuestion?.content
-            val contentQuestion ="$textQuestion ${contentAudioOptions()}"
+            val contentQuestion = "$textQuestion ${contentAudioOptions()}"
             onClick {
                 logAnalyticsCustomContentTypeWithId(ContentType.AUDIO, FirebaseEvent.AUDIO)
-                contentQuestion.let {ToSpeech.speakOut(it, textToSpeech) }
+                contentQuestion.let { ToSpeech.speakOut(it, textToSpeech) }
             }
-        }.lparams(width=calculateHeightComponentsQuestion(Constants.SIZE_IMAGE_PERCENTAGE_AUDIO_ROUTE),
-            height=calculateHeightComponentsQuestion(Constants.SIZE_IMAGE_PERCENTAGE_AUDIO_ROUTE))
+        }.lparams(
+            width = calculateHeightComponentsQuestion(Constants.SIZE_IMAGE_PERCENTAGE_AUDIO_ROUTE),
+            height = calculateHeightComponentsQuestion(Constants.SIZE_IMAGE_PERCENTAGE_AUDIO_ROUTE)
+        )
         {
-            topMargin= calculateHeightComponentsQuestion(Constants.MARGIN_HEIGHT_SELECTION_QUESTION)
+            topMargin =
+                calculateHeightComponentsQuestion(Constants.MARGIN_HEIGHT_SELECTION_QUESTION)
         }
     }
 
     private fun contentAudioOptions(): String {
         var contentOptions = ""
-        routeQuestion?.options?.map {option->
+        routeQuestion?.options?.map { option ->
             contentOptions += "${option.value} \n"
         }
         return contentOptions
@@ -171,8 +188,10 @@ class SingleSelectionQuestionFragment: BaseFragment() {
         textView {
             text = routeQuestion?.content
             textSizeDimen = R.dimen.text_size_question_route
-            typeface = ResourcesCompat.getFont(context.applicationContext,
-                R.font.proxima_nova_light)
+            typeface = ResourcesCompat.getFont(
+                context.applicationContext,
+                R.font.proxima_nova_light
+            )
             gravity = Gravity.CENTER_HORIZONTAL
         }.lparams(width = matchParent, height = matchParent) {
             bottomMargin = calculateHeightComponentsQuestion(Constants.MARGIN_HEIGHT_QUESTION)
@@ -180,11 +199,11 @@ class SingleSelectionQuestionFragment: BaseFragment() {
         }
     }
 
-    private fun _LinearLayout.options( width:Int) {
-        routeQuestion?.options?.map{option->
+    private fun _LinearLayout.options(width: Int) {
+        routeQuestion?.options?.map { option ->
             verticalLayout {
-                themedButton(theme = R.style.MyButtonStyle){
-                    text= option.value
+                themedButton(theme = R.style.MyButtonStyle) {
+                    text = option.value
                     textSizeDimen = R.dimen.text_size_question_route
                     textColor = ContextCompat.getColor(context, R.color.colorHeaderBackground)
                     allCaps = false
@@ -194,12 +213,14 @@ class SingleSelectionQuestionFragment: BaseFragment() {
                     )
                     onClick {
                         option.hint?.let { it -> logAnalyticsCustomEvent(it) }
-                        option.result?.let {
-                                it -> questionViewModel?.saveAnswerOption(it)
+                        option.result?.let { it ->
+                            questionViewModel?.saveAnswerOption(it)
                         }
                     }
-                }.lparams(width = width,
-                    height=calculateHeightComponentsQuestion(Constants.SIZE_HEIGHT_PERCENTAGE_OPTION_BUTTON))
+                }.lparams(
+                    width = width,
+                    height = calculateHeightComponentsQuestion(Constants.SIZE_HEIGHT_PERCENTAGE_OPTION_BUTTON)
+                )
 
             }
         }
@@ -222,8 +243,8 @@ class SingleSelectionQuestionFragment: BaseFragment() {
     private fun calculateWidthOption(): Int {
         val cardHeightInDps =
             (PixelConverter.getScreenDpWidth(context))
-        val  marginLateralSide=
-            calculateWidthComponentsQuestion(Constants.MARGIN_SINGLE_SELECTION_QUESTION)*
+        val marginLateralSide =
+            calculateWidthComponentsQuestion(Constants.MARGIN_SINGLE_SELECTION_QUESTION) *
                     Constants.DUPLICATE_MARGIN_LATERAL
         return PixelConverter.toPixels(cardHeightInDps.toDouble(), context) - marginLateralSide
     }

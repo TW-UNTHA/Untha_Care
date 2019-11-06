@@ -6,8 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.activity.OnBackPressedCallback
 import androidx.core.content.ContextCompat
+import androidx.navigation.Navigation.findNavController
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
 import com.bumptech.glide.Glide
 import com.untha.R
 import com.untha.model.transactionalmodels.Category
@@ -35,30 +38,26 @@ import org.koin.android.viewmodel.ext.android.viewModel
 
 class RoutesFragment : BaseFragment() {
     private var categoriesRoutes: List<Category>? = null
-    private val routeViewModel : RoutesViewModel by viewModel()
+    private val routeViewModel: RoutesViewModel by viewModel()
     private lateinit var mainActivity: MainActivity
-    companion object{
-        const val ROUTE_LABOUR =14
-        const val ROUTE_VIOLENCE =15
+
+    companion object {
+        const val ROUTE_LABOUR = 14
+        const val ROUTE_VIOLENCE = 15
     }
 
-    fun onItemClickRouteLabour(itemView: View) {
-        val routeLabour = Bundle().apply {
-            putSerializable(
-                Constants.ROUTE_LABOUR,
-                routeViewModel.loadLabourRouteFromSharedPreferences())
+    private val callback = object : OnBackPressedCallback(true) {
+        override fun handleOnBackPressed() {
+            navigateToCategory()
         }
-        itemView.findNavController()
-            .navigate(R.id.mainScreenLabourRouteFragment, routeLabour, navOptions, null)
-//            .navigate(R.id.singleSelectQuestionFragment, routeLabour, navOptions, null)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val bundle = arguments
         categoriesRoutes = bundle?.get(Constants.CATEGORIES_ROUTES) as List<Category>
+        activity?.onBackPressedDispatcher?.addCallback(this, callback)
     }
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -68,19 +67,45 @@ class RoutesFragment : BaseFragment() {
         mainActivity = this.activity as MainActivity
         mainActivity.supportActionBar?.setDisplayHomeAsUpEnabled(true)
         return createMainLayout()
-
-
     }
 
+    private fun onItemClickRouteLabour(itemView: View) {
+        val routeLabour = Bundle().apply {
+            putSerializable(
+                Constants.ROUTE_LABOUR,
+                routeViewModel.loadLabourRouteFromSharedPreferences()
+            )
+        }
+        itemView.findNavController()
+//            .navigate(R.id.mainScreenLabourRouteFragment, routeLabour, navOptions, null)
+            .navigate(R.id.multipleSelectionQuestionFragment, routeLabour, navOptions, null)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        activity?.let {
+            firebaseAnalytics.setCurrentScreen(
+                it,
+                Constants.ROUTES_PAGE,
+                null
+            )
+        }
         with(view as _LinearLayout) {
             verticalLayout {
                 buildRoute(view)
             }
         }
-        mainActivity.customActionBar(Constants.NAME_SCREEN_ROUTES, false)
+        mainActivity.customActionBar(
+            Constants.NAME_SCREEN_ROUTES,
+            enableCustomBar = false,
+            needsBackButton = true,
+            backMethod = ::navigateToCategory
+        )
+    }
+
+    private fun navigateToCategory() {
+        NavHostFragment.findNavController(this)
+            .navigate(R.id.categoryFragment, null, navOptionsToBackNavigation, null)
     }
 
     private fun @AnkoViewDslMarker _LinearLayout.buildRoute(view: View) {
@@ -107,12 +132,12 @@ class RoutesFragment : BaseFragment() {
                     context, R.drawable.drawable_main_route
                 )
                 when (route.id) {
-                    ROUTE_LABOUR->{
+                    ROUTE_LABOUR -> {
                         setOnClickListener {
                             onItemClickRouteLabour(view)
                         }
                     }
-                    ROUTE_VIOLENCE-> println("TO BE IMPLEMENTED")
+                    ROUTE_VIOLENCE -> println("TO BE IMPLEMENTED")
                 }
 
             }.lparams(matchParent, calculateHeightRoute()) {
@@ -173,5 +198,4 @@ class RoutesFragment : BaseFragment() {
             scaleType = ImageView.ScaleType.FIT_CENTER
         }.lparams(width = matchParent, height = wrapContent)
     }
-
 }
