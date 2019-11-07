@@ -72,6 +72,7 @@ object Constants {
     const val MARGIN_LEFT_RIGHT_MULTIPLE_OPTION_SCREEN_PERCENTAGE = 0.0241
     const val HALF_SCREEN_WEIGHT = 0.5F
     const val FULL_SCREEN_WEIGHT = 1F
+    const val NEXT_BUTTON_WEIGHT = 0.1F
     //Screen Names
     const val CATEGORY_PAGE = "Category Page"
     const val SINGLE_QUESTION_PAGE = "Single Question Page"

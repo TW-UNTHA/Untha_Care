@@ -86,7 +86,12 @@ class MultipleSelectionQuestionFragment : BaseFragment() {
         val close = layoutActionBar?.findViewById(R.id.icon_go_back_route) as ImageView
         close.onClick {
             view?.findNavController()
-                ?.navigate(R.id.mainRouteFragment, categoriesRoutes, navOptionsToBackNavigation, null)
+                ?.navigate(
+                    R.id.mainRouteFragment,
+                    categoriesRoutes,
+                    navOptionsToBackNavigation,
+                    null
+                )
         }
     }
 
@@ -132,7 +137,7 @@ class MultipleSelectionQuestionFragment : BaseFragment() {
             verticalLayout {
                 backgroundColor =
                     ContextCompat.getColor(context, R.color.colorBackgroundMainRoute)
-                weightSum = 1F
+                weightSum = Constants.FULL_SCREEN_WEIGHT
                 lparams(width = matchParent, height = matchParent)
             }
         }.view
@@ -173,7 +178,7 @@ class MultipleSelectionQuestionFragment : BaseFragment() {
         routeOption: RouteOption
     ) {
         linearLayout {
-            weightSum = 1.0f
+            weightSum = Constants.FULL_SCREEN_WEIGHT
             orientation = LinearLayout.HORIZONTAL
             loadOption(
                 routeOption,
@@ -193,7 +198,7 @@ class MultipleSelectionQuestionFragment : BaseFragment() {
         isNoneOfAbove: Boolean
     ) {
         linearLayout {
-            weightSum = 1.0f
+            weightSum = Constants.FULL_SCREEN_WEIGHT
             orientation = LinearLayout.HORIZONTAL
             loadOption(
                 firstRouteOption,
@@ -252,7 +257,10 @@ class MultipleSelectionQuestionFragment : BaseFragment() {
                     )
                 gravity = Gravity.CENTER
             }.lparams(width = matchParent, height = matchParent)
-        }.lparams(width = matchParent, height = dip(0), weight = 0.1F) {
+        }.lparams(
+            width = matchParent, height = dip(0),
+            weight = Constants.NEXT_BUTTON_WEIGHT
+        ) {
             bottomMargin =
                 dip(
                     calculateHeightComponentsQuestion(
@@ -464,14 +472,14 @@ class MultipleSelectionQuestionFragment : BaseFragment() {
     }
 
     private fun setSelectedColorSchema(textView: TextView) {
-        context?.let { ctx ->
+        context?.let { context ->
             textView.backgroundDrawable =
                 ContextCompat.getDrawable(
-                    ctx,
+                    context,
                     R.drawable.drawable_main_route_selected
                 )
             textView.textColor =
-                ContextCompat.getColor(ctx, R.color.colorWhiteText)
+                ContextCompat.getColor(context, R.color.colorWhiteText)
             isNoneOfTheAboveSelected = false
         }
     }
