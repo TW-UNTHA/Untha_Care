@@ -89,14 +89,22 @@ class SingleSelectionQuestionFragment : BaseFragment() {
                 verticalLayout {
                     question()
                 }
+
+                verticalLayout {
+                    explanationQuestion()
+                }
                 val sizeOptions = routeQuestion?.options?.size ?: 0
                 if (hasTwoOptions(sizeOptions)) {
                     linearLayout {
                         options(styleDisplayOptions(sizeOptions))
+                    }.lparams{
+                        topMargin = calculateHeightComponentsQuestion(Constants.MARGIN_HEIGHT_QUESTION)
                     }
                 } else {
                     verticalLayout {
                         options(styleDisplayOptions(sizeOptions))
+                    }.lparams{
+                        topMargin = calculateHeightComponentsQuestion(Constants.MARGIN_HEIGHT_QUESTION)
                     }
                 }
 
@@ -167,8 +175,8 @@ class SingleSelectionQuestionFragment : BaseFragment() {
                 contentQuestion.let { ToSpeech.speakOut(it, textToSpeech) }
             }
         }.lparams(
-            width = calculateHeightComponentsQuestion(Constants.SIZE_IMAGE_PERCENTAGE_AUDIO_ROUTE),
-            height = calculateHeightComponentsQuestion(Constants.SIZE_IMAGE_PERCENTAGE_AUDIO_ROUTE)
+            width = calculateHeightComponentsQuestion(Constants.SIZE_IMAGE_PERCENTAGE_AUDIO_QUESTION),
+            height = calculateHeightComponentsQuestion(Constants.SIZE_IMAGE_PERCENTAGE_AUDIO_QUESTION)
         )
         {
             topMargin =
@@ -194,8 +202,22 @@ class SingleSelectionQuestionFragment : BaseFragment() {
             )
             gravity = Gravity.CENTER_HORIZONTAL
         }.lparams(width = matchParent, height = matchParent) {
-            bottomMargin = calculateHeightComponentsQuestion(Constants.MARGIN_HEIGHT_QUESTION)
+            bottomMargin  =
+                calculateWidthComponentsQuestion(Constants.MARGIN_SINGLE_SELECTION_QUESTION)
+        }
+    }
 
+    private fun _LinearLayout.explanationQuestion() {
+        routeQuestion?.explanation?.let {
+            textView {
+                text = routeQuestion?.explanation
+                textSizeDimen = R.dimen.text_size_question_explanation
+                typeface = ResourcesCompat.getFont(
+                    context.applicationContext,
+                    R.font.proxima_nova_light
+                )
+                gravity = Gravity.CENTER_HORIZONTAL
+            }.lparams(width = matchParent, height = matchParent)
         }
     }
 
