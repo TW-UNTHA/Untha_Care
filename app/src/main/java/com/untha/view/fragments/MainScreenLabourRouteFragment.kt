@@ -67,10 +67,6 @@ class MainScreenLabourRouteFragment : BaseFragment() {
 
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -82,13 +78,11 @@ class MainScreenLabourRouteFragment : BaseFragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val sizeSpaceButtomAndImage =
-            (PixelConverter.getScreenDpHeight(context) - Constants.SIZE_OF_ACTION_BAR) * SIZE_SPACE_BUTTON_AND_IMAGE
+        val sizeSpaceButtomAndImage = getHeightElementInDp(SIZE_SPACE_BUTTON_AND_IMAGE)
         val widthMainLayout =
-            (PixelConverter.getScreenDpWidth(context) - Constants.SIZE_OF_ACTION_BAR) * MARGINS
+            getHeightElementInDp(MARGINS)
         val marginMainLayout = PixelConverter.toPixels(widthMainLayout, context)
         super.onViewCreated(view, savedInstanceState)
-
         activity?.let {
             firebaseAnalytics.setCurrentScreen(
                 it,
@@ -123,8 +117,7 @@ class MainScreenLabourRouteFragment : BaseFragment() {
                     gravity = Gravity.CENTER
                 }
                 relativeLayout {
-                    val paddingTopAndBottom =
-                        (PixelConverter.getScreenDpHeight(context) - Constants.SIZE_OF_ACTION_BAR) * SPACE_LINK_BUTTON
+                    val paddingTopAndBottom = getHeightElementInDp(SPACE_LINK_BUTTON)
                     gravity = Gravity.BOTTOM or Gravity.CENTER
                     verticalLayout {
                         buttonNext(view)
@@ -212,11 +205,9 @@ class MainScreenLabourRouteFragment : BaseFragment() {
     }
 
     private fun _LinearLayout.showMessage(message: String, idTypeFont: Int) {
-        val topSizeSpaceBetweenTitleAndAudio =
-            (PixelConverter.getScreenDpHeight(context) - Constants.SIZE_OF_ACTION_BAR) * SPACE_TITLE_WITH_AUDIO
+        val topSizeSpaceBetweenTitleAndAudio = getHeightElementInDp(SPACE_TITLE_WITH_AUDIO)
         val bottomSizeSpaceBetweenTitleAndDescription =
-            (PixelConverter.getScreenDpHeight(context) - Constants.SIZE_OF_ACTION_BAR) * SPACE_DESCRIPTION_WITH_TITLE
-
+            getHeightElementInDp(SPACE_DESCRIPTION_WITH_TITLE)
         textView {
             gravity = Gravity.CENTER
             text = message
@@ -243,8 +234,7 @@ class MainScreenLabourRouteFragment : BaseFragment() {
     }
 
     private fun _LinearLayout.buttonNext(view: _LinearLayout) {
-        val height =
-            (PixelConverter.getScreenDpHeight(context) - Constants.SIZE_OF_ACTION_BAR) * Constants.HEIGHT_OF_BUTTON
+        val height = getHeightElementInDp(Constants.HEIGHT_OF_BUTTON)
         themedButton(theme = R.style.ButtonNext) {
             text = ROUTE_BUTTON_TEXT
             textSizeDimen = R.dimen.text_size_question_route
@@ -292,8 +282,11 @@ class MainScreenLabourRouteFragment : BaseFragment() {
 
     private fun calculateHeightComponentsQuestion(percentageComponent: Double): Int {
         val cardHeightInDps =
-            (PixelConverter.getScreenDpHeight(context) -
-                    Constants.SIZE_OF_ACTION_BAR_ROUTE) * percentageComponent
+            getHeightElementInDp(percentageComponent)
         return PixelConverter.toPixels(cardHeightInDps, context)
     }
+
+    private fun getHeightElementInDp(percentageComponent: Double) =
+        (PixelConverter.getScreenDpHeight(context) -
+                Constants.SIZE_OF_ACTION_BAR_ROUTE) * percentageComponent
 }
