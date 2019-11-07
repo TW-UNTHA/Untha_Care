@@ -45,12 +45,12 @@ open class BaseFragment : Fragment(), TextToSpeech.OnInitListener {
         }
     }
 
-    override fun onDestroy() {
+    override fun onStop() {
         if (textToSpeech != null) {
             textToSpeech!!.stop()
             textToSpeech!!.shutdown()
         }
-        super.onDestroy()
+        super.onStop()
     }
 
     fun logAnalyticsSelectContentWithId(name: String, contentType: ContentType) {

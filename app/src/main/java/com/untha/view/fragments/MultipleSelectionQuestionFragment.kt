@@ -86,7 +86,7 @@ class MultipleSelectionQuestionFragment : BaseFragment() {
         val close = layoutActionBar?.findViewById(R.id.icon_go_back_route) as ImageView
         close.onClick {
             view?.findNavController()
-                ?.navigate(R.id.mainRouteFragment, categoriesRoutes, navOptions, null)
+                ?.navigate(R.id.mainRouteFragment, categoriesRoutes, navOptionsToBackNavigation, null)
         }
     }
 

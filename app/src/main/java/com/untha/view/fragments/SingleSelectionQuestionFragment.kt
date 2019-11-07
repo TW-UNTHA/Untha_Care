@@ -47,7 +47,7 @@ class SingleSelectionQuestionFragment : BaseFragment() {
     private lateinit var routeLabour: Route
     private var routeQuestion: RouteQuestion? = null
     private var goTo: Int? = null
-    private val questionViewModel:SingleSelectionQuestionViewModel? by viewModel()
+    private val questionViewModel: SingleSelectionQuestionViewModel? by viewModel()
     private val categoryViewModel: CategoryViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -147,7 +147,12 @@ class SingleSelectionQuestionFragment : BaseFragment() {
         val close = layoutActionBar?.findViewById(R.id.icon_go_back_route) as ImageView
         close.onClick {
             view?.findNavController()
-                ?.navigate(R.id.mainRouteFragment, categoriesRoutes, navOptions, null)
+                ?.navigate(
+                    R.id.mainRouteFragment,
+                    categoriesRoutes,
+                    navOptionsToBackNavigation,
+                    null
+                )
         }
     }
 
