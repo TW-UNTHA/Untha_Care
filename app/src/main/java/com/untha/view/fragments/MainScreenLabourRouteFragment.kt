@@ -10,8 +10,6 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
-import androidx.core.text.parseAsHtml
-import androidx.navigation.findNavController
 import com.bumptech.glide.Glide
 import com.untha.R
 import com.untha.utils.Constants
@@ -21,7 +19,6 @@ import com.untha.utils.PixelConverter
 import com.untha.utils.ToSpeech
 import com.untha.view.activities.MainActivity
 import com.untha.view.extension.getSelectableItemBackground
-import com.untha.viewmodels.RoutesViewModel
 import org.jetbrains.anko.AnkoViewDslMarker
 import org.jetbrains.anko._LinearLayout
 import org.jetbrains.anko.alignParentBottom
@@ -45,11 +42,9 @@ import org.jetbrains.anko.themedButton
 import org.jetbrains.anko.topPadding
 import org.jetbrains.anko.verticalLayout
 import org.jetbrains.anko.wrapContent
-import org.koin.android.viewmodel.ext.android.viewModel
 
 class MainScreenLabourRouteFragment : BaseFragment() {
     private lateinit var mainActivity: MainActivity
-    private val routeViewModel : RoutesViewModel by viewModel()
 
     companion object {
         const val MAIN_ROUTE_MESSAGE =
@@ -99,9 +94,7 @@ class MainScreenLabourRouteFragment : BaseFragment() {
         }
 
         with(view as _LinearLayout) {
-            val widthMainComponent =
-                (PixelConverter.getScreenDpWidth(context) - Constants.SIZE_OF_ACTION_BAR) * MARGINS
-            val marginMainComponent = PixelConverter.toPixels(widthMainComponent, context)
+
             verticalLayout {
                 verticalLayout {
                     loadImageRoute(view)
