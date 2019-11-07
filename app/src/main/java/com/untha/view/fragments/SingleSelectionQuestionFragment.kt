@@ -110,7 +110,7 @@ class SingleSelectionQuestionFragment : BaseFragment() {
 
             }.lparams(width = matchParent, height = matchParent) {
                 margin =
-                    calculateWidthComponentsQuestion(Constants.MARGIN_SINGLE_SELECTION_QUESTION)
+                    calculateWidthComponentsQuestion()
             }
         }
         mainActivity.customActionBar(
@@ -203,7 +203,7 @@ class SingleSelectionQuestionFragment : BaseFragment() {
             gravity = Gravity.CENTER_HORIZONTAL
         }.lparams(width = matchParent, height = matchParent) {
             bottomMargin  =
-                calculateWidthComponentsQuestion(Constants.MARGIN_SINGLE_SELECTION_QUESTION)
+                calculateWidthComponentsQuestion()
         }
     }
 
@@ -234,8 +234,8 @@ class SingleSelectionQuestionFragment : BaseFragment() {
                         R.font.proxima_nova_bold
                     )
                     onClick {
-                        option.hint?.let { it -> logAnalyticsCustomEvent(it) }
-                        option.result?.let { it ->
+                        option.hint?.let { logAnalyticsCustomEvent(it) }
+                        option.result?.let {
                             questionViewModel?.saveAnswerOption(it)
                         }
                     }
@@ -256,9 +256,9 @@ class SingleSelectionQuestionFragment : BaseFragment() {
         return PixelConverter.toPixels(cardHeightInDps, context)
     }
 
-    private fun calculateWidthComponentsQuestion(percentageComponent: Double): Int {
+    private fun calculateWidthComponentsQuestion( ): Int {
         val cardHeightInDps =
-            (PixelConverter.getScreenDpWidth(context)) * percentageComponent
+            (PixelConverter.getScreenDpWidth(context)) * Constants.MARGIN_SINGLE_SELECTION_QUESTION
         return PixelConverter.toPixels(cardHeightInDps, context)
     }
 
@@ -266,7 +266,7 @@ class SingleSelectionQuestionFragment : BaseFragment() {
         val cardHeightInDps =
             (PixelConverter.getScreenDpWidth(context))
         val marginLateralSide =
-            calculateWidthComponentsQuestion(Constants.MARGIN_SINGLE_SELECTION_QUESTION) *
+            calculateWidthComponentsQuestion() *
                     Constants.DUPLICATE_MARGIN_LATERAL
         return PixelConverter.toPixels(cardHeightInDps.toDouble(), context) - marginLateralSide
     }

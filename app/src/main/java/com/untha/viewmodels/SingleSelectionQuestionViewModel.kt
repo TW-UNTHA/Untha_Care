@@ -4,7 +4,7 @@ import android.content.SharedPreferences
 import com.untha.model.transactionalmodels.RouteQuestion
 
 class SingleSelectionQuestionViewModel(
-    private val sharedPreferences: SharedPreferences
+     sharedPreferences: SharedPreferences
 ) :  BaseViewModel(sharedPreferences){
 
     fun loadQuestionLabourRoute(goTo:Int? , questions: List<RouteQuestion>): RouteQuestion? {
