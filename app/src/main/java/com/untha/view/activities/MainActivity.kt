@@ -43,11 +43,13 @@ class MainActivity : AppCompatActivity() {
             viewModel.retrieveUpdatedCategories(this)
             viewModel.loadLabourRoute(this)
             viewModel.loadViolenceRoute(this)
+            viewModel.loadQuestionnaireRouteResult(this)
             viewModel.loadRouteResults(this)
         } else {
             viewModel.loadDefaultLabourRoute(this)
             viewModel.loadDefaultViolenceRoute(this)
             viewModel.loadDefaultResult(this)
+            viewModel.loadDefaultQuestionnaireRouteResult(this)
         }
     }
 
@@ -80,5 +82,4 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onSupportNavigateUp() = navigationController.navigateUp()
-
 }

@@ -25,5 +25,9 @@ class RetrofitService {
     fun getRetrofitResultService(): ResultService {
         return retrofit.create(ResultService::class.java)
     }
+
+    fun getRetrofitQuestionnaireRouteResult(): QuestionnaireRouteResultService {
+        return retrofit.create(QuestionnaireRouteResultService::class.java)
+    }
 }
 

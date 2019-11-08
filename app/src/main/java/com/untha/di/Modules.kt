@@ -24,7 +24,7 @@ import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 val viewModelsModule = module {
-    viewModel { MainViewModel(get(), get(), get(), get(), get(),get(), get()) }
+    viewModel { MainViewModel(get(), get(), get(), get(), get(), get(), get(), get()) }
     viewModel { CategoryViewModel(get(), get(), get()) }
     viewModel { RightsViewModel(get(), get(), get()) }
     viewModel { GenericInfoStepViewModel() }
@@ -63,6 +63,7 @@ val networkModule = module {
     single { RetrofitService().getRetrofitCategoryService() }
     single { RetrofitService().getRetrofitRouteService() }
     single { RetrofitService().getRetrofitResultService() }
+    single { RetrofitService().getRetrofitQuestionnaireRouteResult() }
 }
 
 val mapperModule = module {

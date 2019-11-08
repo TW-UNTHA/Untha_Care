@@ -16,9 +16,11 @@ import com.untha.model.models.SectionModel
 import com.untha.model.models.SectionStepModel
 import com.untha.model.repositories.CategoryWithRelationsRepository
 import com.untha.model.services.CategoriesService
+import com.untha.model.services.QuestionnaireRouteResultService
 import com.untha.model.services.ResultService
 import com.untha.model.services.RoutesService
 import com.untha.model.transactionalmodels.Category
+import com.untha.model.transactionalmodels.QuestionnaireRouteResultWrapper
 import com.untha.model.transactionalmodels.ResultWrapper
 import com.untha.model.transactionalmodels.Route
 import com.untha.utils.Constants
@@ -33,7 +35,8 @@ class MainViewModel(
     private val categoryWithRelationsRepository: CategoryWithRelationsRepository,
     private val sharedPreferences: SharedPreferences,
     private val routesService: RoutesService,
-    private val resultService: ResultService
+    private val resultService: ResultService,
+    private val questionnaireRouteResultService: QuestionnaireRouteResultService
 
 ) : ViewModel() {
 
@@ -215,5 +218,45 @@ class MainViewModel(
     }
 
 }
+    fun loadQuestionnaireRouteResult(owner: LifecycleOwner) {
+        questionnaireRouteResultService.getQuestionnaireRouteResult()
+            .observe(owner, Observer { response ->
+                when (response) {
+                    is ApiSuccessResponse -> {
+                        sharedPreferences.edit()
+                            .putString(
+                                Constants.QUESTIONNAIRE_ROUTE,
+                                Json.stringify(
+                                    QuestionnaireRouteResultWrapper.serializer(),
+                                    response.body
+                                )
+                            ).apply()
+
+                        println(
+                            sharedPreferences.getString(
+                                "QUESTIONNAIRE_ROUTE" + Constants.QUESTIONNAIRE_ROUTE,
+                                "No hay datos"
+                            )
+                        )
+                    }
+                    is ApiErrorResponse -> {
+                        println("ErrorQUESTIONNAIRE_ROUTE! $response.errorMessage")
+                    }
+                }
+            })
+    }
+
+    fun loadDefaultQuestionnaireRouteResult(context: Context) {
+        val result = context.resources.openRawResource(R.raw.questionnaire_route_result)
+            .bufferedReader().use { it.readText() }
+        sharedPreferences.edit()
+            .putString(
+                Constants.QUESTIONNAIRE_ROUTE,
+                result
+            ).apply()
+    }
+}
+
+
 
 

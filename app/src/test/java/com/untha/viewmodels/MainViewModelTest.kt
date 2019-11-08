@@ -23,6 +23,7 @@ import com.untha.model.dbservices.CategoryDbService
 import com.untha.model.mappers.CategoryMapper
 import com.untha.model.repositories.CategoryWithRelationsRepository
 import com.untha.model.services.CategoriesService
+import com.untha.model.services.QuestionnaireRouteResultService
 import com.untha.model.services.ResultService
 import com.untha.model.services.RoutesService
 import com.untha.model.transactionalmodels.CategoriesWrapper
@@ -47,6 +48,10 @@ import org.koin.test.KoinTest
 import org.koin.test.inject
 import org.koin.test.mock.declareMock
 import org.mockito.Mockito.`when`
+import retrofit2.Response
+import com.untha.model.services.ResultService
+import com.untha.model.transactionalmodels.QuestionnaireRouteResultWrapper
+import com.untha.model.transactionalmodels.ResultWrapper
 import org.mockito.Mockito.mock
 import retrofit2.Response
 import java.io.ByteArrayInputStream
@@ -59,6 +64,7 @@ class MainViewModelTest : KoinTest {
     private val categoriesService by inject<CategoriesService>()
     private val routesService by inject<RoutesService>()
     private val resultService by inject<ResultService>()
+    private val questionnaireRouteResultService by inject<QuestionnaireRouteResultService>()
     private val mapper by inject<CategoryMapper>()
     private val repository by inject<CategoryWithRelationsRepository>()
     private val sharedPreferences by inject<SharedPreferences>()
@@ -85,6 +91,7 @@ class MainViewModelTest : KoinTest {
         declareMock<SharedPreferences>()
         declareMock<RoutesService>()
         declareMock<ResultService>()
+        declareMock<QuestionnaireRouteResultService>()
     }
 
     @After
@@ -102,7 +109,8 @@ class MainViewModelTest : KoinTest {
             repository,
             sharedPreferences,
             routesService,
-            resultService
+            resultService,
+            questionnaireRouteResultService
         )
         var categoryWrapper = CategoriesWrapper(
             1, listOf(
@@ -142,7 +150,8 @@ class MainViewModelTest : KoinTest {
             repository,
             sharedPreferences,
             routesService,
-            resultService
+            resultService,
+            questionnaireRouteResultService
         )
 
         mainViewModel.retrieveAllCategories()
@@ -159,7 +168,8 @@ class MainViewModelTest : KoinTest {
             repository,
             sharedPreferences,
             routesService,
-            resultService
+            resultService,
+            questionnaireRouteResultService
         )
 
         val queryingCategory = MockObjects.mockQueryingCategory()
@@ -183,7 +193,8 @@ class MainViewModelTest : KoinTest {
             repository,
             sharedPreferences,
             routesService,
-            resultService
+            resultService,
+            questionnaireRouteResultService
         )
         var categoryWrapper = CategoriesWrapper(
             1, listOf(
@@ -223,7 +234,8 @@ class MainViewModelTest : KoinTest {
             repository,
             sharedPreferences,
             routesService,
-            resultService
+            resultService,
+            questionnaireRouteResultService
         )
         var categoryWrapper = CategoriesWrapper(
             1, listOf(
@@ -269,7 +281,8 @@ class MainViewModelTest : KoinTest {
             repository,
             sharedPreferences,
             routesService,
-            resultService
+            resultService,
+            questionnaireRouteResultService
         )
         var categoryWrapper = CategoriesWrapper(
             1, listOf(
@@ -318,7 +331,8 @@ class MainViewModelTest : KoinTest {
             repository,
             sharedPreferences,
             routesService,
-            resultService
+            resultService,
+            questionnaireRouteResultService
         )
 
         var response = Response.success(route)
@@ -367,7 +381,8 @@ class MainViewModelTest : KoinTest {
             repository,
             sharedPreferences,
             routesService,
-            resultService
+            resultService,
+            questionnaireRouteResultService
         )
 
         val response = Response.success(route)
@@ -415,7 +430,8 @@ class MainViewModelTest : KoinTest {
             repository,
             sharedPreferences,
             routesService,
-            resultService
+            resultService,
+            questionnaireRouteResultService
         )
 
         val response = Response.success(result)
@@ -459,7 +475,8 @@ class MainViewModelTest : KoinTest {
             repository,
             sharedPreferences,
             routesService,
-            resultService
+            resultService,
+            questionnaireRouteResultService
         )
         val context = mock(Context::class.java)
         val resources = mock(Resources::class.java)
@@ -518,7 +535,8 @@ class MainViewModelTest : KoinTest {
             repository,
             sharedPreferences,
             routesService,
-            resultService
+            resultService,
+            questionnaireRouteResultService
         )
         val context = mock(Context::class.java)
         val resources = mock(Resources::class.java)
