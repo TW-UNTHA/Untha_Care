@@ -17,6 +17,7 @@ import androidx.navigation.findNavController
 import com.untha.R
 import com.untha.model.transactionalmodels.Route
 import com.untha.model.transactionalmodels.RouteOption
+import com.untha.model.transactionalmodels.RouteQuestion
 import com.untha.utils.Constants
 import com.untha.utils.ContentType
 import com.untha.utils.FirebaseEvent
@@ -56,6 +57,7 @@ class MultipleSelectionQuestionFragment : BaseFragment() {
     private var goTo: Int? = null
     private var isNoneOfTheAboveSelected = false
     private var noneOfTheAboveTextView: TextView? = null
+    private var routeQuestion: RouteQuestion? = null
     private val options = mutableListOf<MultipleSelectionOption>()
     private var position: Int = 0
 
@@ -63,9 +65,10 @@ class MultipleSelectionQuestionFragment : BaseFragment() {
         super.onCreate(savedInstanceState)
         val bundle = arguments
         labourRoute = bundle?.get(Constants.ROUTE_LABOUR) as Route
-        goTo = bundle.get(Constants.GO_TO) as Int?
-            ?: Constants.GO_TO_TEST_VALUE_FOR_MULTIPLE_OPTION_QUESTION
-        viewModel.loadQuestion(goTo, labourRoute)
+        goTo = bundle.get("goTo") as Int
+
+         viewModel.loadQuestion(goTo, labourRoute)
+         routeQuestion = viewModel.question
         (activity as MainActivity).customActionBar(
             Constants.NAME_SCREEN_LABOUR_ROUTE,
             enableCustomBar = true,
@@ -109,7 +112,7 @@ class MultipleSelectionQuestionFragment : BaseFragment() {
         activity?.let {
             firebaseAnalytics.setCurrentScreen(
                 it,
-                Constants.MULTIPLE_QUESTION_PAGE + "_${viewModel.question?.id}",
+                Constants.MULTIPLE_QUESTION_PAGE + "_${routeQuestion?.id}",
                 null
             )
         }
@@ -127,7 +130,7 @@ class MultipleSelectionQuestionFragment : BaseFragment() {
                 rightMargin = dip(calculateOptionContainerWidthMargin()) / 2
                 leftMargin = dip(calculateOptionContainerWidthMargin())
             }
-            loadNextButton()
+            loadNextButton(view)
         }
     }
 
@@ -146,7 +149,7 @@ class MultipleSelectionQuestionFragment : BaseFragment() {
     private fun @AnkoViewDslMarker _LinearLayout.buildAnswersLayout() {
         scrollView {
             verticalLayout {
-                viewModel.question?.options?.let { routeOptions ->
+                routeQuestion?.options?.let { routeOptions ->
                     val maxIndex = routeOptions.size - 1
                     for ((index, _) in routeOptions.iterator().withIndex()) {
                         val firstElementIndex = index * 2
@@ -217,7 +220,7 @@ class MultipleSelectionQuestionFragment : BaseFragment() {
         }.lparams(width = matchParent, height = wrapContent)
     }
 
-    private fun @AnkoViewDslMarker _LinearLayout.loadNextButton() {
+    private fun @AnkoViewDslMarker _LinearLayout.loadNextButton(view: View) {
         verticalLayout {
             textView {
                 isClickable = true
@@ -241,6 +244,10 @@ class MultipleSelectionQuestionFragment : BaseFragment() {
                         viewModel.getFaultForQuestion(false)
                         registerAnalyticsEvent(false)
                     }
+
+                    viewModel.loadQuestion(routeQuestion?.goTo, labourRoute)
+                    val isSingle = viewModel.isSingleQuestion(viewModel.question?.type)
+                    manageGoToQuestion(labourRoute, isSingle, routeQuestion?.goTo, view)
                 }
                 text = context.getString(R.string.next)
                 textColor =
@@ -286,7 +293,7 @@ class MultipleSelectionQuestionFragment : BaseFragment() {
                 adjustViewBounds = true
                 scaleType = ImageView.ScaleType.FIT_XY
                 imageResource = R.drawable.icon_question_audio
-                val textQuestion = viewModel.question?.content
+                val textQuestion = routeQuestion?.content
                 val contentQuestion = "$textQuestion ${contentAudioOptions()}"
                 background = null
                 onClick {
@@ -309,7 +316,7 @@ class MultipleSelectionQuestionFragment : BaseFragment() {
 
     private fun contentAudioOptions(): String {
         var contentOptions = ""
-        viewModel.question?.options?.map { option ->
+        routeQuestion?.options?.map { option ->
             contentOptions += "${option.value} \n"
         }
         return contentOptions
@@ -318,7 +325,7 @@ class MultipleSelectionQuestionFragment : BaseFragment() {
     private fun _LinearLayout.question() {
         verticalLayout {
             textView {
-                text = viewModel.question?.content
+                text = routeQuestion?.content
                 textSizeDimen = R.dimen.text_size_content
                 typeface = ResourcesCompat.getFont(
                     context.applicationContext,

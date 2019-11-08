@@ -47,17 +47,19 @@ class SingleSelectionQuestionFragment : BaseFragment() {
     private lateinit var routeLabour: Route
     private var routeQuestion: RouteQuestion? = null
     private var goTo: Int? = null
-    private val questionViewModel: SingleSelectionQuestionViewModel? by viewModel()
+    private val questionViewModel:SingleSelectionQuestionViewModel by viewModel()
     private val categoryViewModel: CategoryViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val bundle = arguments
         routeLabour = bundle?.get(Constants.ROUTE_LABOUR) as Route
-        goTo = bundle.get(Constants.GO_TO) as Int?
-            ?: Constants.START_QUESTION_ROUTE_LABOUR
-
-        routeQuestion = questionViewModel?.loadQuestionLabourRoute(goTo, routeLabour.questions)
+       val getBundleGoTo  = bundle.get("goTo")
+        getBundleGoTo?.let {
+            goTo = bundle.get("goTo") as Int
+        }
+        questionViewModel.loadQuestion(goTo, routeLabour)
+        routeQuestion = questionViewModel.question
     }
 
     override fun onCreateView(
@@ -96,13 +98,13 @@ class SingleSelectionQuestionFragment : BaseFragment() {
                 val sizeOptions = routeQuestion?.options?.size ?: 0
                 if (hasTwoOptions(sizeOptions)) {
                     linearLayout {
-                        options(styleDisplayOptions(sizeOptions))
+                        options(styleDisplayOptions(sizeOptions), view)
                     }.lparams{
                         topMargin = calculateHeightComponentsQuestion(Constants.MARGIN_HEIGHT_QUESTION)
                     }
                 } else {
                     verticalLayout {
-                        options(styleDisplayOptions(sizeOptions))
+                        options(styleDisplayOptions(sizeOptions), view)
                     }.lparams{
                         topMargin = calculateHeightComponentsQuestion(Constants.MARGIN_HEIGHT_QUESTION)
                     }
@@ -196,7 +198,6 @@ class SingleSelectionQuestionFragment : BaseFragment() {
         }
         return contentOptions
     }
-
     private fun _LinearLayout.question() {
         textView {
             text = routeQuestion?.content
@@ -226,7 +227,7 @@ class SingleSelectionQuestionFragment : BaseFragment() {
         }
     }
 
-    private fun _LinearLayout.options(width: Int) {
+    private fun _LinearLayout.options(width: Int, view: View) {
         routeQuestion?.options?.map { option ->
             verticalLayout {
                 themedButton(theme = R.style.MyButtonStyle) {
@@ -243,6 +244,10 @@ class SingleSelectionQuestionFragment : BaseFragment() {
                         option.result?.let {
                             questionViewModel?.saveAnswerOption(it)
                         }
+                        questionViewModel.loadQuestion(option.goTo, routeLabour)
+                        val routeQuestionGoTo = questionViewModel.question
+                        val isSingle = questionViewModel.isSingleQuestion(routeQuestionGoTo?.type)
+                        manageGoToQuestion(routeLabour, isSingle, option.goTo ,view)
                     }
                 }.lparams(
                     width = width,

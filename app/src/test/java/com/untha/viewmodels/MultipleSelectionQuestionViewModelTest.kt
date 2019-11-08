@@ -72,19 +72,7 @@ class MultipleSelectionQuestionViewModelTest : KoinTest {
 
     }
 
-    @Test
-    fun `should retrieve the question with the given id`() {
-        val routeOption = RouteOption("dummy", "dummy", null, null)
-        val routeQuestion =
-            RouteQuestion(1, "dummy", "dummy", "dummy", null, "dummy", listOf(routeOption))
-        val route = Route(1, listOf(routeQuestion))
 
-        val viewModel = MultipleSelectionQuestionViewModel(sharedPreferences)
-
-        viewModel.loadQuestion(1, route)
-
-        assertThat(routeQuestion, `is`(viewModel.question))
-    }
 
     @Test
     fun `should return null when the given id does not exist`() {

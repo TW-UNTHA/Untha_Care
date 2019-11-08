@@ -177,13 +177,8 @@ class MainViewModel(
             ).apply()
     }
 
-    fun loadResultFromSharedPreferences(): ResultWrapper {
-        val jsonResult = sharedPreferences.getString(Constants.RESULT, "N/A")
-        return if (jsonResult == null) {
-            ResultWrapper(0, listOf())
-        } else {
-            Json.parse(ResultWrapper.serializer(), jsonResult)
-        }
+    fun loadResultFromSharedPreferences(): String? {
+        return sharedPreferences.getString(Constants.FAULT_ANSWER, "")
     }
 
     fun loadDefaultLabourRoute(context: Context) {

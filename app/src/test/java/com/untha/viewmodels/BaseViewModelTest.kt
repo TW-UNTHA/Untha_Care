@@ -15,9 +15,13 @@ import com.untha.model.repositories.CategoryWithRelationsRepository
 import com.untha.model.services.CategoriesService
 import com.untha.model.services.ResultService
 import com.untha.model.services.RoutesService
+import com.untha.model.transactionalmodels.Route
 import com.untha.model.transactionalmodels.RouteOption
+import com.untha.model.transactionalmodels.RouteQuestion
 import com.untha.utils.Constants
 import kotlinx.serialization.json.Json
+import org.hamcrest.CoreMatchers
+import org.hamcrest.MatcherAssert
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
@@ -32,7 +36,7 @@ import org.koin.test.mock.declareMock
 import org.mockito.Mockito
 
 @RunWith(JUnit4::class)
-class BaseViewModelTest: KoinTest {
+class BaseViewModelTest : KoinTest {
     private val sharedPreferences by inject<SharedPreferences>()
 
     @get:Rule
@@ -66,7 +70,7 @@ class BaseViewModelTest: KoinTest {
     }
 
     @Test
-    fun `should save single option answer when select a option with fault`(){
+    fun `should save single option answer when select a option with fault`() {
 
         val baseViewModel = BaseViewModel(sharedPreferences)
         val option = RouteOption(
@@ -90,7 +94,7 @@ class BaseViewModelTest: KoinTest {
             )
         ).thenReturn(editor)
         doNothing().whenever(editor).apply()
-       baseViewModel.saveAnswerOption(option.result)
+        baseViewModel.saveAnswerOption(option.result)
 
         verify(sharedPreferences.edit())
             .putString(
@@ -99,6 +103,20 @@ class BaseViewModelTest: KoinTest {
 
             )
         verify(editor).apply()
+    }
+
+    @Test
+    fun `should retrieve the question with the given id`() {
+        val routeOption = RouteOption("dummy", "dummy", null, null)
+        val routeQuestion =
+            RouteQuestion(1, "dummy", "dummy", "dummy", null, "dummy", listOf(routeOption))
+        val route = Route(1, listOf(routeQuestion))
+
+        val viewModel = BaseViewModel(sharedPreferences)
+
+        viewModel.loadQuestion(1, route)
+
+        MatcherAssert.assertThat(routeQuestion, CoreMatchers.`is`(viewModel.question))
     }
 
 }

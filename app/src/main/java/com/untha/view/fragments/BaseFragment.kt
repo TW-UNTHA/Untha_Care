@@ -3,15 +3,22 @@ package com.untha.view.fragments
 import android.os.Bundle
 import android.speech.tts.TextToSpeech
 import android.util.Log
+import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavOptions
+import androidx.navigation.findNavController
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.untha.R
+import com.untha.model.transactionalmodels.Route
+import com.untha.utils.Constants
 import com.untha.utils.ContentType
 import com.untha.utils.FirebaseEvent
+import com.untha.viewmodels.MainViewModel
+import org.koin.android.viewmodel.ext.android.viewModel
 import java.util.*
 
 open class BaseFragment : Fragment(), TextToSpeech.OnInitListener {
+    val mainViewModel : MainViewModel by viewModel()
     var textToSpeech: TextToSpeech? = null
     lateinit var firebaseAnalytics: FirebaseAnalytics
 
@@ -73,4 +80,41 @@ open class BaseFragment : Fragment(), TextToSpeech.OnInitListener {
         bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, contentType.description)
         firebaseAnalytics.logEvent(event.description, bundle)
     }
+
+
+    fun manageGoToQuestion(route: Route?, isSingle: Boolean, goTo: Int?, view: View) {
+        when (goTo) {
+            -1 -> {
+                println("TODO: screen results")
+                println(mainViewModel.loadResultFromSharedPreferences())
+
+            }
+            null -> {
+                println("TODO: null")
+            }
+            else -> {
+                val goToBundle = Bundle().apply {
+                    putInt("goTo", goTo)
+                    putSerializable(
+                        Constants.ROUTE_LABOUR,
+                        route
+                    )
+                }
+                if (isSingle) {
+                    view.findNavController().navigate(
+                        R.id.singleSelectQuestionFragment, goToBundle,
+                        navOptions, null
+                    )
+                } else {
+                    view.findNavController().navigate(
+                        R.id.multipleSelectionQuestionFragment, goToBundle,
+                        navOptions, null
+                    )
+                }
+
+            }
+        }
+
+        }
 }
+
