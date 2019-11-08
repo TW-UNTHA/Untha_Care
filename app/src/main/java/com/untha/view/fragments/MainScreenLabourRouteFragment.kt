@@ -250,6 +250,7 @@ class MainScreenLabourRouteFragment : BaseFragment() {
                 R.font.proxima_nova_bold
             )
             onClick {
+                mainActivity.viewModel.deleteAnswersOptionFromSharedPreferences()
                 val goToBundle = Bundle().apply {
                     putInt("goTo", Constants.START_QUESTION_ROUTE_LABOUR)
                     putSerializable(

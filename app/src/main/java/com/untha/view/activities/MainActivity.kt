@@ -19,7 +19,7 @@ import org.koin.android.viewmodel.ext.android.viewModel
 
 class MainActivity : AppCompatActivity() {
 
-    private val viewModel: MainViewModel by viewModel()
+    val viewModel: MainViewModel by viewModel()
 
     private lateinit var navigationController: NavController
 

@@ -177,7 +177,16 @@ class MainViewModel(
             ).apply()
     }
 
-    fun loadResultFromSharedPreferences(): String? {
+    fun loadResultFromSharedPreferences(): ResultWrapper {
+        val jsonResult = sharedPreferences.getString(Constants.RESULT, "N/A")
+        return if (jsonResult == null) {
+            ResultWrapper(0, listOf())
+        } else {
+            Json.parse(ResultWrapper.serializer(), jsonResult)
+        }
+    }
+
+    fun loadResultFaultAnswerFromSharedPreferences(): String? {
         return sharedPreferences.getString(Constants.FAULT_ANSWER, "")
     }
 
@@ -199,6 +208,10 @@ class MainViewModel(
                 Constants.VIOLENCE_ROUTE,
                 route
             ).apply()
+    }
+
+    fun deleteAnswersOptionFromSharedPreferences() {
+        sharedPreferences.edit().remove(Constants.FAULT_ANSWER).apply()
     }
 
 }

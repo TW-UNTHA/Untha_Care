@@ -13,12 +13,11 @@ import com.untha.model.transactionalmodels.Route
 import com.untha.utils.Constants
 import com.untha.utils.ContentType
 import com.untha.utils.FirebaseEvent
-import com.untha.viewmodels.MainViewModel
-import org.koin.android.viewmodel.ext.android.viewModel
+import com.untha.view.activities.MainActivity
 import java.util.*
 
 open class BaseFragment : Fragment(), TextToSpeech.OnInitListener {
-    val mainViewModel : MainViewModel by viewModel()
+    private lateinit var mainActivity: MainActivity
     var textToSpeech: TextToSpeech? = null
     lateinit var firebaseAnalytics: FirebaseAnalytics
 
@@ -86,7 +85,7 @@ open class BaseFragment : Fragment(), TextToSpeech.OnInitListener {
         when (goTo) {
             -1 -> {
                 println("TODO: screen results")
-                println(mainViewModel.loadResultFromSharedPreferences())
+                println(mainActivity.viewModel.loadResultFaultAnswerFromSharedPreferences())
 
             }
             null -> {
