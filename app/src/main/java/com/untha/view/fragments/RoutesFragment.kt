@@ -77,8 +77,8 @@ class RoutesFragment : BaseFragment() {
             )
         }
         itemView.findNavController()
-            .navigate(R.id.mainScreenLabourRouteFragment, routeLabour, navOptions, null)
-//            .navigate(R.id.multipleSelectionQuestionFragment, routeLabour, navOptions, null)
+//            .navigate(R.id.mainScreenLabourRouteFragment, routeLabour, navOptions, null)
+            .navigate(R.id.multipleSelectionQuestionFragment, routeLabour, navOptions, null)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

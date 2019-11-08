@@ -322,22 +322,18 @@
                 },
                 {
                   "step_id": 7,
-                  "description": "Si trabajas puertas adentro o puertas afuera tienes derecho a recibir alimentos, uniformes (si se requiere) y albergue (en medida de las posibilidades) sin que estos te sean descontados de tu remuneración, además tienes derecho a tener facilidades para acceder a tu educación. "
-                },
-                {
-                  "step_id": 8,
                   "description": "Desde el segundo año de trabajo, tienes derecho a recibir fondos de reserva mes a mes."
                 },
                 {
-                  "step_id": 9,
+                  "step_id": 8,
                   "description": "El período de prueba dura máximo 15 días y deberán ser pagados y acordados mediante contrato escrito, una vez finalizado este plazo, la trabajadora entra automáticamente en una modalidad de trabajo indefinido, que reconoce derechos como la indemnización por despido intempestivo."
                 },
                 {
-                  "step_id": 10,
+                  "step_id": 9,
                   "description": "Tienes derecho a ser afiliada al Instituto Ecuatoriano de Seguridad Social (IESS) por parte del empleador y gozar de todo derecho laboral."
                 },
                 {
-                  "step_id": 11,
+                  "step_id": 10,
                   "description": "Debes recibir por adelantado la remuneración antes de tus vacaciones."
                 }
               ]
@@ -697,7 +693,7 @@
       "id": 15,
       "image": "rutas_violencia_laboral",
       "title": "RUTA DE VIOLENCIA",
-      "subtitle": "CUESTIONARIO DE VIOLENCIA LABORAL:",
+      "subtitle": "CUESTIONARIO DE VIOLENCIA:",
       "title_next_step": "CONOCE SI ERES VÍCTIMA DE VIOLENCIA",
       "parent_id": null,
       "is_route": true
