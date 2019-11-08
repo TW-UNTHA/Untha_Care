@@ -503,32 +503,32 @@
       "options": [
         {
           "value": "Estaba embarazada",
-          "result": null,
+          "result": "F13",
           "hint": "R1P19R1",
           "goTo": null
         },
         {
           "value": "Mi físico o salud  se han desgastado como consecuencia de mis años de trabajo",
-          "result": null,
+          "result": "F13",
           "hint": "R1P19R1",
           "goTo": null
         },
         {
           "value": "Mi color de piel, género, o estado civil",
-          "result": null,
+          "result": "F13",
           "hint": "R1P19R1",
           "goTo": null
         },
         {
           "value": "No me justificaron la desición",
           "hint": "R1P19R1",
-          "result": null,
+          "result": "F13",
           "goTo": null
         },
         {
           "value": "Ninguna de las anteriores",
           "hint": "R1P19R2",
-          "result": null,
+          "result": "F13",
           "goTo": null
         }
       ]
@@ -544,55 +544,55 @@
         {
           "value": "No asistí al trabajo por 3 días sin justificación",
           "hint": "R1P20R1",
-          "result": null,
+          "result": "R4",
           "goTo": null
         },
         {
           "value": "Me atrasé constantemente",
           "hint": "R1P20R1",
-          "result": null,
+          "result": "R4",
           "goTo": null
         },
         {
           "value": "Mentí sobre mi empleador",
           "hint": "R1P20R1",
-          "result": null,
+          "result": "R4",
           "goTo": null
         },
         {
           "value": "No cumpli mi trabajo",
           "hint": "R1P20R1",
-          "result": null,
+          "result": "R4",
           "goTo": null
         },
         {
           "value": "Incumplí alguna clausula del contrato",
           "hint": "R1P20R1",
-          "result": null,
+          "result":"R4",
           "goTo": null
         },
         {
           "value": "Denuncié injustificadamente a mi empleador",
           "hint": "R1P20R1",
-          "result": null,
+          "result": "R4",
           "goTo": null
         },
         {
           "value": "No cumpliste normas  de higiene, seguridad o prevención",
           "hint": "R1P20R1",
-          "result": null,
+          "result": "R4",
           "goTo": null
         },
         {
           "value": "Irrespeté a otras personas durante el trabajo",
           "hint": "R1P20R1",
-          "result": null,
+          "result": "R4",
           "goTo": null
         },
         {
           "value": "Ninguna de las anteriores",
           "hint": "R1P20R2",
-          "result": null,
+          "result": "R4",
           "goTo": null
         }
       ]
