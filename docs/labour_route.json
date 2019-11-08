@@ -19,7 +19,7 @@
           "value": "No",
           "hint": "R1P1R2",
           "result": null,
-          "goTo": 19
+          "goTo": 18
         }
       ]
     },
@@ -112,20 +112,20 @@
         {
           "value": "Mas de 30",
           "hint": "R1P5R1",
-          "result": null,
-          "goTo": 4
+          "result": "F2",
+          "goTo": 7
         },
         {
           "value": "Entre 20 y 30",
           "hint": "R1P5R2",
           "result": null,
-          "goTo": 4
+          "goTo": 7
         },
         {
           "value": "Menos de 20",
           "hint": "R1P5R3",
           "result": "R2",
-          "goTo": 4
+          "goTo": 7
         }
       ]
     },
@@ -230,7 +230,7 @@
         {
           "value": "Prostitución",
           "hint": "R1P9R1",
-          "result": null,
+          "result": "F12",
           "goTo": null
         },
         {
@@ -367,19 +367,19 @@
           "value": "Escrito",
           "hint": "R1P13R1",
           "result": null,
-          "goTo": 15
+          "goTo": 14
         },
         {
           "value": "Oral",
           "hint": "R1P13R2",
           "result": "R3",
-          "goTo": 15
+          "goTo": 14
         },
         {
           "value": "No tengo",
           "hint": "R1P13R3",
           "result": "F6",
-          "goTo": 15
+          "goTo": 14
         }
       ]
     },
@@ -395,13 +395,13 @@
           "value": "Si",
           "hint": "R1P14R1",
           "result": null,
-          "goTo": 16
+          "goTo": 15
         },
         {
           "value": "No",
           "hint": "R1P14R2",
           "result": null,
-          "goTo": 17
+          "goTo": 16
         }
       ]
     },
@@ -417,13 +417,13 @@
           "value": "Si",
           "hint": "R1P15R1",
           "result": null,
-          "goTo": 17
+          "goTo": 16
         },
         {
           "value": "No",
           "hint": "R1P15R2",
           "result": "F10",
-          "goTo": 17
+          "goTo": 16
         }
       ]
     },
@@ -439,13 +439,13 @@
           "value": "Si",
           "result": null,
           "hint": "R1P16R1",
-          "goTo": 18
+          "goTo": 17
         },
         {
           "value": "No",
           "result": null,
           "hint": "R1P16R2",
-          "goTo": 19
+          "goTo": -1
         }
       ]
     },
@@ -483,7 +483,7 @@
           "value": "Si",
           "hint": "R1P18R1",
           "result": null,
-          "goTo": 20
+          "goTo": 19
         },
         {
           "value": "No",
@@ -499,7 +499,7 @@
       "content": "¿Te despidieron por alguna de estas razonas?",
       "explanation": "Selecciona todas las que aplique",
       "result": "F13",
-      "goTo": 21,
+      "goTo": 20,
       "options": [
         {
           "value": "Estaba embarazada",
@@ -539,7 +539,7 @@
       "content": "¿Te despidieron por alguna de estas razones?",
       "explanation": "Selecciona todas las que apliquen",
       "result": "R4",
-      "goTo": 22,
+      "goTo": 21,
       "options": [
         {
           "value": "No asistí al trabajo por 3 días sin justificación",
@@ -551,49 +551,49 @@
           "value": "Me atrasé constantemente",
           "hint": "R1P20R1",
           "result": null,
-          "goTo": -1
+          "goTo": null
         },
         {
           "value": "Mentí sobre mi empleador",
           "hint": "R1P20R1",
           "result": null,
-          "goTo": -1
+          "goTo": null
         },
         {
           "value": "No cumpli mi trabajo",
           "hint": "R1P20R1",
           "result": null,
-          "goTo": -1
+          "goTo": null
         },
         {
           "value": "Incumplí alguna clausula del contrato",
           "hint": "R1P20R1",
           "result": null,
-          "goTo": -1
+          "goTo": null
         },
         {
           "value": "Denuncié injustificadamente a mi empleador",
           "hint": "R1P20R1",
           "result": null,
-          "goTo": -1
+          "goTo": null
         },
         {
           "value": "No cumpliste normas  de higiene, seguridad o prevención",
           "hint": "R1P20R1",
           "result": null,
-          "goTo": -1
+          "goTo": null
         },
         {
           "value": "Irrespeté a otras personas durante el trabajo",
           "hint": "R1P20R1",
           "result": null,
-          "goTo": -1
+          "goTo": null
         },
         {
           "value": "Ninguna de las anteriores",
           "hint": "R1P20R2",
           "result": null,
-          "goTo": -1
+          "goTo": null
         }
       ]
     },
