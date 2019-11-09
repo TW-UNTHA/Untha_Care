@@ -41,24 +41,22 @@ import org.jetbrains.anko.themedButton
 import org.jetbrains.anko.verticalLayout
 import org.koin.android.viewmodel.ext.android.viewModel
 
-
 class SingleSelectionQuestionFragment : BaseFragment() {
     private lateinit var mainActivity: MainActivity
-    private lateinit var routeLabour: Route
+    private lateinit var route: Route
     private var routeQuestion: RouteQuestion? = null
     private var goTo: Int? = null
     private val questionViewModel:SingleSelectionQuestionViewModel by viewModel()
     private val categoryViewModel: CategoryViewModel by viewModel()
+    private var isLabourRoute: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val bundle = arguments
-        routeLabour = bundle?.get(Constants.ROUTE_VIOLENCE) as Route
-       val getBundleGoTo  = bundle.get("goTo")
-        getBundleGoTo?.let {
-            goTo = bundle.get("goTo") as Int
-        }
-        questionViewModel.loadQuestion(goTo, routeLabour)
+        goTo  = bundle?.get("goTo") as Int
+        isLabourRoute =  questionViewModel.isLabourRoute(bundle)
+        route = questionViewModel.loadRoute(isLabourRoute, bundle)
+        questionViewModel.loadQuestion(goTo, route)
         routeQuestion = questionViewModel.question
     }
 
@@ -244,10 +242,10 @@ class SingleSelectionQuestionFragment : BaseFragment() {
                         option.result?.let {
                             questionViewModel?.saveAnswerOption(it)
                         }
-                        questionViewModel.loadQuestion(option.goTo, routeLabour)
+                        questionViewModel.loadQuestion(option.goTo, route)
                         val routeQuestionGoTo = questionViewModel.question
                         val isSingle = questionViewModel.isSingleQuestion(routeQuestionGoTo?.type)
-                        manageGoToQuestion(routeLabour, isSingle, option.goTo ,view)
+                        manageGoToQuestion(route, isSingle, option.goTo ,view)
                     }
                 }.lparams(
                     width = width,

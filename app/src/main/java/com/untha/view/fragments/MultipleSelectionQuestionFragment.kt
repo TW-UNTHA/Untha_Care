@@ -53,22 +53,24 @@ import org.koin.android.viewmodel.ext.android.viewModel
 class MultipleSelectionQuestionFragment : BaseFragment() {
     private val viewModel: MultipleSelectionQuestionViewModel by viewModel()
     private val categoryViewModel: CategoryViewModel by viewModel()
-    private lateinit var labourRoute: Route
+    private lateinit var route: Route
     private var goTo: Int? = null
     private var isNoneOfTheAboveSelected = false
     private var noneOfTheAboveTextView: TextView? = null
     private var routeQuestion: RouteQuestion? = null
     private val options = mutableListOf<MultipleSelectionOption>()
     private var position: Int = 0
+    private var isLabourRoute: Boolean = false
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val bundle = arguments
-        labourRoute = bundle?.get(Constants.ROUTE_VIOLENCE) as Route
-        goTo = bundle.get("goTo") as Int
-
-         viewModel.loadQuestion(goTo, labourRoute)
-         routeQuestion = viewModel.question
+        goTo = bundle?.get("goTo") as Int
+        isLabourRoute =  viewModel.isLabourRoute(bundle)
+        route = viewModel.loadRoute(isLabourRoute, bundle)
+        viewModel.loadQuestion(goTo, route)
+        routeQuestion = viewModel.question
         (activity as MainActivity).customActionBar(
             Constants.NAME_SCREEN_LABOUR_ROUTE,
             enableCustomBar = true,
@@ -245,9 +247,9 @@ class MultipleSelectionQuestionFragment : BaseFragment() {
                         registerAnalyticsEvent(false)
                     }
 
-                    viewModel.loadQuestion(routeQuestion?.goTo, labourRoute)
+                    viewModel.loadQuestion(routeQuestion?.goTo, route)
                     val isSingle = viewModel.isSingleQuestion(viewModel.question?.type)
-                    manageGoToQuestion(labourRoute, isSingle, routeQuestion?.goTo, view)
+                    manageGoToQuestion(route, isSingle, routeQuestion?.goTo, view)
                 }
                 text = context.getString(R.string.next)
                 textColor =

@@ -1,6 +1,7 @@
 package com.untha.viewmodels
 
 import android.content.SharedPreferences
+import android.os.Bundle
 import androidx.lifecycle.ViewModel
 import com.untha.model.transactionalmodels.Route
 import com.untha.model.transactionalmodels.RouteQuestion
@@ -37,6 +38,26 @@ open class BaseViewModel(
         }
         return false
     }
+
+    fun isLabourRoute(bundle: Bundle): Boolean{
+        return when {
+            bundle.containsKey(Constants.ROUTE_LABOUR) -> {
+                true
+
+            }
+            else -> false
+        }
+    }
+
+    fun loadRoute(isLabourRoute: Boolean, bundle: Bundle): Route{
+        return if (isLabourRoute){
+            bundle.get(Constants.ROUTE_LABOUR) as Route
+        }else{
+            bundle.get(Constants.ROUTE_VIOLENCE) as Route
+        }
+    }
+
+
 
 }
 

@@ -8,7 +8,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.navigation.findNavController
@@ -50,10 +49,10 @@ import org.koin.android.viewmodel.ext.android.viewModel
 class WelcomeScreenLabourFragment : BaseFragment() {
     private lateinit var mainActivity: MainActivity
     private val routeViewModel: RoutesViewModel by viewModel()
-    private var mainRouteMessage = ""
-    private var secondMessage = ""
-    private var imageWelcome = ""
-    private var typeRoute = ""
+    private var mainRouteMessage: String = ""
+    private var secondMessage: String = ""
+    private var imageWelcome: String? = ""
+    private var typeRoute: String? = ""
 
     companion object {
         const val ROUTE_BUTTON_TEXT = "Empezar"
@@ -70,17 +69,7 @@ class WelcomeScreenLabourFragment : BaseFragment() {
         super.onCreate(savedInstanceState)
         val bundle = arguments
         typeRoute = bundle?.get(Constants.TYPE_ROUTE) as String
-
-        if(typeRoute == Constants.ROUTE_LABOUR){
-            mainRouteMessage = getString(R.string.main_route_labour_message)
-            secondMessage = getString(R.string.second_message_route_labour)
-            imageWelcome = getString(R.string.image_name_route_labour)
-        }else{
-            mainRouteMessage = getString(R.string.main_route_violence_message)
-            secondMessage = getString(R.string.second_message_route_violence)
-            imageWelcome = getString(R.string.image_name_route_violence)
-        }
-
+        loadMessagesRoute()
     }
 
     override fun onCreateView(
@@ -209,14 +198,14 @@ class WelcomeScreenLabourFragment : BaseFragment() {
             imageResource = R.drawable.icon_question_audio
             gravity = Gravity.CENTER
             backgroundResource = attr(R.attr.selectableItemBackgroundBorderless).resourceId
-            val contentQuestion = "${mainRouteMessage}"
+            val contentQuestion = mainRouteMessage
             onClick {
                 logAnalyticsCustomContentTypeWithId(ContentType.AUDIO, FirebaseEvent.AUDIO)
                 contentQuestion.let { ToSpeech.speakOut(it, textToSpeech) }
             }
         }.lparams(
-            width = calculateHeightComponentsQuestion(Constants.SIZE_IMAGE_PERCENTAGE_AUDIO_ROUTE),
-            height = calculateHeightComponentsQuestion(Constants.SIZE_IMAGE_PERCENTAGE_AUDIO_ROUTE)
+            width = calculateHeightComponentsQuestion(),
+            height = calculateHeightComponentsQuestion()
         )
     }
 
@@ -266,8 +255,8 @@ class WelcomeScreenLabourFragment : BaseFragment() {
                 R.font.proxima_nova_bold
             )
             onClick {
-                if(typeRoute == Constants.LABOUR_ROUTE){
-                    mainActivity.viewModel.deleteAnswersOptionFromSharedPreferences()
+                mainActivity.viewModel.deleteAnswersOptionFromSharedPreferences()
+                if(typeRoute == Constants.ROUTE_LABOUR){
                     val goToBundle = Bundle().apply {
                         putInt("goTo", Constants.START_QUESTION_ROUTE_LABOUR)
                         putSerializable(
@@ -278,7 +267,6 @@ class WelcomeScreenLabourFragment : BaseFragment() {
                     view.findNavController()
                         .navigate(R.id.singleSelectQuestionFragment, goToBundle, navOptions, null)
                 }else {
-                    mainActivity.viewModel.deleteAnswersOptionFromSharedPreferences()
                     val goToBundle = Bundle().apply {
                         putInt("goTo", Constants.START_QUESTION_ROUTE_VIOLENCE)
                         putSerializable(
@@ -309,9 +297,21 @@ class WelcomeScreenLabourFragment : BaseFragment() {
         }
     }
 
-    private fun calculateHeightComponentsQuestion(percentageComponent: Double): Int {
+    private fun loadMessagesRoute() {
+        if (typeRoute == Constants.ROUTE_LABOUR) {
+            mainRouteMessage = getString(R.string.main_route_labour_message)
+            secondMessage = getString(R.string.second_message_route_labour)
+            imageWelcome = getString(R.string.image_name_route_labour)
+        } else {
+            mainRouteMessage = getString(R.string.main_route_violence_message)
+            secondMessage = getString(R.string.second_message_route_violence)
+            imageWelcome = getString(R.string.image_name_route_violence)
+        }
+    }
+
+    private fun calculateHeightComponentsQuestion(): Int {
         val cardHeightInDps =
-            getHeightElementInDp(percentageComponent)
+            getHeightElementInDp(Constants.SIZE_IMAGE_PERCENTAGE_AUDIO_ROUTE)
         return PixelConverter.toPixels(cardHeightInDps, context)
     }
 

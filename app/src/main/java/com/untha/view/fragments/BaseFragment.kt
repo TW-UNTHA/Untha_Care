@@ -13,11 +13,9 @@ import com.untha.model.transactionalmodels.Route
 import com.untha.utils.Constants
 import com.untha.utils.ContentType
 import com.untha.utils.FirebaseEvent
-import com.untha.view.activities.MainActivity
 import java.util.*
 
 open class BaseFragment : Fragment(), TextToSpeech.OnInitListener {
-    private lateinit var mainActivity: MainActivity
     var textToSpeech: TextToSpeech? = null
     lateinit var firebaseAnalytics: FirebaseAnalytics
 
@@ -85,35 +83,31 @@ open class BaseFragment : Fragment(), TextToSpeech.OnInitListener {
         when (goTo) {
             -1 -> {
                 println("TODO: screen results")
-                println(mainActivity.viewModel.loadResultFaultAnswerFromSharedPreferences())
-
-            }
-            null -> {
-                println("TODO: null")
             }
             else -> {
-                val goToBundle = Bundle().apply {
-                    putInt("goTo", goTo)
-                    putSerializable(
-                        Constants.ROUTE_LABOUR,
-                        route
-                    )
+                goTo?.let {
+                    val goToBundle = Bundle().apply {
+                        putInt("goTo", goTo)
+                        putSerializable(
+                            Constants.ROUTE_LABOUR,
+                            route
+                        )
+                    }
+                    if (isSingle) {
+                        view.findNavController().navigate(
+                            R.id.singleSelectQuestionFragment, goToBundle,
+                            navOptions, null
+                        )
+                    } else {
+                        view.findNavController().navigate(
+                            R.id.multipleSelectionQuestionFragment, goToBundle,
+                            navOptions, null
+                        )
+                    }
                 }
-                if (isSingle) {
-                    view.findNavController().navigate(
-                        R.id.singleSelectQuestionFragment, goToBundle,
-                        navOptions, null
-                    )
-                } else {
-                    view.findNavController().navigate(
-                        R.id.multipleSelectionQuestionFragment, goToBundle,
-                        navOptions, null
-                    )
-                }
-
             }
         }
 
-        }
+    }
 }
 
