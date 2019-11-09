@@ -3,7 +3,7 @@
   "questions": [
     {
       "id": 1,
-      "type": "SingleOption",
+      "type": "MultipleOption",
       "content": "¿Cuales de estas situaciones has vivido?",
       "explanation": "Selecciona todas las que apliquen",
       "goTo": null,
