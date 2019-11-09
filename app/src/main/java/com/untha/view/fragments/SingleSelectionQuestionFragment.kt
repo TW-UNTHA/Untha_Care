@@ -53,7 +53,7 @@ class SingleSelectionQuestionFragment : BaseFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val bundle = arguments
-        routeLabour = bundle?.get(Constants.ROUTE_LABOUR) as Route
+        routeLabour = bundle?.get(Constants.ROUTE_VIOLENCE) as Route
        val getBundleGoTo  = bundle.get("goTo")
         getBundleGoTo?.let {
             goTo = bundle.get("goTo") as Int

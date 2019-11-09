@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.navigation.findNavController
@@ -46,24 +47,39 @@ import org.jetbrains.anko.verticalLayout
 import org.jetbrains.anko.wrapContent
 import org.koin.android.viewmodel.ext.android.viewModel
 
-class MainScreenLabourRouteFragment : BaseFragment() {
+class WelcomeScreenLabourFragment : BaseFragment() {
     private lateinit var mainActivity: MainActivity
     private val routeViewModel: RoutesViewModel by viewModel()
+    private var mainRouteMessage = ""
+    private var secondMessage = ""
+    private var imageWelcome = ""
+    private var typeRoute = ""
 
     companion object {
-        const val MAIN_ROUTE_MESSAGE =
-            "¡Hola! Voy a hacerte unas preguntas para identificar si se están cumpliendo tus derechos laborales"
         const val ROUTE_BUTTON_TEXT = "Empezar"
         const val FIRST_MESSAGE = "¡Hola!"
-        const val SECOND_MESSAGE =
-            "Voy a hacerte unas preguntas para identificar si se están cumpliendo tus derechos laborales"
-        const val IMAGE_NAME = "route_labour_pantalla_inicial"
         const val MARGINS = (((18 * 100) / 640) / 100F).toDouble()
         const val SPACE_TITLE_WITH_AUDIO = (((18 * 100) / 640) / 100F).toDouble()
         const val SPACE_LINK_BUTTON = (((20 * 100) / 640) / 100F).toDouble()
         const val SPACE_DESCRIPTION_WITH_TITLE = (((30 * 100) / 640) / 100F).toDouble()
         const val SIZE_SPACE_BUTTON_AND_IMAGE = 0.04375
         const val MARGIN_FOR_TOP_AND_BOTTOM = 0.5
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val bundle = arguments
+        typeRoute = bundle?.get(Constants.TYPE_ROUTE) as String
+
+        if(typeRoute == Constants.ROUTE_LABOUR){
+            mainRouteMessage = getString(R.string.main_route_labour_message)
+            secondMessage = getString(R.string.second_message_route_labour)
+            imageWelcome = getString(R.string.image_name_route_labour)
+        }else{
+            mainRouteMessage = getString(R.string.main_route_violence_message)
+            secondMessage = getString(R.string.second_message_route_violence)
+            imageWelcome = getString(R.string.image_name_route_violence)
+        }
 
     }
 
@@ -110,7 +126,7 @@ class MainScreenLabourRouteFragment : BaseFragment() {
 
                 verticalLayout {
                     showMessageDescription(
-                        SECOND_MESSAGE,
+                        secondMessage,
                         R.font.proxima_nova_light
                     )
                 }.lparams(width = wrapContent, height = wrapContent) {
@@ -177,7 +193,7 @@ class MainScreenLabourRouteFragment : BaseFragment() {
     ) {
         imageView {
             val imageUrl = resources.getIdentifier(
-                IMAGE_NAME,
+                imageWelcome,
                 "drawable",
                 context.applicationInfo.packageName
             )
@@ -193,7 +209,7 @@ class MainScreenLabourRouteFragment : BaseFragment() {
             imageResource = R.drawable.icon_question_audio
             gravity = Gravity.CENTER
             backgroundResource = attr(R.attr.selectableItemBackgroundBorderless).resourceId
-            val contentQuestion = "${MAIN_ROUTE_MESSAGE}"
+            val contentQuestion = "${mainRouteMessage}"
             onClick {
                 logAnalyticsCustomContentTypeWithId(ContentType.AUDIO, FirebaseEvent.AUDIO)
                 contentQuestion.let { ToSpeech.speakOut(it, textToSpeech) }
@@ -250,17 +266,29 @@ class MainScreenLabourRouteFragment : BaseFragment() {
                 R.font.proxima_nova_bold
             )
             onClick {
-                mainActivity.viewModel.deleteAnswersOptionFromSharedPreferences()
-                val goToBundle = Bundle().apply {
-                    putInt("goTo", Constants.START_QUESTION_ROUTE_LABOUR)
-                    putSerializable(
-                        Constants.ROUTE_LABOUR,
-                        routeViewModel.loadLabourRouteFromSharedPreferences()
-                    )
+                if(typeRoute == Constants.LABOUR_ROUTE){
+                    mainActivity.viewModel.deleteAnswersOptionFromSharedPreferences()
+                    val goToBundle = Bundle().apply {
+                        putInt("goTo", Constants.START_QUESTION_ROUTE_LABOUR)
+                        putSerializable(
+                            Constants.ROUTE_LABOUR,
+                            routeViewModel.loadLabourRouteFromSharedPreferences()
+                        )
+                    }
+                    view.findNavController()
+                        .navigate(R.id.singleSelectQuestionFragment, goToBundle, navOptions, null)
+                }else {
+                    mainActivity.viewModel.deleteAnswersOptionFromSharedPreferences()
+                    val goToBundle = Bundle().apply {
+                        putInt("goTo", Constants.START_QUESTION_ROUTE_VIOLENCE)
+                        putSerializable(
+                            Constants.ROUTE_VIOLENCE,
+                            routeViewModel.loadViolenceRouteFromSharedPreferences()
+                        )
+                    }
+                    view.findNavController()
+                        .navigate(R.id.multipleSelectionQuestionFragment, goToBundle, navOptions, null)
                 }
-                view.findNavController()
-                    .navigate(R.id.singleSelectQuestionFragment, goToBundle, navOptions, null)
-
                 logAnalyticsCustomContentTypeWithId(ContentType.ROUTE, FirebaseEvent.ROUTE)
             }
         }.lparams(width = matchParent, height = dip(height.toFloat()))

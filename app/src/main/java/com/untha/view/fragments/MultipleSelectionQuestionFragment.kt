@@ -64,7 +64,7 @@ class MultipleSelectionQuestionFragment : BaseFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val bundle = arguments
-        labourRoute = bundle?.get(Constants.ROUTE_LABOUR) as Route
+        labourRoute = bundle?.get(Constants.ROUTE_VIOLENCE) as Route
         goTo = bundle.get("goTo") as Int
 
          viewModel.loadQuestion(goTo, labourRoute)

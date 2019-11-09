@@ -4,6 +4,8 @@ object Constants {
 
     const val LABOUR_ROUTE_PAGE = "Main labour route page"
     const val ROUTE_LABOUR = "ROUTE_LABOUR"
+    const val TYPE_ROUTE = "TYPE_ROUTE"
+    const val ROUTE_VIOLENCE = "ROUTE_VIOLENCE"
     const val CATEGORIES_ROUTES = "CATEGORIES_ROUTES"
     const val CATEGORIES_VERSION = "version"
     const val CATEGORY_PARAMETER = "category"
@@ -57,14 +59,13 @@ object Constants {
 
     const val TEMPORAL_LOAD_PROGRESS_BAR = 13
     const val START_QUESTION_ROUTE_LABOUR = 1
+    const val START_QUESTION_ROUTE_VIOLENCE = 1
     const val FAULT_ANSWER = "fault-answers"
     const val DUPLICATE_MARGIN_LATERAL = 2
     const val STYLE_ANSWER_TWO_OPTION = 2
     const val NAME_SCREEN_LABOUR_ROUTE = "DERECHOS LABORALES"
     const val NAME_SCREEN_RIGHTS = "MIS DERECHOS"
     const val NAME_SCREEN_ROUTES = "RUTAS DE AYUDA"
-    const val GO_TO = "goto"
-    const val GO_TO_TEST_VALUE_FOR_MULTIPLE_OPTION_QUESTION = 9
     const val MARGIN_BOTTOM_PERCENTAGE_ANSWERS_LAYOUT = 0.020
     const val MARGIN_BOTTOM_PERCENTAGE_NEXT_BUTTON = 0.034
     const val MARGIN_TOP_AND_BOTTOM_PERCENTAGE_AUDIO_BUTTON = 0.0361

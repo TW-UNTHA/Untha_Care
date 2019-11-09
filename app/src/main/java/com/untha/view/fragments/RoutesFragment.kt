@@ -71,14 +71,26 @@ class RoutesFragment : BaseFragment() {
 
     private fun onItemClickRouteLabour(itemView: View) {
         val routeLabour = Bundle().apply {
+            putString(Constants.TYPE_ROUTE, Constants.ROUTE_LABOUR)
             putSerializable(
                 Constants.ROUTE_LABOUR,
                 routeViewModel.loadLabourRouteFromSharedPreferences()
             )
         }
         itemView.findNavController()
-//            .navigate(R.id.mainScreenLabourRouteFragment, routeLabour, navOptions, null)
-            .navigate(R.id.multipleSelectionQuestionFragment, routeLabour, navOptions, null)
+           .navigate(R.id.mainScreenLabourRouteFragment, routeLabour, navOptions, null)
+    }
+
+    private fun onItemClickRouteViolence(itemView: View) {
+        val violenceLabour = Bundle().apply {
+            putString(Constants.TYPE_ROUTE, Constants.ROUTE_VIOLENCE)
+            putSerializable(
+                Constants.ROUTE_VIOLENCE,
+                routeViewModel.loadViolenceRouteFromSharedPreferences()
+            )
+        }
+        itemView.findNavController()
+            .navigate(R.id.mainScreenLabourRouteFragment, violenceLabour, navOptions, null)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -137,7 +149,11 @@ class RoutesFragment : BaseFragment() {
                             onItemClickRouteLabour(view)
                         }
                     }
-                    ROUTE_VIOLENCE -> println("TO BE IMPLEMENTED")
+                    ROUTE_VIOLENCE -> {
+                        setOnClickListener {
+                            onItemClickRouteViolence(view)
+                        }
+                    }
                 }
 
             }.lparams(matchParent, calculateHeightRoute()) {
