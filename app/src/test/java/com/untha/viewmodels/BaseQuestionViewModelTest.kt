@@ -36,7 +36,7 @@ import org.koin.test.mock.declareMock
 import org.mockito.Mockito
 
 @RunWith(JUnit4::class)
-class BaseQuestionViewModelTest: KoinTest {
+class BaseQuestionViewModelTest : KoinTest {
     private val sharedPreferences by inject<SharedPreferences>()
 
     @get:Rule
@@ -112,7 +112,7 @@ class BaseQuestionViewModelTest: KoinTest {
             RouteQuestion(1, "dummy", "dummy", "dummy", null, "dummy", listOf(routeOption))
         val route = Route(1, listOf(routeQuestion))
 
-        val viewModel = BaseViewModel(sharedPreferences)
+        val viewModel = BaseQuestionViewModel(sharedPreferences)
 
         viewModel.loadQuestion(1, route)
 
