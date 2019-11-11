@@ -6,7 +6,7 @@
       "type": "MultipleOption",
       "content": "¿Cuales de estas situaciones has vivido?",
       "explanation": "Selecciona todas las que apliquen",
-      "goTo": null,
+      "goTo": -1,
       "result": null,
       "options": [
         {
