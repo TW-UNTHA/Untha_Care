@@ -12,13 +12,13 @@
         {
           "value": "Chantajes",
           "hint": "R2P1G1",
-          "result": null,
+          "result": "BAJO",
           "goTo": null
         },
         {
           "value": "Mentiras",
           "hint": "R2P1G1",
-          "result": null,
+          "result": "BAJO","BAJO",
           "goTo": null
         },
         {
@@ -30,114 +30,112 @@
         {
           "value": "Celos",
           "hint": "R2P1G1",
-          "result": null,
+          "result": "BAJO",
           "goTo": null
         },
         {
           "value": "Ofensas",
           "hint": "R2P1G1",
-          "result": null,
+          "result": "BAJO",
           "goTo": null
         },
         {
           "value": "Humillaciones",
           "hint": "R2P1G1",
-          "result": null,
+          "result": "BAJO",
           "goTo": null
         },
         {
           "value": "Intimidaciones",
           "hint": "R2P1G1",
-          "result": null,
+          "result": "BAJO",
           "goTo": null
         },
         {
           "value": "Amenazas",
           "hint": "R2P1G1",
-          "result": null,
+          "result": "BAJO",
           "goTo": null
         },
         {
           "value": "Control excesivo",
           "hint": "R2P1G1",
-          "result": null,
+          "result": "BAJO",
           "goTo": null
         },
         {
           "value": "Prohibiciones",
           "hint": "R2P1G2",
-          "result": null,
+          "result": "MEDIO",
           "goTo": null
         },
         {
           "value": "Destruyen tus cosas",
           "hint": "R2P1G2",
-          "result": null,
+          "result": "MEDIO",
           "goTo": null
         },
         {
           "value": "Te manosean",
           "hint": "R2P1G2",
-          "result": null,
+          "result": "MEDIO",
           "goTo": null
         },
         {
           "value": "Te agreden",
           "hint": "R2P1G2",
-          "result": null,
+          "result": "MEDIO",
           "goTo": null
         },
         {
           "value": "Empujones",
           "hint": "R2P1G3",
-          "result": null,
+          "result": "ALTO",
           "goTo": null
         },
         {
           "value": "Golpes",
           "hint": "R2P1G3",
-          "result": null,
+          "result": "ALTO",
           "goTo": null
         },
         {
           "value": "Patazos",
           "hint": "R2P1G3",
-          "result": null,
+          "result": "ALTO",
           "goTo": null
         },
         {
           "value": "Encierros",
           "hint": "R2P1G3",
-          "result": null,
+          "result": "ALTO",
           "goTo": null
         },
         {
           "value": "Aislamiento",
           "hint": "R2P1G3",
-          "result": null,
+          "result": "ALTO",
           "goTo": null
         },
         {
           "value": "Amenzas con objetos",
           "hint": "R2P1G3",
-          "result": null,
+          "result": "ALTO",
           "goTo": null
         },
         {
           "value": "Violación",
           "hint": "R2P1G3",
-          "result": null,
+          "result": "ALTO",
           "goTo": null
         },
         {
           "value": "Amenazas de muerte",
           "hint": "R2P1G3",
-          "result": null,
+          "result": "ALTO",
           "goTo": null
         }
       ]
     }
   ]
 }
-
-
