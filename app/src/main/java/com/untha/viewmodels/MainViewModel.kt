@@ -232,12 +232,6 @@ class MainViewModel(
                                 )
                             ).apply()
 
-                        println(
-                            sharedPreferences.getString(
-                                "QUESTIONNAIRE_ROUTE" + Constants.QUESTIONNAIRE_ROUTE,
-                                "No hay datos"
-                            )
-                        )
                     }
                     is ApiErrorResponse -> {
                         println("ErrorQUESTIONNAIRE_ROUTE! $response.errorMessage")
