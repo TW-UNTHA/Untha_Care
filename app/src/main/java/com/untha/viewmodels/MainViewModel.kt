@@ -19,6 +19,7 @@ import com.untha.model.services.CategoriesService
 import com.untha.model.services.QuestionnaireRouteResultService
 import com.untha.model.services.ResultService
 import com.untha.model.services.RoutesService
+import com.untha.model.transactionalmodels.CategoriesWrapper
 import com.untha.model.transactionalmodels.Category
 import com.untha.model.transactionalmodels.QuestionnaireRouteResultWrapper
 import com.untha.model.transactionalmodels.ResultWrapper
@@ -68,6 +69,21 @@ class MainViewModel(
             })
     }
 
+    fun loadDefaultCategories(context: Context) {
+        val result = context.resources.openRawResource(R.raw.categories)
+            .bufferedReader().use { it.readText() }
+        val categoriesWrapper = Json.parse(CategoriesWrapper.serializer(), result)
+        categoriesWrapper.categories.map { category ->
+            categoryModels.add(
+                categoryMapper.mapToModel(
+                    category
+                )
+            )
+        }
+        categoryDbService.saveCategory(
+            categoryModels, ::categoriesSavedCallback
+        )
+    }
 
     fun retrieveAllCategories(): LiveData<List<QueryingCategory>> {
         return categoryWithRelationsRepository.getAllCategories()
@@ -91,7 +107,6 @@ class MainViewModel(
     }
 
     private fun categoriesInformationSaved(message: String) {
-        println(message)
         val informationSections = mutableListOf<SectionModel>()
         categoryModels.map { category ->
             category.categoryInformationModel?.let { categoryInformationModel ->
@@ -230,7 +245,6 @@ class MainViewModel(
                                     response.body
                                 )
                             ).apply()
-
                     }
                     is ApiErrorResponse -> {
                         println("ErrorQUESTIONNAIRE_ROUTE! $response.errorMessage")

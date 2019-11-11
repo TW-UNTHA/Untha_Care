@@ -46,6 +46,7 @@ class MainActivity : AppCompatActivity() {
             viewModel.loadQuestionnaireRouteResult(this)
             viewModel.loadRouteResults(this)
         } else {
+            viewModel.loadDefaultCategories(this)
             viewModel.loadDefaultLabourRoute(this)
             viewModel.loadDefaultViolenceRoute(this)
             viewModel.loadDefaultResult(this)

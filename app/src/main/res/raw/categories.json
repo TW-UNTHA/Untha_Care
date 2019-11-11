@@ -1,0 +1,702 @@
+{
+  "version": 1,
+  "categories": [
+    {
+      "id": 1,
+      "image": "home_rutas",
+      "title": "¿QUIERES CONOCER ACERCA DE TUS DERECHOS?",
+      "subtitle": "SIGUE LAS RUTAS DE AYUDA",
+      "title_next_step": null,
+      "parent_id": null,
+      "is_route": false
+    },
+    {
+      "id": 2,
+      "image": "home_derechos",
+      "title": "MIS DERECHOS",
+      "title_next_step": null,
+      "parent_id": null,
+      "is_route": false
+    },
+    {
+      "id": 3,
+      "image": "home_beneficios",
+      "title": "CALCULAR MIS BENEFICIOS",
+      "title_next_step": null,
+      "parent_id": null,
+      "is_route": false
+    },
+    {
+      "id": 4,
+      "image": "home_denuncias",
+      "title": "CÓMO HACER DENUNCIAS",
+      "title_next_step": null,
+      "information": [
+        {
+          "id": 1,
+          "description": "<b>DENUNCIAS LABORALES</b><br>",
+          "image": "info_denuncias",
+          "screen_title": "DENUNCIAS",
+          "next_step": 14,
+          "sections": [
+            {
+              "id": 1,
+              "title": "¿Cuándo puedes denunciar?",
+              "steps": [
+                {
+                  "step_id": null,
+                  "description": "Cuando existan irregularidades en tu salario, liquidación, afiliación al IESS, despidos injustificados, vacaciones, etcétera."
+                }
+              ]
+            },
+            {
+              "id": 2,
+              "title": "¿En dónde?",
+              "steps": [
+                {
+                  "step_id": null,
+                  "description": "•&nbsp;&nbsp;&nbsp;Direcciones Regionales del Trabajo <br>•&nbsp;&nbsp;&nbsp;Inspectorías de Trabajo <br>•&nbsp;&nbsp;&nbsp;Ventanillas del Ministerio del Trabajo <br>•&nbsp;&nbsp;&nbsp;Llamar al <a href = 'tel:151'>151</a> - Defensoría Pública <br>•&nbsp;&nbsp;&nbsp;Llamar al <a href = 'tel:1800 266822'>1800 266822</a> <br>•&nbsp;&nbsp;&nbsp;Enviar un correo a  <a href = 'email:denuncias@trabajo.gob.ec'>denuncias@trabajo.gob.ec</a>"
+                }
+              ]
+            },
+            {
+              "id": 3,
+              "title": "¿Cómo?",
+              "steps": [
+                {
+                  "step_id": null,
+                  "description": "Presenta un oficio con tus datos de identidad y contacto y los de tu empleador/a e indica los motivos por los cuales estás denunciando. Prueba lo que ha pasado, para esto puedes usar grabaciones de llamadas, mensajes de texto, documentos escritos. Cuando presentes una denuncia solicita el número correspondiente para poder darle seguimiento. Debes obtener una respuesta en un plazo máximo de 15 días."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": 2,
+          "description": "<b>DENUNCIAS POR VIOLENCIA</b><br><br><br> Presenta este tipo denuncia cuando has sido víctima de cualquier tipo de violencia. Por ejemplo, si sufres humillaciones, burlas, discriminación,encierro, golpes, amenazas o cualquier abuso sexual no deseado. ",
+          "image": "info_denuncias",
+          "screen_title": "DENUNCIAS",
+          "next_step": 15,
+          "sections": [
+            {
+              "id": 4,
+              "title": "¿En dónde?",
+              "steps": [
+                {
+                  "step_id": null,
+                  "description": "•&nbsp;&nbsp;&nbsp;Unidad Judicial de Violencia contra la Mujer o Miembros del Núcleo Familiar <br>•&nbsp;&nbsp;&nbsp;Fiscalía <br>•&nbsp;&nbsp;&nbsp;Llamar al <a href = 'tel:151'>151</a> - Defensoría Pública <br><br>Si se requiere auxilio inmediato, llamar a:<br>•&nbsp;&nbsp;&nbsp;<a href = 'tel:911'>911</a> - Servicio Integrado de Seguridad "
+                }
+              ]
+            },
+            {
+              "id": 5,
+              "title": "¿Cómo?",
+              "steps": [
+                {
+                  "step_id": null,
+                  "description": "•&nbsp;&nbsp;&nbsp;Necesitas llevar tu cédula de identidad. Si no la tienes, no te preocupes, de igual manera te atenderán. <br>•&nbsp;&nbsp;&nbsp;No necesitas un abogado.<br>•&nbsp;&nbsp;&nbsp;Es totalmente gratuito. "
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "parent_id": null,
+      "is_route": false
+    },
+    {
+      "id": 5,
+      "image": "home_contratos",
+      "title": "CONTRATOS",
+      "title_next_step": null,
+      "information": [
+        {
+          "id": 3,
+          "description": "Obtener un contrato de trabajo es importante porque permite formalizar tu relación laboral con tu empleador. Las cláusulas de tu contrato te ayudarán a identificar y reportar incumplimiento de las mismas o de tus derechos. <br><br><b>Recuerda, </b>un contrato verbal es aceptado, pero se recomienda tener un contrato escrito porque es más fácil usarlo como prueba si lo llegas a necesitar.",
+          "image": "info_contratos",
+          "screen_title": "CONTRATOS",
+          "next_step": null,
+          "sections": [
+            {
+              "id": 6,
+              "title": "¿Qué debe tener un contrato?",
+              "steps": [
+                {
+                  "step_id": 1,
+                  "description": "Tus responsabilidades y las actividades que realizarás."
+                },
+                {
+                  "step_id": 2,
+                  "description": "Tu horario de trabajo o la duración de tu jornada y los días de trabajo. Es preferible que sea a tiempo completo, es decir 8 horas diaras por 5 días a la semana o tiempo parcial, menos de 6 horas diarias."
+                },
+                {
+                  "step_id": 3,
+                  "description": "El monto de tu salario que no puede ser menor al mínimo básico unificado si trabajas a tiempo completo, o un proporcional al mismo si trabajas a tiempo parcial y la regularidad con la que se te harán los pagos."
+                },
+                {
+                  "step_id": 4,
+                  "description": "Información y montos correspondientes al pago de horas extra."
+                },
+                {
+                  "step_id": 5,
+                  "description": "Información sobre tus vacaciones, que no pueden ser menores a 15 días al año después del primer año de trabajo."
+                },
+                {
+                  "step_id": 6,
+                  "description": "Información sobre el período de prueba que no puede ser mayor a 15 días."
+                },
+                {
+                  "step_id": 7,
+                  "description": "Datos sobre tu empleador o empresa y el lugar donde trabajarás."
+                }
+              ]
+            },
+            {
+              "id": 7,
+              "title": "Contratos modelos",
+              "steps": [
+                {
+                  "step_id": null,
+                  "description": "Ingresa al siguiente vínculo para acceder a contratos modelos de: tiempo completo y tiempo parcial: <a href='http://www.trabajo.gob.ec/modelos-de-contratos-para-trabajadoras-remuneradas-del-hogar-trabajo-domestico'>http://www.trabajo.gob.ec/modelos-de-contratos-para-trabajadoras-remuneradas-del-hogar-trabajo-domestico</a> <br><br> <b>Recuerda</b>, tu empleador no puede despedirte por ninguno de estos motivos: embarazo, edad, apariencia, estado de salud física o mental o por diversidad sexual o religiosa. "
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "image": "home_afiliciacion",
+      "title": "VERIFICAR AFILIACIÓN",
+      "title_next_step": null,
+      "information": [
+        {
+          "id": 4,
+          "description": "El empleador debe inscribirte en el Instituto Ecuatoriano de Seguridad Social (IESS), desde el primer día de trabajo. Dará aviso de tu entrada en los primeros 15 días. Comunicará sobre tu salida, sueldos y salarios, accidentes de trabajo y enfermedades que se produzcan en él y cumplirá con las demás obligaciones legales sobre seguridad social.",
+          "image": "info_afiliacion",
+          "screen_title": "AFILIACIÓN AL IESS",
+          "next_step": null,
+          "sections": [
+            {
+              "id": 8,
+              "title": "¿Qué ofrece el IESS a sus afiliadas?",
+              "steps": [
+                {
+                  "step_id": null,
+                  "description": "•&nbsp;&nbsp;&nbsp;Salud (seguro de salud individual y familiar). <br>•&nbsp;&nbsp;&nbsp;Riesgos de trabajo (accidentes de trabajo y enfermedades).<br>•&nbsp;&nbsp;&nbsp;Pensiones (vejez, invalidez y muerte). <br><br>Para mayor información consulta la página: <a href = 'https://www.iess.gob.ec'>https://www.iess.gob.ec </a> <br><br><b>Recuerda, </b> tu empleador/a debe afiliarte al IESS. ¡Es tu derecho! <br><br> Para verificar si estás afiliada sigue estos pasos: "
+                }
+              ]
+            },
+            {
+              "id": 9,
+              "title": "Obtén tu clave del IESS",
+              "steps": [
+                {
+                  "step_id": 1,
+                  "description": "Desde una computadora o celular con conexión al internet, ingresa en el vínculo <a href='https://www.iess.gob.ec/solicitudclave/pages/public/principal.jsf'>https://www.iess.gob.ec/solicitudclave/pages/public/principal.jsf</a>"
+                },
+                {
+                  "step_id": 2,
+                  "description": "Ingresa tu número de cédula y sigue las instrucciones hasta que aparezca el botón “Finalizar”."
+                },
+                {
+                  "step_id": 3,
+                  "description": "Busca en tu correo electrónico un mail del IESS llamado “Activación de clave” (antes de esto se te solicitará un correo elctrónico). Selecciona el botón “Click para continuar” en el correo que te llegó."
+                },
+                {
+                  "step_id": 4,
+                  "description": "Ingresa una nueva clave y repite la misma clave para confirmar."
+                }
+              ]
+            },
+            {
+              "id": 10,
+              "title": "Obtén tu certificado de afiliación",
+              "steps": [
+                {
+                  "step_id": 1,
+                  "description": "Una vez que tengas tu clave del IESS, ingresa al siguiente vínculo <a href='https://www.iess.gob.ec/afiliado-web/pages/opcionesGenerales/seleccionCertificadoDeAfiliacion.jsf'>https://www.iess.gob.ec/solicitudclave/pages/public/principal.jsf</a>"
+                },
+                {
+                  "step_id": 2,
+                  "description": "Selecciona la opción “Certificado de Afiliación al Seguro General”."
+                },
+                {
+                  "step_id": 3,
+                  "description": "Ingresa tu número de cédula y después tu clave."
+                },
+                {
+                  "step_id": 4,
+                  "description": "Selecciona la opción ingresar."
+                },
+                {
+                  "step_id": 5,
+                  "description": "Si tu cédula y clave son los correctos, se descargará un certificado que indica que tu empleador te ha afiliado, y la fecha del último aporte al IESS."
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "image": "home_sindicato",
+      "title": "ÚNETE AL SINDICATO",
+      "title_next_step": null,
+      "information": [
+        {
+          "id": 5,
+          "image": "info_sindicato",
+          "screen_title": "UNTHA",
+          "next_step": null,
+          "sections": [
+            {
+              "id": 11,
+              "title": "¿Qué es UNTHA?",
+              "steps": [
+                {
+                  "step_id": null,
+                  "description": "La Unión de Trabajadoras Remuneradas del Hogar y Afines es un sindicato que busca apoyar la defensa y garantía de los derechos de los y las TRH, promoviendo un mundo libre de violencia. <br><br> Buscamos organizar a las trabajadoras, empoderarlas con información y acompañarlas para exigir el cumplimiento de sus derechos humanos y laborales."
+                }
+              ]
+            },
+            {
+              "id": 12,
+              "title": "¿Cómo puedes unirte o contactarnos?",
+              "steps": [
+                {
+                  "step_id": null,
+                  "description": "•<b>&nbsp;&nbsp;&nbsp;Email </b>: <a href = 'mailto:unthaecuador@gmail.com'>unthaecuador@gmail.com</a><br><br>•<b>&nbsp;&nbsp;&nbsp;Telf:</b> <a href = 'tel:0960639550'>0960639550</a><br><br>•<b>&nbsp;&nbsp;&nbsp;Facebook</b>: <a href='https://www.facebook.com/atrhecuador/'>Unión Nacional de Trabajadoras del Hogar y Afines</a><br>."
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "parent_id": null,
+      "is_route": false
+    },
+    {
+      "id": 8,
+      "image": "derechos_salario",
+      "title": "BENEFICIOS",
+      "title_next_step": "SALARIO Y BENEFICIOS",
+      "parent_id": 2,
+      "is_route": false,
+      "information": [
+        {
+          "id": 6,
+          "image": "info_salario",
+          "screen_title": "SALARIO Y BENEFICIOS",
+          "next_step": 9,
+          "sections": [
+            {
+              "id": 13,
+              "title": "",
+              "steps": [
+                {
+                  "step_id": 1,
+                  "description": " Si trabajas puertas adentro o puertas afuera tienes derecho a recibir alimentos, uniformes (si se requiere) y albergue (en medida de las posibilidades) sin que estos te sean descontados de tu remuneración, además tienes derecho a tener facilidades para acceder a tu educación. <br><br>Tienes derecho a recibir por lo menos un salario básico unificado si trabajas a tiempo completo, es decir: ganar mínimo $394 por trabajar máximo cinco días a la semana o 40 horas semanales. "
+                },
+                {
+                  "step_id": 2,
+                  "description": "En caso de trabajar a tiempo parcial, tu salario es proporcional a un salario básico. Por ejemplo, ganarías la mitad del salario básico si trabajas la mitad del tiempo."
+                },
+                {
+                  "step_id": 3,
+                  "description": "Tienes que recibir el pago del décimo tercero o bono navideño que equivale a la doceava parte de las remuneraciones del año calendario. Es decir, si ganas $394, deberás recibir un salario extra o el equivalente a los meses trabajados.  "
+                },
+                {
+                  "step_id": 4,
+                  "description": "Debes recibir el pago del décimo cuarto que equivale a un salario básico. Si solicitas que se acumule, lo debes recibir hasta el 15 de marzo en la Costa y Galápagos y hasta el 15 de agosto en la Sierra y Amazonía. Caso contrario se dividirá en partes y se añadirá como un bono a tu salario mensual."
+                },
+                {
+                  "step_id": 5,
+                  "description": "Tienes derecho a cobrar horas extras si se requiere tu servicio una vez cumplida tu jornada completa o parcial de trabajo (incluso si la modalidad es puertas adentro). <br><br> Si las horas extras son durante el día hasta las 12 de la noche, tu empleador paga cada hora suplementaria con el 50% de recargo. <br><br> Si son desde las 12 de la noche a las 6 de la mañana o durante el fin de semana tendrán el 100% de recargo."
+                },
+                {
+                  "step_id": 6,
+                  "description": "Tus vacaciones deben ser pagadas."
+                },
+                {
+                  "step_id": 7,
+                  "description": "Desde el segundo año de trabajo, tienes derecho a recibir fondos de reserva mes a mes."
+                },
+                {
+                  "step_id": 8,
+                  "description": "El período de prueba dura máximo 15 días y deberán ser pagados y acordados mediante contrato escrito, una vez finalizado este plazo, la trabajadora entra automáticamente en una modalidad de trabajo indefinido, que reconoce derechos como la indemnización por despido intempestivo."
+                },
+                {
+                  "step_id": 9,
+                  "description": "Tienes derecho a ser afiliada al Instituto Ecuatoriano de Seguridad Social (IESS) por parte del empleador y gozar de todo derecho laboral."
+                },
+                {
+                  "step_id": 10,
+                  "description": "Debes recibir por adelantado la remuneración antes de tus vacaciones."
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "image": "derechos_vacaciones",
+      "title": "JORNADA DE TRABAJO Y VACACIONES",
+      "title_next_step": "JORNADA DE TRABAJO Y VACACIONES",
+      "parent_id": 2,
+      "is_route": false,
+      "information": [
+        {
+          "id": 7,
+          "image": "info_vacaciones",
+          "screen_title": "JORNADA Y VACACIONES",
+          "next_step": 10,
+          "sections": [
+            {
+              "id": 14,
+              "title": "",
+              "steps": [
+                {
+                  "step_id": 1,
+                  "description": "Si trabajas a tiempo completo, tu jornada de trabajo debe ser máximo de 40 horas, distribuidas en 5 días a la semana incluso si trabajas puertas adentro."
+                },
+                {
+                  "step_id": 2,
+                  "description": "Tienes derecho a cobrar horas extras (ordinarias y suplementarias) si se requiere tu servicio una vez cumplida tu jornada completa o parcial de trabajo (incluso si la modalidad es puertas adentro).<br><br><b>Recuerda, </b>las horas extras no deben pasar de 4 en un día, ni de 12 en la semana."
+                },
+                {
+                  "step_id": 3,
+                  "description": "La jornada se puede dividir en dos partes, con un descanso después de las primeras 4 horas de trabajo."
+                },
+                {
+                  "step_id": 4,
+                  "description": "Una vez cumplido el año de trabajo con el mismo empleador, tienes derecho a 15 días de vacaciones pagadas. Después de los 5 años, tiene un día adicional de vacaciones por cada año trabajado."
+                },
+                {
+                  "step_id": 5,
+                  "description": "Las menores de 16 años tienen derecho a 20 días de vacaciones, y las mayores de 16 y menores de 18 tendrán derecho a 18 días de vacaciones anuales."
+                },
+                {
+                  "step_id": 6,
+                  "description": "Los trabajadores tienen derecho a tres días de licencia con remuneración completa, en caso de: fallecimiento de su cónyuge o de su conviviente en unión de hecho o de sus parientes dentro del segundo grado de consanguinidad o afinidad."
+                },
+                {
+                  "step_id": 7,
+                  "description": "Tienes derecho a salir a ejercer tu voto."
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "image": "derechos_embarazo",
+      "title": "EMBARAZO Y MATERNIDAD",
+      "title_next_step": "EMBARAZO Y MATERNIDAD",
+      "parent_id": 2,
+      "is_route": false,
+      "information": [
+        {
+          "id": 8,
+          "image": "info_embarazo",
+          "screen_title": "EMBARAZO Y MATERNIDAD",
+          "next_step": 11,
+          "sections": [
+            {
+              "id": 15,
+              "title": "",
+              "steps": [
+                {
+                  "step_id": 1,
+                  "description": "Si estás embarazada, no podrás ser despedida y tendras licencia pagada las dos semanas anteriores y las diez posteriores al parto."
+                },
+                {
+                  "step_id": 2,
+                  "description": "Tienes derecho a acceder al período de lactancia; es decir, tendrás permiso para salir dos horas antes de tu horario habitual hasta que tu bebé cumpla 12 meses, una vez cumplida tu licencia de maternidad."
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "image": "derechos_adolescentes",
+      "title": "NIÑAS Y ADOLESCENTES",
+      "title_next_step": "NIÑAS Y ADOLESCENTES",
+      "parent_id": 2,
+      "is_route": false,
+      "information": [
+        {
+          "id": 9,
+          "image": "info_adolescentes",
+          "screen_title": "NIÑAS Y ADOLESCENTES",
+          "next_step": 12,
+          "sections": [
+            {
+              "id": 16,
+              "title": "",
+              "steps": [
+                {
+                  "step_id": 1,
+                  "description": "Si tienes menos de 15 años, está prohibido que trabajes. <br><br><b>Recuerda, </b>si esto no se cumple, tu empleador deberá pagarte el doble de remuneración y será sancionado con una multa. "
+                },
+                {
+                  "step_id": 2,
+                  "description": "Si tienes entre 15 y 18 años y no has cumplido tu educación básica, debes tener 2 horas diarias para ir a una escuela. Si no lo permite, tu empleador será sancionado con una multa señalada en el Código de la Niñez y Adolescencia."
+                },
+                {
+                  "step_id": 3,
+                  "description": "Tu jornada no debe pasar de las 6 horas diarias o 30 semanales."
+                },
+                {
+                  "step_id": 4,
+                  "description": "Si eres menor de 18 años, se prohibe que trabajes en las noches. <br><br><b>Recuerda:</b><br><br>La esclavitud, servidumbre por deudas, trabajo obligatorio, conflictos armados, prostitución o pornografía son penalizadas en el Ecuador. <br>No deberías producir, traficar y/o vender drogas, alcohol, sustancias tóxicas y/o explosivas. Tampoco puedes trabajar en lugares donde estas se produzcan porque son inseguras y riesgosas para tu salud. Está prohibido que cargues o descargues navíos, manejes correas o sierras, fundir y pulir vidrios o metales, pescar a bordo, o ser guardián de seguridad."
+                },
+                {
+                  "step_id": 5,
+                  "description": "Tu empleador debe llevar un registro con tu nombre, partida de nacimiento, cédula, la clase de trabajo que realizas, la duración de tu contrato, el número de horas que trabajas, tu remuneración y una certificación de que estás estudiando o has culminado tu educación y entregar una copia al director regional de trabajo."
+                },
+                {
+                  "step_id": 6,
+                  "description": "Tu contrato debe ser hecho por escrito y una copia debe registrarse en el Municipio e Inspección del Trabajo respectivo o en el Consejo Cantonal. Tu empleador tiene un plazo de 30 días para cumplir con esta obligación."
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "image": "derechos_despidos",
+      "title": "DESPIDOS Y TÉRMINO DE CONTRATOS",
+      "title_next_step": "DESPIDOS Y TÉRMINO DE CONTRATOS",
+      "parent_id": 2,
+      "is_route": false,
+      "information": [
+        {
+          "id": 10,
+          "image": "info_despidos",
+          "screen_title": "DESPIDOS Y TÉRMINO",
+          "next_step": 13,
+          "sections": [
+            {
+              "id": 17,
+              "title": "",
+              "steps": [
+                {
+                  "step_id": 1,
+                  "description": "Si estás embarazada, no podrás ser despedida."
+                },
+                {
+                  "step_id": 2,
+                  "description": "Si te sientes imposibilitada físicamente por tu estado de salud para realizar tus labores, como consecuencia del largo servicio que has prestado, no podrás ser despedida. Tu empleador deberá brindarte los recursos necesarios para tu subsistencia o jubilarte según la Ley. Esto es obligación de tu empleador o sus herederos (en caso de fallecimiento).<br>"
+                },
+                {
+                  "step_id": 3,
+                  "description": "El contrato puede terminar por estas causas:<br><br> •&nbsp;&nbsp;&nbsp;Tu voluntad de terminar el contrato<br>•&nbsp;&nbsp;&nbsp;Acuerdo entre tu empleador y tú, o causas previstas en el contrato<br>•&nbsp;&nbsp;&nbsp;Conclusión de la obra o período establecido para el trabajo<br>•&nbsp;&nbsp;&nbsp;Muerte o incapacidad del empleador o de la trabajadora<br>•&nbsp;&nbsp;&nbsp;Condiciones que imposibiliten el trabajo, como un incendio, terremoto o acontecimientos que no se pudieron evitar<br>•&nbsp;&nbsp;&nbsp;Carta de renuncia presentada por la trabajadora."
+                },
+                {
+                  "step_id": 4,
+                  "description": "Tu empleador puede terminar el contrato por estas causas:<br><br> •&nbsp;&nbsp;&nbsp;La voluntad de tu empleador de terminar el contrato<br>•&nbsp;&nbsp;&nbsp;Faltas injustificadas, impuntualidad o abandono del trabajo por más de 3 días seguidos sin causa<br>•&nbsp;&nbsp;&nbsp;Desobediencias graves a reglamentos internos<br>•&nbsp;&nbsp;&nbsp;Conducta inmoral de la trabajadora<br>•&nbsp;&nbsp;&nbsp;Injuriar a tu empleador, familiares o personas cercanas al mismo<br>•&nbsp;&nbsp;&nbsp;Ineptitud al desempeñar tu trabajo<br>•&nbsp;&nbsp;&nbsp;Denuncias injustificadas a tu empleador sobre obligaciones en el IESS. En caso de que la denuncia sea justificada, tu estabilidad estará asegurado por 2 años en trabajos permanentes<br>•&nbsp;&nbsp;&nbsp;Por acosar laboralmente a otras personas.<br><br><b>Recuerda,</b> antes del visto bueno, el trabajador, sus representantes y el empleador tienen derecho a ser oídos por una autoridad laboral."
+                },
+                {
+                  "step_id": 5,
+                  "description": " Puedes dar por terminado un contrato por estos motivos:<br><br> •&nbsp;&nbsp;&nbsp;Por injuria de tu empleador, sus familiares o personas cercanas. Si las injurias son discriminatorias, la indemnización es la que ordena el artículo 195.3 del Código de Trabajo por \"injurias discriminatorias\" que establece que se \"recibirá la indemnización equivalente al valor de un año de la remuneración que venía percibiendo, además de la general que corresponda por despido intempestivo.<br>•&nbsp;&nbsp;&nbsp;Por disminución, falta de pago o impuntualidad en el pago<br>•&nbsp;&nbsp;&nbsp;Por que se te exige hacer trabajos que no se habían acordado<br>•&nbsp;&nbsp;&nbsp;Por sufrir acoso laboral o cometido por parte de tu empleador o sus representantes."
+                },
+                {
+                  "step_id": 6,
+                  "description": "Si tu empleador te despide intempestivamente, deberás ser indemnizada de esta forma:<br><br>•&nbsp;&nbsp;&nbsp;Tres meses de remuneración si has trabajado hasta tres años<br>•&nbsp;&nbsp;&nbsp;Un mes de remuneración por cada año de servicio sin trabajas más de tres años. No puede pasar de 25 remuneraciones<br>•&nbsp;&nbsp;&nbsp;Un año completo de remuneraciones si has trabajado un año<br>•&nbsp;&nbsp;&nbsp;Si trabaja a destajo, es decir por unidades de trabajo entregadas, se fija la remuneración mensual en base al promedio recibido en el último año de trabajo o el tiempo que haya servido<br>•&nbsp;&nbsp;&nbsp;Si has trabajado entre 20 y 25 años ininterrumpidamente, además, tendrás derecho a una proporción de la jubilación patronal<br>•&nbsp;&nbsp;&nbsp;Si tu empleador termina el contrato sin causa justa, deberá ratificarse ante una autoridad de trabajo y depositar el valor en las siguientes 48 horas, si no lo hace, la trabajadora se reintegrará a sus labores de inmediato."
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "title": "LEYES",
+      "title_next_step": "LEYES",
+      "image": "derechos_leyes",
+      "parent_id": 2,
+      "is_route": false,
+      "information": [
+        {
+          "id": 11,
+          "image": "info_leyes",
+          "screen_title": "LEYES",
+          "next_step": null,
+          "sections": [
+            {
+              "id": 18,
+              "title": "Constitución de la República del Ecuador",
+              "steps": [
+                {
+                  "step_id": null,
+                  "description": "Tiene como principio la igualdad y la no discriminación. Garantiza el derecho a la integridad personal: una vida libre de violencia, pública y privada. Dispone que el derecho a la seguridad social es irrenunciable, solidario, obligatorio, universal, equitativo. Además, reconoce el trabajo como un derecho y un deber social."
+                }
+              ]
+            },
+            {
+              "id": 19,
+              "title": "Convención sobre la Eliminación de todas las Formas de Discriminación contra la Mujer",
+              "steps": [
+                {
+                  "step_id": null,
+                  "description": "Busca eliminar todas las formas de discriminación contra las mujeres, por su condición de género, en distintas esferas de la vida como son: la esfera  política, económica, social, cultural y civil, entre otras. Señala qué es la igualdad entre los hombres y las mujeres y las obligaciones que tienen los Estados para lograrla."
+                }
+              ]
+            },
+            {
+              "id": 20,
+              "title": "Convención Interamericana para Prevenir, Sancionar y Erradicar la Violencia contra la Mujer, Convención de Belém do Pará",
+              "steps": [
+                {
+                  "step_id": null,
+                  "description": "Reconoce que la violencia contra las mujeres es una violación a los derechos humanos y que es responsabilidad del Estado tomar medidas concretas para prevenirla y erradicarla. Señala que la violencia contra la mujer puede ser perpetrada en la familia, en la comunidad (donde incluye el acoso sexual en el lugar de trabajo) y por parte del Estado."
+                }
+              ]
+            },
+            {
+              "id": 21,
+              "title": "Convenio 182 sobre la prohibición de las peores formas de trabajo infantil y la acción inmediata para su eliminación",
+              "steps": [
+                {
+                  "step_id": null,
+                  "description": "Considera que el trabajo doméstico es poco visible y reconocido y que lo realizan en su mayoría mujeres y niñas, muchas de ellas migrantes o que forman parte de comunidades desfavorecidas, vulnerables a la discriminación en el trabajo, así como a otros abusos de sus derechos humanos. Busca librar de todas las formas de trabajo a niños y niñas y asegurar su rehabilitación, su inserción social y atender las necesidades de sus familias."
+                }
+              ]
+            },
+            {
+              "id": 22,
+              "title": "Convenio 189 sobre trabajo decente de la Organización Internacional del Trabajo para las trabajadoras y los trabajadores domésticos",
+              "steps": [
+                {
+                  "step_id": null,
+                  "description": "Reconoce la gran contribución de los trabajadores domésticos a la economía mundial. Está a favor de eliminar todas las formas de trabajo forzoso u obligatorio, el trabajo infantil y la discriminación en sus diferentes formas."
+                }
+              ]
+            },
+            {
+              "id": 23,
+              "title": "Convenio y Recomendación para eliminar el acoso y la violencia en el mundo del trabajo de la OIT",
+              "steps": [
+                {
+                  "step_id": null,
+                  "description": "Brinda elementos técnicos y normativos para que los Estados, las empresas y las y los  trabajadores elaboren planes de prevención sobre violencia y acoso en el mundo del trabajo, desarrollen mecanismos para garantizar la denuncias de violencia y acoso y reconozcan la importancia de trabajar de manera coordinada para detener, controlar y dar seguimiento a cualquier hecho de violencia que atente contra los derechos humanos, así como contar con mecanismos de restitución de los derechos de las y los trabajadores."
+                }
+              ]
+            },
+            {
+              "id": 24,
+              "title": "Ley Modelo sobre Economía del Cuidado del Parlamento Latinoamericano",
+              "steps": [
+                {
+                  "step_id": null,
+                  "description": "Fue aprobada por la Comisión de Igualdad de Género del Parlamento Latinoamericano en 2013. Reconoce como labor productiva el trabajo que se realiza en los hogares y garantiza el ejercicio pleno de los derechos de las personas en situación de dependencia y de las personas encargadas del cuidado. Compromete a sus Estados miembros a crear Sistemas Integrales de Cuidados en sus países."
+                }
+              ]
+            },
+            {
+              "id": 25,
+              "title": "Ley Orgánica Integral para Prevenir y Erradicar la Violencia contra las mujeres",
+              "steps": [
+                {
+                  "step_id": null,
+                  "description": "Busca prevenir, atender, proteger y reparar a las mujeres -en toda su diversidad y en distintas edades- frente a cualquier tipo de violencia que se cometa en su contra, como puede ser la violencia: física, psicológica, sexual, económica y patrimonial, simbólica, política y gineco-obstétrica."
+                }
+              ]
+            },
+            {
+              "id": 26,
+              "title": "Ley Orgánica de Justicia Laboral y Reconocimiento del Trabajo en el Hogar",
+              "steps": [
+                {
+                  "step_id": null,
+                  "description": "Prohíbe el despido intempestivo de personas trabajadoras en estado de embarazo. Esta ley modificó las normativas como el Código de Trabajo y reconoce el derecho a la seguridad social de las personas que realizan trabajo del hogar no remunerado (aquellas que realizan de manera exclusiva tareas de cuidado del hogar sin percibir pago ni apoyo económico alguno), garantizando su derecho a recibir pensión de jubilación, invalidez y muerte."
+                }
+              ]
+            },
+            {
+              "id": 27,
+              "title": "Ley Orgánica de los Consejos Nacionales para la Igualdad",
+              "steps": [
+                {
+                  "step_id": null,
+                  "description": "Asegura la vigencia y el ejercicio de los derechos consagrados en la Constitución y en los Instrumentos Internacionales de Derechos<br>Humanos, y promueve erradicar los actos, usos, prácticas, costumbres y estereotipos que discriminan."
+                }
+              ]
+            },
+            {
+              "id": 28,
+              "title": "Código Orgánico Integral Penal (COIP)",
+              "steps": [
+                {
+                  "step_id": null,
+                  "description": "Considera delitos tres tipos de violencia contra la mujer o miembros del núcleo familiar: física, psicológica y sexual. Juzga otros delitos que atentan contra la dignidad humana y la inviolabilidad de la vida: femicidio, trata de personas, diversas formas de explotación, violencia intrafamiliar, abuso, delitos contra la integridad sexual y reproductiva, delitos de discriminación y odio."
+                }
+              ]
+            },
+            {
+              "id": 29,
+              "title": "Código del Trabajo",
+              "steps": [
+                {
+                  "step_id": null,
+                  "description": "Establece igual trabajo por igual remuneración, sin discriminación alguna. Dispone las obligaciones del empleador, ordenando garantizar la igualdad de oportunidades y no discriminación de trabajadores individuales o en contratos colectivos."
+                }
+              ]
+            },
+            {
+              "id": 30,
+              "title": "Agenda Nacional para la Igualdad de las Mujeres y Personas LGBTI",
+              "steps": [
+                {
+                  "step_id": null,
+                  "description": "Brinda los lineamientos técnicos para que las distintas instituciones que conforman el Estado central y desconcentrado elaboren sus planes y políticas públicas con enfoque de género. Cuenta con tres ejes de trabajo. En su Eje 2: Sostenibilidad de la Vida, establece la política y acciones para promover los derechos económicos y laborales, abordando el TRH y el trabajo no remunerado y de cuidados."
+                }
+              ]
+            },
+            {
+              "id": 31,
+              "title": "Acuerdo Ministerial No 0082: Normativa para la Erradicación de la Discriminación en el Ámbito Laboral",
+              "steps": [
+                {
+                  "step_id": null,
+                  "description": "Tiene como objeto establecer regulaciones dentro del sector público y privado, que permitan el acceso a los procesos de selección de personal en igualdad de condiciones, así como garantizar la igualdad y no discriminación en el ámbito laboral. Mediante este acuerdo se realizan denuncias por discriminación en el ámbito laboral."
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 14,
+      "image": "rutas_derechos_laborales",
+      "title": "RUTA DE DERECHOS LABORALES",
+      "subtitle": "CUESTIONARIO DE DERECHOS LABORALES:",
+      "title_next_step": "CONOCE SI SE ESTÁN CUMPLIENDO TUS DERECHOS",
+      "parent_id": null,
+      "is_route": true
+    },
+    {
+      "id": 15,
+      "image": "rutas_violencia_laboral",
+      "title": "RUTA DE VIOLENCIA",
+      "subtitle": "CUESTIONARIO DE VIOLENCIA:",
+      "title_next_step": "CONOCE SI ERES VÍCTIMA DE VIOLENCIA",
+      "parent_id": null,
+      "is_route": true
+    }
+  ]
+}
