@@ -53,8 +53,9 @@
     {
       "id": "F2",
       "type": "fault",
-      "content": "Tu empleador te hace trabajar más horas de las que tienes permitidas como menor de edad (30 semanales, 6 al día)",
-      "categories": [
+      "content": " trabajar más horas de las que tienes permitidas como menor de edad (30 semanales, 6 al día)",
+      "categories":
+      [
         11
       ]
     },

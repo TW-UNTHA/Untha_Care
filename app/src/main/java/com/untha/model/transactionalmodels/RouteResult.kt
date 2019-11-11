@@ -3,7 +3,7 @@ package com.untha.model.transactionalmodels
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class Result(
+data class RouteResult(
     val id: String,
     val type: String,
     val content: String,

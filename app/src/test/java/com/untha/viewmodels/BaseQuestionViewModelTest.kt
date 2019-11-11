@@ -36,7 +36,7 @@ import org.koin.test.mock.declareMock
 import org.mockito.Mockito
 
 @RunWith(JUnit4::class)
-class BaseViewModelTest : KoinTest {
+class BaseQuestionViewModelTest: KoinTest {
     private val sharedPreferences by inject<SharedPreferences>()
 
     @get:Rule
@@ -72,7 +72,7 @@ class BaseViewModelTest : KoinTest {
     @Test
     fun `should save single option answer when select a option with fault`() {
 
-        val baseViewModel = BaseViewModel(sharedPreferences)
+        val baseViewModel = BaseQuestionViewModel(sharedPreferences)
         val option = RouteOption(
             "Siempre cambia, trabajo por horas", "R1P4R2",
             "R2",

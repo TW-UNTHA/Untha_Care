@@ -47,7 +47,7 @@ object Constants {
     const val MARGIN_LATERAL_PERCENTAGE_MAIN_ROUTE = 0.035
     const val SHADOW_PADDING_SIZE = 5
     const val LABOUR_ROUTE = "labour-route"
-    const val RESULT = "result"
+    const val ROUTE_RESULT = "route-result"
     const val VIOLENCE_ROUTE = "violence-route"
     const val MARGIN_SINGLE_SELECTION_QUESTION = 0.049
     const val MARGIN_HEIGHT_SELECTION_QUESTION = 0.054

@@ -4,7 +4,7 @@ import android.content.SharedPreferences
 
 class MultipleSelectionQuestionViewModel(
     sharedPreferences: SharedPreferences
-) : BaseViewModel(sharedPreferences) {
+) : BaseQuestionViewModel(sharedPreferences) {
 
     fun getFaultForQuestion(isNoneOfAbove: Boolean) {
         return if (isNoneOfAbove) {

@@ -57,13 +57,7 @@ class MultipleSelectionQuestionViewModelTest : KoinTest {
                 )
             )
         }
-        declareMock<CategoryDbService>()
-        declareMock<CategoriesService>()
-        declareMock<CategoryMapper>()
-        declareMock<CategoryWithRelationsRepository>()
         declareMock<SharedPreferences>()
-        declareMock<RoutesService>()
-        declareMock<ResultService>()
     }
 
     @After

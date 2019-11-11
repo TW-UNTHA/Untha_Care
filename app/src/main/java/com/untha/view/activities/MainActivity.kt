@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity() {
             viewModel.retrieveUpdatedCategories(this)
             viewModel.loadLabourRoute(this)
             viewModel.loadViolenceRoute(this)
-            viewModel.loadResult(this)
+            viewModel.loadRouteResults(this)
         } else {
             viewModel.loadDefaultLabourRoute(this)
             viewModel.loadDefaultViolenceRoute(this)

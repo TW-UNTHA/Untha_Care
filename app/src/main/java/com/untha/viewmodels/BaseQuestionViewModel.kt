@@ -7,7 +7,7 @@ import com.untha.model.transactionalmodels.Route
 import com.untha.model.transactionalmodels.RouteQuestion
 import com.untha.utils.Constants
 
-open class BaseViewModel(
+open class BaseQuestionViewModel(
     private val sharedPreferences: SharedPreferences
 ) : ViewModel() {
 

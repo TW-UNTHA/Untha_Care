@@ -152,14 +152,14 @@ class MainViewModel(
     }
 
 
-    fun loadResult(owner: LifecycleOwner) {
+    fun loadRouteResults(owner: LifecycleOwner) {
         resultService.getResult()
             .observe(owner, Observer { response ->
                 when (response) {
                     is ApiSuccessResponse -> {
                         sharedPreferences.edit()
                             .putString(
-                                Constants.RESULT,
+                                Constants.ROUTE_RESULT,
                                 Json.stringify(ResultWrapper.serializer(), response.body)
                             ).apply()
                     }
@@ -172,13 +172,13 @@ class MainViewModel(
             .bufferedReader().use { it.readText() }
         sharedPreferences.edit()
             .putString(
-                Constants.RESULT,
+                Constants.ROUTE_RESULT,
                 result
             ).apply()
     }
 
     fun loadResultFromSharedPreferences(): ResultWrapper {
-        val jsonResult = sharedPreferences.getString(Constants.RESULT, "N/A")
+        val jsonResult = sharedPreferences.getString(Constants.ROUTE_RESULT, "N/A")
         return if (jsonResult == null) {
             ResultWrapper(0, listOf())
         } else {

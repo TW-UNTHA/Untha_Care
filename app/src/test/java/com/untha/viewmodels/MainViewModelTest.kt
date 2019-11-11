@@ -430,18 +430,18 @@ class MainViewModelTest : KoinTest {
         `when`(sharedPreferences.edit()).thenReturn(editor)
         whenever(
             editor.putString(
-                Constants.RESULT,
+                Constants.ROUTE_RESULT,
                 Json.stringify(ResultWrapper.serializer(), result)
             )
         ).thenReturn(editor)
         doNothing().whenever(editor).apply()
 
-        mainViewModel.loadResult(mockLifeCycleOwner)
+        mainViewModel.loadRouteResults(mockLifeCycleOwner)
 
         verify(observer).onChanged(apiResponse)
         verify(sharedPreferences.edit())
             .putString(
-                Constants.RESULT,
+                Constants.ROUTE_RESULT,
                 Json.stringify(
                     ResultWrapper.serializer(),
                     result
@@ -524,7 +524,7 @@ class MainViewModelTest : KoinTest {
         val resources = mock(Resources::class.java)
         val json = "{\n" +
                 "  \"version\": \"1\",\n" +
-                "  \"results\": [\n" +
+                "  \"routeResults\": [\n" +
                 "    {\n" +
                 "      \"id\": 0,\n" +
                 "      \"type\": \"recommendation\",\n" +
@@ -544,7 +544,7 @@ class MainViewModelTest : KoinTest {
         `when`(sharedPreferences.edit()).thenReturn(editor)
         whenever(
             editor.putString(
-                Constants.RESULT,
+                Constants.ROUTE_RESULT,
                 json
             )
         ).thenReturn(editor)
@@ -554,7 +554,7 @@ class MainViewModelTest : KoinTest {
 
         verify(sharedPreferences.edit())
             .putString(
-                Constants.RESULT,
+                Constants.ROUTE_RESULT,
                 json
             )
         verify(editor).apply()
