@@ -24,11 +24,9 @@ import com.untha.model.mappers.CategoryMapper
 import com.untha.model.repositories.CategoryWithRelationsRepository
 import com.untha.model.services.CategoriesService
 import com.untha.model.services.QuestionnaireRouteResultService
-import com.untha.model.services.ResultService
 import com.untha.model.services.RoutesService
 import com.untha.model.transactionalmodels.CategoriesWrapper
 import com.untha.model.transactionalmodels.Category
-import com.untha.model.transactionalmodels.ResultWrapper
 import com.untha.model.transactionalmodels.Route
 import com.untha.utils.Constants
 import com.utils.MockObjects
@@ -48,7 +46,6 @@ import org.koin.test.KoinTest
 import org.koin.test.inject
 import org.koin.test.mock.declareMock
 import org.mockito.Mockito.`when`
-import retrofit2.Response
 import com.untha.model.services.ResultService
 import com.untha.model.transactionalmodels.QuestionnaireRouteResultWrapper
 import com.untha.model.transactionalmodels.ResultWrapper
@@ -588,7 +585,8 @@ class MainViewModelTest : KoinTest {
             repository,
             sharedPreferences,
             routesService,
-            resultService
+            resultService,
+            questionnaireRouteResultService
         )
         val context = mock(Context::class.java)
         val resources = mock(Resources::class.java)
@@ -638,14 +636,6 @@ class MainViewModelTest : KoinTest {
         verify(editor).apply()
     }
 
-    private fun mockLifecycleOwner(): LifecycleOwner {
-        val owner = mock<LifecycleOwner>()
-        val lifecycle = LifecycleRegistry(owner)
-        lifecycle.handleLifecycleEvent(Lifecycle.Event.ON_RESUME)
-        `when`<Lifecycle>(owner.lifecycle).thenReturn(lifecycle)
-        return owner
-    }
-
 
     @Test
     fun `Should reset shared preferences when the route is started`() {
@@ -658,7 +648,8 @@ class MainViewModelTest : KoinTest {
             repository,
             sharedPreferences,
             routesService,
-            resultService
+            resultService,
+            questionnaireRouteResultService
         )
         val editor = mock(SharedPreferences.Editor::class.java)
         `when`(sharedPreferences.edit()).thenReturn(editor)
@@ -679,6 +670,132 @@ class MainViewModelTest : KoinTest {
         verify(sharedPreferences.edit()).remove(Constants.FAULT_ANSWER)
         verify(editor).apply()
     }
+
+    private fun mockLifecycleOwner(): LifecycleOwner {
+        val owner = mock<LifecycleOwner>()
+        val lifecycle = LifecycleRegistry(owner)
+        lifecycle.handleLifecycleEvent(Lifecycle.Event.ON_RESUME)
+        `when`<Lifecycle>(owner.lifecycle).thenReturn(lifecycle)
+        return owner
+    }
+
+    @Test
+    fun `should save questionnaire routes default to sharedPreferences`() {
+        val mainViewModel = MainViewModel(
+            dbService,
+            categoriesService,
+            mapper,
+            repository,
+            sharedPreferences,
+            routesService,
+            resultService,
+            questionnaireRouteResultService
+        )
+        val context = mock(Context::class.java)
+        val resources = mock(Resources::class.java)
+        val json = "{\n" +
+                "  \"version\": 1,\n" +
+                "  \"results\": [\n" +
+                "    {\n" +
+                "      \"id\": 1,\n" +
+                "      \"title\": \"BAJO\",\n" +
+                "      \"code\": \"BAJO\",\n" +
+                "      \"type\": \"VIOLENCE\",\n" +
+                "      \"sections\": [\n" +
+                "        {\n" +
+                "          \"id\": 1,\n" +
+                "          \"title\": \"¿QUÉ PUEDES HACER?\",\n" +
+                "          \"steps\": [\n" +
+                "            {\n" +
+                "              \"step_id\": 1,\n" +
+                "              \"description\": \"Puedes obtener una asesoría gratuita llamando al: 151 Defensoría Pública.\"\n" +
+                "            },\n" +
+                "            {\n" +
+                "              \"step_id\": 2,\n" +
+                "              \"description\": \"Puedes hacer una denuncia: Unidad Judicial de Violencia contra la Mujer y la Familia de la Fiscalía 1800 266 822 . Ministerio del Trabajo\"\n" +
+                "            },\n" +
+                "            {\n" +
+                "              \"step_id\": null,\n" +
+                "              \"description\": \"Link a denuncia en la Fiscalía\"\n" +
+                "            }\n" +
+                "          ]\n" +
+                "        }\n" +
+                "      ]\n" +
+                "    }]}"
+        val inputStream = ByteArrayInputStream(json.toByteArray())
+        `when`(context.resources).thenReturn(resources)
+        `when`(resources.openRawResource(R.raw.questionnaire_route_result)).thenReturn(inputStream)
+        val editor = mock(SharedPreferences.Editor::class.java)
+        `when`(sharedPreferences.edit()).thenReturn(editor)
+        whenever(
+            editor.putString(
+                Constants.QUESTIONNAIRE_ROUTE,
+                json
+            )
+        ).thenReturn(editor)
+        doNothing().whenever(editor).apply()
+
+        mainViewModel.loadDefaultQuestionnaireRouteResult(context)
+
+        verify(sharedPreferences.edit())
+            .putString(
+                Constants.QUESTIONNAIRE_ROUTE,
+                json
+            )
+        verify(editor).apply()
+    }
+
+    @Test
+    fun `should save data questionnaire routes in share preferences when result is successful `() {
+
+        val mockLifeCycleOwner = mockLifecycleOwner()
+
+        val result = QuestionnaireRouteResultWrapper(1, listOf())
+        val mainViewModel = MainViewModel(
+            dbService,
+            categoriesService,
+            mapper,
+            repository,
+            sharedPreferences,
+            routesService,
+            resultService,
+            questionnaireRouteResultService
+        )
+
+        val response = Response.success(result)
+        val apiResponse = ApiResponse.create(response)
+        val updatedResult = MutableLiveData<ApiResponse<QuestionnaireRouteResultWrapper>>()
+        updatedResult.value = apiResponse
+        `when`(questionnaireRouteResultService.getQuestionnaireRouteResult()).thenReturn(
+            updatedResult
+        )
+        val observer = mock<Observer<ApiResponse<QuestionnaireRouteResultWrapper>>>()
+        questionnaireRouteResultService.getQuestionnaireRouteResult().observeForever(observer)
+        val editor = mock(SharedPreferences.Editor::class.java)
+
+        `when`(sharedPreferences.edit()).thenReturn(editor)
+        whenever(
+            editor.putString(
+                Constants.QUESTIONNAIRE_ROUTE,
+                Json.stringify(QuestionnaireRouteResultWrapper.serializer(), result)
+            )
+        ).thenReturn(editor)
+        doNothing().whenever(editor).apply()
+
+        mainViewModel.loadQuestionnaireRouteResult(mockLifeCycleOwner)
+
+        verify(observer).onChanged(apiResponse)
+        verify(sharedPreferences.edit())
+            .putString(
+                Constants.QUESTIONNAIRE_ROUTE,
+                Json.stringify(
+                    QuestionnaireRouteResultWrapper.serializer(),
+                    result
+                )
+            )
+        verify(editor).apply()
+    }
+
 }
 
 

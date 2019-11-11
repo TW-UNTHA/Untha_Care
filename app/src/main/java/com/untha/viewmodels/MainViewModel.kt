@@ -217,7 +217,7 @@ class MainViewModel(
         sharedPreferences.edit().remove(Constants.FAULT_ANSWER).apply()
     }
 
-}
+
     fun loadQuestionnaireRouteResult(owner: LifecycleOwner) {
         questionnaireRouteResultService.getQuestionnaireRouteResult()
             .observe(owner, Observer { response ->
@@ -256,6 +256,7 @@ class MainViewModel(
             ).apply()
     }
 }
+
 
 
 
