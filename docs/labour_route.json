@@ -10,7 +10,7 @@
       "result": null,
       "options": [
         {
-          "value": "Si",
+          "value": "Sí",
           "hint": "R1P1R1",
           "result": null,
           "goTo": 2
@@ -54,13 +54,13 @@
     {
       "id": 3,
       "type": "SingleOption",
-      "content": "¿Tu empleador entrego tu registro de trabajo como menor?",
+      "content": "¿Tu empleador entregó tu registro de trabajo como menor?",
       "explanation": "Este registro debe ser entregado al director regional de trabajo",
       "goTo": null,
       "result": null,
       "options": [
         {
-          "value": "Si",
+          "value": "Sí",
           "hint": "R1P3R1",
           "result": null,
           "goTo": 4
@@ -77,20 +77,20 @@
       "id": 4,
       "type": "SingleOption",
       "content": "¿Qué tipo de jornada de trabajo tienes?",
-      "explanation": "Este registro debe ser entregado al director regional de trabajo",
+      "explanation": null,
       "goTo": null,
       "result": null,
       "options": [
         {
-          "value": "Medio tiempo: 20 horas",
-          "result": null,
-          "hint": "R1P4R1",
-          "goTo": 6
-        },
-        {
           "value": "Tiempo completo: 40 horas",
           "hint": "R1P4R2",
           "result": null,
+          "goTo": 6
+        },
+        {
+          "value": "Medio tiempo: 20 horas",
+          "result": null,
+          "hint": "R1P4R1",
           "goTo": 6
         },
         {
@@ -105,24 +105,24 @@
       "id": 5,
       "type": "SingleOption",
       "content": "¿Cuántas horas trabajas a la semana?",
-      "explanation": "Este registro debe ser entregado al director regional de trabajo",
+      "explanation": null,
       "goTo": null,
       "result": null,
       "options": [
         {
-          "value": "Mas de 30",
+          "value": "Más de 30 horas",
           "hint": "R1P5R1",
           "result": "F2",
           "goTo": 7
         },
         {
-          "value": "Entre 20 y 30",
+          "value": "Entre 20 y 30 horas",
           "hint": "R1P5R2",
           "result": null,
           "goTo": 7
         },
         {
-          "value": "Menos de 20",
+          "value": "Menos de 20 horas",
           "hint": "R1P5R3",
           "result": "R2",
           "goTo": 7
@@ -132,13 +132,13 @@
     {
       "id": 6,
       "type": "SingleOption",
-      "content": "¿Cuándo trabajas mas del tiempo acordado con tu empleador, te pagan horas extras?",
-      "explanation": "Este registro debe ser entregado al director regional de trabajo",
+      "content": "Cuando trabajas más del tiempo acordado con tu empleador ¿Te pagan horas extras?",
+      "explanation": null,
       "goTo": null,
       "result": null,
       "options": [
         {
-          "value": "Si",
+          "value": "Sí",
           "hint": "R1P6R1",
           "result": null,
           "goTo": 10
@@ -160,7 +160,7 @@
       "result": null,
       "options": [
         {
-          "value": "Si",
+          "value": "Sí",
           "hint": "R1P7R1",
           "result": null,
           "goTo": 8
@@ -182,7 +182,7 @@
       "result": null,
       "options": [
         {
-          "value": "Si",
+          "value": "Sí",
           "hint": "R1P8R1",
           "result": "F4",
           "goTo": 9
@@ -198,13 +198,13 @@
     {
       "id": 9,
       "type": "MultipleOption",
-      "content": "Indica si trabajas en una o mas de las siguientes actividades:",
+      "content": "Indica si trabajas en una o más de las siguientes actividades:",
       "explanation": "",
       "goTo": 10,
       "result": "F12",
       "options": [
         {
-          "value": "Trabajo sin paga (esclavitud)",
+          "value": "Trabajo sin paga",
           "hint": "R1P9R1",
           "result": "F12",
           "goTo": null
@@ -216,7 +216,7 @@
           "goTo": null
         },
         {
-          "value": "En contra de su voluntad",
+          "value": "En contra de mi voluntad",
           "hint": "R1P9R1",
           "result": "F12",
           "goTo": null
@@ -252,19 +252,19 @@
           "goTo": null
         },
         {
-          "value": "Pescar a bordo",
+          "value": "Pesca a bordo",
           "hint": "R1P9R1",
           "result": "F12",
           "goTo": null
         },
         {
-          "value": "Usar maquinaria o materiales peligrosos",
+          "value": "Uso de maquinaria o materiales peligrosos",
           "result": "F12",
           "hint": "R1P9R1",
           "goTo": null
         },
         {
-          "value": "Ser guardia de seguridad",
+          "value": "Guardia de seguridad",
           "result": "F12",
           "hint": "R1P9R1",
           "goTo": null
@@ -286,25 +286,19 @@
       "result": null,
       "options": [
         {
-          "value": "Menos de $394",
-          "hint": "R1P10R1",
-          "result": "F9",
-          "goTo": 11
-        },
-        {
-          "value": "$394 o mas",
+          "value": "$394 o más",
           "hint": "R1P10R2",
           "result": null,
           "goTo": 11
         },
         {
-          "value": "Mas de $197",
-          "hint": "R1P10R3",
-          "result": null,
+          "value": "Entre $393 y $197",
+          "hint": "R1P10R1",
+          "result": "F9",
           "goTo": 11
         },
         {
-          "value": "Cualquier otro",
+          "value": "$196 o menos",
           "hint": "R1P10R4",
           "result": "F9",
           "goTo": 11
@@ -314,13 +308,13 @@
     {
       "id": 11,
       "type": "SingleOption",
-      "content": "¿Tu empleador te afilio alm IESS?",
+      "content": "¿Tu empleador te afilió al IESS?",
       "explanation": "",
       "goTo": null,
       "result": null,
       "options": [
         {
-          "value": "Si",
+          "value": "Sí",
           "hint": "R1P11R1",
           "result": null,
           "goTo": 12
@@ -342,7 +336,7 @@
       "result": null,
       "options": [
         {
-          "value": "Si",
+          "value": "Sí",
           "hint": "R1P12R1",
           "result": null,
           "goTo": 13
@@ -392,7 +386,7 @@
       "result": null,
       "options": [
         {
-          "value": "Si",
+          "value": "Sí",
           "hint": "R1P14R1",
           "result": null,
           "goTo": 15
@@ -414,7 +408,7 @@
       "result": null,
       "options": [
         {
-          "value": "Si",
+          "value": "Sí",
           "hint": "R1P15R1",
           "result": null,
           "goTo": 16
@@ -430,13 +424,13 @@
     {
       "id": 16,
       "type": "SingleOption",
-      "content": "¿Tienes hijo menor a un año?",
+      "content": "¿Tienes un hijo menor a un año?",
       "explanation": "",
       "goTo": null,
       "result": null,
       "options": [
         {
-          "value": "Si",
+          "value": "Sí",
           "result": null,
           "hint": "R1P16R1",
           "goTo": 17
@@ -458,7 +452,7 @@
       "result": null,
       "options": [
         {
-          "value": "Si",
+          "value": "Sí",
           "result": null,
           "hint": "R1P17R1",
           "goTo": -1
@@ -480,7 +474,7 @@
       "result": null,
       "options": [
         {
-          "value": "Si",
+          "value": "Sí",
           "hint": "R1P18R1",
           "result": null,
           "goTo": 19
@@ -496,8 +490,8 @@
     {
       "id": 19,
       "type": "MultipleOption",
-      "content": "¿Te despidieron por alguna de estas razonas?",
-      "explanation": "Selecciona todas las que aplique",
+      "content": "¿Te despidieron por alguna de estas razones?",
+      "explanation": "Selecciona todas las que apliquen",
       "result": "F13",
       "goTo": 20,
       "options": [
@@ -508,7 +502,13 @@
           "goTo": null
         },
         {
-          "value": "Mi físico o salud  se han desgastado como consecuencia de mis años de trabajo",
+          "value": "Mi físico se ha desgastado debido a mis años de trabajo",
+          "result": "F13",
+          "hint": "R1P19R1",
+          "goTo": null
+        },
+        {
+          "value": "Mi salud se ha desgastado debido a mis años de trabajo",
           "result": "F13",
           "hint": "R1P19R1",
           "goTo": null
@@ -520,7 +520,7 @@
           "goTo": null
         },
         {
-          "value": "No me justificaron la desición",
+          "value": "No me justificaron la decisión",
           "hint": "R1P19R1",
           "result": "F13",
           "goTo": null
@@ -548,7 +548,7 @@
           "goTo": null
         },
         {
-          "value": "Me atrasé constantemente",
+          "value": "Me atrasaba constantemente",
           "hint": "R1P20R1",
           "result": "R4",
           "goTo": null
@@ -560,13 +560,13 @@
           "goTo": null
         },
         {
-          "value": "No cumpli mi trabajo",
+          "value": "No cumplí mi trabajo",
           "hint": "R1P20R1",
           "result": "R4",
           "goTo": null
         },
         {
-          "value": "Incumplí alguna clausula del contrato",
+          "value": "Incumplí alguna cláusula del contrato",
           "hint": "R1P20R1",
           "result":"R4",
           "goTo": null
@@ -578,7 +578,7 @@
           "goTo": null
         },
         {
-          "value": "No cumpliste normas  de higiene, seguridad o prevención",
+          "value": "No cumplí normas de higiene, seguridad o prevención",
           "hint": "R1P20R1",
           "result": "R4",
           "goTo": null
@@ -606,7 +606,7 @@
       "result": "R4",
       "options": [
         {
-          "value": "Si",
+          "value": "Sí",
           "hint": "R1P21R1",
           "result": null,
           "goTo": -1
