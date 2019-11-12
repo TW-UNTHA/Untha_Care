@@ -77,7 +77,7 @@
       "id": 4,
       "type": "SingleOption",
       "content": "¿Qué tipo de jornada de trabajo tienes?",
-      "explanation": null,
+      "explanation": "",
       "goTo": null,
       "result": null,
       "options": [
@@ -105,7 +105,7 @@
       "id": 5,
       "type": "SingleOption",
       "content": "¿Cuántas horas trabajas a la semana?",
-      "explanation": null,
+      "explanation": "",
       "goTo": null,
       "result": null,
       "options": [
@@ -133,7 +133,7 @@
       "id": 6,
       "type": "SingleOption",
       "content": "Cuando trabajas más del tiempo acordado con tu empleador ¿Te pagan horas extras?",
-      "explanation": null,
+      "explanation": "",
       "goTo": null,
       "result": null,
       "options": [
