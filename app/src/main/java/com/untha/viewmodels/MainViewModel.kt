@@ -223,6 +223,7 @@ class MainViewModel(
             ).apply()
     }
 
+
     fun deleteAnswersOptionFromSharedPreferences(isLabourRoute: Boolean) {
         if(isLabourRoute){
             sharedPreferences.edit().remove(Constants.FAULT_ANSWER_ROUTE_LABOUR).apply()
