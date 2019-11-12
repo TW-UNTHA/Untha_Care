@@ -67,7 +67,7 @@ class MultipleSelectionQuestionFragment : BaseFragment() {
         super.onCreate(savedInstanceState)
         val bundle = arguments
         goTo = bundle?.get("goTo") as Int
-        isLabourRoute =  viewModel.isLabourRoute(bundle)
+        isLabourRoute = viewModel.isLabourRoute(bundle)
         route = viewModel.loadRoute(isLabourRoute, bundle)
         viewModel.loadQuestion(goTo, route)
         routeQuestion = viewModel.question
@@ -151,20 +151,20 @@ class MultipleSelectionQuestionFragment : BaseFragment() {
     private fun @AnkoViewDslMarker _LinearLayout.buildAnswersLayout() {
         scrollView {
             verticalLayout {
-                routeQuestion?.options?.let { routeOptions ->
-                    val maxIndex = routeOptions.size - 1
-                    for ((index, _) in routeOptions.iterator().withIndex()) {
+                routeQuestion?.options?.let { questionOption ->
+                    val maxIndex = questionOption.size - 1
+                    for ((index, _) in questionOption.iterator().withIndex()) {
                         val firstElementIndex = index * 2
                         val secondElementIndex = (index * 2) + 1
                         if (firstElementIndex < maxIndex) {
                             buildLayoutWithTwoOptions(
-                                routeOptions[firstElementIndex],
-                                routeOptions[secondElementIndex],
+                                questionOption[firstElementIndex],
+                                questionOption[secondElementIndex],
                                 secondElementIndex == maxIndex
                             )
                         } else if (firstElementIndex == maxIndex) {
                             buildLayoutWithOneOption(
-                                routeOptions[firstElementIndex]
+                                questionOption[firstElementIndex]
                             )
                         }
                     }
@@ -185,11 +185,15 @@ class MultipleSelectionQuestionFragment : BaseFragment() {
         linearLayout {
             weightSum = Constants.FULL_SCREEN_WEIGHT
             orientation = LinearLayout.HORIZONTAL
+            var isNoneOfAbove = true
+            if (!isLabourRoute) {
+                isNoneOfAbove = false
+            }
             loadOption(
                 routeOption,
                 1,
                 position,
-                true
+                isNoneOfAbove
             )
             position += 1
         }.lparams(width = matchParent, height = wrapContent) {
@@ -227,10 +231,12 @@ class MultipleSelectionQuestionFragment : BaseFragment() {
             textView {
                 isClickable = true
                 isFocusable = true
+
                 onClick {
                     val isANormalOptionSelected = options.firstOrNull { option ->
                         option.isSelected
                     }
+
                     if (isANormalOptionSelected == null) {
                         if (!isNoneOfTheAboveSelected) {
                             Toast.makeText(
@@ -239,11 +245,15 @@ class MultipleSelectionQuestionFragment : BaseFragment() {
                                 Toast.LENGTH_LONG
                             ).show()
                         } else {
-                            viewModel.getFaultForQuestion(isNoneOfTheAboveSelected)
+                            viewModel.getFaultForQuestion(
+                                isNoneOfTheAboveSelected,
+                                isLabourRoute,
+                                options
+                            )
                             registerAnalyticsEvent(isNoneOfTheAboveSelected)
                         }
                     } else {
-                        viewModel.getFaultForQuestion(false)
+                        viewModel.getFaultForQuestion(false,isLabourRoute, options)
                         registerAnalyticsEvent(false)
                     }
 
@@ -371,7 +381,7 @@ class MultipleSelectionQuestionFragment : BaseFragment() {
                 optionClick(isNoneOfAbove, position)
                 adjustTextSize()
             }.lparams(width = matchParent, height = matchParent)
-            addDataToExternalCollections(isNoneOfAbove, position, actualTextView)
+            addDataToExternalCollections(isNoneOfAbove, position, actualTextView, option.result)
         }.lparams(
             weight = if (elementsInLayout == 2) Constants.HALF_SCREEN_WEIGHT else
                 Constants.FULL_SCREEN_WEIGHT,
@@ -386,10 +396,11 @@ class MultipleSelectionQuestionFragment : BaseFragment() {
     private fun addDataToExternalCollections(
         isNoneOfAbove: Boolean,
         position: Int,
-        tv: TextView
+        tv: TextView,
+        code: String?
     ) {
         if (!isNoneOfAbove) {
-            options.add(MultipleSelectionOption(position, false, tv))
+            options.add(MultipleSelectionOption(position, false, tv, code ))
         } else {
             noneOfTheAboveTextView = tv
         }
@@ -446,6 +457,7 @@ class MultipleSelectionQuestionFragment : BaseFragment() {
     }
 
     private fun @AnkoViewDslMarker TextView.isNoneOfAboveClick() {
+
         if (isNoneOfTheAboveSelected) {
             setUnselectedColorSchema(this)
             isNoneOfTheAboveSelected = false
@@ -453,12 +465,13 @@ class MultipleSelectionQuestionFragment : BaseFragment() {
             setSelectedColorSchema(this)
             isNoneOfTheAboveSelected = true
             options.map { option ->
-                setUnselectedColorSchema(option.textView)
+                option.textView?.let { setUnselectedColorSchema(it) }
             }
             options.map { option ->
                 option.isSelected = false
             }
         }
+
     }
 
     private fun

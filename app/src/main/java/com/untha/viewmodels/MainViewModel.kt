@@ -190,7 +190,11 @@ class MainViewModel(
     }
 
     fun loadResultFaultAnswerFromSharedPreferences(): String? {
-        return sharedPreferences.getString(Constants.FAULT_ANSWER, "")
+        return sharedPreferences.getString(Constants.FAULT_ANSWER_ROUTE_LABOUR, "")
+    }
+
+    fun loadResultRouteViolenceFaultAnswerFromSharedPreferences(): String? {
+        return sharedPreferences.getString(Constants.FAULT_ANSWER_ROUTE_VIOLENCE, "")
     }
 
     fun loadDefaultLabourRoute(context: Context) {

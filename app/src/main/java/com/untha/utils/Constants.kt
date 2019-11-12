@@ -83,5 +83,8 @@ object Constants {
 
     const val HEIGHT_OF_BUTTON = 0.09375
 
+    const val FAULT_ANSWER_ROUTE_LABOUR = "fault_answers_labour_route"
+    const val FAULT_ANSWER_ROUTE_VIOLENCE = "fault_answers_violence_route"
+
 
 }

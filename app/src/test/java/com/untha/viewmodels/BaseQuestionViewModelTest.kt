@@ -82,23 +82,23 @@ class BaseQuestionViewModelTest : KoinTest {
 
         Mockito.`when`(sharedPreferences.edit()).thenReturn(editor)
 
-        Mockito.`when`(sharedPreferences.getString(Constants.FAULT_ANSWER, ""))
+        Mockito.`when`(sharedPreferences.getString(Constants.FAULT_ANSWER_ROUTE_LABOUR, ""))
             .thenReturn(Json.stringify(RouteOption.serializer(), option))
 
-        val defaultAnswers = sharedPreferences.getString(Constants.FAULT_ANSWER, "")
+        val defaultAnswers = sharedPreferences.getString(Constants.FAULT_ANSWER_ROUTE_LABOUR, "")
 
         whenever(
             editor.putString(
-                Constants.FAULT_ANSWER,
+                Constants.FAULT_ANSWER_ROUTE_LABOUR,
                 "$defaultAnswers ${option.result}"
             )
         ).thenReturn(editor)
         doNothing().whenever(editor).apply()
-        baseViewModel.saveAnswerOption(option.result)
+        baseViewModel.saveAnswerOption(option.result,Constants.FAULT_ANSWER_ROUTE_LABOUR)
 
         verify(sharedPreferences.edit())
             .putString(
-                Constants.FAULT_ANSWER,
+                Constants.FAULT_ANSWER_ROUTE_LABOUR,
                 "$defaultAnswers ${option.result}"
 
             )

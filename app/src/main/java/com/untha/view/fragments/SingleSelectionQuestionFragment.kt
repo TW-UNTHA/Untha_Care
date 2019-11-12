@@ -239,8 +239,13 @@ class SingleSelectionQuestionFragment : BaseFragment() {
                     )
                     onClick {
                         option.hint?.let { logAnalyticsCustomEvent(it) }
-                        option.result?.let {
-                            questionViewModel?.saveAnswerOption(it)
+                        when {
+                            isLabourRoute -> option.result?.let {
+                                questionViewModel.saveAnswerOption(it, Constants.LABOUR_ROUTE)
+                            }
+                            else -> option.result?.let {
+                                questionViewModel.saveAnswerOption(it, Constants.VIOLENCE_ROUTE)
+                            }
                         }
                         questionViewModel.loadQuestion(option.goTo, route)
                         val routeQuestionGoTo = questionViewModel.question

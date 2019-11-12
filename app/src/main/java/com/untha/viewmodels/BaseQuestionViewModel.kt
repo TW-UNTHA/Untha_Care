@@ -14,18 +14,18 @@ open class BaseQuestionViewModel(
     var question: RouteQuestion? = null
         private set
 
-    fun saveAnswerOption(fault: String?) {
-        val faultAnswers = loadFaultAnswersFromSharedPreferences() ?: ""
+    fun saveAnswerOption(fault: String?, nameRoute: String) {
+        val faultAnswers = loadFaultAnswersFromSharedPreferences(nameRoute) ?: ""
         sharedPreferences.edit()
             .putString(
-                Constants.FAULT_ANSWER,
+                nameRoute,
                 "$faultAnswers $fault"
 
             ).apply()
     }
 
-    private fun loadFaultAnswersFromSharedPreferences(): String? {
-        return sharedPreferences.getString(Constants.FAULT_ANSWER, "")
+    private fun loadFaultAnswersFromSharedPreferences(nameRoute: String): String? {
+        return sharedPreferences.getString(nameRoute, "")
     }
 
     fun loadQuestion(goTo: Int?, route: Route) {

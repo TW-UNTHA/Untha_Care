@@ -13,11 +13,17 @@ import com.untha.model.transactionalmodels.Route
 import com.untha.utils.Constants
 import com.untha.utils.ContentType
 import com.untha.utils.FirebaseEvent
+import com.untha.viewmodels.MainViewModel
+import org.koin.android.viewmodel.ext.android.viewModel
 import java.util.*
 
 open class BaseFragment : Fragment(), TextToSpeech.OnInitListener {
     var textToSpeech: TextToSpeech? = null
     lateinit var firebaseAnalytics: FirebaseAnalytics
+   //  val mainActivity: MainActivity by viewModel()
+   private val mainViewModel: MainViewModel by viewModel()
+
+
 
     val navOptions = NavOptions.Builder().setEnterAnim(R.anim.slide_in_right)
         .setPopEnterAnim(R.anim.slide_in_left).setExitAnim(R.anim.slide_out_left)
@@ -83,6 +89,8 @@ open class BaseFragment : Fragment(), TextToSpeech.OnInitListener {
         when (goTo) {
             -1 -> {
                 println("TODO: screen results")
+                //println(mainViewModel.loadResultRouteViolenceFaultAnswerFromSharedPreferences())
+               println(mainViewModel.loadResultFaultAnswerFromSharedPreferences())
             }
             else -> {
                 goTo?.let {
