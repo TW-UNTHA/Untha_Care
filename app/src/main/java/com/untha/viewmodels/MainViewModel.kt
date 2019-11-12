@@ -199,9 +199,9 @@ class MainViewModel(
         return sharedPreferences.getString(Constants.FAULT_ANSWER_ROUTE_LABOUR, "")
     }
 
-    fun loadResultRouteViolenceFaultAnswerFromSharedPreferences(): String? {
-        return sharedPreferences.getString(Constants.FAULT_ANSWER_ROUTE_VIOLENCE, "")
-    }
+//    private fun loadResultRouteViolenceFaultAnswerFromSharedPreferences(): String? {
+//        return sharedPreferences.getString(Constants.FAULT_ANSWER_ROUTE_VIOLENCE, "")
+//    }
 
     fun loadDefaultLabourRoute(context: Context) {
         val route = context.resources.openRawResource(R.raw.labour_route)
