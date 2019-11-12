@@ -180,15 +180,6 @@ class MainViewModel(
             ).apply()
     }
 
-    fun loadResultFromSharedPreferences(): ResultWrapper {
-        val jsonResult = sharedPreferences.getString(Constants.ROUTE_RESULT, "N/A")
-        return if (jsonResult == null) {
-            ResultWrapper(0, listOf())
-        } else {
-            Json.parse(ResultWrapper.serializer(), jsonResult)
-        }
-    }
-
     fun loadResultFaultAnswerFromSharedPreferences(): String? {
         return sharedPreferences.getString(Constants.FAULT_ANSWER_ROUTE_LABOUR, "")
     }
@@ -225,7 +216,6 @@ class MainViewModel(
         }
 
     }
-
 
     fun loadQuestionnaireRouteResult(owner: LifecycleOwner) {
         questionnaireRouteResultService.getQuestionnaireRouteResult()
