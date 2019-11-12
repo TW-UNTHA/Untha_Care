@@ -3,7 +3,6 @@ package com.untha.viewmodels
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import com.untha.R
@@ -14,7 +13,6 @@ import com.untha.model.models.CategoryModel
 import com.untha.model.models.QueryingCategory
 import com.untha.model.models.SectionModel
 import com.untha.model.models.SectionStepModel
-import com.untha.model.repositories.CategoryWithRelationsRepository
 import com.untha.model.services.CategoriesService
 import com.untha.model.services.QuestionnaireRouteResultService
 import com.untha.model.services.ResultService
@@ -33,12 +31,10 @@ class MainViewModel(
     private val categoryDbService: CategoryDbService,
     private val categoriesService: CategoriesService,
     private val categoryMapper: CategoryMapper,
-    private val categoryWithRelationsRepository: CategoryWithRelationsRepository,
     private val sharedPreferences: SharedPreferences,
     private val routesService: RoutesService,
     private val resultService: ResultService,
     private val questionnaireRouteResultService: QuestionnaireRouteResultService
-
 ) : ViewModel() {
 
     private val categoryModels: MutableList<CategoryModel> = mutableListOf()
@@ -84,11 +80,6 @@ class MainViewModel(
             categoryModels, ::categoriesSavedCallback
         )
     }
-
-    fun retrieveAllCategories(): LiveData<List<QueryingCategory>> {
-        return categoryWithRelationsRepository.getAllCategories()
-    }
-
 
     private fun categoriesSavedCallback(message: String) {
         val categoryInformationModels = mutableListOf<CategoryInformationModel>()
@@ -223,11 +214,10 @@ class MainViewModel(
             ).apply()
     }
 
-
     fun deleteAnswersOptionFromSharedPreferences(isLabourRoute: Boolean) {
-        if(isLabourRoute){
+        if (isLabourRoute) {
             sharedPreferences.edit().remove(Constants.FAULT_ANSWER_ROUTE_LABOUR).apply()
-        }else{
+        } else {
             sharedPreferences.edit().remove(Constants.FAULT_ANSWER_ROUTE_VIOLENCE).apply()
         }
 
@@ -264,8 +254,3 @@ class MainViewModel(
             ).apply()
     }
 }
-
-
-
-
-

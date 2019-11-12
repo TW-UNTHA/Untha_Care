@@ -13,8 +13,8 @@ object Constants {
     const val CLICK_ROUTE_TITLE = "Click_route_"
     const val CLICK_ROUTE_START_TITLE = "Click_start_route_route_title"
     const val SUBTITLE_NEXT_STEP = "SIGUIENTE"
-
     const val MAIN_ITEM_RECYCLE_VIEW = 0
+
     const val SIZE_OF_ACTION_BAR = 120
     const val MARGIN_TOP_PERCENTAGE = 0.01406
     const val MARGIN_BOTTOM_MIDDLE_NEXT_STEP = 2
@@ -55,10 +55,10 @@ object Constants {
     const val MARGIN_HEIGHT_QUESTION = 0.17
     const val SIZE_IMAGE_PERCENTAGE_AUDIO_ROUTE = ((((50) * 100) / 640) / 100F).toDouble()
     const val SIZE_IMAGE_PERCENTAGE_AUDIO_QUESTION = 0.094
-
     const val SIZE_HEIGHT_PERCENTAGE_OPTION_BUTTON = 0.09
 
     const val TEMPORAL_LOAD_PROGRESS_BAR = 13
+
     const val START_QUESTION_ROUTE_LABOUR = 1
     const val START_QUESTION_ROUTE_VIOLENCE = 1
     const val FAULT_ANSWER = "fault-answers"
@@ -75,13 +75,13 @@ object Constants {
     const val HALF_SCREEN_WEIGHT = 0.5F
     const val FULL_SCREEN_WEIGHT = 1F
     const val NEXT_BUTTON_WEIGHT = 0.1F
+    const val HEIGHT_OF_BUTTON = 0.09375
     //Screen Names
     const val CATEGORY_PAGE = "Category Page"
     const val SINGLE_QUESTION_PAGE = "Single Question Page"
     const val MULTIPLE_QUESTION_PAGE: String = "Multiple Question Page"
     const val ROUTES_PAGE = "Routes Page"
-
-    const val HEIGHT_OF_BUTTON = 0.09375
+    const val ROUTE_RESULT_PAGE: String = "Route result page"
 
     const val FAULT_ANSWER_ROUTE_LABOUR = "fault_answers_labour_route"
     const val FAULT_ANSWER_ROUTE_VIOLENCE = "fault_answers_violence_route"

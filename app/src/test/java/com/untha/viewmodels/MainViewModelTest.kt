@@ -21,12 +21,14 @@ import com.untha.di.persistenceModule
 import com.untha.di.viewModelsModule
 import com.untha.model.dbservices.CategoryDbService
 import com.untha.model.mappers.CategoryMapper
-import com.untha.model.repositories.CategoryWithRelationsRepository
 import com.untha.model.services.CategoriesService
 import com.untha.model.services.QuestionnaireRouteResultService
+import com.untha.model.services.ResultService
 import com.untha.model.services.RoutesService
 import com.untha.model.transactionalmodels.CategoriesWrapper
 import com.untha.model.transactionalmodels.Category
+import com.untha.model.transactionalmodels.QuestionnaireRouteResultWrapper
+import com.untha.model.transactionalmodels.ResultWrapper
 import com.untha.model.transactionalmodels.Route
 import com.untha.utils.Constants
 import com.utils.MockObjects
@@ -46,9 +48,6 @@ import org.koin.test.KoinTest
 import org.koin.test.inject
 import org.koin.test.mock.declareMock
 import org.mockito.Mockito.`when`
-import com.untha.model.services.ResultService
-import com.untha.model.transactionalmodels.QuestionnaireRouteResultWrapper
-import com.untha.model.transactionalmodels.ResultWrapper
 import org.mockito.Mockito.mock
 import retrofit2.Response
 import java.io.ByteArrayInputStream
@@ -63,7 +62,6 @@ class MainViewModelTest : KoinTest {
     private val resultService by inject<ResultService>()
     private val questionnaireRouteResultService by inject<QuestionnaireRouteResultService>()
     private val mapper by inject<CategoryMapper>()
-    private val repository by inject<CategoryWithRelationsRepository>()
     private val sharedPreferences by inject<SharedPreferences>()
 
     @get:Rule
@@ -84,7 +82,6 @@ class MainViewModelTest : KoinTest {
         declareMock<CategoryDbService>()
         declareMock<CategoriesService>()
         declareMock<CategoryMapper>()
-        declareMock<CategoryWithRelationsRepository>()
         declareMock<SharedPreferences>()
         declareMock<RoutesService>()
         declareMock<ResultService>()
@@ -103,7 +100,6 @@ class MainViewModelTest : KoinTest {
             dbService,
             categoriesService,
             mapper,
-            repository,
             sharedPreferences,
             routesService,
             resultService,
@@ -139,30 +135,11 @@ class MainViewModelTest : KoinTest {
     }
 
     @Test
-    fun `should call get all categories`() {
-        val mainViewModel = MainViewModel(
-            dbService,
-            categoriesService,
-            mapper,
-            repository,
-            sharedPreferences,
-            routesService,
-            resultService,
-            questionnaireRouteResultService
-        )
-
-        mainViewModel.retrieveAllCategories()
-
-        verify(repository).getAllCategories()
-    }
-
-    @Test
     fun `should call mapFromModel`() {
         val mainViewModel = MainViewModel(
             dbService,
             categoriesService,
             mapper,
-            repository,
             sharedPreferences,
             routesService,
             resultService,
@@ -187,7 +164,6 @@ class MainViewModelTest : KoinTest {
             dbService,
             categoriesService,
             mapper,
-            repository,
             sharedPreferences,
             routesService,
             resultService,
@@ -228,7 +204,6 @@ class MainViewModelTest : KoinTest {
             dbService,
             categoriesService,
             mapper,
-            repository,
             sharedPreferences,
             routesService,
             resultService,
@@ -275,7 +250,6 @@ class MainViewModelTest : KoinTest {
             dbService,
             categoriesService,
             mapper,
-            repository,
             sharedPreferences,
             routesService,
             resultService,
@@ -325,7 +299,6 @@ class MainViewModelTest : KoinTest {
             dbService,
             categoriesService,
             mapper,
-            repository,
             sharedPreferences,
             routesService,
             resultService,
@@ -375,7 +348,6 @@ class MainViewModelTest : KoinTest {
             dbService,
             categoriesService,
             mapper,
-            repository,
             sharedPreferences,
             routesService,
             resultService,
@@ -424,7 +396,6 @@ class MainViewModelTest : KoinTest {
             dbService,
             categoriesService,
             mapper,
-            repository,
             sharedPreferences,
             routesService,
             resultService,
@@ -469,7 +440,6 @@ class MainViewModelTest : KoinTest {
             dbService,
             categoriesService,
             mapper,
-            repository,
             sharedPreferences,
             routesService,
             resultService,
@@ -529,7 +499,6 @@ class MainViewModelTest : KoinTest {
             dbService,
             categoriesService,
             mapper,
-            repository,
             sharedPreferences,
             routesService,
             resultService,
@@ -582,7 +551,6 @@ class MainViewModelTest : KoinTest {
             dbService,
             categoriesService,
             mapper,
-            repository,
             sharedPreferences,
             routesService,
             resultService,
@@ -636,7 +604,6 @@ class MainViewModelTest : KoinTest {
         verify(editor).apply()
     }
 
-
     @Test
     fun `Should reset shared preferences when the route is started`() {
 
@@ -645,7 +612,6 @@ class MainViewModelTest : KoinTest {
             dbService,
             categoriesService,
             mapper,
-            repository,
             sharedPreferences,
             routesService,
             resultService,
@@ -685,7 +651,6 @@ class MainViewModelTest : KoinTest {
             dbService,
             categoriesService,
             mapper,
-            repository,
             sharedPreferences,
             routesService,
             resultService,
@@ -755,7 +720,6 @@ class MainViewModelTest : KoinTest {
             dbService,
             categoriesService,
             mapper,
-            repository,
             sharedPreferences,
             routesService,
             resultService,

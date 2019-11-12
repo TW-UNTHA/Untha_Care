@@ -1,5 +1,9 @@
 package com.utils
 
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.LifecycleRegistry
+import com.nhaarman.mockito_kotlin.mock
 import com.untha.model.models.CategoryInformationModel
 import com.untha.model.models.CategoryModel
 import com.untha.model.models.QueryingCategory
@@ -7,6 +11,7 @@ import com.untha.model.models.QueryingCategoryInformation
 import com.untha.model.models.QueryingSection
 import com.untha.model.models.SectionModel
 import com.untha.model.models.SectionStepModel
+import org.mockito.Mockito
 
 object MockObjects {
 
@@ -32,7 +37,6 @@ object MockObjects {
         )
 
 
-
         val queryingSection = QueryingSection().apply {
             steps = listOf(stepModel1)
             section = sectionModel1
@@ -48,5 +52,13 @@ object MockObjects {
             categoryModel = categoryModel1
             this.queryingCategoryInformation = listOf(queryingCategoryInformation)
         }
+    }
+
+    fun mockLifecycleOwner(): LifecycleOwner {
+        val owner = mock<LifecycleOwner>()
+        val lifecycle = LifecycleRegistry(owner)
+        lifecycle.handleLifecycleEvent(Lifecycle.Event.ON_RESUME)
+        Mockito.`when`<Lifecycle>(owner.lifecycle).thenReturn(lifecycle)
+        return owner
     }
 }

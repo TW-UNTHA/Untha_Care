@@ -17,6 +17,7 @@ import com.untha.viewmodels.GenericInfoStepViewModel
 import com.untha.viewmodels.RightsViewModel
 import com.untha.viewmodels.MainViewModel
 import com.untha.viewmodels.MultipleSelectionQuestionViewModel
+import com.untha.viewmodels.RouteResultsViewModel
 import com.untha.viewmodels.RoutesViewModel
 import com.untha.viewmodels.SingleSelectionQuestionViewModel
 import org.koin.android.ext.koin.androidContext
@@ -24,14 +25,14 @@ import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 val viewModelsModule = module {
-    viewModel { MainViewModel(get(), get(), get(), get(), get(), get(), get(), get()) }
+    viewModel { MainViewModel(get(), get(), get(), get(), get(), get(), get()) }
     viewModel { CategoryViewModel(get(), get(), get()) }
     viewModel { RightsViewModel(get(), get(), get()) }
     viewModel { GenericInfoStepViewModel() }
     viewModel { RoutesViewModel(get()) }
     viewModel { SingleSelectionQuestionViewModel(get()) }
     viewModel { MultipleSelectionQuestionViewModel(get()) }
-
+    viewModel { RouteResultsViewModel(get(), get(), get()) }
 }
 
 val persistenceModule = module {

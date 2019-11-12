@@ -66,11 +66,9 @@ class RightsViewModelTest : KoinTest {
 
     @Test
     fun `should call CategoriesMapper`() {
-        val rightsViewModel: RightsViewModel
-        rightsViewModel =
-            RightsViewModel(repository, mapper, routesService)
+        val rightsViewModel = RightsViewModel(repository, mapper, routesService)
         val categoryQuerying = MockObjects.mockQueryingCategory()
-        val categoriesQuerying = listOf<QueryingCategory>(categoryQuerying)
+        val categoriesQuerying = listOf(categoryQuerying)
 
         rightsViewModel.getRightCategories(categoriesQuerying)
 
@@ -80,7 +78,7 @@ class RightsViewModelTest : KoinTest {
     @Test
     fun `should verify the observable changed when the observer get notified about changes`() {
 
-        val rightsViewModel: RightsViewModel
+        val rightsViewModel = RightsViewModel(repository, mapper, routesService)
         val rightsListData = MediatorLiveData<List<QueryingCategory>>()
 
 
@@ -89,8 +87,7 @@ class RightsViewModelTest : KoinTest {
             MockObjects.mockQueryingCategory()
         )
 
-        rightsListData.setValue(rights)
-        rightsViewModel = RightsViewModel(repository, mapper, routesService)
+        rightsListData.value = rights
 
         `when`(repository.getAllRightsCategories()).thenReturn(rightsListData)
 
