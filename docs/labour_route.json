@@ -240,7 +240,7 @@
           "goTo": null
         },
         {
-          "value": "Producción, venta o tráfico de alcohol, drogas u otras sustancias tóxicas y explosivas",
+          "value": "Alcohol, drogas u otras sustancias tóxicas y explosivas",
           "hint": "R1P9R1",
           "result": "F12",
           "goTo": null
@@ -280,7 +280,7 @@
     {
       "id": 10,
       "type": "SingleOption",
-      "content": "¿Cuánto ganas al mes",
+      "content": "¿Cuánto ganas al mes?",
       "explanation": "",
       "goTo": null,
       "result": null,
