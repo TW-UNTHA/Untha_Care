@@ -63,7 +63,7 @@
           "value": "Sí",
           "hint": "R1P3R1",
           "result": null,
-          "goTo": 4
+          "goTo": 5
         },
         {
           "value": "No",
