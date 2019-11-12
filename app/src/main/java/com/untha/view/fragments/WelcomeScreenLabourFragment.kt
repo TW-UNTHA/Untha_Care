@@ -255,8 +255,9 @@ class WelcomeScreenLabourFragment : BaseFragment() {
                 R.font.proxima_nova_bold
             )
             onClick {
-                mainActivity.viewModel.deleteAnswersOptionFromSharedPreferences()
-                if(typeRoute == Constants.ROUTE_LABOUR){
+                val isLabourRoute = typeRoute == Constants.ROUTE_LABOUR
+                mainActivity.viewModel.deleteAnswersOptionFromSharedPreferences(isLabourRoute)
+                if(isLabourRoute){
                     val goToBundle = Bundle().apply {
                         putInt("goTo", Constants.START_QUESTION_ROUTE_LABOUR)
                         putSerializable(

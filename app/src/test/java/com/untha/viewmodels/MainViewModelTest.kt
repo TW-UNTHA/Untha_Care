@@ -655,7 +655,7 @@ class MainViewModelTest : KoinTest {
         `when`(sharedPreferences.edit()).thenReturn(editor)
         `when`(
             sharedPreferences.getString(
-                Constants.FAULT_ANSWER,
+                Constants.FAULT_ANSWER_ROUTE_LABOUR,
                 resultAnswersDefault
             )
         ).thenReturn(resultAnswersDefault)
@@ -663,11 +663,11 @@ class MainViewModelTest : KoinTest {
         mainViewModel.loadResultFaultAnswerFromSharedPreferences()
         `when`(
             sharedPreferences.edit().remove(
-                Constants.FAULT_ANSWER
+                Constants.FAULT_ANSWER_ROUTE_LABOUR
             )
         ).thenReturn(editor)
-        mainViewModel.deleteAnswersOptionFromSharedPreferences()
-        verify(sharedPreferences.edit()).remove(Constants.FAULT_ANSWER)
+        mainViewModel.deleteAnswersOptionFromSharedPreferences(true)
+        verify(sharedPreferences.edit()).remove(Constants.FAULT_ANSWER_ROUTE_LABOUR)
         verify(editor).apply()
     }
 

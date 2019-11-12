@@ -241,10 +241,10 @@ class SingleSelectionQuestionFragment : BaseFragment() {
                         option.hint?.let { logAnalyticsCustomEvent(it) }
                         when {
                             isLabourRoute -> option.result?.let {
-                                questionViewModel.saveAnswerOption(it, Constants.LABOUR_ROUTE)
+                                questionViewModel.saveAnswerOption(it, Constants.FAULT_ANSWER_ROUTE_LABOUR)
                             }
                             else -> option.result?.let {
-                                questionViewModel.saveAnswerOption(it, Constants.VIOLENCE_ROUTE)
+                                questionViewModel.saveAnswerOption(it, Constants.FAULT_ANSWER_ROUTE_VIOLENCE)
                             }
                         }
                         questionViewModel.loadQuestion(option.goTo, route)

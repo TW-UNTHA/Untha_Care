@@ -265,24 +265,19 @@ class MultipleSelectionQuestionFragment : BaseFragment() {
                 textColor =
                     ContextCompat.getColor(context, R.color.colorWhiteText)
                 textSizeDimen = R.dimen.text_size_content
-                typeface = ResourcesCompat.getFont(
-                    context.applicationContext,
+                typeface = ResourcesCompat.getFont(context.applicationContext,
                     R.font.proxima_nova_bold
                 )
                 backgroundDrawable =
-                    ContextCompat.getDrawable(
-                        context,
+                    ContextCompat.getDrawable(context,
                         R.drawable.drawable_multiple_option_next_button
                     )
                 gravity = Gravity.CENTER
             }.lparams(width = matchParent, height = matchParent)
-        }.lparams(
-            width = matchParent, height = dip(0),
-            weight = Constants.NEXT_BUTTON_WEIGHT
+        }.lparams(width = matchParent, height = dip(0), weight = Constants.NEXT_BUTTON_WEIGHT
         ) {
             bottomMargin =
-                dip(
-                    calculateHeightComponentsQuestion(
+                dip(calculateHeightComponentsQuestion(
                         Constants.MARGIN_BOTTOM_PERCENTAGE_NEXT_BUTTON
                     )
                 )
@@ -325,6 +320,7 @@ class MultipleSelectionQuestionFragment : BaseFragment() {
             }
         }
     }
+
 
     private fun contentAudioOptions(): String {
         var contentOptions = ""

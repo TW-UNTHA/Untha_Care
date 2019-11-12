@@ -89,8 +89,8 @@ open class BaseFragment : Fragment(), TextToSpeech.OnInitListener {
         when (goTo) {
             -1 -> {
                 println("TODO: screen results")
-                //println(mainViewModel.loadResultRouteViolenceFaultAnswerFromSharedPreferences())
-               println(mainViewModel.loadResultFaultAnswerFromSharedPreferences())
+               // println(mainViewModel.loadResultRouteViolenceFaultAnswerFromSharedPreferences())
+                println(mainViewModel.loadResultFaultAnswerFromSharedPreferences())
             }
             else -> {
                 goTo?.let {
