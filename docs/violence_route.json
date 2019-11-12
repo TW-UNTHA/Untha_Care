@@ -4,19 +4,19 @@
     {
       "id": 1,
       "type": "MultipleOption",
-      "content": "¿Cuales de estas situaciones has vivido?",
+      "content": "¿Cuáles de estas situaciones has vivido?",
       "explanation": "Selecciona todas las que apliquen",
       "goTo": -1,
       "result": null,
       "options": [
         {
-          "value": "Chantajes",
+          "value": "Te chantajean",
           "hint": "R2P1G1",
           "result": "BAJO",
           "goTo": null
         },
         {
-          "value": "Mentiras",
+          "value": "Te mienten",
           "hint": "R2P1G1",
           "result": "BAJO",
           "goTo": null
@@ -28,43 +28,43 @@
           "goTo": null
         },
         {
-          "value": "Celos",
+          "value": "Te celan",
           "hint": "R2P1G1",
           "result": "BAJO",
           "goTo": null
         },
         {
-          "value": "Ofensas",
+          "value": "Te ofenden",
           "hint": "R2P1G1",
           "result": "BAJO",
           "goTo": null
         },
         {
-          "value": "Humillaciones",
+          "value": "Te humillan",
           "hint": "R2P1G1",
           "result": "BAJO",
           "goTo": null
         },
         {
-          "value": "Intimidaciones",
+          "value": "Te intimidan",
           "hint": "R2P1G1",
           "result": "BAJO",
           "goTo": null
         },
         {
-          "value": "Amenazas",
+          "value": "Te amenazan",
           "hint": "R2P1G1",
           "result": "BAJO",
           "goTo": null
         },
         {
-          "value": "Control excesivo",
+          "value": "Te controlan excesivamente",
           "hint": "R2P1G1",
           "result": "BAJO",
           "goTo": null
         },
         {
-          "value": "Prohibiciones",
+          "value": "Te prohiben cosas",
           "hint": "R2P1G2",
           "result": "MEDIO",
           "goTo": null
@@ -88,51 +88,57 @@
           "goTo": null
         },
         {
-          "value": "Empujones",
+          "value": "Te empujan",
           "hint": "R2P1G3",
           "result": "ALTO",
           "goTo": null
         },
         {
-          "value": "Golpes",
+          "value": "Te golpean",
           "hint": "R2P1G3",
           "result": "ALTO",
           "goTo": null
         },
         {
-          "value": "Patazos",
+          "value": "Te patean",
           "hint": "R2P1G3",
           "result": "ALTO",
           "goTo": null
         },
         {
-          "value": "Encierros",
+          "value": "Te encierran",
           "hint": "R2P1G3",
           "result": "ALTO",
           "goTo": null
         },
         {
-          "value": "Aislamiento",
+          "value": "Te aislan",
           "hint": "R2P1G3",
           "result": "ALTO",
           "goTo": null
         },
         {
-          "value": "Amenzas con objetos",
+          "value": "Te amenazan con objetos",
           "hint": "R2P1G3",
           "result": "ALTO",
           "goTo": null
         },
         {
-          "value": "Violación",
+          "value": "Te violan",
           "hint": "R2P1G3",
           "result": "ALTO",
           "goTo": null
         },
         {
-          "value": "Amenazas de muerte",
+          "value": "Te amenazan de muerte",
           "hint": "R2P1G3",
           "result": "ALTO",
+          "goTo": null
+        },
+        {
+          "value": "Ninguna de las anteriores",
+          "hint": null,
+          "result": null,
           "goTo": null
         }
       ]
