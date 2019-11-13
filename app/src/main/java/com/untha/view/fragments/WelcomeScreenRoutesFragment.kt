@@ -73,7 +73,6 @@ class WelcomeScreenRoutesFragment : BaseFragment() {
             isLabourRoute = typeRoute.equals( Constants.ROUTE_LABOUR)
         }
         loadMessagesRoute()
-        loadTitleRoute(isLabourRoute)
     }
 
     private fun loadTitleRoute(isLabourRoute:Boolean){
@@ -82,16 +81,15 @@ class WelcomeScreenRoutesFragment : BaseFragment() {
                 Constants.NAME_SCREEN_LABOUR_ROUTE,
                 enableCustomBar = false,
                 needsBackButton = true,
-                backMethod =  null
+                backMethod = null
             )
         }else{
             (activity as MainActivity).customActionBar(
                 Constants.NAME_SCREEN_VIOLENCE_ROUTE,
                 enableCustomBar = false,
                 needsBackButton = true,
-                backMethod =  null
+                backMethod = null
             )
-
         }
     }
 
@@ -106,7 +104,7 @@ class WelcomeScreenRoutesFragment : BaseFragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val sizeSpaceButtomAndImage = getHeightElementInDp(SIZE_SPACE_BUTTON_AND_IMAGE)
+        val sizeSpaceButtonAndImage = getHeightElementInDp(SIZE_SPACE_BUTTON_AND_IMAGE)
         val widthMainLayout =
             getHeightElementInDp(MARGINS)
         val marginMainLayout = PixelConverter.toPixels(widthMainLayout, context)
@@ -128,7 +126,7 @@ class WelcomeScreenRoutesFragment : BaseFragment() {
                 verticalLayout {
                     loadImageAudio()
                 }.lparams(width = matchParent, height = wrapContent) {
-                    topMargin = dip(sizeSpaceButtomAndImage.toFloat())
+                    topMargin = dip(sizeSpaceButtonAndImage.toFloat())
                 }
 
                 verticalLayout {
@@ -161,6 +159,7 @@ class WelcomeScreenRoutesFragment : BaseFragment() {
                 rightMargin = dip(marginMainLayout)
             }
         }
+        loadTitleRoute(isLabourRoute)
     }
 
     private fun @AnkoViewDslMarker _LinearLayout.viewLastResult(
@@ -170,7 +169,7 @@ class WelcomeScreenRoutesFragment : BaseFragment() {
         verticalLayout {
             linkLastResult()
             setOnClickListener {
-                println("printing")
+                println("TODO: link last results")
             }
             backgroundResource = getSelectableItemBackground().resourceId
             topPadding =

@@ -146,8 +146,7 @@ class SingleSelectionQuestionFragment : BaseFragment() {
         val close = layoutActionBar?.findViewById(R.id.icon_go_back_route) as ImageView
         close.onClick {
             view?.findNavController()
-                ?.navigate(
-                    R.id.mainRouteFragment,
+                ?.navigate(R.id.mainRouteFragment,
                     categoriesRoutes,
                     navOptionsToBackNavigation,
                     null
@@ -195,6 +194,7 @@ class SingleSelectionQuestionFragment : BaseFragment() {
         }
         return contentOptions
     }
+
     private fun _LinearLayout.question() {
         textView {
             text = routeQuestion?.content
@@ -206,6 +206,8 @@ class SingleSelectionQuestionFragment : BaseFragment() {
             gravity = Gravity.CENTER_HORIZONTAL
         }.lparams(width = matchParent, height = matchParent) {
             bottomMargin  =
+                calculateWidthComponentsQuestion()
+            topMargin  =
                 calculateWidthComponentsQuestion()
         }
     }

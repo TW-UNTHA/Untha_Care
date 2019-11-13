@@ -336,11 +336,10 @@ class MultipleSelectionQuestionFragment : BaseFragment() {
                 gravity = Gravity.CENTER
             }.lparams(width = wrapContent, height = wrapContent) {
                 gravity = Gravity.CENTER
-                bottomMargin =
-                    dip(
-                        calculateHeightComponentsQuestion
-                            (Constants.MARGIN_TOP_AND_BOTTOM_PERCENTAGE_AUDIO_BUTTON)
-                    )
+                bottomMargin  =
+                    calculateWidthComponentsQuestion()
+                topMargin  =
+                    calculateWidthComponentsQuestion()
             }
         }
     }
@@ -447,7 +446,6 @@ class MultipleSelectionQuestionFragment : BaseFragment() {
     }
 
     private fun @AnkoViewDslMarker TextView.isNoneOfAboveClick() {
-
         if (isNoneOfTheAboveSelected) {
             setUnselectedColorSchema(this)
             isNoneOfTheAboveSelected = false
