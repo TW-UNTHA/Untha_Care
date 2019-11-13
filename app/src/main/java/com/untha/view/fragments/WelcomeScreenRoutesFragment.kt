@@ -11,6 +11,7 @@ import android.widget.ImageView
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
 import com.bumptech.glide.Glide
 import com.untha.R
 import com.untha.utils.Constants
@@ -46,13 +47,14 @@ import org.jetbrains.anko.verticalLayout
 import org.jetbrains.anko.wrapContent
 import org.koin.android.viewmodel.ext.android.viewModel
 
-class WelcomeScreenLabourFragment : BaseFragment() {
+class WelcomeScreenRoutesFragment : BaseFragment() {
     private lateinit var mainActivity: MainActivity
     private val routeViewModel: RoutesViewModel by viewModel()
-    private var mainRouteMessage: String = ""
     private var secondMessage: String = ""
     private var imageWelcome: String? = ""
     private var typeRoute: String? = ""
+    var isLabourRoute = false
+
 
     companion object {
         const val ROUTE_BUTTON_TEXT = "Empezar"
@@ -69,8 +71,30 @@ class WelcomeScreenLabourFragment : BaseFragment() {
         super.onCreate(savedInstanceState)
         val bundle = arguments
         typeRoute = bundle?.get(Constants.TYPE_ROUTE) as String
+        isLabourRoute = typeRoute == Constants.ROUTE_LABOUR
         loadMessagesRoute()
+        loadTitleRoute(isLabourRoute)
     }
+
+    private fun loadTitleRoute(isLabourRoute:Boolean){
+        if(isLabourRoute){
+            (activity as MainActivity).customActionBar(
+                Constants.NAME_SCREEN_LABOUR_ROUTE,
+                enableCustomBar = false,
+                needsBackButton = true,
+                backMethod =  null
+            )
+        }else{
+            (activity as MainActivity).customActionBar(
+                Constants.NAME_SCREEN_VIOLENCE_ROUTE,
+                enableCustomBar = false,
+                needsBackButton = true,
+                backMethod =  null
+            )
+
+        }
+    }
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -198,7 +222,7 @@ class WelcomeScreenLabourFragment : BaseFragment() {
             imageResource = R.drawable.icon_question_audio
             gravity = Gravity.CENTER
             backgroundResource = attr(R.attr.selectableItemBackgroundBorderless).resourceId
-            val contentQuestion = mainRouteMessage
+            val contentQuestion = "$FIRST_MESSAGE \n $secondMessage"
             onClick {
                 logAnalyticsCustomContentTypeWithId(ContentType.AUDIO, FirebaseEvent.AUDIO)
                 contentQuestion.let { ToSpeech.speakOut(it, textToSpeech) }
@@ -255,7 +279,6 @@ class WelcomeScreenLabourFragment : BaseFragment() {
                 R.font.proxima_nova_bold
             )
             onClick {
-                val isLabourRoute = typeRoute == Constants.ROUTE_LABOUR
                 mainActivity.viewModel.deleteAnswersOptionFromSharedPreferences(isLabourRoute)
                 if(isLabourRoute){
                     val goToBundle = Bundle().apply {
@@ -300,11 +323,9 @@ class WelcomeScreenLabourFragment : BaseFragment() {
 
     private fun loadMessagesRoute() {
         if (typeRoute == Constants.ROUTE_LABOUR) {
-            mainRouteMessage = getString(R.string.main_route_labour_message)
             secondMessage = getString(R.string.second_message_route_labour)
             imageWelcome = getString(R.string.image_name_route_labour)
         } else {
-            mainRouteMessage = getString(R.string.main_route_violence_message)
             secondMessage = getString(R.string.second_message_route_violence)
             imageWelcome = getString(R.string.image_name_route_violence)
         }

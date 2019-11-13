@@ -37,7 +37,7 @@
         android:label="RUTAS DE AYUDA " />
     <fragment
         android:id="@+id/mainScreenLabourRouteFragment"
-        android:name="com.untha.view.fragments.WelcomeScreenLabourFragment"
+        android:name="com.untha.view.fragments.WelcomeScreenRoutesFragment"
         android:label="DERECHOS LABORALES" />
 
     <fragment

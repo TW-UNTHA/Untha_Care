@@ -88,11 +88,15 @@ open class BaseFragment : Fragment(), TextToSpeech.OnInitListener {
     fun manageGoToQuestion(route: Route?, isSingle: Boolean, goTo: Int?, view: View) {
         when (goTo) {
             -1 -> {
+
+
                 println("TODO: screen results")
-               // println(mainViewModel.loadResultRouteViolenceFaultAnswerFromSharedPreferences())
+                //println(mainViewModel.loadResultRouteViolenceFaultAnswerFromSharedPreferences())
                 println(mainViewModel.loadResultFaultAnswerFromSharedPreferences())
             }
             else -> {
+                println("HERE")
+                println(goTo)
                 goTo?.let {
                     val goToBundle = Bundle().apply {
                         putInt("goTo", goTo)

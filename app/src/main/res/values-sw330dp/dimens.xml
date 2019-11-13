@@ -6,5 +6,5 @@
     <dimen name="text_size_content_for_many_characters">12sp</dimen>
     <dimen name="text_size_content_next_step">16sp</dimen>
     <dimen name="text_size_question_route">18sp</dimen>
-    <dimen name="text_size_question_explanation">13sp</dimen>
+    <dimen name="text_size_question_explanation">15sp</dimen>
 </resources>

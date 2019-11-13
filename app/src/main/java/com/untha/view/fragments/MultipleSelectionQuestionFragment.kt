@@ -39,6 +39,7 @@ import org.jetbrains.anko.dip
 import org.jetbrains.anko.imageButton
 import org.jetbrains.anko.imageResource
 import org.jetbrains.anko.linearLayout
+import org.jetbrains.anko.margin
 import org.jetbrains.anko.matchParent
 import org.jetbrains.anko.scrollView
 import org.jetbrains.anko.sdk27.coroutines.onClick
@@ -71,13 +72,27 @@ class MultipleSelectionQuestionFragment : BaseFragment() {
         route = viewModel.loadRoute(isLabourRoute, bundle)
         viewModel.loadQuestion(goTo, route)
         routeQuestion = viewModel.question
-        (activity as MainActivity).customActionBar(
-            Constants.NAME_SCREEN_LABOUR_ROUTE,
-            enableCustomBar = true,
-            needsBackButton = true,
-            backMethod = null
-        )
+        loadTitleRoute(isLabourRoute)
         goBackScreenRoutes()
+    }
+
+    private fun loadTitleRoute(isLabourRoute:Boolean){
+        if(isLabourRoute){
+            (activity as MainActivity).customActionBar(
+                Constants.NAME_SCREEN_LABOUR_ROUTE,
+                enableCustomBar = true,
+                needsBackButton = true,
+                backMethod = null
+            )
+        }else{
+            (activity as MainActivity).customActionBar(
+                Constants.NAME_SCREEN_VIOLENCE_ROUTE,
+                enableCustomBar = true,
+                needsBackButton = true,
+                backMethod = null
+            )
+
+        }
     }
 
     private fun goBackScreenRoutes() {
@@ -121,20 +136,49 @@ class MultipleSelectionQuestionFragment : BaseFragment() {
         with(view as _LinearLayout) {
             verticalLayout {
                 loadHorizontalProgressBar(Constants.TEMPORAL_LOAD_PROGRESS_BAR)
-                    .lparams(width = matchParent) {
-                        topMargin =
-                            dip(calculateHeightComponentsQuestion(Constants.MARGIN_HEIGHT_SELECTION_QUESTION))
-                    }
-                loadImageAudio()
-                question()
-                buildAnswersLayout()
-            }.lparams(height = dip(0), weight = 0.9f, width = matchParent) {
-                rightMargin = dip(calculateOptionContainerWidthMargin()) / 2
-                leftMargin = dip(calculateOptionContainerWidthMargin())
+                verticalLayout {
+                    loadImageAudio()
+                }
+
+                verticalLayout {
+                    question()
+                    buildAnswersLayout()
+                }.lparams(height = dip(0), weight = 0.9f, width = matchParent) {
+                  //  rightMargin = dip(calculateOptionContainerWidthMargin()) / 2
+                   // leftMargin = dip(calculateOptionContainerWidthMargin())
+
+                }
+
+
+                loadNextButton(view)
+
+            }.lparams(width = matchParent, height = matchParent) {
+                margin =
+                    calculateWidthComponentsQuestion()
             }
-            loadNextButton(view)
+//            verticalLayout {
+//                loadHorizontalProgressBar(Constants.TEMPORAL_LOAD_PROGRESS_BAR)
+//            }.lparams{
+//
+//            }
+//            verticalLayout {
+//                loadImageAudio()
+//                question()
+//                buildAnswersLayout()
+//            }.lparams(height = dip(0), weight = 0.9f, width = matchParent) {
+//                rightMargin = dip(calculateOptionContainerWidthMargin()) / 2
+//                leftMargin = dip(calculateOptionContainerWidthMargin())
+//            }
+//            loadNextButton(view)
         }
     }
+
+    private fun calculateWidthComponentsQuestion(): Int {
+        val cardHeightInDps =
+            (PixelConverter.getScreenDpWidth(context)) * Constants.MARGIN_SINGLE_SELECTION_QUESTION
+        return PixelConverter.toPixels(cardHeightInDps, context)
+    }
+
 
     private fun createMainLayout(
     ): View {
@@ -237,47 +281,47 @@ class MultipleSelectionQuestionFragment : BaseFragment() {
                         option.isSelected
                     }
 
-                    if (isANormalOptionSelected == null) {
-                        if (!isNoneOfTheAboveSelected) {
-                            Toast.makeText(
-                                context,
-                                context.getString(R.string.choose_at_least_one_option),
-                                Toast.LENGTH_LONG
-                            ).show()
-                        } else {
-                            viewModel.getFaultForQuestion(
-                                isNoneOfTheAboveSelected,
-                                isLabourRoute,
-                                options
-                            )
-                            registerAnalyticsEvent(isNoneOfTheAboveSelected)
-                        }
+                    if (isANormalOptionSelected == null && !isNoneOfTheAboveSelected) {
+
+                        Toast.makeText(
+                            context,
+                            context.getString(R.string.choose_at_least_one_option),
+                            Toast.LENGTH_LONG
+                        ).show()
+                        registerAnalyticsEvent(isNoneOfTheAboveSelected)
+
                     } else {
-                        viewModel.getFaultForQuestion(false,isLabourRoute, options)
+                        viewModel.getFaultForQuestion(false, isLabourRoute, options)
                         registerAnalyticsEvent(false)
+                        viewModel.loadQuestion(routeQuestion?.goTo, route)
+                        val isSingle = viewModel.isSingleQuestion(viewModel.question?.type)
+                        manageGoToQuestion(route, isSingle, routeQuestion?.goTo, view)
                     }
 
-                    viewModel.loadQuestion(routeQuestion?.goTo, route)
-                    val isSingle = viewModel.isSingleQuestion(viewModel.question?.type)
-                    manageGoToQuestion(route, isSingle, routeQuestion?.goTo, view)
+
                 }
                 text = context.getString(R.string.next)
                 textColor =
                     ContextCompat.getColor(context, R.color.colorWhiteText)
                 textSizeDimen = R.dimen.text_size_content
-                typeface = ResourcesCompat.getFont(context.applicationContext,
+                typeface = ResourcesCompat.getFont(
+                    context.applicationContext,
                     R.font.proxima_nova_bold
                 )
                 backgroundDrawable =
-                    ContextCompat.getDrawable(context,
+                    ContextCompat.getDrawable(
+                        context,
                         R.drawable.drawable_multiple_option_next_button
                     )
                 gravity = Gravity.CENTER
             }.lparams(width = matchParent, height = matchParent)
-        }.lparams(width = matchParent, height = dip(0), weight = Constants.NEXT_BUTTON_WEIGHT
+        }.lparams(
+            width = matchParent, height = dip(0),
+            weight = Constants.NEXT_BUTTON_WEIGHT
         ) {
             bottomMargin =
-                dip(calculateHeightComponentsQuestion(
+                dip(
+                    calculateHeightComponentsQuestion(
                         Constants.MARGIN_BOTTOM_PERCENTAGE_NEXT_BUTTON
                     )
                 )
@@ -292,35 +336,6 @@ class MultipleSelectionQuestionFragment : BaseFragment() {
             logAnalyticsCustomEvent(hint)
         }
     }
-
-    private fun _LinearLayout.loadImageAudio() {
-        verticalLayout {
-            imageButton {
-                this@verticalLayout.gravity = Gravity.CENTER
-                adjustViewBounds = true
-                scaleType = ImageView.ScaleType.FIT_XY
-                imageResource = R.drawable.icon_question_audio
-                val textQuestion = routeQuestion?.content
-                val contentQuestion = "$textQuestion ${contentAudioOptions()}"
-                background = null
-                onClick {
-                    contentQuestion.let { ToSpeech.speakOut(it, textToSpeech) }
-                    logAnalyticsCustomContentTypeWithId(ContentType.AUDIO, FirebaseEvent.AUDIO)
-                }
-            }.lparams(
-                width = calculateAudioButtonWidth(),
-                height = calculateAudioButtonWidth()
-            ) {
-                val marginTopAndBottom = dip(
-                    calculateHeightComponentsQuestion
-                        (Constants.MARGIN_TOP_AND_BOTTOM_PERCENTAGE_AUDIO_BUTTON)
-                )
-                topMargin = marginTopAndBottom
-                bottomMargin = marginTopAndBottom
-            }
-        }
-    }
-
 
     private fun contentAudioOptions(): String {
         var contentOptions = ""
@@ -396,7 +411,7 @@ class MultipleSelectionQuestionFragment : BaseFragment() {
         code: String?
     ) {
         if (!isNoneOfAbove) {
-            options.add(MultipleSelectionOption(position, false, tv, code ))
+            options.add(MultipleSelectionOption(position, false, tv, code))
         } else {
             noneOfTheAboveTextView = tv
         }
@@ -474,6 +489,35 @@ class MultipleSelectionQuestionFragment : BaseFragment() {
             calculateOptionContainerWidthMargin(): Float {
         val width = PixelConverter.getScreenDpWidth(context)
         return (width * Constants.MARGIN_LEFT_RIGHT_MULTIPLE_OPTION_SCREEN_PERCENTAGE).toFloat()
+    }
+
+    private fun _LinearLayout.loadImageAudio() {
+        imageButton {
+            gravity = Gravity.CENTER
+            scaleType = ImageView.ScaleType.FIT_CENTER
+            imageResource = R.drawable.icon_question_audio
+            backgroundResource = attr(R.attr.selectableItemBackgroundBorderless).resourceId
+            val textQuestion = routeQuestion?.content
+            val contentQuestion = "$textQuestion ${contentAudioOptions()}"
+            onClick {
+                logAnalyticsCustomContentTypeWithId(ContentType.AUDIO, FirebaseEvent.AUDIO)
+                contentQuestion.let { ToSpeech.speakOut(it, textToSpeech) }
+            }
+        }.lparams(
+            width = calculateHeightComponentsAudio(Constants.SIZE_IMAGE_PERCENTAGE_AUDIO_QUESTION),
+            height = calculateHeightComponentsAudio(Constants.SIZE_IMAGE_PERCENTAGE_AUDIO_QUESTION)
+        )
+        {
+            topMargin =
+                calculateHeightComponentsAudio(Constants.MARGIN_HEIGHT_SELECTION_QUESTION)
+        }
+    }
+
+    private fun calculateHeightComponentsAudio(percentageComponent: Double): Int {
+        val cardHeightInDps =
+            (PixelConverter.getScreenDpHeight(context) -
+                    Constants.SIZE_OF_ACTION_BAR_ROUTE) * percentageComponent
+        return PixelConverter.toPixels(cardHeightInDps, context)
     }
 
     private fun calculateAudioButtonWidth(): Int {

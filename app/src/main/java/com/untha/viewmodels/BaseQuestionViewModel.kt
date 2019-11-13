@@ -33,7 +33,7 @@ open class BaseQuestionViewModel(
     }
 
     fun isSingleQuestion(type: String?): Boolean {
-        if(type == "SingleOption"){
+        if(type == Constants.SINGLE_QUESTION){
            return true
         }
         return false
@@ -43,7 +43,6 @@ open class BaseQuestionViewModel(
         return when {
             bundle.containsKey(Constants.ROUTE_LABOUR) -> {
                 true
-
             }
             else -> false
         }

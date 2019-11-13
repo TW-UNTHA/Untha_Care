@@ -65,6 +65,7 @@ object Constants {
     const val DUPLICATE_MARGIN_LATERAL = 2
     const val STYLE_ANSWER_TWO_OPTION = 2
     const val NAME_SCREEN_LABOUR_ROUTE = "DERECHOS LABORALES"
+    const val NAME_SCREEN_VIOLENCE_ROUTE = "VIOLENCIA"
     const val NAME_SCREEN_RIGHTS = "MIS DERECHOS"
     const val NAME_SCREEN_ROUTES = "RUTAS DE AYUDA"
     const val MARGIN_BOTTOM_PERCENTAGE_ANSWERS_LAYOUT = 0.020
@@ -75,6 +76,8 @@ object Constants {
     const val HALF_SCREEN_WEIGHT = 0.5F
     const val FULL_SCREEN_WEIGHT = 1F
     const val NEXT_BUTTON_WEIGHT = 0.1F
+    const val SINGLE_QUESTION = "SingleOption"
+
     const val HEIGHT_OF_BUTTON = 0.09375
     //Screen Names
     const val CATEGORY_PAGE = "Category Page"

@@ -14,6 +14,7 @@ import androidx.navigation.ui.NavigationUI
 import com.untha.R
 import com.untha.viewmodels.MainViewModel
 import kotlinx.android.synthetic.main.activity_main.navigationHostFragment
+import org.jetbrains.anko.textSizeDimen
 import org.koin.android.viewmodel.ext.android.viewModel
 
 
@@ -62,6 +63,7 @@ class MainActivity : AppCompatActivity() {
         val titleView = layoutActionBar.findViewById(R.id.title_actiov_bar) as TextView
         val close = layoutActionBar?.findViewById(R.id.icon_go_back_route) as ImageView
         titleView.text = title
+        titleView.textSizeDimen =  R.dimen.text_size_question_route
         val layout = ActionBar.LayoutParams(
             LinearLayout.LayoutParams.MATCH_PARENT,
             LinearLayout.LayoutParams.MATCH_PARENT

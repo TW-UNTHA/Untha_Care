@@ -89,7 +89,6 @@ class SingleSelectionQuestionFragment : BaseFragment() {
                 verticalLayout {
                     question()
                 }
-
                 verticalLayout {
                     explanationQuestion()
                 }
