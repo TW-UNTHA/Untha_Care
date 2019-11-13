@@ -24,7 +24,9 @@
     <string name="second_message_route_violence">¡Hola! Voy a hacerte unas preguntas para identificar si
         has sufrido violencia</string>
     <string name="image_name_route_violence">route_labour_pantalla_inicial</string>
-
+    <string name="description_labour_result">Encontramos incumplimientos a tus derechos laborales:</string>
+    <string name="description_violence_result">Has sufrido un nivel de violencia:</string>
+    <string name="additional_recommendations">Recomendaciones adicionales:</string>
 
 
 </resources>
