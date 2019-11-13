@@ -186,14 +186,6 @@ class MainViewModel(
             ).apply()
     }
 
-    fun loadResultFaultAnswerFromSharedPreferences(): String? {
-        return sharedPreferences.getString(Constants.FAULT_ANSWER_ROUTE_LABOUR, "")
-    }
-
-//    private fun loadResultRouteViolenceFaultAnswerFromSharedPreferences(): String? {
-//        return sharedPreferences.getString(Constants.FAULT_ANSWER_ROUTE_VIOLENCE, "")
-//    }
-
     fun loadDefaultLabourRoute(context: Context) {
         val route = context.resources.openRawResource(R.raw.labour_route)
             .bufferedReader().use { it.readText() }
@@ -214,14 +206,7 @@ class MainViewModel(
             ).apply()
     }
 
-    fun deleteAnswersOptionFromSharedPreferences(isLabourRoute: Boolean) {
-        if (isLabourRoute) {
-            sharedPreferences.edit().remove(Constants.FAULT_ANSWER_ROUTE_LABOUR).apply()
-        } else {
-            sharedPreferences.edit().remove(Constants.FAULT_ANSWER_ROUTE_VIOLENCE).apply()
-        }
 
-    }
 
     fun loadQuestionnaireRouteResult(owner: LifecycleOwner) {
         questionnaireRouteResultService.getQuestionnaireRouteResult()

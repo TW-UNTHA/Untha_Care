@@ -34,6 +34,20 @@ import org.koin.test.KoinTest
 import org.koin.test.inject
 import org.koin.test.mock.declareMock
 import org.mockito.Mockito
+import android.os.Bundle
+import org.mockito.Mockito.`when`
+import com.bumptech.glide.request.RequestOptions.option
+import org.mockito.Mockito.mock
+import org.mockito.Mockito.`when`
+import com.bumptech.glide.request.RequestOptions.option
+import org.mockito.Mockito.`when`
+import com.bumptech.glide.request.RequestOptions.option
+import org.mockito.Mockito.`when`
+import com.bumptech.glide.request.RequestOptions.option
+import org.mockito.Mockito.`when`
+import com.bumptech.glide.request.RequestOptions.option
+import junit.framework.Assert.*
+
 
 @RunWith(JUnit4::class)
 class BaseQuestionViewModelTest : KoinTest {
@@ -117,6 +131,54 @@ class BaseQuestionViewModelTest : KoinTest {
         viewModel.loadQuestion(1, route)
 
         MatcherAssert.assertThat(routeQuestion, CoreMatchers.`is`(viewModel.question))
+    }
+
+    @Test
+    fun `should return true when is single question`() {
+        val viewModel = BaseQuestionViewModel(sharedPreferences)
+        val isSingleQuestion=viewModel.isSingleQuestion(Constants.SINGLE_QUESTION)
+        assertTrue(isSingleQuestion)
+    }
+
+    @Test
+    fun `should return false when is not single question`() {
+        val viewModel = BaseQuestionViewModel(sharedPreferences)
+        val isSingleQuestion=viewModel.isSingleQuestion(Constants.MULTIPLE_QUESTION_PAGE)
+        assertFalse(isSingleQuestion)
+    }
+
+    @Test
+    fun `should return true when is Labour Route`() {
+        val viewModel = BaseQuestionViewModel(sharedPreferences)
+        val mockBundle = mock(Bundle::class.java)
+        `when`(mockBundle.containsKey(Constants.ROUTE_LABOUR)).thenReturn(true)
+        assertTrue(viewModel.isLabourRoute(mockBundle))
+    }
+
+    @Test
+    fun `should  load labour route when the route is Labour`() {
+        val routeOption = RouteOption("dummy", "dummy", null, null)
+        val routeQuestion =
+            RouteQuestion(1, "dummy", "dummy", "dummy", null, "dummy", listOf(routeOption))
+        val route = Route(1, listOf(routeQuestion))
+        val viewModel = BaseQuestionViewModel(sharedPreferences)
+        val mockBundle = mock(Bundle::class.java)
+        `when`(mockBundle.get(Constants.ROUTE_LABOUR)).thenReturn(route)
+        MatcherAssert.assertThat(route, CoreMatchers.`is`(viewModel.loadRoute(true, mockBundle)))
+
+    }
+
+    @Test
+    fun `should  load violence route whe the route is violence`() {
+        val routeOption = RouteOption("dummy", "dummy", null, null)
+        val routeQuestion =
+            RouteQuestion(1, "dummy", "dummy", "dummy", null, "dummy", listOf(routeOption))
+        val route = Route(1, listOf(routeQuestion))
+        val viewModel = BaseQuestionViewModel(sharedPreferences)
+        val mockBundle = mock(Bundle::class.java)
+        `when`(mockBundle.get(Constants.ROUTE_VIOLENCE)).thenReturn(route)
+        MatcherAssert.assertThat(route, CoreMatchers.`is`(viewModel.loadRoute(false, mockBundle)))
+
     }
 
 }

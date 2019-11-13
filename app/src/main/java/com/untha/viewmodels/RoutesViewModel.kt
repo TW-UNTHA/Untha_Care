@@ -26,4 +26,21 @@ class RoutesViewModel(
             Json.parse(Route.serializer(), jsonRoute)
         }
     }
+
+    fun deleteAnswersOptionFromSharedPreferences(isLabourRoute: Boolean) {
+        if(isLabourRoute){
+            sharedPreferences.edit().remove(Constants.FAULT_ANSWER_ROUTE_LABOUR).apply()
+        }else{
+            sharedPreferences.edit().remove(Constants.FAULT_ANSWER_ROUTE_VIOLENCE).apply()
+        }
+    }
+
+    fun loadResultFaultAnswersFromSharedPreferences(isLabourRoute: Boolean): String? {
+        if(isLabourRoute){
+            return sharedPreferences.getString(Constants.FAULT_ANSWER_ROUTE_LABOUR, "")
+        }
+        return sharedPreferences.getString(Constants.FAULT_ANSWER_ROUTE_VIOLENCE, "")
+    }
+
+
 }

@@ -2,6 +2,7 @@ package com.untha.viewmodels
 
 import android.content.SharedPreferences
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import com.nhaarman.mockito_kotlin.verify
 import com.untha.di.mapperModule
 import com.untha.di.networkModule
 import com.untha.di.persistenceModule
@@ -166,5 +167,59 @@ class RoutesViewModelTest : KoinTest {
         val resultRoute = routesViewModel.loadLabourRouteFromSharedPreferences()
 
         MatcherAssert.assertThat(resultRoute, CoreMatchers.`is`(Route(0, listOf())))
+    }
+
+    @Test
+    fun `Should reset shared preferences when the route is Labour`() {
+
+        val resultAnswersDefault = "F5 F9 F7 F6"
+        val routesViewModel = RoutesViewModel(
+            sharedPreferences
+        )
+        val editor = Mockito.mock(SharedPreferences.Editor::class.java)
+        Mockito.`when`(sharedPreferences.edit()).thenReturn(editor)
+        Mockito.`when`(
+            sharedPreferences.getString(
+                Constants.FAULT_ANSWER_ROUTE_LABOUR,
+                resultAnswersDefault
+            )
+        ).thenReturn(resultAnswersDefault)
+
+        routesViewModel.loadResultFaultAnswersFromSharedPreferences(true)
+        Mockito.`when`(
+            sharedPreferences.edit().remove(
+                Constants.FAULT_ANSWER_ROUTE_LABOUR
+            )
+        ).thenReturn(editor)
+        routesViewModel.deleteAnswersOptionFromSharedPreferences(true)
+        verify(sharedPreferences.edit()).remove(Constants.FAULT_ANSWER_ROUTE_LABOUR)
+        verify(editor).apply()
+    }
+
+    @Test
+    fun `Should reset shared preferences when the route is Violence`() {
+
+        val resultAnswersDefault = "F5 F9 F7 F6"
+        val routesViewModel = RoutesViewModel(
+            sharedPreferences
+        )
+        val editor = Mockito.mock(SharedPreferences.Editor::class.java)
+        Mockito.`when`(sharedPreferences.edit()).thenReturn(editor)
+        Mockito.`when`(
+            sharedPreferences.getString(
+                Constants.FAULT_ANSWER_ROUTE_VIOLENCE,
+                resultAnswersDefault
+            )
+        ).thenReturn(resultAnswersDefault)
+
+        routesViewModel.loadResultFaultAnswersFromSharedPreferences(false)
+        Mockito.`when`(
+            sharedPreferences.edit().remove(
+                Constants.FAULT_ANSWER_ROUTE_VIOLENCE
+            )
+        ).thenReturn(editor)
+        routesViewModel.deleteAnswersOptionFromSharedPreferences(false)
+        verify(sharedPreferences.edit()).remove(Constants.FAULT_ANSWER_ROUTE_VIOLENCE)
+        verify(editor).apply()
     }
 }

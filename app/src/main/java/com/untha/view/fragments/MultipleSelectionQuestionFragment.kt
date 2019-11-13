@@ -67,7 +67,7 @@ class MultipleSelectionQuestionFragment : BaseFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val bundle = arguments
-        goTo = bundle?.get("goTo") as Int
+        goTo = bundle?.get(Constants.ROUTE_QUESTION_GO_TO) as Int
         isLabourRoute = viewModel.isLabourRoute(bundle)
         route = viewModel.loadRoute(isLabourRoute, bundle)
         viewModel.loadQuestion(goTo, route)
@@ -139,37 +139,15 @@ class MultipleSelectionQuestionFragment : BaseFragment() {
                 verticalLayout {
                     loadImageAudio()
                 }
-
                 verticalLayout {
                     question()
                     buildAnswersLayout()
-                }.lparams(height = dip(0), weight = 0.9f, width = matchParent) {
-                  //  rightMargin = dip(calculateOptionContainerWidthMargin()) / 2
-                   // leftMargin = dip(calculateOptionContainerWidthMargin())
-
-                }
-
-
+                }.lparams(height = dip(0), weight = 0.9f, width = matchParent)
                 loadNextButton(view)
-
             }.lparams(width = matchParent, height = matchParent) {
                 margin =
                     calculateWidthComponentsQuestion()
             }
-//            verticalLayout {
-//                loadHorizontalProgressBar(Constants.TEMPORAL_LOAD_PROGRESS_BAR)
-//            }.lparams{
-//
-//            }
-//            verticalLayout {
-//                loadImageAudio()
-//                question()
-//                buildAnswersLayout()
-//            }.lparams(height = dip(0), weight = 0.9f, width = matchParent) {
-//                rightMargin = dip(calculateOptionContainerWidthMargin()) / 2
-//                leftMargin = dip(calculateOptionContainerWidthMargin())
-//            }
-//            loadNextButton(view)
         }
     }
 
@@ -282,7 +260,6 @@ class MultipleSelectionQuestionFragment : BaseFragment() {
                     }
 
                     if (isANormalOptionSelected == null && !isNoneOfTheAboveSelected) {
-
                         Toast.makeText(
                             context,
                             context.getString(R.string.choose_at_least_one_option),
@@ -295,10 +272,12 @@ class MultipleSelectionQuestionFragment : BaseFragment() {
                         registerAnalyticsEvent(false)
                         viewModel.loadQuestion(routeQuestion?.goTo, route)
                         val isSingle = viewModel.isSingleQuestion(viewModel.question?.type)
-                        manageGoToQuestion(route, isSingle, routeQuestion?.goTo, view)
+                        val questionGoToInfo= mapOf(
+                            "goTo" to routeQuestion?.goTo,
+                            "isSingle" to isSingle,
+                            "isLabourRoute" to isLabourRoute)
+                        manageGoToQuestion(questionGoToInfo, route, view)
                     }
-
-
                 }
                 text = context.getString(R.string.next)
                 textColor =
@@ -517,14 +496,6 @@ class MultipleSelectionQuestionFragment : BaseFragment() {
         val cardHeightInDps =
             (PixelConverter.getScreenDpHeight(context) -
                     Constants.SIZE_OF_ACTION_BAR_ROUTE) * percentageComponent
-        return PixelConverter.toPixels(cardHeightInDps, context)
-    }
-
-    private fun calculateAudioButtonWidth(): Int {
-        val cardHeightInDps =
-            (PixelConverter.getScreenDpHeight(context) -
-                    Constants.SIZE_OF_ACTION_BAR_ROUTE) *
-                    Constants.SIZE_IMAGE_PERCENTAGE_AUDIO_ROUTE
         return PixelConverter.toPixels(cardHeightInDps, context)
     }
 

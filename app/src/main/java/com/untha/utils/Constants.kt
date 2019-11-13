@@ -77,6 +77,10 @@ object Constants {
     const val FULL_SCREEN_WEIGHT = 1F
     const val NEXT_BUTTON_WEIGHT = 0.1F
     const val SINGLE_QUESTION = "SingleOption"
+    const val VIOLENCE_ROUTE_LOW = "BAJO"
+    const val VIOLENCE_ROUTE_MEDIUM = "MEDIO"
+    const val VIOLENCE_ROUTE_HIGHT = "ALTO"
+    const val ROUTE_QUESTION_GO_TO = "goTo"
 
     const val HEIGHT_OF_BUTTON = 0.09375
     //Screen Names

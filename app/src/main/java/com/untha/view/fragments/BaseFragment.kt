@@ -13,17 +13,14 @@ import com.untha.model.transactionalmodels.Route
 import com.untha.utils.Constants
 import com.untha.utils.ContentType
 import com.untha.utils.FirebaseEvent
-import com.untha.viewmodels.MainViewModel
+import com.untha.viewmodels.RoutesViewModel
 import org.koin.android.viewmodel.ext.android.viewModel
 import java.util.*
 
 open class BaseFragment : Fragment(), TextToSpeech.OnInitListener {
     var textToSpeech: TextToSpeech? = null
     lateinit var firebaseAnalytics: FirebaseAnalytics
-   //  val mainActivity: MainActivity by viewModel()
-   private val mainViewModel: MainViewModel by viewModel()
-
-
+    private val mainViewModel: RoutesViewModel by viewModel()
 
     val navOptions = NavOptions.Builder().setEnterAnim(R.anim.slide_in_right)
         .setPopEnterAnim(R.anim.slide_in_left).setExitAnim(R.anim.slide_out_left)
@@ -85,41 +82,41 @@ open class BaseFragment : Fragment(), TextToSpeech.OnInitListener {
     }
 
 
-    fun manageGoToQuestion(route: Route?, isSingle: Boolean, goTo: Int?, view: View) {
+    fun manageGoToQuestion(questionGoToInfo: Map<String, Any?>, route: Route, view: View) {
+        val goTo  = questionGoToInfo["goTo"]
+        val isSingle =   questionGoToInfo["isSingle"] as Boolean
+        val isLabourRoute =   questionGoToInfo["isLabourRoute"] as Boolean
         when (goTo) {
             -1 -> {
-
-
                 println("TODO: screen results")
-                //println(mainViewModel.loadResultRouteViolenceFaultAnswerFromSharedPreferences())
-                println(mainViewModel.loadResultFaultAnswerFromSharedPreferences())
+                println(mainViewModel.loadResultFaultAnswersFromSharedPreferences(true))
+                println(mainViewModel.loadResultFaultAnswersFromSharedPreferences(false))
             }
             else -> {
-                println("HERE")
-                println(goTo)
-                goTo?.let {
-                    val goToBundle = Bundle().apply {
-                        putInt("goTo", goTo)
-                        putSerializable(
-                            Constants.ROUTE_LABOUR,
-                            route
-                        )
+                val goToBundle: Bundle = when {
+                   isLabourRoute -> Bundle().apply {
+                        putInt(Constants.ROUTE_QUESTION_GO_TO, goTo as Int)
+                        putSerializable(Constants.ROUTE_LABOUR, route)
                     }
-                    if (isSingle) {
-                        view.findNavController().navigate(
-                            R.id.singleSelectQuestionFragment, goToBundle,
-                            navOptions, null
-                        )
-                    } else {
-                        view.findNavController().navigate(
-                            R.id.multipleSelectionQuestionFragment, goToBundle,
-                            navOptions, null
-                        )
+                    else -> Bundle().apply {
+                        putInt(Constants.ROUTE_QUESTION_GO_TO, goTo as Int)
+                        putSerializable(Constants.ROUTE_VIOLENCE, route)
                     }
+                }
+
+                if (isSingle) {
+                    view.findNavController().navigate(
+                        R.id.singleSelectQuestionFragment, goToBundle,
+                        navOptions, null)
+                } else {
+                    view.findNavController().navigate(
+                        R.id.multipleSelectionQuestionFragment, goToBundle,
+                        navOptions, null)
                 }
             }
         }
-
     }
+
+
 }
 

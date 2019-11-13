@@ -33,9 +33,7 @@ open class BaseQuestionViewModel(
     }
 
     fun isSingleQuestion(type: String?): Boolean {
-        if(type == Constants.SINGLE_QUESTION){
-           return true
-        }
+        if(type == Constants.SINGLE_QUESTION) return true
         return false
     }
 
@@ -55,8 +53,6 @@ open class BaseQuestionViewModel(
             bundle.get(Constants.ROUTE_VIOLENCE) as Route
         }
     }
-
-
 
 }
 

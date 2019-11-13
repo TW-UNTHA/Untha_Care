@@ -11,7 +11,6 @@ import android.widget.ImageView
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.NavHostFragment
 import com.bumptech.glide.Glide
 import com.untha.R
 import com.untha.utils.Constants
@@ -53,8 +52,7 @@ class WelcomeScreenRoutesFragment : BaseFragment() {
     private var secondMessage: String = ""
     private var imageWelcome: String? = ""
     private var typeRoute: String? = ""
-    var isLabourRoute = false
-
+    private var isLabourRoute = false
 
     companion object {
         const val ROUTE_BUTTON_TEXT = "Empezar"
@@ -70,8 +68,10 @@ class WelcomeScreenRoutesFragment : BaseFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val bundle = arguments
-        typeRoute = bundle?.get(Constants.TYPE_ROUTE) as String
-        isLabourRoute = typeRoute == Constants.ROUTE_LABOUR
+        if (bundle != null) {
+            typeRoute = bundle.get(Constants.TYPE_ROUTE) as String
+            isLabourRoute = typeRoute.equals( Constants.ROUTE_LABOUR)
+        }
         loadMessagesRoute()
         loadTitleRoute(isLabourRoute)
     }
@@ -94,7 +94,6 @@ class WelcomeScreenRoutesFragment : BaseFragment() {
 
         }
     }
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -121,7 +120,6 @@ class WelcomeScreenRoutesFragment : BaseFragment() {
         }
 
         with(view as _LinearLayout) {
-
             verticalLayout {
                 verticalLayout {
                     loadImageRoute(view)
@@ -136,7 +134,6 @@ class WelcomeScreenRoutesFragment : BaseFragment() {
                 verticalLayout {
                     showMessage(FIRST_MESSAGE, R.font.proxima_nova_bold)
                 }
-
                 verticalLayout {
                     showMessageDescription(
                         secondMessage,
@@ -279,27 +276,25 @@ class WelcomeScreenRoutesFragment : BaseFragment() {
                 R.font.proxima_nova_bold
             )
             onClick {
-                mainActivity.viewModel.deleteAnswersOptionFromSharedPreferences(isLabourRoute)
+                routeViewModel.deleteAnswersOptionFromSharedPreferences(isLabourRoute)
                 if(isLabourRoute){
                     val goToBundle = Bundle().apply {
-                        putInt("goTo", Constants.START_QUESTION_ROUTE_LABOUR)
+                        putInt(Constants.ROUTE_QUESTION_GO_TO, Constants.START_QUESTION_ROUTE_LABOUR)
                         putSerializable(
                             Constants.ROUTE_LABOUR,
-                            routeViewModel.loadLabourRouteFromSharedPreferences()
-                        )
+                            routeViewModel.loadLabourRouteFromSharedPreferences())
                     }
                     view.findNavController()
-                        .navigate(R.id.singleSelectQuestionFragment, goToBundle, navOptions, null)
+                        .navigate(R.id.singleSelectQuestionFragment, goToBundle, navOptions,null)
                 }else {
                     val goToBundle = Bundle().apply {
-                        putInt("goTo", Constants.START_QUESTION_ROUTE_VIOLENCE)
+                        putInt(Constants.ROUTE_QUESTION_GO_TO, Constants.START_QUESTION_ROUTE_VIOLENCE)
                         putSerializable(
                             Constants.ROUTE_VIOLENCE,
-                            routeViewModel.loadViolenceRouteFromSharedPreferences()
-                        )
+                            routeViewModel.loadViolenceRouteFromSharedPreferences())
                     }
                     view.findNavController()
-                        .navigate(R.id.multipleSelectionQuestionFragment, goToBundle, navOptions, null)
+                        .navigate(R.id.multipleSelectionQuestionFragment, goToBundle, navOptions,null)
                 }
                 logAnalyticsCustomContentTypeWithId(ContentType.ROUTE, FirebaseEvent.ROUTE)
             }

@@ -249,7 +249,12 @@ class SingleSelectionQuestionFragment : BaseFragment() {
                         questionViewModel.loadQuestion(option.goTo, route)
                         val routeQuestionGoTo = questionViewModel.question
                         val isSingle = questionViewModel.isSingleQuestion(routeQuestionGoTo?.type)
-                        manageGoToQuestion(route, isSingle, option.goTo ,view)
+
+                        val questionGoToInfo= mapOf(
+                            "goTo" to option.goTo,
+                            "isSingle" to isSingle,
+                            "isLabourRoute" to isLabourRoute)
+                        manageGoToQuestion(questionGoToInfo, route, view)
                     }
                 }.lparams(
                     width = width,

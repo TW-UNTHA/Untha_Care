@@ -17,7 +17,6 @@ import com.untha.utils.Constants
 import com.untha.utils.ContentType
 import com.untha.utils.PixelConverter
 import com.untha.view.activities.MainActivity
-import com.untha.viewmodels.RoutesViewModel
 import org.jetbrains.anko.AnkoViewDslMarker
 import org.jetbrains.anko._LinearLayout
 import org.jetbrains.anko.attr
@@ -33,11 +32,9 @@ import org.jetbrains.anko.textSizeDimen
 import org.jetbrains.anko.textView
 import org.jetbrains.anko.verticalLayout
 import org.jetbrains.anko.wrapContent
-import org.koin.android.viewmodel.ext.android.viewModel
 
 class RoutesFragment : BaseFragment() {
     private var categoriesRoutes: List<Category>? = null
-    private val routeViewModel: RoutesViewModel by viewModel()
     private lateinit var mainActivity: MainActivity
 
     companion object {
@@ -72,10 +69,6 @@ class RoutesFragment : BaseFragment() {
     private fun onItemClickRouteLabour(itemView: View) {
         val routeLabour = Bundle().apply {
             putString(Constants.TYPE_ROUTE, Constants.ROUTE_LABOUR)
-            putSerializable(
-                Constants.ROUTE_LABOUR,
-                routeViewModel.loadLabourRouteFromSharedPreferences()
-            )
         }
         itemView.findNavController()
            .navigate(R.id.mainScreenLabourRouteFragment, routeLabour, navOptions, null)
@@ -84,10 +77,6 @@ class RoutesFragment : BaseFragment() {
     private fun onItemClickRouteViolence(itemView: View) {
         val violenceLabour = Bundle().apply {
             putString(Constants.TYPE_ROUTE, Constants.ROUTE_VIOLENCE)
-            putSerializable(
-                Constants.ROUTE_VIOLENCE,
-                routeViewModel.loadViolenceRouteFromSharedPreferences()
-            )
         }
         itemView.findNavController()
             .navigate(R.id.mainScreenLabourRouteFragment, violenceLabour, navOptions, null)

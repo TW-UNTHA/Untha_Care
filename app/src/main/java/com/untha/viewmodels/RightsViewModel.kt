@@ -16,7 +16,6 @@ class RightsViewModel(
 ) :
     ViewModel() {
 
-
     fun getRightsCategoryModels(): LiveData<List<QueryingCategory>> {
         return categoryWithRelationsRepository.getAllRightsCategories()
     }

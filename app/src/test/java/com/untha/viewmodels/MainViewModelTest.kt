@@ -604,38 +604,6 @@ class MainViewModelTest : KoinTest {
         verify(editor).apply()
     }
 
-    @Test
-    fun `Should reset shared preferences when the route is started`() {
-
-        val resultAnswersDefault = "F5 F9 F7 F6"
-        val mainViewModel = MainViewModel(
-            dbService,
-            categoriesService,
-            mapper,
-            sharedPreferences,
-            routesService,
-            resultService,
-            questionnaireRouteResultService
-        )
-        val editor = mock(SharedPreferences.Editor::class.java)
-        `when`(sharedPreferences.edit()).thenReturn(editor)
-        `when`(
-            sharedPreferences.getString(
-                Constants.FAULT_ANSWER_ROUTE_LABOUR,
-                resultAnswersDefault
-            )
-        ).thenReturn(resultAnswersDefault)
-
-        mainViewModel.loadResultFaultAnswerFromSharedPreferences()
-        `when`(
-            sharedPreferences.edit().remove(
-                Constants.FAULT_ANSWER_ROUTE_LABOUR
-            )
-        ).thenReturn(editor)
-        mainViewModel.deleteAnswersOptionFromSharedPreferences(true)
-        verify(sharedPreferences.edit()).remove(Constants.FAULT_ANSWER_ROUTE_LABOUR)
-        verify(editor).apply()
-    }
 
     private fun mockLifecycleOwner(): LifecycleOwner {
         val owner = mock<LifecycleOwner>()

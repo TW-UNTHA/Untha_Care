@@ -15,7 +15,7 @@ class MultipleSelectionQuestionViewModel(
         if (isLabourRoute) {
             processLabourRouteAnswer(isNoneOfAbove)
         } else {
-            processLabourRouteAnswer(options)
+            processViolenceRouteAnswer(options)
         }
     }
 
@@ -34,18 +34,16 @@ class MultipleSelectionQuestionViewModel(
 
     }
 
-    private fun processLabourRouteAnswer(options: MutableList<MultipleSelectionOption>) {
-        //TODO refactizar
-           if( options.filter{ it.isSelected  && it.code.equals("BAJO")}.any() ){
-               saveAnswerOption( "BAJO" , Constants.FAULT_ANSWER_ROUTE_VIOLENCE)
-            }
-            if( options.filter{ it.isSelected  && it.code.equals("MEDIO")}.any() ){
-            saveAnswerOption( "MEDIO" , Constants.FAULT_ANSWER_ROUTE_VIOLENCE)
-            }
-            if( options.filter{ it.isSelected  && it.code.equals("ALTO")}.any() ){
-                saveAnswerOption( "ALTO" , Constants.FAULT_ANSWER_ROUTE_VIOLENCE)
-            }
-
+    private fun processViolenceRouteAnswer(options: MutableList<MultipleSelectionOption>) {
+       if( options.filter{it.isSelected && it.code.equals(Constants.VIOLENCE_ROUTE_LOW)}.any()){
+           saveAnswerOption(Constants.VIOLENCE_ROUTE_LOW, Constants.FAULT_ANSWER_ROUTE_VIOLENCE)
+        }
+        if( options.filter{it.isSelected && it.code.equals(Constants.VIOLENCE_ROUTE_MEDIUM)}.any()){
+        saveAnswerOption(Constants.VIOLENCE_ROUTE_MEDIUM , Constants.FAULT_ANSWER_ROUTE_VIOLENCE)
+        }
+        if( options.filter{it.isSelected && it.code.equals(Constants.VIOLENCE_ROUTE_HIGHT)}.any()){
+            saveAnswerOption( Constants.VIOLENCE_ROUTE_HIGHT , Constants.FAULT_ANSWER_ROUTE_VIOLENCE)
+        }
     }
 
     fun getHintForSelectedOption(isNoneOfAbove: Boolean): String? {
