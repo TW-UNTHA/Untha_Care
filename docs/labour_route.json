@@ -138,13 +138,19 @@
       "result": null,
       "options": [
         {
-          "value": "Sí",
+          "value": "Sí me pagan",
           "hint": "R1P6R1",
           "result": null,
           "goTo": 10
         },
         {
-          "value": "No",
+          "value": "No me pagan",
+          "hint": "R1P6R2",
+          "result": "F5",
+          "goTo": 10
+        },
+        {
+          "value": "No trabajo horas extras ",
           "hint": "R1P6R2",
           "result": "F5",
           "goTo": 10
