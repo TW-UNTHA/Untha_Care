@@ -49,6 +49,8 @@ class SingleSelectionQuestionFragment : BaseFragment() {
     private val questionViewModel:SingleSelectionQuestionViewModel by viewModel()
     private val categoryViewModel: CategoryViewModel by viewModel()
     private var isLabourRoute: Boolean = false
+    private var remainderQuestion: Int =0
+    private var percentageProgressBar: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,6 +58,7 @@ class SingleSelectionQuestionFragment : BaseFragment() {
         goTo  = bundle?.get("goTo") as Int
         isLabourRoute =  questionViewModel.isLabourRoute(bundle)
         route = questionViewModel.loadRoute(isLabourRoute, bundle)
+        remainderQuestion = bundle.get("REMAINING_QUESTION") as Int
         questionViewModel.loadQuestion(goTo, route)
         routeQuestion = questionViewModel.question
     }
@@ -81,8 +84,10 @@ class SingleSelectionQuestionFragment : BaseFragment() {
             )
         }
         with(view as _LinearLayout) {
+
+            percentageProgressBar = questionViewModel.calculatePercentQuestionsAnswered(4,remainderQuestion)
             verticalLayout {
-                loadHorizontalProgressBar(Constants.TEMPORAL_LOAD_PROGRESS_BAR)
+                loadHorizontalProgressBar(percentageProgressBar)
                 verticalLayout {
                     loadImageAudio()
                 }
@@ -228,6 +233,9 @@ class SingleSelectionQuestionFragment : BaseFragment() {
 
     private fun _LinearLayout.options(width: Int, view: View) {
         routeQuestion?.options?.map { option ->
+
+            println("HERE")
+            println(option.remaining)
             verticalLayout {
                 themedButton(theme = R.style.MyButtonStyle) {
                     text = option.value
@@ -251,11 +259,14 @@ class SingleSelectionQuestionFragment : BaseFragment() {
                         questionViewModel.loadQuestion(option.goTo, route)
                         val routeQuestionGoTo = questionViewModel.question
                         val isSingle = questionViewModel.isSingleQuestion(routeQuestionGoTo?.type)
+                        val remainingQuestion = questionViewModel.
+                            calculatePercentQuestionsAnswered(4,option.remaining)
 
                         val questionGoToInfo= mapOf(
                             "goTo" to option.goTo,
                             "isSingle" to isSingle,
-                            "isLabourRoute" to isLabourRoute)
+                            "isLabourRoute" to isLabourRoute,
+                            "remainingQuestion" to remainingQuestion)
                         manageGoToQuestion(questionGoToInfo, route, view)
                     }
                 }.lparams(

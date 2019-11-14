@@ -6,6 +6,7 @@ import kotlinx.serialization.Serializable
 data class RouteOption(
     val value: String,
     val hint: String?,
+    val remaining: Int,
     val result: String?,
     val goTo: Int?
 )

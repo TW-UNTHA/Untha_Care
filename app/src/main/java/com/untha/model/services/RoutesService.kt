@@ -6,7 +6,7 @@ import me.linshen.retrofit2.adapter.ApiResponse
 import retrofit2.http.GET
 
 interface RoutesService {
-    @GET("labour_route.json")
+    @GET("labour_route_prueba.json")
     fun getLabourRoute(): LiveData<ApiResponse<Route>>
 
     @GET("violence_route.json")

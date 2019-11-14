@@ -86,6 +86,8 @@ open class BaseFragment : Fragment(), TextToSpeech.OnInitListener {
         val goTo  = questionGoToInfo["goTo"]
         val isSingle =   questionGoToInfo["isSingle"] as Boolean
         val isLabourRoute =   questionGoToInfo["isLabourRoute"] as Boolean
+        val remainingQuestion = questionGoToInfo["remainingQuestion"] as Int
+
         when (goTo) {
             -1 -> {
                 println("TODO: screen results")
@@ -97,8 +99,10 @@ open class BaseFragment : Fragment(), TextToSpeech.OnInitListener {
                    isLabourRoute -> Bundle().apply {
                         putInt(Constants.ROUTE_QUESTION_GO_TO, goTo as Int)
                         putSerializable(Constants.ROUTE_LABOUR, route)
+                        putInt("REMAINING_QUESTION", remainingQuestion)
                     }
                     else -> Bundle().apply {
+                        putInt("REMAINING_QUESTION", remainingQuestion)
                         putInt(Constants.ROUTE_QUESTION_GO_TO, goTo as Int)
                         putSerializable(Constants.ROUTE_VIOLENCE, route)
                     }

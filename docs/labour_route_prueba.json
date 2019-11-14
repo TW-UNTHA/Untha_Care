@@ -556,7 +556,7 @@
         {
           "value": "Estaba embarazada",
           "result": "F13",
-          "remaining": 2
+          "remaining": 2,
           "hint": "R1P19R1",
           "goTo": null
         },

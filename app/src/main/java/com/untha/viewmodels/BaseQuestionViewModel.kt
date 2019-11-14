@@ -54,5 +54,10 @@ open class BaseQuestionViewModel(
         }
     }
 
+    fun calculatePercentQuestionsAnswered(numberOfQuestionAnswered: Int, numberOfRemainingQuestions: Int): Int {
+        var totalQuestion = numberOfQuestionAnswered + numberOfRemainingQuestions
+        var percentajeQuestionAnswered = numberOfQuestionAnswered * 100/totalQuestion
+        return percentajeQuestionAnswered
+    }
 }
 

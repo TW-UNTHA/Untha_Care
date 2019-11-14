@@ -286,6 +286,8 @@ class WelcomeScreenRoutesFragment : BaseFragment() {
                             Constants.ROUTE_QUESTION_GO_TO,
                             Constants.START_QUESTION_ROUTE_LABOUR
                         )
+                        putInt("REMAINING_QUESTION",14)
+                        putInt(Constants.ROUTE_QUESTION_GO_TO, Constants.START_QUESTION_ROUTE_LABOUR)
                         putSerializable(
                             Constants.ROUTE_LABOUR,
                             routeViewModel.loadLabourRouteFromSharedPreferences()
