@@ -16,6 +16,7 @@ import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
 import com.untha.R
 import com.untha.model.transactionalmodels.QuestionnaireRouteResult
+import com.untha.model.transactionalmodels.RouteResult
 import com.untha.model.transactionalmodels.Section
 import com.untha.model.transactionalmodels.Step
 import com.untha.utils.Constants
@@ -142,51 +143,64 @@ class RouteResultsFragment : BaseFragment() {
                 backgroundDrawable = ContextCompat.getDrawable(
                     context, R.drawable.drawable_fault_container
                 )
-                textView {
-                    text = result.content
-                    textSizeDimen = R.dimen.text_size_content
-                    typeface =
-                        ResourcesCompat.getFont(
-                            context.applicationContext,
-                            R.font.proxima_nova_light
-                        )
-                }.lparams(
-                    width = matchParent,
-                    height = wrapContent
-                ) {
-                    bottomMargin =
-                        dip(
-                            calculateComponentsHeight(
-                                RECOMMENDATION_DESCRIPTION_TOP_BOTTOM_MARGIN
-                            )
-                        )
-                    topMargin =
-                        dip(
-                            calculateComponentsHeight(
-                                RECOMMENDATION_DESCRIPTION_TOP_BOTTOM_MARGIN
-                            )
-                        )
-                    leftMargin =
-                        dip(calculateComponentsWidth(RECOMMENDATION_DESCRIPTION_LEFT_RIGHT_MARGIN))
-                    rightMargin =
-                        dip(calculateComponentsWidth(RECOMMENDATION_DESCRIPTION_LEFT_RIGHT_MARGIN))
-                }
-                linearLayout {
-                    orientation = LinearLayout.HORIZONTAL
-                    gravity = Gravity.END
-                    result.categories?.map { categoryId ->
-                        drawCategoryButton(categoryId, view)
-                    }
-                }.lparams(height = wrapContent, width = wrapContent) {
-                    bottomMargin = dip(calculateComponentsHeight(FAULT_BOTTOM_MARGIN))
-                    gravity = Gravity.END
-                }
+                drawRouteResultDescription(result)
+                drawCategoryButtons(result, view)
             }.lparams(
                 width = matchParent, height =
                 wrapContent
             ) {
                 bottomMargin = dip(calculateComponentsHeight(FAULT_BOTTOM_MARGIN))
             }
+        }
+    }
+
+    private fun @AnkoViewDslMarker _LinearLayout.drawCategoryButtons(
+        result: RouteResult,
+        view: View
+    ) {
+        linearLayout {
+            orientation = LinearLayout.HORIZONTAL
+            gravity = Gravity.END
+            result.categories?.map { categoryId ->
+                drawCategoryButton(categoryId, view)
+            }
+        }.lparams(height = wrapContent, width = wrapContent) {
+            bottomMargin = dip(calculateComponentsHeight(FAULT_BOTTOM_MARGIN))
+            gravity = Gravity.END
+        }
+    }
+
+    private fun @AnkoViewDslMarker _LinearLayout.drawRouteResultDescription(
+        result: RouteResult
+    ) {
+        textView {
+            text = result.content
+            textSizeDimen = R.dimen.text_size_content
+            typeface =
+                ResourcesCompat.getFont(
+                    context.applicationContext,
+                    R.font.proxima_nova_light
+                )
+        }.lparams(
+            width = matchParent,
+            height = wrapContent
+        ) {
+            bottomMargin =
+                dip(
+                    calculateComponentsHeight(
+                        RECOMMENDATION_DESCRIPTION_TOP_BOTTOM_MARGIN
+                    )
+                )
+            topMargin =
+                dip(
+                    calculateComponentsHeight(
+                        RECOMMENDATION_DESCRIPTION_TOP_BOTTOM_MARGIN
+                    )
+                )
+            leftMargin =
+                dip(calculateComponentsWidth(RECOMMENDATION_DESCRIPTION_LEFT_RIGHT_MARGIN))
+            rightMargin =
+                dip(calculateComponentsWidth(RECOMMENDATION_DESCRIPTION_LEFT_RIGHT_MARGIN))
         }
     }
 
@@ -200,34 +214,8 @@ class RouteResultsFragment : BaseFragment() {
                 context, R.drawable.drawable_main_route
             )
             weightSum = FULL_WEIGHT_CATEGORY_BUTTON
-//            gravity = Gravity.CENTER
-            imageView {
-                val imageUrl = resources.getIdentifier(
-                    "result_category_icon",
-                    "drawable",
-                    context.applicationInfo.packageName
-                )
-                Glide.with(view)
-                    .load(imageUrl).fitCenter()
-                    .into(this)
-            }.lparams(
-                width = dip(0),
-                weight = IMAGE_WEIGHT_CATEGORY_BUTTON,
-                height = matchParent
-            ) {
-                rightMargin = dip(calculateComponentsWidth(IMAGE_VIEW_RIGHT_MARGIN))
-                leftMargin = dip(calculateComponentsWidth(IMAGE_VIEW_LEFT_MARGIN))
-            }
-            textView {
-                text = viewModel.getCategoryById(categoryId)?.title?.toLowerCase()?.capitalize()
-                textSizeDimen = R.dimen.text_size
-                typeface =
-                    ResourcesCompat.getFont(context.applicationContext, R.font.proxima_nova_light)
-                gravity = Gravity.CENTER
-                textColor = ContextCompat.getColor(context, R.color.colorHeaderBackground)
-            }.lparams(width = dip(0), weight = TEXT_WEIGHT_CATEGORY_BUTTON, height = matchParent) {
-                rightMargin = dip(calculateComponentsWidth(IMAGE_VIEW_RIGHT_MARGIN))
-            }
+            drawCategoryButtonImage(view)
+            drawCategoryButtonText(categoryId)
         }.lparams(
             width = dip(calculateComponentsWidth(CATEGORY_BUTTON_WIDTH)),
             height = dip(calculateComponentsHeight(BUTTON_CONTAINER_HEIGHT))
@@ -236,41 +224,88 @@ class RouteResultsFragment : BaseFragment() {
         }
     }
 
+    private fun @AnkoViewDslMarker _LinearLayout.drawCategoryButtonText(
+        categoryId: Int
+    ) {
+        textView {
+            text = viewModel.getCategoryById(categoryId)?.title?.toLowerCase()?.capitalize()
+            textSizeDimen = R.dimen.text_size
+            typeface =
+                ResourcesCompat.getFont(context.applicationContext, R.font.proxima_nova_light)
+            gravity = Gravity.CENTER
+            textColor = ContextCompat.getColor(context, R.color.colorHeaderBackground)
+        }.lparams(width = dip(0), weight = TEXT_WEIGHT_CATEGORY_BUTTON, height = matchParent) {
+            rightMargin = dip(calculateComponentsWidth(IMAGE_VIEW_RIGHT_MARGIN))
+        }
+    }
+
+    private fun @AnkoViewDslMarker _LinearLayout.drawCategoryButtonImage(
+        view: View
+    ) {
+        imageView {
+            val imageUrl = resources.getIdentifier(
+                "result_category_icon",
+                "drawable",
+                context.applicationInfo.packageName
+            )
+            Glide.with(view)
+                .load(imageUrl).fitCenter()
+                .into(this)
+        }.lparams(
+            width = dip(0),
+            weight = IMAGE_WEIGHT_CATEGORY_BUTTON,
+            height = matchParent
+        ) {
+            rightMargin = dip(calculateComponentsWidth(IMAGE_VIEW_RIGHT_MARGIN))
+            leftMargin = dip(calculateComponentsWidth(IMAGE_VIEW_LEFT_MARGIN))
+        }
+    }
+
     private fun @AnkoViewDslMarker _LinearLayout.loadLabourRouteHeader(
         view: View
     ) {
         linearLayout {
             orientation = LinearLayout.HORIZONTAL
-            imageView {
-                val imageUrl = resources.getIdentifier(
-                    "ic_audio_without_shadow",
-                    "drawable",
-                    context.applicationInfo.packageName
-                )
-                Glide.with(view)
-                    .load(imageUrl)
-                    .into(this)
-            }.lparams(
-                width = dip(calculateComponentsWidth(AUDIO_IMAGE_VIEW_WIDTH)),
-                height = dip(calculateComponentsHeight(AUDIO_IMAGE_VIEW_HEIGHT))
-            ) {
-                rightMargin = dip(calculateComponentsWidth(AUDIO_IMAGE_VIEW_MARGIN)) / HALF_DIVIDER
-                leftMargin = dip(calculateComponentsWidth(AUDIO_IMAGE_VIEW_MARGIN))
-            }
-            textView {
-                text =
-                    if (isLabourRoute) context.getString(R.string.description_labour_result)
-                    else context.getString(R.string.description_violence_result) + violenceLevel
-                textSizeDimen = R.dimen.text_size_content
-                typeface =
-                    ResourcesCompat.getFont(context.applicationContext, R.font.proxima_nova_bold)
-                textColor = ContextCompat.getColor(context, R.color.colorHeaderBackground)
-            }.lparams(
-                width = wrapContent, height =
-                dip(calculateComponentsHeight(AUDIO_IMAGE_VIEW_HEIGHT))
-            )
+            drawHeaderAudioButton(view)
+            drawHeaderDescription()
         }.lparams(width = wrapContent, height = wrapContent) {
             bottomMargin = dip(calculateComponentsHeight(HEADER_BOTTOM_MARGIN))
+        }
+    }
+
+    private fun @AnkoViewDslMarker _LinearLayout.drawHeaderDescription() {
+        textView {
+            text =
+                if (isLabourRoute) context.getString(R.string.description_labour_result)
+                else context.getString(R.string.description_violence_result) + violenceLevel
+            textSizeDimen = R.dimen.text_size_content
+            typeface =
+                ResourcesCompat.getFont(context.applicationContext, R.font.proxima_nova_bold)
+            textColor = ContextCompat.getColor(context, R.color.colorHeaderBackground)
+        }.lparams(
+            width = wrapContent, height =
+            dip(calculateComponentsHeight(AUDIO_IMAGE_VIEW_HEIGHT))
+        )
+    }
+
+    private fun @AnkoViewDslMarker _LinearLayout.drawHeaderAudioButton(
+        view: View
+    ) {
+        imageView {
+            val imageUrl = resources.getIdentifier(
+                "ic_audio_without_shadow",
+                "drawable",
+                context.applicationInfo.packageName
+            )
+            Glide.with(view)
+                .load(imageUrl)
+                .into(this)
+        }.lparams(
+            width = dip(calculateComponentsWidth(AUDIO_IMAGE_VIEW_WIDTH)),
+            height = dip(calculateComponentsHeight(AUDIO_IMAGE_VIEW_HEIGHT))
+        ) {
+            rightMargin = dip(calculateComponentsWidth(AUDIO_IMAGE_VIEW_MARGIN)) / HALF_DIVIDER
+            leftMargin = dip(calculateComponentsWidth(AUDIO_IMAGE_VIEW_MARGIN))
         }
     }
 
