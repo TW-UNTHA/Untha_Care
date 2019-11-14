@@ -44,8 +44,8 @@ class MainActivity : AppCompatActivity() {
             viewModel.retrieveUpdatedCategories(this)
             viewModel.loadLabourRoute(this)
             viewModel.loadViolenceRoute(this)
-            viewModel.loadQuestionnaireRouteResult(this)
             viewModel.loadRouteResults(this)
+            viewModel.loadQuestionnaireRouteResult(this)
         } else {
             viewModel.loadDefaultCategories(this)
             viewModel.loadDefaultLabourRoute(this)
@@ -63,7 +63,7 @@ class MainActivity : AppCompatActivity() {
         val titleView = layoutActionBar.findViewById(R.id.title_actiov_bar) as TextView
         val close = layoutActionBar?.findViewById(R.id.icon_go_back_route) as ImageView
         titleView.text = title
-        titleView.textSizeDimen =  R.dimen.text_size_question_route
+        titleView.textSizeDimen = R.dimen.text_size_question_route
         val layout = ActionBar.LayoutParams(
             LinearLayout.LayoutParams.MATCH_PARENT,
             LinearLayout.LayoutParams.MATCH_PARENT

@@ -70,20 +70,20 @@ class WelcomeScreenRoutesFragment : BaseFragment() {
         val bundle = arguments
         if (bundle != null) {
             typeRoute = bundle.get(Constants.TYPE_ROUTE) as String
-            isLabourRoute = typeRoute.equals( Constants.ROUTE_LABOUR)
+            isLabourRoute = typeRoute.equals(Constants.ROUTE_LABOUR)
         }
         loadMessagesRoute()
     }
 
-    private fun loadTitleRoute(isLabourRoute:Boolean){
-        if(isLabourRoute){
+    private fun loadTitleRoute(isLabourRoute: Boolean) {
+        if (isLabourRoute) {
             (activity as MainActivity).customActionBar(
                 Constants.NAME_SCREEN_LABOUR_ROUTE,
                 enableCustomBar = false,
                 needsBackButton = true,
                 backMethod = null
             )
-        }else{
+        } else {
             (activity as MainActivity).customActionBar(
                 Constants.NAME_SCREEN_VIOLENCE_ROUTE,
                 enableCustomBar = false,
@@ -168,8 +168,11 @@ class WelcomeScreenRoutesFragment : BaseFragment() {
     ) {
         verticalLayout {
             linkLastResult()
-            setOnClickListener {
-                println("TODO: link last results")
+            isFocusable = true
+            isClickable = true
+            setOnClickListener { view ->
+                view.findNavController()
+                    .navigate(R.id.routeResultsFragment, null, navOptions, null)
             }
             backgroundResource = getSelectableItemBackground().resourceId
             topPadding =
@@ -275,25 +278,39 @@ class WelcomeScreenRoutesFragment : BaseFragment() {
                 R.font.proxima_nova_bold
             )
             onClick {
+                val isLabourRoute = typeRoute == Constants.ROUTE_LABOUR
                 routeViewModel.deleteAnswersOptionFromSharedPreferences(isLabourRoute)
-                if(isLabourRoute){
+                if (isLabourRoute) {
                     val goToBundle = Bundle().apply {
-                        putInt(Constants.ROUTE_QUESTION_GO_TO, Constants.START_QUESTION_ROUTE_LABOUR)
+                        putInt(
+                            Constants.ROUTE_QUESTION_GO_TO,
+                            Constants.START_QUESTION_ROUTE_LABOUR
+                        )
                         putSerializable(
                             Constants.ROUTE_LABOUR,
-                            routeViewModel.loadLabourRouteFromSharedPreferences())
+                            routeViewModel.loadLabourRouteFromSharedPreferences()
+                        )
                     }
                     view.findNavController()
-                        .navigate(R.id.singleSelectQuestionFragment, goToBundle, navOptions,null)
-                }else {
+                        .navigate(R.id.singleSelectQuestionFragment, goToBundle, navOptions, null)
+                } else {
                     val goToBundle = Bundle().apply {
-                        putInt(Constants.ROUTE_QUESTION_GO_TO, Constants.START_QUESTION_ROUTE_VIOLENCE)
+                        putInt(
+                            Constants.ROUTE_QUESTION_GO_TO,
+                            Constants.START_QUESTION_ROUTE_VIOLENCE
+                        )
                         putSerializable(
                             Constants.ROUTE_VIOLENCE,
-                            routeViewModel.loadViolenceRouteFromSharedPreferences())
+                            routeViewModel.loadViolenceRouteFromSharedPreferences()
+                        )
                     }
                     view.findNavController()
-                        .navigate(R.id.multipleSelectionQuestionFragment, goToBundle, navOptions,null)
+                        .navigate(
+                            R.id.multipleSelectionQuestionFragment,
+                            goToBundle,
+                            navOptions,
+                            null
+                        )
                 }
                 logAnalyticsCustomContentTypeWithId(ContentType.ROUTE, FirebaseEvent.ROUTE)
             }

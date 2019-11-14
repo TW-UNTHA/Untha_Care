@@ -172,6 +172,9 @@ class MainViewModel(
                                 Json.stringify(ResultWrapper.serializer(), response.body)
                             ).apply()
                     }
+                    else -> {
+                        println("Error en la llamada de load route results $response")
+                    }
                 }
             })
     }

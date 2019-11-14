@@ -12,10 +12,10 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.text.parseAsHtml
+import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
 import com.untha.R
 import com.untha.model.transactionalmodels.QuestionnaireRouteResult
-import com.untha.model.transactionalmodels.RouteResult
 import com.untha.model.transactionalmodels.Section
 import com.untha.model.transactionalmodels.Step
 import com.untha.utils.Constants
@@ -29,6 +29,7 @@ import org.jetbrains.anko.dip
 import org.jetbrains.anko.imageView
 import org.jetbrains.anko.linearLayout
 import org.jetbrains.anko.matchParent
+import org.jetbrains.anko.scrollView
 import org.jetbrains.anko.support.v4.UI
 import org.jetbrains.anko.textColor
 import org.jetbrains.anko.textSizeDimen
@@ -40,23 +41,27 @@ import org.koin.android.viewmodel.ext.android.viewModel
 class RouteResultsFragment : BaseFragment() {
 
     companion object {
-        private const val IMAGE_VIEW_WIDTH = 0.056
-        private const val IMAGE_VIEW_HEIGHT = 0.023
-        private const val IMAGE_VIEW_RIGHT_MARGIN = 0.025
+        private const val HEADER_BOTTOM_MARGIN = 0.039
+        private const val IMAGE_VIEW_RIGHT_MARGIN = 0.0056
+        private const val IMAGE_VIEW_LEFT_MARGIN = 0.014
         private const val AUDIO_IMAGE_VIEW_WIDTH = 0.111
         private const val AUDIO_IMAGE_VIEW_HEIGHT = 0.0625
         private const val AUDIO_IMAGE_VIEW_MARGIN = 0.072
-        private const val BUTTON_CONTAINER_HEIGHT = 0.05
-        private const val CONTAINER_HEIGHT = 0.164
-        private const val RECOMMENDATION_DESCRIPTION_HEIGHT = 0.083
+        private const val BUTTON_CONTAINER_HEIGHT = 0.09
+        private const val CATEGORY_BUTTON_WIDTH = 0.417
         private const val RECOMMENDATION_DESCRIPTION_TOP_BOTTOM_MARGIN = 0.0125
-        private const val DESCRIPTION_TEXT_WIDTH = 0.703
+        private const val RECOMMENDATION_DESCRIPTION_LEFT_RIGHT_MARGIN = 0.033
         private const val CONTAINER_MARGIN_TOP_BOTTOM = 0.022
-        private const val CONTAINER_LATERAL_MARGIN = 0.036
-        private const val FAULT_BOTTOM_MARGIN = 0.017
+        private const val CONTAINER_LATERAL_MARGIN = 0.026
+        private const val FAULT_BOTTOM_MARGIN = 0.0109
         private const val DIVIDER_LINE_HEIGHT = 1
         private const val SECTIONS_TOP_BOTTOM_MARGIN = 0.022
         private const val DIVIDER_TOP_MARGIN = 0.036
+        private const val CATEGORY_CARDS_RIGHT_MARGIN = 0.0167
+        private const val FULL_WEIGHT_CATEGORY_BUTTON = 1.0F
+        private const val IMAGE_WEIGHT_CATEGORY_BUTTON = 0.2F
+        private const val TEXT_WEIGHT_CATEGORY_BUTTON = 0.8F
+        private const val HALF_DIVIDER = 2
     }
 
     private val viewModel: RouteResultsViewModel by viewModel()
@@ -67,6 +72,8 @@ class RouteResultsFragment : BaseFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        viewModel.retrieveRouteResults()
+        viewModel.loadQuestionnaire()
     }
 
 
@@ -99,81 +106,53 @@ class RouteResultsFragment : BaseFragment() {
                 null
             )
         }
-        with(view as _LinearLayout) {
-            verticalLayout {
-                loadLabourRouteHeader(view)
-                loadRouteResultsFaults(view)
-                //Recommendations
-                loadRouteResultRecommendations(view)
-                dividerLine()
-                val type = if (isLabourRoute) "LABOUR" else "VIOLENCE"
-                viewModel.getQuestionnairesByType(type).map { questionnaire ->
-                    buildSections(questionnaire)
-                }
-            }.lparams(width = matchParent, height = matchParent) {
-                topMargin = dip(calculateComponentsHeight(CONTAINER_MARGIN_TOP_BOTTOM))
-                bottomMargin = dip(calculateComponentsHeight(CONTAINER_MARGIN_TOP_BOTTOM))
-                leftMargin = dip(calculateComponentsHeight(CONTAINER_LATERAL_MARGIN))
-                rightMargin = dip(calculateComponentsHeight(CONTAINER_LATERAL_MARGIN))
-            }
-        }
-    }
-
-    private fun @AnkoViewDslMarker _LinearLayout.loadRouteResultRecommendations(
-        view: View
-    ) {
-        val recommendations = viewModel.routeResults?.filter { it.type == "recommendation" }
-        if (!recommendations.isNullOrEmpty()) {
-            textView {
-                text = context.getString(R.string.additional_recommendations)
-            }.lparams(width = matchParent, height = wrapContent) {
-                bottomMargin = dip(calculateComponentsHeight(FAULT_BOTTOM_MARGIN))
-                topMargin = dip(calculateComponentsHeight(FAULT_BOTTOM_MARGIN))
-            }
-            recommendations.map { result ->
-                linearLayout {
-                    textView {
-                        text = result.content
-                    }.lparams(
-                        width = matchParent,
-                        height = dip(
-                            calculateComponentsHeight(
-                                RECOMMENDATION_DESCRIPTION_HEIGHT
-                            )
-                        )
-                    ) {
-                        bottomMargin =
-                            dip(
-                                calculateComponentsHeight(
-                                    RECOMMENDATION_DESCRIPTION_TOP_BOTTOM_MARGIN
-                                )
-                            )
-                        topMargin =
-                            dip(
-                                calculateComponentsHeight(
-                                    RECOMMENDATION_DESCRIPTION_TOP_BOTTOM_MARGIN
-                                )
-                            )
+        viewModel.retrieveAllCategories().observe(this, Observer { queryingCategories ->
+            viewModel.mapCategories(queryingCategories)
+            with(view as _LinearLayout)
+            {
+                scrollView {
+                    verticalLayout {
+                        loadLabourRouteHeader(view)
+                        loadRouteResultsByType(view, "fault")
+                        //Recommendations
+                        loadRouteResultsByType(view, "recommendation")
+                        dividerLine()
+                        val type = if (isLabourRoute) "LABOUR" else "VIOLENCE"
+                        viewModel.getQuestionnairesByType(type).map { questionnaire ->
+                            buildSections(questionnaire)
+                        }
                     }
-                    drawCategoryButton(result, view)
-                }.lparams(
-                    width = matchParent, height =
-                    dip(calculateComponentsHeight(CONTAINER_HEIGHT))
-                )
+                }.lparams(width = matchParent, height = matchParent) {
+                    topMargin = dip(calculateComponentsHeight(CONTAINER_MARGIN_TOP_BOTTOM))
+                    bottomMargin = dip(calculateComponentsHeight(CONTAINER_MARGIN_TOP_BOTTOM))
+                    leftMargin = dip(calculateComponentsHeight(CONTAINER_LATERAL_MARGIN))
+                    rightMargin = dip(calculateComponentsHeight(CONTAINER_LATERAL_MARGIN))
+                }
             }
         }
+        )
     }
 
-    private fun @AnkoViewDslMarker _LinearLayout.loadRouteResultsFaults(
-        view: View
+    private fun @AnkoViewDslMarker _LinearLayout.loadRouteResultsByType(
+        view: View,
+        type: String
     ) {
-        viewModel.routeResults?.filter { it.type == "fault" }?.map { result ->
-            linearLayout {
+        viewModel.getRouteResultsByType(type)?.map { result ->
+            verticalLayout {
+                backgroundDrawable = ContextCompat.getDrawable(
+                    context, R.drawable.drawable_fault_container
+                )
                 textView {
                     text = result.content
+                    textSizeDimen = R.dimen.text_size_content
+                    typeface =
+                        ResourcesCompat.getFont(
+                            context.applicationContext,
+                            R.font.proxima_nova_light
+                        )
                 }.lparams(
                     width = matchParent,
-                    height = dip(calculateComponentsHeight(RECOMMENDATION_DESCRIPTION_HEIGHT))
+                    height = wrapContent
                 ) {
                     bottomMargin =
                         dip(
@@ -187,11 +166,24 @@ class RouteResultsFragment : BaseFragment() {
                                 RECOMMENDATION_DESCRIPTION_TOP_BOTTOM_MARGIN
                             )
                         )
+                    leftMargin =
+                        dip(calculateComponentsWidth(RECOMMENDATION_DESCRIPTION_LEFT_RIGHT_MARGIN))
+                    rightMargin =
+                        dip(calculateComponentsWidth(RECOMMENDATION_DESCRIPTION_LEFT_RIGHT_MARGIN))
                 }
-                drawCategoryButton(result, view)
+                linearLayout {
+                    orientation = LinearLayout.HORIZONTAL
+                    gravity = Gravity.END
+                    result.categories?.map { categoryId ->
+                        drawCategoryButton(categoryId, view)
+                    }
+                }.lparams(height = wrapContent, width = wrapContent) {
+                    bottomMargin = dip(calculateComponentsHeight(FAULT_BOTTOM_MARGIN))
+                    gravity = Gravity.END
+                }
             }.lparams(
                 width = matchParent, height =
-                dip(calculateComponentsHeight(CONTAINER_HEIGHT))
+                wrapContent
             ) {
                 bottomMargin = dip(calculateComponentsHeight(FAULT_BOTTOM_MARGIN))
             }
@@ -199,36 +191,48 @@ class RouteResultsFragment : BaseFragment() {
     }
 
     private fun @AnkoViewDslMarker _LinearLayout.drawCategoryButton(
-        result: RouteResult,
+        categoryId: Int,
         view: View
     ) {
-        result.categories?.map { categoryId ->
-            linearLayout {
-                orientation = LinearLayout.HORIZONTAL
-                imageView {
-                    val imageUrl = resources.getIdentifier(
-                        "result_category_icon",
-                        "drawable",
-                        context.applicationInfo.packageName
-                    )
-                    Glide.with(view)
-                        .load(imageUrl)
-                        .into(this)
-                }.lparams(
-                    width = dip(calculateComponentsWidth(IMAGE_VIEW_WIDTH)),
-                    height = dip(calculateComponentsHeight(IMAGE_VIEW_HEIGHT))
-                ) {
-                    rightMargin =
-                        dip(calculateComponentsWidth(IMAGE_VIEW_RIGHT_MARGIN))
-                }
-
-                textView {
-                    text = viewModel.getCategoryById(categoryId)?.title
-                }.lparams(width = wrapContent, height = matchParent)
-            }.lparams(
-                width = wrapContent,
-                height = dip(calculateComponentsHeight(BUTTON_CONTAINER_HEIGHT))
+        linearLayout {
+            orientation = LinearLayout.HORIZONTAL
+            backgroundDrawable = ContextCompat.getDrawable(
+                context, R.drawable.drawable_main_route
             )
+            weightSum = FULL_WEIGHT_CATEGORY_BUTTON
+//            gravity = Gravity.CENTER
+            imageView {
+                val imageUrl = resources.getIdentifier(
+                    "result_category_icon",
+                    "drawable",
+                    context.applicationInfo.packageName
+                )
+                Glide.with(view)
+                    .load(imageUrl).fitCenter()
+                    .into(this)
+            }.lparams(
+                width = dip(0),
+                weight = IMAGE_WEIGHT_CATEGORY_BUTTON,
+                height = matchParent
+            ) {
+                rightMargin = dip(calculateComponentsWidth(IMAGE_VIEW_RIGHT_MARGIN))
+                leftMargin = dip(calculateComponentsWidth(IMAGE_VIEW_LEFT_MARGIN))
+            }
+            textView {
+                text = viewModel.getCategoryById(categoryId)?.title?.toLowerCase()?.capitalize()
+                textSizeDimen = R.dimen.text_size
+                typeface =
+                    ResourcesCompat.getFont(context.applicationContext, R.font.proxima_nova_light)
+                gravity = Gravity.CENTER
+                textColor = ContextCompat.getColor(context, R.color.colorHeaderBackground)
+            }.lparams(width = dip(0), weight = TEXT_WEIGHT_CATEGORY_BUTTON, height = matchParent) {
+                rightMargin = dip(calculateComponentsWidth(IMAGE_VIEW_RIGHT_MARGIN))
+            }
+        }.lparams(
+            width = dip(calculateComponentsWidth(CATEGORY_BUTTON_WIDTH)),
+            height = dip(calculateComponentsHeight(BUTTON_CONTAINER_HEIGHT))
+        ) {
+            rightMargin = dip(calculateComponentsWidth(CATEGORY_CARDS_RIGHT_MARGIN))
         }
     }
 
@@ -250,17 +254,23 @@ class RouteResultsFragment : BaseFragment() {
                 width = dip(calculateComponentsWidth(AUDIO_IMAGE_VIEW_WIDTH)),
                 height = dip(calculateComponentsHeight(AUDIO_IMAGE_VIEW_HEIGHT))
             ) {
-                rightMargin = dip(calculateComponentsWidth(AUDIO_IMAGE_VIEW_MARGIN))
+                rightMargin = dip(calculateComponentsWidth(AUDIO_IMAGE_VIEW_MARGIN)) / HALF_DIVIDER
                 leftMargin = dip(calculateComponentsWidth(AUDIO_IMAGE_VIEW_MARGIN))
             }
             textView {
                 text =
                     if (isLabourRoute) context.getString(R.string.description_labour_result)
                     else context.getString(R.string.description_violence_result) + violenceLevel
+                textSizeDimen = R.dimen.text_size_content
+                typeface =
+                    ResourcesCompat.getFont(context.applicationContext, R.font.proxima_nova_bold)
+                textColor = ContextCompat.getColor(context, R.color.colorHeaderBackground)
             }.lparams(
-                width = dip(calculateComponentsWidth(DESCRIPTION_TEXT_WIDTH)), height =
+                width = wrapContent, height =
                 dip(calculateComponentsHeight(AUDIO_IMAGE_VIEW_HEIGHT))
             )
+        }.lparams(width = wrapContent, height = wrapContent) {
+            bottomMargin = dip(calculateComponentsHeight(HEADER_BOTTOM_MARGIN))
         }
     }
 
@@ -274,8 +284,7 @@ class RouteResultsFragment : BaseFragment() {
     }
 
     private fun calculateComponentsHeight(heightComponent: Double): Float {
-        return ((PixelConverter.getScreenDpHeight(context) -
-                Constants.SIZE_OF_ACTION_BAR_ROUTE) * heightComponent).toFloat()
+        return (PixelConverter.getScreenDpHeight(context) * heightComponent).toFloat()
     }
 
     private fun calculateComponentsWidth(widthComponent: Double): Float {

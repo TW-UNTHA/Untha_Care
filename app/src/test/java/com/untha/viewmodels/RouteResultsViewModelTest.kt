@@ -2,10 +2,11 @@ package com.untha.viewmodels
 
 import android.content.SharedPreferences
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
-import androidx.lifecycle.Observer
-import com.nhaarman.mockito_kotlin.mock
+import com.nhaarman.mockito_kotlin.any
 import com.nhaarman.mockito_kotlin.never
+import com.nhaarman.mockito_kotlin.times
 import com.nhaarman.mockito_kotlin.verify
 import com.untha.di.mapperModule
 import com.untha.di.networkModule
@@ -19,8 +20,7 @@ import com.untha.model.transactionalmodels.QuestionnaireRouteResultWrapper
 import com.untha.model.transactionalmodels.ResultWrapper
 import com.untha.model.transactionalmodels.RouteResult
 import com.untha.utils.Constants
-import com.utils.MockObjects
-import com.utils.MockObjects.mockLifecycleOwner
+import com.utils.MockObjects.mockQueryingCategory
 import kotlinx.serialization.json.Json
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.MatcherAssert.assertThat
@@ -145,6 +145,51 @@ class RouteResultsViewModelTest : KoinTest {
     }
 
     @Test
+    fun `should return a list of route filtered by type`() {
+        val viewModel = RouteResultsViewModel(sharedPreferences, repository, mapper)
+        val answer = "R1 R2 R3 R4"
+        `when`(sharedPreferences.getString(Constants.FAULT_ANSWER, "")).thenReturn(answer)
+        val firstRouteResult = RouteResult("R1", "fault", "dummy", listOf(1))
+        val secondRouteResult = RouteResult("R2", "recommendation", "dummy", listOf(1))
+        val thirdRouteResult = RouteResult("R3", "fault", "dummy", listOf(1))
+        val fourthRouteResult = RouteResult("R4", "recommendation", "dummy", listOf(1))
+        val routeResults =
+            listOf(firstRouteResult, secondRouteResult, thirdRouteResult, fourthRouteResult)
+        val resultWrapper = ResultWrapper(1, routeResults)
+        val jsonRouteResults = Json.stringify(ResultWrapper.serializer(), resultWrapper)
+        `when`(sharedPreferences.getString(Constants.ROUTE_RESULT, "")).thenReturn(jsonRouteResults)
+        val expectedRouteResults =
+            listOf(secondRouteResult, fourthRouteResult)
+        viewModel.retrieveRouteResults()
+
+        val recommendationRoutes = viewModel.getRouteResultsByType("recommendation")
+
+        assertThat(recommendationRoutes, `is`(expectedRouteResults))
+    }
+
+    @Test
+    fun `should return null if route type does not exist`() {
+        val viewModel = RouteResultsViewModel(sharedPreferences, repository, mapper)
+        val answer = "R1 R2 R3 R4"
+        `when`(sharedPreferences.getString(Constants.FAULT_ANSWER, "")).thenReturn(answer)
+        val firstRouteResult = RouteResult("R1", "fault", "dummy", listOf(1))
+        val secondRouteResult = RouteResult("R2", "recommendation", "dummy", listOf(1))
+        val thirdRouteResult = RouteResult("R3", "fault", "dummy", listOf(1))
+        val fourthRouteResult = RouteResult("R4", "recommendation", "dummy", listOf(1))
+        val routeResults =
+            listOf(firstRouteResult, secondRouteResult, thirdRouteResult, fourthRouteResult)
+        val resultWrapper = ResultWrapper(1, routeResults)
+        val jsonRouteResults = Json.stringify(ResultWrapper.serializer(), resultWrapper)
+        `when`(sharedPreferences.getString(Constants.ROUTE_RESULT, "")).thenReturn(jsonRouteResults)
+
+        viewModel.retrieveRouteResults()
+
+        val recommendationRoutes = viewModel.getRouteResultsByType("dummy")
+
+        assertThat(null, `is`(recommendationRoutes))
+    }
+
+    @Test
     fun `should return null when any route result id match with route results`() {
         val viewModel = RouteResultsViewModel(sharedPreferences, repository, mapper)
         val answer = "R7 R5 R6"
@@ -165,29 +210,41 @@ class RouteResultsViewModelTest : KoinTest {
     }
 
     @Test
-    fun `should get a categories list`() {
+    fun `should get all categories`() {
         val routeResultViewModel = RouteResultsViewModel(
             sharedPreferences,
             repository, mapper
         )
-        val mockLifeCycleOwner = mockLifecycleOwner()
         val categoriesLiveData = MediatorLiveData<List<QueryingCategory>>()
         val categories = mutableListOf<QueryingCategory>()
         categories.add(
-            MockObjects.mockQueryingCategory()
+            mockQueryingCategory()
         )
         categoriesLiveData.value = categories
-        val observer = mock<Observer<List<QueryingCategory>>>()
         `when`(repository.getAllCategories()).thenReturn(categoriesLiveData)
-        repository.getAllCategories().observeForever(observer)
-        val category = Category(1, "dummy")
-        `when`(mapper.mapFromModel(categories[0])).thenReturn(category)
 
-        routeResultViewModel.retrieveAllCategories(mockLifeCycleOwner)
+        val result = routeResultViewModel.retrieveAllCategories()
 
-        verify(observer).onChanged(categories)
-        verify(mapper).mapFromModel(categories[0])
-        assertThat(routeResultViewModel.categories, `is`(listOf(category)))
+        verify(repository).getAllCategories()
+        assertThat(result, `is`(categoriesLiveData as LiveData<List<QueryingCategory>>))
+    }
+
+    @Test
+    fun `should call mapper as many times as querying categories exists`() {
+        val queryingCategories = listOf(mockQueryingCategory(), mockQueryingCategory())
+        val routeResultViewModel = RouteResultsViewModel(
+            sharedPreferences,
+            repository, mapper
+        )
+        `when`(mapper.mapFromModel(any())).thenReturn(Category(1, ""))
+
+        routeResultViewModel.mapCategories(queryingCategories)
+
+        verify(
+            mapper,
+            times(queryingCategories.size)
+        ).mapFromModel(any())
+        assertThat(routeResultViewModel.categories.size, `is`(queryingCategories.size))
     }
 
     @Test
@@ -196,24 +253,17 @@ class RouteResultsViewModelTest : KoinTest {
             sharedPreferences,
             repository, mapper
         )
-        val mockLifeCycleOwner = mockLifecycleOwner()
-        val categoriesLiveData = MediatorLiveData<List<QueryingCategory>>()
-        val categories = mutableListOf<QueryingCategory>()
-        categories.add(
-            MockObjects.mockQueryingCategory()
-        )
-        categoriesLiveData.value = categories
-        val observer = mock<Observer<List<QueryingCategory>>>()
-        `when`(repository.getAllCategories()).thenReturn(categoriesLiveData)
-        repository.getAllCategories().observeForever(observer)
         val categoryId = 1
         val category = Category(categoryId, "dummy")
-        `when`(mapper.mapFromModel(categories[0])).thenReturn(category)
-        routeResultViewModel.retrieveAllCategories(mockLifeCycleOwner)
+        val queryingCategories = listOf(mockQueryingCategory())
+        `when`(mapper.mapFromModel(any())).thenReturn(category)
+        routeResultViewModel.mapCategories(queryingCategories)
+
+        `when`(mapper.mapFromModel(any())).thenReturn(category)
 
         val resultCategory = routeResultViewModel.getCategoryById(categoryId)
 
-        assertThat(category, `is`(resultCategory))
+        assertThat(resultCategory, `is`(category))
     }
 
     @Test
@@ -222,23 +272,15 @@ class RouteResultsViewModelTest : KoinTest {
             sharedPreferences,
             repository, mapper
         )
-        val mockLifeCycleOwner = mockLifecycleOwner()
-        val categoriesLiveData = MediatorLiveData<List<QueryingCategory>>()
-        val categories = mutableListOf<QueryingCategory>()
-        categories.add(
-            MockObjects.mockQueryingCategory()
-        )
-        categoriesLiveData.value = categories
-        val observer = mock<Observer<List<QueryingCategory>>>()
-        `when`(repository.getAllCategories()).thenReturn(categoriesLiveData)
-        repository.getAllCategories().observeForever(observer)
-        val categoryId = 1
-        val nonExistentCategoryId = 2
-        val category = Category(categoryId, "dummy")
-        `when`(mapper.mapFromModel(categories[0])).thenReturn(category)
-        routeResultViewModel.retrieveAllCategories(mockLifeCycleOwner)
+        val categoryIdNotFound = 2
+        val category = Category(1, "dummy")
+        val queryingCategories = listOf(mockQueryingCategory())
+        `when`(mapper.mapFromModel(any())).thenReturn(category)
+        routeResultViewModel.mapCategories(queryingCategories)
 
-        val resultCategory = routeResultViewModel.getCategoryById(nonExistentCategoryId)
+        `when`(mapper.mapFromModel(any())).thenReturn(category)
+
+        val resultCategory = routeResultViewModel.getCategoryById(categoryIdNotFound)
 
         assertThat(null, `is`(resultCategory))
     }

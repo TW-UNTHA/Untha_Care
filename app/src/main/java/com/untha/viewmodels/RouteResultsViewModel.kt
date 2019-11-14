@@ -1,10 +1,10 @@
 package com.untha.viewmodels
 
 import android.content.SharedPreferences
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.Observer
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.untha.model.mappers.CategoryMapper
+import com.untha.model.models.QueryingCategory
 import com.untha.model.repositories.CategoryWithRelationsRepository
 import com.untha.model.transactionalmodels.Category
 import com.untha.model.transactionalmodels.QuestionnaireRouteResult
@@ -31,6 +31,7 @@ class RouteResultsViewModel(
     private fun getRouteResultsIds(): List<String> {
         val results = sharedPreferences.getString(Constants.FAULT_ANSWER, "")
         return results?.split(" ") ?: listOf()
+//        return listOf("F1", "F2", "F3", "F5", "R1", "R2", "R4")
     }
 
     fun retrieveRouteResults() {
@@ -40,19 +41,20 @@ class RouteResultsViewModel(
             if (!result.isNullOrEmpty()) {
                 val resultWrapper = Json.parse(ResultWrapper.serializer(), result)
                 val matchingRouteResults =
-                    resultWrapper.routeResults.filter { routeResult -> routeResult.id in answers }
+                    resultWrapper.results.filter { routeResult -> routeResult.id in answers }
                 routeResults = if (matchingRouteResults.isEmpty()) null else matchingRouteResults
             }
         }
     }
 
-    fun retrieveAllCategories(owner: LifecycleOwner) {
-        categoryWithRelationsRepository.getAllCategories()
-            .observe(owner, Observer { queryingCategories ->
-                queryingCategories.map { queryingCategory ->
-                    categories.add(mapper.mapFromModel(queryingCategory))
-                }
-            })
+    fun retrieveAllCategories(): LiveData<List<QueryingCategory>> {
+        return categoryWithRelationsRepository.getAllCategories()
+    }
+
+    fun mapCategories(queryingCategories: List<QueryingCategory>) {
+        queryingCategories.map { queryingCategory ->
+            categories.add(mapper.mapFromModel(queryingCategory))
+        }
     }
 
     fun getCategoryById(id: Int): Category? {
@@ -69,5 +71,10 @@ class RouteResultsViewModel(
 
     fun getQuestionnairesByType(type: String): List<QuestionnaireRouteResult> {
         return questionnaires.filter { questionnaire -> questionnaire.type == type }
+    }
+
+    fun getRouteResultsByType(type: String): List<RouteResult>? {
+        val filteredRouteResults = routeResults?.filter { it.type == type } ?: listOf()
+        return if (filteredRouteResults.isEmpty()) null else filteredRouteResults
     }
 }

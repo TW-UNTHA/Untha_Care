@@ -14,11 +14,5 @@
     <color name="colorProgressBar">#199b9b9b</color>
     <color name="colorProgressBarTint">#fa69b0</color>
     <color name="colorBackground">#000000</color>
-
-
-
-
-
-
-
+    <color name="colorBackgroundFaultContainer">#ede9ef</color>
 </resources>
