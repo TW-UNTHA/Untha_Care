@@ -12,17 +12,15 @@
     <string name="labour_route_result_link">Ver mi último resultado</string>
     <string name="next">Siguiente</string>
     <string name="choose_at_least_one_option">Es necesario seleccionar al menos una opción</string>
-
-
+    <string name="main_route_labour_message">¡Hola! Voy a hacerte unas preguntas para identificar
+        si se están cumpliendo tus derechos laborales"</string>
     <string name="second_message_route_labour">Voy a hacerte unas preguntas para identificar si se
         están cumpliendo tus derechos laborales"</string>
     <string name="image_name_route_labour">route_labour_pantalla_inicial</string>
     <string name="second_message_route_violence">Voy a hacerte unas preguntas para identificar si
         has sufrido violencia</string>
-    <string name="image_name_route_violence">route_labour_pantalla_inicial</string>
     <string name="description_labour_result">Encontramos incumplimientos a tus derechos laborales:</string>
     <string name="description_violence_result">Has sufrido un nivel de violencia:</string>
     <string name="additional_recommendations">Recomendaciones adicionales:</string>
-
-
+    <string name="image_name_route_violence">route_violence_pantalla_inicial</string>
 </resources>
