@@ -99,8 +99,9 @@ class GenericInfoStepFragment : BaseFragment() {
                 val imageHeight = toPixels(imageSizeInDps, context)
                 val marginTop = calculateTopMargin()
                 val marginLeft = calculateMarginLeftAndRight()
-
                 verticalLayout {
+                backgroundColor =
+                    ContextCompat.getColor(context, R.color.colorBackgroundMainRoute)
                     loadImage(view, imageHeight, category)
                     drawLine(R.color.colorGenericLineHeader, Constants.HEIGHT_LINE_HEADER_GENERIC)
                 }.lparams(width = ViewGroup.LayoutParams.MATCH_PARENT, height = wrapContent)
@@ -112,7 +113,7 @@ class GenericInfoStepFragment : BaseFragment() {
 
                     }
                     backgroundColor =
-                        ContextCompat.getColor(context, R.color.colorBackgroundGenericInfo)
+                        ContextCompat.getColor(context, R.color.colorBackgroundMainRoute)
                     lparams(width = matchParent, height = matchParent) {
                         leftPadding = marginLeft * Constants.GENERIC_STEP_MARGIN_MULTIPLIER
                         rightPadding = marginLeft * Constants.GENERIC_STEP_MARGIN_MULTIPLIER
@@ -141,7 +142,7 @@ class GenericInfoStepFragment : BaseFragment() {
                 ContextCompat.getColor(context, R.color.colorGenericTitle)
             isClickable = true
             backgroundDrawable = ContextCompat.getDrawable(
-                context, R.drawable.corners_round_next_item
+                context, R.drawable.drawable_style_corner_and_shadow_of_button
             )
             linearLayout {
                 orientation = LinearLayout.HORIZONTAL

@@ -14,7 +14,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/corners_round"
+        android:background="@drawable/drawable_style_corner_and_shadow_of_button"
         android:orientation="vertical">
 
         <TextView
