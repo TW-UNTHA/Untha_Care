@@ -85,7 +85,8 @@ class SingleSelectionQuestionFragment : BaseFragment() {
         }
         with(view as _LinearLayout) {
 
-            percentageProgressBar = questionViewModel.calculatePercentQuestionsAnswered(4,remainderQuestion)
+            percentageProgressBar = questionViewModel.calculatePercentQuestionsAnswered(
+                Constants.TEMPORAL_LOAD_PROGRESS_BAR,remainderQuestion)
             verticalLayout {
                 loadHorizontalProgressBar(percentageProgressBar)
                 verticalLayout {
@@ -260,8 +261,8 @@ class SingleSelectionQuestionFragment : BaseFragment() {
                         val routeQuestionGoTo = questionViewModel.question
                         val isSingle = questionViewModel.isSingleQuestion(routeQuestionGoTo?.type)
                         val remainingQuestion = questionViewModel.
-                            calculatePercentQuestionsAnswered(4,option.remaining)
-
+                            calculatePercentQuestionsAnswered(Constants.TEMPORAL_LOAD_PROGRESS_BAR,
+                                option.remaining)
                         val questionGoToInfo= mapOf(
                             "goTo" to option.goTo,
                             "isSingle" to isSingle,

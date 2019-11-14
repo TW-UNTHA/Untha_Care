@@ -58,6 +58,7 @@ object Constants {
     const val SIZE_HEIGHT_PERCENTAGE_OPTION_BUTTON = 0.09
 
     const val TEMPORAL_LOAD_PROGRESS_BAR = 1
+    const val TOTAL_PROGRESS_BAR = 100
 
     const val START_QUESTION_ROUTE_LABOUR = 1
     const val START_QUESTION_ROUTE_VIOLENCE = 1
@@ -92,6 +93,8 @@ object Constants {
 
     const val FAULT_ANSWER_ROUTE_LABOUR = "fault_answers_labour_route"
     const val FAULT_ANSWER_ROUTE_VIOLENCE = "fault_answers_violence_route"
+
+    const val REMAINING_QUESTION = "remaining_question"
 
 
 }

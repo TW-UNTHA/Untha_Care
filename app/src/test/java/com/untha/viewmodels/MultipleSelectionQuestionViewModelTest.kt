@@ -61,7 +61,7 @@ class MultipleSelectionQuestionViewModelTest : KoinTest {
 
     @Test
     fun `should return null when the given id does not exist`() {
-        val routeOption = RouteOption("dummy", "dummy", null, null)
+        val routeOption = RouteOption("dummy", "dummy", 1,null, null)
         val routeQuestion =
             RouteQuestion(1, "dummy", "dummy", "dummy", null, "dummy", listOf(routeOption))
         val route = Route(1, listOf(routeQuestion))
@@ -78,8 +78,8 @@ class MultipleSelectionQuestionViewModelTest : KoinTest {
         val questionViewModel = MultipleSelectionQuestionViewModel(
             sharedPreferences
         )
-        val routeOption = RouteOption("dummy", "dummy", "dummy1", null)
-        val routeOption2 = RouteOption("dummy", "dummy", "dummy", null)
+        val routeOption = RouteOption("dummy", "dummy", 1,"dummy1", null)
+        val routeOption2 = RouteOption("dummy", "dummy", 1,"dummy", null)
         val multipleSelectionOptions: MutableList<MultipleSelectionOption> = mutableListOf()
         multipleSelectionOptions.add(MultipleSelectionOption(0, false, null, "BAJO"))
         multipleSelectionOptions.add(MultipleSelectionOption(1, false, null, "MEDIO"))
@@ -128,8 +128,8 @@ class MultipleSelectionQuestionViewModelTest : KoinTest {
         val questionViewModel = MultipleSelectionQuestionViewModel(
             sharedPreferences
         )
-        val routeOption = RouteOption("dummy", "dummy", "dummy1", null)
-        val routeOption2 = RouteOption("dummy", "dummy", "dummy", null)
+        val routeOption = RouteOption("dummy", "dummy", 1,"dummy1", null)
+        val routeOption2 = RouteOption("dummy", "dummy", 1,"dummy", null)
         val routeQuestion =
             RouteQuestion(
                 1,
@@ -181,8 +181,8 @@ class MultipleSelectionQuestionViewModelTest : KoinTest {
         val questionViewModel = MultipleSelectionQuestionViewModel(
             sharedPreferences
         )
-        val routeOption = RouteOption("dummy", "dummy", "dummy1", null)
-        val routeOption2 = RouteOption("dummy", "dummy", "dummy", null)
+        val routeOption = RouteOption("dummy", "dummy", 1,"dummy1", null)
+        val routeOption2 = RouteOption("dummy", "dummy", 1,"dummy", null)
         val routeQuestion =
             RouteQuestion(
                 1,
@@ -236,8 +236,8 @@ class MultipleSelectionQuestionViewModelTest : KoinTest {
         val questionViewModel = MultipleSelectionQuestionViewModel(
             sharedPreferences
         )
-        val routeOption = RouteOption("dummy", "dummy", "dummy1", null)
-        val routeOption2 = RouteOption("dummy", "dummy", "dummy", null)
+        val routeOption = RouteOption("dummy", "dummy", 1,"dummy1", 1)
+        val routeOption2 = RouteOption("dummy", "dummy", 1,"dummy", 1)
         val routeQuestion =
             RouteQuestion(
                 1,
@@ -295,6 +295,7 @@ class MultipleSelectionQuestionViewModelTest : KoinTest {
         )
         val option = RouteOption(
             "Siempre cambia, trabajo por horas", "R1P4R2",
+            1,
             "R2",
             6
         )

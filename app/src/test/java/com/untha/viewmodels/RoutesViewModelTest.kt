@@ -95,12 +95,14 @@ class RoutesViewModelTest : KoinTest {
                 "      \"options\": [\n" +
                 "        {\n" +
                 "          \"value\": \"Si\",\n" +
+                "          \"remaining\": 1,\n" +
                 "          \"hint\": \"R1P1R1\",\n" +
                 "          \"result\": null,\n" +
                 "          \"goTo\": 2\n" +
                 "        },\n" +
                 "        {\n" +
                 "          \"value\": \"No\",\n" +
+                "          \"remaining\": 1,\n" +
                 "          \"hint\": \"R1P1R2\",\n" +
                 "          \"result\": null,\n" +
                 "          \"goTo\": 19\n" +
@@ -136,12 +138,14 @@ class RoutesViewModelTest : KoinTest {
                 "      \"options\": [\n" +
                 "        {\n" +
                 "          \"value\": \"Si\",\n" +
+                "          \"remaining\": 1,\n" +
                 "          \"hint\": \"R1P1R1\",\n" +
                 "          \"result\": null,\n" +
                 "          \"goTo\": 2\n" +
                 "        },\n" +
                 "        {\n" +
                 "          \"value\": \"No\",\n" +
+                "          \"remaining\": 1,\n" +
                 "          \"hint\": \"R1P1R2\",\n" +
                 "          \"result\": null,\n" +
                 "          \"goTo\": 19\n" +

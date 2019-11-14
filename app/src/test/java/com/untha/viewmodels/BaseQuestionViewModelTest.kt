@@ -89,7 +89,7 @@ class BaseQuestionViewModelTest : KoinTest {
         val baseViewModel = BaseQuestionViewModel(sharedPreferences)
         val option = RouteOption(
             "Siempre cambia, trabajo por horas", "R1P4R2",
-            "R2",
+            1, "R2",
             6
         )
         val editor = Mockito.mock(SharedPreferences.Editor::class.java)
@@ -121,7 +121,7 @@ class BaseQuestionViewModelTest : KoinTest {
 
     @Test
     fun `should retrieve the question with the given id`() {
-        val routeOption = RouteOption("dummy", "dummy", null, null)
+        val routeOption = RouteOption("dummy", "dummy",1 ,null, null)
         val routeQuestion =
             RouteQuestion(1, "dummy", "dummy", "dummy", null, "dummy", listOf(routeOption))
         val route = Route(1, listOf(routeQuestion))
@@ -157,7 +157,7 @@ class BaseQuestionViewModelTest : KoinTest {
 
     @Test
     fun `should  load labour route when the route is Labour`() {
-        val routeOption = RouteOption("dummy", "dummy", null, null)
+        val routeOption = RouteOption("dummy", "dummy", 1,null, null)
         val routeQuestion =
             RouteQuestion(1, "dummy", "dummy", "dummy", null, "dummy", listOf(routeOption))
         val route = Route(1, listOf(routeQuestion))
@@ -170,7 +170,7 @@ class BaseQuestionViewModelTest : KoinTest {
 
     @Test
     fun `should  load violence route whe the route is violence`() {
-        val routeOption = RouteOption("dummy", "dummy", null, null)
+        val routeOption = RouteOption("dummy", "dummy", 1,null, null)
         val routeQuestion =
             RouteQuestion(1, "dummy", "dummy", "dummy", null, "dummy", listOf(routeOption))
         val route = Route(1, listOf(routeQuestion))
