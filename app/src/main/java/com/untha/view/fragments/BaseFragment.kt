@@ -99,10 +99,10 @@ open class BaseFragment : Fragment(), TextToSpeech.OnInitListener {
                    isLabourRoute -> Bundle().apply {
                         putInt(Constants.ROUTE_QUESTION_GO_TO, goTo as Int)
                         putSerializable(Constants.ROUTE_LABOUR, route)
-                        putInt("REMAINING_QUESTION", remainingQuestion)
+                        putInt(Constants.REMAINING_QUESTION, remainingQuestion)
                     }
                     else -> Bundle().apply {
-                        putInt("REMAINING_QUESTION", remainingQuestion)
+                        putInt(Constants.REMAINING_QUESTION, remainingQuestion)
                         putInt(Constants.ROUTE_QUESTION_GO_TO, goTo as Int)
                         putSerializable(Constants.ROUTE_VIOLENCE, route)
                     }

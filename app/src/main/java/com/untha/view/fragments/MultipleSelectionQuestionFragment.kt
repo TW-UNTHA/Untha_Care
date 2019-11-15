@@ -260,8 +260,7 @@ class MultipleSelectionQuestionFragment : BaseFragment() {
                     }
 
                     if (isANormalOptionSelected == null && !isNoneOfTheAboveSelected) {
-                        Toast.makeText(
-                            context,
+                        Toast.makeText(context,
                             context.getString(R.string.choose_at_least_one_option),
                             Toast.LENGTH_LONG
                         ).show()
@@ -272,10 +271,14 @@ class MultipleSelectionQuestionFragment : BaseFragment() {
                         registerAnalyticsEvent(false)
                         viewModel.loadQuestion(routeQuestion?.goTo, route)
                         val isSingle = viewModel.isSingleQuestion(viewModel.question?.type)
+                        val remainingQuestion = viewModel.
+                            calculatePercentQuestionsAnswered(Constants.TEMPORAL_LOAD_PROGRESS_BAR
+                                ,Constants.TEMPORAL_LOAD_PROGRESS_BAR)
                         val questionGoToInfo= mapOf(
                             "goTo" to routeQuestion?.goTo,
                             "isSingle" to isSingle,
-                            "isLabourRoute" to isLabourRoute)
+                            "isLabourRoute" to isLabourRoute,
+                            "remainingQuestion" to remainingQuestion)
                         manageGoToQuestion(questionGoToInfo, route, view)
                     }
                 }
@@ -298,11 +301,8 @@ class MultipleSelectionQuestionFragment : BaseFragment() {
             width = matchParent, height = dip(0),
             weight = Constants.NEXT_BUTTON_WEIGHT
         ) {
-            bottomMargin =
-                dip(
-                    calculateHeightComponentsQuestion(
-                        Constants.MARGIN_BOTTOM_PERCENTAGE_NEXT_BUTTON
-                    )
+            bottomMargin = dip(calculateHeightComponentsQuestion(
+                Constants.MARGIN_BOTTOM_PERCENTAGE_NEXT_BUTTON)
                 )
             rightMargin = dip(calculateOptionContainerWidthMargin()) / 2
             leftMargin = dip(calculateOptionContainerWidthMargin())

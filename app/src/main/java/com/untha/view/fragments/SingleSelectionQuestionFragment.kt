@@ -58,7 +58,7 @@ class SingleSelectionQuestionFragment : BaseFragment() {
         goTo  = bundle?.get("goTo") as Int
         isLabourRoute =  questionViewModel.isLabourRoute(bundle)
         route = questionViewModel.loadRoute(isLabourRoute, bundle)
-        remainderQuestion = bundle.get("REMAINING_QUESTION") as Int
+        remainderQuestion = bundle.get(Constants.REMAINING_QUESTION) as Int
         questionViewModel.loadQuestion(goTo, route)
         routeQuestion = questionViewModel.question
     }
