@@ -81,9 +81,9 @@ class MultipleSelectionQuestionViewModelTest : KoinTest {
         val routeOption = RouteOption("dummy", "dummy", 1,"dummy1", null)
         val routeOption2 = RouteOption("dummy", "dummy", 1,"dummy", null)
         val multipleSelectionOptions: MutableList<MultipleSelectionOption> = mutableListOf()
-        multipleSelectionOptions.add(MultipleSelectionOption(0, false, null, "BAJO"))
-        multipleSelectionOptions.add(MultipleSelectionOption(1, false, null, "MEDIO"))
-        multipleSelectionOptions.add(MultipleSelectionOption(2, false, null, "ALTO"))
+        multipleSelectionOptions.add(MultipleSelectionOption(0, false, null, "BAJO",1))
+        multipleSelectionOptions.add(MultipleSelectionOption(1, false, null, "MEDIO",1))
+        multipleSelectionOptions.add(MultipleSelectionOption(2, false, null, "ALTO",1))
 
         val routeQuestion =
             RouteQuestion(
@@ -143,9 +143,9 @@ class MultipleSelectionQuestionViewModelTest : KoinTest {
 
         val multipleSelectionOptions: MutableList<MultipleSelectionOption> = mutableListOf()
 
-        multipleSelectionOptions.add(MultipleSelectionOption(0, false, null, "BAJO"))
-        multipleSelectionOptions.add(MultipleSelectionOption(1, false, null, "MEDIO"))
-        multipleSelectionOptions.add(MultipleSelectionOption(2, false, null, "ALTO"))
+        multipleSelectionOptions.add(MultipleSelectionOption(0, false, null, "BAJO", 1))
+        multipleSelectionOptions.add(MultipleSelectionOption(1, false, null, "MEDIO", 1))
+        multipleSelectionOptions.add(MultipleSelectionOption(2, false, null, "ALTO", 1))
 
         val route = Route(1, listOf(routeQuestion))
         questionViewModel.loadQuestion(1, route)
@@ -197,11 +197,11 @@ class MultipleSelectionQuestionViewModelTest : KoinTest {
         val multipleSelectionOptions: MutableList<MultipleSelectionOption> = mutableListOf()
 
         multipleSelectionOptions.add(MultipleSelectionOption(0, false, null,
-            Constants.VIOLENCE_ROUTE_LOW))
+            Constants.VIOLENCE_ROUTE_LOW, 1))
         multipleSelectionOptions.add(MultipleSelectionOption(1, true, null,
-            Constants.VIOLENCE_ROUTE_MEDIUM))
+            Constants.VIOLENCE_ROUTE_MEDIUM, 1))
         multipleSelectionOptions.add(MultipleSelectionOption(2, false, null,
-            Constants.VIOLENCE_ROUTE_HIGHT))
+            Constants.VIOLENCE_ROUTE_HIGHT, 1))
 
         val route = Route(1, listOf(routeQuestion))
         questionViewModel.loadQuestion(1, route)
@@ -252,11 +252,11 @@ class MultipleSelectionQuestionViewModelTest : KoinTest {
         val multipleSelectionOptions: MutableList<MultipleSelectionOption> = mutableListOf()
 
         multipleSelectionOptions.add(MultipleSelectionOption(0, true, null,
-            Constants.VIOLENCE_ROUTE_LOW))
+            Constants.VIOLENCE_ROUTE_LOW, 1))
         multipleSelectionOptions.add(MultipleSelectionOption(1, false, null,
-            Constants.VIOLENCE_ROUTE_MEDIUM))
+            Constants.VIOLENCE_ROUTE_MEDIUM, 1))
         multipleSelectionOptions.add(MultipleSelectionOption(2, false, null,
-            Constants.VIOLENCE_ROUTE_HIGHT))
+            Constants.VIOLENCE_ROUTE_HIGHT, 1))
 
         val route = Route(1, listOf(routeQuestion))
         questionViewModel.loadQuestion(1, route)
