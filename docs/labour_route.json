@@ -11,12 +11,14 @@
       "options": [
         {
           "value": "Sí",
+          "remaining": 14,
           "hint": "R1P1R1",
           "result": null,
           "goTo": 2
         },
         {
           "value": "No",
+          "remaining": 4,
           "hint": "R1P1R2",
           "result": null,
           "goTo": 18
@@ -32,18 +34,21 @@
       "options": [
         {
           "value": "15 años o menos",
+          "remaining": 0,
           "hint": "R1P2R1",
           "result": "R1",
           "goTo": -1
         },
         {
           "value": "16 o 17 años",
+          "remaining": 13,
           "hint": "R1P2R2",
           "result": "F1",
           "goTo": 3
         },
         {
           "value": "18 años o más",
+          "remaining": 10,
           "hint": "R1P2R3",
           "result": "F2",
           "goTo": 4
@@ -61,12 +66,14 @@
       "options": [
         {
           "value": "Sí",
+          "remaining": 10,
           "hint": "R1P3R1",
           "result": null,
           "goTo": 5
         },
         {
           "value": "No",
+          "remaining": 12,
           "hint": "R1P3R2",
           "result": "F1",
           "goTo": 5
@@ -83,6 +90,7 @@
       "options": [
         {
           "value": "Tiempo completo: 40 horas",
+          "remaining": 9,
           "hint": "R1P4R2",
           "result": null,
           "goTo": 6
@@ -90,11 +98,13 @@
         {
           "value": "Medio tiempo: 20 horas",
           "result": null,
+          "remaining": 9,
           "hint": "R1P4R1",
           "goTo": 6
         },
         {
           "value": "Siempre cambia, trabajo por horas",
+          "remaining": 9,
           "hint": "R1P4R3",
           "result": "R2",
           "goTo": 6
@@ -111,18 +121,21 @@
       "options": [
         {
           "value": "Más de 30 horas",
+          "remaining": 11,
           "hint": "R1P5R1",
           "result": "F2",
           "goTo": 7
         },
         {
           "value": "Entre 20 y 30 horas",
+          "remaining": 11,
           "hint": "R1P5R2",
           "result": null,
           "goTo": 7
         },
         {
           "value": "Menos de 20 horas",
+          "remaining": 11,
           "hint": "R1P5R3",
           "result": "R2",
           "goTo": 7
@@ -139,18 +152,21 @@
       "options": [
         {
           "value": "Sí me pagan",
+          "remaining": 8,
           "hint": "R1P6R1",
           "result": null,
           "goTo": 10
         },
         {
           "value": "No me pagan",
+          "remaining": 8,
           "hint": "R1P6R2",
           "result": "F5",
           "goTo": 10
         },
         {
           "value": "No trabajo horas extras ",
+          "remaining": 8,
           "hint": "R1P6R2",
           "result": "F5",
           "goTo": 10
@@ -167,12 +183,14 @@
       "options": [
         {
           "value": "Sí",
+          "remaining": 10,
           "hint": "R1P7R1",
           "result": null,
           "goTo": 8
         },
         {
           "value": "No",
+          "remaining": 10,
           "hint": "R1P7R2",
           "result": "F3",
           "goTo": 8
@@ -189,12 +207,14 @@
       "options": [
         {
           "value": "Sí",
+          "remaining": 9,
           "hint": "R1P8R1",
           "result": "F4",
           "goTo": 9
         },
         {
           "value": "No",
+          "remaining": 9,
           "hint": "R1P8R2",
           "result": null,
           "goTo": 9
@@ -211,54 +231,63 @@
       "options": [
         {
           "value": "Trabajo sin paga",
+          "remaining": 8,
           "hint": "R1P9R1",
           "result": "F12",
           "goTo": null
         },
         {
           "value": "Trabajo por deuda",
+          "remaining": 8,
           "hint": "R1P9R1",
           "result": "F12",
           "goTo": null
         },
         {
           "value": "En contra de mi voluntad",
+          "remaining": 8,
           "hint": "R1P9R1",
           "result": "F12",
           "goTo": null
         },
         {
           "value": "Conflictos armados",
+          "remaining": 8,
           "hint": "R1P9R1",
           "result": "F12",
           "goTo": null
         },
         {
           "value": "Prostitución",
+          "remaining": 8,
           "hint": "R1P9R1",
           "result": "F12",
           "goTo": null
         },
         {
           "value": "Pornografía",
+          "remaining": 8,
           "hint": "R1P9R1",
           "result": "F12",
           "goTo": null
         },
         {
           "value": "Alcohol, drogas u otras sustancias tóxicas y explosivas",
+          "remaining": 8,
           "hint": "R1P9R1",
           "result": "F12",
           "goTo": null
         },
         {
           "value": "Carga pesada",
+          "remaining": 8,
           "hint": "R1P9R1",
           "result": "F12",
           "goTo": null
         },
         {
           "value": "Pesca a bordo",
+          "remaining": 8,
           "hint": "R1P9R1",
           "result": "F12",
           "goTo": null
@@ -266,17 +295,20 @@
         {
           "value": "Uso de maquinaria o materiales peligrosos",
           "result": "F12",
+          "remaining": 8,
           "hint": "R1P9R1",
           "goTo": null
         },
         {
           "value": "Guardia de seguridad",
           "result": "F12",
+          "remaining": 8,
           "hint": "R1P9R1",
           "goTo": null
         },
         {
           "value": "Ninguna de las anteriores",
+          "remaining": 8,
           "hint": "R1P9R2",
           "result": null,
           "goTo": null
@@ -293,18 +325,21 @@
       "options": [
         {
           "value": "$394 o más",
+          "remaining": 7,
           "hint": "R1P10R2",
           "result": null,
           "goTo": 11
         },
         {
           "value": "Entre $393 y $197",
+          "remaining": 7,
           "hint": "R1P10R1",
           "result": "F9",
           "goTo": 11
         },
         {
           "value": "$196 o menos",
+          "remaining": 7,
           "hint": "R1P10R4",
           "result": "F9",
           "goTo": 11
@@ -321,12 +356,14 @@
       "options": [
         {
           "value": "Sí",
+          "remaining": 6,
           "hint": "R1P11R1",
           "result": null,
           "goTo": 12
         },
         {
           "value": "No",
+          "remaining": 6,
           "hint": "R1P11R2",
           "result": "F7",
           "goTo": 12
@@ -343,12 +380,14 @@
       "options": [
         {
           "value": "Sí",
+          "remaining": 5,
           "hint": "R1P12R1",
           "result": null,
           "goTo": 13
         },
         {
           "value": "No",
+          "remaining": 5,
           "hint": "R1P12R2",
           "result": "F8",
           "goTo": 13
@@ -365,18 +404,21 @@
       "options": [
         {
           "value": "Escrito",
+          "remaining": 4,
           "hint": "R1P13R1",
           "result": null,
           "goTo": 14
         },
         {
           "value": "Oral",
+          "remaining": 4,
           "hint": "R1P13R2",
           "result": "R3",
           "goTo": 14
         },
         {
           "value": "No tengo",
+          "remaining": 4,
           "hint": "R1P13R3",
           "result": "F6",
           "goTo": 14
@@ -393,12 +435,14 @@
       "options": [
         {
           "value": "Sí",
+          "remaining": 3,
           "hint": "R1P14R1",
           "result": null,
           "goTo": 15
         },
         {
           "value": "No",
+          "remaining": 2,
           "hint": "R1P14R2",
           "result": null,
           "goTo": 16
@@ -415,12 +459,14 @@
       "options": [
         {
           "value": "Sí",
+          "remaining": 2,
           "hint": "R1P15R1",
           "result": null,
           "goTo": 16
         },
         {
           "value": "No",
+          "remaining": 2,
           "hint": "R1P15R2",
           "result": "F10",
           "goTo": 16
@@ -438,12 +484,14 @@
         {
           "value": "Sí",
           "result": null,
+          "remaining": 1,
           "hint": "R1P16R1",
           "goTo": 17
         },
         {
           "value": "No",
           "result": null,
+          "remaining": 0,
           "hint": "R1P16R2",
           "goTo": -1
         }
@@ -460,11 +508,13 @@
         {
           "value": "Sí",
           "result": null,
+          "remaining": 0,
           "hint": "R1P17R1",
           "goTo": -1
         },
         {
           "value": "No",
+          "remaining": 0,
           "hint": "R1P17R2",
           "result": "F11",
           "goTo": -1
@@ -481,12 +531,14 @@
       "options": [
         {
           "value": "Sí",
+          "remaining": 3,
           "hint": "R1P18R1",
           "result": null,
           "goTo": 19
         },
         {
           "value": "No",
+          "remaining": 0,
           "hint": "R1P18R2",
           "result": "R5",
           "goTo": -1
@@ -504,35 +556,41 @@
         {
           "value": "Estaba embarazada",
           "result": "F13",
+          "remaining": 2,
           "hint": "R1P19R1",
           "goTo": null
         },
         {
           "value": "Mi físico se ha desgastado debido a mis años de trabajo",
           "result": "F13",
+          "remaining": 2,
           "hint": "R1P19R1",
           "goTo": null
         },
         {
           "value": "Mi salud se ha desgastado debido a mis años de trabajo",
           "result": "F13",
+          "remaining": 2,
           "hint": "R1P19R1",
           "goTo": null
         },
         {
           "value": "Mi color de piel, género, o estado civil",
           "result": "F13",
+          "remaining": 2,
           "hint": "R1P19R1",
           "goTo": null
         },
         {
           "value": "No me justificaron la decisión",
+          "remaining": 2,
           "hint": "R1P19R1",
           "result": "F13",
           "goTo": null
         },
         {
           "value": "Ninguna de las anteriores",
+          "remaining": 2,
           "hint": "R1P19R2",
           "result": "F13",
           "goTo": null
@@ -549,54 +607,63 @@
       "options": [
         {
           "value": "No asistí al trabajo por 3 días sin justificación",
+          "remaining": 1,
           "hint": "R1P20R1",
           "result": "R4",
           "goTo": null
         },
         {
           "value": "Me atrasaba constantemente",
+          "remaining": 1,
           "hint": "R1P20R1",
           "result": "R4",
           "goTo": null
         },
         {
           "value": "Mentí sobre mi empleador",
+          "remaining": 1,
           "hint": "R1P20R1",
           "result": "R4",
           "goTo": null
         },
         {
           "value": "No cumplí mi trabajo",
+          "remaining": 1,
           "hint": "R1P20R1",
           "result": "R4",
           "goTo": null
         },
         {
           "value": "Incumplí alguna cláusula del contrato",
+          "remaining": 1,
           "hint": "R1P20R1",
           "result":"R4",
           "goTo": null
         },
         {
           "value": "Denuncié injustificadamente a mi empleador",
+          "remaining": 1,
           "hint": "R1P20R1",
           "result": "R4",
           "goTo": null
         },
         {
           "value": "No cumplí normas de higiene, seguridad o prevención",
+          "remaining": 1,
           "hint": "R1P20R1",
           "result": "R4",
           "goTo": null
         },
         {
           "value": "Irrespeté a otras personas durante el trabajo",
+          "remaining": 1,
           "hint": "R1P20R1",
           "result": "R4",
           "goTo": null
         },
         {
           "value": "Ninguna de las anteriores",
+          "remaining": 1,
           "hint": "R1P20R2",
           "result": "R4",
           "goTo": null
@@ -613,12 +680,14 @@
       "options": [
         {
           "value": "Sí",
+          "remaining": 0,
           "hint": "R1P21R1",
           "result": null,
           "goTo": -1
         },
         {
           "value": "No",
+          "remaining": 0,
           "hint": "R1P21R2",
           "result": "F14",
           "goTo": -1

@@ -370,7 +370,7 @@ class MultipleSelectionQuestionFragment : BaseFragment() {
                 optionClick(isNoneOfAbove, position)
                 adjustTextSize()
             }.lparams(width = matchParent, height = matchParent)
-            addDataToExternalCollections(isNoneOfAbove, position, actualTextView, option.result)
+            addDataToExternalCollections(isNoneOfAbove, position, actualTextView, option.result, option.remaining)
         }.lparams(
             weight = if (elementsInLayout == 2) Constants.HALF_SCREEN_WEIGHT else
                 Constants.FULL_SCREEN_WEIGHT,
@@ -386,10 +386,11 @@ class MultipleSelectionQuestionFragment : BaseFragment() {
         isNoneOfAbove: Boolean,
         position: Int,
         tv: TextView,
-        code: String?
+        code: String?,
+        remaining: Int
     ) {
         if (!isNoneOfAbove) {
-            options.add(MultipleSelectionOption(position, false, tv, code))
+            options.add(MultipleSelectionOption(position, false, tv, code,remaining))
         } else {
             noneOfTheAboveTextView = tv
         }
@@ -433,6 +434,7 @@ class MultipleSelectionQuestionFragment : BaseFragment() {
                 setUnselectedColorSchema(this)
                 option.isSelected = false
                 option.textView = this
+                option.remaining=option.remaining
             } else {
                 setSelectedColorSchema(this)
                 option.isSelected = true
@@ -441,6 +443,7 @@ class MultipleSelectionQuestionFragment : BaseFragment() {
                     setUnselectedColorSchema(it)
                     isNoneOfTheAboveSelected = false
                 }
+                option.remaining=option.remaining
             }
         }
     }
