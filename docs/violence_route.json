@@ -11,132 +11,154 @@
       "options": [
         {
           "value": "Te chantajean",
+          "remaining": 0,
           "hint": "R2P1G1",
           "result": "BAJO",
           "goTo": null
         },
         {
           "value": "Te mienten",
+          "remaining": 0,
           "hint": "R2P1G1",
           "result": "BAJO",
           "goTo": null
         },
         {
           "value": "Te ignoran",
+          "remaining": 0,
           "hint": "R2P1G1",
           "result": null,
           "goTo": null
         },
         {
           "value": "Te celan",
+          "remaining": 0,
           "hint": "R2P1G1",
           "result": "BAJO",
           "goTo": null
         },
         {
           "value": "Te ofenden",
+          "remaining": 0,
           "hint": "R2P1G1",
           "result": "BAJO",
           "goTo": null
         },
         {
           "value": "Te humillan",
+          "remaining": 0,
           "hint": "R2P1G1",
           "result": "BAJO",
           "goTo": null
         },
         {
           "value": "Te intimidan",
+          "remaining": 0,
           "hint": "R2P1G1",
           "result": "BAJO",
           "goTo": null
         },
         {
           "value": "Te amenazan",
+          "remaining": 0,
           "hint": "R2P1G1",
           "result": "BAJO",
           "goTo": null
         },
         {
           "value": "Te controlan excesivamente",
+          "remaining": 0,
           "hint": "R2P1G1",
           "result": "BAJO",
           "goTo": null
         },
         {
           "value": "Te prohiben cosas",
+          "remaining": 0,
           "hint": "R2P1G2",
           "result": "MEDIO",
           "goTo": null
         },
         {
           "value": "Destruyen tus cosas",
+          "remaining": 0,
           "hint": "R2P1G2",
           "result": "MEDIO",
           "goTo": null
         },
         {
           "value": "Te manosean",
+          "remaining": 0,
           "hint": "R2P1G2",
           "result": "MEDIO",
           "goTo": null
         },
         {
           "value": "Te agreden",
+          "remaining": 0,
           "hint": "R2P1G2",
           "result": "MEDIO",
           "goTo": null
         },
         {
           "value": "Te empujan",
+          "remaining": 0,
           "hint": "R2P1G3",
           "result": "ALTO",
           "goTo": null
         },
         {
           "value": "Te golpean",
+          "remaining": 0,
           "hint": "R2P1G3",
           "result": "ALTO",
           "goTo": null
         },
         {
           "value": "Te patean",
+          "remaining": 0,
           "hint": "R2P1G3",
           "result": "ALTO",
           "goTo": null
         },
         {
           "value": "Te encierran",
+          "remaining": 0,
           "hint": "R2P1G3",
           "result": "ALTO",
           "goTo": null
         },
         {
           "value": "Te aislan",
+          "remaining": 0,
           "hint": "R2P1G3",
           "result": "ALTO",
           "goTo": null
         },
         {
           "value": "Te amenazan con objetos",
+          "remaining": 0,
           "hint": "R2P1G3",
           "result": "ALTO",
           "goTo": null
         },
         {
           "value": "Te violan",
+          "remaining": 0,
           "hint": "R2P1G3",
           "result": "ALTO",
           "goTo": null
         },
         {
           "value": "Te amenazan de muerte",
+          "remaining": 0,
           "hint": "R2P1G3",
           "result": "ALTO",
           "goTo": null
         },
         {
           "value": "Ninguna de las anteriores",
+          "remaining": 0,
           "hint": null,
           "result": null,
           "goTo": null
