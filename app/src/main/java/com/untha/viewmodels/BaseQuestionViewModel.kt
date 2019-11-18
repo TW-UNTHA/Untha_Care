@@ -56,8 +56,7 @@ open class BaseQuestionViewModel(
 
     fun calculatePercentQuestionsAnswered(numberOfQuestionAnswered: Int, numberOfRemainingQuestions: Int): Int {
         val totalQuestions = numberOfQuestionAnswered + numberOfRemainingQuestions
-        val percentajeQuestionsAnswered = numberOfQuestionAnswered * Constants.TOTAL_PROGRESS_BAR/totalQuestions
-        return percentajeQuestionsAnswered
+        return numberOfQuestionAnswered * Constants.TOTAL_PROGRESS_BAR/totalQuestions
     }
 }
 

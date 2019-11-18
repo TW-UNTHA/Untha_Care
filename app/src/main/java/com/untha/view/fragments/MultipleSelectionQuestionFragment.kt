@@ -62,6 +62,8 @@ class MultipleSelectionQuestionFragment : BaseFragment() {
     private val options = mutableListOf<MultipleSelectionOption>()
     private var position: Int = 0
     private var isLabourRoute: Boolean = false
+    private var questionAdvance: Int = 1
+    private var remainingQuestion: Int = 0
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -71,7 +73,10 @@ class MultipleSelectionQuestionFragment : BaseFragment() {
         isLabourRoute = viewModel.isLabourRoute(bundle)
         route = viewModel.loadRoute(isLabourRoute, bundle)
         viewModel.loadQuestion(goTo, route)
+        questionAdvance = bundle.getInt(Constants.QUESTION_ADVANCE).inc()
         routeQuestion = viewModel.question
+        val optionWithMaxRemaining = routeQuestion?.options?.maxBy { it.remaining }
+        remainingQuestion = optionWithMaxRemaining?.remaining ?: 0
         loadTitleRoute(isLabourRoute)
         goBackScreenRoutes()
     }
@@ -134,8 +139,10 @@ class MultipleSelectionQuestionFragment : BaseFragment() {
             )
         }
         with(view as _LinearLayout) {
+             val percentageProgressBar = viewModel.calculatePercentQuestionsAnswered(
+                 questionAdvance, remainingQuestion)
             verticalLayout {
-                loadHorizontalProgressBar(Constants.TEMPORAL_LOAD_PROGRESS_BAR)
+                loadHorizontalProgressBar(percentageProgressBar)
                 verticalLayout {
                     loadImageAudio()
                 }
@@ -271,15 +278,13 @@ class MultipleSelectionQuestionFragment : BaseFragment() {
                         registerAnalyticsEvent(false)
                         viewModel.loadQuestion(routeQuestion?.goTo, route)
                         val isSingle = viewModel.isSingleQuestion(viewModel.question?.type)
-                        val remainingQuestion = viewModel.
-                            calculatePercentQuestionsAnswered(Constants.TEMPORAL_LOAD_PROGRESS_BAR
-                                ,Constants.TEMPORAL_LOAD_PROGRESS_BAR)
                         val questionGoToInfo= mapOf(
                             "goTo" to routeQuestion?.goTo,
                             "isSingle" to isSingle,
                             "isLabourRoute" to isLabourRoute,
-                            "remainingQuestion" to remainingQuestion)
+                            "questionAdvance" to questionAdvance)
                         manageGoToQuestion(questionGoToInfo, route, view)
+
                     }
                 }
                 text = context.getString(R.string.next)

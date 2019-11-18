@@ -283,6 +283,7 @@ class WelcomeScreenRoutesFragment : BaseFragment() {
                 if (isLabourRoute) {
                     val goToBundle = Bundle().apply {
                         putInt(Constants.REMAINING_QUESTION,Constants.TEMPORAL_LOAD_PROGRESS_BAR)
+                        putInt(Constants.QUESTION_ADVANCE, Constants.COUNT_QUESTION_ADVANCE)
                         putInt(
                             Constants.ROUTE_QUESTION_GO_TO,
                             Constants.START_QUESTION_ROUTE_LABOUR
@@ -296,6 +297,8 @@ class WelcomeScreenRoutesFragment : BaseFragment() {
                         .navigate(R.id.singleSelectQuestionFragment, goToBundle, navOptions, null)
                 } else {
                     val goToBundle = Bundle().apply {
+                        putInt(Constants.REMAINING_QUESTION,Constants.TEMPORAL_LOAD_PROGRESS_BAR)
+                        putInt(Constants.QUESTION_ADVANCE, Constants.COUNT_QUESTION_ADVANCE)
                         putInt(
                             Constants.ROUTE_QUESTION_GO_TO,
                             Constants.START_QUESTION_ROUTE_VIOLENCE

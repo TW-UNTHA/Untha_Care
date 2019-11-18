@@ -7,5 +7,5 @@ data class MultipleSelectionOption(
     var isSelected: Boolean,
     var textView: TextView?,
     var code: String?,
-    var remaining:Int?
+    var remaining:Int
 )

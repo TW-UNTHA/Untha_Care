@@ -13,15 +13,11 @@ import com.untha.model.transactionalmodels.Route
 import com.untha.utils.Constants
 import com.untha.utils.ContentType
 import com.untha.utils.FirebaseEvent
-import com.untha.viewmodels.RoutesViewModel
-import org.koin.android.viewmodel.ext.android.viewModel
 import java.util.*
 
 open class BaseFragment : Fragment(), TextToSpeech.OnInitListener {
     var textToSpeech: TextToSpeech? = null
     lateinit var firebaseAnalytics: FirebaseAnalytics
-    private val mainViewModel: RoutesViewModel by viewModel()
-
     val navOptions = NavOptions.Builder().setEnterAnim(R.anim.slide_in_right)
         .setPopEnterAnim(R.anim.slide_in_left).setExitAnim(R.anim.slide_out_left)
         .setPopExitAnim(R.anim.slide_out_right).build()
@@ -86,25 +82,23 @@ open class BaseFragment : Fragment(), TextToSpeech.OnInitListener {
         val goTo  = questionGoToInfo["goTo"]
         val isSingle =   questionGoToInfo["isSingle"] as Boolean
         val isLabourRoute =   questionGoToInfo["isLabourRoute"] as Boolean
-        val remainingQuestion = questionGoToInfo["remainingQuestion"] as Int
+        val questionAdvance = questionGoToInfo["questionAdvance"] as Int
 
         when (goTo) {
             -1 -> {
                 println("TODO: screen results")
-                println(mainViewModel.loadResultFaultAnswersFromSharedPreferences(true))
-                println(mainViewModel.loadResultFaultAnswersFromSharedPreferences(false))
             }
             else -> {
                 val goToBundle: Bundle = when {
                    isLabourRoute -> Bundle().apply {
                         putInt(Constants.ROUTE_QUESTION_GO_TO, goTo as Int)
                         putSerializable(Constants.ROUTE_LABOUR, route)
-                        putInt(Constants.REMAINING_QUESTION, remainingQuestion)
+                        putInt(Constants.QUESTION_ADVANCE, questionAdvance)
                     }
                     else -> Bundle().apply {
-                        putInt(Constants.REMAINING_QUESTION, remainingQuestion)
                         putInt(Constants.ROUTE_QUESTION_GO_TO, goTo as Int)
                         putSerializable(Constants.ROUTE_VIOLENCE, route)
+                        putInt(Constants.QUESTION_ADVANCE, questionAdvance)
                     }
                 }
 
