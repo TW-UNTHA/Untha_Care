@@ -1,6 +1,7 @@
 package com.untha.viewmodels
 
 import android.content.SharedPreferences
+import android.os.Bundle
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.untha.model.mappers.CategoryMapper
@@ -28,14 +29,13 @@ class RouteResultsViewModel(
 
     private lateinit var questionnaires: List<QuestionnaireRouteResult>
 
-    private fun getRouteResultsIds(): List<String> {
-        val results = sharedPreferences.getString(Constants.FAULT_ANSWER, "")
+    private fun getLabourRouteResultsIds(): List<String> {
+        val results = sharedPreferences.getString(Constants.FAULT_ANSWER_ROUTE_LABOUR, "")
         return results?.split(" ") ?: listOf()
-//        return listOf("F1", "F2", "F3", "F5", "R1", "R2", "R4")
     }
 
     fun retrieveRouteResults() {
-        val answers = getRouteResultsIds()
+        val answers = getLabourRouteResultsIds()
         if (!answers.isNullOrEmpty()) {
             val result = sharedPreferences.getString(Constants.ROUTE_RESULT, "")
             if (!result.isNullOrEmpty()) {
@@ -76,5 +76,42 @@ class RouteResultsViewModel(
     fun getRouteResultsByType(type: String): List<RouteResult>? {
         val filteredRouteResults = routeResults?.filter { it.type == type } ?: listOf()
         return if (filteredRouteResults.isEmpty()) null else filteredRouteResults
+    }
+
+    fun getQuestionnairesByTypeAndCode(
+        type: String,
+        code: String
+    ): List<QuestionnaireRouteResult>? {
+        val filteredResults =
+            questionnaires.filter { questionnaire ->
+                questionnaire.type == type &&
+                        questionnaire.code == code
+            }
+        return if (filteredResults.isEmpty()) null else filteredResults
+    }
+
+    fun getHigherViolenceLevel(): String? {
+        val violenceRouteResult =
+            sharedPreferences.getString(Constants.FAULT_ANSWER_ROUTE_VIOLENCE, "")
+        val results = violenceRouteResult?.split(" ")
+        val high = results?.firstOrNull { it == "ALTO" }
+        val medium = results?.firstOrNull { it == "MEDIO" }
+        val low = results?.firstOrNull { it == "BAJO" }
+        var result: String? = null
+        when {
+            high != null -> result = high
+            medium != null -> result = medium
+            low != null -> result = low
+        }
+        return result
+    }
+
+    fun isLabourRoute(bundle: Bundle): Boolean {
+        return when {
+            bundle.containsKey(Constants.ROUTE_LABOUR) -> {
+                true
+            }
+            else -> false
+        }
     }
 }

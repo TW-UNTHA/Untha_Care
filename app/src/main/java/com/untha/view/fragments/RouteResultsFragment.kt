@@ -63,18 +63,27 @@ class RouteResultsFragment : BaseFragment() {
         private const val IMAGE_WEIGHT_CATEGORY_BUTTON = 0.2F
         private const val TEXT_WEIGHT_CATEGORY_BUTTON = 0.8F
         private const val HALF_DIVIDER = 2
+        private const val NON_FAULT_IMAGE_HEIGHT = 0.342
+        private const val VIOLENCE_TYPE = "VIOLENCE"
+        private const val LABOUR_TYPE = "LABOUR"
+        private const val RECOMMENDATION_TYPE = "recommendation"
+        private const val FAULT_TYPE = "fault"
     }
 
     private val viewModel: RouteResultsViewModel by viewModel()
 
-    private val isLabourRoute = true
-    private val violenceLevel = "ALTO"
+    private var isLabourRoute: Boolean = false
+    private var violenceLevel: String? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel.retrieveRouteResults()
         viewModel.loadQuestionnaire()
+        arguments?.let {
+            isLabourRoute = viewModel.isLabourRoute(it)
+        }
+        violenceLevel = viewModel.getHigherViolenceLevel()
     }
 
 
@@ -107,6 +116,19 @@ class RouteResultsFragment : BaseFragment() {
                 null
             )
         }
+
+        if (areThereFaultsOrRecommendations()) {
+            drawLayoutWithNoFaults(view)
+        } else {
+            drawLayoutWithFaults(view)
+        }
+    }
+
+    private fun areThereFaultsOrRecommendations() =
+        (isLabourRoute && viewModel.routeResults.isNullOrEmpty()) or
+                (!isLabourRoute && violenceLevel.isNullOrEmpty())
+
+    private fun drawLayoutWithFaults(view: View) {
         viewModel.retrieveAllCategories().observe(this, Observer { queryingCategories ->
             viewModel.mapCategories(queryingCategories)
             with(view as _LinearLayout)
@@ -114,12 +136,22 @@ class RouteResultsFragment : BaseFragment() {
                 scrollView {
                     verticalLayout {
                         loadLabourRouteHeader(view)
-                        loadRouteResultsByType(view, "fault")
-                        //Recommendations
-                        loadRouteResultsByType(view, "recommendation")
-                        dividerLine()
-                        val type = if (isLabourRoute) "LABOUR" else "VIOLENCE"
-                        viewModel.getQuestionnairesByType(type).map { questionnaire ->
+                        if (isLabourRoute) {
+                            loadRouteResultsByType(view, FAULT_TYPE)
+                            //Recommendations
+                            loadRouteResultsByType(view, RECOMMENDATION_TYPE)
+                            dividerLine()
+                        }
+                        var questionnaires: List<QuestionnaireRouteResult>? = null
+                        if (isLabourRoute) {
+                            questionnaires = viewModel.getQuestionnairesByType(LABOUR_TYPE)
+                        } else {
+                            violenceLevel?.let {
+                                questionnaires =
+                                    viewModel.getQuestionnairesByTypeAndCode(VIOLENCE_TYPE, it)
+                            }
+                        }
+                        questionnaires?.map { questionnaire ->
                             buildSections(questionnaire)
                         }
                     }
@@ -132,6 +164,38 @@ class RouteResultsFragment : BaseFragment() {
             }
         }
         )
+    }
+
+    private fun drawLayoutWithNoFaults(view: View) {
+        with(view as _LinearLayout) {
+            verticalLayout {
+                val headerText =
+                    if (isLabourRoute) R.string.not_labour_rights_violated else R.string.not_violence_suffered
+                loadLabourRouteHeader(view, headerText)
+                imageView {
+                    val imageUrl = resources.getIdentifier(
+                        "route_positive_result",
+                        "drawable",
+                        context.applicationInfo.packageName
+                    )
+                    Glide.with(view)
+                        .load(imageUrl).fitCenter()
+                        .into(this)
+                }.lparams(
+                    width = wrapContent,
+                    height = dip(calculateComponentsHeight(NON_FAULT_IMAGE_HEIGHT))
+                ) {
+                    rightMargin = dip(calculateComponentsWidth(IMAGE_VIEW_RIGHT_MARGIN))
+                    leftMargin = dip(calculateComponentsWidth(IMAGE_VIEW_LEFT_MARGIN))
+                    gravity = Gravity.CENTER
+                }
+            }.lparams(height = matchParent, width = matchParent) {
+                topMargin = dip(calculateComponentsHeight(CONTAINER_MARGIN_TOP_BOTTOM))
+                bottomMargin = dip(calculateComponentsHeight(CONTAINER_MARGIN_TOP_BOTTOM))
+                leftMargin = dip(calculateComponentsHeight(CONTAINER_LATERAL_MARGIN))
+                rightMargin = dip(calculateComponentsHeight(CONTAINER_LATERAL_MARGIN))
+            }
+        }
     }
 
     private fun @AnkoViewDslMarker _LinearLayout.loadRouteResultsByType(
@@ -262,22 +326,26 @@ class RouteResultsFragment : BaseFragment() {
     }
 
     private fun @AnkoViewDslMarker _LinearLayout.loadLabourRouteHeader(
-        view: View
+        view: View,
+        textId: Int? = null
     ) {
         linearLayout {
             orientation = LinearLayout.HORIZONTAL
             drawHeaderAudioButton(view)
-            drawHeaderDescription()
+            drawHeaderDescription(textId)
         }.lparams(width = wrapContent, height = wrapContent) {
             bottomMargin = dip(calculateComponentsHeight(HEADER_BOTTOM_MARGIN))
         }
     }
 
-    private fun @AnkoViewDslMarker _LinearLayout.drawHeaderDescription() {
+    private fun @AnkoViewDslMarker _LinearLayout.drawHeaderDescription(textId: Int?) {
         textView {
-            text =
+            text = if (textId == null) {
                 if (isLabourRoute) context.getString(R.string.description_labour_result)
-                else context.getString(R.string.description_violence_result) + violenceLevel
+                else context.getString(R.string.description_violence_result) + " $violenceLevel"
+            } else {
+                context.getString(textId)
+            }
             textSizeDimen = R.dimen.text_size_content
             typeface =
                 ResourcesCompat.getFont(context.applicationContext, R.font.proxima_nova_bold)

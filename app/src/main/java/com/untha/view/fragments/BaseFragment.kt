@@ -79,40 +79,82 @@ open class BaseFragment : Fragment(), TextToSpeech.OnInitListener {
 
 
     fun manageGoToQuestion(questionGoToInfo: Map<String, Any?>, route: Route, view: View) {
-        val goTo  = questionGoToInfo["goTo"]
-        val isSingle =   questionGoToInfo["isSingle"] as Boolean
-        val isLabourRoute =   questionGoToInfo["isLabourRoute"] as Boolean
+        val goTo = questionGoToInfo["goTo"]
+        val isSingle = questionGoToInfo["isSingle"] as Boolean
+        val isLabourRoute = questionGoToInfo["isLabourRoute"] as Boolean
         val questionAdvance = questionGoToInfo["questionAdvance"] as Int
 
         when (goTo) {
             -1 -> {
-                println("TODO: screen results")
+                navigateToResultsScreen(isLabourRoute, goTo, route, view)
             }
             else -> {
-                val goToBundle: Bundle = when {
-                   isLabourRoute -> Bundle().apply {
-                        putInt(Constants.ROUTE_QUESTION_GO_TO, goTo as Int)
-                        putSerializable(Constants.ROUTE_LABOUR, route)
-                        putInt(Constants.QUESTION_ADVANCE, questionAdvance)
-                    }
-                    else -> Bundle().apply {
-                        putInt(Constants.ROUTE_QUESTION_GO_TO, goTo as Int)
-                        putSerializable(Constants.ROUTE_VIOLENCE, route)
-                        putInt(Constants.QUESTION_ADVANCE, questionAdvance)
-                    }
-                }
+                val goToBundle: Bundle =
+                    defineBundleData(isLabourRoute, goTo, route, questionAdvance)
 
-                if (isSingle) {
-                    view.findNavController().navigate(
-                        R.id.singleSelectQuestionFragment, goToBundle,
-                        navOptions, null)
-                } else {
-                    view.findNavController().navigate(
-                        R.id.multipleSelectionQuestionFragment, goToBundle,
-                        navOptions, null)
-                }
+                navigate(isSingle, view, goToBundle)
             }
         }
+    }
+
+    private fun defineBundleData(
+        isLabourRoute: Boolean,
+        goTo: Any?,
+        route: Route,
+        questionAdvance: Int
+    ): Bundle {
+        return when {
+            isLabourRoute -> Bundle().apply {
+                putInt(Constants.ROUTE_QUESTION_GO_TO, goTo as Int)
+                putSerializable(Constants.ROUTE_LABOUR, route)
+                putInt(Constants.QUESTION_ADVANCE, questionAdvance)
+            }
+            else -> Bundle().apply {
+                putInt(Constants.ROUTE_QUESTION_GO_TO, goTo as Int)
+                putSerializable(Constants.ROUTE_VIOLENCE, route)
+                putInt(Constants.QUESTION_ADVANCE, questionAdvance)
+            }
+        }
+    }
+
+    private fun navigate(
+        isSingle: Boolean,
+        view: View,
+        goToBundle: Bundle
+    ) {
+        if (isSingle) {
+            view.findNavController().navigate(
+                R.id.singleSelectQuestionFragment, goToBundle,
+                navOptions, null
+            )
+        } else {
+            view.findNavController().navigate(
+                R.id.multipleSelectionQuestionFragment, goToBundle,
+                navOptions, null
+            )
+        }
+    }
+
+    private fun navigateToResultsScreen(
+        isLabourRoute: Boolean,
+        goTo: Any?,
+        route: Route,
+        view: View
+    ) {
+        val goToBundle: Bundle = when {
+            isLabourRoute -> Bundle().apply {
+                putInt(Constants.ROUTE_QUESTION_GO_TO, goTo as Int)
+                putSerializable(Constants.ROUTE_LABOUR, route)
+            }
+            else -> Bundle().apply {
+                putInt(Constants.ROUTE_QUESTION_GO_TO, goTo as Int)
+                putSerializable(Constants.ROUTE_VIOLENCE, route)
+            }
+        }
+        view.findNavController().navigate(
+            R.id.routeResultsFragment, goToBundle,
+            navOptions, null
+        )
     }
 
 

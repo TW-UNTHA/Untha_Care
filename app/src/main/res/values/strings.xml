@@ -23,4 +23,6 @@
     <string name="description_violence_result">Has sufrido un nivel de violencia:</string>
     <string name="additional_recommendations">Recomendaciones adicionales:</string>
     <string name="image_name_route_violence">route_violence_pantalla_inicial</string>
+    <string name="not_labour_rights_violated">Al parecer no se han registrado faltas a tus derechos laborales.</string>
+    <string name="not_violence_suffered">Al parecer no has sido víctima de violencia.</string>
 </resources>

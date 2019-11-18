@@ -74,14 +74,16 @@ class RouteResultsViewModelTest : KoinTest {
 
         viewModel.retrieveRouteResults()
 
-        verify(sharedPreferences).getString(Constants.FAULT_ANSWER, "")
+        verify(sharedPreferences).getString(Constants.FAULT_ANSWER_ROUTE_LABOUR, "")
     }
 
     @Test
     fun `should get route results from shared preferences when route result ids are not null`() {
         val viewModel = RouteResultsViewModel(sharedPreferences, repository, mapper)
         val answer = "R1 R2 R3"
-        `when`(sharedPreferences.getString(Constants.FAULT_ANSWER, "")).thenReturn(answer)
+        `when`(sharedPreferences.getString(Constants.FAULT_ANSWER_ROUTE_LABOUR, "")).thenReturn(
+            answer
+        )
 
         viewModel.retrieveRouteResults()
 
@@ -95,7 +97,7 @@ class RouteResultsViewModelTest : KoinTest {
 
         viewModel.retrieveRouteResults()
 
-        verify(sharedPreferences).getString(Constants.FAULT_ANSWER, "")
+        verify(sharedPreferences).getString(Constants.FAULT_ANSWER_ROUTE_LABOUR, "")
         verify(sharedPreferences, never()).getString(Constants.ROUTE_RESULT, "")
     }
 
@@ -106,7 +108,7 @@ class RouteResultsViewModelTest : KoinTest {
 
         viewModel.retrieveRouteResults()
 
-        verify(sharedPreferences).getString(Constants.FAULT_ANSWER, "")
+        verify(sharedPreferences).getString(Constants.FAULT_ANSWER_ROUTE_LABOUR, "")
         verify(sharedPreferences, never()).getString(Constants.ROUTE_RESULT, "")
     }
 
@@ -114,7 +116,9 @@ class RouteResultsViewModelTest : KoinTest {
     fun `should return null when route results are null`() {
         val viewModel = RouteResultsViewModel(sharedPreferences, repository, mapper)
         val answer = "R1 R2 R3"
-        `when`(sharedPreferences.getString(Constants.FAULT_ANSWER, "")).thenReturn(answer)
+        `when`(sharedPreferences.getString(Constants.FAULT_ANSWER_ROUTE_LABOUR, "")).thenReturn(
+            answer
+        )
         `when`(sharedPreferences.getString(Constants.ROUTE_RESULT, "")).thenReturn(null)
 
         viewModel.retrieveRouteResults()
@@ -126,7 +130,9 @@ class RouteResultsViewModelTest : KoinTest {
     fun `should return a list of route results when route results ids and route results are not null`() {
         val viewModel = RouteResultsViewModel(sharedPreferences, repository, mapper)
         val answer = "R1 R2 R3"
-        `when`(sharedPreferences.getString(Constants.FAULT_ANSWER, "")).thenReturn(answer)
+        `when`(sharedPreferences.getString(Constants.FAULT_ANSWER_ROUTE_LABOUR, "")).thenReturn(
+            answer
+        )
         val firstRouteResult = RouteResult("R1", "dummy", "dummy", listOf(1))
         val secondRouteResult = RouteResult("R2", "dummy", "dummy", listOf(1))
         val thirdRouteResult = RouteResult("R3", "dummy", "dummy", listOf(1))
@@ -148,7 +154,9 @@ class RouteResultsViewModelTest : KoinTest {
     fun `should return a list of route filtered by type`() {
         val viewModel = RouteResultsViewModel(sharedPreferences, repository, mapper)
         val answer = "R1 R2 R3 R4"
-        `when`(sharedPreferences.getString(Constants.FAULT_ANSWER, "")).thenReturn(answer)
+        `when`(sharedPreferences.getString(Constants.FAULT_ANSWER_ROUTE_LABOUR, "")).thenReturn(
+            answer
+        )
         val firstRouteResult = RouteResult("R1", "fault", "dummy", listOf(1))
         val secondRouteResult = RouteResult("R2", "recommendation", "dummy", listOf(1))
         val thirdRouteResult = RouteResult("R3", "fault", "dummy", listOf(1))
@@ -171,7 +179,9 @@ class RouteResultsViewModelTest : KoinTest {
     fun `should return null if route type does not exist`() {
         val viewModel = RouteResultsViewModel(sharedPreferences, repository, mapper)
         val answer = "R1 R2 R3 R4"
-        `when`(sharedPreferences.getString(Constants.FAULT_ANSWER, "")).thenReturn(answer)
+        `when`(sharedPreferences.getString(Constants.FAULT_ANSWER_ROUTE_LABOUR, "")).thenReturn(
+            answer
+        )
         val firstRouteResult = RouteResult("R1", "fault", "dummy", listOf(1))
         val secondRouteResult = RouteResult("R2", "recommendation", "dummy", listOf(1))
         val thirdRouteResult = RouteResult("R3", "fault", "dummy", listOf(1))
@@ -193,7 +203,9 @@ class RouteResultsViewModelTest : KoinTest {
     fun `should return null when any route result id match with route results`() {
         val viewModel = RouteResultsViewModel(sharedPreferences, repository, mapper)
         val answer = "R7 R5 R6"
-        `when`(sharedPreferences.getString(Constants.FAULT_ANSWER, "")).thenReturn(answer)
+        `when`(sharedPreferences.getString(Constants.FAULT_ANSWER_ROUTE_LABOUR, "")).thenReturn(
+            answer
+        )
         val firstRouteResult = RouteResult("R1", "dummy", "dummy", listOf(1))
         val secondRouteResult = RouteResult("R2", "dummy", "dummy", listOf(1))
         val thirdRouteResult = RouteResult("R3", "dummy", "dummy", listOf(1))
@@ -350,4 +362,210 @@ class RouteResultsViewModelTest : KoinTest {
         assertThat(questionnaire, `is`(listOf(expectedQuestionnaire.results[0])))
     }
 
+    @Test
+    fun `should get questionnaire by code and type`() {
+        val routeResultViewModel = RouteResultsViewModel(
+            sharedPreferences,
+            repository, mapper
+        )
+        val searchType = "VIOLENCE"
+        val code = "BAJO"
+        val savedQuestionnaire = "{\n" +
+                "  \"version\": 1,\n" +
+                "  \"results\": [\n" +
+                "    {\n" +
+                "      \"id\": 1,\n" +
+                "      \"title\": \"BAJO\",\n" +
+                "      \"code\": \"$code\",\n" +
+                "      \"type\": \"$searchType\",\n" +
+                "      \"sections\": [\n" +
+                "        {\n" +
+                "          \"id\": 1,\n" +
+                "          \"title\": \"¿QUÉ PUEDES HACER?\",\n" +
+                "          \"steps\": [\n" +
+                "            {\n" +
+                "              \"step_id\": 1,\n" +
+                "              \"description\": \"Puedes obtener " +
+                "una asesoría gratuita llamando al:" +
+                " 151 Defensoría Pública.\"\n" +
+                "            },\n" +
+                "            {\n" +
+                "              \"step_id\": 2,\n" +
+                "              \"description\": \"Puedes hacer una denuncia: Unidad Judicial de " +
+                "Violencia contra la Mujer y la Familia de la Fiscalía 1800 266 822 . " +
+                "Ministerio del Trabajo\"\n" +
+                "            },\n" +
+                "            {\n" +
+                "              \"step_id\": null,\n" +
+                "              \"description\": \"Link a denuncia en la Fiscalía\"\n" +
+                "            }\n" +
+                "          ]\n" +
+                "        }\n" +
+                "      ]\n" +
+                "    }]}"
+        `when`(sharedPreferences.getString(Constants.QUESTIONNAIRE_ROUTE, ""))
+            .thenReturn(savedQuestionnaire)
+        routeResultViewModel.loadQuestionnaire()
+        val expectedQuestionnaire = Json.parse(
+            QuestionnaireRouteResultWrapper.serializer(),
+            savedQuestionnaire
+        )
+
+        val questionnaire = routeResultViewModel.getQuestionnairesByTypeAndCode(searchType, code)
+
+        assertThat(questionnaire, `is`(listOf(expectedQuestionnaire.results[0])))
+    }
+
+    @Test
+    fun `should return null when questionnaire by code and type is not found`() {
+        val routeResultViewModel = RouteResultsViewModel(
+            sharedPreferences,
+            repository, mapper
+        )
+        val searchType = "VIOLENCE"
+        val code = "BAJO"
+        val savedQuestionnaire = "{\n" +
+                "  \"version\": 1,\n" +
+                "  \"results\": [\n" +
+                "    {\n" +
+                "      \"id\": 1,\n" +
+                "      \"title\": \"BAJO\",\n" +
+                "      \"code\": \"$code\",\n" +
+                "      \"type\": \"$searchType\",\n" +
+                "      \"sections\": [\n" +
+                "        {\n" +
+                "          \"id\": 1,\n" +
+                "          \"title\": \"¿QUÉ PUEDES HACER?\",\n" +
+                "          \"steps\": [\n" +
+                "            {\n" +
+                "              \"step_id\": 1,\n" +
+                "              \"description\": \"Puedes obtener " +
+                "una asesoría gratuita llamando al:" +
+                " 151 Defensoría Pública.\"\n" +
+                "            },\n" +
+                "            {\n" +
+                "              \"step_id\": 2,\n" +
+                "              \"description\": \"Puedes hacer una denuncia: Unidad Judicial de " +
+                "Violencia contra la Mujer y la Familia de la Fiscalía 1800 266 822 . " +
+                "Ministerio del Trabajo\"\n" +
+                "            },\n" +
+                "            {\n" +
+                "              \"step_id\": null,\n" +
+                "              \"description\": \"Link a denuncia en la Fiscalía\"\n" +
+                "            }\n" +
+                "          ]\n" +
+                "        }\n" +
+                "      ]\n" +
+                "    }]}"
+        `when`(sharedPreferences.getString(Constants.QUESTIONNAIRE_ROUTE, ""))
+            .thenReturn(savedQuestionnaire)
+        routeResultViewModel.loadQuestionnaire()
+
+        val questionnaire = routeResultViewModel.getQuestionnairesByTypeAndCode(searchType, "dummy")
+
+        assertThat(null, `is`(questionnaire))
+    }
+
+    @Test
+    fun `should get HIGH when is present in violence route result`() {
+        val result = "ALTO"
+
+        val routeResultViewModel = RouteResultsViewModel(
+            sharedPreferences,
+            repository, mapper
+        )
+        `when`(sharedPreferences.getString(Constants.FAULT_ANSWER_ROUTE_VIOLENCE, ""))
+            .thenReturn(result)
+
+        val resultLevel = routeResultViewModel.getHigherViolenceLevel()
+
+        assertThat(resultLevel, `is`(result))
+    }
+
+    @Test
+    fun `should get HIGH when is present in violence route result and more than one level is saved`() {
+        val high = "ALTO"
+        val medium = "MEDIO"
+        val result = "$high $medium"
+
+        val routeResultViewModel = RouteResultsViewModel(
+            sharedPreferences,
+            repository, mapper
+        )
+        `when`(sharedPreferences.getString(Constants.FAULT_ANSWER_ROUTE_VIOLENCE, ""))
+            .thenReturn(result)
+
+        val resultLevel = routeResultViewModel.getHigherViolenceLevel()
+
+        assertThat(resultLevel, `is`(high))
+    }
+
+    @Test
+    fun `should get MEDIUM when is present in violence route result alto is not present`() {
+        val medium = "MEDIO"
+
+        val routeResultViewModel = RouteResultsViewModel(
+            sharedPreferences,
+            repository, mapper
+        )
+        `when`(sharedPreferences.getString(Constants.FAULT_ANSWER_ROUTE_VIOLENCE, ""))
+            .thenReturn(medium)
+
+        val resultLevel = routeResultViewModel.getHigherViolenceLevel()
+
+        assertThat(resultLevel, `is`(medium))
+    }
+
+    @Test
+    fun `should get MEDIUM when is present in violence route result alto is not present and low is present`() {
+        val medium = "MEDIO"
+        val low = "BAJO"
+
+        val result = "$medium $low"
+        val routeResultViewModel = RouteResultsViewModel(
+            sharedPreferences,
+            repository, mapper
+        )
+        `when`(sharedPreferences.getString(Constants.FAULT_ANSWER_ROUTE_VIOLENCE, ""))
+            .thenReturn(result)
+
+        val resultLevel = routeResultViewModel.getHigherViolenceLevel()
+
+        assertThat(resultLevel, `is`(medium))
+    }
+
+    @Test
+    fun `should get LOW when is present in violence route result high is not present and medium is not present`() {
+        val low = "BAJO"
+
+        val routeResultViewModel = RouteResultsViewModel(
+            sharedPreferences,
+            repository, mapper
+        )
+        `when`(sharedPreferences.getString(Constants.FAULT_ANSWER_ROUTE_VIOLENCE, ""))
+            .thenReturn(low)
+
+        val resultLevel = routeResultViewModel.getHigherViolenceLevel()
+
+        assertThat(resultLevel, `is`(low))
+    }
+
+    @Test
+    fun `should get HIGH when is present in violence route result medium is present and low is present`() {
+        val low = "BAJO"
+        val medium = "MEDIO"
+        val high = "ALTO"
+        val result = "$medium $high $low"
+
+        val routeResultViewModel = RouteResultsViewModel(
+            sharedPreferences,
+            repository, mapper
+        )
+        `when`(sharedPreferences.getString(Constants.FAULT_ANSWER_ROUTE_VIOLENCE, ""))
+            .thenReturn(result)
+
+        val resultLevel = routeResultViewModel.getHigherViolenceLevel()
+
+        assertThat(resultLevel, `is`(high))
+    }
 }

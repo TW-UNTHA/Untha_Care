@@ -64,7 +64,6 @@ object Constants {
 
     const val START_QUESTION_ROUTE_LABOUR = 1
     const val START_QUESTION_ROUTE_VIOLENCE = 1
-    const val FAULT_ANSWER = "fault-answers"
     const val DUPLICATE_MARGIN_LATERAL = 2
     const val STYLE_ANSWER_TWO_OPTION = 2
     const val NAME_SCREEN_LABOUR_ROUTE = "DERECHOS LABORALES"

@@ -54,8 +54,7 @@
       "id": "F2",
       "type": "fault",
       "content": " trabajar más horas de las que tienes permitidas como menor de edad (30 semanales, 6 al día)",
-      "categories":
-      [
+      "categories": [
         11
       ]
     },
@@ -96,7 +95,9 @@
       "id": "F7",
       "type": "fault",
       "content": "Tu empleador no te ha afiliado al IESS",
-      "categories": []
+      "categories": [
+        6
+      ]
     },
     {
       "id": "F8",

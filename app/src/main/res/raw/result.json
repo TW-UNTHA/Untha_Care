@@ -95,7 +95,9 @@
       "id": "F7",
       "type": "fault",
       "content": "Tu empleador no te ha afiliado al IESS",
-      "categories": []
+      "categories": [
+        6
+      ]
     },
     {
       "id": "F8",
