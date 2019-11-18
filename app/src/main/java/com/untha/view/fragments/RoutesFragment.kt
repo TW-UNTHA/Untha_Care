@@ -37,11 +37,6 @@ class RoutesFragment : BaseFragment() {
     private var categoriesRoutes: List<Category>? = null
     private lateinit var mainActivity: MainActivity
 
-    companion object {
-        const val ROUTE_LABOUR = 14
-        const val ROUTE_VIOLENCE = 15
-    }
-
     private val callback = object : OnBackPressedCallback(true) {
         override fun handleOnBackPressed() {
             navigateToCategory()
@@ -71,7 +66,7 @@ class RoutesFragment : BaseFragment() {
             putString(Constants.TYPE_ROUTE, Constants.ROUTE_LABOUR)
         }
         itemView.findNavController()
-           .navigate(R.id.mainScreenLabourRouteFragment, routeLabour, navOptions, null)
+            .navigate(R.id.mainScreenLabourRouteFragment, routeLabour, navOptions, null)
     }
 
     private fun onItemClickRouteViolence(itemView: View) {
@@ -133,12 +128,12 @@ class RoutesFragment : BaseFragment() {
                     context, R.drawable.drawable_main_route
                 )
                 when (route.id) {
-                    ROUTE_LABOUR -> {
+                    Constants.ID_ROUTE_LABOUR -> {
                         setOnClickListener {
                             onItemClickRouteLabour(view)
                         }
                     }
-                    ROUTE_VIOLENCE -> {
+                    Constants.ID_ROUTE_VIOLENCE -> {
                         setOnClickListener {
                             onItemClickRouteViolence(view)
                         }

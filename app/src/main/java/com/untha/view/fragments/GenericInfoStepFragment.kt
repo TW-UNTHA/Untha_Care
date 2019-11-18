@@ -21,6 +21,8 @@ import com.untha.model.transactionalmodels.CategoryInformation
 import com.untha.model.transactionalmodels.Section
 import com.untha.model.transactionalmodels.Step
 import com.untha.utils.Constants
+import com.untha.utils.ContentType
+import com.untha.utils.FirebaseEvent
 import com.untha.utils.PixelConverter
 import com.untha.utils.PixelConverter.toPixels
 import com.untha.view.extension.buildImageNextStep
@@ -58,14 +60,27 @@ class GenericInfoStepFragment : BaseFragment() {
     private lateinit var mainActivity: MainActivity
     private val viewModel: GenericInfoStepViewModel by viewModel()
 
-
     fun onItemClick(category: Category, categories: ArrayList<Category>?, itemView: View) {
         val categoryBundle = Bundle().apply {
             putSerializable(Constants.CATEGORIES, categories)
             putSerializable(Constants.CATEGORY_PARAMETER, category)
         }
-        itemView.findNavController()
-            .navigate(R.id.genericInfoFragment, categoryBundle, navOptions, null)
+
+        if (category.isRoute) {
+            when (category.id) {
+                Constants.ID_ROUTE_LABOUR -> {
+                    onItemClickRouteLabour(itemView)
+                }
+                Constants.ID_ROUTE_VIOLENCE -> {
+                    onItemClickRouteViolence(itemView)
+                }
+            }
+            logAnalyticsCustomContentTypeWithId(ContentType.ROUTE, FirebaseEvent.ROUTE)
+        } else {
+            itemView.findNavController()
+                .navigate(R.id.genericInfoFragment, categoryBundle, navOptions, null)
+        }
+
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -100,8 +115,8 @@ class GenericInfoStepFragment : BaseFragment() {
                 val marginTop = calculateTopMargin()
                 val marginLeft = calculateMarginLeftAndRight()
                 verticalLayout {
-                backgroundColor =
-                    ContextCompat.getColor(context, R.color.colorBackgroundMainRoute)
+                    backgroundColor =
+                        ContextCompat.getColor(context, R.color.colorBackgroundMainRoute)
                     loadImage(view, imageHeight, category)
                     drawLine(R.color.colorGenericLineHeader, Constants.HEIGHT_LINE_HEADER_GENERIC)
                 }.lparams(width = ViewGroup.LayoutParams.MATCH_PARENT, height = wrapContent)
@@ -126,7 +141,7 @@ class GenericInfoStepFragment : BaseFragment() {
             category.information?.get(0)?.screenTitle.toString(),
             enableCustomBar = false, needsBackButton = true, backMethod = null
         )
-
+        loadTitleRoute(true)
     }
 
     private fun @AnkoViewDslMarker _LinearLayout.buildButtonNextStep(
@@ -354,8 +369,40 @@ class GenericInfoStepFragment : BaseFragment() {
             )
             setImageBitmap(bitmap)
         }.lparams(width = wrapContent, height = wrapContent)
-
     }
 
+    private fun loadTitleRoute(isLabourRoute: Boolean) {
+        if (isLabourRoute) {
+            (activity as MainActivity).customActionBar(
+                Constants.NAME_SCREEN_LABOUR_ROUTE,
+                enableCustomBar = false,
+                needsBackButton = true,
+                backMethod = null
+            )
+        } else {
+            (activity as MainActivity).customActionBar(
+                Constants.NAME_SCREEN_VIOLENCE_ROUTE,
+                enableCustomBar = false,
+                needsBackButton = true,
+                backMethod = null
+            )
+        }
+    }
+
+    private fun onItemClickRouteLabour(itemView: View) {
+        val routeLabour = Bundle().apply {
+            putString(Constants.TYPE_ROUTE, Constants.ROUTE_LABOUR)
+        }
+        itemView.findNavController()
+            .navigate(R.id.mainScreenLabourRouteFragment, routeLabour, navOptions, null)
+    }
+
+    private fun onItemClickRouteViolence(itemView: View) {
+        val violenceLabour = Bundle().apply {
+            putString(Constants.TYPE_ROUTE, Constants.ROUTE_VIOLENCE)
+        }
+        itemView.findNavController()
+            .navigate(R.id.mainScreenLabourRouteFragment, violenceLabour, navOptions, null)
+    }
 }
 

@@ -56,6 +56,8 @@ object Constants {
     const val SIZE_IMAGE_PERCENTAGE_AUDIO_ROUTE = ((((50) * 100) / 640) / 100F).toDouble()
     const val SIZE_IMAGE_PERCENTAGE_AUDIO_QUESTION = 0.094
     const val SIZE_HEIGHT_PERCENTAGE_OPTION_BUTTON = 0.09
+    const val ID_ROUTE_LABOUR = 14
+    const val ID_ROUTE_VIOLENCE = 15
 
     const val TEMPORAL_LOAD_PROGRESS_BAR = 1
     const val COUNT_QUESTION_ADVANCE = 1
