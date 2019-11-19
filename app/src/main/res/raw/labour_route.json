@@ -43,14 +43,14 @@
           "value": "16 o 17 años",
           "remaining": 13,
           "hint": "R1P2R2",
-          "result": "F1",
+          "result": null,
           "goTo": 3
         },
         {
           "value": "18 años o más",
           "remaining": 10,
           "hint": "R1P2R3",
-          "result": "F2",
+          "result": null,
           "goTo": 4
         }
       ],
@@ -168,7 +168,7 @@
           "value": "No trabajo horas extras ",
           "remaining": 8,
           "hint": "R1P6R2",
-          "result": "F5",
+          "result": null,
           "goTo": 10
         }
       ]
@@ -637,7 +637,7 @@
           "value": "Incumplí alguna cláusula del contrato",
           "remaining": 1,
           "hint": "R1P20R1",
-          "result":"R4",
+          "result": "R4",
           "goTo": null
         },
         {

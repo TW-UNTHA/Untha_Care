@@ -20,6 +20,142 @@
     },
     {
       "id": 3,
+      "image": "home_contratos",
+      "title": "CONTRATOS",
+      "title_next_step": null,
+      "information": [
+        {
+          "id": 3,
+          "description": "Obtener un contrato de trabajo es importante porque permite formalizar tu relación laboral con tu empleador. Las cláusulas de tu contrato te ayudarán a identificar y reportar incumplimiento de las mismas o de tus derechos. <br><br><b>Recuerda, </b>un contrato verbal es aceptado, pero se recomienda tener un contrato escrito porque es más fácil usarlo como prueba si lo llegas a necesitar.",
+          "image": "info_contratos",
+          "screen_title": "CONTRATOS",
+          "next_step": null,
+          "sections": [
+            {
+              "id": 6,
+              "title": "¿Qué debe tener un contrato?",
+              "steps": [
+                {
+                  "step_id": 1,
+                  "description": "Tus responsabilidades y las actividades que realizarás."
+                },
+                {
+                  "step_id": 2,
+                  "description": "Tu horario de trabajo o la duración de tu jornada y los días de trabajo. Es preferible que sea a tiempo completo, es decir 8 horas diaras por 5 días a la semana o tiempo parcial, menos de 6 horas diarias."
+                },
+                {
+                  "step_id": 3,
+                  "description": "El monto de tu salario que no puede ser menor al mínimo básico unificado si trabajas a tiempo completo, o un proporcional al mismo si trabajas a tiempo parcial y la regularidad con la que se te harán los pagos."
+                },
+                {
+                  "step_id": 4,
+                  "description": "Información y montos correspondientes al pago de horas extra."
+                },
+                {
+                  "step_id": 5,
+                  "description": "Información sobre tus vacaciones, que no pueden ser menores a 15 días al año después del primer año de trabajo."
+                },
+                {
+                  "step_id": 6,
+                  "description": "Información sobre el período de prueba que no puede ser mayor a 15 días."
+                },
+                {
+                  "step_id": 7,
+                  "description": "Datos sobre tu empleador o empresa y el lugar donde trabajarás."
+                }
+              ]
+            },
+            {
+              "id": 7,
+              "title": "Contratos modelos",
+              "steps": [
+                {
+                  "step_id": null,
+                  "description": "Ingresa al siguiente vínculo para acceder a contratos modelos de: tiempo completo y tiempo parcial: <a href='http://www.trabajo.gob.ec/modelos-de-contratos-para-trabajadoras-remuneradas-del-hogar-trabajo-domestico'>http://www.trabajo.gob.ec/modelos-de-contratos-para-trabajadoras-remuneradas-del-hogar-trabajo-domestico</a> <br><br> <b>Recuerda</b>, tu empleador no puede despedirte por ninguno de estos motivos: embarazo, edad, apariencia, estado de salud física o mental o por diversidad sexual o religiosa. "
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "image": "home_afiliacion",
+      "title": "VERIFICAR AFILIACIÓN",
+      "title_next_step": null,
+      "information": [
+        {
+          "id": 4,
+          "description": "El empleador debe inscribirte en el Instituto Ecuatoriano de Seguridad Social (IESS), desde el primer día de trabajo. Dará aviso de tu entrada en los primeros 15 días. Comunicará sobre tu salida, sueldos y salarios, accidentes de trabajo y enfermedades que se produzcan en él y cumplirá con las demás obligaciones legales sobre seguridad social.",
+          "image": "info_afiliacion",
+          "screen_title": "AFILIACIÓN AL IESS",
+          "next_step": null,
+          "sections": [
+            {
+              "id": 8,
+              "title": "¿Qué ofrece el IESS a sus afiliadas?",
+              "steps": [
+                {
+                  "step_id": null,
+                  "description": "•&nbsp;&nbsp;&nbsp;Salud (seguro de salud individual y familiar). <br>•&nbsp;&nbsp;&nbsp;Riesgos de trabajo (accidentes de trabajo y enfermedades).<br>•&nbsp;&nbsp;&nbsp;Pensiones (vejez, invalidez y muerte). <br><br>Para mayor información consulta la página: <a href = 'https://www.iess.gob.ec'>https://www.iess.gob.ec </a> <br><br><b>Recuerda, </b> tu empleador/a debe afiliarte al IESS. ¡Es tu derecho! <br><br> Para verificar si estás afiliada sigue estos pasos: "
+                }
+              ]
+            },
+            {
+              "id": 9,
+              "title": "Obtén tu clave del IESS",
+              "steps": [
+                {
+                  "step_id": 1,
+                  "description": "Desde una computadora o celular con conexión al internet, ingresa en el vínculo <a href='https://www.iess.gob.ec/solicitudclave/pages/public/principal.jsf'>https://www.iess.gob.ec/solicitudclave/pages/public/principal.jsf</a>"
+                },
+                {
+                  "step_id": 2,
+                  "description": "Ingresa tu número de cédula y sigue las instrucciones hasta que aparezca el botón “Finalizar”."
+                },
+                {
+                  "step_id": 3,
+                  "description": "Busca en tu correo electrónico un mail del IESS llamado “Activación de clave” (antes de esto se te solicitará un correo elctrónico). Selecciona el botón “Click para continuar” en el correo que te llegó."
+                },
+                {
+                  "step_id": 4,
+                  "description": "Ingresa una nueva clave y repite la misma clave para confirmar."
+                }
+              ]
+            },
+            {
+              "id": 10,
+              "title": "Obtén tu certificado de afiliación",
+              "steps": [
+                {
+                  "step_id": 1,
+                  "description": "Una vez que tengas tu clave del IESS, ingresa al siguiente vínculo <a href='https://www.iess.gob.ec/afiliado-web/pages/opcionesGenerales/seleccionCertificadoDeAfiliacion.jsf'>https://www.iess.gob.ec/solicitudclave/pages/public/principal.jsf</a>"
+                },
+                {
+                  "step_id": 2,
+                  "description": "Selecciona la opción “Certificado de Afiliación al Seguro General”."
+                },
+                {
+                  "step_id": 3,
+                  "description": "Ingresa tu número de cédula y después tu clave."
+                },
+                {
+                  "step_id": 4,
+                  "description": "Selecciona la opción ingresar."
+                },
+                {
+                  "step_id": 5,
+                  "description": "Si tu cédula y clave son los correctos, se descargará un certificado que indica que tu empleador te ha afiliado, y la fecha del último aporte al IESS."
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 5,
       "image": "home_beneficios",
       "title": "CALCULAR MIS BENEFICIOS",
       "title_next_step": null,
@@ -27,7 +163,7 @@
       "is_route": false
     },
     {
-      "id": 4,
+      "id": 6,
       "image": "home_denuncias",
       "title": "CÓMO HACER DENUNCIAS",
       "title_next_step": null,
@@ -103,142 +239,6 @@
       ],
       "parent_id": null,
       "is_route": false
-    },
-    {
-      "id": 5,
-      "image": "home_contratos",
-      "title": "CONTRATOS",
-      "title_next_step": null,
-      "information": [
-        {
-          "id": 3,
-          "description": "Obtener un contrato de trabajo es importante porque permite formalizar tu relación laboral con tu empleador. Las cláusulas de tu contrato te ayudarán a identificar y reportar incumplimiento de las mismas o de tus derechos. <br><br><b>Recuerda, </b>un contrato verbal es aceptado, pero se recomienda tener un contrato escrito porque es más fácil usarlo como prueba si lo llegas a necesitar.",
-          "image": "info_contratos",
-          "screen_title": "CONTRATOS",
-          "next_step": null,
-          "sections": [
-            {
-              "id": 6,
-              "title": "¿Qué debe tener un contrato?",
-              "steps": [
-                {
-                  "step_id": 1,
-                  "description": "Tus responsabilidades y las actividades que realizarás."
-                },
-                {
-                  "step_id": 2,
-                  "description": "Tu horario de trabajo o la duración de tu jornada y los días de trabajo. Es preferible que sea a tiempo completo, es decir 8 horas diaras por 5 días a la semana o tiempo parcial, menos de 6 horas diarias."
-                },
-                {
-                  "step_id": 3,
-                  "description": "El monto de tu salario que no puede ser menor al mínimo básico unificado si trabajas a tiempo completo, o un proporcional al mismo si trabajas a tiempo parcial y la regularidad con la que se te harán los pagos."
-                },
-                {
-                  "step_id": 4,
-                  "description": "Información y montos correspondientes al pago de horas extra."
-                },
-                {
-                  "step_id": 5,
-                  "description": "Información sobre tus vacaciones, que no pueden ser menores a 15 días al año después del primer año de trabajo."
-                },
-                {
-                  "step_id": 6,
-                  "description": "Información sobre el período de prueba que no puede ser mayor a 15 días."
-                },
-                {
-                  "step_id": 7,
-                  "description": "Datos sobre tu empleador o empresa y el lugar donde trabajarás."
-                }
-              ]
-            },
-            {
-              "id": 7,
-              "title": "Contratos modelos",
-              "steps": [
-                {
-                  "step_id": null,
-                  "description": "Ingresa al siguiente vínculo para acceder a contratos modelos de: tiempo completo y tiempo parcial: <a href='http://www.trabajo.gob.ec/modelos-de-contratos-para-trabajadoras-remuneradas-del-hogar-trabajo-domestico'>http://www.trabajo.gob.ec/modelos-de-contratos-para-trabajadoras-remuneradas-del-hogar-trabajo-domestico</a> <br><br> <b>Recuerda</b>, tu empleador no puede despedirte por ninguno de estos motivos: embarazo, edad, apariencia, estado de salud física o mental o por diversidad sexual o religiosa. "
-                }
-              ]
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "id": 6,
-      "image": "home_afiliacion",
-      "title": "VERIFICAR AFILIACIÓN",
-      "title_next_step": null,
-      "information": [
-        {
-          "id": 4,
-          "description": "El empleador debe inscribirte en el Instituto Ecuatoriano de Seguridad Social (IESS), desde el primer día de trabajo. Dará aviso de tu entrada en los primeros 15 días. Comunicará sobre tu salida, sueldos y salarios, accidentes de trabajo y enfermedades que se produzcan en él y cumplirá con las demás obligaciones legales sobre seguridad social.",
-          "image": "info_afiliacion",
-          "screen_title": "AFILIACIÓN AL IESS",
-          "next_step": null,
-          "sections": [
-            {
-              "id": 8,
-              "title": "¿Qué ofrece el IESS a sus afiliadas?",
-              "steps": [
-                {
-                  "step_id": null,
-                  "description": "•&nbsp;&nbsp;&nbsp;Salud (seguro de salud individual y familiar). <br>•&nbsp;&nbsp;&nbsp;Riesgos de trabajo (accidentes de trabajo y enfermedades).<br>•&nbsp;&nbsp;&nbsp;Pensiones (vejez, invalidez y muerte). <br><br>Para mayor información consulta la página: <a href = 'https://www.iess.gob.ec'>https://www.iess.gob.ec </a> <br><br><b>Recuerda, </b> tu empleador/a debe afiliarte al IESS. ¡Es tu derecho! <br><br> Para verificar si estás afiliada sigue estos pasos: "
-                }
-              ]
-            },
-            {
-              "id": 9,
-              "title": "Obtén tu clave del IESS",
-              "steps": [
-                {
-                  "step_id": 1,
-                  "description": "Desde una computadora o celular con conexión al internet, ingresa en el vínculo <a href='https://www.iess.gob.ec/solicitudclave/pages/public/principal.jsf'>https://www.iess.gob.ec/solicitudclave/pages/public/principal.jsf</a>"
-                },
-                {
-                  "step_id": 2,
-                  "description": "Ingresa tu número de cédula y sigue las instrucciones hasta que aparezca el botón “Finalizar”."
-                },
-                {
-                  "step_id": 3,
-                  "description": "Busca en tu correo electrónico un mail del IESS llamado “Activación de clave” (antes de esto se te solicitará un correo elctrónico). Selecciona el botón “Click para continuar” en el correo que te llegó."
-                },
-                {
-                  "step_id": 4,
-                  "description": "Ingresa una nueva clave y repite la misma clave para confirmar."
-                }
-              ]
-            },
-            {
-              "id": 10,
-              "title": "Obtén tu certificado de afiliación",
-              "steps": [
-                {
-                  "step_id": 1,
-                  "description": "Una vez que tengas tu clave del IESS, ingresa al siguiente vínculo <a href='https://www.iess.gob.ec/afiliado-web/pages/opcionesGenerales/seleccionCertificadoDeAfiliacion.jsf'>https://www.iess.gob.ec/solicitudclave/pages/public/principal.jsf</a>"
-                },
-                {
-                  "step_id": 2,
-                  "description": "Selecciona la opción “Certificado de Afiliación al Seguro General”."
-                },
-                {
-                  "step_id": 3,
-                  "description": "Ingresa tu número de cédula y después tu clave."
-                },
-                {
-                  "step_id": 4,
-                  "description": "Selecciona la opción ingresar."
-                },
-                {
-                  "step_id": 5,
-                  "description": "Si tu cédula y clave son los correctos, se descargará un certificado que indica que tu empleador te ha afiliado, y la fecha del último aporte al IESS."
-                }
-              ]
-            }
-          ]
-        }
-      ]
     },
     {
       "id": 7,
