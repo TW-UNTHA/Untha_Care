@@ -28,18 +28,29 @@ class RoutesViewModel(
     }
 
     fun deleteAnswersOptionFromSharedPreferences(isLabourRoute: Boolean) {
-        if(isLabourRoute){
+        if (isLabourRoute) {
             sharedPreferences.edit().remove(Constants.FAULT_ANSWER_ROUTE_LABOUR).apply()
-        }else{
+        } else {
             sharedPreferences.edit().remove(Constants.FAULT_ANSWER_ROUTE_VIOLENCE).apply()
         }
     }
 
     fun loadResultFaultAnswersFromSharedPreferences(isLabourRoute: Boolean): String? {
-        if(isLabourRoute){
+        if (isLabourRoute) {
             return sharedPreferences.getString(Constants.FAULT_ANSWER_ROUTE_LABOUR, "")
         }
         return sharedPreferences.getString(Constants.FAULT_ANSWER_ROUTE_VIOLENCE, "")
+    }
+
+    fun isThereLastResultForRoute(isLabourRoute: Boolean): Boolean {
+        val isThereLastResult: String?
+        return if (isLabourRoute) {
+            isThereLastResult = sharedPreferences.getString(Constants.COMPLETE_LABOUR_ROUTE, null)
+            isThereLastResult != null
+        } else {
+            isThereLastResult = sharedPreferences.getString(Constants.COMPLETE_VIOLENCE_ROUTE, null)
+            isThereLastResult != null
+        }
     }
 
 

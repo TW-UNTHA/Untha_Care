@@ -92,6 +92,10 @@ class RouteResultsFragment : BaseFragment() {
             isLabourRoute = viewModel.isLabourRoute(it)
         }
         violenceLevel = viewModel.getHigherViolenceLevel()
+    }
+
+    override fun onResume() {
+        super.onResume()
         loadTitleRoute(isLabourRoute)
         setCloseButtonAction()
     }

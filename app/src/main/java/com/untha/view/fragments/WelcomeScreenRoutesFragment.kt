@@ -6,6 +6,7 @@ import android.speech.tts.TextToSpeech
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.GONE
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.core.content.ContextCompat
@@ -53,6 +54,7 @@ class WelcomeScreenRoutesFragment : BaseFragment() {
     private var imageWelcome: String? = ""
     private var typeRoute: String? = ""
     private var isLabourRoute = false
+    private var isThereLastResultForRoute = false
 
     companion object {
         const val ROUTE_BUTTON_TEXT = "Empezar"
@@ -73,6 +75,7 @@ class WelcomeScreenRoutesFragment : BaseFragment() {
             isLabourRoute = typeRoute.equals(Constants.ROUTE_LABOUR)
         }
         loadMessagesRoute()
+        isThereLastResultForRoute = routeViewModel.isThereLastResultForRoute(isLabourRoute)
     }
 
     private fun loadTitleRoute(isLabourRoute: Boolean) {
@@ -170,6 +173,9 @@ class WelcomeScreenRoutesFragment : BaseFragment() {
             linkLastResult()
             isFocusable = true
             isClickable = true
+            if (!isThereLastResultForRoute) {
+                visibility = GONE
+            }
             setOnClickListener { view ->
                 val bundle = Bundle()
                 bundle.putBoolean(Constants.IS_LABOUR_ROUTE, isLabourRoute)
@@ -280,48 +286,59 @@ class WelcomeScreenRoutesFragment : BaseFragment() {
                 R.font.proxima_nova_bold
             )
             onClick {
-                val isLabourRoute = typeRoute == Constants.ROUTE_LABOUR
-                routeViewModel.deleteAnswersOptionFromSharedPreferences(isLabourRoute)
-                if (isLabourRoute) {
-                    val goToBundle = Bundle().apply {
-                        putInt(Constants.REMAINING_QUESTION, Constants.TEMPORAL_LOAD_PROGRESS_BAR)
-                        putInt(Constants.QUESTION_ADVANCE, Constants.COUNT_QUESTION_ADVANCE)
-                        putInt(
-                            Constants.ROUTE_QUESTION_GO_TO,
-                            Constants.START_QUESTION_ROUTE_LABOUR
-                        )
-                        putSerializable(
-                            Constants.ROUTE_LABOUR,
-                            routeViewModel.loadLabourRouteFromSharedPreferences()
-                        )
-                    }
-                    view.findNavController()
-                        .navigate(R.id.singleSelectQuestionFragment, goToBundle, navOptions, null)
-                } else {
-                    val goToBundle = Bundle().apply {
-                        putInt(Constants.REMAINING_QUESTION, Constants.TEMPORAL_LOAD_PROGRESS_BAR)
-                        putInt(Constants.QUESTION_ADVANCE, Constants.COUNT_QUESTION_ADVANCE)
-                        putInt(
-                            Constants.ROUTE_QUESTION_GO_TO,
-                            Constants.START_QUESTION_ROUTE_VIOLENCE
-                        )
-                        putSerializable(
-                            Constants.ROUTE_VIOLENCE,
-                            routeViewModel.loadViolenceRouteFromSharedPreferences()
-                        )
-                    }
-                    view.findNavController()
-                        .navigate(
-                            R.id.multipleSelectionQuestionFragment,
-                            goToBundle,
-                            navOptions,
-                            null
-                        )
-                }
-                logAnalyticsCustomContentTypeWithId(ContentType.ROUTE, FirebaseEvent.ROUTE)
+                nextButtonClick(view)
             }
-        }.lparams(width = matchParent, height = dip(height.toFloat()))
+        }.lparams(width = matchParent, height = dip(height.toFloat())) {
+            if (!isThereLastResultForRoute) {
+                bottomMargin = dip(
+                    (getHeightElementInDp(SPACE_LINK_BUTTON)
+                            * MARGIN_FOR_TOP_AND_BOTTOM).toFloat()
+                )
+            }
+        }
 
+    }
+
+    private fun nextButtonClick(view: _LinearLayout) {
+        val isLabourRoute = typeRoute == Constants.ROUTE_LABOUR
+        routeViewModel.deleteAnswersOptionFromSharedPreferences(isLabourRoute)
+        if (isLabourRoute) {
+            val goToBundle = Bundle().apply {
+                putInt(Constants.REMAINING_QUESTION, Constants.TEMPORAL_LOAD_PROGRESS_BAR)
+                putInt(Constants.QUESTION_ADVANCE, Constants.COUNT_QUESTION_ADVANCE)
+                putInt(
+                    Constants.ROUTE_QUESTION_GO_TO,
+                    Constants.START_QUESTION_ROUTE_LABOUR
+                )
+                putSerializable(
+                    Constants.ROUTE_LABOUR,
+                    routeViewModel.loadLabourRouteFromSharedPreferences()
+                )
+            }
+            view.findNavController()
+                .navigate(R.id.singleSelectQuestionFragment, goToBundle, navOptions, null)
+        } else {
+            val goToBundle = Bundle().apply {
+                putInt(Constants.REMAINING_QUESTION, Constants.TEMPORAL_LOAD_PROGRESS_BAR)
+                putInt(Constants.QUESTION_ADVANCE, Constants.COUNT_QUESTION_ADVANCE)
+                putInt(
+                    Constants.ROUTE_QUESTION_GO_TO,
+                    Constants.START_QUESTION_ROUTE_VIOLENCE
+                )
+                putSerializable(
+                    Constants.ROUTE_VIOLENCE,
+                    routeViewModel.loadViolenceRouteFromSharedPreferences()
+                )
+            }
+            view.findNavController()
+                .navigate(
+                    R.id.multipleSelectionQuestionFragment,
+                    goToBundle,
+                    navOptions,
+                    null
+                )
+        }
+        logAnalyticsCustomContentTypeWithId(ContentType.ROUTE, FirebaseEvent.ROUTE)
     }
 
     private fun _LinearLayout.linkLastResult() {

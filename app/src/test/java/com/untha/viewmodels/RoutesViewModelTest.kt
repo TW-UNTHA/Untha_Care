@@ -2,6 +2,7 @@ package com.untha.viewmodels
 
 import android.content.SharedPreferences
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import com.nhaarman.mockito_kotlin.never
 import com.nhaarman.mockito_kotlin.verify
 import com.untha.di.mapperModule
 import com.untha.di.networkModule
@@ -16,7 +17,9 @@ import com.untha.model.transactionalmodels.Route
 import com.untha.utils.Constants
 import kotlinx.serialization.json.Json
 import org.hamcrest.CoreMatchers
+import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.MatcherAssert
+import org.hamcrest.MatcherAssert.assertThat
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
@@ -201,7 +204,7 @@ class RoutesViewModelTest : KoinTest {
     }
 
     @Test
-    fun `Should reset shared preferences when the route is Violence`() {
+    fun `should reset shared preferences when the route is Violence`() {
 
         val resultAnswersDefault = "F5 F9 F7 F6"
         val routesViewModel = RoutesViewModel(
@@ -225,5 +228,79 @@ class RoutesViewModelTest : KoinTest {
         routesViewModel.deleteAnswersOptionFromSharedPreferences(false)
         verify(sharedPreferences.edit()).remove(Constants.FAULT_ANSWER_ROUTE_VIOLENCE)
         verify(editor).apply()
+    }
+
+    @Test
+    fun `should return false when no previous violence result is present`() {
+        val routesViewModel = RoutesViewModel(
+            sharedPreferences
+        )
+        Mockito.`when`(
+            sharedPreferences.getString(
+                Constants.COMPLETE_VIOLENCE_ROUTE,
+                null
+            )
+        ).thenReturn(null)
+
+        val isThereLastResult = routesViewModel.isThereLastResultForRoute(false)
+
+        verify(sharedPreferences).getString(Constants.COMPLETE_VIOLENCE_ROUTE, null)
+        assertThat(isThereLastResult, `is`(false))
+    }
+
+    @Test
+    fun `should return true when previous violence result is present`() {
+        val routesViewModel = RoutesViewModel(
+            sharedPreferences
+        )
+        Mockito.`when`(
+            sharedPreferences.getString(
+                Constants.COMPLETE_VIOLENCE_ROUTE,
+                null
+            )
+        ).thenReturn("")
+
+        val isThereLastResult = routesViewModel.isThereLastResultForRoute(false)
+
+        verify(sharedPreferences).getString(Constants.COMPLETE_VIOLENCE_ROUTE, null)
+        assertThat(isThereLastResult, `is`(true))
+    }
+
+    @Test
+    fun `should return true when previous labour result is present`() {
+        val routesViewModel = RoutesViewModel(
+            sharedPreferences
+        )
+        Mockito.`when`(
+            sharedPreferences.getString(
+                Constants.COMPLETE_LABOUR_ROUTE,
+                null
+            )
+        ).thenReturn("")
+
+        val isThereLastResult = routesViewModel.isThereLastResultForRoute(true)
+
+        verify(sharedPreferences).getString(Constants.COMPLETE_LABOUR_ROUTE, null)
+        verify(sharedPreferences, never()).getString(Constants.COMPLETE_VIOLENCE_ROUTE, null)
+        assertThat(isThereLastResult, `is`(true))
+    }
+
+    @Test
+    fun `should return false when previous labour result is present`() {
+        val routesViewModel = RoutesViewModel(
+            sharedPreferences
+        )
+        Mockito.`when`(
+            sharedPreferences.getString(
+                Constants.COMPLETE_LABOUR_ROUTE,
+                null
+            )
+        ).thenReturn(null)
+
+        val isThereLastResult = routesViewModel.isThereLastResultForRoute(true)
+
+        verify(sharedPreferences).getString(Constants.COMPLETE_LABOUR_ROUTE, null)
+        verify(sharedPreferences, never()).getString(Constants.COMPLETE_VIOLENCE_ROUTE, null)
+        assertThat(isThereLastResult, `is`(false))
     }
 }
