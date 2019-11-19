@@ -22,14 +22,13 @@ import com.untha.model.transactionalmodels.Section
 import com.untha.model.transactionalmodels.Step
 import com.untha.utils.Constants
 import com.untha.utils.ContentType
-import com.untha.utils.FirebaseEvent
 import com.untha.utils.PixelConverter
 import com.untha.utils.PixelConverter.toPixels
+import com.untha.view.activities.MainActivity
 import com.untha.view.extension.buildImageNextStep
 import com.untha.view.extension.buildNextStepTitle
 import com.untha.view.extension.getSelectableItemBackground
 import com.untha.view.extension.loadImage
-import com.untha.view.activities.MainActivity
 import com.untha.viewmodels.GenericInfoStepViewModel
 import org.jetbrains.anko.AnkoViewDslMarker
 import org.jetbrains.anko._LinearLayout
@@ -381,7 +380,7 @@ class GenericInfoStepFragment : BaseFragment() {
                     onItemClickRouteViolence(itemView)
                 }
             }
-            logAnalyticsCustomContentTypeWithId(ContentType.ROUTE, FirebaseEvent.ROUTE)
+            logAnalyticsSelectContentWithId(category.title, ContentType.ROUTE)
         } else {
             itemView.findNavController()
                 .navigate(R.id.genericInfoFragment, categoryBundle, navOptions, null)
