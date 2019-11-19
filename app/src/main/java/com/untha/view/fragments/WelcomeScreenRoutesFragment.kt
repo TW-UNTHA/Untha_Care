@@ -171,8 +171,10 @@ class WelcomeScreenRoutesFragment : BaseFragment() {
             isFocusable = true
             isClickable = true
             setOnClickListener { view ->
+                val bundle = Bundle()
+                bundle.putBoolean(Constants.IS_LABOUR_ROUTE, isLabourRoute)
                 view.findNavController()
-                    .navigate(R.id.routeResultsFragment, null, navOptions, null)
+                    .navigate(R.id.routeResultsFragment, bundle, navOptions, null)
             }
             backgroundResource = getSelectableItemBackground().resourceId
             topPadding =
@@ -282,7 +284,7 @@ class WelcomeScreenRoutesFragment : BaseFragment() {
                 routeViewModel.deleteAnswersOptionFromSharedPreferences(isLabourRoute)
                 if (isLabourRoute) {
                     val goToBundle = Bundle().apply {
-                        putInt(Constants.REMAINING_QUESTION,Constants.TEMPORAL_LOAD_PROGRESS_BAR)
+                        putInt(Constants.REMAINING_QUESTION, Constants.TEMPORAL_LOAD_PROGRESS_BAR)
                         putInt(Constants.QUESTION_ADVANCE, Constants.COUNT_QUESTION_ADVANCE)
                         putInt(
                             Constants.ROUTE_QUESTION_GO_TO,
@@ -297,7 +299,7 @@ class WelcomeScreenRoutesFragment : BaseFragment() {
                         .navigate(R.id.singleSelectQuestionFragment, goToBundle, navOptions, null)
                 } else {
                     val goToBundle = Bundle().apply {
-                        putInt(Constants.REMAINING_QUESTION,Constants.TEMPORAL_LOAD_PROGRESS_BAR)
+                        putInt(Constants.REMAINING_QUESTION, Constants.TEMPORAL_LOAD_PROGRESS_BAR)
                         putInt(Constants.QUESTION_ADVANCE, Constants.COUNT_QUESTION_ADVANCE)
                         putInt(
                             Constants.ROUTE_QUESTION_GO_TO,

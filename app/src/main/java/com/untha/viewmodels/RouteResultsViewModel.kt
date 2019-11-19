@@ -30,7 +30,7 @@ class RouteResultsViewModel(
     private lateinit var questionnaires: List<QuestionnaireRouteResult>
 
     private fun getLabourRouteResultsIds(): List<String> {
-        val results = sharedPreferences.getString(Constants.FAULT_ANSWER_ROUTE_LABOUR, "")
+        val results = sharedPreferences.getString(Constants.COMPLETE_LABOUR_ROUTE, "")
         return results?.split(" ") ?: listOf()
     }
 
@@ -92,7 +92,7 @@ class RouteResultsViewModel(
 
     fun getHigherViolenceLevel(): String? {
         val violenceRouteResult =
-            sharedPreferences.getString(Constants.FAULT_ANSWER_ROUTE_VIOLENCE, "")
+            sharedPreferences.getString(Constants.COMPLETE_VIOLENCE_ROUTE, "")
         val results = violenceRouteResult?.split(" ")
         val high = results?.firstOrNull { it == "ALTO" }
         val medium = results?.firstOrNull { it == "MEDIO" }
@@ -108,7 +108,7 @@ class RouteResultsViewModel(
 
     fun isLabourRoute(bundle: Bundle): Boolean {
         return when {
-            bundle.containsKey(Constants.ROUTE_LABOUR) -> {
+            bundle.getBoolean(Constants.IS_LABOUR_ROUTE) -> {
                 true
             }
             else -> false

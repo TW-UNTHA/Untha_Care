@@ -46,19 +46,19 @@ class SingleSelectionQuestionFragment : BaseFragment() {
     private lateinit var route: Route
     private var routeQuestion: RouteQuestion? = null
     private var goTo: Int? = null
-    private val questionViewModel:SingleSelectionQuestionViewModel by viewModel()
+    private val questionViewModel: SingleSelectionQuestionViewModel by viewModel()
     private val categoryViewModel: CategoryViewModel by viewModel()
     private var isLabourRoute: Boolean = false
-    private var remainingQuestion:Int = 0
+    private var remainingQuestion: Int = 0
     private var questionAdvance: Int = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val bundle = arguments
-        goTo  = bundle?.get("goTo") as Int
-        isLabourRoute =  questionViewModel.isLabourRoute(bundle)
+        goTo = bundle?.get("goTo") as Int
+        isLabourRoute = questionViewModel.isLabourRoute(bundle)
         route = questionViewModel.loadRoute(isLabourRoute, bundle)
-        questionAdvance += bundle.getInt(Constants.QUESTION_ADVANCE) .inc()
+        questionAdvance += bundle.getInt(Constants.QUESTION_ADVANCE).inc()
         questionViewModel.loadQuestion(goTo, route)
         routeQuestion = questionViewModel.question
         val optionWithMaxRemaining = routeQuestion?.options?.maxBy { it.remaining }
@@ -87,7 +87,8 @@ class SingleSelectionQuestionFragment : BaseFragment() {
         }
         with(view as _LinearLayout) {
             val percentageProgressBar = questionViewModel.calculatePercentQuestionsAnswered(
-                questionAdvance,remainingQuestion)
+                questionAdvance, remainingQuestion
+            )
             verticalLayout {
                 loadHorizontalProgressBar(percentageProgressBar)
                 verticalLayout {
@@ -103,14 +104,16 @@ class SingleSelectionQuestionFragment : BaseFragment() {
                 if (hasTwoOptions(sizeOptions)) {
                     linearLayout {
                         options(styleDisplayOptions(sizeOptions), view)
-                    }.lparams{
-                        topMargin = calculateHeightComponentsQuestion(Constants.MARGIN_HEIGHT_QUESTION)
+                    }.lparams {
+                        topMargin =
+                            calculateHeightComponentsQuestion(Constants.MARGIN_HEIGHT_QUESTION)
                     }
                 } else {
                     verticalLayout {
                         options(styleDisplayOptions(sizeOptions), view)
-                    }.lparams{
-                        topMargin = calculateHeightComponentsQuestion(Constants.MARGIN_HEIGHT_QUESTION)
+                    }.lparams {
+                        topMargin =
+                            calculateHeightComponentsQuestion(Constants.MARGIN_HEIGHT_QUESTION)
                     }
                 }
 
@@ -153,7 +156,8 @@ class SingleSelectionQuestionFragment : BaseFragment() {
         val close = layoutActionBar?.findViewById(R.id.icon_go_back_route) as ImageView
         close.onClick {
             view?.findNavController()
-                ?.navigate(R.id.mainRouteFragment,
+                ?.navigate(
+                    R.id.mainRouteFragment,
                     categoriesRoutes,
                     navOptionsToBackNavigation,
                     null
@@ -212,9 +216,9 @@ class SingleSelectionQuestionFragment : BaseFragment() {
             )
             gravity = Gravity.CENTER_HORIZONTAL
         }.lparams(width = matchParent, height = matchParent) {
-            bottomMargin  =
+            bottomMargin =
                 calculateWidthComponentsQuestion()
-            topMargin  =
+            topMargin =
                 calculateWidthComponentsQuestion()
         }
     }
@@ -249,23 +253,29 @@ class SingleSelectionQuestionFragment : BaseFragment() {
                         option.hint?.let { logAnalyticsCustomEvent(it) }
                         when {
                             isLabourRoute -> option.result?.let {
-                                questionViewModel.saveAnswerOption(it, Constants.FAULT_ANSWER_ROUTE_LABOUR)
+                                questionViewModel.saveAnswerOption(
+                                    it,
+                                    Constants.FAULT_ANSWER_ROUTE_LABOUR
+                                )
                             }
                             else -> option.result?.let {
-                                questionViewModel.saveAnswerOption(it, Constants.FAULT_ANSWER_ROUTE_VIOLENCE)
+                                questionViewModel.saveAnswerOption(
+                                    it,
+                                    Constants.FAULT_ANSWER_ROUTE_VIOLENCE
+                                )
                             }
                         }
                         questionViewModel.loadQuestion(option.goTo, route)
                         val routeQuestionGoTo = questionViewModel.question
                         val isSingle = questionViewModel.isSingleQuestion(routeQuestionGoTo?.type)
-                        val questionGoToInfo= mapOf(
+                        val questionGoToInfo = mapOf(
                             "goTo" to option.goTo,
                             "isSingle" to isSingle,
                             "isLabourRoute" to isLabourRoute,
                             "questionAdvance" to questionAdvance
 
-                            )
-                        manageGoToQuestion(questionGoToInfo, route, view)
+                        )
+                        manageGoToQuestion(questionGoToInfo, route, view, questionViewModel)
                     }
                 }.lparams(
                     width = width,
@@ -284,7 +294,7 @@ class SingleSelectionQuestionFragment : BaseFragment() {
         return PixelConverter.toPixels(cardHeightInDps, context)
     }
 
-    private fun calculateWidthComponentsQuestion( ): Int {
+    private fun calculateWidthComponentsQuestion(): Int {
         val cardHeightInDps =
             (PixelConverter.getScreenDpWidth(context)) * Constants.MARGIN_SINGLE_SELECTION_QUESTION
         return PixelConverter.toPixels(cardHeightInDps, context)

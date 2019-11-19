@@ -13,5 +13,6 @@ enum class ContentType(val description: String) {
 enum class FirebaseEvent(val description: String) {
     AUDIO("select_audio"),
     ROUTE("start_route"),
-    LINK("select_link")
+    LINK("select_link"),
+    CLOSE("close_button")
 }

@@ -81,15 +81,15 @@ class MultipleSelectionQuestionFragment : BaseFragment() {
         goBackScreenRoutes()
     }
 
-    private fun loadTitleRoute(isLabourRoute:Boolean){
-        if(isLabourRoute){
+    private fun loadTitleRoute(isLabourRoute: Boolean) {
+        if (isLabourRoute) {
             (activity as MainActivity).customActionBar(
                 Constants.NAME_SCREEN_LABOUR_ROUTE,
                 enableCustomBar = true,
                 needsBackButton = true,
                 backMethod = null
             )
-        }else{
+        } else {
             (activity as MainActivity).customActionBar(
                 Constants.NAME_SCREEN_VIOLENCE_ROUTE,
                 enableCustomBar = true,
@@ -139,8 +139,9 @@ class MultipleSelectionQuestionFragment : BaseFragment() {
             )
         }
         with(view as _LinearLayout) {
-             val percentageProgressBar = viewModel.calculatePercentQuestionsAnswered(
-                 questionAdvance, remainingQuestion)
+            val percentageProgressBar = viewModel.calculatePercentQuestionsAnswered(
+                questionAdvance, remainingQuestion
+            )
             verticalLayout {
                 loadHorizontalProgressBar(percentageProgressBar)
                 verticalLayout {
@@ -267,7 +268,8 @@ class MultipleSelectionQuestionFragment : BaseFragment() {
                     }
 
                     if (isANormalOptionSelected == null && !isNoneOfTheAboveSelected) {
-                        Toast.makeText(context,
+                        Toast.makeText(
+                            context,
                             context.getString(R.string.choose_at_least_one_option),
                             Toast.LENGTH_LONG
                         ).show()
@@ -278,12 +280,13 @@ class MultipleSelectionQuestionFragment : BaseFragment() {
                         registerAnalyticsEvent(false)
                         viewModel.loadQuestion(routeQuestion?.goTo, route)
                         val isSingle = viewModel.isSingleQuestion(viewModel.question?.type)
-                        val questionGoToInfo= mapOf(
+                        val questionGoToInfo = mapOf(
                             "goTo" to routeQuestion?.goTo,
                             "isSingle" to isSingle,
                             "isLabourRoute" to isLabourRoute,
-                            "questionAdvance" to questionAdvance)
-                        manageGoToQuestion(questionGoToInfo, route, view)
+                            "questionAdvance" to questionAdvance
+                        )
+                        manageGoToQuestion(questionGoToInfo, route, view, viewModel)
 
                     }
                 }
@@ -306,9 +309,11 @@ class MultipleSelectionQuestionFragment : BaseFragment() {
             width = matchParent, height = dip(0),
             weight = Constants.NEXT_BUTTON_WEIGHT
         ) {
-            bottomMargin = dip(calculateHeightComponentsQuestion(
-                Constants.MARGIN_BOTTOM_PERCENTAGE_NEXT_BUTTON)
+            bottomMargin = dip(
+                calculateHeightComponentsQuestion(
+                    Constants.MARGIN_BOTTOM_PERCENTAGE_NEXT_BUTTON
                 )
+            )
             rightMargin = dip(calculateOptionContainerWidthMargin()) / 2
             leftMargin = dip(calculateOptionContainerWidthMargin())
         }
@@ -341,9 +346,9 @@ class MultipleSelectionQuestionFragment : BaseFragment() {
                 gravity = Gravity.CENTER
             }.lparams(width = wrapContent, height = wrapContent) {
                 gravity = Gravity.CENTER
-                bottomMargin  =
+                bottomMargin =
                     calculateWidthComponentsQuestion()
-                topMargin  =
+                topMargin =
                     calculateWidthComponentsQuestion()
             }
         }
@@ -375,7 +380,13 @@ class MultipleSelectionQuestionFragment : BaseFragment() {
                 optionClick(isNoneOfAbove, position)
                 adjustTextSize()
             }.lparams(width = matchParent, height = matchParent)
-            addDataToExternalCollections(isNoneOfAbove, position, actualTextView, option.result, option.remaining)
+            addDataToExternalCollections(
+                isNoneOfAbove,
+                position,
+                actualTextView,
+                option.result,
+                option.remaining
+            )
         }.lparams(
             weight = if (elementsInLayout == 2) Constants.HALF_SCREEN_WEIGHT else
                 Constants.FULL_SCREEN_WEIGHT,
@@ -395,7 +406,7 @@ class MultipleSelectionQuestionFragment : BaseFragment() {
         remaining: Int
     ) {
         if (!isNoneOfAbove) {
-            options.add(MultipleSelectionOption(position, false, tv, code,remaining))
+            options.add(MultipleSelectionOption(position, false, tv, code, remaining))
         } else {
             noneOfTheAboveTextView = tv
         }
@@ -439,7 +450,7 @@ class MultipleSelectionQuestionFragment : BaseFragment() {
                 setUnselectedColorSchema(this)
                 option.isSelected = false
                 option.textView = this
-                option.remaining=option.remaining
+                option.remaining = option.remaining
             } else {
                 setSelectedColorSchema(this)
                 option.isSelected = true
@@ -448,7 +459,7 @@ class MultipleSelectionQuestionFragment : BaseFragment() {
                     setUnselectedColorSchema(it)
                     isNoneOfTheAboveSelected = false
                 }
-                option.remaining=option.remaining
+                option.remaining = option.remaining
             }
         }
     }

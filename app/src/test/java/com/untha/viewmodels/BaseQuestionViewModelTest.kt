@@ -46,6 +46,7 @@ import org.mockito.Mockito.`when`
 import com.bumptech.glide.request.RequestOptions.option
 import org.mockito.Mockito.`when`
 import com.bumptech.glide.request.RequestOptions.option
+import com.nhaarman.mockito_kotlin.never
 import junit.framework.Assert.*
 
 
@@ -108,7 +109,7 @@ class BaseQuestionViewModelTest : KoinTest {
             )
         ).thenReturn(editor)
         doNothing().whenever(editor).apply()
-        baseViewModel.saveAnswerOption(option.result,Constants.FAULT_ANSWER_ROUTE_LABOUR)
+        baseViewModel.saveAnswerOption(option.result, Constants.FAULT_ANSWER_ROUTE_LABOUR)
 
         verify(sharedPreferences.edit())
             .putString(
@@ -121,7 +122,7 @@ class BaseQuestionViewModelTest : KoinTest {
 
     @Test
     fun `should retrieve the question with the given id`() {
-        val routeOption = RouteOption("dummy", "dummy",1 ,null, null)
+        val routeOption = RouteOption("dummy", "dummy", 1, null, null)
         val routeQuestion =
             RouteQuestion(1, "dummy", "dummy", "dummy", null, "dummy", listOf(routeOption))
         val route = Route(1, listOf(routeQuestion))
@@ -136,14 +137,14 @@ class BaseQuestionViewModelTest : KoinTest {
     @Test
     fun `should return true when is single question`() {
         val viewModel = BaseQuestionViewModel(sharedPreferences)
-        val isSingleQuestion=viewModel.isSingleQuestion(Constants.SINGLE_QUESTION)
+        val isSingleQuestion = viewModel.isSingleQuestion(Constants.SINGLE_QUESTION)
         assertTrue(isSingleQuestion)
     }
 
     @Test
     fun `should return false when is not single question`() {
         val viewModel = BaseQuestionViewModel(sharedPreferences)
-        val isSingleQuestion=viewModel.isSingleQuestion(Constants.MULTIPLE_QUESTION_PAGE)
+        val isSingleQuestion = viewModel.isSingleQuestion(Constants.MULTIPLE_QUESTION_PAGE)
         assertFalse(isSingleQuestion)
     }
 
@@ -157,7 +158,7 @@ class BaseQuestionViewModelTest : KoinTest {
 
     @Test
     fun `should  load labour route when the route is Labour`() {
-        val routeOption = RouteOption("dummy", "dummy", 1,null, null)
+        val routeOption = RouteOption("dummy", "dummy", 1, null, null)
         val routeQuestion =
             RouteQuestion(1, "dummy", "dummy", "dummy", null, "dummy", listOf(routeOption))
         val route = Route(1, listOf(routeQuestion))
@@ -170,7 +171,7 @@ class BaseQuestionViewModelTest : KoinTest {
 
     @Test
     fun `should  load violence route whe the route is violence`() {
-        val routeOption = RouteOption("dummy", "dummy", 1,null, null)
+        val routeOption = RouteOption("dummy", "dummy", 1, null, null)
         val routeQuestion =
             RouteQuestion(1, "dummy", "dummy", "dummy", null, "dummy", listOf(routeOption))
         val route = Route(1, listOf(routeQuestion))
@@ -178,7 +179,94 @@ class BaseQuestionViewModelTest : KoinTest {
         val mockBundle = mock(Bundle::class.java)
         `when`(mockBundle.get(Constants.ROUTE_VIOLENCE)).thenReturn(route)
         MatcherAssert.assertThat(route, CoreMatchers.`is`(viewModel.loadRoute(false, mockBundle)))
+    }
 
+    @Test
+    fun `should save complete labour route when it is present and isRouteLabour is true`() {
+        val baseViewModel = BaseQuestionViewModel(sharedPreferences)
+        val savedRoute = "R1 R2 R3"
+        val editor = mock(SharedPreferences.Editor::class.java)
+        `when`(sharedPreferences.edit()).thenReturn(editor)
+        `when`(sharedPreferences.getString(Constants.FAULT_ANSWER_ROUTE_LABOUR, ""))
+            .thenReturn(savedRoute)
+        `when`(editor.putString(Constants.COMPLETE_LABOUR_ROUTE, savedRoute))
+            .thenReturn(editor)
+        doNothing().whenever(editor).apply()
+
+        baseViewModel.saveCompleteRouteResult(true)
+
+        verify(sharedPreferences.edit())
+            .putString(
+                Constants.COMPLETE_LABOUR_ROUTE, savedRoute
+
+            )
+        verify(editor).apply()
+    }
+
+    @Test
+    fun `should not save complete labour route when it is not present and isRouteLabour is true`() {
+        val baseViewModel = BaseQuestionViewModel(sharedPreferences)
+        val savedRoute = "R1 R2 R3"
+        val editor = mock(SharedPreferences.Editor::class.java)
+        `when`(sharedPreferences.edit()).thenReturn(editor)
+        `when`(sharedPreferences.getString(Constants.FAULT_ANSWER_ROUTE_LABOUR, ""))
+            .thenReturn(null)
+        `when`(editor.putString(Constants.COMPLETE_LABOUR_ROUTE, savedRoute))
+            .thenReturn(editor)
+        doNothing().whenever(editor).apply()
+
+        baseViewModel.saveCompleteRouteResult(true)
+
+        verify(sharedPreferences.edit(), never())
+            .putString(
+                Constants.COMPLETE_LABOUR_ROUTE, savedRoute
+
+            )
+        verify(editor, never()).apply()
+    }
+
+    @Test
+    fun `should save complete violence route when it is present and isRouteLabour is false`() {
+        val baseViewModel = BaseQuestionViewModel(sharedPreferences)
+        val savedRoute = "R1 R2 R3"
+        val editor = mock(SharedPreferences.Editor::class.java)
+        `when`(sharedPreferences.edit()).thenReturn(editor)
+        `when`(sharedPreferences.getString(Constants.FAULT_ANSWER_ROUTE_VIOLENCE, ""))
+            .thenReturn(savedRoute)
+        `when`(editor.putString(Constants.COMPLETE_VIOLENCE_ROUTE, savedRoute))
+            .thenReturn(editor)
+        doNothing().whenever(editor).apply()
+
+        baseViewModel.saveCompleteRouteResult(false)
+
+        verify(sharedPreferences.edit())
+            .putString(
+                Constants.COMPLETE_VIOLENCE_ROUTE, savedRoute
+
+            )
+        verify(editor).apply()
+    }
+
+    @Test
+    fun `should not save complete violence route when it is not present and isRouteLabour is false`() {
+        val baseViewModel = BaseQuestionViewModel(sharedPreferences)
+        val savedRoute = "R1 R2 R3"
+        val editor = mock(SharedPreferences.Editor::class.java)
+        `when`(sharedPreferences.edit()).thenReturn(editor)
+        `when`(sharedPreferences.getString(Constants.FAULT_ANSWER_ROUTE_VIOLENCE, ""))
+            .thenReturn(null)
+        `when`(editor.putString(Constants.COMPLETE_VIOLENCE_ROUTE, null))
+            .thenReturn(editor)
+        doNothing().whenever(editor).apply()
+
+        baseViewModel.saveCompleteRouteResult(true)
+
+        verify(sharedPreferences.edit(), never())
+            .putString(
+                Constants.COMPLETE_VIOLENCE_ROUTE, savedRoute
+
+            )
+        verify(editor, never()).apply()
     }
 
 }

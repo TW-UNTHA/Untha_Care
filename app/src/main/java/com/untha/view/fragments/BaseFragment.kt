@@ -13,6 +13,7 @@ import com.untha.model.transactionalmodels.Route
 import com.untha.utils.Constants
 import com.untha.utils.ContentType
 import com.untha.utils.FirebaseEvent
+import com.untha.viewmodels.BaseQuestionViewModel
 import java.util.*
 
 open class BaseFragment : Fragment(), TextToSpeech.OnInitListener {
@@ -78,7 +79,12 @@ open class BaseFragment : Fragment(), TextToSpeech.OnInitListener {
     }
 
 
-    fun manageGoToQuestion(questionGoToInfo: Map<String, Any?>, route: Route, view: View) {
+    fun manageGoToQuestion(
+        questionGoToInfo: Map<String, Any?>,
+        route: Route,
+        view: View,
+        questionViewModel: BaseQuestionViewModel
+    ) {
         val goTo = questionGoToInfo["goTo"]
         val isSingle = questionGoToInfo["isSingle"] as Boolean
         val isLabourRoute = questionGoToInfo["isLabourRoute"] as Boolean
@@ -86,7 +92,7 @@ open class BaseFragment : Fragment(), TextToSpeech.OnInitListener {
 
         when (goTo) {
             -1 -> {
-                navigateToResultsScreen(isLabourRoute, goTo, route, view)
+                navigateToResultsScreen(isLabourRoute, view, questionViewModel)
             }
             else -> {
                 val goToBundle: Bundle =
@@ -137,26 +143,16 @@ open class BaseFragment : Fragment(), TextToSpeech.OnInitListener {
 
     private fun navigateToResultsScreen(
         isLabourRoute: Boolean,
-        goTo: Any?,
-        route: Route,
-        view: View
+        view: View, viewModel: BaseQuestionViewModel
     ) {
-        val goToBundle: Bundle = when {
-            isLabourRoute -> Bundle().apply {
-                putInt(Constants.ROUTE_QUESTION_GO_TO, goTo as Int)
-                putSerializable(Constants.ROUTE_LABOUR, route)
-            }
-            else -> Bundle().apply {
-                putInt(Constants.ROUTE_QUESTION_GO_TO, goTo as Int)
-                putSerializable(Constants.ROUTE_VIOLENCE, route)
-            }
+        viewModel.saveCompleteRouteResult(isLabourRoute)
+        val bundle = Bundle().apply {
+            putBoolean(Constants.IS_LABOUR_ROUTE, isLabourRoute)
         }
         view.findNavController().navigate(
-            R.id.routeResultsFragment, goToBundle,
+            R.id.routeResultsFragment, bundle,
             navOptions, null
         )
     }
-
-
 }
 

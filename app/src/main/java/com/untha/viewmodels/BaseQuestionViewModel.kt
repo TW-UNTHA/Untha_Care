@@ -33,11 +33,11 @@ open class BaseQuestionViewModel(
     }
 
     fun isSingleQuestion(type: String?): Boolean {
-        if(type == Constants.SINGLE_QUESTION) return true
+        if (type == Constants.SINGLE_QUESTION) return true
         return false
     }
 
-    fun isLabourRoute(bundle: Bundle): Boolean{
+    fun isLabourRoute(bundle: Bundle): Boolean {
         return when {
             bundle.containsKey(Constants.ROUTE_LABOUR) -> {
                 true
@@ -46,17 +46,32 @@ open class BaseQuestionViewModel(
         }
     }
 
-    fun loadRoute(isLabourRoute: Boolean, bundle: Bundle): Route{
-        return if (isLabourRoute){
+    fun loadRoute(isLabourRoute: Boolean, bundle: Bundle): Route {
+        return if (isLabourRoute) {
             bundle.get(Constants.ROUTE_LABOUR) as Route
-        }else{
+        } else {
             bundle.get(Constants.ROUTE_VIOLENCE) as Route
         }
     }
 
-    fun calculatePercentQuestionsAnswered(numberOfQuestionAnswered: Int, numberOfRemainingQuestions: Int): Int {
+    fun calculatePercentQuestionsAnswered(
+        numberOfQuestionAnswered: Int,
+        numberOfRemainingQuestions: Int
+    ): Int {
         val totalQuestions = numberOfQuestionAnswered + numberOfRemainingQuestions
-        return numberOfQuestionAnswered * Constants.TOTAL_PROGRESS_BAR/totalQuestions
+        return numberOfQuestionAnswered * Constants.TOTAL_PROGRESS_BAR / totalQuestions
+    }
+
+    fun saveCompleteRouteResult(isLabourRoute: Boolean) {
+        if (isLabourRoute) {
+            loadFaultAnswersFromSharedPreferences(Constants.FAULT_ANSWER_ROUTE_LABOUR)?.let {
+                sharedPreferences.edit().putString(Constants.COMPLETE_LABOUR_ROUTE, it).apply()
+            }
+        } else {
+            loadFaultAnswersFromSharedPreferences(Constants.FAULT_ANSWER_ROUTE_VIOLENCE)?.let {
+                sharedPreferences.edit().putString(Constants.COMPLETE_VIOLENCE_ROUTE, it).apply()
+            }
+        }
     }
 }
 

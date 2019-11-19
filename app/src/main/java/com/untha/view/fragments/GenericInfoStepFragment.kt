@@ -60,28 +60,6 @@ class GenericInfoStepFragment : BaseFragment() {
     private lateinit var mainActivity: MainActivity
     private val viewModel: GenericInfoStepViewModel by viewModel()
 
-    fun onItemClick(category: Category, categories: ArrayList<Category>?, itemView: View) {
-        val categoryBundle = Bundle().apply {
-            putSerializable(Constants.CATEGORIES, categories)
-            putSerializable(Constants.CATEGORY_PARAMETER, category)
-        }
-
-        if (category.isRoute) {
-            when (category.id) {
-                Constants.ID_ROUTE_LABOUR -> {
-                    onItemClickRouteLabour(itemView)
-                }
-                Constants.ID_ROUTE_VIOLENCE -> {
-                    onItemClickRouteViolence(itemView)
-                }
-            }
-            logAnalyticsCustomContentTypeWithId(ContentType.ROUTE, FirebaseEvent.ROUTE)
-        } else {
-            itemView.findNavController()
-                .navigate(R.id.genericInfoFragment, categoryBundle, navOptions, null)
-        }
-
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -179,7 +157,6 @@ class GenericInfoStepFragment : BaseFragment() {
         }
     }
 
-
     private fun @AnkoViewDslMarker _LinearLayout.buildBlockTextNextSteps(
         categoryNextStep: Category
     ) {
@@ -194,6 +171,7 @@ class GenericInfoStepFragment : BaseFragment() {
             height = dip(widthBlockPixel)
         )
     }
+
 
     private fun _LinearLayout.calculateMarginLeftAndRight(): Int {
         val widthFormula =
@@ -220,7 +198,7 @@ class GenericInfoStepFragment : BaseFragment() {
     private fun @AnkoViewDslMarker _LinearLayout.buildNextStepSubtitle(categoryNextStep: Category) {
         textView {
             val title = categoryNextStep.subtitle ?: Constants.SUBTITLE_NEXT_STEP
-            gravity = Gravity.LEFT
+            gravity = Gravity.START
             text = title
             textSizeDimen = R.dimen.text_size_content_next_step
             textColor =
@@ -347,7 +325,6 @@ class GenericInfoStepFragment : BaseFragment() {
             }
     }
 
-
     private fun _LinearLayout.drawLine(color: Int, height: Int) {
         imageView {
             val widthLine = toPixels(PixelConverter.getScreenDpWidth(context).toDouble(), context)
@@ -389,6 +366,29 @@ class GenericInfoStepFragment : BaseFragment() {
         }
     }
 
+    private fun onItemClick(category: Category, categories: ArrayList<Category>?, itemView: View) {
+        val categoryBundle = Bundle().apply {
+            putSerializable(Constants.CATEGORIES, categories)
+            putSerializable(Constants.CATEGORY_PARAMETER, category)
+        }
+
+        if (category.isRoute) {
+            when (category.id) {
+                Constants.ID_ROUTE_LABOUR -> {
+                    onItemClickRouteLabour(itemView)
+                }
+                Constants.ID_ROUTE_VIOLENCE -> {
+                    onItemClickRouteViolence(itemView)
+                }
+            }
+            logAnalyticsCustomContentTypeWithId(ContentType.ROUTE, FirebaseEvent.ROUTE)
+        } else {
+            itemView.findNavController()
+                .navigate(R.id.genericInfoFragment, categoryBundle, navOptions, null)
+        }
+
+    }
+
     private fun onItemClickRouteLabour(itemView: View) {
         val routeLabour = Bundle().apply {
             putString(Constants.TYPE_ROUTE, Constants.ROUTE_LABOUR)
@@ -405,4 +405,3 @@ class GenericInfoStepFragment : BaseFragment() {
             .navigate(R.id.mainScreenLabourRouteFragment, violenceLabour, navOptions, null)
     }
 }
-

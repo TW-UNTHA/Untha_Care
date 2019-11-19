@@ -74,14 +74,14 @@ class RouteResultsViewModelTest : KoinTest {
 
         viewModel.retrieveRouteResults()
 
-        verify(sharedPreferences).getString(Constants.FAULT_ANSWER_ROUTE_LABOUR, "")
+        verify(sharedPreferences).getString(Constants.COMPLETE_LABOUR_ROUTE, "")
     }
 
     @Test
     fun `should get route results from shared preferences when route result ids are not null`() {
         val viewModel = RouteResultsViewModel(sharedPreferences, repository, mapper)
         val answer = "R1 R2 R3"
-        `when`(sharedPreferences.getString(Constants.FAULT_ANSWER_ROUTE_LABOUR, "")).thenReturn(
+        `when`(sharedPreferences.getString(Constants.COMPLETE_LABOUR_ROUTE, "")).thenReturn(
             answer
         )
 
@@ -97,7 +97,7 @@ class RouteResultsViewModelTest : KoinTest {
 
         viewModel.retrieveRouteResults()
 
-        verify(sharedPreferences).getString(Constants.FAULT_ANSWER_ROUTE_LABOUR, "")
+        verify(sharedPreferences).getString(Constants.COMPLETE_LABOUR_ROUTE, "")
         verify(sharedPreferences, never()).getString(Constants.ROUTE_RESULT, "")
     }
 
@@ -108,7 +108,7 @@ class RouteResultsViewModelTest : KoinTest {
 
         viewModel.retrieveRouteResults()
 
-        verify(sharedPreferences).getString(Constants.FAULT_ANSWER_ROUTE_LABOUR, "")
+        verify(sharedPreferences).getString(Constants.COMPLETE_LABOUR_ROUTE, "")
         verify(sharedPreferences, never()).getString(Constants.ROUTE_RESULT, "")
     }
 
@@ -116,7 +116,7 @@ class RouteResultsViewModelTest : KoinTest {
     fun `should return null when route results are null`() {
         val viewModel = RouteResultsViewModel(sharedPreferences, repository, mapper)
         val answer = "R1 R2 R3"
-        `when`(sharedPreferences.getString(Constants.FAULT_ANSWER_ROUTE_LABOUR, "")).thenReturn(
+        `when`(sharedPreferences.getString(Constants.COMPLETE_LABOUR_ROUTE, "")).thenReturn(
             answer
         )
         `when`(sharedPreferences.getString(Constants.ROUTE_RESULT, "")).thenReturn(null)
@@ -130,7 +130,7 @@ class RouteResultsViewModelTest : KoinTest {
     fun `should return a list of route results when route results ids and route results are not null`() {
         val viewModel = RouteResultsViewModel(sharedPreferences, repository, mapper)
         val answer = "R1 R2 R3"
-        `when`(sharedPreferences.getString(Constants.FAULT_ANSWER_ROUTE_LABOUR, "")).thenReturn(
+        `when`(sharedPreferences.getString(Constants.COMPLETE_LABOUR_ROUTE, "")).thenReturn(
             answer
         )
         val firstRouteResult = RouteResult("R1", "dummy", "dummy", listOf(1))
@@ -154,7 +154,7 @@ class RouteResultsViewModelTest : KoinTest {
     fun `should return a list of route filtered by type`() {
         val viewModel = RouteResultsViewModel(sharedPreferences, repository, mapper)
         val answer = "R1 R2 R3 R4"
-        `when`(sharedPreferences.getString(Constants.FAULT_ANSWER_ROUTE_LABOUR, "")).thenReturn(
+        `when`(sharedPreferences.getString(Constants.COMPLETE_LABOUR_ROUTE, "")).thenReturn(
             answer
         )
         val firstRouteResult = RouteResult("R1", "fault", "dummy", listOf(1))
@@ -179,7 +179,7 @@ class RouteResultsViewModelTest : KoinTest {
     fun `should return null if route type does not exist`() {
         val viewModel = RouteResultsViewModel(sharedPreferences, repository, mapper)
         val answer = "R1 R2 R3 R4"
-        `when`(sharedPreferences.getString(Constants.FAULT_ANSWER_ROUTE_LABOUR, "")).thenReturn(
+        `when`(sharedPreferences.getString(Constants.COMPLETE_LABOUR_ROUTE, "")).thenReturn(
             answer
         )
         val firstRouteResult = RouteResult("R1", "fault", "dummy", listOf(1))
@@ -203,7 +203,7 @@ class RouteResultsViewModelTest : KoinTest {
     fun `should return null when any route result id match with route results`() {
         val viewModel = RouteResultsViewModel(sharedPreferences, repository, mapper)
         val answer = "R7 R5 R6"
-        `when`(sharedPreferences.getString(Constants.FAULT_ANSWER_ROUTE_LABOUR, "")).thenReturn(
+        `when`(sharedPreferences.getString(Constants.COMPLETE_LABOUR_ROUTE, "")).thenReturn(
             answer
         )
         val firstRouteResult = RouteResult("R1", "dummy", "dummy", listOf(1))
@@ -474,7 +474,7 @@ class RouteResultsViewModelTest : KoinTest {
             sharedPreferences,
             repository, mapper
         )
-        `when`(sharedPreferences.getString(Constants.FAULT_ANSWER_ROUTE_VIOLENCE, ""))
+        `when`(sharedPreferences.getString(Constants.COMPLETE_VIOLENCE_ROUTE, ""))
             .thenReturn(result)
 
         val resultLevel = routeResultViewModel.getHigherViolenceLevel()
@@ -492,7 +492,7 @@ class RouteResultsViewModelTest : KoinTest {
             sharedPreferences,
             repository, mapper
         )
-        `when`(sharedPreferences.getString(Constants.FAULT_ANSWER_ROUTE_VIOLENCE, ""))
+        `when`(sharedPreferences.getString(Constants.COMPLETE_VIOLENCE_ROUTE, ""))
             .thenReturn(result)
 
         val resultLevel = routeResultViewModel.getHigherViolenceLevel()
@@ -508,7 +508,7 @@ class RouteResultsViewModelTest : KoinTest {
             sharedPreferences,
             repository, mapper
         )
-        `when`(sharedPreferences.getString(Constants.FAULT_ANSWER_ROUTE_VIOLENCE, ""))
+        `when`(sharedPreferences.getString(Constants.COMPLETE_VIOLENCE_ROUTE, ""))
             .thenReturn(medium)
 
         val resultLevel = routeResultViewModel.getHigherViolenceLevel()
@@ -526,7 +526,7 @@ class RouteResultsViewModelTest : KoinTest {
             sharedPreferences,
             repository, mapper
         )
-        `when`(sharedPreferences.getString(Constants.FAULT_ANSWER_ROUTE_VIOLENCE, ""))
+        `when`(sharedPreferences.getString(Constants.COMPLETE_VIOLENCE_ROUTE, ""))
             .thenReturn(result)
 
         val resultLevel = routeResultViewModel.getHigherViolenceLevel()
@@ -542,7 +542,7 @@ class RouteResultsViewModelTest : KoinTest {
             sharedPreferences,
             repository, mapper
         )
-        `when`(sharedPreferences.getString(Constants.FAULT_ANSWER_ROUTE_VIOLENCE, ""))
+        `when`(sharedPreferences.getString(Constants.COMPLETE_VIOLENCE_ROUTE, ""))
             .thenReturn(low)
 
         val resultLevel = routeResultViewModel.getHigherViolenceLevel()
@@ -561,7 +561,7 @@ class RouteResultsViewModelTest : KoinTest {
             sharedPreferences,
             repository, mapper
         )
-        `when`(sharedPreferences.getString(Constants.FAULT_ANSWER_ROUTE_VIOLENCE, ""))
+        `when`(sharedPreferences.getString(Constants.COMPLETE_VIOLENCE_ROUTE, ""))
             .thenReturn(result)
 
         val resultLevel = routeResultViewModel.getHigherViolenceLevel()

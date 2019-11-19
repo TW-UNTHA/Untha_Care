@@ -98,6 +98,9 @@ object Constants {
     const val FAULT_ANSWER_ROUTE_VIOLENCE = "fault_answers_violence_route"
 
     const val REMAINING_QUESTION = "remaining_question"
+    const val IS_LABOUR_ROUTE = "is_labour_route"
+    const val COMPLETE_LABOUR_ROUTE = "complete_labour_route"
+    const val COMPLETE_VIOLENCE_ROUTE = "complete_violence_route"
 
 
 }

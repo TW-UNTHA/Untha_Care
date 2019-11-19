@@ -70,8 +70,9 @@ class MainActivity : AppCompatActivity() {
         )
         supportActionBar?.setCustomView(layoutActionBar, layout)
         this.backMethod = backMethod
-        supportActionBar?.setDisplayShowCustomEnabled(needsBackButton)
+        supportActionBar?.setHomeButtonEnabled(needsBackButton)
         supportActionBar?.setDisplayHomeAsUpEnabled(needsBackButton)
+        supportActionBar?.setDisplayShowCustomEnabled(true)
         close.isVisible = enableCustomBar
     }
 

@@ -7,20 +7,27 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.text.parseAsHtml
 import androidx.lifecycle.Observer
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
 import com.bumptech.glide.Glide
 import com.untha.R
+import com.untha.model.transactionalmodels.Category
 import com.untha.model.transactionalmodels.QuestionnaireRouteResult
 import com.untha.model.transactionalmodels.RouteResult
 import com.untha.model.transactionalmodels.Section
 import com.untha.model.transactionalmodels.Step
 import com.untha.utils.Constants
+import com.untha.utils.ContentType
+import com.untha.utils.FirebaseEvent
 import com.untha.utils.PixelConverter
+import com.untha.view.activities.MainActivity
 import com.untha.viewmodels.RouteResultsViewModel
 import org.jetbrains.anko.AnkoViewDslMarker
 import org.jetbrains.anko._LinearLayout
@@ -31,6 +38,7 @@ import org.jetbrains.anko.imageView
 import org.jetbrains.anko.linearLayout
 import org.jetbrains.anko.matchParent
 import org.jetbrains.anko.scrollView
+import org.jetbrains.anko.sdk27.coroutines.onClick
 import org.jetbrains.anko.support.v4.UI
 import org.jetbrains.anko.textColor
 import org.jetbrains.anko.textSizeDimen
@@ -84,8 +92,9 @@ class RouteResultsFragment : BaseFragment() {
             isLabourRoute = viewModel.isLabourRoute(it)
         }
         violenceLevel = viewModel.getHigherViolenceLevel()
+        loadTitleRoute(isLabourRoute)
+        setCloseButtonAction()
     }
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -112,7 +121,7 @@ class RouteResultsFragment : BaseFragment() {
         activity?.let {
             firebaseAnalytics.setCurrentScreen(
                 it,
-                Constants.ROUTE_RESULT_PAGE,
+                Constants.ROUTE_RESULT_PAGE + " " + if (isLabourRoute) LABOUR_TYPE else VIOLENCE_TYPE,
                 null
             )
         }
@@ -278,8 +287,17 @@ class RouteResultsFragment : BaseFragment() {
                 context, R.drawable.drawable_main_route
             )
             weightSum = FULL_WEIGHT_CATEGORY_BUTTON
+            isFocusable = true
+            isClickable = true
             drawCategoryButtonImage(view)
-            drawCategoryButtonText(categoryId)
+            val category = viewModel.getCategoryById(categoryId)
+            category?.let {
+                drawCategoryButtonText(it)
+                setOnClickListener {
+                    logAnalyticsSelectContentWithId(category.title, ContentType.CATEGORY)
+                    navigateToCategoriesInformation(category)
+                }
+            }
         }.lparams(
             width = dip(calculateComponentsWidth(CATEGORY_BUTTON_WIDTH)),
             height = dip(calculateComponentsHeight(BUTTON_CONTAINER_HEIGHT))
@@ -288,11 +306,28 @@ class RouteResultsFragment : BaseFragment() {
         }
     }
 
+    private fun navigateToCategoriesInformation(category: Category) {
+        val categoryBundle = Bundle().apply {
+            putSerializable(Constants.CATEGORIES, viewModel.categories as ArrayList)
+            putSerializable(
+                Constants.CATEGORY_PARAMETER,
+                category
+            )
+        }
+        NavHostFragment.findNavController(this@RouteResultsFragment)
+            .navigate(
+                R.id.genericInfoFragment,
+                categoryBundle,
+                navOptionsToBackNavigation,
+                null
+            )
+    }
+
     private fun @AnkoViewDslMarker _LinearLayout.drawCategoryButtonText(
-        categoryId: Int
+        category: Category
     ) {
         textView {
-            text = viewModel.getCategoryById(categoryId)?.title?.toLowerCase()?.capitalize()
+            text = category.title?.toLowerCase()?.capitalize()
             textSizeDimen = R.dimen.text_size
             typeface =
                 ResourcesCompat.getFont(context.applicationContext, R.font.proxima_nova_light)
@@ -460,5 +495,38 @@ class RouteResultsFragment : BaseFragment() {
             setLinkTextColor(ContextCompat.getColor(context, R.color.colorGenericTitle))
             textSizeDimen = R.dimen.text_size_content
         }.lparams(width = wrapContent, height = wrapContent)
+    }
+
+    private fun loadTitleRoute(isLabourRoute: Boolean) {
+        if (isLabourRoute) {
+            (activity as MainActivity).customActionBar(
+                Constants.NAME_SCREEN_LABOUR_ROUTE,
+                enableCustomBar = true,
+                needsBackButton = false,
+                backMethod = null
+            )
+        } else {
+            (activity as MainActivity).customActionBar(
+                Constants.NAME_SCREEN_VIOLENCE_ROUTE,
+                enableCustomBar = true,
+                needsBackButton = false,
+                backMethod = null
+            )
+        }
+    }
+
+    private fun setCloseButtonAction() {
+        val layoutActionBar = (activity as MainActivity).supportActionBar?.customView
+        val close = layoutActionBar?.findViewById(R.id.icon_go_back_route) as ImageView
+        close.onClick {
+            logAnalyticsCustomEvent(FirebaseEvent.CLOSE)
+            view?.findNavController()
+                ?.navigate(
+                    R.id.categoryFragment,
+                    null,
+                    navOptionsToBackNavigation,
+                    null
+                )
+        }
     }
 }
