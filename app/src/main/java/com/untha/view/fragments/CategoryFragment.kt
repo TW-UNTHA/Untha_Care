@@ -26,7 +26,7 @@ class CategoryFragment : BaseFragment(),
 
     companion object {
         const val RIGHTS_CATEGORY = 2
-        const val CALCULATOR_CATEGORY = 3
+        const val CALCULATOR_CATEGORY = 5
         const val ROUTES_CATEGORY = 1
     }
 

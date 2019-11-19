@@ -60,7 +60,7 @@ object Constants {
     const val ID_ROUTE_VIOLENCE = 15
 
     const val TEMPORAL_LOAD_PROGRESS_BAR = 1
-    const val COUNT_QUESTION_ADVANCE = 1
+    const val COUNT_QUESTION_ADVANCE = 0
     const val QUESTION_ADVANCE = "QUESTION_ADVANCE"
     const val TOTAL_PROGRESS_BAR = 100
 
