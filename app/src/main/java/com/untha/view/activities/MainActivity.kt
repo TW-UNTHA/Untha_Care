@@ -57,11 +57,14 @@ class MainActivity : AppCompatActivity() {
 
     fun customActionBar(
         title: String, enableCustomBar: Boolean, needsBackButton: Boolean,
+        enableHelp:Boolean,
         backMethod: (() -> Unit)?
     ) {
         val layoutActionBar = layoutInflater.inflate(R.layout.action_bar, null)
         val titleView = layoutActionBar.findViewById(R.id.title_actiov_bar) as TextView
         val close = layoutActionBar?.findViewById(R.id.icon_go_back_route) as ImageView
+        val iconHelp = layoutActionBar?.findViewById(R.id.icon_help) as ImageView
+
         titleView.text = title
         titleView.textSizeDimen = R.dimen.text_size_question_route
         val layout = ActionBar.LayoutParams(
@@ -70,10 +73,17 @@ class MainActivity : AppCompatActivity() {
         )
         supportActionBar?.setCustomView(layoutActionBar, layout)
         this.backMethod = backMethod
-        supportActionBar?.setHomeButtonEnabled(needsBackButton)
+        supportActionBar?.title  = title
+        supportActionBar?.setDisplayShowCustomEnabled(enableCustomBar)
         supportActionBar?.setDisplayHomeAsUpEnabled(needsBackButton)
-        supportActionBar?.setDisplayShowCustomEnabled(true)
-        close.isVisible = enableCustomBar
+
+        if(enableHelp){
+            iconHelp.isVisible = enableHelp
+            close.isVisible = false
+        }else{
+            iconHelp.isVisible = false
+        }
+
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

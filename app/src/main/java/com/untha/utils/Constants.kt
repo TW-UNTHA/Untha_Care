@@ -7,6 +7,7 @@ object Constants {
     const val TYPE_ROUTE = "TYPE_ROUTE"
     const val ROUTE_VIOLENCE = "ROUTE_VIOLENCE"
     const val CATEGORIES_ROUTES = "CATEGORIES_ROUTES"
+    const val ABOUS_US = "ABOUT_US"
     const val CATEGORIES_VERSION = "version"
     const val CATEGORY_PARAMETER = "category"
     const val CATEGORIES = "CATEGORIES"
@@ -50,7 +51,13 @@ object Constants {
     const val ROUTE_RESULT = "route-result"
     const val VIOLENCE_ROUTE = "violence-route"
     const val QUESTIONNAIRE_ROUTE = "questionnaire-route"
+    const val POSITION_SLICE = "position"
+    const val POSITION_SLICE_PAGE_ONE = 0
+    const val POSITION_SLICE_PAGE_TWO = 1
+    const val POSITION_SLICE_PAGE_THREE = 2
+    const val POSITION_SLICE_PAGE_FOUR = 3
     const val MARGIN_SINGLE_SELECTION_QUESTION = 0.049
+
     const val MARGIN_HEIGHT_SELECTION_QUESTION = 0.054
     const val MARGIN_HEIGHT_QUESTION = 0.17
     const val SIZE_IMAGE_PERCENTAGE_AUDIO_ROUTE = ((((50) * 100) / 640) / 100F).toDouble()
@@ -74,7 +81,6 @@ object Constants {
     const val NAME_SCREEN_ROUTES = "RUTAS DE AYUDA"
     const val MARGIN_BOTTOM_PERCENTAGE_ANSWERS_LAYOUT = 0.020
     const val MARGIN_BOTTOM_PERCENTAGE_NEXT_BUTTON = 0.034
-    const val MARGIN_TOP_AND_BOTTOM_PERCENTAGE_AUDIO_BUTTON = 0.0361
     const val HEIGHT_MULTIPLE_OPTION_PERCENTAGE = 0.10
     const val MARGIN_LEFT_RIGHT_MULTIPLE_OPTION_SCREEN_PERCENTAGE = 0.0241
     const val HALF_SCREEN_WEIGHT = 0.5F
@@ -93,6 +99,7 @@ object Constants {
     const val MULTIPLE_QUESTION_PAGE: String = "Multiple Question Page"
     const val ROUTES_PAGE = "Routes Page"
     const val ROUTE_RESULT_PAGE: String = "Route result page"
+    const val HOME_PAGE = "TRH UNIDAS"
 
     const val FAULT_ANSWER_ROUTE_LABOUR = "fault_answers_labour_route"
     const val FAULT_ANSWER_ROUTE_VIOLENCE = "fault_answers_violence_route"

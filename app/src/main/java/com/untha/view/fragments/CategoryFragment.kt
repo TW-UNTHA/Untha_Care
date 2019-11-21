@@ -5,6 +5,7 @@ import android.speech.tts.TextToSpeech
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.RelativeLayout
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
@@ -17,8 +18,10 @@ import com.untha.utils.PixelConverter
 import com.untha.utils.ToSpeech
 import com.untha.view.activities.MainActivity
 import com.untha.view.adapters.CategoryAdapter
+import com.untha.viewmodels.AboutUsViewModel
 import com.untha.viewmodels.CategoryViewModel
 import kotlinx.android.synthetic.main.fragment_category.*
+import org.jetbrains.anko.sdk27.coroutines.onClick
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class CategoryFragment : BaseFragment(),
@@ -29,11 +32,11 @@ class CategoryFragment : BaseFragment(),
         const val CALCULATOR_CATEGORY = 5
         const val ROUTES_CATEGORY = 1
     }
-
+    
     private lateinit var categoryListAdapter: CategoryAdapter
     private val categoryViewModel: CategoryViewModel by viewModel()
+    private val viewModel: AboutUsViewModel by viewModel()
     private lateinit var mainActivity: MainActivity
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -47,6 +50,16 @@ class CategoryFragment : BaseFragment(),
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        if(!viewModel.loadAboutUsFromSharedPreferences()){
+            view.findNavController()
+                .navigate(
+                    R.id.trhAboutInstructions,
+                    null,
+                    navOptionsToBackNavigation,
+                    null
+                )
+           // return inflater.inflate(R.layout.fragment_about_instructions, container, false)
+        }
         activity?.let {
             firebaseAnalytics.setCurrentScreen(it, Constants.CATEGORY_PAGE, null)
         }
@@ -55,10 +68,28 @@ class CategoryFragment : BaseFragment(),
             categoryViewModel.getCategories(queryingCategories)
             populateCategoryList(categoryViewModel.categories)
         })
-        mainActivity.customActionBar(
-            "", enableCustomBar = false, needsBackButton = false,
+        (activity as MainActivity).customActionBar(
+            Constants.HOME_PAGE,
+            enableCustomBar = true,
+            needsBackButton = false,
+            enableHelp = true,
             backMethod = null
         )
+        goAboutHelp(view)
+    }
+
+    private fun goAboutHelp(view: View) {
+        val layoutActionBar = (activity as MainActivity).supportActionBar?.customView
+        val help = layoutActionBar?.findViewById(R.id.icon_help) as ImageView
+        help.onClick {
+            view.findNavController()
+                .navigate(
+                    R.id.trhAboutInstructions,
+                    null,
+                    navOptionsToBackNavigation,
+                    null
+                )
+        }
     }
 
     override fun onItemClick(category: Category, categories: ArrayList<Category>, itemView: View) {

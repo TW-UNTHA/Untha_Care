@@ -12,6 +12,7 @@ import com.untha.model.repositories.InformationCategoryRepository
 import com.untha.model.repositories.SectionRepository
 import com.untha.model.repositories.SectionStepRepository
 import com.untha.model.services.RetrofitService
+import com.untha.viewmodels.AboutUsViewModel
 import com.untha.viewmodels.CategoryViewModel
 import com.untha.viewmodels.GenericInfoStepViewModel
 import com.untha.viewmodels.RightsViewModel
@@ -27,6 +28,7 @@ import org.koin.dsl.module
 val viewModelsModule = module {
     viewModel { MainViewModel(get(), get(), get(), get(), get(), get(), get()) }
     viewModel { CategoryViewModel(get(), get(), get()) }
+    viewModel { AboutUsViewModel(get()) }
     viewModel { RightsViewModel(get(), get(), get()) }
     viewModel { GenericInfoStepViewModel() }
     viewModel { RoutesViewModel(get()) }

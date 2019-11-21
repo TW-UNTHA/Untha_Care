@@ -126,6 +126,7 @@ class SingleSelectionQuestionFragment : BaseFragment() {
             Constants.NAME_SCREEN_LABOUR_ROUTE,
             enableCustomBar = true,
             needsBackButton = true,
+            enableHelp = false,
             backMethod = null
         )
         goBackScreenRoutes()

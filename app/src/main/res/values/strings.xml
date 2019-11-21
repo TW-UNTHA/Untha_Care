@@ -12,17 +12,47 @@
     <string name="labour_route_result_link">Ver mi último resultado</string>
     <string name="next">Siguiente</string>
     <string name="choose_at_least_one_option">Es necesario seleccionar al menos una opción</string>
-    <string name="main_route_labour_message">¡Hola! Voy a hacerte unas preguntas para identificar
-        si se están cumpliendo tus derechos laborales"</string>
+
     <string name="second_message_route_labour">Voy a hacerte unas preguntas para identificar si se
         están cumpliendo tus derechos laborales"</string>
     <string name="image_name_route_labour">route_labour_pantalla_inicial</string>
-    <string name="second_message_route_violence">Voy a hacerte unas preguntas para identificar si
-        has sufrido violencia</string>
     <string name="description_labour_result">Encontramos incumplimientos a tus derechos laborales:</string>
     <string name="description_violence_result">Has sufrido un nivel de violencia:</string>
+    <string name="second_message_route_violence">Voy a hacerte unas preguntas para identificar si
+        has sufrido violencia</string>
     <string name="additional_recommendations">Recomendaciones adicionales:</string>
     <string name="image_name_route_violence">route_violence_pantalla_inicial</string>
+
+
+    <string name="about_us_msg_welcome">Te damos la bienvenida a la aplicación TRH UNIDAS</string>
+    <string name="about_us_msg_touch_button_audio">Toca este botón para escuchar</string>
+    <string name="about_us_msg_press_button_icon_audio">Mantén presionado los botones para
+        escucharlos</string>
+    <string name="about_us_title_app">Acerca de la aplicación</string>
+    <string name="about_us_title_app_section_one">Esta aplicación es un instrumento de apoyo para la
+        protección de los derechos de las Trabajadoras Remuneradas del Hogar.
+    </string>
+
+    <string name="about_us_title_app_section_two">Es el resultado de un trabajo liderado por la
+        Unión Nacional de Trabajadoras del Hogar y Afines (UNTHA), con el acompañamiento de CARE
+        Ecuador, la Mesa Interinstitucional por la Defensa de los Derechos de las Trabajadoras
+        Remuneradas del Hogar y el apoyo tecnológico de ThoughtWorks Ecuador.
+    </string>
+    <string name="about_us_title_app_section_three">
+        El contenido está basado en las normativas vigentes para noviembre del 2019.
+    </string>
+
+    <string name="about_us_title_app_page_three">Encuentra información referente a tus derechos
+        como Trabajadora Remunerada del Hogar con las pantallas informativas</string>
+    <string name="about_us_title_app_page_fout">Revisa si es que tus derechos laborales se están
+        cumpliendo y/o si eres víctima de violencia con las rutas de ayuda</string>
+
+
+
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_instructions">Te damos la bienvenida a la aplicación TRH UNIDAS</string>
     <string name="not_labour_rights_violated">Al parecer no se han registrado faltas a tus derechos laborales.</string>
     <string name="not_violence_suffered">Al parecer no has sido víctima de violencia.</string>
 </resources>

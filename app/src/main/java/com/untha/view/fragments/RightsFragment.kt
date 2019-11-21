@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.RelativeLayout
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
@@ -18,6 +19,7 @@ import com.untha.viewmodels.RightsViewModel
 import kotlinx.android.synthetic.main.layout_rights.categoryRecyclerView
 import me.linshen.retrofit2.adapter.ApiErrorResponse
 import me.linshen.retrofit2.adapter.ApiSuccessResponse
+import org.jetbrains.anko.sdk27.coroutines.onClick
 import org.koin.android.viewmodel.ext.android.viewModel
 
 
@@ -53,10 +55,26 @@ class RightsFragment : BaseFragment(),
         })
         mainActivity.customActionBar(
             Constants.NAME_SCREEN_RIGHTS,
-            enableCustomBar = false,
+            enableCustomBar = true,
             needsBackButton = true,
+            enableHelp = true,
             backMethod = null
         )
+        goAboutHelp(view)
+    }
+
+    private fun goAboutHelp(view: View) {
+        val layoutActionBar = (activity as MainActivity).supportActionBar?.customView
+        val help = layoutActionBar?.findViewById(R.id.icon_help) as ImageView
+        help.onClick {
+            view.findNavController()
+                .navigate(
+                    R.id.trhAboutInstructions,
+                    null,
+                    navOptionsToBackNavigation,
+                    null
+                )
+        }
     }
 
     private fun populateCategoryList(categoryList: List<Category>) {

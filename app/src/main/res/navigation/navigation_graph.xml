@@ -44,4 +44,9 @@
         android:id="@+id/routeResultsFragment"
         android:name="com.untha.view.fragments.RouteResultsFragment"
         android:label="RouteResultsFragment" />
+
+    <fragment
+        android:id="@+id/trhAboutInstructions"
+        android:name="com.untha.view.fragments.AboutUsFragment"
+        />
 </navigation>

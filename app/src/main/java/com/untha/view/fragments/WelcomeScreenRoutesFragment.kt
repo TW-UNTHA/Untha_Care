@@ -84,6 +84,7 @@ class WelcomeScreenRoutesFragment : BaseFragment() {
                 Constants.NAME_SCREEN_LABOUR_ROUTE,
                 enableCustomBar = false,
                 needsBackButton = true,
+                enableHelp = false,
                 backMethod = null
             )
         } else {
@@ -91,6 +92,7 @@ class WelcomeScreenRoutesFragment : BaseFragment() {
                 Constants.NAME_SCREEN_VIOLENCE_ROUTE,
                 enableCustomBar = false,
                 needsBackButton = true,
+                enableHelp = false,
                 backMethod = null
             )
         }

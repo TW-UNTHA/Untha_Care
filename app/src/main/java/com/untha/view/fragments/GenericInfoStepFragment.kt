@@ -116,7 +116,7 @@ class GenericInfoStepFragment : BaseFragment() {
         }
         mainActivity.customActionBar(
             category.information?.get(0)?.screenTitle.toString(),
-            enableCustomBar = false, needsBackButton = true, backMethod = null
+            enableCustomBar = false, needsBackButton = true, enableHelp = false, backMethod = null
         )
         loadTitleRoute(true)
     }

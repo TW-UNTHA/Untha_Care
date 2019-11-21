@@ -26,6 +26,7 @@ import org.jetbrains.anko.backgroundResource
 import org.jetbrains.anko.dip
 import org.jetbrains.anko.imageView
 import org.jetbrains.anko.matchParent
+import org.jetbrains.anko.sdk27.coroutines.onClick
 import org.jetbrains.anko.support.v4.UI
 import org.jetbrains.anko.textColor
 import org.jetbrains.anko.textSizeDimen
@@ -93,10 +94,26 @@ class RoutesFragment : BaseFragment() {
         }
         mainActivity.customActionBar(
             Constants.NAME_SCREEN_ROUTES,
-            enableCustomBar = false,
+            enableCustomBar = true,
             needsBackButton = true,
+            enableHelp = true,
             backMethod = ::navigateToCategory
         )
+        goAboutHelp(view)
+    }
+
+    private fun goAboutHelp(view: View) {
+        val layoutActionBar = (activity as MainActivity).supportActionBar?.customView
+        val help = layoutActionBar?.findViewById(R.id.icon_help) as ImageView
+        help.onClick {
+            view.findNavController()
+                .navigate(
+                    R.id.trhAboutInstructions,
+                    null,
+                    navOptionsToBackNavigation,
+                    null
+                )
+        }
     }
 
     private fun navigateToCategory() {

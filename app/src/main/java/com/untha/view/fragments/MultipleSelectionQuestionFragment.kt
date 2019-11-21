@@ -87,6 +87,7 @@ class MultipleSelectionQuestionFragment : BaseFragment() {
                 Constants.NAME_SCREEN_LABOUR_ROUTE,
                 enableCustomBar = true,
                 needsBackButton = true,
+                enableHelp = false,
                 backMethod = null
             )
         } else {
@@ -94,6 +95,7 @@ class MultipleSelectionQuestionFragment : BaseFragment() {
                 Constants.NAME_SCREEN_VIOLENCE_ROUTE,
                 enableCustomBar = true,
                 needsBackButton = true,
+                enableHelp = false,
                 backMethod = null
             )
 
