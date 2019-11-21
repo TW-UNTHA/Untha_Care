@@ -22,6 +22,7 @@ import com.untha.utils.ContentType
 import com.untha.utils.FirebaseEvent
 import com.untha.utils.MultipleSelectionOption
 import com.untha.utils.PixelConverter
+import com.untha.utils.UtilsTextToSpeech
 import com.untha.view.activities.MainActivity
 import com.untha.view.extension.loadHorizontalProgressBar
 import com.untha.viewmodels.CategoryViewModel
@@ -325,13 +326,13 @@ class MultipleSelectionQuestionFragment : BaseFragment() {
         }
     }
 
-//    private fun contentAudioOptions(): String {
-//        var contentOptions = ""
-//        routeQuestion?.options?.map { option ->
-//            contentOptions += "${option.value} \n"
-//        }
-//        return contentOptions
-//    }
+    private fun contentAudioOptions(): String {
+        var contentOptions = ""
+        routeQuestion?.options?.map { option ->
+            contentOptions += "${option.value} \n"
+        }
+        return contentOptions
+    }
 
     private fun _LinearLayout.question() {
         verticalLayout {
@@ -495,13 +496,13 @@ class MultipleSelectionQuestionFragment : BaseFragment() {
             scaleType = ImageView.ScaleType.FIT_CENTER
             imageResource = R.drawable.icon_question_audio
             backgroundResource = attr(R.attr.selectableItemBackgroundBorderless).resourceId
-//            val textQuestion = routeQuestion?.content
-//            val contentQuestion = "$textQuestion ${contentAudioOptions()}"
-//            var utilsTextToSpeech: UtilsTextToSpeech? = null
-//            utilsTextToSpeech = UtilsTextToSpeech(context!!, ::String)
+            val textQuestion = routeQuestion?.content
+            val contentQuestion = "$textQuestion ${contentAudioOptions()}"
+            var utilsTextToSpeech: UtilsTextToSpeech? = null
+            utilsTextToSpeech = UtilsTextToSpeech(context!!, ::String)
 
             onClick {
-//                utilsTextToSpeech.speakOut(contentQuestion, null)
+                utilsTextToSpeech.speakOut(contentQuestion, null)
                 logAnalyticsCustomContentTypeWithId(ContentType.AUDIO, FirebaseEvent.AUDIO)
             }
         }.lparams(

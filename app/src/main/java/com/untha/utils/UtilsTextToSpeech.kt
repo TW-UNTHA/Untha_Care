@@ -8,14 +8,10 @@ import android.speech.tts.UtteranceProgressListener
 import android.util.Log
 import java.util.*
 
-class UtilsTextToSpeech(
-    val context: Context,
-    val listParagraph: MutableList<String>,
-    val onDone: (Int, MutableList<String>) -> String?
-) :
+class UtilsTextToSpeech(val context: Context, val onDone: () -> String?) :
     TextToSpeech.OnInitListener,
     UtteranceProgressListener() {
-    var position: Int = 0
+
     private var textToSpeech: TextToSpeech
 
     init {
@@ -24,11 +20,7 @@ class UtilsTextToSpeech(
     }
 
     override fun onDone(p0: String?) {
-        onDone(position, listParagraph)?.let {
-            speakOut(it, textToSpeech)
-        }
-        position++
-
+        onDone()?.let { speakOut(it, textToSpeech) }
     }
 
     override fun onError(p0: String?) {
@@ -52,7 +44,6 @@ class UtilsTextToSpeech(
         } else {
             Log.e("TextToSpeech", "Initilization Failed!")
         }
-        textToSpeech.isSpeaking
     }
 
     fun speakOut(title: String, textToSpeech: TextToSpeech?): Boolean {
@@ -82,13 +73,10 @@ class UtilsTextToSpeech(
 
     fun stop() {
         textToSpeech.stop()
+//        textToSpeech.shutdown()
     }
 
     fun destroy() {
         textToSpeech.shutdown()
-    }
-
-    fun isSpeaking(): Boolean {
-        return textToSpeech.isSpeaking
     }
 }

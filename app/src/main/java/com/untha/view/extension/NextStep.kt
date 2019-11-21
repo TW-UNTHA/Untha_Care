@@ -6,6 +6,7 @@ import android.view.Gravity
 import android.view.View
 import android.widget.ImageView
 import androidx.core.content.ContextCompat
+import androidx.core.text.parseAsHtml
 import com.bumptech.glide.Glide
 import com.untha.R
 import com.untha.model.transactionalmodels.Category
@@ -16,6 +17,7 @@ import org.jetbrains.anko.AnkoViewDslMarker
 import org.jetbrains.anko._LinearLayout
 import org.jetbrains.anko._RelativeLayout
 import org.jetbrains.anko.attr
+import org.jetbrains.anko.backgroundColor
 import org.jetbrains.anko.backgroundResource
 import org.jetbrains.anko.centerInParent
 import org.jetbrains.anko.dip
@@ -27,11 +29,12 @@ import org.jetbrains.anko.sdk27.coroutines.onClick
 import org.jetbrains.anko.textColor
 import org.jetbrains.anko.textSizeDimen
 import org.jetbrains.anko.textView
-import org.jetbrains.anko.wrapContent
 
 fun _LinearLayout.loadImageNextStep(view: View, categoryNextStep: Category) {
     imageView {
+
         Gravity.LEFT
+
         val imageUrl = resources.getIdentifier(
             categoryNextStep?.image,
             "drawable",
@@ -40,6 +43,7 @@ fun _LinearLayout.loadImageNextStep(view: View, categoryNextStep: Category) {
         Glide.with(view)
             .load(imageUrl)
             .into(this)
+
     }
 }
 
@@ -90,54 +94,67 @@ fun @AnkoViewDslMarker _LinearLayout.getSelectableItemBackground(): TypedValue {
 }
 
 
-fun _RelativeLayout.loadPlayAndPauseIcon(
+fun _RelativeLayout.loadIconButtonPlayAndPause(
     view: View,
-    utilsTextToSpeechParameter: UtilsTextToSpeech,
-    getStringToReproduce: () -> String?
+    informationToSpeech: String,
+    utilsTextToSpeechParameter: UtilsTextToSpeech?
 ) {
     imageView {
-        scaleType = ImageView.ScaleType.FIT_CENTER
-        putImageOnTheWidget(Constants.ICONO_PLAY, view)
-        backgroundResource = attr(R.attr.selectableItemBackgroundBorderless).resourceId
+        var utilsTextToSpeech = utilsTextToSpeechParameter
 
+        scaleType = ImageView.ScaleType.FIT_CENTER
+        putImageOnTheWidget("ic_play_audio", view)
+        backgroundResource = attr(R.attr.selectableItemBackgroundBorderless).resourceId
+        var textCategory = informationToSpeech
+        textCategory = textCategory.parseAsHtml().toString()
+        val listParagraph: MutableList<String> = mutableListOf()
+        val separated = textCategory.split(".")
+        separated?.mapIndexed { index, item ->
+            if (!item.equals("")) {
+                listParagraph.add(index, item)
+            }
+        }
+        val indexParameter = 0
+
+        var index = indexParameter
+        fun a(): String {
+            index++
+            indexCurrently = index
+            if (index < listParagraph.size) {
+                println("index${index}")
+                return listParagraph[index]
+            } else {
+                utilsTextToSpeech?.stop()
+                return ""
+            }
+        }
+        utilsTextToSpeech = UtilsTextToSpeech(context!!, ::a)
         onClick {
-            playAndPauseAudio(
-                view,
-                utilsTextToSpeechParameter,
-                getStringToReproduce
-            )
+
+            if (index == Constants.INIT_SPEAK) {
+                index = indexParameter
+            }
+            if (ban == Constants.GET_CURRENT_INDEX) {
+                index = indexCurrently
+                ban = Constants.INIT_SPEAK
+            }
+            if (ban == Constants.STOP_SPEAK) {
+                putImageOnTheWidget("ic_stop_audio", view)
+                utilsTextToSpeech?.stop()
+                ban = Constants.GET_CURRENT_INDEX
+            }
+            if (ban == Constants.INIT_SPEAK) {
+                utilsTextToSpeech.speakOut(listParagraph[index], null)
+                putImageOnTheWidget("ic_play_audio", view)
+                ban = Constants.STOP_SPEAK
+            }
         }
     }.lparams(
         width = matchParent,
-        height = wrapContent
+        height = matchParent
     ) {
         centerInParent()
     }
-}
-
-
-private fun @AnkoViewDslMarker ImageView.playAndPauseAudio(
-    view: View,
-    utilsTextToSpeech: UtilsTextToSpeech,
-    getStringToReproduce: () -> String?
-) {
-    if (utilsTextToSpeech.isSpeaking()) {
-        putImageOnTheWidget(Constants.ICONO_PLAY, view)
-        utilsTextToSpeech.stop()
-    } else {
-        putImageOnTheWidget(Constants.ICONO_STOP, view)
-        val reproduce = getStringToReproduce()
-        // () -> String?
-        if (reproduce == null) {
-            utilsTextToSpeech.stop()
-        } else {
-            utilsTextToSpeech.speakOut(reproduce, null)
-        }
-
-        //if string es null llamas al stop del tts
-        //si no es null lo reproduces
-    }
-
 }
 
 
@@ -154,6 +171,9 @@ fun @AnkoViewDslMarker ImageView.putImageOnTheWidget(
         .load(imageUrl).fitCenter()
         .into(this)
 }
+
+var indexCurrently = 0
+var ban: Int = 0
 
 fun @AnkoViewDslMarker _RelativeLayout.loadImageBackground(
     view: View,
