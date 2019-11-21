@@ -25,14 +25,16 @@ import com.untha.model.transactionalmodels.Section
 import com.untha.model.transactionalmodels.Step
 import com.untha.utils.Constants
 import com.untha.utils.ContentType
-import com.untha.utils.FirebaseEvent
 import com.untha.utils.PixelConverter
 import com.untha.view.activities.MainActivity
+import com.untha.viewmodels.CategoryViewModel
 import com.untha.viewmodels.RouteResultsViewModel
 import org.jetbrains.anko.AnkoViewDslMarker
 import org.jetbrains.anko._LinearLayout
+import org.jetbrains.anko.attr
 import org.jetbrains.anko.backgroundColor
 import org.jetbrains.anko.backgroundDrawable
+import org.jetbrains.anko.backgroundResource
 import org.jetbrains.anko.dip
 import org.jetbrains.anko.imageView
 import org.jetbrains.anko.linearLayout
@@ -76,9 +78,11 @@ class RouteResultsFragment : BaseFragment() {
         private const val LABOUR_TYPE = "LABOUR"
         private const val RECOMMENDATION_TYPE = "recommendation"
         private const val FAULT_TYPE = "fault"
+        private const val CALCULADORA_ID = 5
     }
 
     private val viewModel: RouteResultsViewModel by viewModel()
+    private val categoryViewModel: CategoryViewModel by viewModel()
 
     private var isLabourRoute: Boolean = false
     private var violenceLevel: String? = null
@@ -286,27 +290,31 @@ class RouteResultsFragment : BaseFragment() {
         view: View
     ) {
         linearLayout {
-            orientation = LinearLayout.HORIZONTAL
             backgroundDrawable = ContextCompat.getDrawable(
                 context, R.drawable.drawable_main_route
             )
-            weightSum = FULL_WEIGHT_CATEGORY_BUTTON
-            isFocusable = true
-            isClickable = true
-            drawCategoryButtonImage(view)
-            val category = viewModel.getCategoryById(categoryId)
-            category?.let {
-                drawCategoryButtonText(it)
-                setOnClickListener {
-                    logAnalyticsSelectContentWithId(category.title, ContentType.CATEGORY)
-                    navigateToCategoriesInformation(category)
+            linearLayout {
+                orientation = LinearLayout.HORIZONTAL
+                backgroundResource = attr(R.attr.selectableItemBackgroundBorderless).resourceId
+                weightSum = FULL_WEIGHT_CATEGORY_BUTTON
+                isFocusable = true
+                isClickable = true
+                drawCategoryButtonImage(view)
+                val category = viewModel.getCategoryById(categoryId)
+                category?.let {
+                    drawCategoryButtonText(it)
+                    if (categoryId != CALCULADORA_ID)
+                        setOnClickListener {
+                            logAnalyticsSelectContentWithId(category.title, ContentType.CATEGORY)
+                            navigateToCategoriesInformation(category)
+                        }
                 }
+            }.lparams(
+                width = dip(calculateComponentsWidth(CATEGORY_BUTTON_WIDTH)),
+                height = dip(calculateComponentsHeight(BUTTON_CONTAINER_HEIGHT))
+            ) {
+                rightMargin = dip(calculateComponentsWidth(CATEGORY_CARDS_RIGHT_MARGIN))
             }
-        }.lparams(
-            width = dip(calculateComponentsWidth(CATEGORY_BUTTON_WIDTH)),
-            height = dip(calculateComponentsHeight(BUTTON_CONTAINER_HEIGHT))
-        ) {
-            rightMargin = dip(calculateComponentsWidth(CATEGORY_CARDS_RIGHT_MARGIN))
         }
     }
 
@@ -521,13 +529,19 @@ class RouteResultsFragment : BaseFragment() {
 
     private fun setCloseButtonAction() {
         val layoutActionBar = (activity as MainActivity).supportActionBar?.customView
+        val categoriesRoutes = Bundle().apply {
+            putSerializable(
+                Constants.CATEGORIES_ROUTES,
+                categoryViewModel.loadCategoriesRoutesFromSharedPreferences()
+            )
+        }
+
         val close = layoutActionBar?.findViewById(R.id.icon_go_back_route) as ImageView
         close.onClick {
-            logAnalyticsCustomEvent(FirebaseEvent.CLOSE)
             view?.findNavController()
                 ?.navigate(
-                    R.id.categoryFragment,
-                    null,
+                    R.id.mainRouteFragment,
+                    categoriesRoutes,
                     navOptionsToBackNavigation,
                     null
                 )
