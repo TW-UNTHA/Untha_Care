@@ -25,10 +25,12 @@ import com.untha.utils.ContentType
 import com.untha.utils.PixelConverter
 import com.untha.utils.PixelConverter.toPixels
 import com.untha.view.activities.MainActivity
+import com.untha.utils.UtilsTextToSpeech
 import com.untha.view.extension.buildImageNextStep
 import com.untha.view.extension.buildNextStepTitle
 import com.untha.view.extension.getSelectableItemBackground
-import com.untha.view.extension.loadImage
+import com.untha.view.extension.loadIconButtonPlayAndPause
+import com.untha.view.extension.loadImageBackground
 import com.untha.viewmodels.GenericInfoStepViewModel
 import org.jetbrains.anko.AnkoViewDslMarker
 import org.jetbrains.anko._LinearLayout
@@ -41,6 +43,7 @@ import org.jetbrains.anko.imageView
 import org.jetbrains.anko.leftPadding
 import org.jetbrains.anko.linearLayout
 import org.jetbrains.anko.matchParent
+import org.jetbrains.anko.relativeLayout
 import org.jetbrains.anko.rightPadding
 import org.jetbrains.anko.scrollView
 import org.jetbrains.anko.support.v4.UI
@@ -58,6 +61,8 @@ class GenericInfoStepFragment : BaseFragment() {
     private var categories: List<Category>? = null
     private lateinit var mainActivity: MainActivity
     private val viewModel: GenericInfoStepViewModel by viewModel()
+    var utilsTextToSpeech: UtilsTextToSpeech? = null
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -91,18 +96,22 @@ class GenericInfoStepFragment : BaseFragment() {
                 val imageHeight = toPixels(imageSizeInDps, context)
                 val marginTop = calculateTopMargin()
                 val marginLeft = calculateMarginLeftAndRight()
-                verticalLayout {
-                    backgroundColor =
-                        ContextCompat.getColor(context, R.color.colorBackgroundMainRoute)
-                    loadImage(view, imageHeight, category)
-                    drawLine(R.color.colorGenericLineHeader, Constants.HEIGHT_LINE_HEADER_GENERIC)
-                }.lparams(width = ViewGroup.LayoutParams.MATCH_PARENT, height = wrapContent)
+                relativeLayout {
+                    loadImageBackground(view, category)
+                    loadIconButtonPlayAndPause(
+                        view,
+                        contentAudioOptions().toString(),
+                        utilsTextToSpeech
+                        )
+                }.lparams(width = ViewGroup.LayoutParams.MATCH_PARENT, height = imageHeight)
 
+                this@verticalLayout.drawLine(
+                    R.color.colorGenericLineHeader,
+                    Constants.HEIGHT_LINE_HEADER_GENERIC
+                )
                 scrollView {
                     verticalLayout {
                         loadInformationDescription(view)
-
-
                     }
                     backgroundColor =
                         ContextCompat.getColor(context, R.color.colorBackgroundMainRoute)
@@ -171,7 +180,6 @@ class GenericInfoStepFragment : BaseFragment() {
             bottomMargin = dip(Constants.TOP_MARGIN_NEXT_STEP)
         }
     }
-
 
     private fun _LinearLayout.calculateMarginLeftAndRight(): Int {
         val widthFormula =
@@ -353,7 +361,6 @@ class GenericInfoStepFragment : BaseFragment() {
             putSerializable(Constants.CATEGORIES, categories)
             putSerializable(Constants.CATEGORY_PARAMETER, category)
         }
-
         if (category.isRoute) {
             when (category.id) {
                 Constants.ID_ROUTE_LABOUR -> {
@@ -368,9 +375,63 @@ class GenericInfoStepFragment : BaseFragment() {
             itemView.findNavController()
                 .navigate(R.id.genericInfoFragment, categoryBundle, navOptions, null)
         }
-
     }
 
+    private fun contentAudioOptions(): StringBuffer {
+        val contentOptions = StringBuffer()
+        getTextInformation()?.let {
+            contentOptions.append(it)
+            contentOptions.append("\n")
+        }
+        return contentOptions
+    }
+
+    private fun getTextInformation(): StringBuffer {
+        val contentOptions1 = StringBuffer()
+        category.information?.forEach { information: CategoryInformation ->
+            information?.let {
+                contentOptions1.append(information?.description)
+                contentOptions1.append("\n")
+                contentOptions1.append(getTextSections(information))
+                contentOptions1.append("\n")
+            }
+        }
+        return contentOptions1
+    }
+
+    private fun getTextSections(
+        option: CategoryInformation
+    ): StringBuffer {
+        val contentOptions1 = StringBuffer()
+        option.sections?.forEach { section: Section ->
+            section?.let {
+                contentOptions1.append(section.title)
+                contentOptions1.append("\n")
+                contentOptions1.append(getTextSteps(section))
+                contentOptions1.append("\n")
+            }
+        }
+        return contentOptions1
+    }
+
+    private fun getTextSteps(
+        section: Section
+    ): StringBuffer {
+        val contentOptions1 = StringBuffer()
+        section.steps?.forEach { step: Step ->
+            step?.let {
+                contentOptions1.append(step.stepId).append("\n").append(step.description)
+            }
+        }
+        return contentOptions1
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+//        var utilsTextToSpeech: UtilsTextToSpeech? = null
+        utilsTextToSpeech = UtilsTextToSpeech(context!!, ::String)
+        utilsTextToSpeech?.destroy()
+    }
     private fun onItemClickRouteLabour(itemView: View) {
         val routeLabour = Bundle().apply {
             putString(Constants.TYPE_ROUTE, Constants.ROUTE_LABOUR)
@@ -386,4 +447,8 @@ class GenericInfoStepFragment : BaseFragment() {
         itemView.findNavController()
             .navigate(R.id.mainScreenLabourRouteFragment, violenceLabour, navOptions, null)
     }
+//    override fun onDestroy() {
+//
+//        var toSpeech:UtilsTextToSpeech=UtilsTextToSpeech()
+//    }
 }

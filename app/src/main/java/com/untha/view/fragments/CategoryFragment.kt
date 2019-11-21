@@ -2,7 +2,6 @@ package com.untha.view.fragments
 
 import android.content.Intent
 import android.os.Bundle
-import android.speech.tts.TextToSpeech
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,7 +16,7 @@ import com.untha.model.transactionalmodels.Category
 import com.untha.utils.Constants
 import com.untha.utils.ContentType
 import com.untha.utils.PixelConverter
-import com.untha.utils.ToSpeech
+import com.untha.utils.UtilsTextToSpeech
 import com.untha.view.activities.MainActivity
 import com.untha.view.adapters.CategoryAdapter
 import com.untha.viewmodels.AboutUsViewModel
@@ -46,7 +45,7 @@ class CategoryFragment : BaseFragment(),
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        this.textToSpeech = TextToSpeech(context, this)
+//        this.textToSpeech = TextToSpeech(context, this)
         mainActivity = this.activity as MainActivity
 
         val categoriesView = inflater.inflate(R.layout.fragment_category, container, false)
@@ -147,7 +146,9 @@ class CategoryFragment : BaseFragment(),
     }
 
     override fun onItemLongClick(itemView: View, text: String): Boolean {
-        ToSpeech.speakOut(text, textToSpeech)
+        var utilsTextToSpeech: UtilsTextToSpeech? = null
+        utilsTextToSpeech = UtilsTextToSpeech(context!!, ::String)
+        utilsTextToSpeech.speakOut(text, null)
         return true
     }
 

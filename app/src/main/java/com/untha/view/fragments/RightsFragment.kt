@@ -26,7 +26,11 @@ import org.koin.android.viewmodel.ext.android.viewModel
 
 
 class RightsFragment : BaseFragment(),
-    RightsAdapter.OnItemClickListener {
+    RightsAdapter.OnItemClickListener, RightsAdapter.OnItemLongClickListener {
+
+    override fun onItemLongClick(itemView: View, text: String): Boolean {
+        return true
+    }
 
     private val viewModel: RightsViewModel by viewModel()
     private lateinit var mainActivity: MainActivity
@@ -40,6 +44,7 @@ class RightsFragment : BaseFragment(),
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+//        this.textToSpeech = TextToSpeech(context, this)
         mainActivity = this.activity as MainActivity
 
         val rigthsView = inflater.inflate(R.layout.layout_rights, container, false)
@@ -86,9 +91,9 @@ class RightsFragment : BaseFragment(),
     private fun populateCategoryList(categoryList: List<Category>) {
         val layoutManager = GridLayoutManager(context, Constants.SPAN_TWO_COLUMNS)
         categoryRecyclerView.layoutManager = layoutManager
-        categoryRecyclerView.adapter = RightsAdapter(categoryList as ArrayList<Category>, this)
+        categoryRecyclerView.adapter =
+            RightsAdapter(categoryList as ArrayList<Category>, this, this)
     }
-
 
     private fun setMarginsToRecyclerView() {
         val marginInDps =

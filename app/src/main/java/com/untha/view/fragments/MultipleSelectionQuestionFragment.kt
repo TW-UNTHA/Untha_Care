@@ -1,7 +1,6 @@
 package com.untha.view.fragments
 
 import android.os.Bundle
-import android.speech.tts.TextToSpeech
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -23,7 +22,7 @@ import com.untha.utils.ContentType
 import com.untha.utils.FirebaseEvent
 import com.untha.utils.MultipleSelectionOption
 import com.untha.utils.PixelConverter
-import com.untha.utils.ToSpeech
+import com.untha.utils.UtilsTextToSpeech
 import com.untha.view.activities.MainActivity
 import com.untha.view.extension.loadHorizontalProgressBar
 import com.untha.viewmodels.CategoryViewModel
@@ -81,8 +80,8 @@ class MultipleSelectionQuestionFragment : BaseFragment() {
         goBackScreenRoutes()
     }
 
-    private fun loadTitleRoute(isLabourRoute: Boolean) {
-        if (isLabourRoute) {
+    private fun loadTitleRoute(isLabourRoute:Boolean){
+        if(isLabourRoute){
             (activity as MainActivity).customActionBar(
                 Constants.NAME_SCREEN_LABOUR_ROUTE,
                 enableCustomBar = true,
@@ -90,7 +89,7 @@ class MultipleSelectionQuestionFragment : BaseFragment() {
                 enableHelp = false,
                 backMethod = null
             )
-        } else {
+        }else{
             (activity as MainActivity).customActionBar(
                 Constants.NAME_SCREEN_VIOLENCE_ROUTE,
                 enableCustomBar = true,
@@ -127,7 +126,6 @@ class MultipleSelectionQuestionFragment : BaseFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        this.textToSpeech = TextToSpeech(context, this)
         return createMainLayout()
     }
 
@@ -282,7 +280,7 @@ class MultipleSelectionQuestionFragment : BaseFragment() {
                         registerAnalyticsEvent(false)
                         viewModel.loadQuestion(routeQuestion?.goTo, route)
                         val isSingle = viewModel.isSingleQuestion(viewModel.question?.type)
-                        val questionGoToInfo = mapOf(
+                        val questionGoToInfo= mapOf(
                             "goTo" to routeQuestion?.goTo,
                             "isSingle" to isSingle,
                             "isLabourRoute" to isLabourRoute,
@@ -348,9 +346,9 @@ class MultipleSelectionQuestionFragment : BaseFragment() {
                 gravity = Gravity.CENTER
             }.lparams(width = wrapContent, height = wrapContent) {
                 gravity = Gravity.CENTER
-                bottomMargin =
+                bottomMargin  =
                     calculateWidthComponentsQuestion()
-                topMargin =
+                topMargin  =
                     calculateWidthComponentsQuestion()
             }
         }
@@ -500,9 +498,12 @@ class MultipleSelectionQuestionFragment : BaseFragment() {
             backgroundResource = attr(R.attr.selectableItemBackgroundBorderless).resourceId
             val textQuestion = routeQuestion?.content
             val contentQuestion = "$textQuestion ${contentAudioOptions()}"
+            var utilsTextToSpeech: UtilsTextToSpeech? = null
+            utilsTextToSpeech = UtilsTextToSpeech(context!!, ::String)
+
             onClick {
+                utilsTextToSpeech.speakOut(contentQuestion, null)
                 logAnalyticsCustomContentTypeWithId(ContentType.AUDIO, FirebaseEvent.AUDIO)
-                contentQuestion.let { ToSpeech.speakOut(it, textToSpeech) }
             }
         }.lparams(
             width = calculateHeightComponentsAudio(Constants.SIZE_IMAGE_PERCENTAGE_AUDIO_QUESTION),
