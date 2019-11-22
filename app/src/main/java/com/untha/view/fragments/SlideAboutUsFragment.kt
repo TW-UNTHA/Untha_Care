@@ -43,9 +43,8 @@ class SlideAboutUsFragment(private val myTextToSpeech: TextToSpeech) : BaseFragm
         private const val SIZE_IMAGE_PERCENTAGE_ABOUT_US_AUDIO = 0.16
         private const val SIZE_IMAGE_PERCENTAGE_ABOUT_US_TOUCH = 0.22
         private const val MARGIN_TEXT_ABOUT_US = 0.166
-        private const val HEIGHT_BOX_ABOUT_US = 0.27
+        private const val HEIGHT_BOX_ABOUT_US = 0.23
         private const val HEIGHT_BOX_ABOUT_TOUCH = 0.32
-
         private const val HEIGHT_TAB_FOUR = 0.5
         private const val WIDTH_TAB_FOUR = 0.6
     }
