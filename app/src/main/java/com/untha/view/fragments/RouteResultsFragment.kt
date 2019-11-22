@@ -515,14 +515,16 @@ class RouteResultsFragment : BaseFragment() {
                 Constants.NAME_SCREEN_LABOUR_ROUTE,
                 enableCustomBar = true,
                 needsBackButton = false,
-                backMethod = null
+                backMethod = null,
+                enableHelp = true
             )
         } else {
             (activity as MainActivity).customActionBar(
                 Constants.NAME_SCREEN_VIOLENCE_ROUTE,
                 enableCustomBar = true,
                 needsBackButton = false,
-                backMethod = null
+                backMethod = null,
+                enableHelp = true
             )
         }
     }

@@ -353,14 +353,16 @@ class GenericInfoStepFragment : BaseFragment() {
                 Constants.NAME_SCREEN_LABOUR_ROUTE,
                 enableCustomBar = false,
                 needsBackButton = true,
-                backMethod = null
+                backMethod = null,
+                enableHelp = false
             )
         } else {
             (activity as MainActivity).customActionBar(
                 Constants.NAME_SCREEN_VIOLENCE_ROUTE,
                 enableCustomBar = false,
                 needsBackButton = true,
-                backMethod = null
+                backMethod = null,
+                enableHelp = false
             )
         }
     }
