@@ -29,7 +29,7 @@ class AboutUsFragment : BaseFragment() {
         super.onCreate(savedInstanceState)
         mainActivity = this.activity as MainActivity
         mainActivity.customActionBar(
-            Constants.NAME_SCREEN_LABOUR_ROUTE,
+            Constants.HOME_PAGE,
             enableCustomBar = true,
             needsBackButton = false,
             enableHelp = false,
