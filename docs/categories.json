@@ -87,7 +87,7 @@
       "information": [
         {
           "id": 4,
-          "description": "El empleador debe inscribirte en el Instituto Ecuatoriano de Seguridad Social (IESS), desde el primer día de trabajo. Dará aviso de tu entrada en los primeros 15 días. Comunicará sobre tu salida, sueldos y salarios, accidentes de trabajo y enfermedades que se produzcan en él y cumplirá con las demás obligaciones legales sobre seguridad social.",
+          "description": "El empleador debe registrarte en el Instituto Ecuatoriano de Seguridad Social (IESS), desde el primer día de trabajo. Dará aviso de tu entrada los primeros 15 días. Comunicará sobre tu salida, sueldos y salarios, accidentes de trabajo y enfermedades que se produzcan en él y cumplirá con las demás obligaciones legales sobre seguridad social.",
           "image": "info_afiliacion",
           "screen_title": "AFILIACIÓN AL IESS",
           "next_step": null,
@@ -187,11 +187,11 @@
             },
             {
               "id": 2,
-              "title": "¿En dónde?",
+              "title": "¿En dónde denunciar?",
               "steps": [
                 {
                   "step_id": null,
-                  "description": "•&nbsp;&nbsp;&nbsp;Direcciones Regionales del Trabajo <br>•&nbsp;&nbsp;&nbsp;Inspectorías de Trabajo <br>•&nbsp;&nbsp;&nbsp;Ventanillas del Ministerio del Trabajo <br>•&nbsp;&nbsp;&nbsp;Llamar al <a href = 'tel:151'>151</a> - Defensoría Pública <br>•&nbsp;&nbsp;&nbsp;Llamar al <a href = 'tel:1800 266822'>1800 266822</a> <br>•&nbsp;&nbsp;&nbsp;Enviar un correo a  <a href = 'email:denuncias@trabajo.gob.ec'>denuncias@trabajo.gob.ec</a>"
+                  "description": "•&nbsp;&nbsp;&nbsp;Direcciones Regionales del Trabajo <br>•&nbsp;&nbsp;&nbsp;Inspectorías de Trabajo <br>•&nbsp;&nbsp;&nbsp;Ventanillas del Ministerio del Trabajo <br>•&nbsp;&nbsp;&nbsp;Llamar al <a href = 'tel:151'>151</a> - Defensoría Pública <br>•&nbsp;&nbsp;&nbsp;Llamar al <a href = 'tel:1800 266822'>1800 266822</a> - Ministerio del trabajo <br>•&nbsp;&nbsp;&nbsp;Enviar un correo a  <a href = 'email:denuncias@trabajo.gob.ec'>denuncias@trabajo.gob.ec</a>"
                 }
               ]
             },
@@ -209,14 +209,14 @@
         },
         {
           "id": 2,
-          "description": "<b>DENUNCIAS POR VIOLENCIA</b><br><br><br> Presenta este tipo denuncia cuando has sido víctima de cualquier tipo de violencia. Por ejemplo, si sufres humillaciones, burlas, discriminación,encierro, golpes, amenazas o cualquier abuso sexual no deseado. ",
+          "description": "<b>DENUNCIAS POR VIOLENCIA</b><br><br><br> Presenta este tipo denuncia cuando has sido víctima de cualquier tipo de violencia. Por ejemplo, si sufres humillaciones, burlas, discriminación,encierro, golpes, amenazas o cualquier abuso sexual. ",
           "image": "info_denuncias",
           "screen_title": "DENUNCIAS",
           "next_step": 15,
           "sections": [
             {
               "id": 4,
-              "title": "¿En dónde?",
+              "title": "¿En dónde denunciar?",
               "steps": [
                 {
                   "step_id": null,

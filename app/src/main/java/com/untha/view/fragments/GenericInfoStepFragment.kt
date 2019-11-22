@@ -118,7 +118,7 @@ class GenericInfoStepFragment : BaseFragment() {
             category.information?.get(0)?.screenTitle.toString(),
             enableCustomBar = false, needsBackButton = true, enableHelp = false, backMethod = null
         )
-        loadTitleRoute(true)
+        loadTitleRoute()
     }
 
     private fun @AnkoViewDslMarker _LinearLayout.buildButtonNextStep(
@@ -347,24 +347,17 @@ class GenericInfoStepFragment : BaseFragment() {
         }.lparams(width = wrapContent, height = wrapContent)
     }
 
-    private fun loadTitleRoute(isLabourRoute: Boolean) {
-        if (isLabourRoute) {
+    private fun loadTitleRoute() {
+        category.subtitle?.let {
             (activity as MainActivity).customActionBar(
-                Constants.NAME_SCREEN_LABOUR_ROUTE,
-                enableCustomBar = false,
-                needsBackButton = true,
-                backMethod = null,
-                enableHelp = false
-            )
-        } else {
-            (activity as MainActivity).customActionBar(
-                Constants.NAME_SCREEN_VIOLENCE_ROUTE,
+                it,
                 enableCustomBar = false,
                 needsBackButton = true,
                 backMethod = null,
                 enableHelp = false
             )
         }
+
     }
 
     private fun onItemClick(category: Category, categories: ArrayList<Category>?, itemView: View) {
