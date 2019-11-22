@@ -118,7 +118,6 @@ class GenericInfoStepFragment : BaseFragment() {
             category.information?.get(0)?.screenTitle.toString(),
             enableCustomBar = false, needsBackButton = true, enableHelp = false, backMethod = null
         )
-        loadTitleRoute()
     }
 
     private fun @AnkoViewDslMarker _LinearLayout.buildButtonNextStep(
@@ -345,19 +344,6 @@ class GenericInfoStepFragment : BaseFragment() {
             )
             setImageBitmap(bitmap)
         }.lparams(width = wrapContent, height = wrapContent)
-    }
-
-    private fun loadTitleRoute() {
-        category.subtitle?.let {
-            (activity as MainActivity).customActionBar(
-                it,
-                enableCustomBar = false,
-                needsBackButton = true,
-                backMethod = null,
-                enableHelp = false
-            )
-        }
-
     }
 
     private fun onItemClick(category: Category, categories: ArrayList<Category>?, itemView: View) {

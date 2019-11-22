@@ -298,7 +298,7 @@
               "steps": [
                 {
                   "step_id": 1,
-                  "description": " Si trabajas puertas adentro o puertas afuera tienes derecho a recibir alimentos, uniformes (si se requiere) y albergue (en medida de las posibilidades) sin que estos te sean descontados de tu remuneración, además tienes derecho a tener facilidades para acceder a tu educación. <br><br>Tienes derecho a recibir por lo menos un salario básico unificado si trabajas a tiempo completo, es decir: ganar mínimo $394 por trabajar máximo cinco días a la semana o 40 horas semanales. "
+                  "description": " Si trabajas puertas adentro o puertas afuera tienes derecho a recibir alimentos, uniformes (si se requiere) y albergue (en medida de las posibilidades) sin que estos sean descontados de tu remuneración, además tienes derecho a tener facilidades para estudiar. <br><br>Tienes derecho a recibir por lo menos un salario básico unificado si trabajas a tiempo completo, es decir: ganar mínimo $394 por trabajar máximo cinco días a la semana o 40 horas semanales. "
                 },
                 {
                   "step_id": 2,
@@ -378,7 +378,7 @@
                 },
                 {
                   "step_id": 5,
-                  "description": "Las menores de 16 años tienen derecho a 20 días de vacaciones, y las mayores de 16 y menores de 18 tendrán derecho a 18 días de vacaciones anuales."
+                  "description": "Quienes tienen de 15 a 16 años tienen derecho a 20 días de vacaciones, y las mayores de 16 y menores de 18 tendrán derecho a 18 días de vacaciones anuales."
                 },
                 {
                   "step_id": 6,
@@ -466,7 +466,7 @@
                 },
                 {
                   "step_id": 6,
-                  "description": "Tu contrato debe ser hecho por escrito y una copia debe registrarse en el Municipio e Inspección del Trabajo respectivo o en el Consejo Cantonal. Tu empleador tiene un plazo de 30 días para cumplir con esta obligación."
+                  "description": "Tu contrato debe ser hecho por escrito y una copia debe registrarse en el Municipio e Inspección del Trabajo o en el Consejo Cantonal de Protección de Derechos. Tu empleador tiene un plazo de 30 días para cumplir con esta obligación."
                 }
               ]
             }
@@ -510,7 +510,7 @@
                 },
                 {
                   "step_id": 5,
-                  "description": " Puedes dar por terminado un contrato por estos motivos:<br><br> •&nbsp;&nbsp;&nbsp;Por injuria de tu empleador, sus familiares o personas cercanas. Si las injurias son discriminatorias, la indemnización es la que ordena el artículo 195.3 del Código de Trabajo por \"injurias discriminatorias\" que establece que se \"recibirá la indemnización equivalente al valor de un año de la remuneración que venía percibiendo, además de la general que corresponda por despido intempestivo.<br>•&nbsp;&nbsp;&nbsp;Por disminución, falta de pago o impuntualidad en el pago<br>•&nbsp;&nbsp;&nbsp;Por que se te exige hacer trabajos que no se habían acordado<br>•&nbsp;&nbsp;&nbsp;Por sufrir acoso laboral o cometido por parte de tu empleador o sus representantes."
+                  "description": " Puedes dar por terminado un contrato por estos motivos:<br><br> •&nbsp;&nbsp;&nbsp;Por injuria de tu empleador, sus familiares o personas cercanas. Si las injurias son discriminatorias, la indemnización es la que ordena el artículo 195.3 del Código del Trabajo por \"injurias discriminatorias\", que establece que se \"recibirá la indemnización equivalente al valor de un año de la remuneración que venía percibiendo, además de la general que corresponda por despido intempestivo.<br>•&nbsp;&nbsp;&nbsp;Por disminución, falta de pago o impuntualidad en el pago<br>•&nbsp;&nbsp;&nbsp;Por que se te exige hacer trabajos que no se habían acordado<br>•&nbsp;&nbsp;&nbsp;Por sufrir acoso laboral o cometido por parte de tu empleador o sus representantes."
                 },
                 {
                   "step_id": 6,
@@ -588,11 +588,11 @@
             },
             {
               "id": 23,
-              "title": "Convenio y Recomendación para eliminar el acoso y la violencia en el mundo del trabajo de la OIT",
+              "title": "Convenio 190 y Recomendación 2016 para eliminar la violencia y el acoso en el mundo del trabajo de la OIT",
               "steps": [
                 {
                   "step_id": null,
-                  "description": "Brinda elementos técnicos y normativos para que los Estados, las empresas y las y los  trabajadores elaboren planes de prevención sobre violencia y acoso en el mundo del trabajo, desarrollen mecanismos para garantizar la denuncias de violencia y acoso y reconozcan la importancia de trabajar de manera coordinada para detener, controlar y dar seguimiento a cualquier hecho de violencia que atente contra los derechos humanos, así como contar con mecanismos de restitución de los derechos de las y los trabajadores."
+                  "description": "Brinda elementos técnicos y normativos para que los Estados, las empresas y las y los  trabajadores elaboren planes de prevención sobre violencia y acoso en el mundo del trabajo, desarrollen mecanismos para garantizar la denuncia de violencia y acoso y reconozcan la importancia de trabajar de manera coordinada para detener, controlar y dar seguimiento a cualquier hecho de violencia que atente contra los derechos humanos, así como contar con mecanismos de restitución de los derechos de las y los trabajadores."
                 }
               ]
             },
