@@ -65,27 +65,41 @@
           "steps": [
             {
               "step_id": 1,
-              "description": "Llamar al ECU 911, acudir a la UPC o activar las acciones urgentes"
+              "description": "En caso de flagrancia, es decir, si ese rato ocurren los hechos. Llamar al ECU 911, acudir a la UPC o activar las acciones urgentes. Si no es así se debe asistir a la Fiscalía o a la Unidades Judicial Especializada en Materia de Violencia Contra la Mujer o Miembros del Núcleo Familiar. "
             },
             {
               "step_id": 2,
-              "description": "Puedes hacer una denuncia: Unidad Judicial de Violencia contra la Mujer y la Familia de la Fiscalía 1800 266 822 . Ministerio del Trabajo"
+              "description": "Si el hecho de violencia ocurrió dentro de tu lugar de trabajo, puedes denunciar en las Unidades Judiciales Multicompetentes o Fiscalía. "
             },
             {
               "step_id": 3,
-              "description": "Solicitar el acompañamiento de la Policía Nacional para acudir a tu domicilio habitual y tomar tus documentos o pertenencias"
+              "description": "Si el hecho de violencia ocurrió dentro de tu núcleo familiar, puedes denunciar en Fiscalía o en las Unidades Judicial Especializadas en Materia de Violencia Contra la Mujer o Miembros del Núcleo Familiar. "
             },
             {
               "step_id": 4,
-              "description": "Dirigirse a la Junta Cantonal de Protección de Derechos o a la Comisaría Nacional de Policía para solicitar boleta de auxilio u orden de restricción"
+              "description": "En caso de que la persona agresora se encuentre en tu domicilio, solicita el acompañamiento de la Policía Nacional para acudir al mismo y tomar tus documentos o pertenencias."
             },
             {
               "step_id": 5,
-              "description": "Informarse sobre la situación de la persona agresora, conocer si fue detenida por haber cometido el acto de violencia"
+              "description": "Dirigirse a la Junta Cantonal de Protección de Derechos o a la Tenencia Política zonal para solicitar boleta de auxilio u orden de restricción."
             },
             {
               "step_id": 6,
-              "description": "Recibir información acerca de las instancias del Sistema de Protección y tu derecho a recibir atención Integral"
+              "description": "Informarse sobre la situación de la persona agresora, conocer si fue detenida por haber cometido el acto de violencia."
+            },
+            {
+              "step_id": 7,
+              "description": "Recibir información acerca de las instancias del Sistema de Protección y tu derecho a recibir atención Integral."
+            }
+          ]
+        },
+        {
+          "id": 2,
+          "title": "¿Qué solicitar?",
+          "steps": [
+            {
+              "step_id": null,
+              "description": "•&nbsp;&nbsp;&nbsp;Boleta de auxilio para usted y orden de restricción de acercamiento para el agresor. <br>•&nbsp;&nbsp;&nbsp;Apoyo para que usted pueda regresar a su domicilio. <br>•&nbsp;&nbsp;&nbsp;Ingreso de los dependientes en programa de atención y protección. <br>•&nbsp;&nbsp;&nbsp;Que la persona agresora no esconda o traslade bienes o a las personas dependientes. <br>•&nbsp;&nbsp;&nbsp;Que la persona agresora no le pueda amenazar o intimidar. <br>•&nbsp;&nbsp;&nbsp;Apoyo de la policía para que la persona agresora salga del domicilio, si su presencia es un riesgo para su integridad y su vida. <br>•&nbsp;&nbsp;&nbsp;Dispositivos de alerta (botón de pánico o patrullajes de la Policía Nacional). <br>•&nbsp;&nbsp;&nbsp;Que se prohíba a la persona agresora retener u ocultar bienes de la víctima y sus dependientes y, si ya lo hizo, disponer su devolución inmediata. <br>•&nbsp;&nbsp;&nbsp;Flexibilidad en el horario laboral de la víctima de violencia. <br>•&nbsp;&nbsp;&nbsp;Suspensión temporal del agresor de actividades deportivas, artísticas, etc. <br>•&nbsp;&nbsp;&nbsp;Cualquier otra medida que asegure la integridad y la vida de la víctima."
             }
           ]
         }
@@ -123,15 +137,15 @@
           "steps": [
             {
               "step_id": 1,
-              "description": "Hacer un oficio o carta con los siguientes datos: nombres completos, cédula de identidad e información para contactarte (No reciben denuncias anónimas). Nombre completo del empleador o empleadora y el lugar donde se hace su actividad laboral."
+              "description": "Hacer un oficio o carta con los siguientes datos: nombres completos, cédula de identidad e información para contactarte (No reciben denuncias anónimas). Nombre completo del empleador o empleadora y el lugar donde se hace su actividad laboral"
             },
             {
               "step_id": 2,
-              "description": "Explicar los motivos de la denuncia, puedes usar los motivos de incumplimiento patronal que te dimos en este resultado."
+              "description": "Explicar los motivos de la denuncia, puedes usar los incumplimientos que te dimos en este resultado"
             },
             {
               "step_id": 3,
-              "description": "Es necesario que pruebes estos incumplimientos por parte de tu empleador, por esto, antes de presentar la denuncia reúne el mayor número de pruebas. Así será más fácil para el inspector de trabajo sancionar las faltas. Pueden ser pruebas, correos electrónicos, fotografías, testimonios, grabación de llamadas, mensajes escritos al celular, pantallazos de comentarios o publicaciones en redes sociales, testigos, facturas, contratos, documentos firmados."
+              "description": "Es necesario que pruebes estos incumplimientos, por esto, antes de presentar la denuncia reúne el mayor número de pruebas. Así será más fácil para el inspector de trabajo sancionar las faltas. Pueden ser pruebas, correos electrónicos, fotografías, testimonios, grabación de llamadas, mensajes escritos al celular, pantallazos de comentarios o publicaciones en redes sociales, testigos, facturas, contratos, documentos firmados."
             }
           ]
         },
