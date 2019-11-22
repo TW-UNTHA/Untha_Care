@@ -516,7 +516,7 @@ class RouteResultsFragment : BaseFragment() {
                 enableCustomBar = true,
                 needsBackButton = false,
                 backMethod = null,
-                enableHelp = true
+                enableHelp = false
             )
         } else {
             (activity as MainActivity).customActionBar(
@@ -524,7 +524,7 @@ class RouteResultsFragment : BaseFragment() {
                 enableCustomBar = true,
                 needsBackButton = false,
                 backMethod = null,
-                enableHelp = true
+                enableHelp = false
             )
         }
     }
