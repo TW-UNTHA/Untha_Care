@@ -98,6 +98,8 @@ dependencies {
     implementation "androidx.room:room-runtime:$room_version"
     implementation "androidx.lifecycle:lifecycle-extensions:$lifecycleExtensionsVersion"
     implementation "org.jetbrains.anko:anko:$anko_version"
+    implementation "org.jetbrains.anko:anko-design:$anko_version"
+    implementation "org.jetbrains.anko:anko-design-coroutines:$anko_version"
     implementation "com.jakewharton.timber:timber:$timber_version"
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
     implementation "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:$kotlinx_version"
@@ -132,4 +134,5 @@ dependencies {
     androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_version"
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation "androidx.test.ext:junit:$test_ext_version"
+    android.defaultConfig.vectorDrawables.useSupportLibrary = true
 }

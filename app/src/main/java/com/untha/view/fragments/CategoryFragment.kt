@@ -1,5 +1,6 @@
 package com.untha.view.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.speech.tts.TextToSpeech
 import android.view.LayoutInflater
@@ -10,6 +11,7 @@ import android.widget.RelativeLayout
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.untha.R
 import com.untha.model.transactionalmodels.Category
 import com.untha.utils.Constants
@@ -32,11 +34,12 @@ class CategoryFragment : BaseFragment(),
         const val CALCULATOR_CATEGORY = 5
         const val ROUTES_CATEGORY = 1
     }
-    
+
     private lateinit var categoryListAdapter: CategoryAdapter
     private val categoryViewModel: CategoryViewModel by viewModel()
     private val viewModel: AboutUsViewModel by viewModel()
     private lateinit var mainActivity: MainActivity
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -45,7 +48,12 @@ class CategoryFragment : BaseFragment(),
     ): View? {
         this.textToSpeech = TextToSpeech(context, this)
         mainActivity = this.activity as MainActivity
-        return inflater.inflate(R.layout.fragment_category, container, false)
+
+        val categoriesView = inflater.inflate(R.layout.fragment_category, container, false)
+
+        addShareButtonToView(categoriesView, inflater, container)
+
+        return categoriesView
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -58,7 +66,6 @@ class CategoryFragment : BaseFragment(),
                     navOptionsToBackNavigation,
                     null
                 )
-           // return inflater.inflate(R.layout.fragment_about_instructions, container, false)
         }
         activity?.let {
             firebaseAnalytics.setCurrentScreen(it, Constants.CATEGORY_PAGE, null)
@@ -177,4 +184,27 @@ class CategoryFragment : BaseFragment(),
                 }
             }
         }
+
+    private fun addShareButtonToView(
+        categoriesView: View,
+        inflater: LayoutInflater,
+        contanier: ViewGroup?
+    ) {
+        val shareButtonView = inflater.inflate(R.layout.share_button, contanier, false)
+        val categoriesRelativeLayout: RelativeLayout =
+            categoriesView.findViewById(R.id.rl_categories)
+        val shareButtonRelativeLayout: RelativeLayout =
+            shareButtonView.findViewById(R.id.rl_share_button)
+        val shareButton: FloatingActionButton =
+            shareButtonRelativeLayout.findViewById(R.id.share_button)
+        shareButton.setOnClickListener {
+            val sendIntent = Intent()
+            sendIntent.action = Intent.ACTION_SEND
+            sendIntent.putExtra(Intent.EXTRA_TEXT, Constants.SHARE_BUTTON_MESSAGE)
+            sendIntent.type = "text/plain"
+            context?.startActivity(sendIntent)
+        }
+
+        categoriesRelativeLayout.addView(shareButtonRelativeLayout)
+    }
 }

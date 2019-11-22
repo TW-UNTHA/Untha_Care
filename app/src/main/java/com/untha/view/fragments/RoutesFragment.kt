@@ -1,5 +1,6 @@
 package com.untha.view.fragments
 
+import android.content.Intent
 import android.graphics.Typeface
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -19,13 +20,20 @@ import com.untha.utils.PixelConverter
 import com.untha.view.activities.MainActivity
 import org.jetbrains.anko.AnkoViewDslMarker
 import org.jetbrains.anko._LinearLayout
+import org.jetbrains.anko._RelativeLayout
+import org.jetbrains.anko.alignParentBottom
+import org.jetbrains.anko.alignParentRight
 import org.jetbrains.anko.attr
 import org.jetbrains.anko.backgroundColor
 import org.jetbrains.anko.backgroundDrawable
 import org.jetbrains.anko.backgroundResource
+import org.jetbrains.anko.design.floatingActionButton
 import org.jetbrains.anko.dip
+import org.jetbrains.anko.imageResource
 import org.jetbrains.anko.imageView
+import org.jetbrains.anko.margin
 import org.jetbrains.anko.matchParent
+import org.jetbrains.anko.relativeLayout
 import org.jetbrains.anko.sdk27.coroutines.onClick
 import org.jetbrains.anko.support.v4.UI
 import org.jetbrains.anko.textColor
@@ -87,10 +95,11 @@ class RoutesFragment : BaseFragment() {
                 null
             )
         }
-        with(view as _LinearLayout) {
+        with(view as _RelativeLayout) {
             verticalLayout {
                 buildRoute(view)
-            }
+            }.lparams(width = matchParent, height = matchParent)
+
         }
         mainActivity.customActionBar(
             Constants.NAME_SCREEN_ROUTES,
@@ -190,10 +199,11 @@ class RoutesFragment : BaseFragment() {
 
     private fun createMainLayout(): View {
         return UI {
-            verticalLayout {
+            relativeLayout {
                 backgroundColor =
                     ContextCompat.getColor(context, R.color.colorBackgroundMainRoute)
                 lparams(width = matchParent, height = matchParent)
+                loadShareFloatingButton()
             }
         }.view
     }
@@ -214,5 +224,25 @@ class RoutesFragment : BaseFragment() {
                 .into(this)
             scaleType = ImageView.ScaleType.FIT_CENTER
         }.lparams(width = matchParent, height = wrapContent)
+    }
+
+    private fun @AnkoViewDslMarker _RelativeLayout.loadShareFloatingButton(
+    ) {
+        floatingActionButton {
+            imageResource = R.drawable.ic_share
+            backgroundTintList =
+                ContextCompat.getColorStateList(context, R.color.colorHeaderBackground)
+            onClick {
+                val sendIntent = Intent()
+                sendIntent.action = Intent.ACTION_SEND
+                sendIntent.putExtra(Intent.EXTRA_TEXT, Constants.SHARE_BUTTON_MESSAGE)
+                sendIntent.type = "text/plain"
+                context.startActivity(sendIntent)
+            }
+        }.lparams {
+            margin = dip(Constants.SHARE_BUTTON_MARGIN)
+            alignParentBottom()
+            alignParentRight()
+        }
     }
 }

@@ -1,5 +1,6 @@
 package com.untha.view.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +10,7 @@ import android.widget.RelativeLayout
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.untha.R
 import com.untha.model.transactionalmodels.Category
 import com.untha.utils.Constants
@@ -39,7 +41,11 @@ class RightsFragment : BaseFragment(),
         savedInstanceState: Bundle?
     ): View? {
         mainActivity = this.activity as MainActivity
-        return inflater.inflate(R.layout.layout_rights, container, false)
+
+        val rigthsView = inflater.inflate(R.layout.layout_rights, container, false)
+        addShareButtonToView(rigthsView, inflater, container)
+
+        return rigthsView
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -128,4 +134,25 @@ class RightsFragment : BaseFragment(),
         })
     }
 
+    private fun addShareButtonToView(
+        rigthsView: View,
+        inflater: LayoutInflater,
+        container: ViewGroup?
+    ) {
+        val shareButtonView = inflater.inflate(R.layout.share_button, container, false)
+        val rigthsRelativeLayout: RelativeLayout = rigthsView.findViewById(R.id.rl_rights)
+        val shareButtonRelativeLayout: RelativeLayout =
+            shareButtonView.findViewById(R.id.rl_share_button)
+        val shareButton: FloatingActionButton =
+            shareButtonRelativeLayout.findViewById(R.id.share_button)
+
+        shareButton.setOnClickListener {
+            val sendIntent = Intent()
+            sendIntent.action = Intent.ACTION_SEND
+            sendIntent.putExtra(Intent.EXTRA_TEXT, Constants.SHARE_BUTTON_MESSAGE)
+            sendIntent.type = "text/plain"
+            context?.startActivity(sendIntent)
+        }
+        rigthsRelativeLayout.addView(shareButtonRelativeLayout)
+    }
 }

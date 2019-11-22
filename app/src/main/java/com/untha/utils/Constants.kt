@@ -65,6 +65,8 @@ object Constants {
     const val SIZE_HEIGHT_PERCENTAGE_OPTION_BUTTON = 0.09
     const val ID_ROUTE_LABOUR = 14
     const val ID_ROUTE_VIOLENCE = 15
+    const val SHARE_BUTTON_MARGIN = 12
+
 
     const val TEMPORAL_LOAD_PROGRESS_BAR = 1
     const val COUNT_QUESTION_ADVANCE = 0
@@ -108,6 +110,7 @@ object Constants {
     const val IS_LABOUR_ROUTE = "is_labour_route"
     const val COMPLETE_LABOUR_ROUTE = "complete_labour_route"
     const val COMPLETE_VIOLENCE_ROUTE = "complete_violence_route"
+    const val SHARE_BUTTON_MESSAGE = "Descarga la aplicación THR Unidas aqui"
 
 
 }

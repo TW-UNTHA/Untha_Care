@@ -1,9 +1,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/colorGenericTitle"
-    android:id="@+id/custom_action_bar"
-    >
+    android:id="@+id/custom_action_bar">
 
     <TextView
         android:id="@+id/title_actiov_bar"
@@ -19,7 +19,7 @@
         android:layout_height="match_parent"
         android:layout_alignParentRight="true"
         android:foregroundGravity="center_vertical"
-        android:src="@drawable/ic_cerrar"
+        app:srcCompat="@drawable/ic_cerrar"
         android:clickable="true"
         android:id="@+id/icon_go_back_route"
          />
