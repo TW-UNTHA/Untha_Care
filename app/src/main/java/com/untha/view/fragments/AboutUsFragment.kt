@@ -60,10 +60,6 @@ class AboutUsFragment : BaseFragment() {
         return test
     }
 
-    override fun onResume() {
-        super.onResume()
-    }
-
     private fun goBackHome() {
         val layoutActionBar = (activity as MainActivity).supportActionBar?.customView
         val close = layoutActionBar?.findViewById(R.id.icon_go_back_route) as ImageView
