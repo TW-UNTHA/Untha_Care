@@ -116,7 +116,7 @@
                 },
                 {
                   "step_id": 3,
-                  "description": "Busca en tu correo electrónico un mail del IESS llamado “Activación de clave” (antes de esto se te solicitará un correo elctrónico). Selecciona el botón “Click para continuar” en el correo que te llegó."
+                  "description": "Busca en tu correo electrónico un mail del IESS llamado “Activación de clave” (antes de esto se te solicitará un correo electrónico). Selecciona el botón “Click para continuar” en el correo que te llegó."
                 },
                 {
                   "step_id": 4,
@@ -298,7 +298,7 @@
               "steps": [
                 {
                   "step_id": 1,
-                  "description": " Si trabajas puertas adentro o puertas afuera tienes derecho a recibir alimentos, uniformes (si se requiere) y albergue (en medida de las posibilidades) sin que estos sean descontados de tu remuneración, además tienes derecho a tener facilidades para estudiar. <br><br>Tienes derecho a recibir por lo menos un salario básico unificado si trabajas a tiempo completo, es decir: ganar mínimo $394 por trabajar máximo cinco días a la semana o 40 horas semanales. "
+                  "description": "Tienes derecho a recibir por lo menos un salario básico unificado si trabajas a tiempo completo, es decir: ganar mínimo $394 por trabajar máximo cinco días a la semana o 40 horas semanales. "
                 },
                 {
                   "step_id": 2,
@@ -322,18 +322,22 @@
                 },
                 {
                   "step_id": 7,
-                  "description": "Desde el segundo año de trabajo, tienes derecho a recibir fondos de reserva mes a mes."
+                  "description": "Si trabajas puertas adentro o puertas afuera tienes derecho a recibir alimentos, uniformes (si se requiere) y albergue (en medida de las posibilidades) sin que estos sean descontados de tu remuneración, además tienes derecho a tener facilidades para estudiar."
                 },
                 {
                   "step_id": 8,
-                  "description": "El período de prueba dura máximo 15 días y deberán ser pagados y acordados mediante contrato escrito, una vez finalizado este plazo, la trabajadora entra automáticamente en una modalidad de trabajo indefinido, que reconoce derechos como la indemnización por despido intempestivo."
+                  "description": "Desde el segundo año de trabajo, tienes derecho a recibir fondos de reserva mes a mes."
                 },
                 {
                   "step_id": 9,
-                  "description": "Tienes derecho a ser afiliada al Instituto Ecuatoriano de Seguridad Social (IESS) por parte del empleador y gozar de todo derecho laboral."
+                  "description": "El período de prueba dura máximo 15 días y deberán ser pagados y acordados mediante contrato escrito, una vez finalizado este plazo, la trabajadora entra automáticamente en una modalidad de trabajo indefinido, que reconoce derechos como la indemnización por despido intempestivo."
                 },
                 {
                   "step_id": 10,
+                  "description": "Tienes derecho a ser afiliada al Instituto Ecuatoriano de Seguridad Social (IESS) por parte del empleador y gozar de todo derecho laboral."
+                },
+                {
+                  "step_id": 11,
                   "description": "Debes recibir por adelantado la remuneración antes de tus vacaciones."
                 }
               ]
@@ -458,7 +462,7 @@
                 },
                 {
                   "step_id": 4,
-                  "description": "Si eres menor de 18 años, se prohibe que trabajes en las noches. <br><br><b>Recuerda:</b><br><br>La esclavitud, servidumbre por deudas, trabajo obligatorio, conflictos armados, prostitución o pornografía son penalizadas en el Ecuador. <br>No deberías producir, traficar y/o vender drogas, alcohol, sustancias tóxicas y/o explosivas. Tampoco puedes trabajar en lugares donde estas se produzcan porque son inseguras y riesgosas para tu salud. Está prohibido que cargues o descargues navíos, manejes correas o sierras, fundir y pulir vidrios o metales, pescar a bordo, o ser guardián de seguridad."
+                  "description": "Si eres menor de 18 años, se prohibe que trabajes en las noches."
                 },
                 {
                   "step_id": 5,
@@ -467,6 +471,10 @@
                 {
                   "step_id": 6,
                   "description": "Tu contrato debe ser hecho por escrito y una copia debe registrarse en el Municipio e Inspección del Trabajo o en el Consejo Cantonal de Protección de Derechos. Tu empleador tiene un plazo de 30 días para cumplir con esta obligación."
+                },
+                {
+                  "step_id": 7,
+                  "description": "<b>Recuerda:</b> La esclavitud, servidumbre por deudas, trabajo obligatorio, conflictos armados, prostitución o pornografía son penalizadas en el Ecuador. <br>No deberías producir, traficar y/o vender drogas, alcohol, sustancias tóxicas y/o explosivas. Tampoco puedes trabajar en lugares donde estas se produzcan porque son inseguras y riesgosas para tu salud. Está prohibido que cargues o descargues navíos, manejes correas o cierras, fundir y pulir vidrios o metales, pescar a bordo, o ser guardián de seguridad."
                 }
               ]
             }
@@ -506,7 +514,7 @@
                 },
                 {
                   "step_id": 4,
-                  "description": "Tu empleador puede terminar el contrato por estas causas:<br><br> •&nbsp;&nbsp;&nbsp;La voluntad de tu empleador de terminar el contrato<br>•&nbsp;&nbsp;&nbsp;Faltas injustificadas, impuntualidad o abandono del trabajo por más de 3 días seguidos sin causa<br>•&nbsp;&nbsp;&nbsp;Desobediencias graves a reglamentos internos<br>•&nbsp;&nbsp;&nbsp;Conducta inmoral de la trabajadora<br>•&nbsp;&nbsp;&nbsp;Injuriar a tu empleador, familiares o personas cercanas al mismo<br>•&nbsp;&nbsp;&nbsp;Ineptitud al desempeñar tu trabajo<br>•&nbsp;&nbsp;&nbsp;Denuncias injustificadas a tu empleador sobre obligaciones en el IESS. En caso de que la denuncia sea justificada, tu estabilidad estará asegurado por 2 años en trabajos permanentes<br>•&nbsp;&nbsp;&nbsp;Por acosar laboralmente a otras personas.<br><br><b>Recuerda,</b> antes del visto bueno, el trabajador, sus representantes y el empleador tienen derecho a ser oídos por una autoridad laboral."
+                  "description": "Tu empleador puede terminar el contrato por estas causas:<br><br> •&nbsp;&nbsp;&nbsp;La voluntad de tu empleador de terminar el contrato<br>•&nbsp;&nbsp;&nbsp;Faltas injustificadas, impuntualidad o abandono del trabajo por más de 3 días seguidos sin causa<br>•&nbsp;&nbsp;&nbsp;Desobediencias graves a reglamentos internos<br>•&nbsp;&nbsp;&nbsp;Conducta inmoral de la trabajadora<br>•&nbsp;&nbsp;&nbsp;Injuriar a tu empleador, familiares o personas cercanas al mismo<br>•&nbsp;&nbsp;&nbsp;Ineptitud al desempeñar tu trabajo<br>•&nbsp;&nbsp;&nbsp;Denuncias injustificadas a tu empleador sobre obligaciones en el IESS. En caso de que la denuncia sea justificada, tu estabilidad estará asegurada por 2 años en trabajos permanentes<br>•&nbsp;&nbsp;&nbsp;Por acosar laboralmente a otras personas.<br><br><b>Recuerda,</b> antes del visto bueno, el trabajador, sus representantes y el empleador tienen derecho a ser oídos por una autoridad laboral."
                 },
                 {
                   "step_id": 5,
@@ -514,7 +522,7 @@
                 },
                 {
                   "step_id": 6,
-                  "description": "Si tu empleador te despide intempestivamente, deberás ser indemnizada de esta forma:<br><br>•&nbsp;&nbsp;&nbsp;Tres meses de remuneración si has trabajado hasta tres años<br>•&nbsp;&nbsp;&nbsp;Un mes de remuneración por cada año de servicio sin trabajas más de tres años. No puede pasar de 25 remuneraciones<br>•&nbsp;&nbsp;&nbsp;Un año completo de remuneraciones si has trabajado un año<br>•&nbsp;&nbsp;&nbsp;Si trabaja a destajo, es decir por unidades de trabajo entregadas, se fija la remuneración mensual en base al promedio recibido en el último año de trabajo o el tiempo que haya servido<br>•&nbsp;&nbsp;&nbsp;Si has trabajado entre 20 y 25 años ininterrumpidamente, además, tendrás derecho a una proporción de la jubilación patronal<br>•&nbsp;&nbsp;&nbsp;Si tu empleador termina el contrato sin causa justa, deberá ratificarse ante una autoridad de trabajo y depositar el valor en las siguientes 48 horas, si no lo hace, la trabajadora se reintegrará a sus labores de inmediato."
+                  "description": "Si tu empleador te despide intempestivamente, deberás ser indemnizada de esta forma:<br><br>•&nbsp;&nbsp;&nbsp;Pago de tres meses de remuneración si has trabajado hasta tres años<br>•&nbsp;&nbsp;&nbsp;Un mes de remuneración por cada año de servicio si trabajas más de tres años. No puede pasar de 25 remuneraciones<br>•&nbsp;&nbsp;&nbsp;Un año completo de remuneraciones si has trabajado un año<br>•&nbsp;&nbsp;&nbsp;Si trabajas a destajo, es decir, por unidades de trabajo entregadas, se fija la remuneración mensual en base al promedio recibido en el último año de trabajo o el tiempo que hayas servido<br>•&nbsp;&nbsp;&nbsp;Si has trabajado entre 20 y 25 años ininterrumpidamente, además, tendrás derecho a una proporción de la jubilación patronal<br>•&nbsp;&nbsp;&nbsp;Si tu empleador termina el contrato sin causa justa, deberá ratificarse ante una autoridad de trabajo y depositar el valor en las siguientes 48 horas, si no lo hace, la trabajadora se reintegrará a sus labores de inmediato."
                 }
               ]
             }
@@ -548,7 +556,7 @@
             },
             {
               "id": 19,
-              "title": "Convención sobre la Eliminación de todas las Formas de Discriminación contra la Mujer",
+              "title": "Convención sobre la Eliminación de todas las Formas de Discriminación contra la Mujer(CEDAW)",
               "steps": [
                 {
                   "step_id": null,
@@ -588,11 +596,11 @@
             },
             {
               "id": 23,
-              "title": "Convenio 190 y Recomendación 2016 para eliminar la violencia y el acoso en el mundo del trabajo de la OIT",
+              "title": "Convenio 190 y Recomendación 2016 para eliminar la violencia y acosos en el mundo del trabajo de la OIT",
               "steps": [
                 {
                   "step_id": null,
-                  "description": "Brinda elementos técnicos y normativos para que los Estados, las empresas y las y los  trabajadores elaboren planes de prevención sobre violencia y acoso en el mundo del trabajo, desarrollen mecanismos para garantizar la denuncia de violencia y acoso y reconozcan la importancia de trabajar de manera coordinada para detener, controlar y dar seguimiento a cualquier hecho de violencia que atente contra los derechos humanos, así como contar con mecanismos de restitución de los derechos de las y los trabajadores."
+                  "description": "Brinda elementos técnicos y normativos para que los Estados, las empresas y las y los  trabajadores elaboren planes de prevención sobre violencia y acoso en el mundo del trabajo; desarrollen mecanismos para denunciar casos de violencia y acoso y reconozcan la importancia de trabajar de manera coordinada para detener, controlar y dar seguimiento a cualquier hecho de violencia que atente contra los derechos humanos, así como contar con mecanismos de restitución de los derechos de las y los trabajadores."
                 }
               ]
             },
@@ -622,7 +630,7 @@
               "steps": [
                 {
                   "step_id": null,
-                  "description": "Prohíbe el despido intempestivo de personas trabajadoras en estado de embarazo. Esta ley modificó las normativas como el Código de Trabajo y reconoce el derecho a la seguridad social de las personas que realizan trabajo del hogar no remunerado (aquellas que realizan de manera exclusiva tareas de cuidado del hogar sin percibir pago ni apoyo económico alguno), garantizando su derecho a recibir pensión de jubilación, invalidez y muerte."
+                  "description": "Prohíbe el despido intempestivo de personas trabajadoras en estado de embarazo. Esta ley modificó las normativas como el Código del Trabajo y reconoce el derecho a la seguridad social de las personas que realizan trabajo del hogar no remunerado (aquellas que realizan de manera exclusiva tareas de cuidado del hogar sin percibir pago ni apoyo económico alguno), garantizando su derecho a recibir pensión de jubilación, invalidez y muerte."
                 }
               ]
             },
@@ -672,7 +680,7 @@
               "steps": [
                 {
                   "step_id": null,
-                  "description": "Tiene como objeto establecer regulaciones dentro del sector público y privado, que permitan el acceso a los procesos de selección de personal en igualdad de condiciones, así como garantizar la igualdad y no discriminación en el ámbito laboral. Mediante este acuerdo se realizan denuncias por discriminación en el ámbito laboral."
+                  "description": "Tiene como objeto establecer regulaciones dentro del sector público y privado, que permitan el acceso a los procesos de selección de personal en igualdad de condiciones, así como garantizar la igualdad y no discriminación en el ámbito laboral. Mediante este Acuerdo se realizan denuncias por discriminación en el ámbito laboral."
                 }
               ]
             }

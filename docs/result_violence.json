@@ -123,15 +123,15 @@
           "steps": [
             {
               "step_id": 1,
-              "description": "Hacer un oficio o carta con los siguientes datos: nombres completos, cédula de identidad e información para contactarte (No reciben denuncias anónimas). Nombre completo del empleador o empleadora y el lugar donde se hace su actividad laboral"
+              "description": "Hacer un oficio o carta con los siguientes datos: nombres completos, cédula de identidad e información para contactarte (No reciben denuncias anónimas). Nombre completo del empleador o empleadora y el lugar donde se hace su actividad laboral."
             },
             {
               "step_id": 2,
-              "description": "Explicar los motivos de la denuncia, puedes usar los incumplimientos que te dimos en este resultado"
+              "description": "Explicar los motivos de la denuncia, puedes usar los motivos de incumplimiento patronal que te dimos en este resultado."
             },
             {
               "step_id": 3,
-              "description": "Es necesario que pruebes estos incumplimientos, por esto, antes de presentar la denuncia reúne el mayor número de pruebas. Así será más fácil para el inspector de trabajo sancionar las faltas. Pueden ser pruebas, correos electrónicos, fotografías, testimonios, grabación de llamadas, mensajes escritos al celular, pantallazos de comentarios o publicaciones en redes sociales, testigos, facturas, contratos, documentos firmados."
+              "description": "Es necesario que pruebes estos incumplimientos por parte de tu empleador, por esto, antes de presentar la denuncia reúne el mayor número de pruebas. Así será más fácil para el inspector de trabajo sancionar las faltas. Pueden ser pruebas, correos electrónicos, fotografías, testimonios, grabación de llamadas, mensajes escritos al celular, pantallazos de comentarios o publicaciones en redes sociales, testigos, facturas, contratos, documentos firmados."
             }
           ]
         },
