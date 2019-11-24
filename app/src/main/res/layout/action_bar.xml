@@ -1,39 +1,38 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/custom_action_bar"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/colorGenericTitle"
-    android:id="@+id/custom_action_bar">
+    android:background="@color/colorGenericTitle">
 
     <TextView
-        android:id="@+id/title_actiov_bar"
+        android:id="@+id/title_action_bar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
         android:fontFamily="@font/proxima_nova_bold"
         android:textColor="@color/colorBackgroundCategoryRoute"
-        android:textColorHighlight="@android:color/primary_text_dark"
-        android:layout_centerVertical="true"/>
+        android:textColorHighlight="@android:color/primary_text_dark" />
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_alignParentRight="true"
-        android:foregroundGravity="center_vertical"
-        app:srcCompat="@drawable/ic_cerrar"
-        android:clickable="true"
         android:id="@+id/icon_go_back_route"
-         />
-
-    <ImageView
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:foregroundGravity="center_vertical"
-        android:src="@drawable/ic_about_help"
         android:clickable="true"
+        android:focusable="true"
+        android:foregroundGravity="center_vertical"
+        app:srcCompat="@drawable/ic_close" />
+
+    <ImageView
         android:id="@+id/icon_help"
-        />
-
-
-
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:clickable="true"
+        android:focusable="true"
+        android:foregroundGravity="center_vertical"
+        app:srcCompat="@drawable/ic_about_help" />
 </RelativeLayout>

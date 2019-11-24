@@ -223,7 +223,9 @@ class RoutesFragment : BaseFragment() {
                 .load(imageUrl)
                 .into(this)
             scaleType = ImageView.ScaleType.FIT_CENTER
-        }.lparams(width = matchParent, height = wrapContent)
+        }.lparams(width = matchParent, height = wrapContent) {
+            topMargin = calculateTopMargin()
+        }
     }
 
     private fun @AnkoViewDslMarker _RelativeLayout.loadShareFloatingButton(

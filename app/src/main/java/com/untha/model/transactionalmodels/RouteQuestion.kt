@@ -11,4 +11,4 @@ data class RouteQuestion(
     val goTo: Int?,
     val result: String?,
     val options: List<RouteOption>
-)
+) : java.io.Serializable

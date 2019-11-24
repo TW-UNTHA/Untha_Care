@@ -74,7 +74,7 @@ class CategoryAdapter(
             longClickListener: OnItemLongClickListener
         ) = with(itemView) {
             textViewCategoryTitle.text = category.subtitle
-            setLayoutParams2(
+            setCustomLayoutParams(
                 Constants.PERCENTAGE_MAIN_HEIGHT_LAYOUT,
                 Constants.MARGIN_TOP_PERCENTAGE,
                 rl_main_item, context
@@ -116,7 +116,7 @@ class CategoryAdapter(
 
 
                 textViewCategoryTitle.text = category.title
-                setLayoutParams2(
+                setCustomLayoutParams(
                     Constants.PERCENTAGE_SMALL_HEIGHT_LAYOUT,
                     Constants.MARGIN_SMALL_TOP_PERCENTAGE,
                     rl_small_item, context
@@ -140,9 +140,13 @@ class CategoryAdapter(
         ) {
             val imageView = findViewById<ImageView>(R.id.imageView)
 
+            val screenWidth = PixelConverter.getScreenDpWidth(context)
             val cardHeightInDps =
-                (PixelConverter.getScreenDpWidth(context)) * Constants.SIZE_MARGIN_IMAGE
-            imageView.setPadding(cardHeightInDps.toInt())
+                if (screenWidth <= Constants.WIDTH_TWO_INCHES_DEVICES)
+                    Constants.PADDING_FOR_IMAGES_IN_TWO_INCHES_DEVICES else
+                    (screenWidth * Constants.SIZE_MARGIN_IMAGE).toInt()
+
+            imageView.setPadding(cardHeightInDps)
 
             val imageUrl = resources.getIdentifier(
                 category.image,
@@ -158,14 +162,14 @@ class CategoryAdapter(
     }
 
 
-    private fun setLayoutParams2(
-        percentageHeightLayout: Double,
+    private fun setCustomLayoutParams(
+        layoutHeightPercentage: Double,
         marginTopPercentage: Double,
         relativeLayout: RelativeLayout, context: Context
     ) {
         val cardHeightInDps =
             (PixelConverter.getScreenDpHeight(context) -
-                    Constants.SIZE_OF_ACTION_BAR) * percentageHeightLayout
+                    Constants.SIZE_OF_ACTION_BAR) * layoutHeightPercentage
         val width = PixelConverter.toPixels(cardHeightInDps, context)
         val topMarginDps = (PixelConverter.getScreenDpHeight(context) -
                 Constants.SIZE_OF_ACTION_BAR) * marginTopPercentage

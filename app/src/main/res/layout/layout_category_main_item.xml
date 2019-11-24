@@ -11,7 +11,8 @@
     android:layout_marginLeft="8dp"
     android:layout_marginTop="8dp"
     android:background="?selectableItemBackground"
-    android:clickable="true">
+    android:clickable="true"
+    android:focusable="true">
 
 
     <LinearLayout
@@ -25,18 +26,20 @@
             android:id="@+id/tv_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="7dp"
             android:layout_marginLeft="7dp"
             android:layout_marginTop="4dp"
             android:lineSpacingExtra="16sp"
             android:lines="1"
             android:text="@string/subtitle"
-            android:textColor="#602080"
+            android:textColor="@color/colorGenericTitle"
             android:textSize="@dimen/text_size" />
 
         <TextView
             android:id="@+id/textViewCategoryTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="7dp"
             android:layout_marginLeft="7dp"
             android:layout_marginTop="3dp"
             android:background="@android:color/transparent"
@@ -45,7 +48,7 @@
             android:lineSpacingExtra="14sp"
             android:lines="1"
             android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-            android:textColor="#807e81"
+            android:textColor="@color/colorTitleCategory"
             android:textSize="@dimen/text_size_main_component"
             tools:text="@string/hint_category_title" />
 
@@ -53,8 +56,6 @@
             android:id="@+id/imageView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/ll_texts"
-
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
             tools:srcCompat="@tools:sample/avatars" />

@@ -58,7 +58,7 @@ class RouteResultsFragment : BaseFragment() {
         private const val AUDIO_IMAGE_VIEW_WIDTH = 0.111
         private const val AUDIO_IMAGE_VIEW_HEIGHT = 0.0625
         private const val AUDIO_IMAGE_VIEW_MARGIN = 0.072
-        private const val BUTTON_CONTAINER_HEIGHT = 0.09
+        private const val BUTTON_CONTAINER_HEIGHT = 0.11
         private const val CATEGORY_BUTTON_WIDTH = 0.417
         private const val RECOMMENDATION_DESCRIPTION_TOP_BOTTOM_MARGIN = 0.0125
         private const val RECOMMENDATION_DESCRIPTION_LEFT_RIGHT_MARGIN = 0.033

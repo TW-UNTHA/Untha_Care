@@ -3,7 +3,6 @@ package com.untha.view.adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.RelativeLayout
 import androidx.core.view.setPadding
 import androidx.recyclerview.widget.RecyclerView
@@ -50,10 +49,12 @@ class RightsAdapter(
             }
 
         private fun View.loadImage(category: Category) {
-            val heightScreen = ((PixelConverter.getScreenDpHeight(context) -
-                    Constants.SIZE_OF_ACTION_BAR) * Constants.PERCENTAGE_SMALL_RIGHTS)
-            val imageView = findViewById<ImageView>(R.id.imageRightButton)
-            imageView.setPadding((heightScreen / Constants.PERCENTAGE_PADDING_IMAGE_RIGHTS).toInt())
+            val screenWidth = PixelConverter.getScreenDpWidth(context)
+            val cardHeightInDps =
+                if (screenWidth <= Constants.WIDTH_TWO_INCHES_DEVICES)
+                    Constants.PADDING_FOR_IMAGES_IN_TWO_INCHES_DEVICES else
+                    (screenWidth * Constants.SIZE_MARGIN_IMAGE).toInt()
+            itemView.imageRightButton.setPadding(cardHeightInDps)
             val idImage = resources.getIdentifier(
                 category.image,
                 "drawable",

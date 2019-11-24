@@ -167,7 +167,9 @@ class GenericInfoStepFragment : BaseFragment() {
         }.lparams(
             width = matchParent,
             height = dip(widthBlockPixel)
-        )
+        ) {
+            bottomMargin = dip(Constants.TOP_MARGIN_NEXT_STEP)
+        }
     }
 
 
@@ -178,9 +180,9 @@ class GenericInfoStepFragment : BaseFragment() {
     }
 
     private fun @AnkoViewDslMarker _LinearLayout.calculateTopMargin(): Int {
-        val topFormula = (PixelConverter.getScreenDpHeight(context) -
-                Constants.SIZE_OF_ACTION_BAR) * Constants.MARGIN_TOP_PERCENTAGE
-        return toPixels(topFormula, context)
+        val topMarginDps =
+            PixelConverter.getScreenDpHeight(context) * Constants.MARGIN_TOP_PERCENTAGE
+        return toPixels(topMarginDps, context)
     }
 
     private fun createMainLayout(): View {

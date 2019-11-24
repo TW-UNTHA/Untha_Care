@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="text_size">18sp</dimen>
+    <dimen name="text_size_main_component">20sp</dimen>
+    <dimen name="text_size_content">24sp</dimen>
+    <dimen name="text_size_content_for_many_characters">20sp</dimen>
+    <dimen name="text_size_content_next_step">22sp</dimen>
+    <dimen name="text_size_question_route">26sp</dimen>
+    <dimen name="text_size_question_explanation">21sp</dimen>
+</resources>

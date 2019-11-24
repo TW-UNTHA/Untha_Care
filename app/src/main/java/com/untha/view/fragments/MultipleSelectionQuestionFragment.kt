@@ -381,7 +381,10 @@ class MultipleSelectionQuestionFragment : BaseFragment() {
                     ContextCompat.getDrawable(context, R.drawable.drawable_main_route)
                 optionClick(isNoneOfAbove, position)
                 adjustTextSize()
-            }.lparams(width = matchParent, height = matchParent)
+            }.lparams(width = matchParent, height = matchParent) {
+                leftMargin = dip(calculateWidthMarginQuestionText())
+                rightMargin = dip(calculateWidthMarginQuestionText())
+            }
             addDataToExternalCollections(
                 isNoneOfAbove,
                 position,
@@ -521,6 +524,10 @@ class MultipleSelectionQuestionFragment : BaseFragment() {
     private fun calculateHeightComponentsQuestion(heightComponent: Double): Float {
         return ((PixelConverter.getScreenDpHeight(context) -
                 Constants.SIZE_OF_ACTION_BAR_ROUTE) * heightComponent).toFloat()
+    }
+
+    private fun calculateWidthMarginQuestionText(): Float {
+        return (PixelConverter.getScreenDpWidth(context) * Constants.MARGIN_QUESTION_TEXT).toFloat()
     }
 
     private fun setSelectedColorSchema(textView: TextView) {

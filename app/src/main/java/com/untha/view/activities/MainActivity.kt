@@ -61,7 +61,7 @@ class MainActivity : AppCompatActivity() {
         backMethod: (() -> Unit)?
     ) {
         val layoutActionBar = layoutInflater.inflate(R.layout.action_bar, null)
-        val titleView = layoutActionBar.findViewById(R.id.title_actiov_bar) as TextView
+        val titleView = layoutActionBar.findViewById(R.id.title_action_bar) as TextView
         val close = layoutActionBar?.findViewById(R.id.icon_go_back_route) as ImageView
         val iconHelp = layoutActionBar?.findViewById(R.id.icon_help) as ImageView
 

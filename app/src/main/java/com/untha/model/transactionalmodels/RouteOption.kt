@@ -9,6 +9,6 @@ data class RouteOption(
     val remaining: Int,
     val result: String?,
     val goTo: Int?
-)
+) : java.io.Serializable
 
 

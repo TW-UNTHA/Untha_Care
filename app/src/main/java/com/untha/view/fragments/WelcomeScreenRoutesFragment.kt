@@ -124,40 +124,42 @@ class WelcomeScreenRoutesFragment : BaseFragment() {
 
         with(view as _LinearLayout) {
             verticalLayout {
+                weightSum = 1F
                 verticalLayout {
                     loadImageRoute(view)
-                }.lparams(width = matchParent, height = wrapContent)
-
+                }.lparams(width = matchParent, height = dip(0), weight = 0.35F)
                 verticalLayout {
-                    loadImageAudio()
-                }.lparams(width = matchParent, height = wrapContent) {
-                    topMargin = dip(sizeSpaceButtonAndImage.toFloat())
-                }
-
-                verticalLayout {
-                    showMessage(FIRST_MESSAGE, R.font.proxima_nova_bold)
-                }
-                verticalLayout {
-                    showMessageDescription(
-                        secondMessage,
-                        R.font.proxima_nova_light
-                    )
-                }.lparams(width = wrapContent, height = wrapContent) {
-                    gravity = Gravity.CENTER
-                }
-                relativeLayout {
-                    val paddingTopAndBottom = getHeightElementInDp(SPACE_LINK_BUTTON)
-                    gravity = Gravity.BOTTOM or Gravity.CENTER
                     verticalLayout {
-                        buttonNext(view)
-                        viewLastResult(
-                            paddingTopAndBottom,
-                            MARGIN_FOR_TOP_AND_BOTTOM
-                        )
+                        loadImageAudio()
                     }.lparams(width = matchParent, height = wrapContent) {
-                        alignParentBottom()
+                        topMargin = dip(sizeSpaceButtonAndImage.toFloat())
                     }
-                }.lparams(width = matchParent, height = wrapContent)
+
+                    verticalLayout {
+                        showMessage(FIRST_MESSAGE, R.font.proxima_nova_bold)
+                    }
+                    verticalLayout {
+                        showMessageDescription(
+                            secondMessage,
+                            R.font.proxima_nova_light
+                        )
+                    }.lparams(width = wrapContent, height = wrapContent) {
+                        gravity = Gravity.CENTER
+                    }
+                    relativeLayout {
+                        val paddingTopAndBottom = getHeightElementInDp(SPACE_LINK_BUTTON)
+                        gravity = Gravity.BOTTOM or Gravity.CENTER
+                        verticalLayout {
+                            buttonNext(view)
+                            viewLastResult(
+                                paddingTopAndBottom,
+                                MARGIN_FOR_TOP_AND_BOTTOM
+                            )
+                        }.lparams(width = matchParent, height = wrapContent) {
+                            alignParentBottom()
+                        }
+                    }.lparams(width = matchParent, height = wrapContent)
+                }.lparams(width = matchParent, height = dip(0), weight = 0.65F)
             }.lparams(width = matchParent, height = matchParent) {
                 topMargin = dip(marginMainLayout)
                 leftMargin = dip(marginMainLayout)

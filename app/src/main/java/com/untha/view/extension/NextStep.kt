@@ -39,25 +39,11 @@ fun _LinearLayout.loadImageNextStep(view: View, categoryNextStep: Category) {
     }
 }
 
-fun @AnkoViewDslMarker _LinearLayout.loadImage(view: View, category: Category) {
-    imageView {
-        val imageUrl = resources.getIdentifier(
-            category.information?.get(0)?.image,
-            "drawable",
-            context.applicationInfo.packageName
-        )
-        Glide.with(view)
-            .load(imageUrl)
-            .into(this)
-
-    }.lparams(width = matchParent, height = matchParent)
-}
-
 fun @AnkoViewDslMarker _LinearLayout.buildNextStepTitle(categoryNextStep: Category) {
     textView {
         val title = categoryNextStep.titleNextStep
         textSizeDimen = R.dimen.text_size_content_next_step
-        gravity = Gravity.LEFT
+        gravity = Gravity.START
         text = title
         textColor =
             ContextCompat.getColor(
@@ -95,7 +81,7 @@ fun @AnkoViewDslMarker _LinearLayout.buildImageNextStep(
         (PixelConverter.getScreenDpWidth(context)) * Constants.WIDTH_IMAGE
     val widthImagePixel =
         PixelConverter.toPixels(
-            widthImageDp.toDouble(),
+            widthImageDp,
             context
         )
     linearLayout {
