@@ -14,7 +14,6 @@ import androidx.fragment.app.Fragment
 import com.untha.R
 import com.untha.utils.Constants
 import com.untha.utils.PixelConverter
-import com.untha.utils.ToSpeech
 import org.jetbrains.anko.AnkoViewDslMarker
 import org.jetbrains.anko._LinearLayout
 import org.jetbrains.anko.attr
@@ -285,7 +284,8 @@ class SlideAboutUsFragment(private val myTextToSpeech: TextToSpeech) : BaseFragm
             backgroundResource = attr(R.attr.selectableItemBackgroundBorderless).resourceId
             gravity = Gravity.CENTER
             onClick {
-                ToSpeech.speakOut(message, myTextToSpeech)
+                //                ToSpeech.speakOut(message, myTextToSpeech)
+                println(message) //quitar esto porfa
 
             }
         }.lparams(

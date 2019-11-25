@@ -110,7 +110,11 @@ object Constants {
     const val COMPLETE_VIOLENCE_ROUTE = "complete_violence_route"
     const val SHARE_BUTTON_MESSAGE = "Descarga la aplicación THR Unidas aqui"
 
-    const val INIT_SPEAK = 0
-    const val STOP_SPEAK = 1
-    const val GET_CURRENT_INDEX = 2
+    const val ICONO_PLAY = "ic_play_audio"
+    const val ICONO_STOP = "ic_stop_audio"
+
+    const val PROGRESS_TOTAL = 100
+    const val TIME_SLEEP: Long = 500
+
+
 }

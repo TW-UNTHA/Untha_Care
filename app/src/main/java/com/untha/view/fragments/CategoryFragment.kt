@@ -16,7 +16,6 @@ import com.untha.model.transactionalmodels.Category
 import com.untha.utils.Constants
 import com.untha.utils.ContentType
 import com.untha.utils.PixelConverter
-import com.untha.utils.UtilsTextToSpeech
 import com.untha.view.activities.MainActivity
 import com.untha.view.adapters.CategoryAdapter
 import com.untha.viewmodels.AboutUsViewModel
@@ -146,9 +145,9 @@ class CategoryFragment : BaseFragment(),
     }
 
     override fun onItemLongClick(itemView: View, text: String): Boolean {
-        var utilsTextToSpeech: UtilsTextToSpeech? = null
-        utilsTextToSpeech = UtilsTextToSpeech(context!!, ::String)
-        utilsTextToSpeech.speakOut(text, null)
+//        var utilsTextToSpeech: UtilsTextToSpeech? = null
+//        utilsTextToSpeech = UtilsTextToSpeech(context!!, ::String)
+//        utilsTextToSpeech.speakOut(text, null)
         return true
     }
 
