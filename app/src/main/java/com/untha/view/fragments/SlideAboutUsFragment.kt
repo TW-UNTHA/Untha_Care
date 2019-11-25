@@ -15,7 +15,6 @@ import com.bumptech.glide.Glide
 import com.untha.R
 import com.untha.utils.Constants
 import com.untha.utils.PixelConverter
-import com.untha.utils.ToSpeech
 import org.jetbrains.anko.AnkoViewDslMarker
 import org.jetbrains.anko._LinearLayout
 import org.jetbrains.anko.attr

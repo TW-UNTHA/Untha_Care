@@ -1,38 +1,29 @@
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:aapt="http://schemas.android.com/aapt"
-    android:width="130dp"
-    android:height="130dp"
-    android:viewportWidth="130"
-    android:viewportHeight="130">
+    android:width="360dp"
+    android:height="216dp"
+    android:viewportWidth="360"
+    android:viewportHeight="216">
   <path
-      android:pathData="M-115,-53h360v216L-115,163z"
-      android:fillType="evenOdd">
-    <aapt:attr name="android:fillColor">
-      <gradient 
-          android:gradientRadius="634.4816"
-          android:centerX="264.79172"
-          android:centerY="101.230156"
-          android:type="radial">
-        <item android:offset="0" android:color="#99FFFFFF"/>
-        <item android:offset="0.10288" android:color="#00FFFFFF"/>
-        <item android:offset="1" android:color="#00FFFFFF"/>
-      </gradient>
-    </aapt:attr>
-  </path>
+      android:pathData="M0,0h360v216H0z"
+      android:fillColor="#D8D8D8"
+      android:fillAlpha=".006"
+      android:fillType="evenOdd"/>
   <path
-      android:pathData="M75.395,96L109,96L109,11L75.395,11z"
+      android:pathData="M156.5,93.97h11.21v28.03L156.5,122z"
       android:fillColor="#000"
-      android:fillType="evenOdd"/>
+      android:fillType="nonZero"/>
   <path
-      android:pathData="M75.395,96L109,96L109,11L75.395,11z"
+      android:pathData="M156.5,93.97h11.21v28.03L156.5,122z"
       android:fillColor="#FFF"
-      android:fillType="evenOdd"/>
+      android:fillAlpha=".269"
+      android:fillType="nonZero"/>
   <path
-      android:pathData="M24,96h35.581L59.581,11L24,11z"
+      android:pathData="M171.79,93.97L183,93.97v28.03L171.79,122z"
       android:fillColor="#000"
-      android:fillType="evenOdd"/>
+      android:fillType="nonZero"/>
   <path
-      android:pathData="M24,96h35.581L59.581,11L24,11z"
+      android:pathData="M171.79,93.97L183,93.97v28.03L171.79,122z"
       android:fillColor="#FFF"
-      android:fillType="evenOdd"/>
+      android:fillAlpha=".267"
+      android:fillType="nonZero"/>
 </vector>
