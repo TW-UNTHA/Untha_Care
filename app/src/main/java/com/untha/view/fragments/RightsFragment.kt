@@ -77,7 +77,7 @@ class RightsFragment : BaseFragment(),
                 .navigate(
                     R.id.trhAboutInstructions,
                     null,
-                    navOptionsToBackNavigation,
+                    navOptions,
                     null
                 )
         }

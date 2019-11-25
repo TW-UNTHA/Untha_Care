@@ -55,7 +55,7 @@ object Constants {
     const val POSITION_SLICE_PAGE_TWO = 1
     const val POSITION_SLICE_PAGE_THREE = 2
     const val POSITION_SLICE_PAGE_FOUR = 3
-    const val MARGIN_SINGLE_SELECTION_QUESTION = 0.049
+    const val MARGIN_SINGLE_SELECTION_QUESTION = 0.010
     const val MARGIN_HEIGHT_SELECTION_QUESTION = 0.054
     const val MARGIN_HEIGHT_QUESTION = 0.17
     const val SIZE_IMAGE_PERCENTAGE_AUDIO_ROUTE = ((((50) * 100) / 640) / 100F).toDouble()

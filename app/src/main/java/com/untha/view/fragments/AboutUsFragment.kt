@@ -50,14 +50,14 @@ class AboutUsFragment : BaseFragment() {
         viewModel.saveAboutUsPreferences(true)
         mainActivity = this.activity as MainActivity
         this.textToSpeech = TextToSpeech(context, this)
-        val test = inflater.inflate(R.layout.activity_screen_slide, container, false)
-        viewPager = test.findViewById(R.id.pager)
+        val pagerContainer = inflater.inflate(R.layout.activity_screen_slide, container, false)
+        viewPager = pagerContainer.findViewById(R.id.pager)
         val pagerAdapter =
             SlidePagerAdapter((activity as MainActivity).supportFragmentManager, textToSpeech!!)
         viewPager.adapter = pagerAdapter
-        val indicator = test.findViewById<WormDotsIndicator>(R.id.worm_dots_indicator)
+        val indicator = pagerContainer.findViewById<WormDotsIndicator>(R.id.worm_dots_indicator)
         indicator.setViewPager(viewPager)
-        return test
+        return pagerContainer
     }
 
     private fun goBackHome() {

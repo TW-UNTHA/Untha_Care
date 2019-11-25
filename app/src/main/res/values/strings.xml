@@ -47,12 +47,16 @@
     <string name="about_us_title_app_page_fout">Revisa si es que tus derechos laborales se están
         cumpliendo y/o si eres víctima de violencia con las rutas de ayuda</string>
 
-
-
-
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_instructions">Te damos la bienvenida a la aplicación TRH UNIDAS</string>
     <string name="not_labour_rights_violated">Al parecer no se han registrado faltas a tus derechos laborales.</string>
     <string name="not_violence_suffered">Al parecer no has sido víctima de violencia.</string>
+    <string name="home_sindicato_image_name">home_sindicato</string>
+    <string name="logo_care_image_name">logo_care</string>
+    <string name="logo_mesa_trabajo_name">logo_mesa_trabajo</string>
+    <string name="logo_thoughtworks_name">logo_thoughtworks</string>
+    <string name="about_us_mesa_trabajo_name">about_us_mesa_trabajo</string>
+    <string name="about_us_route_name">about_us_route</string>
+    <string name="about_us_audio_name">about_us_audio</string>
+    <string name="about_us_touchs_name">about_us_touchs</string>
 </resources>
