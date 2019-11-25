@@ -11,9 +11,11 @@ import android.widget.ImageView
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
+import com.bumptech.glide.Glide
 import com.untha.R
 import com.untha.utils.Constants
 import com.untha.utils.PixelConverter
+import com.untha.utils.ToSpeech
 import org.jetbrains.anko.AnkoViewDslMarker
 import org.jetbrains.anko._LinearLayout
 import org.jetbrains.anko.attr
@@ -26,6 +28,8 @@ import org.jetbrains.anko.imageView
 import org.jetbrains.anko.linearLayout
 import org.jetbrains.anko.margin
 import org.jetbrains.anko.matchParent
+import org.jetbrains.anko.padding
+import org.jetbrains.anko.scrollView
 import org.jetbrains.anko.sdk27.coroutines.onClick
 import org.jetbrains.anko.support.v4.UI
 import org.jetbrains.anko.textColor
@@ -42,10 +46,18 @@ class SlideAboutUsFragment(private val myTextToSpeech: TextToSpeech) : BaseFragm
         private const val SIZE_IMAGE_PERCENTAGE_ABOUT_US_AUDIO = 0.16
         private const val SIZE_IMAGE_PERCENTAGE_ABOUT_US_TOUCH = 0.22
         private const val MARGIN_TEXT_ABOUT_US = 0.166
-        private const val HEIGHT_BOX_ABOUT_US = 0.23
-        private const val HEIGHT_BOX_ABOUT_TOUCH = 0.32
+        private const val HEIGHT_BOX_ABOUT_US = 0.28
+        private const val HEIGHT_BOX_ABOUT_TOUCH = 0.36
         private const val HEIGHT_TAB_FOUR = 0.5
         private const val WIDTH_TAB_FOUR = 0.6
+        private const val SCROLL_VIEW_PADDING = 0.05
+        private const val INSTRUCTION_TEXT_BOTTOM_MARGIN = 0.02
+        private const val SECOND_PAGE_LOGOS_BOTTOM_MARGIN = 0.010
+        private const val LOGO_WIDTH_MARGIN_PERCENTAGE = 0.25
+        private const val LOGO_HEIGHT_MARGIN_PERCENTAGE = 0.12
+        private const val LOGO_RIGHT_MARGIN_PERCENTAGE = 0.056
+        private const val MAIN_LOGO_WIDTH_MARGIN_PERCENTAGE = 0.356
+        private const val MAIN_LOGO_HEIGHT_MARGIN_PERCENTAGE = 0.192
     }
 
     override fun onCreateView(
@@ -58,34 +70,31 @@ class SlideAboutUsFragment(private val myTextToSpeech: TextToSpeech) : BaseFragm
 
     private fun createLayout(position: Int?): View {
         return UI {
-            verticalLayout {
+            scrollView {
+                lparams(width = matchParent, height = matchParent) {
+                    padding = calculateWidthComponents(SCROLL_VIEW_PADDING)
+                }
                 backgroundColor = ContextCompat.getColor(context, R.color.colorBackgroundMainRoute)
                 verticalLayout {
-                    when {
-                        arguments?.getInt(Constants.POSITION_SLICE) ==
-                                Constants.POSITION_SLICE_PAGE_ONE -> {
+                    when (position) {
+                        Constants.POSITION_SLICE_PAGE_ONE -> {
                             myTextToSpeech.stop()
                             pageOne()
                         }
-                        arguments?.getInt(Constants.POSITION_SLICE) ==
-                                Constants.POSITION_SLICE_PAGE_TWO -> {
+                        Constants.POSITION_SLICE_PAGE_TWO -> {
                             myTextToSpeech.stop()
                             pageTwo()
                         }
-                        arguments?.getInt(Constants.POSITION_SLICE) ==
-                                Constants.POSITION_SLICE_PAGE_THREE -> {
+                        Constants.POSITION_SLICE_PAGE_THREE -> {
                             myTextToSpeech.stop()
                             pageThree()
                         }
-                        arguments?.getInt(Constants.POSITION_SLICE) ==
-                                Constants.POSITION_SLICE_PAGE_FOUR -> {
+                        Constants.POSITION_SLICE_PAGE_FOUR -> {
                             myTextToSpeech.stop()
                             pageFour()
                         }
                     }
-                }.lparams(width = matchParent, height = wrapContent) {
-                    margin = calculateWidthComponents(MARGIN_ABOUT_US)
-                }
+                }.lparams(width = matchParent, height = matchParent)
             }
         }.view
     }
@@ -107,28 +116,34 @@ class SlideAboutUsFragment(private val myTextToSpeech: TextToSpeech) : BaseFragm
             margin = calculateWidthComponents(MARGIN_ABOUT_US)
             bottomMargin = calculateWidthComponents(MARGIN_ABOUT_US)
         }
-        boxTrh(
+        buildBoxWithClickInstructions(
             HEIGHT_BOX_ABOUT_US, getString(R.string.about_us_msg_touch_button_audio),
-            R.drawable.about_us_audio, SIZE_IMAGE_PERCENTAGE_ABOUT_US_AUDIO
+            context.getString(R.string.about_us_audio_name), SIZE_IMAGE_PERCENTAGE_ABOUT_US_AUDIO
         )
-        boxTrh(
+        buildBoxWithClickInstructions(
             HEIGHT_BOX_ABOUT_TOUCH, getString(R.string.about_us_msg_press_button_icon_audio),
-            R.drawable.about_us_touchs, SIZE_IMAGE_PERCENTAGE_ABOUT_US_TOUCH
+            context.getString(R.string.about_us_touchs_name), SIZE_IMAGE_PERCENTAGE_ABOUT_US_TOUCH
         )
     }
 
-    private fun @AnkoViewDslMarker _LinearLayout.boxTrh(
-        height: Double, textBox: String, image: Int,
+    private fun @AnkoViewDslMarker _LinearLayout.buildBoxWithClickInstructions(
+        height: Double, textBox: String, image: String,
         heightImage: Double
     ) {
         verticalLayout {
             imageView {
-                imageResource = image
+                val imageUrl = resources.getIdentifier(
+                    image,
+                    "drawable",
+                    context.applicationInfo.packageName
+                )
+                Glide.with(this)
+                    .load(imageUrl).fitCenter()
+                    .into(this)
+                scaleType = ImageView.ScaleType.FIT_CENTER
             }.lparams(
                 width = calculateHeightComponents(heightImage),
-                height = calculateHeightComponents(
-                    heightImage
-                )
+                height = calculateHeightComponents(heightImage)
             )
             textView {
                 text = textBox
@@ -142,6 +157,7 @@ class SlideAboutUsFragment(private val myTextToSpeech: TextToSpeech) : BaseFragm
             }.lparams {
                 rightMargin = calculateWidthComponents(MARGIN_TEXT_ABOUT_US)
                 leftMargin = calculateWidthComponents(MARGIN_TEXT_ABOUT_US)
+                bottomMargin = calculateHeightComponents(INSTRUCTION_TEXT_BOTTOM_MARGIN)
             }
             backgroundDrawable = ContextCompat.getDrawable(
                 context, R.drawable.drawable_about_us
@@ -160,14 +176,14 @@ class SlideAboutUsFragment(private val myTextToSpeech: TextToSpeech) : BaseFragm
         val sectionOne = getString(R.string.about_us_title_app_section_one)
         val sectionTwo = getString(R.string.about_us_title_app_section_two)
         val sectionThree = getString(R.string.about_us_title_app_section_three)
-
         loadImageAudio("$sectionOne\n $sectionTwo\n $sectionThree")
         textView {
             text = titleAboutUs
             setTypeface(typeface, Typeface.BOLD)
             textSizeDimen = R.dimen.text_size_content_next_step
             textColor = ContextCompat.getColor(context, R.color.colorGenericTitle)
-            typeface = ResourcesCompat.getFont(context.applicationContext, R.font.proxima_nova_bold)
+            typeface =
+                ResourcesCompat.getFont(context.applicationContext, R.font.proxima_nova_bold)
             gravity = Gravity.START
         }.lparams {
             margin = calculateWidthComponents(MARGIN_ABOUT_US)
@@ -176,26 +192,58 @@ class SlideAboutUsFragment(private val myTextToSpeech: TextToSpeech) : BaseFragm
         section(sectionOne)
         section(sectionTwo)
         section(sectionThree)
-        linearLayout {
-            loadImageLogo(R.drawable.home_sindicato, SIZE_IMAGE_PERCENTAGE_ABOUT_US_AUDIO)
-            loadImageLogo(R.drawable.logo_care, SIZE_IMAGE_PERCENTAGE_ABOUT_US_AUDIO)
-            loadImageLogo(R.drawable.logo_mesa_trabajo, SIZE_IMAGE_PERCENTAGE_ABOUT_US_AUDIO)
-            loadImageLogo(R.drawable.logo_thoughtworks, SIZE_IMAGE_PERCENTAGE_ABOUT_US_AUDIO)
+        verticalLayout {
+            linearLayout {
+                loadMainLogo(context.getString(R.string.home_sindicato_image_name))
+            }.lparams(height = wrapContent, width = wrapContent) {
+                gravity = Gravity.CENTER
+            }
+            linearLayout {
+                loadImageLogo(context.getString(R.string.logo_care_image_name))
+                loadImageLogo(context.getString(R.string.logo_mesa_trabajo_name))
+                loadImageLogo(context.getString(R.string.logo_thoughtworks_name))
+            }.lparams(width = wrapContent, height = wrapContent) {
+                bottomMargin = calculateHeightComponents(SECOND_PAGE_LOGOS_BOTTOM_MARGIN)
+                gravity = Gravity.CENTER
+            }
         }
+
     }
 
-    private fun @AnkoViewDslMarker _LinearLayout.loadImageLogo(logo: Int, widthImage: Double) {
+    private fun @AnkoViewDslMarker _LinearLayout.loadImageLogo(logo: String) {
         imageView {
-            imageResource = logo
-            scaleType = ImageView.ScaleType.FIT_XY
+            val imageUrl = resources.getIdentifier(
+                logo,
+                "drawable",
+                context.applicationInfo.packageName
+            )
+            Glide.with(this)
+                .load(imageUrl).fitCenter()
+                .into(this)
         }.lparams(
-            height = calculateWidthComponents(widthImage),
-            width = calculateWidthComponents(widthImage)
+            width = calculateWidthComponents(LOGO_WIDTH_MARGIN_PERCENTAGE), height =
+            calculateHeightComponents(LOGO_HEIGHT_MARGIN_PERCENTAGE)
         ) {
-            rightMargin = calculateWidthComponents(MARGIN_ABOUT_US_LOGO)
+            rightMargin = calculateWidthComponents(LOGO_RIGHT_MARGIN_PERCENTAGE)
         }
     }
 
+    private fun @AnkoViewDslMarker _LinearLayout.loadMainLogo(logo: String) {
+        imageView {
+            val imageUrl = resources.getIdentifier(
+                logo,
+                "drawable",
+                context.applicationInfo.packageName
+            )
+            Glide.with(this)
+                .load(imageUrl).fitCenter()
+                .into(this)
+            scaleType = ImageView.ScaleType.FIT_CENTER
+        }.lparams(
+            width = calculateWidthComponents(MAIN_LOGO_WIDTH_MARGIN_PERCENTAGE),
+            height = calculateHeightComponents(MAIN_LOGO_HEIGHT_MARGIN_PERCENTAGE)
+        )
+    }
 
     private fun @AnkoViewDslMarker _LinearLayout.section(textSection: String) {
         textView {
@@ -209,7 +257,7 @@ class SlideAboutUsFragment(private val myTextToSpeech: TextToSpeech) : BaseFragm
             gravity = Gravity.FILL
             lineSpacingExtra
         }.lparams(width = matchParent) {
-            bottomMargin = calculateWidthComponents(Constants.MARGIN_SINGLE_SELECTION_QUESTION)
+            bottomMargin = calculateHeightComponents(Constants.MARGIN_SINGLE_SELECTION_QUESTION)
         }
     }
 
@@ -237,8 +285,15 @@ class SlideAboutUsFragment(private val myTextToSpeech: TextToSpeech) : BaseFragm
         loadImageAudio(textTab)
         verticalLayout {
             imageView {
-                imageResource = R.drawable.about_us_mesa_trabajo
-                scaleType = ImageView.ScaleType.FIT_XY
+                val imageUrl = resources.getIdentifier(
+                    context.getString(R.string.about_us_mesa_trabajo_name),
+                    "drawable",
+                    context.applicationInfo.packageName
+                )
+                Glide.with(this)
+                    .load(imageUrl).fitCenter()
+                    .into(this)
+                scaleType = ImageView.ScaleType.FIT_CENTER
             }.lparams(
                 width = calculateWidthComponents(WIDTH_TAB_FOUR),
                 height = calculateHeightComponents(HEIGHT_TAB_FOUR)
@@ -249,14 +304,22 @@ class SlideAboutUsFragment(private val myTextToSpeech: TextToSpeech) : BaseFragm
             }
         }
         footerText(textTab)
+
     }
 
     private fun @AnkoViewDslMarker _LinearLayout.pageFour() {
         val textTab = getString(R.string.about_us_title_app_page_fout)
         loadImageAudio(textTab)
         imageView {
-            imageResource = R.drawable.about_us_route
-            scaleType = ImageView.ScaleType.FIT_XY
+            val imageUrl = resources.getIdentifier(
+                context.getString(R.string.about_us_route_name),
+                "drawable",
+                context.applicationInfo.packageName
+            )
+            Glide.with(this)
+                .load(imageUrl).fitCenter()
+                .into(this)
+            scaleType = ImageView.ScaleType.FIT_CENTER
         }.lparams(
             width = calculateWidthComponents(WIDTH_TAB_FOUR),
             height = calculateHeightComponents(HEIGHT_TAB_FOUR)
@@ -266,12 +329,13 @@ class SlideAboutUsFragment(private val myTextToSpeech: TextToSpeech) : BaseFragm
             gravity = Gravity.CENTER
         }
         footerText(textTab)
+
     }
 
     fun newInstance(position: Int): Fragment {
         val fragment = SlideAboutUsFragment(myTextToSpeech)
         val args = Bundle()
-        args.putInt("position", position)
+        args.putInt(Constants.POSITION_SLICE, position)
         fragment.arguments = args
         return fragment
 
@@ -284,9 +348,7 @@ class SlideAboutUsFragment(private val myTextToSpeech: TextToSpeech) : BaseFragm
             backgroundResource = attr(R.attr.selectableItemBackgroundBorderless).resourceId
             gravity = Gravity.CENTER
             onClick {
-                //                ToSpeech.speakOut(message, myTextToSpeech)
-                println(message) //quitar esto porfa
-
+                ToSpeech.speakOut(message, myTextToSpeech)
             }
         }.lparams(
             width = calculateHeightComponents(Constants.SIZE_IMAGE_PERCENTAGE_AUDIO_QUESTION),
@@ -296,8 +358,7 @@ class SlideAboutUsFragment(private val myTextToSpeech: TextToSpeech) : BaseFragm
 
     private fun calculateHeightComponents(percentageComponent: Double): Int {
         val cardHeightInDps =
-            (PixelConverter.getScreenDpHeight(context) -
-                    Constants.SIZE_OF_ACTION_BAR_ROUTE) * percentageComponent
+            PixelConverter.getScreenDpHeight(context) * percentageComponent
         return PixelConverter.toPixels(cardHeightInDps, context)
     }
 

@@ -2,32 +2,33 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal"
-    >
-    <androidx.viewpager.widget.ViewPager
-        android:id="@+id/pager"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignWithParentIfMissing="true">
-    </androidx.viewpager.widget.ViewPager>
+    android:background="@color/colorBackgroundMainRoute"
+    android:orientation="horizontal">
+
     <com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator
         android:id="@+id/worm_dots_indicator"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:dotsColor="@color/colorGenericTitle"
-        app:dotsStrokeColor="@color/colorDotSlice"
-        app:dotsCornerRadius="8dp"
-        app:dotsSize="15dp"
-        app:dotsSpacing="14dp"
-        app:dotsStrokeWidth="10dp"
-        android:layout_centerInParent="true"
         android:layout_alignParentBottom="true"
-        android:padding="24dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginBottom="32dp"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        app:dotsColor="@color/colorGenericTitle"
+        app:dotsCornerRadius="8dp"
+        app:dotsSize="16dp"
+        app:dotsSpacing="16dp"
+        app:dotsStrokeColor="@color/colorDotSlice"
+        app:dotsStrokeWidth="10dp"
         app:selectedDotColor="@color/colorDotSlice"
-        app:stiffness="50"
-        />
+        app:stiffness="50" />
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignWithParentIfMissing="true"
+        android:layout_above="@+id/worm_dots_indicator"
+        android:layout_alignParentTop="true" />
 </RelativeLayout>
 
 
