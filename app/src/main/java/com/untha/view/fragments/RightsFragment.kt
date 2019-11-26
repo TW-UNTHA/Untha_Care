@@ -18,9 +18,7 @@ import com.untha.utils.PixelConverter
 import com.untha.view.activities.MainActivity
 import com.untha.view.adapters.RightsAdapter
 import com.untha.viewmodels.RightsViewModel
-import kotlinx.android.synthetic.main.layout_rights.categoryRecyclerView
-import me.linshen.retrofit2.adapter.ApiErrorResponse
-import me.linshen.retrofit2.adapter.ApiSuccessResponse
+import kotlinx.android.synthetic.main.layout_rights.*
 import org.jetbrains.anko.sdk27.coroutines.onClick
 import org.koin.android.viewmodel.ext.android.viewModel
 
@@ -46,11 +44,9 @@ class RightsFragment : BaseFragment(),
     ): View? {
 //        this.textToSpeech = TextToSpeech(context, this)
         mainActivity = this.activity as MainActivity
-
-        val rigthsView = inflater.inflate(R.layout.layout_rights, container, false)
-        addShareButtonToView(rigthsView, inflater, container)
-
-        return rigthsView
+        val rightsView = inflater.inflate(R.layout.layout_rights, container, false)
+        addShareButtonToView(rightsView, inflater, container)
+        return rightsView
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -58,7 +54,6 @@ class RightsFragment : BaseFragment(),
         activity?.let {
             firebaseAnalytics.setCurrentScreen(it, "Rights Page", null)
         }
-        config()
         setMarginsToRecyclerView()
         viewModel.getRightsCategoryModels().observe(this, Observer { queryingCategories ->
             val categories = viewModel.getRightCategories(queryingCategories)
@@ -123,29 +118,13 @@ class RightsFragment : BaseFragment(),
             .navigate(R.id.genericInfoFragment, categoryBundle, navOptions, null)
     }
 
-    fun config() {
-        viewModel.getRoutes().observe(this, Observer {
-            print("getRoutes!!!")
-            when (it) {
-
-                is ApiSuccessResponse -> {
-                    print("!!!!!!!!!!!!!")
-                    println(it.body)
-                }
-                is ApiErrorResponse -> {
-                    println("Errror!!!!!!!!!!!!! $it.errorMessage")
-                }
-            }
-        })
-    }
-
     private fun addShareButtonToView(
-        rigthsView: View,
+        rightsView: View,
         inflater: LayoutInflater,
         container: ViewGroup?
     ) {
         val shareButtonView = inflater.inflate(R.layout.share_button, container, false)
-        val rigthsRelativeLayout: RelativeLayout = rigthsView.findViewById(R.id.rl_rights)
+        val rightsRelativeLayout: RelativeLayout = rightsView.findViewById(R.id.rl_rights)
         val shareButtonRelativeLayout: RelativeLayout =
             shareButtonView.findViewById(R.id.rl_share_button)
         val shareButton: FloatingActionButton =
@@ -158,6 +137,6 @@ class RightsFragment : BaseFragment(),
             sendIntent.type = "text/plain"
             context?.startActivity(sendIntent)
         }
-        rigthsRelativeLayout.addView(shareButtonRelativeLayout)
+        rightsRelativeLayout.addView(shareButtonRelativeLayout)
     }
 }

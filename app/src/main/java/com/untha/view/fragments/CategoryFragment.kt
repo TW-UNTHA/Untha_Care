@@ -46,17 +46,14 @@ class CategoryFragment : BaseFragment(),
     ): View? {
 //        this.textToSpeech = TextToSpeech(context, this)
         mainActivity = this.activity as MainActivity
-
         val categoriesView = inflater.inflate(R.layout.fragment_category, container, false)
-
         addShareButtonToView(categoriesView, inflater, container)
-
         return categoriesView
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        if(!viewModel.loadAboutUsFromSharedPreferences()){
+        if (!viewModel.loadAboutUsFromSharedPreferences()) {
             view.findNavController()
                 .navigate(
                     R.id.trhAboutInstructions,
@@ -188,9 +185,9 @@ class CategoryFragment : BaseFragment(),
     private fun addShareButtonToView(
         categoriesView: View,
         inflater: LayoutInflater,
-        contanier: ViewGroup?
+        container: ViewGroup?
     ) {
-        val shareButtonView = inflater.inflate(R.layout.share_button, contanier, false)
+        val shareButtonView = inflater.inflate(R.layout.share_button, container, false)
         val categoriesRelativeLayout: RelativeLayout =
             categoriesView.findViewById(R.id.rl_categories)
         val shareButtonRelativeLayout: RelativeLayout =
