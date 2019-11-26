@@ -1,21 +1,19 @@
-package com.untha
+package com.untha.viewmodels
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import androidx.lifecycle.*
+import androidx.lifecycle.MediatorLiveData
+import androidx.lifecycle.Observer
 import com.nhaarman.mockito_kotlin.mock
 import com.untha.di.mapperModule
 import com.untha.di.networkModule
 import com.untha.di.persistenceModule
 import com.untha.di.viewModelsModule
 import com.untha.model.mappers.CategoryMapper
-import com.untha.model.models.*
+import com.untha.model.models.QueryingCategory
 import com.untha.model.repositories.CategoryWithRelationsRepository
-import com.untha.model.services.CategoriesService
-import com.untha.model.services.RetrofitService
 import com.untha.model.services.RoutesService
 import com.untha.viewmodels.RightsViewModel
 import com.utils.MockObjects
-import com.utils.RandomGenerator
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
@@ -36,7 +34,6 @@ class RightsViewModelTest : KoinTest {
 
     private val repository by inject<CategoryWithRelationsRepository>()
     private val mapper by inject<CategoryMapper>()
-    private val routesService by inject<RoutesService>()
 
 
     @get:Rule
@@ -56,7 +53,6 @@ class RightsViewModelTest : KoinTest {
         }
         declareMock<CategoryMapper>()
         declareMock<CategoryWithRelationsRepository>()
-        declareMock<RoutesService>()
     }
 
     @After
@@ -66,7 +62,7 @@ class RightsViewModelTest : KoinTest {
 
     @Test
     fun `should call CategoriesMapper`() {
-        val rightsViewModel = RightsViewModel(repository, mapper, routesService)
+        val rightsViewModel = RightsViewModel(repository, mapper)
         val categoryQuerying = MockObjects.mockQueryingCategory()
         val categoriesQuerying = listOf(categoryQuerying)
 
@@ -78,7 +74,7 @@ class RightsViewModelTest : KoinTest {
     @Test
     fun `should verify the observable changed when the observer get notified about changes`() {
 
-        val rightsViewModel = RightsViewModel(repository, mapper, routesService)
+        val rightsViewModel = RightsViewModel(repository, mapper)
         val rightsListData = MediatorLiveData<List<QueryingCategory>>()
 
 
