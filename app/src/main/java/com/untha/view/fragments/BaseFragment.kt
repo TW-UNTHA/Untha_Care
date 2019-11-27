@@ -1,7 +1,6 @@
 package com.untha.view.fragments
 
 import android.os.Bundle
-import android.speech.tts.TextToSpeech
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavOptions
@@ -12,11 +11,12 @@ import com.untha.model.transactionalmodels.Route
 import com.untha.utils.Constants
 import com.untha.utils.ContentType
 import com.untha.utils.FirebaseEvent
+import com.untha.utils.UtilsTextToSpeech
 import com.untha.viewmodels.BaseQuestionViewModel
 
 open class BaseFragment : Fragment() {
 
-    var textToSpeech: TextToSpeech? = null
+    var textToSpeech: UtilsTextToSpeech? = null
     lateinit var firebaseAnalytics: FirebaseAnalytics
     val navOptions = NavOptions.Builder().setEnterAnim(R.anim.slide_in_right)
         .setPopEnterAnim(R.anim.slide_in_left).setExitAnim(R.anim.slide_out_left)
@@ -28,11 +28,13 @@ open class BaseFragment : Fragment() {
 
 
     override fun onStop() {
-        if (textToSpeech != null) {
-            textToSpeech!!.stop()
-            textToSpeech!!.shutdown()
-        }
+        textToSpeech?.stop()
         super.onStop()
+    }
+
+    override fun onDestroy() {
+        textToSpeech?.destroy()
+        super.onDestroy()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

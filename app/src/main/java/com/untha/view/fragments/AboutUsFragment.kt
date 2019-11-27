@@ -1,16 +1,16 @@
 package com.untha.view.fragments
 
 import android.os.Bundle
-import android.speech.tts.TextToSpeech
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.navigation.findNavController
 import androidx.viewpager.widget.ViewPager
-//import com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator
+import com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator
 import com.untha.R
 import com.untha.utils.Constants
+import com.untha.utils.UtilsTextToSpeech
 import com.untha.view.activities.MainActivity
 import com.untha.view.adapters.SlidePagerAdapter
 import com.untha.viewmodels.AboutUsViewModel
@@ -49,7 +49,7 @@ class AboutUsFragment : BaseFragment() {
     ): View? {
         viewModel.saveAboutUsPreferences(true)
         mainActivity = this.activity as MainActivity
-        this.textToSpeech = TextToSpeech(context, this)
+        textToSpeech = UtilsTextToSpeech(context!!, null, null)
         val test = inflater.inflate(R.layout.activity_screen_slide, container, false)
         viewPager = test.findViewById(R.id.pager)
         val pagerAdapter =
@@ -76,15 +76,13 @@ class AboutUsFragment : BaseFragment() {
     }
 
     override fun onStop() {
-        if (textToSpeech != null) {
-            textToSpeech!!.stop()
-        }
+        textToSpeech?.stop()
         super.onStop()
     }
 
     override fun onDestroy() {
+        textToSpeech?.destroy()
         super.onDestroy()
-        textToSpeech?.shutdown()
     }
 }
 

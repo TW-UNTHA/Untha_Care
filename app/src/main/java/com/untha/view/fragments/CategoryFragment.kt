@@ -16,6 +16,7 @@ import com.untha.model.transactionalmodels.Category
 import com.untha.utils.Constants
 import com.untha.utils.ContentType
 import com.untha.utils.PixelConverter
+import com.untha.utils.UtilsTextToSpeech
 import com.untha.view.activities.MainActivity
 import com.untha.view.adapters.CategoryAdapter
 import com.untha.viewmodels.AboutUsViewModel
@@ -44,7 +45,7 @@ class CategoryFragment : BaseFragment(),
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-//        this.textToSpeech = TextToSpeech(context, this)
+        textToSpeech = UtilsTextToSpeech(context!!, null, null)
         mainActivity = this.activity as MainActivity
         val categoriesView = inflater.inflate(R.layout.fragment_category, container, false)
         addShareButtonToView(categoriesView, inflater, container)
@@ -142,9 +143,7 @@ class CategoryFragment : BaseFragment(),
     }
 
     override fun onItemLongClick(itemView: View, text: String): Boolean {
-//        var utilsTextToSpeech: UtilsTextToSpeech? = null
-//        utilsTextToSpeech = UtilsTextToSpeech(context!!, ::String)
-//        utilsTextToSpeech.speakOut(text, null)
+        textToSpeech?.speakOut(text)
         return true
     }
 

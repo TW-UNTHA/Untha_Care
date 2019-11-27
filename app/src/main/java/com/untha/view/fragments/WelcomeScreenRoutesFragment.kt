@@ -17,6 +17,7 @@ import com.untha.utils.Constants
 import com.untha.utils.ContentType
 import com.untha.utils.FirebaseEvent
 import com.untha.utils.PixelConverter
+import com.untha.utils.UtilsTextToSpeech
 import com.untha.view.activities.MainActivity
 import com.untha.view.extension.getSelectableItemBackground
 import com.untha.viewmodels.RoutesViewModel
@@ -230,11 +231,10 @@ class WelcomeScreenRoutesFragment : BaseFragment() {
             imageResource = R.drawable.icon_question_audio
             gravity = Gravity.CENTER
             backgroundResource = attr(R.attr.selectableItemBackgroundBorderless).resourceId
-//            val contentQuestion = "$FIRST_MESSAGE \n $secondMessage"
-//            var utilsTextToSpeech: UtilsTextToSpeech? = null
-//            utilsTextToSpeech = UtilsTextToSpeech(context!!, ::String)
+            val contentQuestion = "$FIRST_MESSAGE \n $secondMessage"
+            textToSpeech = UtilsTextToSpeech(context!!, null, null)
             onClick {
-//                utilsTextToSpeech.speakOut(contentQuestion, null)
+                textToSpeech?.speakOut(contentQuestion)
                 logAnalyticsCustomContentTypeWithId(ContentType.AUDIO, FirebaseEvent.AUDIO)
             }
         }.lparams(

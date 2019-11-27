@@ -16,6 +16,7 @@ import com.untha.utils.Constants
 import com.untha.utils.ContentType
 import com.untha.utils.FirebaseEvent
 import com.untha.utils.PixelConverter
+import com.untha.utils.UtilsTextToSpeech
 import com.untha.view.activities.MainActivity
 import com.untha.view.extension.loadHorizontalProgressBar
 import com.untha.viewmodels.CategoryViewModel
@@ -180,13 +181,12 @@ class SingleSelectionQuestionFragment : BaseFragment() {
             scaleType = ImageView.ScaleType.FIT_CENTER
             imageResource = R.drawable.icon_question_audio
             backgroundResource = attr(R.attr.selectableItemBackgroundBorderless).resourceId
-//            val textQuestion = routeQuestion?.content
-//            val contentQuestion = "$textQuestion ${contentAudioOptions()}"
+            val textQuestion = routeQuestion?.content
+            val contentQuestion = "$textQuestion ${contentAudioOptions()}"
 
-//            var utilsTextToSpeech: UtilsTextToSpeech? = null
-//            utilsTextToSpeech = UtilsTextToSpeech(context!!, ::String)
+            textToSpeech = UtilsTextToSpeech(context!!, null, null)
             onClick {
-//                utilsTextToSpeech.speakOut(contentQuestion, null)
+                textToSpeech?.speakOut(contentQuestion)
                 logAnalyticsCustomContentTypeWithId(ContentType.AUDIO, FirebaseEvent.AUDIO)
             }
         }.lparams(
@@ -199,13 +199,13 @@ class SingleSelectionQuestionFragment : BaseFragment() {
         }
     }
 
-//    private fun contentAudioOptions(): String {
-//        var contentOptions = ""
-//        routeQuestion?.options?.map { option ->
-//            contentOptions += "${option.value} \n"
-//        }
-//        return contentOptions
-//    }
+    private fun contentAudioOptions(): String {
+        var contentOptions = ""
+        routeQuestion?.options?.map { option ->
+            contentOptions += "${option.value} \n"
+        }
+        return contentOptions
+    }
 
     private fun _LinearLayout.question() {
         textView {

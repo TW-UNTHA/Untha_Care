@@ -15,6 +15,7 @@ import com.untha.R
 import com.untha.model.transactionalmodels.Category
 import com.untha.utils.Constants
 import com.untha.utils.PixelConverter
+import com.untha.utils.UtilsTextToSpeech
 import com.untha.view.activities.MainActivity
 import com.untha.view.adapters.RightsAdapter
 import com.untha.viewmodels.RightsViewModel
@@ -25,10 +26,6 @@ import org.koin.android.viewmodel.ext.android.viewModel
 
 class RightsFragment : BaseFragment(),
     RightsAdapter.OnItemClickListener, RightsAdapter.OnItemLongClickListener {
-
-    override fun onItemLongClick(itemView: View, text: String): Boolean {
-        return true
-    }
 
     private val viewModel: RightsViewModel by viewModel()
     private lateinit var mainActivity: MainActivity
@@ -42,7 +39,7 @@ class RightsFragment : BaseFragment(),
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-//        this.textToSpeech = TextToSpeech(context, this)
+        textToSpeech = UtilsTextToSpeech(context!!, null, null)
         mainActivity = this.activity as MainActivity
         val rightsView = inflater.inflate(R.layout.layout_rights, container, false)
         addShareButtonToView(rightsView, inflater, container)
@@ -138,5 +135,10 @@ class RightsFragment : BaseFragment(),
             context?.startActivity(sendIntent)
         }
         rightsRelativeLayout.addView(shareButtonRelativeLayout)
+    }
+
+    override fun onItemLongClick(itemView: View, text: String): Boolean {
+        textToSpeech?.speakOut(text)
+        return true
     }
 }

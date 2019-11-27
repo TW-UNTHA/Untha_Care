@@ -31,9 +31,9 @@ import org.jetbrains.anko.wrapContent
 
 fun _LinearLayout.loadImageNextStep(view: View, categoryNextStep: Category) {
     imageView {
-        Gravity.LEFT
+        Gravity.START
         val imageUrl = resources.getIdentifier(
-            categoryNextStep?.image,
+            categoryNextStep.image,
             "drawable",
             context.applicationInfo.packageName
         )
@@ -94,10 +94,10 @@ fun _RelativeLayout.loadPlayAndPauseIcon(
     view: View,
     utilsTextToSpeechParameter: UtilsTextToSpeech,
     getStringToReproduce: () -> String?
-) {
-    imageView {
+): ImageView {
+    return imageView {
         scaleType = ImageView.ScaleType.FIT_CENTER
-        putImageOnTheWidget(Constants.ICONO_PLAY, view)
+        putImageOnTheWidget(Constants.PLAY_ICON, view)
         backgroundResource = attr(R.attr.selectableItemBackgroundBorderless).resourceId
 
         onClick {
@@ -122,24 +122,19 @@ private fun @AnkoViewDslMarker ImageView.playAndPauseAudio(
     getStringToReproduce: () -> String?
 ) {
     if (utilsTextToSpeech.isSpeaking()) {
-        putImageOnTheWidget(Constants.ICONO_PLAY, view)
+        putImageOnTheWidget(Constants.PLAY_ICON, view)
         utilsTextToSpeech.stop()
     } else {
-        putImageOnTheWidget(Constants.ICONO_STOP, view)
         val reproduce = getStringToReproduce()
-        // () -> String?
         if (reproduce == null) {
+            putImageOnTheWidget(Constants.PLAY_ICON, view)
             utilsTextToSpeech.stop()
         } else {
-            utilsTextToSpeech.speakOut(reproduce, null)
+            utilsTextToSpeech.speakOut(reproduce)
+            putImageOnTheWidget(Constants.STOP_ICON, view)
         }
-
-        //if string es null llamas al stop del tts
-        //si no es null lo reproduces
     }
-
 }
-
 
 fun @AnkoViewDslMarker ImageView.putImageOnTheWidget(
     image: String?,
@@ -165,10 +160,3 @@ fun @AnkoViewDslMarker _RelativeLayout.loadImageBackground(
         putImageOnTheWidget(image, view)
     }.lparams(width = matchParent, height = matchParent)
 }
-
-
-
-
-
-
-

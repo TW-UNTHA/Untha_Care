@@ -10,6 +10,7 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.ProgressBar
 import android.widget.TextView
@@ -34,6 +35,7 @@ import com.untha.view.extension.getSelectableItemBackground
 import com.untha.view.extension.loadHorizontalProgressBarDinamic
 import com.untha.view.extension.loadImageBackground
 import com.untha.view.extension.loadPlayAndPauseIcon
+import com.untha.view.extension.putImageOnTheWidget
 import com.untha.viewmodels.GenericInfoStepViewModel
 import org.jetbrains.anko.AnkoViewDslMarker
 import org.jetbrains.anko._LinearLayout
@@ -64,11 +66,13 @@ class GenericInfoStepFragment : BaseFragment() {
     private var categories: List<Category>? = null
     private lateinit var mainActivity: MainActivity
     private val viewModel: GenericInfoStepViewModel by viewModel()
-    lateinit var utilsTextToSpeech: UtilsTextToSpeech
 
     var oldProgress = 0
     var indexCurrently = 0
     lateinit var listParagraph: MutableList<String>
+    lateinit var playAndPauseIcon: ImageView
+    private var horizontalProgressBar: ProgressBar? = null
+    private lateinit var thread: Thread
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -93,8 +97,8 @@ class GenericInfoStepFragment : BaseFragment() {
         textCategory = textCategory.parseAsHtml().toString()
         val listParagraph: MutableList<String> = mutableListOf()
         val separated = textCategory.split(".")
-        separated?.mapIndexed { index, item ->
-            if (!item.equals(" ")) {
+        separated.mapIndexed { index, item ->
+            if (item != " ") {
                 listParagraph.add(index, item)
             }
         }
@@ -102,15 +106,13 @@ class GenericInfoStepFragment : BaseFragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
         super.onViewCreated(view, savedInstanceState)
         activity?.let {
             firebaseAnalytics.setCurrentScreen(it, "${category.title} Page", null)
         }
-        var horizontalProgressProgress: ProgressBar? = null
         val informationToSpeech = contentAudioOptions().toString()
         listParagraph = getListOfText(informationToSpeech)
-        utilsTextToSpeech = UtilsTextToSpeech(context!!, listParagraph, ::reproduceAudioCallBack)
+        textToSpeech = UtilsTextToSpeech(context!!, listParagraph, ::reproduceAudioCallBack)
 
         with(view as _LinearLayout) {
             verticalLayout {
@@ -121,12 +123,12 @@ class GenericInfoStepFragment : BaseFragment() {
                 val marginLeft = calculateMarginLeftAndRight()
                 relativeLayout {
                     loadImageBackground(view, category)
-                    loadPlayAndPauseIcon(
+                    playAndPauseIcon = loadPlayAndPauseIcon(
                         view,
-                        utilsTextToSpeech, ::getStringToReproduce
+                        textToSpeech!!, ::getStringToReproduce
                     )
                 }.lparams(width = ViewGroup.LayoutParams.MATCH_PARENT, height = imageHeight)
-                horizontalProgressProgress = loadHorizontalProgressBarDinamic(0)
+                horizontalProgressBar = loadHorizontalProgressBarDinamic(0)
                 scrollView {
                     verticalLayout {
                         loadInformationDescription(view)
@@ -145,52 +147,71 @@ class GenericInfoStepFragment : BaseFragment() {
             category.information?.get(0)?.screenTitle.toString(),
             enableCustomBar = false, needsBackButton = true, enableHelp = false, backMethod = null
         )
-        incrementProgressBar(horizontalProgressProgress)
+        thread = incrementProgressBarThread(horizontalProgressBar)
+        thread.start()
     }
 
-    fun reproduceAudioCallBack(indexParameter: Int, listParagraph: MutableList<String>): String {
+    private fun reproduceAudioCallBack(
+        indexParameter: Int,
+        listParagraph: MutableList<String>
+    ): String? {
         indexCurrently = indexParameter + 1
         setProgress(indexCurrently, listParagraph.size)
-        if (indexCurrently < listParagraph.size) {
-            return listParagraph[indexCurrently]
+        return if (indexCurrently < listParagraph.size) {
+            listParagraph[indexCurrently]
         } else {
-            utilsTextToSpeech?.stop()
-            return ""
+            textToSpeech?.stop()
+            (context as Activity).runOnUiThread {
+                playAndPauseIcon.apply {
+                    putImageOnTheWidget(Constants.PLAY_ICON, this)
+                }
+            }
+            null
         }
     }
 
-    fun getStringToReproduce(): String? {
-        try {
-            return listParagraph[indexCurrently]
-        } catch (e: ArrayIndexOutOfBoundsException) {
-            return null
+    private fun getStringToReproduce(): String? {
+        return try {
+            listParagraph[indexCurrently]
+        } catch (e: IndexOutOfBoundsException) {
+            restartAudioProgress()
         }
     }
 
-    private fun incrementProgressBar(horizonta: ProgressBar?) {
-        val t = object : Thread() {
+    private fun restartAudioProgress(): String {
+        textToSpeech?.restartPosition()
+        indexCurrently = 0
+        oldProgress = 0
+        horizontalProgressBar?.progress = 0
+        thread.interrupt()
+        thread = incrementProgressBarThread(horizontalProgressBar)
+        thread.start()
+        return listParagraph[indexCurrently]
+    }
+
+    private fun incrementProgressBarThread(progressBar: ProgressBar?): Thread {
+        return object : Thread() {
             override fun run() {
-                var value = 0
-                while ((horizonta as ProgressBar).progress < Constants.PROGRESS_TOTAL) {
-
-                    (context as Activity).runOnUiThread(object : Runnable {
-                        override fun run() {
-                            if (value != oldProgress) {
+                progressBar?.let {
+                    var value = 0
+                    while (progressBar.progress < Constants.PROGRESS_TOTAL) {
+                        (context as Activity).runOnUiThread {
+                            if (progressBar.progress >= Constants.PROGRESS_TOTAL) {
+                                this.interrupt()
+                            } else if (value != oldProgress) {
                                 value = oldProgress
-                                (horizonta as ProgressBar).progress = value
+                                progressBar.progress = value
                             }
                         }
-                    })
-                    try {
-                        sleep(Constants.TIME_SLEEP)
-                    } catch (e: InterruptedException) {
-                        e.printStackTrace();
+                        try {
+                            sleep(Constants.TIME_SLEEP)
+                        } catch (e: InterruptedException) {
+                            e.printStackTrace()
+                        }
                     }
                 }
-
             }
         }
-        t.start()
     }
 
     private fun setProgress(progress: Int, total: Int) {
@@ -447,7 +468,7 @@ class GenericInfoStepFragment : BaseFragment() {
 
     private fun contentAudioOptions(): StringBuffer {
         val contentOptions = StringBuffer()
-        getTextInformation()?.let {
+        getTextInformation().let {
             contentOptions.append(it)
             contentOptions.append("\n")
         }
@@ -457,8 +478,8 @@ class GenericInfoStepFragment : BaseFragment() {
     private fun getTextInformation(): StringBuffer {
         val contentOptions1 = StringBuffer()
         category.information?.forEach { information: CategoryInformation ->
-            information?.let {
-                contentOptions1.append(information?.description)
+            information.let {
+                contentOptions1.append(information.description)
                 contentOptions1.append("\n")
                 contentOptions1.append(getTextSections(information))
                 contentOptions1.append("\n")
@@ -472,7 +493,7 @@ class GenericInfoStepFragment : BaseFragment() {
     ): StringBuffer {
         val contentOptions1 = StringBuffer()
         option.sections?.forEach { section: Section ->
-            section?.let {
+            section.let {
                 contentOptions1.append(section.title)
                 contentOptions1.append("\n")
                 contentOptions1.append(getTextSteps(section))
@@ -487,7 +508,7 @@ class GenericInfoStepFragment : BaseFragment() {
     ): StringBuffer {
         val contentOptions1 = StringBuffer()
         section.steps?.forEach { step: Step ->
-            step?.let {
+            step.let {
                 contentOptions1.append(step.stepId).append("\n").append(step.description)
             }
         }
@@ -509,11 +530,5 @@ class GenericInfoStepFragment : BaseFragment() {
         }
         itemView.findNavController()
             .navigate(R.id.mainScreenLabourRouteFragment, violenceLabour, navOptions, null)
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-
-        utilsTextToSpeech?.destroy()
     }
 }
