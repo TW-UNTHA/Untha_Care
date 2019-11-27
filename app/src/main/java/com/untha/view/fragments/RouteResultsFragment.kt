@@ -2,7 +2,6 @@ package com.untha.view.fragments
 
 import android.graphics.Typeface
 import android.os.Bundle
-import android.speech.tts.TextToSpeech
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -109,7 +108,6 @@ class RouteResultsFragment : BaseFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        this.textToSpeech = TextToSpeech(context, this)
         return createMainLayout()
     }
 

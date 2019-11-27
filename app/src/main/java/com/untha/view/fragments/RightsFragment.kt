@@ -15,6 +15,7 @@ import com.untha.R
 import com.untha.model.transactionalmodels.Category
 import com.untha.utils.Constants
 import com.untha.utils.PixelConverter
+import com.untha.utils.UtilsTextToSpeech
 import com.untha.view.activities.MainActivity
 import com.untha.view.adapters.RightsAdapter
 import com.untha.viewmodels.RightsViewModel
@@ -24,7 +25,7 @@ import org.koin.android.viewmodel.ext.android.viewModel
 
 
 class RightsFragment : BaseFragment(),
-    RightsAdapter.OnItemClickListener {
+    RightsAdapter.OnItemClickListener, RightsAdapter.OnItemLongClickListener {
 
     private val viewModel: RightsViewModel by viewModel()
     private lateinit var mainActivity: MainActivity
@@ -38,6 +39,7 @@ class RightsFragment : BaseFragment(),
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        textToSpeech = UtilsTextToSpeech(context!!, null, null)
         mainActivity = this.activity as MainActivity
         val rightsView = inflater.inflate(R.layout.layout_rights, container, false)
         addShareButtonToView(rightsView, inflater, container)
@@ -81,9 +83,9 @@ class RightsFragment : BaseFragment(),
     private fun populateCategoryList(categoryList: List<Category>) {
         val layoutManager = GridLayoutManager(context, Constants.SPAN_TWO_COLUMNS)
         categoryRecyclerView.layoutManager = layoutManager
-        categoryRecyclerView.adapter = RightsAdapter(categoryList as ArrayList<Category>, this)
+        categoryRecyclerView.adapter =
+            RightsAdapter(categoryList as ArrayList<Category>, this, this)
     }
-
 
     private fun setMarginsToRecyclerView() {
         val marginInDps =
@@ -133,5 +135,10 @@ class RightsFragment : BaseFragment(),
             context?.startActivity(sendIntent)
         }
         rightsRelativeLayout.addView(shareButtonRelativeLayout)
+    }
+
+    override fun onItemLongClick(itemView: View, text: String): Boolean {
+        textToSpeech?.speakOut(text)
+        return true
     }
 }

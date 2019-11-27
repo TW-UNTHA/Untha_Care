@@ -1,8 +1,6 @@
 package com.untha.view.fragments
 
 import android.os.Bundle
-import android.speech.tts.TextToSpeech
-import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavOptions
@@ -13,11 +11,12 @@ import com.untha.model.transactionalmodels.Route
 import com.untha.utils.Constants
 import com.untha.utils.ContentType
 import com.untha.utils.FirebaseEvent
+import com.untha.utils.UtilsTextToSpeech
 import com.untha.viewmodels.BaseQuestionViewModel
-import java.util.*
 
-open class BaseFragment : Fragment(), TextToSpeech.OnInitListener {
-    var textToSpeech: TextToSpeech? = null
+open class BaseFragment : Fragment() {
+
+    var textToSpeech: UtilsTextToSpeech? = null
     lateinit var firebaseAnalytics: FirebaseAnalytics
     val navOptions = NavOptions.Builder().setEnterAnim(R.anim.slide_in_right)
         .setPopEnterAnim(R.anim.slide_in_left).setExitAnim(R.anim.slide_out_left)
@@ -28,18 +27,14 @@ open class BaseFragment : Fragment(), TextToSpeech.OnInitListener {
         .setPopExitAnim(R.anim.slide_out_left).build()
 
 
-    override fun onInit(status: Int) {
-        val language = "spa"
-        val country = "MEX"
-        if (status == TextToSpeech.SUCCESS) {
-            val locSpanish = Locale(language, country)
-            val result = textToSpeech!!.setLanguage(locSpanish)
-            if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
-                Log.e("TextToSpeech", "The Language specified is not supported!")
-            }
-        } else {
-            Log.e("TextToSpeech", "Initilization Failed!")
-        }
+    override fun onStop() {
+        textToSpeech?.stop()
+        super.onStop()
+    }
+
+    override fun onDestroy() {
+        textToSpeech?.destroy()
+        super.onDestroy()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,13 +44,6 @@ open class BaseFragment : Fragment(), TextToSpeech.OnInitListener {
         }
     }
 
-    override fun onStop() {
-        if (textToSpeech != null) {
-            textToSpeech!!.stop()
-            textToSpeech!!.shutdown()
-        }
-        super.onStop()
-    }
 
     fun logAnalyticsSelectContentWithId(name: String, contentType: ContentType) {
         val bundle = Bundle()

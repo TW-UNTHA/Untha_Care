@@ -2,7 +2,6 @@ package com.untha.view.fragments
 
 import android.graphics.Typeface
 import android.os.Bundle
-import android.speech.tts.TextToSpeech
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -15,7 +14,7 @@ import com.bumptech.glide.Glide
 import com.untha.R
 import com.untha.utils.Constants
 import com.untha.utils.PixelConverter
-import com.untha.utils.ToSpeech
+import com.untha.utils.UtilsTextToSpeech
 import org.jetbrains.anko.AnkoViewDslMarker
 import org.jetbrains.anko._LinearLayout
 import org.jetbrains.anko.attr
@@ -38,7 +37,7 @@ import org.jetbrains.anko.textView
 import org.jetbrains.anko.verticalLayout
 import org.jetbrains.anko.wrapContent
 
-class SlideAboutUsFragment(private val myTextToSpeech: TextToSpeech) : BaseFragment() {
+class SlideAboutUsFragment(private val myTextToSpeech: UtilsTextToSpeech) : BaseFragment() {
 
     companion object {
         private const val MARGIN_ABOUT_US = 0.038
@@ -348,7 +347,7 @@ class SlideAboutUsFragment(private val myTextToSpeech: TextToSpeech) : BaseFragm
             backgroundResource = attr(R.attr.selectableItemBackgroundBorderless).resourceId
             gravity = Gravity.CENTER
             onClick {
-                ToSpeech.speakOut(message, myTextToSpeech)
+                myTextToSpeech.speakOut(message)
             }
         }.lparams(
             width = calculateHeightComponents(Constants.SIZE_IMAGE_PERCENTAGE_AUDIO_QUESTION),

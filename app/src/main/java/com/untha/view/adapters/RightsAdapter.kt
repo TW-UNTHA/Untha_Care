@@ -16,11 +16,16 @@ import kotlinx.android.synthetic.main.layout_rights_item.view.*
 
 class RightsAdapter(
     private val items: ArrayList<Category>,
-    private val clickListener: OnItemClickListener
+    private val clickListener: OnItemClickListener,
+    private val onItemLongClickListener: OnItemLongClickListener
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     interface OnItemClickListener {
         fun onItemClick(category: Category, categories: List<Category>?, itemView: View)
+    }
+
+    interface OnItemLongClickListener {
+        fun onItemLongClick(itemView: View, text: String): Boolean
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -45,6 +50,9 @@ class RightsAdapter(
                 loadImage(category)
                 itemView.setOnClickListener {
                     listener.onItemClick(category, items, itemView)
+                }
+                setOnLongClickListener {
+                    onItemLongClickListener.onItemLongClick(itemView, category.title)
                 }
             }
 

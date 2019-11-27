@@ -2,7 +2,6 @@ package com.untha.view.fragments
 
 import android.graphics.Paint
 import android.os.Bundle
-import android.speech.tts.TextToSpeech
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -18,7 +17,7 @@ import com.untha.utils.Constants
 import com.untha.utils.ContentType
 import com.untha.utils.FirebaseEvent
 import com.untha.utils.PixelConverter
-import com.untha.utils.ToSpeech
+import com.untha.utils.UtilsTextToSpeech
 import com.untha.view.activities.MainActivity
 import com.untha.view.extension.getSelectableItemBackground
 import com.untha.viewmodels.RoutesViewModel
@@ -104,7 +103,6 @@ class WelcomeScreenRoutesFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View? {
         mainActivity = this.activity as MainActivity
-        this.textToSpeech = TextToSpeech(context, this)
         return createMainLayout()
     }
 
@@ -234,9 +232,10 @@ class WelcomeScreenRoutesFragment : BaseFragment() {
             gravity = Gravity.CENTER
             backgroundResource = attr(R.attr.selectableItemBackgroundBorderless).resourceId
             val contentQuestion = "$FIRST_MESSAGE \n $secondMessage"
+            textToSpeech = UtilsTextToSpeech(context!!, null, null)
             onClick {
+                textToSpeech?.speakOut(contentQuestion)
                 logAnalyticsCustomContentTypeWithId(ContentType.AUDIO, FirebaseEvent.AUDIO)
-                contentQuestion.let { ToSpeech.speakOut(it, textToSpeech) }
             }
         }.lparams(
             width = calculateHeightComponentsQuestion(),

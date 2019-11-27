@@ -1,7 +1,6 @@
 package com.untha.view.fragments
 
 import android.os.Bundle
-import android.speech.tts.TextToSpeech
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -23,7 +22,7 @@ import com.untha.utils.ContentType
 import com.untha.utils.FirebaseEvent
 import com.untha.utils.MultipleSelectionOption
 import com.untha.utils.PixelConverter
-import com.untha.utils.ToSpeech
+import com.untha.utils.UtilsTextToSpeech
 import com.untha.view.activities.MainActivity
 import com.untha.view.extension.loadHorizontalProgressBar
 import com.untha.viewmodels.CategoryViewModel
@@ -127,7 +126,6 @@ class MultipleSelectionQuestionFragment : BaseFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        this.textToSpeech = TextToSpeech(context, this)
         return createMainLayout()
     }
 
@@ -166,7 +164,6 @@ class MultipleSelectionQuestionFragment : BaseFragment() {
             (PixelConverter.getScreenDpWidth(context)) * Constants.MARGIN_SINGLE_SELECTION_QUESTION
         return PixelConverter.toPixels(cardHeightInDps, context)
     }
-
 
     private fun createMainLayout(
     ): View {
@@ -500,9 +497,11 @@ class MultipleSelectionQuestionFragment : BaseFragment() {
             backgroundResource = attr(R.attr.selectableItemBackgroundBorderless).resourceId
             val textQuestion = routeQuestion?.content
             val contentQuestion = "$textQuestion ${contentAudioOptions()}"
+            textToSpeech = UtilsTextToSpeech(context!!, null, null)
+
             onClick {
+                textToSpeech?.speakOut(contentQuestion)
                 logAnalyticsCustomContentTypeWithId(ContentType.AUDIO, FirebaseEvent.AUDIO)
-                contentQuestion.let { ToSpeech.speakOut(it, textToSpeech) }
             }
         }.lparams(
             width = calculateHeightComponentsAudio(Constants.SIZE_IMAGE_PERCENTAGE_AUDIO_QUESTION),

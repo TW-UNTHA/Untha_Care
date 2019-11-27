@@ -1,5 +1,6 @@
 package com.untha.view.fragments
 
+import android.app.Activity
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Paint
@@ -9,7 +10,9 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
@@ -24,11 +27,15 @@ import com.untha.utils.Constants
 import com.untha.utils.ContentType
 import com.untha.utils.PixelConverter
 import com.untha.utils.PixelConverter.toPixels
+import com.untha.utils.UtilsTextToSpeech
 import com.untha.view.activities.MainActivity
 import com.untha.view.extension.buildImageNextStep
 import com.untha.view.extension.buildNextStepTitle
 import com.untha.view.extension.getSelectableItemBackground
-import com.untha.view.extension.loadImage
+import com.untha.view.extension.loadHorizontalProgressBarDinamic
+import com.untha.view.extension.loadImageBackground
+import com.untha.view.extension.loadPlayAndPauseIcon
+import com.untha.view.extension.putImageOnTheWidget
 import com.untha.viewmodels.GenericInfoStepViewModel
 import org.jetbrains.anko.AnkoViewDslMarker
 import org.jetbrains.anko._LinearLayout
@@ -41,6 +48,7 @@ import org.jetbrains.anko.imageView
 import org.jetbrains.anko.leftPadding
 import org.jetbrains.anko.linearLayout
 import org.jetbrains.anko.matchParent
+import org.jetbrains.anko.relativeLayout
 import org.jetbrains.anko.rightPadding
 import org.jetbrains.anko.scrollView
 import org.jetbrains.anko.support.v4.UI
@@ -59,6 +67,12 @@ class GenericInfoStepFragment : BaseFragment() {
     private lateinit var mainActivity: MainActivity
     private val viewModel: GenericInfoStepViewModel by viewModel()
 
+    var oldProgress = 0
+    var indexCurrently = 0
+    lateinit var listParagraph: MutableList<String>
+    lateinit var playAndPauseIcon: ImageView
+    private var horizontalProgressBar: ProgressBar? = null
+    private lateinit var thread: Thread
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -78,12 +92,28 @@ class GenericInfoStepFragment : BaseFragment() {
         return createMainLayout()
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    private fun getListOfText(informationToSpeech: String): MutableList<String> {
+        var textCategory = informationToSpeech
+        textCategory = textCategory.parseAsHtml().toString()
+        val listParagraph: MutableList<String> = mutableListOf()
+        val separated = textCategory.split(".")
+        separated.mapIndexed { index, item ->
+            if (item != " ") {
+                listParagraph.add(index, item)
+            }
+        }
+        return listParagraph
+    }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         activity?.let {
             firebaseAnalytics.setCurrentScreen(it, "${category.title} Page", null)
         }
+        val informationToSpeech = contentAudioOptions().toString()
+        listParagraph = getListOfText(informationToSpeech)
+        textToSpeech = UtilsTextToSpeech(context!!, listParagraph, ::reproduceAudioCallBack)
+
         with(view as _LinearLayout) {
             verticalLayout {
                 val imageSizeInDps = (PixelConverter.getScreenDpHeight(context) -
@@ -91,18 +121,17 @@ class GenericInfoStepFragment : BaseFragment() {
                 val imageHeight = toPixels(imageSizeInDps, context)
                 val marginTop = calculateTopMargin()
                 val marginLeft = calculateMarginLeftAndRight()
-                verticalLayout {
-                    backgroundColor =
-                        ContextCompat.getColor(context, R.color.colorBackgroundMainRoute)
-                    loadImage(view, imageHeight, category)
-                    drawLine(R.color.colorGenericLineHeader, Constants.HEIGHT_LINE_HEADER_GENERIC)
-                }.lparams(width = ViewGroup.LayoutParams.MATCH_PARENT, height = wrapContent)
-
+                relativeLayout {
+                    loadImageBackground(view, category)
+                    playAndPauseIcon = loadPlayAndPauseIcon(
+                        view,
+                        textToSpeech!!, ::getStringToReproduce
+                    )
+                }.lparams(width = ViewGroup.LayoutParams.MATCH_PARENT, height = imageHeight)
+                horizontalProgressBar = loadHorizontalProgressBarDinamic(0)
                 scrollView {
                     verticalLayout {
                         loadInformationDescription(view)
-
-
                     }
                     backgroundColor =
                         ContextCompat.getColor(context, R.color.colorBackgroundMainRoute)
@@ -118,6 +147,75 @@ class GenericInfoStepFragment : BaseFragment() {
             category.information?.get(0)?.screenTitle.toString(),
             enableCustomBar = false, needsBackButton = true, enableHelp = false, backMethod = null
         )
+        thread = incrementProgressBarThread(horizontalProgressBar)
+        thread.start()
+    }
+
+    private fun reproduceAudioCallBack(
+        indexParameter: Int,
+        listParagraph: MutableList<String>
+    ): String? {
+        indexCurrently = indexParameter + 1
+        setProgress(indexCurrently, listParagraph.size)
+        return if (indexCurrently < listParagraph.size) {
+            listParagraph[indexCurrently]
+        } else {
+            textToSpeech?.stop()
+            (context as Activity).runOnUiThread {
+                playAndPauseIcon.apply {
+                    putImageOnTheWidget(Constants.PLAY_ICON, this)
+                }
+            }
+            null
+        }
+    }
+
+    private fun getStringToReproduce(): String? {
+        return try {
+            listParagraph[indexCurrently]
+        } catch (e: IndexOutOfBoundsException) {
+            restartAudioProgress()
+        }
+    }
+
+    private fun restartAudioProgress(): String {
+        textToSpeech?.restartPosition()
+        indexCurrently = 0
+        oldProgress = 0
+        horizontalProgressBar?.progress = 0
+        thread.interrupt()
+        thread = incrementProgressBarThread(horizontalProgressBar)
+        thread.start()
+        return listParagraph[indexCurrently]
+    }
+
+    private fun incrementProgressBarThread(progressBar: ProgressBar?): Thread {
+        return object : Thread() {
+            override fun run() {
+                progressBar?.let {
+                    var value = 0
+                    while (progressBar.progress < Constants.PROGRESS_TOTAL) {
+                        (context as Activity).runOnUiThread {
+                            if (progressBar.progress >= Constants.PROGRESS_TOTAL) {
+                                this.interrupt()
+                            } else if (value != oldProgress) {
+                                value = oldProgress
+                                progressBar.progress = value
+                            }
+                        }
+                        try {
+                            sleep(Constants.TIME_SLEEP)
+                        } catch (e: InterruptedException) {
+                            e.printStackTrace()
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private fun setProgress(progress: Int, total: Int) {
+        oldProgress = progress * Constants.PROGRESS_TOTAL / total
     }
 
     private fun @AnkoViewDslMarker _LinearLayout.buildButtonNextStep(
@@ -171,7 +269,6 @@ class GenericInfoStepFragment : BaseFragment() {
             bottomMargin = dip(Constants.TOP_MARGIN_NEXT_STEP)
         }
     }
-
 
     private fun _LinearLayout.calculateMarginLeftAndRight(): Int {
         val widthFormula =
@@ -353,7 +450,6 @@ class GenericInfoStepFragment : BaseFragment() {
             putSerializable(Constants.CATEGORIES, categories)
             putSerializable(Constants.CATEGORY_PARAMETER, category)
         }
-
         if (category.isRoute) {
             when (category.id) {
                 Constants.ID_ROUTE_LABOUR -> {
@@ -368,8 +464,57 @@ class GenericInfoStepFragment : BaseFragment() {
             itemView.findNavController()
                 .navigate(R.id.genericInfoFragment, categoryBundle, navOptions, null)
         }
-
     }
+
+    private fun contentAudioOptions(): StringBuffer {
+        val contentOptions = StringBuffer()
+        getTextInformation().let {
+            contentOptions.append(it)
+            contentOptions.append("\n")
+        }
+        return contentOptions
+    }
+
+    private fun getTextInformation(): StringBuffer {
+        val contentOptions1 = StringBuffer()
+        category.information?.forEach { information: CategoryInformation ->
+            information.let {
+                contentOptions1.append(information.description)
+                contentOptions1.append("\n")
+                contentOptions1.append(getTextSections(information))
+                contentOptions1.append("\n")
+            }
+        }
+        return contentOptions1
+    }
+
+    private fun getTextSections(
+        option: CategoryInformation
+    ): StringBuffer {
+        val contentOptions1 = StringBuffer()
+        option.sections?.forEach { section: Section ->
+            section.let {
+                contentOptions1.append(section.title)
+                contentOptions1.append("\n")
+                contentOptions1.append(getTextSteps(section))
+                contentOptions1.append("\n")
+            }
+        }
+        return contentOptions1
+    }
+
+    private fun getTextSteps(
+        section: Section
+    ): StringBuffer {
+        val contentOptions1 = StringBuffer()
+        section.steps?.forEach { step: Step ->
+            step.let {
+                contentOptions1.append(step.stepId).append("\n").append(step.description)
+            }
+        }
+        return contentOptions1
+    }
+
 
     private fun onItemClickRouteLabour(itemView: View) {
         val routeLabour = Bundle().apply {
