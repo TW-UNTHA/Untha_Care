@@ -149,6 +149,26 @@ class GenericInfoStepFragment : BaseFragment() {
         )
         thread = incrementProgressBarThread(horizontalProgressBar)
         thread.start()
+
+    }
+
+    override fun onStart() {
+        super.onStart()
+        (context as Activity).runOnUiThread {
+            playAndPauseIcon.apply {
+                //                this.performClick()
+            }
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        thread.interrupt()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        thread.interrupt()
     }
 
     private fun reproduceAudioCallBack(
@@ -195,12 +215,14 @@ class GenericInfoStepFragment : BaseFragment() {
                 progressBar?.let {
                     var value = 0
                     while (progressBar.progress < Constants.PROGRESS_TOTAL) {
-                        (context as Activity).runOnUiThread {
-                            if (progressBar.progress >= Constants.PROGRESS_TOTAL) {
-                                this.interrupt()
-                            } else if (value != oldProgress) {
-                                value = oldProgress
-                                progressBar.progress = value
+                        context?.let {
+                            (context as Activity).runOnUiThread {
+                                if (progressBar.progress >= Constants.PROGRESS_TOTAL) {
+                                    this.interrupt()
+                                } else if (value != oldProgress) {
+                                    value = oldProgress
+                                    progressBar.progress = value
+                                }
                             }
                         }
                         try {

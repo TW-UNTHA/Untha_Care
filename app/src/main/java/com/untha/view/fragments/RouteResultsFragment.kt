@@ -25,6 +25,7 @@ import com.untha.model.transactionalmodels.Step
 import com.untha.utils.Constants
 import com.untha.utils.ContentType
 import com.untha.utils.PixelConverter
+import com.untha.utils.UtilsTextToSpeech
 import com.untha.view.activities.MainActivity
 import com.untha.viewmodels.CategoryViewModel
 import com.untha.viewmodels.RouteResultsViewModel
@@ -85,6 +86,7 @@ class RouteResultsFragment : BaseFragment() {
 
     private var isLabourRoute: Boolean = false
     private var violenceLevel: String? = null
+    private var contentAudio: StringBuffer = StringBuffer()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -222,6 +224,7 @@ class RouteResultsFragment : BaseFragment() {
                 backgroundDrawable = ContextCompat.getDrawable(
                     context, R.drawable.drawable_fault_container
                 )
+                contentAudio.append(result.content).append("\n")
                 drawRouteResultDescription(result)
                 drawCategoryButtons(result, view)
             }.lparams(
@@ -337,7 +340,7 @@ class RouteResultsFragment : BaseFragment() {
         category: Category
     ) {
         textView {
-            text = category.title?.toLowerCase()?.capitalize()
+            text = category.title.toLowerCase().capitalize()
             textSizeDimen = R.dimen.text_size
             typeface =
                 ResourcesCompat.getFont(context.applicationContext, R.font.proxima_nova_light)
@@ -384,13 +387,16 @@ class RouteResultsFragment : BaseFragment() {
     }
 
     private fun @AnkoViewDslMarker _LinearLayout.drawHeaderDescription(textId: Int?) {
+        val texto = if (textId == null) {
+            if (isLabourRoute) context.getString(R.string.description_labour_result)
+            else context.getString(R.string.description_violence_result) + " $violenceLevel"
+        } else {
+            context.getString(textId)
+        }
         textView {
-            text = if (textId == null) {
-                if (isLabourRoute) context.getString(R.string.description_labour_result)
-                else context.getString(R.string.description_violence_result) + " $violenceLevel"
-            } else {
-                context.getString(textId)
-            }
+
+            text = texto
+            contentAudio.append(texto).append("\n")
             textSizeDimen = R.dimen.text_size_content
             typeface =
                 ResourcesCompat.getFont(context.applicationContext, R.font.proxima_nova_bold)
@@ -410,6 +416,10 @@ class RouteResultsFragment : BaseFragment() {
                 "drawable",
                 context.applicationInfo.packageName
             )
+            textToSpeech = UtilsTextToSpeech(context!!, null, null)
+            onClick {
+                textToSpeech?.speakOut(contentAudio.toString())
+            }
             Glide.with(view)
                 .load(imageUrl)
                 .into(this)
@@ -442,6 +452,7 @@ class RouteResultsFragment : BaseFragment() {
     private fun @AnkoViewDslMarker _LinearLayout.buildSections(questionnaireRouteResult: QuestionnaireRouteResult) {
         questionnaireRouteResult.sections.map { section ->
             val title = section.title
+            contentAudio.append(title).append("\n")
             if (title.isNotEmpty()) {
                 title.let {
                     textView {
@@ -478,6 +489,7 @@ class RouteResultsFragment : BaseFragment() {
         step.stepId?.let {
             textView {
                 text = step.stepId.toString()
+                contentAudio.append(step.stepId.toString()).append("\n")
                 gravity = Gravity.CENTER
                 textColor =
                     ContextCompat.getColor(context, android.R.color.white)
@@ -499,6 +511,7 @@ class RouteResultsFragment : BaseFragment() {
     ): TextView {
         return textView {
             text = step.description.parseAsHtml()
+            contentAudio.append(step.description.parseAsHtml()).append("\n")
             movementMethod = android.text.method.LinkMovementMethod.getInstance()
             typeface =
                 ResourcesCompat.getFont(context.applicationContext, R.font.proxima_nova_light)
