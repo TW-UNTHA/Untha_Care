@@ -13,6 +13,8 @@ import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.untha.R
 import com.untha.utils.Constants
+import com.untha.utils.ContentType
+import com.untha.utils.FirebaseEvent
 import com.untha.utils.PixelConverter
 import com.untha.utils.UtilsTextToSpeech
 import org.jetbrains.anko.AnkoViewDslMarker
@@ -348,6 +350,7 @@ class SlideAboutUsFragment(private val myTextToSpeech: UtilsTextToSpeech) : Base
             gravity = Gravity.CENTER
             onClick {
                 myTextToSpeech.speakOut(message)
+                logAnalyticsCustomContentTypeWithId(ContentType.AUDIO, FirebaseEvent.AUDIO)
             }
         }.lparams(
             width = calculateHeightComponents(Constants.SIZE_IMAGE_PERCENTAGE_AUDIO_QUESTION),

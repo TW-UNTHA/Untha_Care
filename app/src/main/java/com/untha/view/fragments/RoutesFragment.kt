@@ -16,6 +16,7 @@ import com.untha.R
 import com.untha.model.transactionalmodels.Category
 import com.untha.utils.Constants
 import com.untha.utils.ContentType
+import com.untha.utils.FirebaseEvent
 import com.untha.utils.PixelConverter
 import com.untha.view.activities.MainActivity
 import org.jetbrains.anko.AnkoViewDslMarker
@@ -122,12 +123,14 @@ class RoutesFragment : BaseFragment() {
                     navOptions,
                     null
                 )
+            logAnalyticsCustomContentTypeWithId(ContentType.HELP, FirebaseEvent.HELP)
         }
     }
 
     private fun navigateToCategory() {
         NavHostFragment.findNavController(this)
             .navigate(R.id.categoryFragment, null, navOptionsToBackNavigation, null)
+        logAnalyticsCustomContentTypeWithId(ContentType.CLOSE, FirebaseEvent.CLOSE)
     }
 
     private fun @AnkoViewDslMarker _LinearLayout.buildRoute(view: View) {
@@ -240,6 +243,7 @@ class RoutesFragment : BaseFragment() {
                 sendIntent.putExtra(Intent.EXTRA_TEXT, Constants.SHARE_BUTTON_MESSAGE)
                 sendIntent.type = "text/plain"
                 context.startActivity(sendIntent)
+                logAnalyticsCustomContentTypeWithId(ContentType.SHARE, FirebaseEvent.SHARE)
             }
         }.lparams {
             margin = dip(Constants.SHARE_BUTTON_MARGIN)

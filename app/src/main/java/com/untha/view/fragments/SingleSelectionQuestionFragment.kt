@@ -50,6 +50,8 @@ class SingleSelectionQuestionFragment : BaseFragment() {
     private var isLabourRoute: Boolean = false
     private var remainingQuestion: Int = 0
     private var questionAdvance: Int = 1
+    private var hint: String? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -161,6 +163,7 @@ class SingleSelectionQuestionFragment : BaseFragment() {
                     navOptionsToBackNavigation,
                     null
                 )
+            logAnalyticsSelectContentWithId(hint, ContentType.CLOSE)
         }
     }
 
@@ -251,7 +254,10 @@ class SingleSelectionQuestionFragment : BaseFragment() {
                         R.font.proxima_nova_bold
                     )
                     onClick {
-                        option.hint?.let { logAnalyticsCustomEvent(it) }
+                        option.hint?.let {
+                            logAnalyticsCustomEvent(it)
+                            hint = it
+                        }
                         when {
                             isLabourRoute -> option.result?.let {
                                 questionViewModel.saveAnswerOption(

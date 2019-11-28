@@ -10,6 +10,8 @@ import androidx.viewpager.widget.ViewPager
 import com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator
 import com.untha.R
 import com.untha.utils.Constants
+import com.untha.utils.ContentType
+import com.untha.utils.FirebaseEvent
 import com.untha.utils.UtilsTextToSpeech
 import com.untha.view.activities.MainActivity
 import com.untha.view.adapters.SlidePagerAdapter
@@ -71,8 +73,8 @@ class AboutUsFragment : BaseFragment() {
                     navOptionsToBackNavigation,
                     null
                 )
+            logAnalyticsCustomContentTypeWithId(ContentType.CLOSE, FirebaseEvent.CLOSE)
         }
-
     }
 
     override fun onStop() {

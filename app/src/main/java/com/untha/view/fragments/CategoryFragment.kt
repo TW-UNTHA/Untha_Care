@@ -15,6 +15,7 @@ import com.untha.R
 import com.untha.model.transactionalmodels.Category
 import com.untha.utils.Constants
 import com.untha.utils.ContentType
+import com.untha.utils.FirebaseEvent
 import com.untha.utils.PixelConverter
 import com.untha.utils.UtilsTextToSpeech
 import com.untha.view.activities.MainActivity
@@ -92,6 +93,7 @@ class CategoryFragment : BaseFragment(),
                     navOptions,
                     null
                 )
+            logAnalyticsCustomContentTypeWithId(ContentType.HELP, FirebaseEvent.HELP)
         }
     }
 
@@ -144,6 +146,7 @@ class CategoryFragment : BaseFragment(),
 
     override fun onItemLongClick(itemView: View, text: String): Boolean {
         textToSpeech?.speakOut(text)
+        logAnalyticsCustomContentTypeWithId(ContentType.AUDIO, FirebaseEvent.AUDIO)
         return true
     }
 

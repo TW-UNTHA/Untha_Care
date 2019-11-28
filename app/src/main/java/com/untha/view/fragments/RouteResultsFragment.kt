@@ -24,6 +24,7 @@ import com.untha.model.transactionalmodels.Section
 import com.untha.model.transactionalmodels.Step
 import com.untha.utils.Constants
 import com.untha.utils.ContentType
+import com.untha.utils.FirebaseEvent
 import com.untha.utils.PixelConverter
 import com.untha.utils.UtilsTextToSpeech
 import com.untha.view.activities.MainActivity
@@ -419,6 +420,7 @@ class RouteResultsFragment : BaseFragment() {
             textToSpeech = UtilsTextToSpeech(context!!, null, null)
             onClick {
                 textToSpeech?.speakOut(contentAudio.toString())
+                logAnalyticsCustomContentTypeWithId(ContentType.AUDIO, FirebaseEvent.AUDIO)
             }
             Glide.with(view)
                 .load(imageUrl)
@@ -558,6 +560,7 @@ class RouteResultsFragment : BaseFragment() {
                     navOptionsToBackNavigation,
                     null
                 )
+            logAnalyticsCustomContentTypeWithId(ContentType.CLOSE, FirebaseEvent.CLOSE)
         }
     }
 }

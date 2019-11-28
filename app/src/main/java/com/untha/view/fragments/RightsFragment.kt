@@ -14,6 +14,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.untha.R
 import com.untha.model.transactionalmodels.Category
 import com.untha.utils.Constants
+import com.untha.utils.ContentType
+import com.untha.utils.FirebaseEvent
 import com.untha.utils.PixelConverter
 import com.untha.utils.UtilsTextToSpeech
 import com.untha.view.activities.MainActivity
@@ -49,7 +51,7 @@ class RightsFragment : BaseFragment(),
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         activity?.let {
-            firebaseAnalytics.setCurrentScreen(it, "Rights Page", null)
+            firebaseAnalytics.setCurrentScreen(it, Constants.RIGHTS_PAGE, null)
         }
         setMarginsToRecyclerView()
         viewModel.getRightsCategoryModels().observe(this, Observer { queryingCategories ->
@@ -77,6 +79,7 @@ class RightsFragment : BaseFragment(),
                     navOptions,
                     null
                 )
+            logAnalyticsCustomContentTypeWithId(ContentType.HELP, FirebaseEvent.HELP)
         }
     }
 
@@ -139,6 +142,7 @@ class RightsFragment : BaseFragment(),
 
     override fun onItemLongClick(itemView: View, text: String): Boolean {
         textToSpeech?.speakOut(text)
+        logAnalyticsCustomContentTypeWithId(ContentType.AUDIO, FirebaseEvent.AUDIO)
         return true
     }
 }

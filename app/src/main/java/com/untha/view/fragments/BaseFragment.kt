@@ -45,7 +45,7 @@ open class BaseFragment : Fragment() {
     }
 
 
-    fun logAnalyticsSelectContentWithId(name: String, contentType: ContentType) {
+    fun logAnalyticsSelectContentWithId(name: String?, contentType: ContentType) {
         val bundle = Bundle()
         bundle.putString(FirebaseAnalytics.Param.ITEM_ID, name)
         bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, contentType.description)
@@ -57,6 +57,7 @@ open class BaseFragment : Fragment() {
     }
 
     fun logAnalyticsCustomEvent(event: String) {
+        firebaseAnalytics.logEvent(event, null)
         firebaseAnalytics.logEvent(event, null)
     }
 

@@ -13,7 +13,7 @@ import androidx.navigation.fragment.NavHostFragment.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.untha.R
 import com.untha.viewmodels.MainViewModel
-import kotlinx.android.synthetic.main.activity_main.navigationHostFragment
+import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.textSizeDimen
 import org.koin.android.viewmodel.ext.android.viewModel
 

@@ -63,6 +63,7 @@ class MultipleSelectionQuestionFragment : BaseFragment() {
     private var isLabourRoute: Boolean = false
     private var questionAdvance: Int = 1
     private var remainingQuestion: Int = 0
+    private var hint: String? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -118,6 +119,8 @@ class MultipleSelectionQuestionFragment : BaseFragment() {
                     navOptionsToBackNavigation,
                     null
                 )
+            logAnalyticsSelectContentWithId(hint, ContentType.CLOSE)
+
         }
     }
 
@@ -320,6 +323,7 @@ class MultipleSelectionQuestionFragment : BaseFragment() {
 
     private fun registerAnalyticsEvent(isNoneOfAbove: Boolean) {
         val hint = viewModel.getHintForSelectedOption(isNoneOfAbove)
+        this.hint = hint
         if (hint != null) {
             logAnalyticsCustomEvent(hint)
         }

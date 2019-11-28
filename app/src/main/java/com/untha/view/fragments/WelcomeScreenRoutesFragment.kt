@@ -78,23 +78,15 @@ class WelcomeScreenRoutesFragment : BaseFragment() {
     }
 
     private fun loadTitleRoute(isLabourRoute: Boolean) {
-        if (isLabourRoute) {
-            (activity as MainActivity).customActionBar(
-                Constants.NAME_SCREEN_LABOUR_ROUTE,
-                enableCustomBar = false,
-                needsBackButton = true,
-                enableHelp = false,
-                backMethod = null
-            )
-        } else {
-            (activity as MainActivity).customActionBar(
-                Constants.NAME_SCREEN_VIOLENCE_ROUTE,
-                enableCustomBar = false,
-                needsBackButton = true,
-                enableHelp = false,
-                backMethod = null
-            )
-        }
+        val titleRoute =
+            if (isLabourRoute) Constants.NAME_SCREEN_LABOUR_ROUTE else Constants.NAME_SCREEN_VIOLENCE_ROUTE
+        (activity as MainActivity).customActionBar(
+            titleRoute,
+            enableCustomBar = false,
+            needsBackButton = true,
+            enableHelp = false,
+            backMethod = null
+        )
     }
 
     override fun onCreateView(

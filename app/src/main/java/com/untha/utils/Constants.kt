@@ -36,7 +36,6 @@ object Constants {
     const val SIZE_LINE_HEIGHT_NEXT_STEP = 3
     const val PERCENTAGE_PADDING_ELEMENT_NEXT_STEP_IMAGE = 15
     const val TOP_MARGIN_NEXT_STEP = 17
-    const val HEIGHT_LINE_HEADER_GENERIC = 8
     const val COORDINATES_LINE_HEADER_GENERIC = 25
     const val WIDTH_IMAGE = 0.35329
     const val WIDTH_BLOCK_OF_TEXT = 0.646706
@@ -81,7 +80,6 @@ object Constants {
     const val NAME_SCREEN_ROUTES = "RUTAS DE AYUDA"
     const val MARGIN_BOTTOM_PERCENTAGE_ANSWERS_LAYOUT = 0.020
     const val MARGIN_BOTTOM_PERCENTAGE_NEXT_BUTTON = 0.034
-    const val MARGIN_TOP_AND_BOTTOM_PERCENTAGE_AUDIO_BUTTON = 0.0361
     const val HEIGHT_MULTIPLE_OPTION_PERCENTAGE = 0.13
     const val MARGIN_LEFT_RIGHT_MULTIPLE_OPTION_SCREEN_PERCENTAGE = 0.0241
     const val HALF_SCREEN_WEIGHT = 0.5F
@@ -108,13 +106,14 @@ object Constants {
     const val IS_LABOUR_ROUTE = "is_labour_route"
     const val COMPLETE_LABOUR_ROUTE = "complete_labour_route"
     const val COMPLETE_VIOLENCE_ROUTE = "complete_violence_route"
-    const val SHARE_BUTTON_MESSAGE = "Descarga la aplicación THR Unidas aqui"
-
+    const val SHARE_BUTTON_MESSAGE = "Descarga la aplicación THR Unidas aquí"
+    const val RIGHTS_PAGE = "Rights Page"
     const val PLAY_ICON = "ic_play_audio"
     const val STOP_ICON = "ic_stop_audio"
 
     const val PROGRESS_TOTAL = 100
     const val TIME_SLEEP: Long = 500
+
 
 
 }
