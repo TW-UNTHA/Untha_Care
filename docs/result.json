@@ -20,7 +20,7 @@
     {
       "id": "R3",
       "type": "recommendation",
-      "content": "Te recomendamos tener un contrato escrito para que lo uses en caso de una falta a. tus derechos",
+      "content": "Te recomendamos tener un contrato escrito para que lo uses en caso de una falta a tus derechos",
       "categories": [
         5
       ]
@@ -28,7 +28,7 @@
     {
       "id": "R4",
       "type": "recommendation",
-      "content": "Te recomendamos tener un contrato escrito para que lo uses en caso de una falta a. tus derechos",
+      "content": "Es posible que tu empleador te despidió por causas justas y debe pagarte una liquidación. Si has trabajado por más de un año debes exigir el pago de tu desahucio por escrito.",
       "categories": [
         12,
         3
@@ -53,7 +53,7 @@
     {
       "id": "F2",
       "type": "fault",
-      "content": " trabajar más horas de las que tienes permitidas como menor de edad (30 semanales, 6 al día)",
+      "content": " Tu empleador te hace trabajar más horas de las que tienes permitidas como menor de edad (30 semanales, 6 al día)",
       "categories": [
         11
       ]
@@ -61,7 +61,7 @@
     {
       "id": "F3",
       "type": "fault",
-      "content": "Tu empelador no esta cumpliendo con tu derecho al estudio  o con la jornada permitida para tu trabajo",
+      "content": "Tu empleador no esta cumpliendo con tu derecho al estudio  o con la jornada permitida para tu trabajo",
       "categories": [
         11
       ]

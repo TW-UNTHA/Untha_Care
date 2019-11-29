@@ -20,7 +20,7 @@
     {
       "id": "R3",
       "type": "recommendation",
-      "content": "Te recomendamos tener un contrato escrito para que lo uses en caso de una falta a. tus derechos",
+      "content": "Te recomendamos tener un contrato escrito para que lo uses en caso de una falta a tus derechos",
       "categories": [
         5
       ]
@@ -28,7 +28,7 @@
     {
       "id": "R4",
       "type": "recommendation",
-      "content": "Te recomendamos tener un contrato escrito para que lo uses en caso de una falta a. tus derechos",
+      "content": "Es posible que tu empleador te despidió por causas justas y debe pagarte una liquidación. Si has trabajado por más de un año debes exigir el pago de tu desahucio por escrito.",
       "categories": [
         12,
         3
