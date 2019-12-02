@@ -283,6 +283,7 @@ class SlideAboutUsFragment(private val myTextToSpeech: UtilsTextToSpeech) : Base
     private fun @AnkoViewDslMarker _LinearLayout.pageThree() {
         val textTab = getString(R.string.about_us_title_app_page_three)
         loadImageAudio(textTab)
+        footerText(textTab)
         verticalLayout {
             imageView {
                 val imageUrl = resources.getIdentifier(
@@ -303,13 +304,13 @@ class SlideAboutUsFragment(private val myTextToSpeech: UtilsTextToSpeech) : Base
                 gravity = Gravity.CENTER
             }
         }
-        footerText(textTab)
 
     }
 
     private fun @AnkoViewDslMarker _LinearLayout.pageFour() {
         val textTab = getString(R.string.about_us_title_app_page_fout)
         loadImageAudio(textTab)
+        footerText(textTab)
         imageView {
             val imageUrl = resources.getIdentifier(
                 context.getString(R.string.about_us_route_name),
@@ -328,7 +329,6 @@ class SlideAboutUsFragment(private val myTextToSpeech: UtilsTextToSpeech) : Base
             bottomMargin = calculateWidthComponents(MARGIN_ABOUT_US_LOGO)
             gravity = Gravity.CENTER
         }
-        footerText(textTab)
 
     }
 
