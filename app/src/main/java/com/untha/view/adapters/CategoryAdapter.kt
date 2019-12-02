@@ -43,11 +43,9 @@ class CategoryAdapter(
         return CategorySmallViewHolder(view)
     }
 
-
     override fun getItemCount(): Int {
         return items.filter { !it.isRoute }.size
     }
-
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (!items[position].isRoute) {
@@ -105,7 +103,6 @@ class CategoryAdapter(
         }
     }
 
-
     inner class CategorySmallViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(
             category: Category,
@@ -160,7 +157,6 @@ class CategoryAdapter(
         }
 
     }
-
 
     private fun setCustomLayoutParams(
         layoutHeightPercentage: Double,

@@ -75,5 +75,6 @@
             <corners android:radius="4dp" />
         </shape>
     </item>
-
+    <!-- Selectable effect -->
+    <item android:drawable="@drawable/custom_ripple" />
 </layer-list>

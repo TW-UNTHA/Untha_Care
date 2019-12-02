@@ -86,6 +86,6 @@
             <corners android:radius="4dp" />
         </shape>
     </item>
-    <item android:drawable="?attr/selectableItemBackground" />
+    <item android:drawable="@drawable/custom_ripple" />
 
 </layer-list>

@@ -24,7 +24,6 @@ import org.jetbrains.anko.backgroundColor
 import org.jetbrains.anko.backgroundDrawable
 import org.jetbrains.anko.backgroundResource
 import org.jetbrains.anko.imageButton
-import org.jetbrains.anko.imageResource
 import org.jetbrains.anko.imageView
 import org.jetbrains.anko.linearLayout
 import org.jetbrains.anko.margin
@@ -339,15 +338,21 @@ class SlideAboutUsFragment(private val myTextToSpeech: UtilsTextToSpeech) : Base
         args.putInt(Constants.POSITION_SLICE, position)
         fragment.arguments = args
         return fragment
-
     }
 
     private fun _LinearLayout.loadImageAudio(message: String) {
         imageButton {
-            scaleType = ImageView.ScaleType.FIT_CENTER
-            imageResource = R.drawable.icon_question_audio
-            backgroundResource = attr(R.attr.selectableItemBackgroundBorderless).resourceId
+            val imageUrl = resources.getIdentifier(
+                "icon_question_audio",
+                "drawable",
+                context.applicationInfo.packageName
+            )
+            Glide.with(this)
+                .load(imageUrl).fitCenter()
+                .into(this)
             gravity = Gravity.CENTER
+            backgroundResource = attr(R.attr.selectableItemBackgroundBorderless).resourceId
+            textToSpeech = UtilsTextToSpeech(context!!, null, null)
             onClick {
                 myTextToSpeech.speakOut(message)
                 logAnalyticsCustomContentTypeWithId(ContentType.AUDIO, FirebaseEvent.AUDIO)
@@ -356,6 +361,12 @@ class SlideAboutUsFragment(private val myTextToSpeech: UtilsTextToSpeech) : Base
             width = calculateHeightComponents(Constants.SIZE_IMAGE_PERCENTAGE_AUDIO_QUESTION),
             height = calculateHeightComponents(Constants.SIZE_IMAGE_PERCENTAGE_AUDIO_QUESTION)
         )
+        {
+            topMargin =
+                calculateHeightComponents(Constants.MARGIN_HEIGHT_SELECTION_QUESTION) / 2
+            bottomMargin =
+                calculateHeightComponents(Constants.MARGIN_HEIGHT_SELECTION_QUESTION) / 2
+        }
     }
 
     private fun calculateHeightComponents(percentageComponent: Double): Int {

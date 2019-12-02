@@ -53,7 +53,6 @@ class UtilsTextToSpeech(
         } else {
             Timber.e("Initialization Failed!")
         }
-        textToSpeech.isSpeaking
     }
 
     fun speakOut(title: String): Boolean {

@@ -14,6 +14,7 @@ import com.untha.di.mapperModule
 import com.untha.di.networkModule
 import com.untha.di.persistenceModule
 import com.untha.di.viewModelsModule
+import com.untha.utils.Constants
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
@@ -38,15 +39,22 @@ class CustomApplication : MultiDexApplication() {
     }
 
     private fun installTls12() {
+        val sharedPreferences = applicationContext.getSharedPreferences(
+            applicationContext.packageName,
+            Context.MODE_PRIVATE
+        )
         try {
             ProviderInstaller.installIfNeeded(this)
             val sslContext = SSLContext.getInstance("TLSv1.2")
             sslContext.init(null, null, null)
             sslContext.createSSLEngine()
+            sharedPreferences.edit().putBoolean(Constants.IS_THERE_GOOGLE_PLAY_ERROR, false).apply()
         } catch (e: GooglePlayServicesRepairableException) {
             GoogleApiAvailability.getInstance()
                 .showErrorNotification(this, e.connectionStatusCode)
+            sharedPreferences.edit().putBoolean(Constants.IS_THERE_GOOGLE_PLAY_ERROR, true).apply()
         } catch (e: GooglePlayServicesNotAvailableException) {
+            sharedPreferences.edit().putBoolean(Constants.IS_THERE_GOOGLE_PLAY_ERROR, true).apply()
             AlertDialog.Builder(this)
                 .setTitle(applicationContext.getString(R.string.error))
                 .setMessage(applicationContext.getString(R.string.error_description))

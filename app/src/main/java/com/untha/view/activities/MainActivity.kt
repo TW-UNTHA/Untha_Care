@@ -25,10 +25,12 @@ class MainActivity : AppCompatActivity() {
     private lateinit var navigationController: NavController
 
     private var backMethod: (() -> Unit)? = null
+    private var isThereGooglePlayError = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        isThereGooglePlayError = viewModel.isThereGooglePlayError()
         loadData()
         navigationController = findNavController(navigationHostFragment)
         NavigationUI.setupActionBarWithNavController(this, navigationController)
@@ -40,7 +42,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun loadData() {
-        if (isConnected()) {
+        if (isConnected() && !isThereGooglePlayError) {
             viewModel.retrieveUpdatedCategories(this)
             viewModel.loadLabourRoute(this)
             viewModel.loadViolenceRoute(this)
@@ -57,7 +59,7 @@ class MainActivity : AppCompatActivity() {
 
     fun customActionBar(
         title: String, enableCustomBar: Boolean, needsBackButton: Boolean,
-        enableHelp:Boolean,
+        enableHelp: Boolean,
         backMethod: (() -> Unit)?
     ) {
         val layoutActionBar = layoutInflater.inflate(R.layout.action_bar, null)
@@ -73,14 +75,14 @@ class MainActivity : AppCompatActivity() {
         )
         supportActionBar?.setCustomView(layoutActionBar, layout)
         this.backMethod = backMethod
-        supportActionBar?.title  = title
+        supportActionBar?.title = title
         supportActionBar?.setDisplayShowCustomEnabled(enableCustomBar)
         supportActionBar?.setDisplayHomeAsUpEnabled(needsBackButton)
 
-        if(enableHelp){
+        if (enableHelp) {
             iconHelp.isVisible = enableHelp
             close.isVisible = false
-        }else{
+        } else {
             iconHelp.isVisible = false
         }
 

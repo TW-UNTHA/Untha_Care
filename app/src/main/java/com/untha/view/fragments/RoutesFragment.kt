@@ -100,6 +100,7 @@ class RoutesFragment : BaseFragment() {
             verticalLayout {
                 buildRoute(view)
             }.lparams(width = matchParent, height = matchParent)
+            loadShareFloatingButton()
 
         }
         mainActivity.customActionBar(
@@ -206,7 +207,6 @@ class RoutesFragment : BaseFragment() {
                 backgroundColor =
                     ContextCompat.getColor(context, R.color.colorBackgroundMainRoute)
                 lparams(width = matchParent, height = matchParent)
-                loadShareFloatingButton()
             }
         }.view
     }

@@ -85,7 +85,6 @@ fun @AnkoViewDslMarker _LinearLayout.getSelectableItemBackground(): TypedValue {
         outValue,
         true
     )
-
     return outValue
 }
 

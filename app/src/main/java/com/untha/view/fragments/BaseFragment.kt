@@ -26,17 +26,6 @@ open class BaseFragment : Fragment() {
         .setPopEnterAnim(R.anim.slide_in_right).setExitAnim(R.anim.slide_out_right)
         .setPopExitAnim(R.anim.slide_out_left).build()
 
-
-    override fun onStop() {
-        textToSpeech?.stop()
-        super.onStop()
-    }
-
-    override fun onDestroy() {
-        textToSpeech?.destroy()
-        super.onDestroy()
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         context?.let {
@@ -142,6 +131,16 @@ open class BaseFragment : Fragment() {
             R.id.routeResultsFragment, bundle,
             navOptions, null
         )
+    }
+
+    override fun onStop() {
+        textToSpeech?.stop()
+        super.onStop()
+    }
+
+    override fun onDestroy() {
+        textToSpeech?.destroy()
+        super.onDestroy()
     }
 }
 

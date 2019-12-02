@@ -210,7 +210,6 @@ class MainViewModel(
     }
 
 
-
     fun loadQuestionnaireRouteResult(owner: LifecycleOwner) {
         questionnaireRouteResultService.getQuestionnaireRouteResult()
             .observe(owner, Observer { response ->
@@ -240,5 +239,9 @@ class MainViewModel(
                 Constants.QUESTIONNAIRE_ROUTE,
                 result
             ).apply()
+    }
+
+    fun isThereGooglePlayError(): Boolean {
+        return sharedPreferences.getBoolean(Constants.IS_THERE_GOOGLE_PLAY_ERROR, false)
     }
 }

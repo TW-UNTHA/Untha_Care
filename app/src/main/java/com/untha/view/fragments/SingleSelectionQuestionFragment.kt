@@ -9,6 +9,7 @@ import android.widget.ImageView
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.navigation.findNavController
+import com.bumptech.glide.Glide
 import com.untha.R
 import com.untha.model.transactionalmodels.Route
 import com.untha.model.transactionalmodels.RouteQuestion
@@ -25,9 +26,9 @@ import org.jetbrains.anko._LinearLayout
 import org.jetbrains.anko.allCaps
 import org.jetbrains.anko.attr
 import org.jetbrains.anko.backgroundColor
+import org.jetbrains.anko.backgroundDrawable
 import org.jetbrains.anko.backgroundResource
 import org.jetbrains.anko.imageButton
-import org.jetbrains.anko.imageResource
 import org.jetbrains.anko.linearLayout
 import org.jetbrains.anko.margin
 import org.jetbrains.anko.matchParent
@@ -180,9 +181,15 @@ class SingleSelectionQuestionFragment : BaseFragment() {
 
     private fun _LinearLayout.loadImageAudio() {
         imageButton {
+            val imageUrl = resources.getIdentifier(
+                "icon_question_audio",
+                "drawable",
+                context.applicationInfo.packageName
+            )
+            Glide.with(this)
+                .load(imageUrl).fitCenter()
+                .into(this)
             gravity = Gravity.CENTER
-            scaleType = ImageView.ScaleType.FIT_CENTER
-            imageResource = R.drawable.icon_question_audio
             backgroundResource = attr(R.attr.selectableItemBackgroundBorderless).resourceId
             val textQuestion = routeQuestion?.content
             val contentQuestion = "$textQuestion ${contentAudioOptions()}"
@@ -198,6 +205,8 @@ class SingleSelectionQuestionFragment : BaseFragment() {
         )
         {
             topMargin =
+                calculateHeightComponentsQuestion(Constants.MARGIN_HEIGHT_SELECTION_QUESTION)
+            bottomMargin =
                 calculateHeightComponentsQuestion(Constants.MARGIN_HEIGHT_SELECTION_QUESTION)
         }
     }
@@ -249,6 +258,9 @@ class SingleSelectionQuestionFragment : BaseFragment() {
                     textSizeDimen = R.dimen.text_size_question_route
                     textColor = ContextCompat.getColor(context, R.color.colorHeaderBackground)
                     allCaps = false
+                    backgroundDrawable = ContextCompat.getDrawable(
+                        context, R.drawable.drawable_main_route
+                    )
                     typeface = ResourcesCompat.getFont(
                         context.applicationContext,
                         R.font.proxima_nova_bold
@@ -296,8 +308,7 @@ class SingleSelectionQuestionFragment : BaseFragment() {
 
     private fun calculateHeightComponentsQuestion(percentageComponent: Double): Int {
         val cardHeightInDps =
-            (PixelConverter.getScreenDpHeight(context) -
-                    Constants.SIZE_OF_ACTION_BAR_ROUTE) * percentageComponent
+            PixelConverter.getScreenDpHeight(context) * percentageComponent
         return PixelConverter.toPixels(cardHeightInDps, context)
     }
 

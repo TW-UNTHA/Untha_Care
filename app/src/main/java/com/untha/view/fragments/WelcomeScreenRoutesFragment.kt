@@ -19,19 +19,15 @@ import com.untha.utils.FirebaseEvent
 import com.untha.utils.PixelConverter
 import com.untha.utils.UtilsTextToSpeech
 import com.untha.view.activities.MainActivity
-import com.untha.view.extension.getSelectableItemBackground
 import com.untha.viewmodels.RoutesViewModel
 import org.jetbrains.anko.AnkoViewDslMarker
 import org.jetbrains.anko._LinearLayout
 import org.jetbrains.anko.alignParentBottom
 import org.jetbrains.anko.allCaps
-import org.jetbrains.anko.attr
 import org.jetbrains.anko.backgroundColor
 import org.jetbrains.anko.backgroundDrawable
-import org.jetbrains.anko.backgroundResource
 import org.jetbrains.anko.bottomPadding
 import org.jetbrains.anko.dip
-import org.jetbrains.anko.imageResource
 import org.jetbrains.anko.imageView
 import org.jetbrains.anko.matchParent
 import org.jetbrains.anko.relativeLayout
@@ -176,7 +172,7 @@ class WelcomeScreenRoutesFragment : BaseFragment() {
                 view.findNavController()
                     .navigate(R.id.routeResultsFragment, bundle, navOptions, null)
             }
-            backgroundResource = getSelectableItemBackground().resourceId
+            backgroundDrawable = ContextCompat.getDrawable(context, R.drawable.custom_ripple)
             topPadding =
                 dip((paddingTopAndBottom).toFloat())
             bottomPadding =
@@ -220,9 +216,16 @@ class WelcomeScreenRoutesFragment : BaseFragment() {
 
     private fun _LinearLayout.loadImageAudio() {
         imageView {
-            imageResource = R.drawable.icon_question_audio
+            val imageUrl = resources.getIdentifier(
+                "icon_question_audio",
+                "drawable",
+                context.applicationInfo.packageName
+            )
+            Glide.with(this)
+                .load(imageUrl).fitCenter()
+                .into(this)
             gravity = Gravity.CENTER
-            backgroundResource = attr(R.attr.selectableItemBackgroundBorderless).resourceId
+//            backgroundResource = attr(R.attr.selectableItemBackgroundBorderless).resourceId
             val contentQuestion = "$FIRST_MESSAGE \n $secondMessage"
             textToSpeech = UtilsTextToSpeech(context!!, null, null)
             onClick {

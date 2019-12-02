@@ -113,6 +113,7 @@ object Constants {
 
     const val PROGRESS_TOTAL = 100
     const val TIME_SLEEP: Long = 500
+    const val IS_THERE_GOOGLE_PLAY_ERROR = "google-play-error"
 
 
 

@@ -13,6 +13,7 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.navigation.findNavController
+import com.bumptech.glide.Glide
 import com.untha.R
 import com.untha.model.transactionalmodels.Route
 import com.untha.model.transactionalmodels.RouteOption
@@ -36,7 +37,6 @@ import org.jetbrains.anko.backgroundDrawable
 import org.jetbrains.anko.backgroundResource
 import org.jetbrains.anko.dip
 import org.jetbrains.anko.imageButton
-import org.jetbrains.anko.imageResource
 import org.jetbrains.anko.linearLayout
 import org.jetbrains.anko.margin
 import org.jetbrains.anko.matchParent
@@ -370,7 +370,6 @@ class MultipleSelectionQuestionFragment : BaseFragment() {
                 textSizeDimen = R.dimen.text_size_content
                 textColor = ContextCompat.getColor(context, R.color.colorHeaderBackground)
                 allCaps = false
-                backgroundResource = attr(R.attr.selectableItemBackgroundBorderless).resourceId
                 this.gravity = Gravity.CENTER
                 typeface = ResourcesCompat.getFont(
                     context.applicationContext,
@@ -378,8 +377,9 @@ class MultipleSelectionQuestionFragment : BaseFragment() {
                 )
                 isClickable = true
                 isFocusable = true
-                backgroundDrawable =
-                    ContextCompat.getDrawable(context, R.drawable.drawable_main_route)
+                backgroundDrawable = ContextCompat.getDrawable(
+                    context, R.drawable.drawable_main_route
+                )
                 optionClick(isNoneOfAbove, position)
                 adjustTextSize()
             }.lparams(width = matchParent, height = matchParent) {
@@ -495,33 +495,34 @@ class MultipleSelectionQuestionFragment : BaseFragment() {
 
     private fun _LinearLayout.loadImageAudio() {
         imageButton {
+            val imageUrl = resources.getIdentifier(
+                "icon_question_audio",
+                "drawable",
+                context.applicationInfo.packageName
+            )
+            Glide.with(this)
+                .load(imageUrl).fitCenter()
+                .into(this)
             gravity = Gravity.CENTER
-            scaleType = ImageView.ScaleType.FIT_CENTER
-            imageResource = R.drawable.icon_question_audio
             backgroundResource = attr(R.attr.selectableItemBackgroundBorderless).resourceId
             val textQuestion = routeQuestion?.content
             val contentQuestion = "$textQuestion ${contentAudioOptions()}"
-            textToSpeech = UtilsTextToSpeech(context!!, null, null)
 
+            textToSpeech = UtilsTextToSpeech(context!!, null, null)
             onClick {
                 textToSpeech?.speakOut(contentQuestion)
                 logAnalyticsCustomContentTypeWithId(ContentType.AUDIO, FirebaseEvent.AUDIO)
             }
         }.lparams(
-            width = calculateHeightComponentsAudio(Constants.SIZE_IMAGE_PERCENTAGE_AUDIO_QUESTION),
-            height = calculateHeightComponentsAudio(Constants.SIZE_IMAGE_PERCENTAGE_AUDIO_QUESTION)
+            width = dip(calculateHeightComponentsQuestion(Constants.SIZE_IMAGE_PERCENTAGE_AUDIO_QUESTION)),
+            height = dip(calculateHeightComponentsQuestion(Constants.SIZE_IMAGE_PERCENTAGE_AUDIO_QUESTION))
         )
         {
             topMargin =
-                calculateHeightComponentsAudio(Constants.MARGIN_HEIGHT_SELECTION_QUESTION)
+                dip(calculateHeightComponentsQuestion(Constants.MARGIN_HEIGHT_SELECTION_QUESTION))
+            bottomMargin =
+                dip(calculateHeightComponentsQuestion(Constants.MARGIN_HEIGHT_SELECTION_QUESTION))
         }
-    }
-
-    private fun calculateHeightComponentsAudio(percentageComponent: Double): Int {
-        val cardHeightInDps =
-            (PixelConverter.getScreenDpHeight(context) -
-                    Constants.SIZE_OF_ACTION_BAR_ROUTE) * percentageComponent
-        return PixelConverter.toPixels(cardHeightInDps, context)
     }
 
     private fun calculateHeightComponentsQuestion(heightComponent: Double): Float {

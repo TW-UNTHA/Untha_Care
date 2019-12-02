@@ -16,4 +16,5 @@
     <color name="colorProgressBarTint">#fa69b0</color>
     <color name="colorBackground">#000000</color>
     <color name="colorBackgroundFaultContainer">#ede9ef</color>
+    <color name="colorQuestionText">#4a4a4a</color>
 </resources>

@@ -4,7 +4,7 @@
     <string name="hint_category_title">Title</string>
     <string name="hint_category_description">Description</string>
     <string name="subtitle">¿QUIERES CONOCER ACERCA DE TUS DERECHOS?</string>
-    <string name="error_description">La aplicacación necesita Google PlayStore para funcionar</string>
+    <string name="error_description">La aplicacación necesita Google PlayStore para que las funciones de audio e internet estén disponibles</string>
     <string name="error">Error</string>
     <string name="salir">Salir</string>
     <string name="category_id" />
