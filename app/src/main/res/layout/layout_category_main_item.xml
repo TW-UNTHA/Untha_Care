@@ -31,7 +31,6 @@
             android:layout_marginTop="4dp"
             android:lineSpacingExtra="16sp"
             android:lines="1"
-            android:text="@string/subtitle"
             android:textColor="@color/colorGenericTitle"
             android:textSize="@dimen/text_size" />
 
@@ -50,7 +49,7 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Headline"
             android:textColor="@color/colorTitleCategory"
             android:textSize="@dimen/text_size_main_component"
-            tools:text="@string/hint_category_title" />
+            />
 
         <ImageView
             android:id="@+id/imageView"

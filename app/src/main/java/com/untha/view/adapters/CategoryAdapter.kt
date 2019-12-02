@@ -71,6 +71,7 @@ class CategoryAdapter(
             clickListener: OnItemClickListener,
             longClickListener: OnItemLongClickListener
         ) = with(itemView) {
+            tv_title.text = category.title
             textViewCategoryTitle.text = category.subtitle
             setCustomLayoutParams(
                 Constants.PERCENTAGE_MAIN_HEIGHT_LAYOUT,
