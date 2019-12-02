@@ -13,7 +13,7 @@
     {
       "id": 2,
       "image": "home_derechos",
-      "title": "MIS DERECHOS",
+      "title": "TEST MIS DERECHOS",
       "title_next_step": null,
       "parent_id": null,
       "is_route": false
@@ -21,7 +21,7 @@
     {
       "id": 3,
       "image": "home_contratos",
-      "title": "CONTRATOS",
+      "title": "TEST CONTRATOS",
       "title_next_step": null,
       "information": [
         {
