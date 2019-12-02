@@ -1,11 +1,11 @@
 {
-  "version": 1,
+  "version": 2,
   "questions": [
     {
       "id": 1,
       "type": "MultipleOption",
-      "content": "¿Cuáles de estas situaciones has vivido?",
-      "explanation": " TEST Selecciona todas las que apliquen",
+      "content": "TEST ¿Cuáles de estas situaciones has vivido?",
+      "explanation": "Selecciona todas las que apliquen",
       "goTo": -1,
       "result": null,
       "options": [
