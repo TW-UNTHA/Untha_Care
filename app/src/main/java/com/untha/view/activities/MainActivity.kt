@@ -36,13 +36,13 @@ class MainActivity : AppCompatActivity() {
         NavigationUI.setupActionBarWithNavController(this, navigationController)
     }
 
-    private fun isConnected(): Boolean {
+    private fun isRetrievingDataFromInternet(): Boolean {
         val command = "ping -c 1 google.com"
         return Runtime.getRuntime().exec(command).waitFor() == 0
     }
 
     private fun loadData() {
-        if (isConnected() && !isThereGooglePlayError) {
+        if (isRetrievingDataFromInternet() && !isThereGooglePlayError) {
             viewModel.retrieveUpdatedCategories(this)
             viewModel.loadLabourRoute(this)
             viewModel.loadViolenceRoute(this)
@@ -59,7 +59,7 @@ class MainActivity : AppCompatActivity() {
 
     fun customActionBar(
         title: String, enableCustomBar: Boolean, needsBackButton: Boolean,
-        enableHelp: Boolean,
+        enableHelp:Boolean,
         backMethod: (() -> Unit)?
     ) {
         val layoutActionBar = layoutInflater.inflate(R.layout.action_bar, null)
@@ -99,3 +99,5 @@ class MainActivity : AppCompatActivity() {
 
     override fun onSupportNavigateUp() = navigationController.navigateUp()
 }
+
+

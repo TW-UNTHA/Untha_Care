@@ -26,6 +26,7 @@ import com.untha.utils.Constants
 import kotlinx.serialization.json.Json
 import me.linshen.retrofit2.adapter.ApiErrorResponse
 import me.linshen.retrofit2.adapter.ApiSuccessResponse
+import timber.log.Timber
 
 class MainViewModel(
     private val categoryDbService: CategoryDbService,
@@ -38,14 +39,15 @@ class MainViewModel(
 ) : ViewModel() {
 
     private val categoryModels: MutableList<CategoryModel> = mutableListOf()
-
+    private var versionCurrently: Int = 0
     fun retrieveUpdatedCategories(owner: LifecycleOwner) {
         categoriesService.getCategories()
             .observe(owner, Observer { response ->
                 when (response) {
                     is ApiSuccessResponse -> {
                         val version = sharedPreferences.getInt(Constants.CATEGORIES_VERSION, 0)
-                        if (version != response.body.version) {
+                        if (version < response.body.version) {
+                            versionCurrently = response.body.version
                             response.body.categories.map { category ->
                                 categoryModels.add(
                                     categoryMapper.mapToModel(
@@ -110,7 +112,7 @@ class MainViewModel(
     }
 
     private fun categoriesSectionsSaved(message: String) {
-        println(message)
+        Timber.i(message)
         val sectionSteps = mutableListOf<SectionStepModel>()
         categoryModels.map { category ->
             category.categoryInformationModel?.map { categoryInformationModel ->
@@ -123,7 +125,12 @@ class MainViewModel(
     }
 
     private fun categoriesSectionsStepsSaved(message: String) {
-        println(message)
+        Timber.i(message)
+        sharedPreferences.edit()
+            .putInt(
+                Constants.CATEGORIES_VERSION,
+                versionCurrently
+            ).apply()
     }
 
     fun getCategories(categoriesQuerying: List<QueryingCategory>): List<Category> {
@@ -135,14 +142,45 @@ class MainViewModel(
             .observe(owner, Observer { response ->
                 when (response) {
                     is ApiSuccessResponse -> {
-                        sharedPreferences.edit()
-                            .putString(
-                                Constants.LABOUR_ROUTE,
-                                Json.stringify(Route.serializer(), response.body)
-                            ).apply()
+                        val sharedPreferencesResult =
+                            sharedPreferences.getString(Constants.LABOUR_ROUTE, "")
+                        if (!sharedPreferencesResult.isNullOrEmpty()) {
+                            val resultWrapperSharedPreferences =
+                                Json.parse(Route.serializer(), sharedPreferencesResult)
+                            if (response.body.version > resultWrapperSharedPreferences.version) {
+                                sharedPreferences.edit()
+                                    .putString(
+                                        Constants.LABOUR_ROUTE,
+                                        Json.stringify(Route.serializer(), response.body)
+                                    ).apply()
+                            }
+                        } else {
+                            sharedPreferences.edit()
+                                .putString(
+                                    Constants.LABOUR_ROUTE,
+                                    Json.stringify(Route.serializer(), response.body)
+                                ).apply()
+                        }
+                    }
+                    else -> {
+                        println("Error en la llamada de load labour $response")
                     }
                 }
             })
+    }
+
+    fun loadDefaultLabourRoute(context: Context) {
+        val sharedPreferencesResult = sharedPreferences.getString(Constants.LABOUR_ROUTE, "")
+        if (sharedPreferencesResult.isNullOrEmpty()) {
+            val route = context.resources.openRawResource(R.raw.labour_route)
+                .bufferedReader().use { it.readText() }
+            sharedPreferences.edit()
+                .putString(
+                    Constants.LABOUR_ROUTE,
+                    route
+                ).apply()
+        }
+
     }
 
     fun loadViolenceRoute(owner: LifecycleOwner) {
@@ -150,14 +188,44 @@ class MainViewModel(
             .observe(owner, Observer { response ->
                 when (response) {
                     is ApiSuccessResponse -> {
-                        sharedPreferences.edit()
-                            .putString(
-                                Constants.VIOLENCE_ROUTE,
-                                Json.stringify(Route.serializer(), response.body)
-                            ).apply()
+                        val sharedPreferencesResult =
+                            sharedPreferences.getString(Constants.VIOLENCE_ROUTE, "")
+                        if (!sharedPreferencesResult.isNullOrEmpty()) {
+                            val resultWrapperSharedPreferences =
+                                Json.parse(Route.serializer(), sharedPreferencesResult)
+                            if (response.body.version > resultWrapperSharedPreferences.version) {
+                                sharedPreferences.edit()
+                                    .putString(
+                                        Constants.VIOLENCE_ROUTE,
+                                        Json.stringify(Route.serializer(), response.body)
+                                    ).apply()
+                            }
+                        } else {
+                            sharedPreferences.edit()
+                                .putString(
+                                    Constants.VIOLENCE_ROUTE,
+                                    Json.stringify(Route.serializer(), response.body)
+                                ).apply()
+                        }
+                    }
+                    else -> {
+                        println("Error en la llamada de load violence $response")
                     }
                 }
             })
+    }
+
+    fun loadDefaultViolenceRoute(context: Context) {
+        val sharedPreferencesResult = sharedPreferences.getString(Constants.VIOLENCE_ROUTE, "")
+        if (sharedPreferencesResult.isNullOrEmpty()) {
+            val route = context.resources.openRawResource(R.raw.violence_route)
+                .bufferedReader().use { it.readText() }
+            sharedPreferences.edit()
+                .putString(
+                    Constants.VIOLENCE_ROUTE,
+                    route
+                ).apply()
+        }
     }
 
 
@@ -166,11 +234,25 @@ class MainViewModel(
             .observe(owner, Observer { response ->
                 when (response) {
                     is ApiSuccessResponse -> {
-                        sharedPreferences.edit()
-                            .putString(
-                                Constants.ROUTE_RESULT,
-                                Json.stringify(ResultWrapper.serializer(), response.body)
-                            ).apply()
+                        val sharedPreferencesResult =
+                            sharedPreferences.getString(Constants.ROUTE_RESULT, "")
+                        if (!sharedPreferencesResult.isNullOrEmpty()) {
+                            val resultWrapperSharedPreferences =
+                                Json.parse(ResultWrapper.serializer(), sharedPreferencesResult)
+                            if (response.body.version > resultWrapperSharedPreferences.version) {
+                                sharedPreferences.edit()
+                                    .putString(
+                                        Constants.ROUTE_RESULT,
+                                        Json.stringify(ResultWrapper.serializer(), response.body)
+                                    ).apply()
+                            }
+                        } else {
+                            sharedPreferences.edit()
+                                .putString(
+                                    Constants.ROUTE_RESULT,
+                                    Json.stringify(ResultWrapper.serializer(), response.body)
+                                ).apply()
+                        }
                     }
                     else -> {
                         println("Error en la llamada de load route results $response")
@@ -180,33 +262,16 @@ class MainViewModel(
     }
 
     fun loadDefaultResult(context: Context) {
-        val result = context.resources.openRawResource(R.raw.result)
-            .bufferedReader().use { it.readText() }
-        sharedPreferences.edit()
-            .putString(
-                Constants.ROUTE_RESULT,
-                result
-            ).apply()
-    }
-
-    fun loadDefaultLabourRoute(context: Context) {
-        val route = context.resources.openRawResource(R.raw.labour_route)
-            .bufferedReader().use { it.readText() }
-        sharedPreferences.edit()
-            .putString(
-                Constants.LABOUR_ROUTE,
-                route
-            ).apply()
-    }
-
-    fun loadDefaultViolenceRoute(context: Context) {
-        val route = context.resources.openRawResource(R.raw.violence_route)
-            .bufferedReader().use { it.readText() }
-        sharedPreferences.edit()
-            .putString(
-                Constants.VIOLENCE_ROUTE,
-                route
-            ).apply()
+        val sharedPreferencesResult = sharedPreferences.getString(Constants.ROUTE_RESULT, "")
+        if (sharedPreferencesResult.isNullOrEmpty()) {
+            val result = context.resources.openRawResource(R.raw.result)
+                .bufferedReader().use { it.readText() }
+            sharedPreferences.edit()
+                .putString(
+                    Constants.ROUTE_RESULT,
+                    result
+                ).apply()
+        }
     }
 
 
@@ -215,14 +280,34 @@ class MainViewModel(
             .observe(owner, Observer { response ->
                 when (response) {
                     is ApiSuccessResponse -> {
-                        sharedPreferences.edit()
-                            .putString(
-                                Constants.QUESTIONNAIRE_ROUTE,
-                                Json.stringify(
+                        val sharedPreferencesResult =
+                            sharedPreferences.getString(Constants.QUESTIONNAIRE_ROUTE, "")
+                        if (!sharedPreferencesResult.isNullOrEmpty()) {
+                            val resultWrapperSharedPreferences =
+                                Json.parse(
                                     QuestionnaireRouteResultWrapper.serializer(),
-                                    response.body
+                                    sharedPreferencesResult
                                 )
-                            ).apply()
+                            if (response.body.version > resultWrapperSharedPreferences.version) {
+                                sharedPreferences.edit()
+                                    .putString(
+                                        Constants.QUESTIONNAIRE_ROUTE,
+                                        Json.stringify(
+                                            QuestionnaireRouteResultWrapper.serializer(),
+                                            response.body
+                                        )
+                                    ).apply()
+                            }
+                        } else {
+                            sharedPreferences.edit()
+                                .putString(
+                                    Constants.QUESTIONNAIRE_ROUTE,
+                                    Json.stringify(
+                                        QuestionnaireRouteResultWrapper.serializer(),
+                                        response.body
+                                    )
+                                ).apply()
+                        }
                     }
                     is ApiErrorResponse -> {
                         println("ErrorQUESTIONNAIRE_ROUTE! $response.errorMessage")
@@ -232,13 +317,16 @@ class MainViewModel(
     }
 
     fun loadDefaultQuestionnaireRouteResult(context: Context) {
-        val result = context.resources.openRawResource(R.raw.questionnaire_route_result)
-            .bufferedReader().use { it.readText() }
-        sharedPreferences.edit()
-            .putString(
-                Constants.QUESTIONNAIRE_ROUTE,
-                result
-            ).apply()
+        val sharedPreferencesResult = sharedPreferences.getString(Constants.QUESTIONNAIRE_ROUTE, "")
+        if (sharedPreferencesResult.isNullOrEmpty()) {
+            val result = context.resources.openRawResource(R.raw.questionnaire_route_result)
+                .bufferedReader().use { it.readText() }
+            sharedPreferences.edit()
+                .putString(
+                    Constants.QUESTIONNAIRE_ROUTE,
+                    result
+                ).apply()
+        }
     }
 
     fun isThereGooglePlayError(): Boolean {

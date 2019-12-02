@@ -147,6 +147,8 @@ fun @AnkoViewDslMarker ImageView.putImageOnTheWidget(
     Glide.with(view)
         .load(imageUrl).fitCenter()
         .into(this)
+    backgroundResource = attr(R.attr.selectableItemBackground).resourceId
+
 }
 
 fun @AnkoViewDslMarker _RelativeLayout.loadImageBackground(
