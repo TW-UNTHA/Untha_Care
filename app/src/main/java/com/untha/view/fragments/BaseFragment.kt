@@ -12,6 +12,7 @@ import com.untha.utils.Constants
 import com.untha.utils.ContentType
 import com.untha.utils.FirebaseEvent
 import com.untha.utils.UtilsTextToSpeech
+import com.untha.view.activities.MainActivity
 import com.untha.viewmodels.BaseQuestionViewModel
 
 open class BaseFragment : Fragment() {
@@ -31,8 +32,17 @@ open class BaseFragment : Fragment() {
         context?.let {
             firebaseAnalytics = FirebaseAnalytics.getInstance(it)
         }
+        (activity as MainActivity).isLastScreen = ::isLastScreen
+        (activity as MainActivity).isRouteResultsScreen = ::isRouteResultScreen
     }
 
+    open fun isLastScreen(): Boolean {
+        return false
+    }
+
+    open fun isRouteResultScreen(): Boolean {
+        return false
+    }
 
     fun logAnalyticsSelectContentWithId(name: String?, contentType: ContentType) {
         val bundle = Bundle()

@@ -66,17 +66,13 @@ class AboutUsFragment : BaseFragment() {
         val layoutActionBar = (activity as MainActivity).supportActionBar?.customView
         val close = layoutActionBar?.findViewById(R.id.icon_go_back_route) as ImageView
         close.onClick {
-            val isPoppedUp =
-                view?.findNavController()?.popBackStack(R.id.categoryFragment, true) ?: false
-            if (!isPoppedUp) {
-                view?.findNavController()
-                    ?.navigate(
-                        R.id.categoryFragment,
-                        null,
-                        navOptionsToBackNavigation,
-                        null
-                    )
-            }
+            view?.findNavController()
+                ?.navigate(
+                    R.id.categoryFragment,
+                    null,
+                    navOptionsToBackNavigation,
+                    null
+                )
             logAnalyticsCustomContentTypeWithId(ContentType.CLOSE, FirebaseEvent.CLOSE)
         }
     }

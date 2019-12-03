@@ -542,6 +542,10 @@ class RouteResultsFragment : BaseFragment() {
         }
     }
 
+    override fun isRouteResultScreen(): Boolean {
+        return true
+    }
+
     private fun setCloseButtonAction() {
         val layoutActionBar = (activity as MainActivity).supportActionBar?.customView
         val categoriesRoutes = Bundle().apply {

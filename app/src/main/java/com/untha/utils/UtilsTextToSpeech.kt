@@ -11,7 +11,7 @@ import java.util.*
 class UtilsTextToSpeech(
     val context: Context,
     private val listParagraph: MutableList<String>?,
-    private val onDone: ((Int, MutableList<String>) -> String?)?
+    private val onDone: ((Int, MutableList<String>) -> Pair<Boolean, String?>)?
 ) :
     TextToSpeech.OnInitListener,
     UtteranceProgressListener() {
@@ -24,10 +24,14 @@ class UtilsTextToSpeech(
 
     override fun onDone(text: String?) {
         if (!listParagraph.isNullOrEmpty()) {
-            val textToReproduce = onDone?.let { it(position, listParagraph) }
-            if (textToReproduce != null) {
-                speakOut(textToReproduce)
-                position++
+            val onDoneResult = onDone?.let { it(position, listParagraph) }
+            val isPaused = onDoneResult?.first ?: true
+            val textToReproduce = onDoneResult?.second
+            if (!isPaused) {
+                if (textToReproduce != null) {
+                    speakOut(textToReproduce)
+                    position++
+                }
             }
         }
     }

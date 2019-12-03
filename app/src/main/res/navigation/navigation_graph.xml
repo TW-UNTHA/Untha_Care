@@ -18,7 +18,11 @@
     <fragment
         android:id="@+id/categoryFragment"
         android:name="com.untha.view.fragments.CategoryFragment"
-        android:label=" " />
+        android:label=" "
+        app:enterAnim="@anim/slide_in_left"
+        app:exitAnim="@anim/slide_out_right"
+        app:popEnterAnim="@anim/slide_in_right"
+        app:popExitAnim="@anim/slide_out_left" />
     <fragment
         android:id="@+id/genericInfoFragment"
         android:name="com.untha.view.fragments.GenericInfoStepFragment"
@@ -47,6 +51,5 @@
 
     <fragment
         android:id="@+id/trhAboutInstructions"
-        android:name="com.untha.view.fragments.AboutUsFragment"
-        />
+        android:name="com.untha.view.fragments.AboutUsFragment" />
 </navigation>

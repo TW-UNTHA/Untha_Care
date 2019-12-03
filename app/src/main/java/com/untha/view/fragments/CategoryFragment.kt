@@ -53,6 +53,10 @@ class CategoryFragment : BaseFragment(),
         return categoriesView
     }
 
+    override fun isLastScreen(): Boolean {
+        return true
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         if (!viewModel.loadAboutUsFromSharedPreferences()) {

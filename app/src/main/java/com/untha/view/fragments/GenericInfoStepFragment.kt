@@ -161,13 +161,20 @@ class GenericInfoStepFragment : BaseFragment() {
         activity?.onBackPressed()
     }
 
+    override fun onPause() {
+        textToSpeech?.stop()
+        super.onPause()
+    }
+
     override fun onDestroy() {
+        stopTextToSpeech()
         thread.interrupt()
         super.onDestroy()
     }
 
     override fun onStop() {
         isPaused = true
+        textToSpeech?.stop()
         thread.interrupt()
         super.onStop()
     }
@@ -175,23 +182,21 @@ class GenericInfoStepFragment : BaseFragment() {
     private fun reproduceAudioCallBack(
         indexParameter: Int,
         listParagraph: MutableList<String>
-    ): String? {
-        return if (!isPaused) {
+    ): Pair<Boolean, String?> {
+        if (!isPaused) {
             indexCurrently = indexParameter + 1
             setProgress(indexCurrently, listParagraph.size)
-            return if (indexCurrently < listParagraph.size) {
-                listParagraph[indexCurrently]
-            } else {
-                textToSpeech?.stop()
-                (context as Activity).runOnUiThread {
-                    playAndPauseIcon.apply {
-                        putImageOnTheWidget(Constants.PLAY_ICON, this)
-                    }
-                }
-                null
-            }
+        }
+        return if (indexCurrently < listParagraph.size) {
+            isPaused to listParagraph[indexCurrently]
         } else {
-            null
+            textToSpeech?.stop()
+            (context as Activity).runOnUiThread {
+                playAndPauseIcon.apply {
+                    putImageOnTheWidget(Constants.PLAY_ICON, this)
+                }
+            }
+            true to null
         }
     }
 
@@ -571,22 +576,23 @@ class GenericInfoStepFragment : BaseFragment() {
             playAndPauseIcon.apply {
                 putImageOnTheWidget(Constants.PLAY_ICON, this)
             }
-            textToSpeech?.stop()
             isPaused = true
+            textToSpeech?.stop()
         } else {
             val reproduce = getStringToReproduce()
-            isPaused = if (reproduce == null) {
+            if (reproduce == null) {
                 playAndPauseIcon.apply {
                     putImageOnTheWidget(Constants.PLAY_ICON, this)
                 }
+                isPaused = true
                 textToSpeech?.stop()
-                true
+
             } else {
                 playAndPauseIcon.apply {
                     putImageOnTheWidget(Constants.STOP_ICON, this)
                 }
                 textToSpeech?.speakOut(reproduce)
-                false
+                isPaused = false
             }
         }
     }

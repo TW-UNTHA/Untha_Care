@@ -25,7 +25,9 @@ class MainActivity : AppCompatActivity() {
     private lateinit var navigationController: NavController
 
     private var backMethod: (() -> Unit)? = null
+    var isLastScreen: (() -> Boolean)? = null
     private var isThereGooglePlayError = false
+    var isRouteResultsScreen: (() -> Boolean)? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,7 +61,7 @@ class MainActivity : AppCompatActivity() {
 
     fun customActionBar(
         title: String, enableCustomBar: Boolean, needsBackButton: Boolean,
-        enableHelp:Boolean,
+        enableHelp: Boolean,
         backMethod: (() -> Unit)?
     ) {
         val layoutActionBar = layoutInflater.inflate(R.layout.action_bar, null)
@@ -95,6 +97,20 @@ class MainActivity : AppCompatActivity() {
             } ?: super.onBackPressed()
         }
         return true
+    }
+
+    override fun onBackPressed() {
+        isLastScreen?.let {
+            if (it()) {
+                finish()
+            }
+        }
+
+        isRouteResultsScreen?.let {
+            if (!it()) {
+                super.onBackPressed()
+            }
+        }
     }
 
     override fun onSupportNavigateUp() = navigationController.navigateUp()
