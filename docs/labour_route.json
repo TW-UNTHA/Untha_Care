@@ -176,7 +176,7 @@
     {
       "id": 7,
       "type": "SingleOption",
-      "content": "¿Tienes al menos 2 horas diaras para dedicarlas a estudiar?",
+      "content": "¿Tienes al menos 2 horas diarias para dedicarlas a estudiar?",
       "explanation": "",
       "goTo": null,
       "result": null,
