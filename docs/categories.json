@@ -191,7 +191,7 @@
               "steps": [
                 {
                   "step_id": null,
-                  "description": "•&nbsp;&nbsp;&nbsp;Direcciones Regionales del Trabajo <br>•&nbsp;&nbsp;&nbsp;Inspectorías de Trabajo <br>•&nbsp;&nbsp;&nbsp;Ventanillas del Ministerio del Trabajo <br>•&nbsp;&nbsp;&nbsp;Llamar al <a href = 'tel:151'>151</a> - Defensoría Pública <br>•&nbsp;&nbsp;&nbsp;Llamar al <a href = 'tel:1800 266822'>1800 266822</a> - Ministerio del trabajo <br>•&nbsp;&nbsp;&nbsp;Enviar un correo a  <a href = 'email:denuncias@trabajo.gob.ec'>denuncias@trabajo.gob.ec</a>"
+                  "description": "•&nbsp;&nbsp;&nbsp;Direcciones Regionales del Trabajo <br>•&nbsp;&nbsp;&nbsp;Inspectorías de Trabajo <br>•&nbsp;&nbsp;&nbsp;Ventanillas del Ministerio del Trabajo <br>•&nbsp;&nbsp;&nbsp;Llamar al <a href = 'tel:151'>151</a> - Defensoría Pública <br>•&nbsp;&nbsp;&nbsp;Llamar al <a href = 'tel:1800 266822'>1800 266822</a> - Ministerio del trabajo <br>•&nbsp;&nbsp;&nbsp;Enviar un correo a  <a href = 'mailto:denuncias@trabajo.gob.ec'>denuncias@trabajo.gob.ec</a>"
                 }
               ]
             },
