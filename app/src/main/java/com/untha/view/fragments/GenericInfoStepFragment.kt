@@ -31,7 +31,6 @@ import com.untha.utils.UtilsTextToSpeech
 import com.untha.view.activities.MainActivity
 import com.untha.view.extension.buildImageNextStep
 import com.untha.view.extension.buildNextStepTitle
-import com.untha.view.extension.getSelectableItemBackground
 import com.untha.view.extension.loadHorizontalProgressBarDinamic
 import com.untha.view.extension.loadImageBackground
 import com.untha.view.extension.loadPlayAndPauseIcon
@@ -41,7 +40,6 @@ import org.jetbrains.anko.AnkoViewDslMarker
 import org.jetbrains.anko._LinearLayout
 import org.jetbrains.anko.backgroundColor
 import org.jetbrains.anko.backgroundDrawable
-import org.jetbrains.anko.backgroundResource
 import org.jetbrains.anko.bottomPadding
 import org.jetbrains.anko.dip
 import org.jetbrains.anko.imageView
@@ -73,6 +71,7 @@ class GenericInfoStepFragment : BaseFragment() {
     lateinit var playAndPauseIcon: ImageView
     private var horizontalProgressBar: ProgressBar? = null
     private lateinit var thread: Thread
+    private var isPaused = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -124,9 +123,11 @@ class GenericInfoStepFragment : BaseFragment() {
                 relativeLayout {
                     loadImageBackground(view, category)
                     playAndPauseIcon = loadPlayAndPauseIcon(
-                        view,
-                        textToSpeech!!, ::getStringToReproduce
+                        view
                     )
+                    playAndPauseIcon.setOnClickListener {
+                        playAndPauseAudio()
+                    }
                 }.lparams(width = ViewGroup.LayoutParams.MATCH_PARENT, height = imageHeight)
                 horizontalProgressBar = loadHorizontalProgressBarDinamic(0)
                 scrollView {
@@ -145,47 +146,51 @@ class GenericInfoStepFragment : BaseFragment() {
         }
         mainActivity.customActionBar(
             category.information?.get(0)?.screenTitle.toString(),
-            enableCustomBar = false, needsBackButton = true, enableHelp = false, backMethod = null
+            enableCustomBar = false,
+            needsBackButton = true,
+            enableHelp = false,
+            backMethod = ::onBackPressed
         )
         thread = incrementProgressBarThread(horizontalProgressBar)
         thread.start()
 
     }
 
-    override fun onStart() {
-        super.onStart()
-        (context as Activity).runOnUiThread {
-            playAndPauseIcon.apply {
-                //                this.performClick()
-            }
-        }
+    private fun onBackPressed() {
+        stopTextToSpeech()
+        activity?.onBackPressed()
     }
 
     override fun onDestroy() {
-        super.onDestroy()
         thread.interrupt()
+        super.onDestroy()
     }
 
     override fun onStop() {
-        super.onStop()
+        isPaused = true
         thread.interrupt()
+        super.onStop()
     }
 
     private fun reproduceAudioCallBack(
         indexParameter: Int,
         listParagraph: MutableList<String>
     ): String? {
-        indexCurrently = indexParameter + 1
-        setProgress(indexCurrently, listParagraph.size)
-        return if (indexCurrently < listParagraph.size) {
-            listParagraph[indexCurrently]
-        } else {
-            textToSpeech?.stop()
-            (context as Activity).runOnUiThread {
-                playAndPauseIcon.apply {
-                    putImageOnTheWidget(Constants.PLAY_ICON, this)
+        return if (!isPaused) {
+            indexCurrently = indexParameter + 1
+            setProgress(indexCurrently, listParagraph.size)
+            return if (indexCurrently < listParagraph.size) {
+                listParagraph[indexCurrently]
+            } else {
+                textToSpeech?.stop()
+                (context as Activity).runOnUiThread {
+                    playAndPauseIcon.apply {
+                        putImageOnTheWidget(Constants.PLAY_ICON, this)
+                    }
                 }
+                null
             }
+        } else {
             null
         }
     }
@@ -249,8 +254,6 @@ class GenericInfoStepFragment : BaseFragment() {
 
         return linearLayout {
             orientation = LinearLayout.HORIZONTAL
-            backgroundColor =
-                ContextCompat.getColor(context, R.color.colorGenericTitle)
             isClickable = true
             backgroundDrawable = ContextCompat.getDrawable(
                 context, R.drawable.drawable_style_corner_and_shadow_of_button
@@ -264,7 +267,6 @@ class GenericInfoStepFragment : BaseFragment() {
                 setOnClickListener {
                     onItemClick(categoryNextStep, categories as ArrayList<Category>, view)
                 }
-                backgroundResource = getSelectableItemBackground().resourceId
             }.lparams(
                 width = matchParent, height = matchParent
             )
@@ -472,6 +474,7 @@ class GenericInfoStepFragment : BaseFragment() {
             putSerializable(Constants.CATEGORIES, categories)
             putSerializable(Constants.CATEGORY_PARAMETER, category)
         }
+        logAnalyticsSelectContentWithId(category.title, ContentType.ROUTE)
         if (category.isRoute) {
             when (category.id) {
                 Constants.ID_ROUTE_LABOUR -> {
@@ -481,11 +484,16 @@ class GenericInfoStepFragment : BaseFragment() {
                     onItemClickRouteViolence(itemView)
                 }
             }
-            logAnalyticsSelectContentWithId(category.title, ContentType.ROUTE)
         } else {
+            stopTextToSpeech()
             itemView.findNavController()
                 .navigate(R.id.genericInfoFragment, categoryBundle, navOptions, null)
         }
+    }
+
+    private fun stopTextToSpeech() {
+        textToSpeech?.stop()
+        textToSpeech?.destroy()
     }
 
     private fun contentAudioOptions(): StringBuffer {
@@ -498,47 +506,48 @@ class GenericInfoStepFragment : BaseFragment() {
     }
 
     private fun getTextInformation(): StringBuffer {
-        val contentOptions1 = StringBuffer()
+        val contentOptions = StringBuffer()
         category.information?.forEach { information: CategoryInformation ->
             information.let {
-                contentOptions1.append(information.description)
-                contentOptions1.append("\n")
-                contentOptions1.append(getTextSections(information))
-                contentOptions1.append("\n")
+                contentOptions.append(information.description)
+                contentOptions.append("\n")
+                contentOptions.append(getTextSections(information))
+                contentOptions.append("\n")
             }
         }
-        return contentOptions1
+        return contentOptions
     }
 
     private fun getTextSections(
         option: CategoryInformation
     ): StringBuffer {
-        val contentOptions1 = StringBuffer()
+        val contentOptions = StringBuffer()
         option.sections?.forEach { section: Section ->
             section.let {
-                contentOptions1.append(section.title)
-                contentOptions1.append("\n")
-                contentOptions1.append(getTextSteps(section))
-                contentOptions1.append("\n")
+                contentOptions.append(section.title)
+                contentOptions.append("\n")
+                contentOptions.append(getTextSteps(section))
+                contentOptions.append("\n")
             }
         }
-        return contentOptions1
+        return contentOptions
     }
 
     private fun getTextSteps(
         section: Section
     ): StringBuffer {
-        val contentOptions1 = StringBuffer()
+        val contentOptions = StringBuffer()
         section.steps?.forEach { step: Step ->
             step.let {
-                contentOptions1.append(step.stepId).append("\n").append(step.description)
+                contentOptions.append(step.stepId).append("\n").append(step.description)
             }
         }
-        return contentOptions1
+        return contentOptions
     }
 
 
     private fun onItemClickRouteLabour(itemView: View) {
+        textToSpeech?.stop()
         val routeLabour = Bundle().apply {
             putString(Constants.TYPE_ROUTE, Constants.ROUTE_LABOUR)
         }
@@ -547,10 +556,38 @@ class GenericInfoStepFragment : BaseFragment() {
     }
 
     private fun onItemClickRouteViolence(itemView: View) {
+        textToSpeech?.stop()
         val violenceLabour = Bundle().apply {
             putString(Constants.TYPE_ROUTE, Constants.ROUTE_VIOLENCE)
         }
         itemView.findNavController()
             .navigate(R.id.mainScreenLabourRouteFragment, violenceLabour, navOptions, null)
+    }
+
+    private fun playAndPauseAudio(
+    ) {
+        val isSpeaking = textToSpeech?.isSpeaking() ?: false
+        if (isSpeaking) {
+            playAndPauseIcon.apply {
+                putImageOnTheWidget(Constants.PLAY_ICON, this)
+            }
+            textToSpeech?.stop()
+            isPaused = true
+        } else {
+            val reproduce = getStringToReproduce()
+            isPaused = if (reproduce == null) {
+                playAndPauseIcon.apply {
+                    putImageOnTheWidget(Constants.PLAY_ICON, this)
+                }
+                textToSpeech?.stop()
+                true
+            } else {
+                playAndPauseIcon.apply {
+                    putImageOnTheWidget(Constants.STOP_ICON, this)
+                }
+                textToSpeech?.speakOut(reproduce)
+                false
+            }
+        }
     }
 }

@@ -53,7 +53,7 @@
     {
       "id": "F2",
       "type": "fault",
-      "content": " Tu empleador te hace trabajar más horas de las que tienes permitidas como menor de edad (30 semanales, 6 al día)",
+      "content": "Tu empleador te hace trabajar más horas de las que tienes permitidas como menor de edad (30 semanales, 6 al día)",
       "categories": [
         11
       ]
@@ -77,7 +77,7 @@
     {
       "id": "F5",
       "type": "fault",
-      "content": "Tu empleador no te  paga horas extras cuando trabajas tiempo adicional",
+      "content": "Tu empledor no te  paga horas extras cuando trabajas tiempo adicional",
       "categories": [
         8,
         3
@@ -88,7 +88,7 @@
       "type": "fault",
       "content": "Tu empleador no te ha dado un contrato, esto puede dar lugar a irregularidades que no puedas denunciar",
       "categories": [
-        5
+        3
       ]
     },
     {
@@ -143,7 +143,7 @@
     {
       "id": "F13",
       "type": "fault",
-      "content": "Es posible que tu empleador te despidió intempestivamente y deben pagarte idemnización en 48 horas.",
+      "content": "Es posible que tu empleador te despidió intempestivamente y deben pagarte una indemnización en un plazo de 48 horas.",
       "categories": [
         12,
         3
@@ -153,7 +153,9 @@
       "id": "F14",
       "type": "fault",
       "content": "No recibiste notificación escrita de despido, solicítala para exigir pagos de liquidación o indemnización",
-      "categories": []
+      "categories": [
+        12
+      ]
     }
   ]
 }

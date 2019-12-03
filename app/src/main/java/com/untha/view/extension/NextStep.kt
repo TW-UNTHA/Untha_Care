@@ -11,7 +11,6 @@ import com.untha.R
 import com.untha.model.transactionalmodels.Category
 import com.untha.utils.Constants
 import com.untha.utils.PixelConverter
-import com.untha.utils.UtilsTextToSpeech
 import org.jetbrains.anko.AnkoViewDslMarker
 import org.jetbrains.anko._LinearLayout
 import org.jetbrains.anko._RelativeLayout
@@ -23,7 +22,6 @@ import org.jetbrains.anko.imageView
 import org.jetbrains.anko.linearLayout
 import org.jetbrains.anko.matchParent
 import org.jetbrains.anko.padding
-import org.jetbrains.anko.sdk27.coroutines.onClick
 import org.jetbrains.anko.textColor
 import org.jetbrains.anko.textSizeDimen
 import org.jetbrains.anko.textView
@@ -90,48 +88,17 @@ fun @AnkoViewDslMarker _LinearLayout.getSelectableItemBackground(): TypedValue {
 
 
 fun _RelativeLayout.loadPlayAndPauseIcon(
-    view: View,
-    utilsTextToSpeechParameter: UtilsTextToSpeech,
-    getStringToReproduce: () -> String?
+    view: View
 ): ImageView {
     return imageView {
         scaleType = ImageView.ScaleType.FIT_CENTER
         putImageOnTheWidget(Constants.PLAY_ICON, view)
         backgroundResource = attr(R.attr.selectableItemBackgroundBorderless).resourceId
-
-        onClick {
-            playAndPauseAudio(
-                view,
-                utilsTextToSpeechParameter,
-                getStringToReproduce
-            )
-        }
     }.lparams(
         width = matchParent,
         height = wrapContent
     ) {
         centerInParent()
-    }
-}
-
-
-private fun @AnkoViewDslMarker ImageView.playAndPauseAudio(
-    view: View,
-    utilsTextToSpeech: UtilsTextToSpeech,
-    getStringToReproduce: () -> String?
-) {
-    if (utilsTextToSpeech.isSpeaking()) {
-        putImageOnTheWidget(Constants.PLAY_ICON, view)
-        utilsTextToSpeech.stop()
-    } else {
-        val reproduce = getStringToReproduce()
-        if (reproduce == null) {
-            putImageOnTheWidget(Constants.PLAY_ICON, view)
-            utilsTextToSpeech.stop()
-        } else {
-            utilsTextToSpeech.speakOut(reproduce)
-            putImageOnTheWidget(Constants.STOP_ICON, view)
-        }
     }
 }
 

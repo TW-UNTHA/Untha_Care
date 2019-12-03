@@ -13,15 +13,11 @@
           "steps": [
             {
               "step_id": 1,
-              "description": "Puedes obtener una asesoría gratuita llamando al: 151 Defensoría Pública."
+              "description": "Puedes obtener una asesoría gratuita llamando al: <a href = 'tel:151'>151</a> - Defensoría Pública."
             },
             {
               "step_id": 2,
-              "description": "Puedes hacer una denuncia: Unidad Judicial de Violencia contra la Mujer y la Familia de la Fiscalía 1800 266 822 . Ministerio del Trabajo"
-            },
-            {
-              "step_id": null,
-              "description": "Link a denuncia en la Fiscalía"
+              "description": "Puedes hacer una denuncia: <br> •&nbsp;&nbsp;&nbsp; Asistiendo a la Unidad Judicial de Violencia contra la Mujer y la Familia de la Fiscalía <br> •&nbsp;&nbsp;&nbsp; Llamando al: <a href = 'tel:1800 266822'>1800 266822</a> - Ministerio del Trabajo"
             }
           ]
         }
@@ -39,15 +35,11 @@
           "steps": [
             {
               "step_id": 1,
-              "description": "Puedes obtener una asesoría gratuita llamando al: 151 Defensoría Pública."
+              "description": "Puedes obtener una asesoría gratuita llamando al: <a href = 'tel:151'>151</a> - Defensoría Pública."
             },
             {
               "step_id": 2,
-              "description": "Puedes hacer una denuncia: Unidad Judicial de Violencia contra la Mujer y la Familia de la Fiscalía 1800 266 822 . Ministerio del Trabajo"
-            },
-            {
-              "step_id": null,
-              "description": "Link a denuncia en la Fiscalía"
+              "description": "Puedes hacer una denuncia: <br> •&nbsp;&nbsp;&nbsp; Asistiendo a la Unidad Judicial de Violencia contra la Mujer y la Familia de la Fiscalía <br> •&nbsp;&nbsp;&nbsp; Llamando al: <a href = 'tel:1800 266822'>1800 266822</a> - Ministerio del Trabajo"
             }
           ]
         }

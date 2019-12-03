@@ -139,8 +139,14 @@ open class BaseFragment : Fragment() {
     }
 
     override fun onDestroy() {
+        textToSpeech?.stop()
         textToSpeech?.destroy()
         super.onDestroy()
+    }
+
+    override fun onPause() {
+        textToSpeech?.stop()
+        super.onPause()
     }
 }
 

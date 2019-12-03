@@ -65,7 +65,7 @@ class MainActivity : AppCompatActivity() {
         val layoutActionBar = layoutInflater.inflate(R.layout.action_bar, null)
         val titleView = layoutActionBar.findViewById(R.id.title_action_bar) as TextView
         val close = layoutActionBar?.findViewById(R.id.icon_go_back_route) as ImageView
-        val iconHelp = layoutActionBar?.findViewById(R.id.icon_help) as ImageView
+        val iconHelp = layoutActionBar.findViewById(R.id.icon_help) as ImageView
 
         titleView.text = title
         titleView.textSizeDimen = R.dimen.text_size_question_route

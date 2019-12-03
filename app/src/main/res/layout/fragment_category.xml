@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorBackgroundMainRoute">
-    >
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/categoryRecyclerView"
@@ -14,6 +13,8 @@
         android:layout_alignParentTop="true"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
+        android:clipToPadding="false"
         android:orientation="horizontal"
+        android:paddingBottom="60dp"
         tools:listitem="@layout/layout_category_main_item" />
 </RelativeLayout>
