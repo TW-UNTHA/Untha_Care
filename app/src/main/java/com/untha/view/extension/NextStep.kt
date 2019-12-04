@@ -15,6 +15,7 @@ import org.jetbrains.anko.AnkoViewDslMarker
 import org.jetbrains.anko._LinearLayout
 import org.jetbrains.anko._RelativeLayout
 import org.jetbrains.anko.attr
+import org.jetbrains.anko.backgroundColor
 import org.jetbrains.anko.backgroundResource
 import org.jetbrains.anko.centerInParent
 import org.jetbrains.anko.dip
@@ -126,5 +127,8 @@ fun @AnkoViewDslMarker _RelativeLayout.loadImageBackground(
         scaleType = ImageView.ScaleType.FIT_XY
         val image = category.information?.get(0)?.image
         putImageOnTheWidget(image, view)
+        backgroundColor =
+            ContextCompat.getColor(context, R.color.colorBackgroundMainRoute)
+
     }.lparams(width = matchParent, height = matchParent)
 }
