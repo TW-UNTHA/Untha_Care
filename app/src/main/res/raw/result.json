@@ -14,7 +14,7 @@
       "type": "recommendation",
       "content": "Te recomendamos establecer un contrato a tiempo completo o parcial con tu empleador porque esto puede dar lugar a una violación de tus derechos laborales",
       "categories": [
-        5
+        3
       ]
     },
     {
@@ -22,7 +22,7 @@
       "type": "recommendation",
       "content": "Te recomendamos tener un contrato escrito para que lo uses en caso de una falta a tus derechos",
       "categories": [
-        5
+        3
       ]
     },
     {
@@ -153,7 +153,9 @@
       "id": "F14",
       "type": "fault",
       "content": "No recibiste notificación escrita de despido, solicítala para exigir pagos de liquidación o indemnización",
-      "categories": [12]
+      "categories": [
+        12
+      ]
     }
   ]
 }

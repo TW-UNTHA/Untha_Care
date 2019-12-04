@@ -48,12 +48,16 @@ platform :android do
       build_type: "Release",
       print_command: false,
       properties: {
-        "android.injected.signing.store.file"=>"/Users/jorgerodriguezchala/Documents/Android/keystore.jks",
-        "android.injected.signing.store.password"=>'g{(J0\/1)Jv#Gz2Tc_EiO?EcvZ!BJ!Nf5-_p)n_rxP?(vK-GkY#54R%uE4WJFjq+7oc5B{',
-        "android.injected.signing.key.alias" =>"untha_care",
-        "android.injected.signing.key.password" =>'~7Q&jKVtu}vt4&=6FIn)GWT^pnj39~HaG4ua+#*@PyG#A7bdY{#mehEr+xSu}(f{a-ixuE'
+        "android.injected.signing.store.file"=>ENV['KEYSTORE_PATH'],
+        "android.injected.signing.store.password"=>ENV['KEYSTORE_PASSWORD'],
+        "android.injected.signing.key.alias" =>ENV['KEYSTORE_ALIAS'],
+        "android.injected.signing.key.password" =>ENV['KEYSTORE_PASSPHRASE']
       }
     )
+    copy_artifacts(
+        artifacts: [lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH]],
+        target_path: ENV['APK_DESTINATION_FOLDER']
+      )
   end
 
   desc "Submit a new beta build to Firebase App Distribution"
@@ -71,5 +75,14 @@ platform :android do
       else
         UI.user_error!("Missing group name!")
       end
+    end
+
+    desc "Submit a new build to Firebase App Prod Distribution"
+    lane :distribute_prod do |options|
+        build_prod
+        firebase_app_distribution(
+            app: ENV['APP_ID'],
+            groups: ENV['APP_GROUP']
+        )
     end
 end
