@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.text.parseAsHtml
@@ -79,7 +80,7 @@ class RouteResultsFragment : BaseFragment() {
         private const val LABOUR_TYPE = "LABOUR"
         private const val RECOMMENDATION_TYPE = "recommendation"
         private const val FAULT_TYPE = "fault"
-        private const val CALCULADORA_ID = 5
+        private const val CALCULATOR_ID = 5
     }
 
     private val viewModel: RouteResultsViewModel by viewModel()
@@ -305,11 +306,18 @@ class RouteResultsFragment : BaseFragment() {
                 val category = viewModel.getCategoryById(categoryId)
                 category?.let {
                     drawCategoryButtonText(it)
-                    if (categoryId != CALCULADORA_ID)
-                        setOnClickListener {
-                            logAnalyticsSelectContentWithId(category.title, ContentType.CATEGORY)
+                    setOnClickListener {
+                        logAnalyticsSelectContentWithId(category.title, ContentType.CATEGORY)
+                        if (categoryId != CALCULATOR_ID) {
                             navigateToCategoriesInformation(category)
+                        } else {
+                            Toast.makeText(
+                                context,
+                                getString(R.string.coming_soon),
+                                Toast.LENGTH_LONG
+                            ).show()
                         }
+                    }
                 }
             }.lparams(
                 width = dip(calculateComponentsWidth(CATEGORY_BUTTON_WIDTH)),
@@ -332,7 +340,7 @@ class RouteResultsFragment : BaseFragment() {
             .navigate(
                 R.id.genericInfoFragment,
                 categoryBundle,
-                navOptionsToBackNavigation,
+                navOptions,
                 null
             )
     }
@@ -464,7 +472,8 @@ class RouteResultsFragment : BaseFragment() {
                         setTypeface(typeface, Typeface.BOLD)
                         textSizeDimen = R.dimen.text_size_content
                     }.lparams(height = wrapContent, width = matchParent) {
-                        bottomMargin = dip(calculateComponentsHeight(SECTIONS_TOP_BOTTOM_MARGIN))
+                        bottomMargin =
+                            dip(calculateComponentsHeight(SECTIONS_TOP_BOTTOM_MARGIN))
                         topMargin = dip(calculateComponentsHeight(SECTIONS_TOP_BOTTOM_MARGIN))
                     }
                 }
