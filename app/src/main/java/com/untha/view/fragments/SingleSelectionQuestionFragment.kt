@@ -78,7 +78,6 @@ class SingleSelectionQuestionFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        categoryViewModel.getCategoryRoutes()
         activity?.let {
             firebaseAnalytics.setCurrentScreen(
                 it,

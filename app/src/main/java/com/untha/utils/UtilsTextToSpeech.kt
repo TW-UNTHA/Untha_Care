@@ -37,11 +37,11 @@ class UtilsTextToSpeech(
     }
 
     override fun onError(p0: String?) {
-        println("On error audio")
+        Timber.i("On error audio")
     }
 
     override fun onStart(p0: String?) {
-        println("on Start audio")
+        Timber.i("on Start audio")
     }
 
     override fun onInit(status: Int) {

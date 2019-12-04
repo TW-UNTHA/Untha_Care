@@ -61,7 +61,7 @@ class MainViewModel(
                         }
                     }
                     is ApiErrorResponse -> {
-                        println("Error! $response.errorMessage")
+                        Timber.e("Error! $response.errorMessage")
                     }
                 }
             })
@@ -84,6 +84,7 @@ class MainViewModel(
     }
 
     private fun categoriesSavedCallback(message: String) {
+        Timber.i(message)
         val categoryInformationModels = mutableListOf<CategoryInformationModel>()
         categoryModels.map { category ->
             category.categoryInformationModel?.let { categoryInformationModel ->
@@ -100,6 +101,7 @@ class MainViewModel(
     }
 
     private fun categoriesInformationSaved(message: String) {
+        Timber.i(message)
         val informationSections = mutableListOf<SectionModel>()
         categoryModels.map { category ->
             category.categoryInformationModel?.let { categoryInformationModel ->
@@ -163,7 +165,7 @@ class MainViewModel(
                         }
                     }
                     else -> {
-                        println("Error en la llamada de load labour $response")
+                        Timber.e("Error en la llamada de load labour $response")
                     }
                 }
             })
@@ -209,7 +211,7 @@ class MainViewModel(
                         }
                     }
                     else -> {
-                        println("Error en la llamada de load violence $response")
+                        Timber.e("Error en la llamada de load violence $response")
                     }
                 }
             })
@@ -255,7 +257,7 @@ class MainViewModel(
                         }
                     }
                     else -> {
-                        println("Error en la llamada de load route results $response")
+                        Timber.e("Error en la llamada de load route results $response")
                     }
                 }
             })
@@ -310,7 +312,7 @@ class MainViewModel(
                         }
                     }
                     is ApiErrorResponse -> {
-                        println("ErrorQUESTIONNAIRE_ROUTE! $response.errorMessage")
+                        Timber.e("ErrorQUESTIONNAIRE_ROUTE! $response.errorMessage")
                     }
                 }
             })

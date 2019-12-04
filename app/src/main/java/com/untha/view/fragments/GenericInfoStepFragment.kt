@@ -238,7 +238,7 @@ class GenericInfoStepFragment : BaseFragment() {
                         try {
                             sleep(Constants.TIME_SLEEP)
                         } catch (e: InterruptedException) {
-                            e.printStackTrace()
+                            Timber.e("Se detiene el hilo de la barra de progreso ${e.message}")
                         }
                     }
                 }

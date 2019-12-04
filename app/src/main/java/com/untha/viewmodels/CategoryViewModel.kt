@@ -35,7 +35,7 @@ class CategoryViewModel(
         return categories.filter { it.isRoute } as ArrayList
     }
 
-    fun saveCategoriesSharedPreferences(categories: List<Category>){
+    fun saveCategoryRoutesInSharedPreferences(categories: List<Category>) {
         sharedPreferences.edit()
             .putString(
                 Constants.CATEGORIES_ROUTES,
@@ -45,9 +45,13 @@ class CategoryViewModel(
     }
 
     fun loadCategoriesRoutesFromSharedPreferences(): ArrayList<Category>? {
-        val jsonCategoriesRoutes = sharedPreferences.getString(Constants.CATEGORIES_ROUTES, "")
-        return jsonCategoriesRoutes?.let { Json.parse(Category.serializer().list, it) } as ArrayList<Category>
+        val jsonCategoriesRoutes = sharedPreferences.getString(Constants.CATEGORIES_ROUTES, null)
+        return jsonCategoriesRoutes?.let {
+            Json.parse(
+                Category.serializer().list,
+                it
+            )
+        } as ArrayList<Category>
     }
-
 
 }

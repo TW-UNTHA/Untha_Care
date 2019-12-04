@@ -16,8 +16,6 @@ import com.untha.model.mappers.CategoryMapper
 import com.untha.model.models.QueryingCategory
 import com.untha.model.repositories.CategoryWithRelationsRepository
 import com.untha.model.transactionalmodels.Category
-import com.untha.model.transactionalmodels.Route
-import com.untha.model.transactionalmodels.RouteOption
 import com.untha.utils.Constants
 import com.utils.MockObjects
 import kotlinx.serialization.json.Json
@@ -175,7 +173,7 @@ class CategoryViewModelTest : KoinTest {
         ).thenReturn(editor)
 
         doNothing().whenever(editor).apply()
-        categoryViewModel.saveCategoriesSharedPreferences(categoriesRoutes)
+        categoryViewModel.saveCategoryRoutesInSharedPreferences(categoriesRoutes)
 
         verify(sharedPreferences.edit())
             .putString(
@@ -186,7 +184,7 @@ class CategoryViewModelTest : KoinTest {
     }
 
     @Test
-    fun `should get categories routes from shared preferencecds`() {
+    fun `should get categories routes from shared preferences`() {
         val categoryMapper = CategoryMapper()
         val categoryQueryingRoute = MockObjects.mockQueryingCategory()
         val categoryViewModel = CategoryViewModel(
@@ -197,7 +195,7 @@ class CategoryViewModelTest : KoinTest {
 
         categoryViewModel.getCategories(listOf(categoryQueryingRoute))
         val categoriesRoutes = categoryViewModel.getCategoryRoutes()
-        `when`(sharedPreferences.getString(Constants.CATEGORIES_ROUTES, ""))
+        `when`(sharedPreferences.getString(Constants.CATEGORIES_ROUTES, null))
             .thenReturn(Json.stringify(Category.serializer().list, categoriesRoutes))
         val resultRoute = categoryViewModel.loadCategoriesRoutesFromSharedPreferences()
         MatcherAssert.assertThat(resultRoute, CoreMatchers.`is`(categoriesRoutes))

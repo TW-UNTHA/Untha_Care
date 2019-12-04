@@ -56,4 +56,5 @@
     <string name="about_us_route_name">about_us_route</string>
     <string name="about_us_audio_name">about_us_audio</string>
     <string name="about_us_touchs_name">about_us_touchs</string>
+    <string name="coming_soon">Disponible próximamente</string>
 </resources>

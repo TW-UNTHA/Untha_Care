@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.RelativeLayout
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
@@ -35,6 +36,7 @@ class CategoryFragment : BaseFragment(),
         const val ROUTES_CATEGORY = 1
     }
 
+    private lateinit var routes: ArrayList<Category>
     private lateinit var categoryListAdapter: CategoryAdapter
     private val categoryViewModel: CategoryViewModel by viewModel()
     private val viewModel: AboutUsViewModel by viewModel()
@@ -74,6 +76,7 @@ class CategoryFragment : BaseFragment(),
         setMarginsToRecyclerView()
         categoryViewModel.findMainCategories().observe(this, Observer { queryingCategories ->
             categoryViewModel.getCategories(queryingCategories)
+            getCategoryRoutes()
             populateCategoryList(categoryViewModel.categories)
         })
         (activity as MainActivity).customActionBar(
@@ -113,15 +116,17 @@ class CategoryFragment : BaseFragment(),
                 null
             )
 
-            CALCULATOR_CATEGORY -> println("To be implemented")
+            CALCULATOR_CATEGORY -> Toast.makeText(
+                context,
+                getString(R.string.coming_soon),
+                Toast.LENGTH_LONG
+            ).show()
 
             ROUTES_CATEGORY -> {
-                val routes: ArrayList<Category> = categoryViewModel.getCategoryRoutes()
+
                 activity?.let {
                     firebaseAnalytics.setCurrentScreen(it, Constants.CLICK_ROUTE_START_TITLE, null)
                 }
-
-                categoryViewModel.saveCategoriesSharedPreferences(routes)
 
                 val categoriesRoutes = Bundle().apply {
                     putSerializable(
@@ -146,6 +151,11 @@ class CategoryFragment : BaseFragment(),
                     .navigate(R.id.genericInfoFragment, categoryBundle, navOptions, null)
             }
         }
+    }
+
+    private fun getCategoryRoutes() {
+        routes = categoryViewModel.getCategoryRoutes()
+        categoryViewModel.saveCategoryRoutesInSharedPreferences(routes)
     }
 
     override fun onItemLongClick(itemView: View, text: String): Boolean {
