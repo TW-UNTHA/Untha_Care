@@ -24,10 +24,8 @@ import org.jetbrains.anko._LinearLayout
 import org.jetbrains.anko._RelativeLayout
 import org.jetbrains.anko.alignParentBottom
 import org.jetbrains.anko.alignParentRight
-import org.jetbrains.anko.attr
 import org.jetbrains.anko.backgroundColor
 import org.jetbrains.anko.backgroundDrawable
-import org.jetbrains.anko.backgroundResource
 import org.jetbrains.anko.design.floatingActionButton
 import org.jetbrains.anko.dip
 import org.jetbrains.anko.imageResource
@@ -221,7 +219,6 @@ class RoutesFragment : BaseFragment() {
                 "drawable",
                 context.applicationInfo.packageName
             )
-            backgroundResource = attr(R.attr.selectableItemBackgroundBorderless).resourceId
             Glide.with(view)
                 .load(imageUrl)
                 .into(this)
