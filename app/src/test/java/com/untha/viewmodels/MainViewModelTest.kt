@@ -727,7 +727,6 @@ class MainViewModelTest : KoinTest {
             )
         verify(editor).apply()
     }
-
 }
 
 

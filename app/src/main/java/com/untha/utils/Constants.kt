@@ -106,7 +106,7 @@ object Constants {
     const val IS_LABOUR_ROUTE = "is_labour_route"
     const val COMPLETE_LABOUR_ROUTE = "complete_labour_route"
     const val COMPLETE_VIOLENCE_ROUTE = "complete_violence_route"
-    const val SHARE_BUTTON_MESSAGE = "Descarga la aplicación THR Unidas aquí"
+    const val SHARE_BUTTON_MESSAGE = "Descarga la aplicación THR Unidas aquí: bit.ly/2PseN6v"
     const val RIGHTS_PAGE = "Rights Page"
     const val PLAY_ICON = "ic_play_audio"
     const val STOP_ICON = "ic_stop_audio"
@@ -114,7 +114,6 @@ object Constants {
     const val PROGRESS_TOTAL = 100
     const val TIME_SLEEP: Long = 500
     const val IS_THERE_GOOGLE_PLAY_ERROR = "google-play-error"
-
 
 
 }

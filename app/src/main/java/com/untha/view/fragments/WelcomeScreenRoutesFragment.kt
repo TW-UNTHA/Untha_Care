@@ -171,6 +171,8 @@ class WelcomeScreenRoutesFragment : BaseFragment() {
                 bundle.putBoolean(Constants.IS_LABOUR_ROUTE, isLabourRoute)
                 view.findNavController()
                     .navigate(R.id.routeResultsFragment, bundle, navOptions, null)
+
+                logAnalyticsCustomContentTypeWithId(ContentType.LINK, FirebaseEvent.LINK)
             }
             backgroundDrawable = ContextCompat.getDrawable(context, R.drawable.custom_ripple)
             topPadding =
