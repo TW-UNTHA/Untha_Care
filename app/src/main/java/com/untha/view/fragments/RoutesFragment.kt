@@ -139,18 +139,7 @@ class RoutesFragment : BaseFragment() {
             )
             verticalLayout {
                 isClickable = true
-                textView {
-                    text = route.title
-                    textSizeDimen = R.dimen.text_size
-                    textColor =
-                        ContextCompat.getColor(context, R.color.colorTitleCategoryRoute)
-                    setTypeface(typeface, Typeface.BOLD)
-                }.lparams {
-                    topMargin = calculateTopMargin()
-                    rightMargin = calculateLateralMargin()
-                    leftMargin = calculateLateralMargin()
-                }
-
+                loadTitleRoute(route)
                 loadImageRoute(view, route)
                 backgroundDrawable = ContextCompat.getDrawable(
                     context, R.drawable.drawable_main_route
@@ -174,7 +163,22 @@ class RoutesFragment : BaseFragment() {
                 leftMargin = calculateLateralMargin()
             }
         }
+    }
 
+    private fun @AnkoViewDslMarker _LinearLayout.loadTitleRoute(
+        route: Category
+    ) {
+        textView {
+            text = route.title
+            textSizeDimen = R.dimen.text_size
+            textColor =
+                ContextCompat.getColor(context, R.color.colorTitleCategoryRoute)
+            setTypeface(typeface, Typeface.BOLD)
+        }.lparams {
+            topMargin = calculateTopMargin()
+            rightMargin = calculateLateralMargin()
+            leftMargin = calculateLateralMargin()
+        }
     }
 
     private fun calculateHeightRoute(): Int {
