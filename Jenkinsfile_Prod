@@ -1,0 +1,33 @@
+#!groovy
+
+pipeline {
+    agent any
+    stages {
+
+        stage('Downloading Firebase file') {
+            steps {
+                sh "curl -o ${WORKSPACE}/app/google-services.json ${BUILD_JSON_PROD}"
+            }
+        }
+
+        stage('Building and uploading app to firebase') {
+            steps {
+                sh 'fastlane distribute_prod'
+            }
+        }
+
+        stage('Uploading app to playstore') {
+            steps {
+                sh 'fastlane distribute_prod_play_store'
+            }
+        }
+    }
+    post {
+        always {
+            echo 'Sending Email!'
+            emailext body: "${currentBuild.currentResult}: Job ${env.JOB_NAME} build ${env.BUILD_NUMBER}\n More info at: ${env.BUILD_URL}",
+                    recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']],
+                    subject: "Jenkins Build ${currentBuild.currentResult}: Job ${env.JOB_NAME}"
+        }
+    }
+}
