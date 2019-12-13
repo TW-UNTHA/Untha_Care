@@ -85,4 +85,9 @@ platform :android do
             groups: ENV['APP_GROUP']
         )
     end
+    desc "Submit a new build to Firebase App Prod Distribution"
+    lane :distribute_prod_play_store do |options|
+        build_prod
+        upload_to_play_store
+    end
 end
