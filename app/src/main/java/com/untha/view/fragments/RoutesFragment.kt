@@ -241,7 +241,7 @@ class RoutesFragment : BaseFragment() {
             onClick {
                 val sendIntent = Intent()
                 sendIntent.action = Intent.ACTION_SEND
-                sendIntent.putExtra(Intent.EXTRA_TEXT, Constants.SHARE_BUTTON_MESSAGE)
+                sendIntent.putExtra(Intent.EXTRA_TEXT, getString(R.string.link_app))
                 sendIntent.type = "text/plain"
                 context.startActivity(sendIntent)
                 logAnalyticsCustomContentTypeWithId(ContentType.SHARE, FirebaseEvent.SHARE)

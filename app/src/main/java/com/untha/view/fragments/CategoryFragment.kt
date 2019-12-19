@@ -116,11 +116,19 @@ class CategoryFragment : BaseFragment(),
                 null
             )
 
-            CALCULATOR_CATEGORY -> Toast.makeText(
-                context,
-                getString(R.string.coming_soon),
-                Toast.LENGTH_LONG
-            ).show()
+            CALCULATOR_CATEGORY ->
+//               itemView.findNavController().navigate(
+//                R.id.calculatorFragment,
+//                null,
+//                navOptions,
+//                null
+//            )
+
+                Toast.makeText(
+                    context,
+                    getString(R.string.coming_soon),
+                    Toast.LENGTH_LONG
+                ).show()
 
             ROUTES_CATEGORY -> {
 
@@ -213,7 +221,7 @@ class CategoryFragment : BaseFragment(),
         shareButton.setOnClickListener {
             val sendIntent = Intent()
             sendIntent.action = Intent.ACTION_SEND
-            sendIntent.putExtra(Intent.EXTRA_TEXT, Constants.SHARE_BUTTON_MESSAGE)
+            sendIntent.putExtra(Intent.EXTRA_TEXT, getString(R.string.link_app))
             sendIntent.type = "text/plain"
             context?.startActivity(sendIntent)
         }

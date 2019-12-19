@@ -77,6 +77,7 @@ object Constants {
     const val NAME_SCREEN_LABOUR_ROUTE = "DERECHOS LABORALES"
     const val NAME_SCREEN_VIOLENCE_ROUTE = "VIOLENCIA"
     const val NAME_SCREEN_RIGHTS = "MIS DERECHOS"
+    const val NAME_SCREEN_CALCULATOR = "CALCULADORAS"
     const val NAME_SCREEN_ROUTES = "RUTAS DE AYUDA"
     const val MARGIN_BOTTOM_PERCENTAGE_ANSWERS_LAYOUT = 0.020
     const val MARGIN_BOTTOM_PERCENTAGE_NEXT_BUTTON = 0.034
@@ -106,7 +107,6 @@ object Constants {
     const val IS_LABOUR_ROUTE = "is_labour_route"
     const val COMPLETE_LABOUR_ROUTE = "complete_labour_route"
     const val COMPLETE_VIOLENCE_ROUTE = "complete_violence_route"
-    const val SHARE_BUTTON_MESSAGE = "Descarga la aplicación THR Unidas aquí: bit.ly/2PseN6v"
     const val RIGHTS_PAGE = "Rights Page"
     const val PLAY_ICON = "ic_play_audio"
     const val STOP_ICON = "ic_stop_audio"
