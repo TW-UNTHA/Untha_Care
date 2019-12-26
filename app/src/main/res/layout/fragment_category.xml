@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     android:background="@color/colorBackgroundMainRoute">
 
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/categoryRecyclerView"
         android:layout_width="match_parent"
