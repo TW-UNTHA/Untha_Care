@@ -40,6 +40,7 @@ class MainViewModel(
 
     private val categoryModels: MutableList<CategoryModel> = mutableListOf()
     private var versionCurrently: Int = 0
+
     fun retrieveUpdatedCategories(owner: LifecycleOwner) {
         categoriesService.getCategories()
             .observe(owner, Observer { response ->

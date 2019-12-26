@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/calculatorContainer"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clickable="true"
+    android:focusable="true"
+    app:cardBackgroundColor="#ffffff"
+    app:cardElevation="0dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/drawable_style_corner_and_shadow_of_button"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/calculatorTitle"
+            style="@style/TitleCategory"
+            android:fontFamily="@font/proxima_nova_bold" />
+
+
+        <ImageView
+            android:id="@+id/imageCalculatorButton"
+            style="@style/ImageCategory" />
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

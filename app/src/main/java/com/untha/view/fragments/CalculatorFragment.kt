@@ -4,28 +4,19 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
-import androidx.core.content.ContextCompat
-import androidx.core.content.res.ResourcesCompat
+import android.widget.RelativeLayout
+import androidx.recyclerview.widget.GridLayoutManager
 import com.untha.R
 import com.untha.utils.Constants
+import com.untha.utils.PixelConverter
 import com.untha.view.activities.MainActivity
-import org.jetbrains.anko._LinearLayout
-import org.jetbrains.anko.backgroundColor
-import org.jetbrains.anko.matchParent
-import org.jetbrains.anko.support.v4.UI
-import org.jetbrains.anko.textSizeDimen
-import org.jetbrains.anko.textView
-import org.jetbrains.anko.verticalLayout
-import org.jetbrains.anko.wrapContent
+import com.untha.view.adapters.CalculatorAdapter
+import kotlinx.android.synthetic.main.fragment_calculator.*
 
 
 class CalculatorFragment : BaseFragment() {
     private lateinit var mainActivity: MainActivity
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
+    private lateinit var calculatorAdapter: CalculatorAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -33,18 +24,8 @@ class CalculatorFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View? {
         mainActivity = this.activity as MainActivity
-        return createMainLayout()
-    }
-
-    private fun createMainLayout(
-    ): View {
-        return UI {
-            verticalLayout {
-                backgroundColor =
-                    ContextCompat.getColor(context, R.color.colorBackgroundMainRoute)
-                lparams(width = matchParent, height = matchParent)
-            }
-        }.view
+        val calculatorView = inflater.inflate(R.layout.fragment_calculator, container, false)
+        return calculatorView
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -56,60 +37,32 @@ class CalculatorFragment : BaseFragment() {
             enableHelp = true,
             backMethod = null
         )
-        with(view as _LinearLayout) {
-            verticalLayout {
-                orientation = LinearLayout.VERTICAL
-                textView {
-                    text = "calculadora"
-                    backgroundColor =
-                        ContextCompat.getColor(context, R.color.colorDotSlice)
-                    textSizeDimen = R.dimen.text_size_question_route
-                    typeface = ResourcesCompat.getFont(
-                        context.applicationContext,
-                        R.font.proxima_nova_light
-                    )
-                }.lparams(width = wrapContent, height = wrapContent)
-//
-//                textView {
-//                    text = "newCalculadora"
-//                    backgroundColor =
-//                        ContextCompat.getColor(context, R.color.link)
-//                    textSizeDimen = R.dimen.text_size_question_route
-//                    typeface = ResourcesCompat.getFont(
-//                        context.applicationContext,
-//                        R.font.proxima_nova_light
-//                    )
-//                }.lparams(width = wrapContent, height = wrapContent)
-//
-//                textView {
-//                    text = "Trabajadoras remuneradas del hogar"
-//                    backgroundColor =
-//                        ContextCompat.getColor(context, R.color.colorShapeCategoryRoute)
-//                    textSizeDimen = R.dimen.text_size_question_route
-//                    typeface = ResourcesCompat.getFont(
-//                        context.applicationContext,
-//                        R.font.proxima_nova_light
-//                    )
-//                }.lparams(width = wrapContent, height = wrapContent)
-//                linearLayout {
-//                    backgroundColor =
-//                        ContextCompat.getColor(context, R.color.colorDotSlice)
-//
-//                    textView {
-//
-//                        text = "nuevoTrabajadoras remuneradas del hogar"
-//                        backgroundColor =
-//                            ContextCompat.getColor(context, R.color.colorProgressBarTint)
-//                        textSizeDimen = R.dimen.text_size_question_route
-//                        typeface = ResourcesCompat.getFont(
-//                            context.applicationContext,
-//                            R.font.proxima_nova_light
-//                        )
-//                    }.lparams(width = wrapContent, height = wrapContent) {
-////                        padding = dip(20)
-//                    }
-//                }
-            }
+        setMarginsToRecyclerView()
+        val calculators: ArrayList<String> = arrayListOf("beneficios", "liquidacion")
+        populateCategoryList(calculators)
+
+    }
+
+    private fun populateCategoryList(calculators: ArrayList<String>) {
+        val layoutManager = GridLayoutManager(context, Constants.SPAN_TWO_COLUMNS)
+        calculatorRecyclerView.layoutManager = layoutManager
+        calculatorAdapter = CalculatorAdapter(calculators)
+        calculatorRecyclerView.adapter = calculatorAdapter
+    }
+
+    private fun setMarginsToRecyclerView() {
+        val marginInDps =
+            PixelConverter.getScreenDpHeight(context) * Constants.MARGIN_TOP_PERCENTAGE
+        context?.let { context ->
+            val pixelBottomMargin = PixelConverter.toPixels(marginInDps, context)
+
+            val param = RelativeLayout.LayoutParams(
+                RelativeLayout.LayoutParams.MATCH_PARENT,
+                RelativeLayout.LayoutParams.MATCH_PARENT
+            )
+            param.setMargins(0, pixelBottomMargin, pixelBottomMargin, pixelBottomMargin)
+            calculatorRecyclerView.layoutParams = param
         }
     }
+
 }

@@ -29,7 +29,7 @@ import org.koin.android.viewmodel.ext.android.viewModel
 class RightsFragment : BaseFragment(),
     RightsAdapter.OnItemClickListener, RightsAdapter.OnItemLongClickListener {
 
-    private val viewModel: RightsViewModel by viewModel()
+    private val rightsViewModel: RightsViewModel by viewModel()
     private lateinit var mainActivity: MainActivity
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,8 +54,8 @@ class RightsFragment : BaseFragment(),
             firebaseAnalytics.setCurrentScreen(it, Constants.RIGHTS_PAGE, null)
         }
         setMarginsToRecyclerView()
-        viewModel.getRightsCategoryModels().observe(this, Observer { queryingCategories ->
-            val categories = viewModel.getRightCategories(queryingCategories)
+        rightsViewModel.getRightsCategoryModels().observe(this, Observer { queryingCategories ->
+            val categories = rightsViewModel.getRightCategories(queryingCategories)
             populateCategoryList(categories)
         })
         mainActivity.customActionBar(
@@ -85,8 +85,8 @@ class RightsFragment : BaseFragment(),
 
     private fun populateCategoryList(categoryList: List<Category>) {
         val layoutManager = GridLayoutManager(context, Constants.SPAN_TWO_COLUMNS)
-        categoryRecyclerView.layoutManager = layoutManager
-        categoryRecyclerView.adapter =
+        rightsRecyclerView.layoutManager = layoutManager
+        rightsRecyclerView.adapter =
             RightsAdapter(categoryList as ArrayList<Category>, this, this)
     }
 
@@ -101,7 +101,7 @@ class RightsFragment : BaseFragment(),
                 RelativeLayout.LayoutParams.MATCH_PARENT
             )
             param.setMargins(0, pixelBottomMargin, pixelBottomMargin, pixelBottomMargin)
-            categoryRecyclerView.layoutParams = param
+            rightsRecyclerView.layoutParams = param
         }
     }
 

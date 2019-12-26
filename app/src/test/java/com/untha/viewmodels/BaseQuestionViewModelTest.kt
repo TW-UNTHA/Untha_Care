@@ -1,8 +1,10 @@
 package com.untha.viewmodels
 
 import android.content.SharedPreferences
+import android.os.Bundle
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.nhaarman.mockito_kotlin.doNothing
+import com.nhaarman.mockito_kotlin.never
 import com.nhaarman.mockito_kotlin.verify
 import com.nhaarman.mockito_kotlin.whenever
 import com.untha.di.mapperModule
@@ -19,6 +21,8 @@ import com.untha.model.transactionalmodels.Route
 import com.untha.model.transactionalmodels.RouteOption
 import com.untha.model.transactionalmodels.RouteQuestion
 import com.untha.utils.Constants
+import junit.framework.Assert.assertFalse
+import junit.framework.Assert.assertTrue
 import kotlinx.serialization.json.Json
 import org.hamcrest.CoreMatchers
 import org.hamcrest.MatcherAssert
@@ -34,20 +38,8 @@ import org.koin.test.KoinTest
 import org.koin.test.inject
 import org.koin.test.mock.declareMock
 import org.mockito.Mockito
-import android.os.Bundle
 import org.mockito.Mockito.`when`
-import com.bumptech.glide.request.RequestOptions.option
 import org.mockito.Mockito.mock
-import org.mockito.Mockito.`when`
-import com.bumptech.glide.request.RequestOptions.option
-import org.mockito.Mockito.`when`
-import com.bumptech.glide.request.RequestOptions.option
-import org.mockito.Mockito.`when`
-import com.bumptech.glide.request.RequestOptions.option
-import org.mockito.Mockito.`when`
-import com.bumptech.glide.request.RequestOptions.option
-import com.nhaarman.mockito_kotlin.never
-import junit.framework.Assert.*
 
 
 @RunWith(JUnit4::class)

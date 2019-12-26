@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.RelativeLayout
-import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
@@ -117,18 +116,18 @@ class CategoryFragment : BaseFragment(),
             )
 
             CALCULATOR_CATEGORY ->
-//               itemView.findNavController().navigate(
-//                R.id.calculatorFragment,
-//                null,
-//                navOptions,
-//                null
-//            )
+               itemView.findNavController().navigate(
+                R.id.calculatorFragment,
+                null,
+                navOptions,
+                null
+            )
 
-                Toast.makeText(
-                    context,
-                    getString(R.string.coming_soon),
-                    Toast.LENGTH_LONG
-                ).show()
+//                Toast.makeText(
+//                    context,
+//                    getString(R.string.coming_soon),
+//         //           Toast.LENGTH_LONG
+//           //     ).show()
 
             ROUTES_CATEGORY -> {
 

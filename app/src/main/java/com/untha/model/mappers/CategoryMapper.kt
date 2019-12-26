@@ -1,14 +1,14 @@
 package com.untha.model.mappers
 
-import com.untha.model.transactionalmodels.Category
-import com.untha.model.transactionalmodels.CategoryInformation
 import com.untha.model.models.CategoryInformationModel
 import com.untha.model.models.CategoryModel
 import com.untha.model.models.QueryingCategory
 import com.untha.model.models.QueryingCategoryInformation
-import com.untha.model.transactionalmodels.Section
 import com.untha.model.models.SectionModel
 import com.untha.model.models.SectionStepModel
+import com.untha.model.transactionalmodels.Category
+import com.untha.model.transactionalmodels.CategoryInformation
+import com.untha.model.transactionalmodels.Section
 import com.untha.model.transactionalmodels.Step
 
 

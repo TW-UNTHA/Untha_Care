@@ -11,8 +11,6 @@ import com.untha.di.viewModelsModule
 import com.untha.model.mappers.CategoryMapper
 import com.untha.model.models.QueryingCategory
 import com.untha.model.repositories.CategoryWithRelationsRepository
-import com.untha.model.services.RoutesService
-import com.untha.viewmodels.RightsViewModel
 import com.utils.MockObjects
 import org.junit.After
 import org.junit.Before
