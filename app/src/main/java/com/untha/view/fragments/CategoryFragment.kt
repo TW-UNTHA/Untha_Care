@@ -115,13 +115,19 @@ class CategoryFragment : BaseFragment(),
                 null
             )
 
-            CALCULATOR_CATEGORY ->
-               itemView.findNavController().navigate(
-                R.id.calculatorFragment,
-                null,
-                navOptions,
-                null
-            )
+            CALCULATOR_CATEGORY -> {
+                val categoryBundle = Bundle().apply {
+                    putSerializable(Constants.CATEGORY_PARAMETER, category)
+                    putSerializable(Constants.CATEGORIES, categories)
+                }
+                itemView.findNavController().navigate(
+                    R.id.informationCalculatorFragment,
+                    categoryBundle,
+                    navOptions,
+                    null
+                )
+            }
+
 
 //                Toast.makeText(
 //                    context,

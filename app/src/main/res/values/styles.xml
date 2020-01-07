@@ -43,6 +43,18 @@
         <item name="colorButtonNormal">@color/colorGenericTitle</item>
     </style>
 
+    <style name="Title">
+        <item name="android:textColor">@color/colorGenericTitle</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:fontFamily">@font/proxima_nova_bold</item>
+    </style>
+
+    <style name="TextDescription">
+        <item name="android:textColor">@color/colorTextDescription</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:fontFamily">@font/proxima_nova_light</item>
+    </style>
+
 </resources>
 
 

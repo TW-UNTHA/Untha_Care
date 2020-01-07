@@ -57,4 +57,9 @@
         android:id="@+id/calculatorFragment"
         android:name="com.untha.view.fragments.CalculatorFragment"
         android:label="CALCULADORAS"/>
+
+    <fragment
+        android:id="@+id/informationCalculatorFragment"
+        android:name="com.untha.view.fragments.InformationCalculatorFragment"
+        android:label="CALCULADORAS"/>
 </navigation>

@@ -21,7 +21,7 @@ object Constants {
     const val SPAN_THREE_COLUMNS = 3
     const val SPAN_TWO_COLUMNS = 2
     const val SPAN_ONE_COLUMN = 1
-    const val PERCENTAGE_MAIN_HEIGHT_LAYOUT = 0.4
+    const val PERCENTAGE_MAIN_HEIGHT_LAYOUT = 0.45
     const val MARGIN_WIDTH_PERCENTAGE = 0.022
     const val MAIN_VIEW = 0
     const val SMALL_VIEW = 1

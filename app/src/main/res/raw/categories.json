@@ -160,7 +160,28 @@
       "title": "CALCULAR MIS BENEFICIOS",
       "title_next_step": null,
       "parent_id": null,
-      "is_route": false
+      "is_route": false,
+      "information": [
+        {
+          "id": 12,
+          "description": "<b>INFORMACIÓN DE CALCULADORAS</b><br>",
+          "image": "home_beneficios",
+          "screen_title": "CALCULADORA",
+          "next_step": null,
+          "sections": [
+            {
+              "id": 32,
+              "title": "¿Calculadoras?",
+              "steps": [
+                {
+                  "step_id": null,
+                  "description": "Cuando existan irregularidades en tu salario, liquidación, afiliación al IESS, despidos injustificados, vacaciones, etcétera."
+                }
+              ]
+            }
+          ]
+        }
+      ]
     },
     {
       "id": 6,
