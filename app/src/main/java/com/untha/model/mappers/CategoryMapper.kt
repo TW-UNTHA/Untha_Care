@@ -41,8 +41,8 @@ class CategoryMapper {
             category.subtitle,
             category.titleNextStep,
             category.image,
-            category.isRoute,
             category.parentId,
+            category.type,
             informationModels
         )
     }
@@ -85,8 +85,8 @@ class CategoryMapper {
             queryingCategory.categoryModel?.subtitle,
             queryingCategory.categoryModel?.titleNextStep,
             queryingCategory.categoryModel?.image,
-            queryingCategory.categoryModel?.isRoute ?: false,
             queryingCategory.categoryModel?.parentId,
+            queryingCategory.categoryModel?.type,
             getInformation(queryingCategory)
         )
 
@@ -96,8 +96,8 @@ class CategoryMapper {
             queryingCategory.categoryModel?.subtitle,
             queryingCategory.categoryModel?.titleNextStep,
             queryingCategory.categoryModel?.image,
-            queryingCategory.categoryModel?.isRoute ?: false,
             queryingCategory.categoryModel?.parentId,
+            queryingCategory.categoryModel?.type,
             getInformation(queryingCategory)
         )
     }

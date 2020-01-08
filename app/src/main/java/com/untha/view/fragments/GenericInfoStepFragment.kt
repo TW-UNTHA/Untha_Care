@@ -480,7 +480,7 @@ class GenericInfoStepFragment : BaseFragment() {
             putSerializable(Constants.CATEGORY_PARAMETER, category)
         }
         logAnalyticsSelectContentWithId(category.title, ContentType.ROUTE)
-        if (category.isRoute) {
+        if (category.type == "route") {
             when (category.id) {
                 Constants.ID_ROUTE_LABOUR -> {
                     onItemClickRouteLabour(itemView)

@@ -13,11 +13,12 @@ import com.untha.model.repositories.SectionRepository
 import com.untha.model.repositories.SectionStepRepository
 import com.untha.model.services.RetrofitService
 import com.untha.viewmodels.AboutUsViewModel
+import com.untha.viewmodels.CalculatorsViewModel
 import com.untha.viewmodels.CategoryViewModel
 import com.untha.viewmodels.GenericInfoStepViewModel
-import com.untha.viewmodels.RightsViewModel
 import com.untha.viewmodels.MainViewModel
 import com.untha.viewmodels.MultipleSelectionQuestionViewModel
+import com.untha.viewmodels.RightsViewModel
 import com.untha.viewmodels.RouteResultsViewModel
 import com.untha.viewmodels.RoutesViewModel
 import com.untha.viewmodels.SingleSelectionQuestionViewModel
@@ -35,6 +36,7 @@ val viewModelsModule = module {
     viewModel { SingleSelectionQuestionViewModel(get()) }
     viewModel { MultipleSelectionQuestionViewModel(get()) }
     viewModel { RouteResultsViewModel(get(), get(), get()) }
+    viewModel { CalculatorsViewModel() }
 }
 
 val persistenceModule = module {
@@ -43,7 +45,9 @@ val persistenceModule = module {
         Room.databaseBuilder(
             androidContext(),
             ApplicationDatabase::class.java, "application-database"
-        ).build()
+        )
+            .fallbackToDestructiveMigration()
+            .build()
     }
 
     factory { CategoryRepository(get()) }

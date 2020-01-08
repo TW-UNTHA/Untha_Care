@@ -1,5 +1,5 @@
 {
-  "version": 1,
+  "version": 3,
   "categories": [
     {
       "id": 1,
@@ -7,16 +7,14 @@
       "title": "¿QUIERES CONOCER ACERCA DE TUS DERECHOS?",
       "subtitle": "SIGUE LAS RUTAS DE AYUDA",
       "title_next_step": null,
-      "parent_id": null,
-      "is_route": false
+      "parent_id": null
     },
     {
       "id": 2,
       "image": "home_derechos",
       "title": "MIS DERECHOS",
       "title_next_step": null,
-      "parent_id": null,
-      "is_route": false
+      "parent_id": null
     },
     {
       "id": 3,
@@ -159,8 +157,7 @@
       "image": "home_beneficios",
       "title": "CALCULAR MIS BENEFICIOS",
       "title_next_step": null,
-      "parent_id": null,
-      "is_route": false
+      "parent_id": null
     },
     {
       "id": 6,
@@ -237,8 +234,7 @@
           ]
         }
       ],
-      "parent_id": null,
-      "is_route": false
+      "parent_id": null
     },
     {
       "id": 7,
@@ -275,8 +271,7 @@
           ]
         }
       ],
-      "parent_id": null,
-      "is_route": false
+      "parent_id": null
     },
     {
       "id": 8,
@@ -284,7 +279,6 @@
       "title": "SALARIO Y BENEFICIOS",
       "title_next_step": "SALARIO Y BENEFICIOS",
       "parent_id": 2,
-      "is_route": false,
       "information": [
         {
           "id": 6,
@@ -352,7 +346,6 @@
       "title": "JORNADA DE TRABAJO Y VACACIONES",
       "title_next_step": "JORNADA DE TRABAJO Y VACACIONES",
       "parent_id": 2,
-      "is_route": false,
       "information": [
         {
           "id": 7,
@@ -404,7 +397,6 @@
       "title": "EMBARAZO Y MATERNIDAD",
       "title_next_step": "EMBARAZO Y MATERNIDAD",
       "parent_id": 2,
-      "is_route": false,
       "information": [
         {
           "id": 8,
@@ -436,7 +428,6 @@
       "title": "NIÑAS Y ADOLESCENTES",
       "title_next_step": "NIÑAS Y ADOLESCENTES",
       "parent_id": 2,
-      "is_route": false,
       "information": [
         {
           "id": 9,
@@ -488,7 +479,6 @@
       "title": "DESPIDOS Y TÉRMINO DE CONTRATOS",
       "title_next_step": "DESPIDOS Y TÉRMINO DE CONTRATOS",
       "parent_id": 2,
-      "is_route": false,
       "information": [
         {
           "id": 10,
@@ -536,7 +526,6 @@
       "title_next_step": "LEYES",
       "image": "derechos_leyes",
       "parent_id": 2,
-      "is_route": false,
       "information": [
         {
           "id": 11,
@@ -695,7 +684,7 @@
       "subtitle": "CUESTIONARIO DE DERECHOS LABORALES:",
       "title_next_step": "CONOCE SI SE ESTÁN CUMPLIENDO TUS DERECHOS",
       "parent_id": null,
-      "is_route": true
+      "type": "route"
     },
     {
       "id": 15,
@@ -704,7 +693,34 @@
       "subtitle": "CUESTIONARIO DE VIOLENCIA:",
       "title_next_step": "CONOCE SI ERES VÍCTIMA DE VIOLENCIA",
       "parent_id": null,
-      "is_route": true
+      "type": "route"
+    },
+    {
+      "id": 16,
+      "image": "home_beneficios",
+      "title": "CALCULADORA DE BENEFICIOS",
+      "subtitle": "BLA BLA BLA",
+      "title_next_step": "CALCULADORA DE BENEFICIOS",
+      "parent_id": null,
+      "type": "calculator"
+    },
+    {
+      "id": 17,
+      "image": "home_beneficios",
+      "title": "CALCULADORA DE FINIQUITO",
+      "subtitle": "BLA BLA BLA",
+      "title_next_step": "CALCULADORA DE FINIQUITO",
+      "parent_id": null,
+      "type": "calculator"
+    },
+    {
+      "id": 18,
+      "image": "home_beneficios",
+      "title": "CALCULADORA DE HORAS",
+      "subtitle": "BLA BLA BLA",
+      "title_next_step": "CALCULADORA DE HORAS",
+      "parent_id": null,
+      "type": "calculator"
     }
   ]
 }

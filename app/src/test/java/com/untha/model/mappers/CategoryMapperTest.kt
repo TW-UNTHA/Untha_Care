@@ -4,9 +4,9 @@ import com.untha.model.models.CategoryInformationModel
 import com.untha.model.models.CategoryModel
 import com.untha.model.models.QueryingCategory
 import com.untha.model.models.QueryingCategoryInformation
+import com.untha.model.models.QueryingSection
 import com.untha.model.models.SectionModel
 import com.untha.model.models.SectionStepModel
-import com.untha.model.models.QueryingSection
 import com.untha.model.transactionalmodels.Category
 import com.untha.model.transactionalmodels.CategoryInformation
 import com.untha.model.transactionalmodels.Section
@@ -50,8 +50,8 @@ class CategoryMapperTest {
             generateRandomString(5),
             generateRandomString(5),
             generateRandomString(5),
-            true,
             generateIntBetween0AndTwenty(),
+            "route",
             listOf(categoryInformation)
         )
 
@@ -77,8 +77,8 @@ class CategoryMapperTest {
             category.subtitle,
             category.titleNextStep,
             category.image,
-            category.isRoute,
             category.parentId,
+            category.type,
             listOf(informationModel)
         )
 
@@ -119,7 +119,6 @@ class CategoryMapperTest {
             generateRandomString(5),
             generateRandomString(5),
             generateRandomString(5),
-            false,
             0
         )
         val categoryModel2 = CategoryModel(
@@ -128,7 +127,6 @@ class CategoryMapperTest {
             generateRandomString(5),
             generateRandomString(5),
             generateRandomString(5),
-            true,
             1
         )
 
@@ -204,8 +202,8 @@ class CategoryMapperTest {
             categoryModel1.subtitle,
             categoryModel1.titleNextStep,
             categoryModel1.image,
-            categoryModel1.isRoute,
             categoryModel1.parentId,
+            categoryModel1.type,
             listOf(expectedCategoryInformation)
         )
 
@@ -215,8 +213,8 @@ class CategoryMapperTest {
             categoryModel2.subtitle,
             categoryModel2.titleNextStep,
             categoryModel2.image,
-            categoryModel2.isRoute,
             categoryModel2.parentId,
+            categoryModel1.type,
             listOf(expectedCategoryInformation2)
         )
 

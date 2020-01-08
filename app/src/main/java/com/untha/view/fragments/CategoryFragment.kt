@@ -36,6 +36,8 @@ class CategoryFragment : BaseFragment(),
     }
 
     private lateinit var routes: ArrayList<Category>
+    private lateinit var calculators: ArrayList<Category>
+
     private lateinit var categoryListAdapter: CategoryAdapter
     private val categoryViewModel: CategoryViewModel by viewModel()
     private val viewModel: AboutUsViewModel by viewModel()
@@ -76,6 +78,7 @@ class CategoryFragment : BaseFragment(),
         categoryViewModel.findMainCategories().observe(this, Observer { queryingCategories ->
             categoryViewModel.getCategories(queryingCategories)
             getCategoryRoutes()
+            getCategoryCalculators()
             populateCategoryList(categoryViewModel.categories)
         })
         (activity as MainActivity).customActionBar(
@@ -116,24 +119,19 @@ class CategoryFragment : BaseFragment(),
             )
 
             CALCULATOR_CATEGORY -> {
-                val categoryBundle = Bundle().apply {
-                    putSerializable(Constants.CATEGORY_PARAMETER, category)
-                    putSerializable(Constants.CATEGORIES, categories)
+                val categoriesRoutes = Bundle().apply {
+                    putSerializable(
+                        Constants.CATEGORIES_CALCULATORS,
+                        calculators
+                    )
                 }
                 itemView.findNavController().navigate(
-                    R.id.informationCalculatorFragment,
-                    categoryBundle,
+                    R.id.calculatorsFragment,
+                    categoriesRoutes,
                     navOptions,
                     null
                 )
             }
-
-
-//                Toast.makeText(
-//                    context,
-//                    getString(R.string.coming_soon),
-//         //           Toast.LENGTH_LONG
-//           //     ).show()
 
             ROUTES_CATEGORY -> {
 
@@ -171,6 +169,10 @@ class CategoryFragment : BaseFragment(),
         categoryViewModel.saveCategoryRoutesInSharedPreferences(routes)
     }
 
+    private fun getCategoryCalculators() {
+        calculators = categoryViewModel.getCategoryCalculators()
+        categoryViewModel.saveCategoryCalculatorsInSharedPreferences(calculators)
+    }
     override fun onItemLongClick(itemView: View, text: String): Boolean {
         textToSpeech?.speakOut(text)
         logAnalyticsCustomContentTypeWithId(ContentType.AUDIO, FirebaseEvent.AUDIO)

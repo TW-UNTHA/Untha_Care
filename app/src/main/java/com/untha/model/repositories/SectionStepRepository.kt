@@ -1,7 +1,7 @@
 package com.untha.model.repositories
 
-import com.untha.model.database.ApplicationDatabase
 import com.untha.model.daos.SectionStepDao
+import com.untha.model.database.ApplicationDatabase
 import com.untha.model.models.SectionStepModel
 
 class SectionStepRepository(database: ApplicationDatabase) {

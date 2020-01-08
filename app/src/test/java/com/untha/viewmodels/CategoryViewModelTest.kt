@@ -106,7 +106,7 @@ class CategoryViewModelTest : KoinTest {
         assertEquals(categoryRoute?.subtitle, categoriesRoutes[0].subtitle)
         assertEquals(categoryRoute?.titleNextStep, categoriesRoutes[0].titleNextStep)
         assertEquals(categoryRoute?.image, categoriesRoutes[0].image)
-        assertEquals(categoryRoute?.isRoute, categoriesRoutes[0].isRoute)
+        assertEquals(categoryRoute?.type, categoriesRoutes[0].type)
 
     }
 

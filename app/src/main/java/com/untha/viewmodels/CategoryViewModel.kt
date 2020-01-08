@@ -32,13 +32,26 @@ class CategoryViewModel(
     }
 
     fun getCategoryRoutes(): ArrayList<Category> {
-        return categories.filter { it.isRoute } as ArrayList
+        return categories.filter { it.type == "route" } as ArrayList
+    }
+
+    fun getCategoryCalculators(): ArrayList<Category> {
+        return categories.filter { it.type == "calculator" } as ArrayList
     }
 
     fun saveCategoryRoutesInSharedPreferences(categories: List<Category>) {
         sharedPreferences.edit()
             .putString(
                 Constants.CATEGORIES_ROUTES,
+                Json.stringify(Category.serializer().list, categories)
+
+            ).apply()
+    }
+
+    fun saveCategoryCalculatorsInSharedPreferences(categories: List<Category>) {
+        sharedPreferences.edit()
+            .putString(
+                Constants.CATEGORIES_CALCULATORS,
                 Json.stringify(Category.serializer().list, categories)
 
             ).apply()

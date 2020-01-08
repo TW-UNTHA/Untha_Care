@@ -44,11 +44,11 @@ class CategoryAdapter(
     }
 
     override fun getItemCount(): Int {
-        return items.filter { !it.isRoute }.size
+        return items.filter { it.type == null }.size
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        if (!items[position].isRoute) {
+        if (items[position].type == null) {
             if (position == Constants.MAIN_VIEW) {
                 (holder as CategoryMainViewHolder).bind(
                     items[position],
@@ -78,6 +78,7 @@ class CategoryAdapter(
                 Constants.MARGIN_TOP_PERCENTAGE,
                 rl_main_item, context
             )
+            loadClickHereImage()
             loadImage(category)
             setOnClickListener { view ->
                 clickListener.onItemClick(category, items as ArrayList<Category>, itemView)
@@ -101,6 +102,12 @@ class CategoryAdapter(
             Glide.with(itemView)
                 .load(imageUrl).fitCenter()
                 .into(imageView)
+        }
+
+        private fun View.loadClickHereImage() {
+            Glide.with(itemView)
+                .load(R.drawable.arrow_click_here)
+                .into(clickHere)
         }
     }
 

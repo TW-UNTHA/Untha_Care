@@ -7,6 +7,7 @@ object Constants {
     const val TYPE_ROUTE = "TYPE_ROUTE"
     const val ROUTE_VIOLENCE = "ROUTE_VIOLENCE"
     const val CATEGORIES_ROUTES = "CATEGORIES_ROUTES"
+    const val CATEGORIES_CALCULATORS= "CATEGORIES_CALCULATORS"
     const val ABOUS_US = "ABOUT_US"
     const val CATEGORIES_VERSION = "version"
     const val CATEGORY_PARAMETER = "category"
