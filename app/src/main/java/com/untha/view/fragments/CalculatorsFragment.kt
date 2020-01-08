@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import com.bumptech.glide.Glide
 import com.untha.R
 import com.untha.model.transactionalmodels.Category
@@ -57,7 +58,7 @@ class CalculatorsFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         with(view as _ScrollView) {
             verticalLayout {
-                buildRoute(view)
+                buildCalculator(view)
             }.lparams(width = matchParent, height = matchParent)
 
         }
@@ -82,15 +83,16 @@ class CalculatorsFragment : BaseFragment() {
         }.view
     }
 
-    private fun @AnkoViewDslMarker _LinearLayout.buildRoute(view: View) {
-        calculatorsRoutes?.map { route ->
+    private fun @AnkoViewDslMarker _LinearLayout.buildCalculator(view: View) {
+        calculatorsRoutes?.map { calculator ->
             logAnalyticsSelectContentWithId(
-                "${Constants.CLICK_ROUTE_TITLE}${route.title}", ContentType.ROUTE
+                "${Constants.CLICK_ROUTE_TITLE}${calculator.title}", ContentType.ROUTE
             )
             verticalLayout {
                 isClickable = true
-                loadTitleRoute(route)
-                loadImageRoute(view, route)
+                loadTitleCalculator(calculator)
+                loadSubtitleCalculator(calculator)
+                loadImageCalculator(view, calculator)
                 backgroundDrawable = ContextCompat.getDrawable(
                     context, R.drawable.drawable_main_route
                 )
@@ -115,11 +117,11 @@ class CalculatorsFragment : BaseFragment() {
         }
     }
 
-    private fun @AnkoViewDslMarker _LinearLayout.loadTitleRoute(
-        route: Category
+    private fun @AnkoViewDslMarker _LinearLayout.loadTitleCalculator(
+        calculator: Category
     ) {
         textView {
-            text = route.title
+            text = calculator.title
             textSizeDimen = R.dimen.text_size
             textColor =
                 ContextCompat.getColor(context, R.color.colorTitleCategoryRoute)
@@ -130,8 +132,26 @@ class CalculatorsFragment : BaseFragment() {
             leftMargin = calculateLateralMargin()
         }
     }
+    private fun @AnkoViewDslMarker _LinearLayout.loadSubtitleCalculator(
+        calculator: Category
+    ) {
+        textView {
+            text = calculator.subtitle
+            textSizeDimen = R.dimen.text_size_content_for_many_characters
+            textColor =
+                ContextCompat.getColor(context, R.color.colorTitleCategoryRoute)
+            typeface = ResourcesCompat.getFont(
+                context.applicationContext,
+                R.font.proxima_nova_light
+            )
+        }.lparams {
+            topMargin = calculateTopMargin()
+            rightMargin = calculateLateralMargin()
+            leftMargin = calculateLateralMargin()
+        }
+    }
 
-    private fun @AnkoViewDslMarker _LinearLayout.loadImageRoute(
+    private fun @AnkoViewDslMarker _LinearLayout.loadImageCalculator(
         view: View,
         category: Category
     ) {
