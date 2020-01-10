@@ -69,7 +69,7 @@ class MainViewModel(
     }
 
     fun loadDefaultCategories(context: Context) {
-        val result = context.resources.openRawResource(R.raw.categories)
+        val result = context.resources.openRawResource(R.raw.categories_test)
             .bufferedReader().use { it.readText() }
         val categoriesWrapper = Json.parse(CategoriesWrapper.serializer(), result)
         categoriesWrapper.categories.map { category ->
