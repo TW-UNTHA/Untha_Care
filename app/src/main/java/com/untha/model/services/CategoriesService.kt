@@ -7,6 +7,6 @@ import retrofit2.http.GET
 
 interface CategoriesService {
 
-    @GET("categories.json")
+    @GET("categories_test.json")
     fun getCategories(): LiveData<ApiResponse<CategoriesWrapper>>
 }
