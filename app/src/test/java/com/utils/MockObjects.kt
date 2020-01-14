@@ -15,7 +15,7 @@ import org.mockito.Mockito
 
 object MockObjects {
 
-    fun mockQueryingCategory(): QueryingCategory {
+    fun mockQueryingCategory(type: String = "route"): QueryingCategory {
         var stepModel1 = SectionStepModel(1, RandomGenerator.generateRandomString(5), 1, 1)
         var sectionModel1 = SectionModel(1, RandomGenerator.generateRandomString(5), 1)
         var categoryInformationModel1 =
@@ -33,7 +33,7 @@ object MockObjects {
             RandomGenerator.generateRandomString(5),
             RandomGenerator.generateRandomString(5),
             0,
-            "route"
+            type
         )
 
 

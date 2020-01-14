@@ -71,9 +71,7 @@ class CategoryViewModelTest : KoinTest {
 
     @Test
     fun `should call MainCategories`() {
-        val categoryViewModel: CategoryViewModel
-
-        categoryViewModel =
+        val categoryViewModel =
             CategoryViewModel(
                 mockCategoryWithRelationsRepository,
                 mockCategoryMapper,
@@ -93,10 +91,10 @@ class CategoryViewModelTest : KoinTest {
         val categoryRoute = categoryQueryingRoute.categoryModel
 
         val categoryViewModel = CategoryViewModel(
-                mockCategoryWithRelationsRepository,
-                categoryMapper,
-                sharedPreferences
-            )
+            mockCategoryWithRelationsRepository,
+            categoryMapper,
+            sharedPreferences
+        )
 
         categoryViewModel.getCategories(listOf(categoryQueryingRoute))
 
@@ -150,9 +148,10 @@ class CategoryViewModelTest : KoinTest {
     }
 
     @Test
-    fun `should save categories route`(){
+    fun `should save categories route`() {
         val categoryMapper = CategoryMapper()
         val categoryQueryingRoute = MockObjects.mockQueryingCategory()
+
         val categoryViewModel = CategoryViewModel(
             mockCategoryWithRelationsRepository,
             categoryMapper,
@@ -201,6 +200,66 @@ class CategoryViewModelTest : KoinTest {
         MatcherAssert.assertThat(resultRoute, CoreMatchers.`is`(categoriesRoutes))
 
 
+    }
+
+    @Test
+    fun `should call CategoriesCalculators`() {
+
+        val categoryMapper = CategoryMapper()
+        val categoryQueryingCalculator = MockObjects.mockQueryingCategory("calculator")
+        val categoryCalculator = categoryQueryingCalculator.categoryModel
+
+        val categoryViewModel = CategoryViewModel(
+            mockCategoryWithRelationsRepository,
+            categoryMapper,
+            sharedPreferences
+        )
+
+        categoryViewModel.getCategories(listOf(categoryQueryingCalculator))
+
+        val categoriesCalculators = categoryViewModel.getCategoryCalculators()
+
+        assertEquals(categoryCalculator?.title, categoriesCalculators[0].title)
+        assertEquals(categoryCalculator?.subtitle, categoriesCalculators[0].subtitle)
+        assertEquals(categoryCalculator?.titleNextStep, categoriesCalculators[0].titleNextStep)
+        assertEquals(categoryCalculator?.image, categoriesCalculators[0].image)
+        assertEquals(categoryCalculator?.type, categoriesCalculators[0].type)
+
+    }
+
+    @Test
+    fun `should save categories calculators in shared preferences`() {
+        val categoryMapper = CategoryMapper()
+        val categoryQueryingRoute = MockObjects.mockQueryingCategory("calculator")
+
+        val categoryViewModel = CategoryViewModel(
+            mockCategoryWithRelationsRepository,
+            categoryMapper,
+            sharedPreferences
+        )
+
+        categoryViewModel.getCategories(listOf(categoryQueryingRoute))
+
+        val categoriesCalculators = categoryViewModel.getCategoryCalculators()
+        val editor = Mockito.mock(SharedPreferences.Editor::class.java)
+        `when`(sharedPreferences.edit()).thenReturn(editor)
+
+        whenever(
+            editor.putString(
+                Constants.CATEGORIES_CALCULATORS,
+                Json.stringify(Category.serializer().list, categoriesCalculators)
+            )
+        ).thenReturn(editor)
+
+        doNothing().whenever(editor).apply()
+        categoryViewModel.saveCategoryCalculatorsInSharedPreferences(categoriesCalculators)
+
+        verify(sharedPreferences.edit())
+            .putString(
+                Constants.CATEGORIES_CALCULATORS,
+                Json.stringify(Category.serializer().list, categoriesCalculators)
+            )
+        verify(editor).apply()
     }
 
 }

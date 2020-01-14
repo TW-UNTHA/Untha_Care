@@ -37,20 +37,18 @@ class CalculatorsFragment : BaseFragment() {
     private lateinit var mainActivity: MainActivity
 
 
-    override fun onCreate(savedInstanceState: Bundle?){
-       super.onCreate(savedInstanceState)
-       val bundle = arguments
-       calculatorsRoutes = bundle?.get(Constants.CATEGORIES_CALCULATORS) as List<Category>
-      // activity?.onBackPressedDispatcher?.addCallback(this, callback)
-   }
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val bundle = arguments
+        calculatorsRoutes = bundle?.get(Constants.CATEGORIES_CALCULATORS) as List<Category>
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-       mainActivity = this.activity as MainActivity
-        //mainActivity.supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        mainActivity = this.activity as MainActivity
         return createMainLayout()
     }
 
@@ -96,18 +94,6 @@ class CalculatorsFragment : BaseFragment() {
                 backgroundDrawable = ContextCompat.getDrawable(
                     context, R.drawable.drawable_main_route
                 )
-                /*when (route.id) {
-                    Constants.ID_ROUTE_LABOUR -> {
-                        setOnClickListener {
-                            onItemClickRouteLabour(view)
-                        }
-                    }
-                    Constants.ID_ROUTE_VIOLENCE -> {
-                        setOnClickListener {
-                            onItemClickRouteViolence(view)
-                        }
-                    }
-                }*/
 
             }.lparams(matchParent, calculateHeightRoute()) {
                 topMargin = calculateTopMargin()
@@ -132,6 +118,7 @@ class CalculatorsFragment : BaseFragment() {
             leftMargin = calculateLateralMargin()
         }
     }
+
     private fun @AnkoViewDslMarker _LinearLayout.loadSubtitleCalculator(
         calculator: Category
     ) {
