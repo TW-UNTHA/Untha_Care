@@ -5,6 +5,7 @@ import android.content.SharedPreferences
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
+import com.untha.BuildConfig
 import com.untha.R
 import com.untha.model.dbservices.CategoryDbService
 import com.untha.model.mappers.CategoryMapper
@@ -69,7 +70,8 @@ class MainViewModel(
     }
 
     fun loadDefaultCategories(context: Context) {
-        val result = context.resources.openRawResource(R.raw.categories_test)
+        val fileId = context.resources.getIdentifier("com.untha:raw/" + BuildConfig.CATEGORIES_SOURCE, null, null)
+        val result = context.resources.openRawResource(fileId)
             .bufferedReader().use { it.readText() }
         val categoriesWrapper = Json.parse(CategoriesWrapper.serializer(), result)
         categoriesWrapper.categories.map { category ->
