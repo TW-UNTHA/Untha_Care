@@ -9,8 +9,11 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LifecycleRegistry
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
+import com.nhaarman.mockito_kotlin.any
+import com.nhaarman.mockito_kotlin.argumentCaptor
 import com.nhaarman.mockito_kotlin.doNothing
 import com.nhaarman.mockito_kotlin.mock
+import com.nhaarman.mockito_kotlin.times
 import com.nhaarman.mockito_kotlin.verify
 import com.nhaarman.mockito_kotlin.verifyZeroInteractions
 import com.nhaarman.mockito_kotlin.whenever
@@ -47,6 +50,8 @@ import org.koin.core.context.stopKoin
 import org.koin.test.KoinTest
 import org.koin.test.inject
 import org.koin.test.mock.declareMock
+import org.mockito.ArgumentMatchers
+import org.mockito.ArgumentMatchers.*
 import org.mockito.Mockito.`when`
 import org.mockito.Mockito.mock
 import retrofit2.Response
@@ -727,7 +732,44 @@ class MainViewModelTest : KoinTest {
             )
         verify(editor).apply()
     }
-}
 
+    @Test
+    fun `should save on db when loading default categories` () {
+        val context = mock(Context::class.java)
+
+        val mainViewModel = MainViewModel(
+            dbService,
+            categoriesService,
+            mapper,
+            sharedPreferences,
+            routesService,
+            resultService,
+            questionnaireRouteResultService
+        )
+
+        val resources = mock(Resources::class.java)
+        val json = "{\"version\": 3,\n" +
+                "  \"categories\":[{\n" +
+                "      \"id\": 18,\n" +
+                "      \"image\": \"home_beneficios\",\n" +
+                "      \"title\": \"CALCULADORA DE HORAS\",\n" +
+                "      \"subtitle\": \"Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam illum, iure, asperiores natus placeat, eaque voluptatibus reprehenderit aspernatur facere non expedita vel numquam dignissimos! Possimus autem eos voluptatum voluptatem corporis.\",\n" +
+                "      \"title_next_step\": \"CALCULADORA DE HORAS\",\n" +
+                "      \"parent_id\": null,\n" +
+                "      \"type\": \"calculator\"\n" +
+                "    }]}"
+        val inputStream = ByteArrayInputStream(json.toByteArray())
+        `when`(context.resources).thenReturn(resources)
+        `when`(context.resources.getIdentifier("com.untha:raw/categories_test",null, null)).thenReturn(R.raw.categories_test)
+        `when`(resources.openRawResource(R.raw.categories_test)).thenReturn(inputStream)
+
+        mainViewModel.loadDefaultCategories(context)
+
+        verify(dbService, times(1)).saveCategory(anyList(), any())
+
+    }
+
+
+}
 
 
