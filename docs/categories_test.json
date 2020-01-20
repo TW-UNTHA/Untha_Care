@@ -684,7 +684,8 @@
       "subtitle": "CUESTIONARIO DE DERECHOS LABORALES:",
       "title_next_step": "CONOCE SI SE ESTÁN CUMPLIENDO TUS DERECHOS",
       "parent_id": null,
-      "type": "route"
+      "type": "route",
+      "is_route" : true
     },
     {
       "id": 15,
@@ -693,7 +694,8 @@
       "subtitle": "CUESTIONARIO DE VIOLENCIA:",
       "title_next_step": "CONOCE SI ERES VÍCTIMA DE VIOLENCIA",
       "parent_id": null,
-      "type": "route"
+      "type": "route",
+      "is_route" : true
     },
     {
       "id": 16,
