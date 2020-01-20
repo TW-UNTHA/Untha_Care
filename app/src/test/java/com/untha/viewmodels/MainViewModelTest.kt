@@ -118,6 +118,7 @@ class MainViewModelTest : KoinTest {
                     "mis derechos descripcion",
                     "mis derechos descripcion next step",
                     "imagen",
+                    false,
                     0,
                     null,
                     null
@@ -182,6 +183,7 @@ class MainViewModelTest : KoinTest {
                     "mis derechos descripcion",
                     "mis derechos descripcion next step",
                     "imagen",
+                    false,
                     0,
                     null,
                     null
@@ -222,6 +224,7 @@ class MainViewModelTest : KoinTest {
                     "mis derechos descripcion",
                     "mis derechos descripcion next step",
                     "imagen",
+                    false,
                     0,
                     null,
                     null
@@ -268,6 +271,7 @@ class MainViewModelTest : KoinTest {
                     "mis derechos descripcion",
                     "mis derechos descripcion next step",
                     "imagen",
+                    false,
                     0,
                     "route",
                     null
@@ -769,6 +773,104 @@ class MainViewModelTest : KoinTest {
 
     }
 
+    @Test
+    fun `should save category information on DB`() {
+        val mainViewModel = MainViewModel(
+            dbService,
+            categoriesService,
+            mapper,
+            sharedPreferences,
+            routesService,
+            resultService,
+            questionnaireRouteResultService
+        )
+
+        val testMethod = mainViewModel.javaClass.getDeclaredMethod("categoriesSavedCallback", String::class.java)
+        testMethod.isAccessible = true
+
+        testMethod.invoke(mainViewModel, "")
+
+        verify(dbService, times(1)).saveCategoryInformation(anyList(), any())
+    }
+
+    @Test
+    fun `should save categories sections`(){
+        val mainViewModel = MainViewModel(
+            dbService,
+            categoriesService,
+            mapper,
+            sharedPreferences,
+            routesService,
+            resultService,
+            questionnaireRouteResultService
+        )
+
+        val methodToTest = mainViewModel.javaClass.getDeclaredMethod("categoriesInformationSaved",String::class.java)
+        methodToTest.isAccessible = true
+
+        methodToTest.invoke(mainViewModel, "")
+
+        verify(dbService, times(1)).saveSections(anyList(), any())
+    }
+
+    @Test
+    fun `should save category sections `(){
+        val mainViewModel = MainViewModel(
+            dbService,
+            categoriesService,
+            mapper,
+            sharedPreferences,
+            routesService,
+            resultService,
+            questionnaireRouteResultService
+        )
+
+        val methodToTest = mainViewModel.javaClass.getDeclaredMethod("categoriesSectionsSaved",String::class.java)
+        methodToTest.isAccessible = true
+
+        methodToTest.invoke(mainViewModel, "")
+
+        verify(dbService, times(1)).saveSectionSteps(anyList(), any())
+
+    }
+
+    @Test
+    fun `should save categories sections steps`(){
+        val mainViewModel = MainViewModel(
+            dbService,
+            categoriesService,
+            mapper,
+            sharedPreferences,
+            routesService,
+            resultService,
+            questionnaireRouteResultService
+        )
+
+        val methodToTest = mainViewModel.javaClass.getDeclaredMethod("categoriesSectionsStepsSaved",String::class.java)
+        methodToTest.isAccessible = true
+
+        val editor = mock(SharedPreferences.Editor::class.java)
+
+        `when`(sharedPreferences.edit()).thenReturn(editor)
+        whenever(
+            editor.putInt(
+                Constants.CATEGORIES_VERSION,
+                0
+            )
+        ).thenReturn(editor)
+        doNothing().whenever(editor).apply()
+
+        methodToTest.invoke(mainViewModel, "")
+
+        verify(sharedPreferences.edit())
+            .putInt(
+                Constants.CATEGORIES_VERSION,
+                0
+            )
+
+        verify(editor).apply()
+
+    }
 
 }
 

@@ -94,6 +94,7 @@ class GenericInfoStepViewModelTest : KoinTest {
             RandomGenerator.generateRandomString(5),
             RandomGenerator.generateRandomString(5),
             RandomGenerator.generateRandomString(5),
+            false,
             RandomGenerator.generateIntBetween0AndTwenty(),
             "route",
             listOf(categoryInformation)
