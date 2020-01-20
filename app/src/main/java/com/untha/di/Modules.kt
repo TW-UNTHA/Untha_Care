@@ -13,7 +13,6 @@ import com.untha.model.repositories.SectionRepository
 import com.untha.model.repositories.SectionStepRepository
 import com.untha.model.services.RetrofitService
 import com.untha.viewmodels.AboutUsViewModel
-import com.untha.viewmodels.CalculatorsViewModel
 import com.untha.viewmodels.CategoryViewModel
 import com.untha.viewmodels.GenericInfoStepViewModel
 import com.untha.viewmodels.MainViewModel
@@ -37,7 +36,6 @@ val viewModelsModule = module {
     viewModel { SingleSelectionQuestionViewModel(get()) }
     viewModel { MultipleSelectionQuestionViewModel(get()) }
     viewModel { RouteResultsViewModel(get(), get(), get()) }
-    viewModel { CalculatorsViewModel() }
     viewModel { UpdateViewModel(get(), get())}
 }
 
