@@ -50,6 +50,7 @@ class CategoryMapperTest {
             generateRandomString(5),
             generateRandomString(5),
             generateRandomString(5),
+            false,
             generateIntBetween0AndTwenty(),
             "route",
             listOf(categoryInformation)
@@ -77,6 +78,7 @@ class CategoryMapperTest {
             category.subtitle,
             category.titleNextStep,
             category.image,
+            category.isRoute,
             category.parentId,
             category.type,
             listOf(informationModel)
@@ -119,6 +121,7 @@ class CategoryMapperTest {
             generateRandomString(5),
             generateRandomString(5),
             generateRandomString(5),
+            false,
             0
         )
         val categoryModel2 = CategoryModel(
@@ -127,6 +130,7 @@ class CategoryMapperTest {
             generateRandomString(5),
             generateRandomString(5),
             generateRandomString(5),
+            false,
             1
         )
 
@@ -202,6 +206,7 @@ class CategoryMapperTest {
             categoryModel1.subtitle,
             categoryModel1.titleNextStep,
             categoryModel1.image,
+            categoryModel1.isRoute,
             categoryModel1.parentId,
             categoryModel1.type,
             listOf(expectedCategoryInformation)
@@ -213,6 +218,7 @@ class CategoryMapperTest {
             categoryModel2.subtitle,
             categoryModel2.titleNextStep,
             categoryModel2.image,
+            categoryModel2.isRoute,
             categoryModel2.parentId,
             categoryModel1.type,
             listOf(expectedCategoryInformation2)
