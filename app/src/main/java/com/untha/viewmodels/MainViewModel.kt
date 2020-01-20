@@ -70,7 +70,11 @@ class MainViewModel(
     }
 
     fun loadDefaultCategories(context: Context) {
-        val fileId = context.resources.getIdentifier("com.untha:raw/" + BuildConfig.CATEGORIES_SOURCE, null, null)
+        val fileId = context.resources.getIdentifier(
+            "com.untha:raw/" + BuildConfig.CATEGORIES_SOURCE,
+            null,
+            null
+        )
         val result = context.resources.openRawResource(fileId)
             .bufferedReader().use { it.readText() }
         val categoriesWrapper = Json.parse(CategoriesWrapper.serializer(), result)
@@ -332,9 +336,5 @@ class MainViewModel(
                     result
                 ).apply()
         }
-    }
-
-    fun isThereGooglePlayError(): Boolean {
-        return sharedPreferences.getBoolean(Constants.IS_THERE_GOOGLE_PLAY_ERROR, false)
     }
 }

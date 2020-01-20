@@ -26,25 +26,20 @@ class MainActivity : AppCompatActivity() {
 
     private var backMethod: (() -> Unit)? = null
     var isLastScreen: (() -> Boolean)? = null
-    private var isThereGooglePlayError = false
     var isRouteResultsScreen: (() -> Boolean)? = null
+    private var isInternetAvailable: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        isThereGooglePlayError = viewModel.isThereGooglePlayError()
         loadData()
+        isInternetAvailable = intent.getBooleanExtra(UpdateActivity.INTERNET_AVAILABLE, false)
         navigationController = findNavController(navigationHostFragment)
         NavigationUI.setupActionBarWithNavController(this, navigationController)
     }
 
-    private fun isRetrievingDataFromInternet(): Boolean {
-        val command = "ping -c 1 google.com"
-        return Runtime.getRuntime().exec(command).waitFor() == 0
-    }
-
     private fun loadData() {
-        if (isRetrievingDataFromInternet() && !isThereGooglePlayError) {
+        if (isInternetAvailable) {
             viewModel.retrieveUpdatedCategories(this)
             viewModel.loadLabourRoute(this)
             viewModel.loadViolenceRoute(this)

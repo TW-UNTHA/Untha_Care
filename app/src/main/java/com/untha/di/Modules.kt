@@ -22,6 +22,7 @@ import com.untha.viewmodels.RightsViewModel
 import com.untha.viewmodels.RouteResultsViewModel
 import com.untha.viewmodels.RoutesViewModel
 import com.untha.viewmodels.SingleSelectionQuestionViewModel
+import com.untha.viewmodels.UpdateViewModel
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.dsl.module
@@ -37,6 +38,7 @@ val viewModelsModule = module {
     viewModel { MultipleSelectionQuestionViewModel(get()) }
     viewModel { RouteResultsViewModel(get(), get(), get()) }
     viewModel { CalculatorsViewModel() }
+    viewModel { UpdateViewModel(get(), get())}
 }
 
 val persistenceModule = module {
@@ -71,6 +73,7 @@ val networkModule = module {
     single { RetrofitService().getRetrofitRouteService() }
     single { RetrofitService().getRetrofitResultService() }
     single { RetrofitService().getRetrofitQuestionnaireRouteResult() }
+    single { RetrofitService().getRetrofitVersionService()}
 }
 
 val mapperModule = module {

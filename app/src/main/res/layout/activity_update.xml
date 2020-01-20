@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBackgroundGenericInfo"
+    tools:context=".view.activities.MainActivity">
+
+
+    <ImageView
+        android:id="@+id/ivIcon"
+        android:layout_width="127dp"
+        android:layout_height="109dp"
+        android:contentDescription="@string/application_icon"
+        app:layout_constraintBottom_toTopOf="@+id/tvUpdateMessage"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.883"
+        tools:src="@mipmap/ic_launcher" />
+
+    <TextView
+        android:id="@+id/tvUpdateMessage"
+        android:layout_width="318dp"
+        android:layout_height="111dp"
+        android:layout_marginBottom="20dp"
+        android:gravity="center"
+        android:textSize="@dimen/text_size_main_component"
+        app:layout_constraintBottom_toTopOf="@+id/btnUpdate"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="Hay una nueva versión disponible para tu aplicación." />
+
+    <TextView
+        android:id="@+id/btnUpdate"
+        android:layout_width="314dp"
+        android:layout_height="88dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/drawable_multiple_option_next_button"
+        android:gravity="center"
+        android:text="@string/update"
+        android:textColor="@color/colorWhiteText"
+        android:textSize="@dimen/text_size_main_component"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/btnDiscard"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.525"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/btnDiscard"
+        android:layout_width="314dp"
+        android:layout_height="88dp"
+        android:layout_marginBottom="132dp"
+        android:gravity="center"
+        android:text="@string/dismiss"
+        android:textColor="@color/colorGenericTitle"
+        android:textSize="@dimen/text_size_main_component"
+        android:textStyle="bold"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.525"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="@string/dismiss" />
+
+    <LinearLayout
+        android:id="@+id/llProgressBarContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorWhiteText">
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:minWidth="100dp"
+            android:minHeight="100dp" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
