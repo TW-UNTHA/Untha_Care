@@ -58,7 +58,6 @@ class UpdateActivity : AppCompatActivity() {
                         buildUpdateValues(response)
                         if (this.getCurrentVersionCode() >= updateValues.version) {
                             navigateToMainScreen()
-                            finish()
                         } else {
                             defineComponentVisibility()
                         }
@@ -66,10 +65,11 @@ class UpdateActivity : AppCompatActivity() {
                     is ApiErrorResponse -> {
                         Timber.e("Error! $response.errorMessage")
                         navigateToMainScreen()
-                        finish()
                     }
                 }
             })
+        } else {
+            navigateToMainScreen()
         }
     }
 
@@ -139,6 +139,7 @@ class UpdateActivity : AppCompatActivity() {
         val intent = Intent(this, MainActivity::class.java)
         intent.putExtra(INTERNET_AVAILABLE, isInternetAvailable)
         startActivity(intent)
+        finish()
     }
 
     private fun getCurrentVersionCode(): Long {
