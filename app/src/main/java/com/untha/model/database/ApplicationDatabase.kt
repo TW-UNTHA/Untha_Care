@@ -17,7 +17,7 @@ import com.untha.model.models.SectionStepModel
 @Database(
     entities = [CategoryModel::class, CategoryInformationModel::class,
         SectionModel::class, SectionStepModel::class],
-    version = 4,exportSchema = false
+    version = 5,exportSchema = false
 )
 @TypeConverters(DateConverter::class)
 abstract class ApplicationDatabase : RoomDatabase() {

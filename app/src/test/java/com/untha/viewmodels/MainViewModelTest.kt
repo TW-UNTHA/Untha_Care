@@ -118,7 +118,6 @@ class MainViewModelTest : KoinTest {
                     "mis derechos descripcion",
                     "mis derechos descripcion next step",
                     "imagen",
-                    false,
                     0,
                     null,
                     null
@@ -183,7 +182,6 @@ class MainViewModelTest : KoinTest {
                     "mis derechos descripcion",
                     "mis derechos descripcion next step",
                     "imagen",
-                    false,
                     0,
                     null,
                     null
@@ -224,7 +222,6 @@ class MainViewModelTest : KoinTest {
                     "mis derechos descripcion",
                     "mis derechos descripcion next step",
                     "imagen",
-                    false,
                     0,
                     null,
                     null
@@ -271,7 +268,6 @@ class MainViewModelTest : KoinTest {
                     "mis derechos descripcion",
                     "mis derechos descripcion next step",
                     "imagen",
-                    false,
                     0,
                     "route",
                     null

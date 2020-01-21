@@ -14,8 +14,6 @@ data class CategoryModel(
     var subtitle: String? = "",
     var titleNextStep: String? = null,
     var image: String? = "",
-    @ColumnInfo(name = "is_route")
-    var isRoute: Boolean = false,
     @ColumnInfo(name = "parent_id")
     var parentId: Int? = null,
     var type: String? = null,

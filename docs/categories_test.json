@@ -7,23 +7,21 @@
       "title": "¿QUIERES CONOCER ACERCA DE TUS DERECHOS?",
       "subtitle": "SIGUE LAS RUTAS DE AYUDA",
       "title_next_step": null,
-      "parent_id": null,
-      "is_route": false
+      "parent_id": null
     },
     {
       "id": 2,
       "image": "home_derechos",
       "title": "MIS DERECHOS",
       "title_next_step": null,
-      "parent_id": null,
-       "is_route": false
+      "parent_id": null
+
     },
     {
       "id": 3,
       "image": "home_contratos",
       "title": "CONTRATOS",
       "title_next_step": null,
-       "is_route": false,
       "information": [
         {
           "id": 3,
@@ -85,7 +83,6 @@
       "image": "home_afiliacion",
       "title": "VERIFICAR AFILIACIÓN",
       "title_next_step": null,
-      "is_route": false,
       "information": [
         {
           "id": 4,
@@ -161,15 +158,13 @@
       "image": "home_beneficios",
       "title": "CALCULAR MIS BENEFICIOS",
       "title_next_step": null,
-      "parent_id": null,
-      "is_route": false
+      "parent_id": null
     },
     {
       "id": 6,
       "image": "home_denuncias",
       "title": "CÓMO HACER DENUNCIAS",
       "title_next_step": null,
-      "is_route": false,
       "information": [
         {
           "id": 1,
@@ -247,7 +242,6 @@
       "image": "home_sindicato",
       "title": "ÚNETE AL SINDICATO",
       "title_next_step": null,
-      "is_route": false, 
       "information": [
         {
           "id": 5,
@@ -286,7 +280,6 @@
       "title": "SALARIO Y BENEFICIOS",
       "title_next_step": "SALARIO Y BENEFICIOS",
       "parent_id": 2,
-      "is_route": false, 
       "information": [
         {
           "id": 6,
@@ -354,7 +347,6 @@
       "title": "JORNADA DE TRABAJO Y VACACIONES",
       "title_next_step": "JORNADA DE TRABAJO Y VACACIONES",
       "parent_id": 2,
-      "is_route": false,
       "information": [
         {
           "id": 7,
@@ -406,7 +398,6 @@
       "title": "EMBARAZO Y MATERNIDAD",
       "title_next_step": "EMBARAZO Y MATERNIDAD",
       "parent_id": 2,
-      "is_route": false,
       "information": [
         {
           "id": 8,
@@ -438,7 +429,6 @@
       "title": "NIÑAS Y ADOLESCENTES",
       "title_next_step": "NIÑAS Y ADOLESCENTES",
       "parent_id": 2,
-      "is_route": false, 
       "information": [
         {
           "id": 9,
@@ -490,7 +480,6 @@
       "title": "DESPIDOS Y TÉRMINO DE CONTRATOS",
       "title_next_step": "DESPIDOS Y TÉRMINO DE CONTRATOS",
       "parent_id": 2,
-      "is_route": false, 
       "information": [
         {
           "id": 10,
@@ -538,7 +527,6 @@
       "title_next_step": "LEYES",
       "image": "derechos_leyes",
       "parent_id": 2,
-      "is_route": false,
       "information": [
         {
           "id": 11,
@@ -697,8 +685,7 @@
       "subtitle": "CUESTIONARIO DE DERECHOS LABORALES:",
       "title_next_step": "CONOCE SI SE ESTÁN CUMPLIENDO TUS DERECHOS",
       "parent_id": null,
-      "type": "route",
-      "is_route" : true
+      "type": "route"
     },
     {
       "id": 15,
@@ -707,8 +694,7 @@
       "subtitle": "CUESTIONARIO DE VIOLENCIA:",
       "title_next_step": "CONOCE SI ERES VÍCTIMA DE VIOLENCIA",
       "parent_id": null,
-      "type": "route",
-      "is_route" : true
+      "type": "route"
     },
     {
       "id": 16,
@@ -717,8 +703,7 @@
       "subtitle": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam illum, iure, asperiores natus placeat, eaque voluptatibus reprehenderit aspernatur facere non expedita vel numquam dignissimos! Possimus autem eos voluptatum voluptatem corporis.",
       "title_next_step": "CALCULADORA DE BENEFICIOS",
       "parent_id": null,
-      "type": "calculator",
-      "is_route": false 
+      "type": "calculator"
     },
     {
       "id": 17,
@@ -727,8 +712,7 @@
       "subtitle": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam illum, iure, asperiores natus placeat, eaque voluptatibus reprehenderit aspernatur facere non expedita vel numquam dignissimos! Possimus autem eos voluptatum voluptatem corporis.",
       "title_next_step": "CALCULADORA DE FINIQUITO",
       "parent_id": null,
-      "type": "calculator",
-      "is_route": false
+      "type": "calculator"
     },
     {
       "id": 18,
@@ -737,8 +721,7 @@
       "subtitle": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam illum, iure, asperiores natus placeat, eaque voluptatibus reprehenderit aspernatur facere non expedita vel numquam dignissimos! Possimus autem eos voluptatum voluptatem corporis.",
       "title_next_step": "CALCULADORA DE HORAS",
       "parent_id": null,
-      "type": "calculator",
-      "is_route": false
+      "type": "calculator"
     }
   ]
 }

@@ -32,7 +32,6 @@ object MockObjects {
             RandomGenerator.generateRandomString(5),
             RandomGenerator.generateRandomString(5),
             RandomGenerator.generateRandomString(5),
-            false,
             0,
             type
         )
