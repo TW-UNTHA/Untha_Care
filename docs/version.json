@@ -1,5 +1,5 @@
 {
   "version": 5,
-  "force_update": true,
+  "force_update": false,
   "message_to_update": "Hay una nueva versión disponible para tu aplicación."
 }
