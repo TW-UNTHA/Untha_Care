@@ -53,7 +53,7 @@
         android:id="@+id/btnDiscard"
         android:layout_width="314dp"
         android:layout_height="88dp"
-        android:layout_marginBottom="132dp"
+        android:layout_marginBottom="@dimen/margin_bottom_update_screen"
         android:gravity="center"
         android:text="@string/dismiss"
         android:textColor="@color/colorGenericTitle"

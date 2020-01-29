@@ -7,4 +7,5 @@
     <dimen name="text_size_content_next_step">25sp</dimen>
     <dimen name="text_size_question_route">30sp</dimen>
     <dimen name="text_size_question_explanation">25sp</dimen>
+    <dimen name="margin_bottom_update_screen">0dp</dimen>
 </resources>
