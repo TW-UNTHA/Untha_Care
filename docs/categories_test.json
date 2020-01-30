@@ -700,7 +700,7 @@
       "id": 16,
       "image": "home_beneficios",
       "title": "CALCULADORA DE BENEFICIOS",
-      "subtitle": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam illum, iure, asperiores natus placeat, eaque voluptatibus reprehenderit aspernatur facere non expedita vel numquam dignissimos! Possimus autem eos voluptatum voluptatem corporis.",
+      "subtitle": "calcula decimo tercero y cuarto, iess, vacaciones y fondos de reserva",
       "title_next_step": "CALCULADORA DE BENEFICIOS",
       "parent_id": null,
       "type": "calculator"
@@ -709,7 +709,7 @@
       "id": 17,
       "image": "home_beneficios",
       "title": "CALCULADORA DE FINIQUITO",
-      "subtitle": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam illum, iure, asperiores natus placeat, eaque voluptatibus reprehenderit aspernatur facere non expedita vel numquam dignissimos! Possimus autem eos voluptatum voluptatem corporis.",
+      "subtitle": "calcula el valor que debes recibir cuando termina tu relacion laboral",
       "title_next_step": "CALCULADORA DE FINIQUITO",
       "parent_id": null,
       "type": "calculator"
@@ -718,7 +718,7 @@
       "id": 18,
       "image": "home_beneficios",
       "title": "CALCULADORA DE HORAS",
-      "subtitle": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam illum, iure, asperiores natus placeat, eaque voluptatibus reprehenderit aspernatur facere non expedita vel numquam dignissimos! Possimus autem eos voluptatum voluptatem corporis.",
+      "subtitle": "calcula el pago que debes recibir por tus horas extras",
       "title_next_step": "CALCULADORA DE HORAS",
       "parent_id": null,
       "type": "calculator"
