@@ -187,6 +187,7 @@ class CalculatorsServiceTest {
         )
         assertEquals(expectedValue, result)
     }
+
     @Test
     fun `should return 48,89 when start date is 1st dic 2019 and end date is 15 jan 2020 and salary is 400`() {
         val salary = 400
@@ -216,6 +217,7 @@ class CalculatorsServiceTest {
         assertEquals(expectedValue, result)
 
     }
+
     @Test
     fun `should return 400 when start date is 1st dic 2019 and end date is 30 nov 2022 and salary is 400`() {
         val salary = 400
@@ -276,4 +278,74 @@ class CalculatorsServiceTest {
 
     }
 
+    @Test
+    fun `should return 32,22 when start date is 15 Ag 2019 and end date is 30 de dic 2020 and salary is 400`() {
+        val salary = 400
+        var expectedValue = BigDecimal(32.22)
+        expectedValue = expectedValue.setScale(2, RoundingMode.HALF_UP)
+
+        val result = calculatorsService.getDecimoTercerSueldoAcumulado(
+            salary.toBigDecimal(),
+            "2019-08-15",
+            "2020-12-30"
+        )
+        assertEquals(expectedValue, result)
+
+    }
+
+    @Test
+    fun `should return decimo cuarto mensualizado 33,33 when SBU is 400`() {
+        var expectedValue = BigDecimal(33.33)
+        expectedValue = expectedValue.setScale(2, RoundingMode.HALF_UP)
+
+        val result = calculatorsService.calculateDecimoCuartoSueldoMensuaizado()
+
+        assertEquals(expectedValue, result)
+
+
+    }
+
+    @Test
+    fun `should return SBU 400 when area is Sierra or Oriente and startDate is 1 Ago and endDate is 31 Jul and idWorkDay is 1 completa`() {
+        var expectedValue = BigDecimal(400)
+        expectedValue = expectedValue.setScale(2, RoundingMode.HALF_UP)
+
+        val result = calculatorsService.getDecimoCuartoAcumulado("2019-08-01", "2020-07-31", 1, 2)
+
+        assertEquals(expectedValue, result)
+
+    }
+
+    @Test
+    fun `should return 285,56 when area is Sierra or Oriente and startDate is 1 Ago 2019 and endDate is 18 April  2020 and idWorkDay is 1 completa`() {
+        var expectedValue = BigDecimal(285.56)
+        expectedValue = expectedValue.setScale(2, RoundingMode.HALF_UP)
+
+        val result = calculatorsService.getDecimoCuartoAcumulado("2019-08-01", "2020-04-18", 1, 2)
+
+        assertEquals(expectedValue, result)
+
+    }
+
+    @Test
+    fun `should return 206,67 when area is Sierra or Oriente and startDate is 25 Jan 2020 and endDate is 31 JUl 2020 and idWorkDay is 1 completa`() {
+        var expectedValue = BigDecimal(206.67)
+        expectedValue = expectedValue.setScale(2, RoundingMode.HALF_UP)
+
+        val result = calculatorsService.getDecimoCuartoAcumulado("2020-01-25", "2020-07-31", 1, 2)
+
+        assertEquals(expectedValue, result)
+
+    }
+
+    @Test
+    fun `should return 166,67 when area is Sierra or Oriente and startDate is 25 Jan 2019 and endDate is 31 dic 2020 and idWorkDay is 1 completa`() {
+        var expectedValue = BigDecimal(166.67)
+        expectedValue = expectedValue.setScale(2, RoundingMode.HALF_UP)
+
+        val result = calculatorsService.getDecimoCuartoAcumulado("2019-01-25", "2020-12-31", 1, 2)
+
+        assertEquals(expectedValue, result)
+
+    }
 }
