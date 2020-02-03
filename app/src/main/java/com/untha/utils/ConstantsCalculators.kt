@@ -7,5 +7,6 @@ object ConstantsCalculators {
     const val DAYS_31 = 31
     const val FIRST_DAY_MONTH = 1
     const val SBU = 400
+    const val WEEKLY_HOURS_COMPLETE = 40
 
 }

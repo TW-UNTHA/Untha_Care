@@ -6,6 +6,7 @@ import com.untha.utils.ConstantsCalculators.DAYS_OF_YEAR
 import com.untha.utils.ConstantsCalculators.FIRST_DAY_MONTH
 import com.untha.utils.ConstantsCalculators.MONTHS_OF_YEAR
 import com.untha.utils.ConstantsCalculators.SBU
+import com.untha.utils.ConstantsCalculators.WEEKLY_HOURS_COMPLETE
 import java.math.BigDecimal
 import java.math.RoundingMode
 import java.text.SimpleDateFormat
@@ -15,6 +16,7 @@ class CalculatorsService {
 
     companion object {
         const val SIERRA_ORIENTE = 2
+        const val COSTA_GALAPAGOS = 1
         const val COMPLETA = 1
         const val PARCIAL = 2
     }
@@ -23,7 +25,6 @@ class CalculatorsService {
         val result: BigDecimal =
             salary.divide(MONTHS_OF_YEAR.toBigDecimal(), 2, RoundingMode.HALF_UP)
         return result
-
     }
 
     fun getDecimoTercerSueldoAcumulado(salary: BigDecimal, startDate: String, endDate: String):
@@ -65,53 +66,148 @@ class CalculatorsService {
         startDate: String,
         endDate: String,
         idWorkDay: Int,
-        idArea: Int
+        idArea: Int,
+        numberOfHoursWeekly: Int = 0
     ): BigDecimal? {
         val calendarStartDate = stringToCalendar(startDate)
         val calendarEndDate = stringToCalendar(endDate)
-        val yearInicial = calendarEndDate.get(Calendar.YEAR)
         val year = calendarEndDate.get(Calendar.YEAR) - 1
 
         when (idArea) {
             SIERRA_ORIENTE -> {
                 when (idWorkDay) {
                     COMPLETA -> {
-                        when (calendarStartDate.compareTo(stringToCalendar("$year-08-01")) < 0) {
-                            true -> {
-                                return calculateDecimoCuarto(
-                                    year,
-                                    calendarEndDate,
-                                    yearInicial
-                                )
-                            }
-                            else -> {
-                                val daysWorked: BigDecimal = calculateDaysBetween(
-                                    calendarStartDate,
-                                    calendarEndDate
-                                ).toBigDecimal()
-                                return calculateDecimoCuartoAcumulado(daysWorked)
-                            }
-                        }
+                        return calculateDecimoCuartoCompleteTime(
+                            calendarEndDate,
+                            calendarStartDate,
+                            SIERRA_ORIENTE
+                        )
 
                     }
                     PARCIAL -> {
-                        println("parcial")
-                        return null
-
+                        return calculateDecimoCuartoPartialTime(
+                            calendarEndDate,
+                            numberOfHoursWeekly,
+                            calendarStartDate,
+                            SIERRA_ORIENTE
+                        )
                     }
                 }
             }
+            COSTA_GALAPAGOS -> {
+
+                when (idWorkDay) {
+                    COMPLETA -> {
+                        return calculateDecimoCuartoCompleteTime(
+                            calendarEndDate,
+                            calendarStartDate,
+                            COSTA_GALAPAGOS
+                        )
+                    }
+                    PARCIAL -> {
+                        return calculateDecimoCuartoPartialTime(
+                            calendarEndDate,
+                            numberOfHoursWeekly,
+                            calendarStartDate,
+                            COSTA_GALAPAGOS
+                        )
+                    }
+                }
+            }
+
         }
         return null
+    }
 
+    private fun calculateDecimoCuartoPartialTime(
+        calendarEndDate: Calendar,
+        numberOfHoursWeekly: Int,
+        calendarStartDate: Calendar,
+        area: Int
+    ): BigDecimal? {
+        val year = calendarEndDate.get(Calendar.YEAR)-1
+        val yearInitial = calendarEndDate.get(Calendar.YEAR)
+        var isDateInitialLessThanLimitDate : Boolean
+        if(area == SIERRA_ORIENTE) {
+            isDateInitialLessThanLimitDate = calendarStartDate.compareTo(stringToCalendar("$year-08-01")) < 0
+        }else{
+            isDateInitialLessThanLimitDate= calendarStartDate.compareTo(stringToCalendar("$year-03-01")) < 0
+        }
+
+        when (isDateInitialLessThanLimitDate) {
+            true -> {
+
+                return calculateDecimoCuarto(
+                    year,
+                    calendarEndDate,
+                    yearInitial,
+                    area, numberOfHoursWeekly
+                )
+            }
+            else -> {
+                val daysWorked: BigDecimal = calculateDaysBetween(
+                    calendarStartDate,
+                    calendarEndDate
+                ).toBigDecimal()
+
+                if (numberOfHoursWeekly == 0) {
+                    return formulaDecimoCuarto(SBU.toBigDecimal(), daysWorked)
+
+                } else {
+                    val salary = calculateEquivalent(numberOfHoursWeekly)
+                    return formulaDecimoCuarto(salary, daysWorked)
+                }
+            }
+        }
+    }
+
+    private fun calculateDecimoCuartoCompleteTime(
+        calendarEndDate: Calendar,
+        calendarStartDate: Calendar,
+        area: Int
+    ): BigDecimal? {
+        val yearInitial = calendarEndDate.get(Calendar.YEAR)
+        val year = calendarEndDate.get(Calendar.YEAR) - 1
+        var isDateInitialLessThanLimitDate : Boolean
+
+        if(area == SIERRA_ORIENTE) {
+            isDateInitialLessThanLimitDate = calendarStartDate.compareTo(stringToCalendar("$year-08-01")) < 0
+        }else{
+            isDateInitialLessThanLimitDate= calendarStartDate.compareTo(stringToCalendar("$year-03-01")) < 0
+        }
+
+        when (isDateInitialLessThanLimitDate) {
+            true -> {
+                return calculateDecimoCuarto(
+                    year,
+                    calendarEndDate,
+                    yearInitial,
+                    area
+                )
+            }
+            else -> {
+                val daysWorked360: BigDecimal = calculateDaysBetween(
+                    calendarStartDate,
+                    calendarEndDate
+                ).toBigDecimal()
+                return formulaDecimoCuarto(SBU.toBigDecimal(), daysWorked360)
+            }
+        }
     }
 
     private fun calculateDecimoCuarto(
         year: Int,
         calendarEndDate: Calendar,
-        yearInicial: Int
+        yearInitial: Int,
+        idArea: Int,
+        numberOfHoursWeekly: Int = 0
     ): BigDecimal? {
-        var newStartDate = stringToCalendar("$year-08-01")
+        var newStartDate: Calendar
+        if (idArea.equals(SIERRA_ORIENTE)) {
+            newStartDate = stringToCalendar("$year-08-01")
+        } else {
+            newStartDate = stringToCalendar("$year-03-01")
+        }
         var daysWorked: BigDecimal = calculateDaysBetween(
             newStartDate,
             calendarEndDate
@@ -121,7 +217,12 @@ class CalculatorsService {
             calendarEndDate
         ) > DAYS_OF_YEAR) {
             true -> {
-                newStartDate = stringToCalendar("$yearInicial-08-01")
+
+                if (idArea.equals(SIERRA_ORIENTE)) {
+                    newStartDate = stringToCalendar("$yearInitial-08-01")
+                } else {
+                    newStartDate = stringToCalendar("$yearInitial-03-01")
+                }
                 daysWorked = calculateDaysBetween(
                     newStartDate,
                     calendarEndDate
@@ -130,11 +231,29 @@ class CalculatorsService {
 
             }
         }
-        return calculateDecimoCuartoAcumulado(daysWorked)
+
+        when (numberOfHoursWeekly) {
+            0 -> return formulaDecimoCuarto(SBU.toBigDecimal(), daysWorked)
+            else -> {
+                val salary = calculateEquivalent(numberOfHoursWeekly)
+                return formulaDecimoCuarto(salary, daysWorked)
+            }
+
+        }
     }
 
-    private fun calculateDecimoCuartoAcumulado(daysWorked: BigDecimal): BigDecimal? {
-        val multiplier = SBU.toBigDecimal().multiply(daysWorked)
+    private fun calculateEquivalent(numberOfHoursWeekly: Int): BigDecimal {
+        val equivalent =
+            numberOfHoursWeekly.toBigDecimal().divide(WEEKLY_HOURS_COMPLETE.toBigDecimal())
+                .multiply(SBU.toBigDecimal())
+        return equivalent.setScale(2, RoundingMode.HALF_UP)
+    }
+
+    private fun formulaDecimoCuarto(
+        basicSalary: BigDecimal,
+        numberOfDays: BigDecimal
+    ): BigDecimal? {
+        val multiplier = basicSalary.multiply(numberOfDays)
         return multiplier.divide(
             DAYS_OF_YEAR.toBigDecimal(),
             2,
@@ -151,7 +270,10 @@ class CalculatorsService {
 
     }
 
-    private fun calculateDaysBetween(calendarStartDate: Calendar, calendarEndDate: Calendar): Int {
+    private fun calculateDaysBetween(
+        calendarStartDate: Calendar,
+        calendarEndDate: Calendar
+    ): Int {
 
         var startDay = calendarStartDate.get(Calendar.DAY_OF_MONTH)
         val startMonth = calendarStartDate.get(Calendar.MONTH)
@@ -184,21 +306,27 @@ class CalculatorsService {
         endDate: Calendar
     ): BigDecimal {
         var newStarDate = startDate
-        val yearInicial = endDate.get(Calendar.YEAR)
-        var numberOfDays =
-            calculateDaysBetween(newStarDate, endDate)
+        var numberOfDays = calculateDaysBetween(newStarDate, endDate)
         when (numberOfDays > DAYS_OF_YEAR) {
             true -> {
-                newStarDate = stringToCalendar("$yearInicial-12-01")
+                val yearInitial = endDate.get(Calendar.YEAR)
+                newStarDate = stringToCalendar("$yearInitial-12-01")
                 numberOfDays = calculateDaysBetween(newStarDate, endDate)
             }
         }
-
-        val decimoTercero = salary.setScale(
+        return formulaDecimoTerceroAcumulado(salary, numberOfDays).setScale(
             2,
             RoundingMode.HALF_UP
-        ) * numberOfDays.toBigDecimal() / DAYS_OF_YEAR.toBigDecimal()
-        return decimoTercero.setScale(2, RoundingMode.HALF_UP)
+        )
+    }
+
+    private fun formulaDecimoTerceroAcumulado(
+        salary: BigDecimal,
+        numberOfDays: Int
+    ): BigDecimal {
+        return salary.multiply(numberOfDays.toBigDecimal())
+            .divide(DAYS_OF_YEAR.toBigDecimal(), 2, RoundingMode.HALF_UP)
+
     }
 
     private fun isDecember(startDate: Calendar): Boolean {
