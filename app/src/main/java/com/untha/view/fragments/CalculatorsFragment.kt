@@ -5,31 +5,31 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
+import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
-import com.bumptech.glide.Glide
 import com.untha.R
 import com.untha.model.transactionalmodels.Category
 import com.untha.utils.Constants
 import com.untha.utils.ContentType
 import com.untha.utils.PixelConverter
 import com.untha.view.activities.MainActivity
+import com.untha.view.extension.loadImageNextStep
 import org.jetbrains.anko.AnkoViewDslMarker
 import org.jetbrains.anko._LinearLayout
 import org.jetbrains.anko._ScrollView
 import org.jetbrains.anko.backgroundColor
 import org.jetbrains.anko.backgroundDrawable
 import org.jetbrains.anko.dip
-import org.jetbrains.anko.imageView
+import org.jetbrains.anko.linearLayout
 import org.jetbrains.anko.matchParent
+import org.jetbrains.anko.padding
 import org.jetbrains.anko.scrollView
 import org.jetbrains.anko.support.v4.UI
 import org.jetbrains.anko.textColor
 import org.jetbrains.anko.textSizeDimen
 import org.jetbrains.anko.textView
 import org.jetbrains.anko.verticalLayout
-import org.jetbrains.anko.wrapContent
 
 
 class CalculatorsFragment : BaseFragment() {

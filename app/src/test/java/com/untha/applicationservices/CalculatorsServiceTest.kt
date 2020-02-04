@@ -305,7 +305,7 @@ class CalculatorsServiceTest {
         var expectedValue = BigDecimal(33.33)
         expectedValue = expectedValue.setScale(2, RoundingMode.HALF_UP)
 
-        val result = calculatorsService.calculateDecimoCuartoSueldoMensuaizado()
+        val result = calculatorsService.calculateDecimoCuartoSueldoMensualizado()
 
         assertEquals(expectedValue, result)
 
@@ -434,8 +434,8 @@ class CalculatorsServiceTest {
     }
 
     @Test
-    fun `should return 397,78 when area is Costa or Galapagos and startDate is 01 March 2019 and endDate is 29 Feb 2020 and idWorkDay is complete`() {
-        var expectedValue = BigDecimal(397.78).setScale(2, RoundingMode.HALF_UP)
+    fun `should return 400,00 when area is Costa or Galapagos and startDate is 01 March 2019 and endDate is 29 Feb 2020 and idWorkDay is complete`() {
+        var expectedValue = BigDecimal(400.00).setScale(2, RoundingMode.HALF_UP)
         val startDate = "2019-03-01"
         val endDate = "2020-02-29"
 
@@ -532,7 +532,7 @@ class CalculatorsServiceTest {
     }
 
     @Test
-    fun `should return 215,28 when area is Costa or Galapagos and startDate is 05 March 2019 and endDate is 15 Jan 2020 and idWorkDay is partial`() {
+    fun `should return 215,28 when area is Costa or Galapagos and startDate is 05 March 2019 and endDate is 15 Jan 2020 and idWorkDay is partial time`() {
         var expectedValue = BigDecimal(215.28).setScale(2, RoundingMode.HALF_UP)
         val startDate = "2019-03-05"
         val endDate = "2020-01-15"
@@ -548,5 +548,38 @@ class CalculatorsServiceTest {
 
         assertEquals(expectedValue, result)
     }
+    @Test
+    fun `should return 350,00 when area is Costa or Galapagos and startDate is 01 March 2019 and endDate is 29 Feb 2020 and idWorkDay is partial time`() {
+        var expectedValue = BigDecimal(350.00).setScale(2, RoundingMode.HALF_UP)
+        val startDate = "2019-03-01"
+        val endDate = "2020-02-29"
+        val numberOfHours = 35
 
+        val result = calculatorsService.getDecimoCuartoAcumulado(
+            startDate,
+            endDate,
+            PARCIAL,
+            COSTA_GALAPAGOS,
+            numberOfHours
+        )
+
+        assertEquals(expectedValue, result)
+    }
+    @Test
+    fun `should return 350,00 when area is Sierra or Oriente and startDate is 01 March 2019 and endDate is 29 Feb 2020 and idWorkDay is partial time`() {
+        var expectedValue = BigDecimal(350.00).setScale(2, RoundingMode.HALF_UP)
+        val startDate = "2017-08-01"
+        val endDate = "2020-07-31"
+        val numberOfHours = 35
+
+        val result = calculatorsService.getDecimoCuartoAcumulado(
+            startDate,
+            endDate,
+            PARCIAL,
+            SIERRA_ORIENTE,
+            numberOfHours
+        )
+
+        assertEquals(expectedValue, result)
+    }
 }

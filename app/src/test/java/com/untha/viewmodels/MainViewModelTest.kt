@@ -50,8 +50,7 @@ import org.koin.core.context.stopKoin
 import org.koin.test.KoinTest
 import org.koin.test.inject
 import org.koin.test.mock.declareMock
-import org.mockito.ArgumentMatchers
-import org.mockito.ArgumentMatchers.*
+import org.mockito.ArgumentMatchers.anyList
 import org.mockito.Mockito.`when`
 import org.mockito.Mockito.mock
 import retrofit2.Response
