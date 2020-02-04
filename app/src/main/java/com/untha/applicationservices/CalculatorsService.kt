@@ -5,6 +5,7 @@ import com.untha.utils.ConstantsCalculators.DAYS_IN_MONTH
 import com.untha.utils.ConstantsCalculators.DAYS_OF_YEAR
 import com.untha.utils.ConstantsCalculators.FIRST_DAY_MONTH
 import com.untha.utils.ConstantsCalculators.MONTHS_OF_YEAR
+import com.untha.utils.ConstantsCalculators.PORCENTAJE_APORTE_IESS_PRIVADO
 import com.untha.utils.ConstantsCalculators.SBU
 import com.untha.utils.ConstantsCalculators.WEEKLY_HOURS_COMPLETE
 import java.math.BigDecimal
@@ -356,6 +357,10 @@ class CalculatorsService {
             Calendar.DAY_OF_MONTH
         ) == calendarEndDate.getActualMaximum(Calendar.DAY_OF_MONTH)
 
+    fun getAportacionMensualIESS(salary: BigDecimal): BigDecimal? {
+        val result = salary.multiply(PORCENTAJE_APORTE_IESS_PRIVADO.toBigDecimal())
+        return result.setScale(2, RoundingMode.HALF_UP)
+    }
 
 }
 

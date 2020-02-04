@@ -8,5 +8,6 @@ object ConstantsCalculators {
     const val FIRST_DAY_MONTH = 1
     const val SBU = 400
     const val WEEKLY_HOURS_COMPLETE = 40
+    const val PORCENTAJE_APORTE_IESS_PRIVADO = 0.0945
 
 }

@@ -548,6 +548,7 @@ class CalculatorsServiceTest {
 
         assertEquals(expectedValue, result)
     }
+
     @Test
     fun `should return 350,00 when area is Costa or Galapagos and startDate is 01 March 2019 and endDate is 29 Feb 2020 and idWorkDay is partial time`() {
         var expectedValue = BigDecimal(350.00).setScale(2, RoundingMode.HALF_UP)
@@ -565,6 +566,7 @@ class CalculatorsServiceTest {
 
         assertEquals(expectedValue, result)
     }
+
     @Test
     fun `should return 350,00 when area is Sierra or Oriente and startDate is 01 March 2019 and endDate is 29 Feb 2020 and idWorkDay is partial time`() {
         var expectedValue = BigDecimal(350.00).setScale(2, RoundingMode.HALF_UP)
@@ -579,6 +581,26 @@ class CalculatorsServiceTest {
             SIERRA_ORIENTE,
             numberOfHours
         )
+
+        assertEquals(expectedValue, result)
+    }
+
+    @Test
+    fun `should return 37,80   when my salary is 400`() {
+        val expectedValue = BigDecimal(37.80).setScale(2, RoundingMode.HALF_UP)
+        val salary = BigDecimal(400.00).setScale(2, RoundingMode.HALF_UP)
+
+        val result = calculatorsService.getAportacionMensualIESS(salary)
+
+        assertEquals(expectedValue, result)
+    }
+
+    @Test
+    fun `should return 42,53   when my salary is 450`() {
+        val expectedValue = BigDecimal(42.53).setScale(2, RoundingMode.HALF_UP)
+        val salary = BigDecimal(450.00).setScale(2, RoundingMode.HALF_UP)
+
+        val result = calculatorsService.getAportacionMensualIESS(salary)
 
         assertEquals(expectedValue, result)
     }
