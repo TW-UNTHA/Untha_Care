@@ -58,7 +58,6 @@ class CalculatorsFragment : BaseFragment() {
             verticalLayout {
                 buildCalculator(view)
             }.lparams(width = matchParent, height = matchParent)
-
         }
         mainActivity.customActionBar(
             Constants.NAME_SCREEN_CALCULATOR,
@@ -86,21 +85,60 @@ class CalculatorsFragment : BaseFragment() {
             logAnalyticsSelectContentWithId(
                 "${Constants.CLICK_ROUTE_TITLE}${calculator.title}", ContentType.ROUTE
             )
-            verticalLayout {
+            val heightFormula =
+                (PixelConverter.getScreenDpHeight(context)) * Constants.SIZE_HEIGHT_NEXT_STEP
+            linearLayout {
                 isClickable = true
-                loadTitleCalculator(calculator)
-                loadSubtitleCalculator(calculator)
-                loadImageCalculator(view, calculator)
+                orientation = LinearLayout.HORIZONTAL
                 backgroundDrawable = ContextCompat.getDrawable(
                     context, R.drawable.drawable_main_route
                 )
-
-            }.lparams(matchParent, calculateHeightRoute()) {
+                linearLayout {
+                    buildImageNextStep(view, calculator)
+                    buildBlockTextNextSteps(calculator)
+                }
+            }.lparams(matchParent, height = dip(heightFormula.toInt())) {
                 topMargin = calculateTopMargin()
                 rightMargin = calculateLateralMargin() - dip(Constants.SHADOW_PADDING_SIZE)
                 leftMargin = calculateLateralMargin()
             }
         }
+    }
+
+    private fun @AnkoViewDslMarker _LinearLayout.buildBlockTextNextSteps(
+        category: Category
+    ) {
+        val widthBlockDp =
+            (PixelConverter.getScreenDpWidth(context)) * Constants.WIDTH_BLOCK_OF_TEXT
+        val widthBlockPixel = PixelConverter.toPixels(widthBlockDp, context)
+        verticalLayout {
+            loadTitleCalculator(category)
+            loadSubtitleCalculator(category)
+        }.lparams(
+            width = matchParent,
+            height = dip(widthBlockPixel)
+        ) {
+            bottomMargin = dip(Constants.TOP_MARGIN_NEXT_STEP)
+        }
+    }
+
+    fun @AnkoViewDslMarker _LinearLayout.buildImageNextStep(
+        view: View,
+        category: Category
+    ) {
+        val widthImageDp =
+            (PixelConverter.getScreenDpWidth(context)) * Constants.WIDTH_IMAGE
+        val widthImagePixel =
+            PixelConverter.toPixels(
+                widthImageDp,
+                context
+            )
+        linearLayout {
+            padding = dip(Constants.PERCENTAGE_PADDING_ELEMENT_NEXT_STEP_IMAGE)
+            loadImageNextStep(view, category)
+        }.lparams(
+            width = widthImagePixel
+        )
     }
 
     private fun @AnkoViewDslMarker _LinearLayout.loadTitleCalculator(
@@ -138,25 +176,6 @@ class CalculatorsFragment : BaseFragment() {
         }
     }
 
-    private fun @AnkoViewDslMarker _LinearLayout.loadImageCalculator(
-        view: View,
-        category: Category
-    ) {
-        imageView {
-            val imageUrl = resources.getIdentifier(
-                category.image,
-                "drawable",
-                context.applicationInfo.packageName
-            )
-            Glide.with(view)
-                .load(imageUrl)
-                .into(this)
-            scaleType = ImageView.ScaleType.FIT_CENTER
-        }.lparams(width = matchParent, height = wrapContent) {
-            topMargin = calculateTopMargin()
-        }
-    }
-
     private fun calculateTopMargin(): Int {
         val topMarginDps = (PixelConverter.getScreenDpHeight(context) -
                 Constants.SIZE_OF_ACTION_BAR) * Constants.MARGIN_TOP_PERCENTAGE_MAIN_ROUTE
@@ -171,11 +190,4 @@ class CalculatorsFragment : BaseFragment() {
         return PixelConverter.toPixels(cardWidthInDps, context)
     }
 
-    private fun calculateHeightRoute(): Int {
-        val cardHeightInDps =
-            (PixelConverter.getScreenDpHeight(context) -
-                    Constants.SIZE_OF_ACTION_BAR_ROUTE) * Constants.SIZE_ROUTE_CATEGORY
-
-        return PixelConverter.toPixels(cardHeightInDps, context)
-    }
 }
