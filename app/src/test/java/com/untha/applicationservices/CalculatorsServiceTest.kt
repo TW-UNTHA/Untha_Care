@@ -45,6 +45,7 @@ class CalculatorsServiceTest {
         var calendarDate = stringToCalendar.invoke(calculatorsService, stringDate)
         assertThat(calendarDate, instanceOf(Calendar::class.java))
     }
+    // <editor-fold desc="CALCULATE NUMBER OF DAYS">
 
     @Test
     fun `should return 360  when start date 01 Jan 2020 and end date 01 Jan 2021`() {
@@ -155,6 +156,8 @@ class CalculatorsServiceTest {
         assertEquals(expectedValue, numberOfDays)
     }
 
+    //</editor-fold>
+    // <editor-fold desc="DECIMO TERCERO MENSUALIZADO">
     @Test
     fun `should return decimo tercero mensualizado = 33,33 when receive a salary of 400`() {
         val salary = 400
@@ -164,8 +167,6 @@ class CalculatorsServiceTest {
         val result =
             calculatorsService.calculateDecimoTercerSueldoMensualizado(salary.toBigDecimal())
         assertEquals(expectedValue, result)
-
-
     }
 
     @Test
@@ -177,10 +178,10 @@ class CalculatorsServiceTest {
         val result =
             calculatorsService.calculateDecimoTercerSueldoMensualizado(salary.toBigDecimal())
         assertEquals(expectedValue, result)
-
-
     }
 
+    //</editor-fold>
+    // <editor-fold desc="DECIMO TERCERO ACUMULADO">
     @Test
     fun `should return 500 when start date is 1 dic and end date is 30 of nov and salary is 500`() {
         val salary = 500
@@ -300,6 +301,8 @@ class CalculatorsServiceTest {
 
     }
 
+    //</editor-fold>
+    // <editor-fold desc="DECIMO CUARTO MENSUALIZADO">
     @Test
     fun `should return decimo cuarto mensualizado 33,33 when SBU is 400`() {
         var expectedValue = BigDecimal(33.33)
@@ -312,6 +315,8 @@ class CalculatorsServiceTest {
 
     }
 
+    //</editor-fold>
+    // <editor-fold desc="DECIMO CUARTO ACUMULADO">
     @Test
     fun `should return SBU 400 when area is Sierra or Oriente and startDate is 1 Ago and endDate is 31 Jul and idWorkDay is 1 completa`() {
         var expectedValue = BigDecimal(400)
@@ -585,8 +590,10 @@ class CalculatorsServiceTest {
         assertEquals(expectedValue, result)
     }
 
+    //</editor-fold>
+    // <editor-fold desc="APORTE IESS MENSUALIZADO">
     @Test
-    fun `should return 37,80   when my salary is 400`() {
+    fun `should return 37,80 of IESS contribution  when my salary is 400`() {
         val expectedValue = BigDecimal(37.80).setScale(2, RoundingMode.HALF_UP)
         val salary = BigDecimal(400.00).setScale(2, RoundingMode.HALF_UP)
 
@@ -596,7 +603,7 @@ class CalculatorsServiceTest {
     }
 
     @Test
-    fun `should return 42,53   when my salary is 450`() {
+    fun `should return amount 42,53 of IESS contribution  when my salary is 450`() {
         val expectedValue = BigDecimal(42.53).setScale(2, RoundingMode.HALF_UP)
         val salary = BigDecimal(450.00).setScale(2, RoundingMode.HALF_UP)
 
@@ -604,4 +611,124 @@ class CalculatorsServiceTest {
 
         assertEquals(expectedValue, result)
     }
+
+    //</editor-fold>
+    // <editor-fold desc="FONDOS DE RESERVA MENSUALIZADO">
+    @Test
+    fun `should return 0 of fondo de reserva contribution when period is less than one year`() {
+        val expectedValue = BigDecimal(0.00).setScale(2, RoundingMode.HALF_UP)
+        val startDate = "2019-01-01"
+        val endDate = "2019-12-30"
+        val salary = BigDecimal(450.00).setScale(2, RoundingMode.HALF_UP)
+
+        val result = calculatorsService.getFondoReservaMensualizado(startDate, endDate, salary)
+
+        assertEquals(expectedValue, result)
+    }
+
+    @Test
+    fun `should return 37,49 of fondo de reserva contribution when period is one year`() {
+        val expectedValue = BigDecimal(0).setScale(2, RoundingMode.HALF_UP)
+        val startDate = "2019-01-01"
+        val endDate = "2020-01-01"
+        val salary = BigDecimal(450.00).setScale(2, RoundingMode.HALF_UP)
+
+        val result = calculatorsService.getFondoReservaMensualizado(startDate, endDate, salary)
+
+        assertEquals(expectedValue, result)
+    }
+
+    @Test
+    fun `should return 0,00 of fondo de reserva contribution when period is more than one year`() {
+        val expectedValue = BigDecimal(0.00).setScale(2, RoundingMode.HALF_UP)
+        val startDate = "2019-03-01"
+        val endDate = "2020-03-01"
+        val salary = BigDecimal(400.00).setScale(2, RoundingMode.HALF_UP)
+
+        val result = calculatorsService.getFondoReservaMensualizado(startDate, endDate, salary)
+
+        assertEquals(expectedValue, result)
+    }
+
+    @Test
+    fun `should return 24,99 of fondo de reserva contribution when period is more than one year`() {
+        val expectedValue = BigDecimal(24.99).setScale(2, RoundingMode.HALF_UP)
+        val startDate = "2019-03-01"
+        val endDate = "2020-03-02"
+        val salary = BigDecimal(300.00).setScale(2, RoundingMode.HALF_UP)
+
+        val result = calculatorsService.getFondoReservaMensualizado(startDate, endDate, salary)
+
+        assertEquals(expectedValue, result)
+    }
+
+    //</editor-fold>
+    // <editor-fold desc="VACACIONES">
+
+    @Test
+    fun `should return 15,00 when startDate is 1 de Aug 2019 and endDate is 1 Aug 2020`() {
+        val expectedValue = BigDecimal(15.00).setScale(2, RoundingMode.HALF_UP)
+        val startDate = "2019-08-01"
+        val endDate = "2020-08-01"
+
+        val result = calculatorsService.getVacations(startDate, endDate)
+
+        assertEquals(expectedValue, result)
+    }
+
+    @Test
+    fun `should return 16,25 when startDate is 1 de Jul 2019 and endDate is 1 Aug 2020`() {
+        val expectedValue = BigDecimal(16.25).setScale(2, RoundingMode.HALF_UP)
+        val startDate = "2019-07-01"
+        val endDate = "2020-08-01"
+
+        val result = calculatorsService.getVacations(startDate, endDate)
+
+        assertEquals(expectedValue, result)
+    }
+
+    @Test
+    fun `should return 12,5 when startDate is 1 de Jul 2019 and endDate is 1 May 2020`() {
+        val expectedValue = BigDecimal(12.5).setScale(2, RoundingMode.HALF_UP)
+        val startDate = "2019-07-01"
+        val endDate = "2020-05-01"
+
+        val result = calculatorsService.getVacations(startDate, endDate)
+
+        assertEquals(expectedValue, result)
+    }
+    @Test
+    fun `should return 14,88 when startDate is 1 de Mar 2020 and endDate is 28 Feb 2020`() {
+        val expectedValue = BigDecimal(14.88).setScale(2, RoundingMode.HALF_UP)
+        val startDate = "2020-03-01"
+        val endDate = "2021-02-28"
+
+        val result = calculatorsService.getVacations(startDate, endDate)
+
+        assertEquals(expectedValue, result)
+    }
+    @Test
+    fun `should return 35 when startDate is 1 de Mar 2020 and endDate is 01 Jul 2022`() {
+        val expectedValue = BigDecimal(35.00).setScale(2, RoundingMode.HALF_UP)
+        val startDate = "2020-03-01"
+        val endDate = "2022-07-01"
+
+        val result = calculatorsService.getVacations(startDate, endDate)
+
+        assertEquals(expectedValue, result)
+    }
+    @Test
+    fun `should return 45 when startDate is 1 de Mar 2020 and endDate is 01 Mar 2023`() {
+        val expectedValue = BigDecimal(45.00).setScale(2, RoundingMode.HALF_UP)
+        val startDate = "2020-03-01"
+        val endDate = "2023-03-01"
+
+        val result = calculatorsService.getVacations(startDate, endDate)
+
+        assertEquals(expectedValue, result)
+    }
+
+    //</editor-fold>
+
+
 }

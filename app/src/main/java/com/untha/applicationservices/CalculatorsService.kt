@@ -5,8 +5,10 @@ import com.untha.utils.ConstantsCalculators.DAYS_IN_MONTH
 import com.untha.utils.ConstantsCalculators.DAYS_OF_YEAR
 import com.untha.utils.ConstantsCalculators.FIRST_DAY_MONTH
 import com.untha.utils.ConstantsCalculators.MONTHS_OF_YEAR
-import com.untha.utils.ConstantsCalculators.PORCENTAJE_APORTE_IESS_PRIVADO
+import com.untha.utils.ConstantsCalculators.PERCENTAJE_APORTE_FONDOS_RESERVA
+import com.untha.utils.ConstantsCalculators.PERCENTAJE_APORTE_IESS_PRIVADO
 import com.untha.utils.ConstantsCalculators.SBU
+import com.untha.utils.ConstantsCalculators.VACATIONS_ONE_YEAR
 import com.untha.utils.ConstantsCalculators.WEEKLY_HOURS_COMPLETE
 import java.math.BigDecimal
 import java.math.RoundingMode
@@ -36,7 +38,7 @@ class CalculatorsService {
         val year = calendarEndDate.get(Calendar.YEAR) - 1
 
 
-        when (isDecember(calendarStartDate) && isNovember(calendarEndDate)) {
+        when (isFirstDayOfDecember(calendarStartDate) && isLastDayOfNovember(calendarEndDate)) {
             true -> return salary.setScale(2, RoundingMode.HALF_UP)
 
             false -> when (calendarStartDate.compareTo(stringToCalendar("$year-12-01")) < 0) {
@@ -118,6 +120,34 @@ class CalculatorsService {
         return null
     }
 
+    fun getAportacionMensualIESS(salary: BigDecimal): BigDecimal? {
+        val result = salary.multiply(PERCENTAJE_APORTE_IESS_PRIVADO.toBigDecimal())
+        return result.setScale(2, RoundingMode.HALF_UP)
+    }
+
+    fun getFondoReservaMensualizado(
+        startDate: String,
+        endDate: String,
+        salary: BigDecimal
+    ): BigDecimal? {
+        val numberOfDays =
+            calculateDaysBetween(stringToCalendar(startDate), stringToCalendar(endDate))
+        if (numberOfDays > DAYS_OF_YEAR) {
+            val result = salary.multiply(PERCENTAJE_APORTE_FONDOS_RESERVA.toBigDecimal())
+            return result.setScale(2, RoundingMode.HALF_UP)
+        } else {
+            return 0.00.toBigDecimal().setScale(2, RoundingMode.HALF_UP)
+        }
+    }
+
+    fun getVacations(startDate: String, endDate: String): BigDecimal {
+        val numberOfDays =
+            calculateDaysBetween(stringToCalendar(startDate), stringToCalendar(endDate))
+        val equivalentDay = VACATIONS_ONE_YEAR.toBigDecimal().multiply(numberOfDays.toBigDecimal())
+
+        return equivalentDay.divide(DAYS_OF_YEAR.toBigDecimal(), 2, RoundingMode.HALF_UP)
+    }
+
     private fun calculateDecimoCuartoPartialTime(
         calendarEndDate: Calendar,
         numberOfHoursWeekly: Int,
@@ -146,8 +176,8 @@ class CalculatorsService {
                 )
             }
             else -> {
-                if (isMarchStartDate(calendarStartDate) && isFebruaryEndDate(calendarEndDate)) {
-                    return calculateEquivalent(numberOfHoursWeekly)
+                if (isFirstDayOfMarch(calendarStartDate) && isLastDayOfFebruary(calendarEndDate)) {
+                    return calculateSalaryEquivalent(numberOfHoursWeekly)
                 }
                 val daysWorked: BigDecimal = calculateDaysBetween(
                     calendarStartDate,
@@ -158,7 +188,7 @@ class CalculatorsService {
                     return formulaDecimoCuarto(SBU.toBigDecimal(), daysWorked)
 
                 } else {
-                    val salary = calculateEquivalent(numberOfHoursWeekly)
+                    val salary = calculateSalaryEquivalent(numberOfHoursWeekly)
                     return formulaDecimoCuarto(salary, daysWorked)
                 }
             }
@@ -192,7 +222,7 @@ class CalculatorsService {
                 )
             }
             else -> {
-                if (isMarchStartDate(calendarStartDate) && isFebruaryEndDate(calendarEndDate)) {
+                if (isFirstDayOfMarch(calendarStartDate) && isLastDayOfFebruary(calendarEndDate)) {
                     return SBU.toBigDecimal().setScale(2, RoundingMode.HALF_UP)
                 }
 
@@ -243,14 +273,14 @@ class CalculatorsService {
         when (numberOfHoursWeekly) {
             0 -> return formulaDecimoCuarto(SBU.toBigDecimal(), daysWorked)
             else -> {
-                val salary = calculateEquivalent(numberOfHoursWeekly)
+                val salary = calculateSalaryEquivalent(numberOfHoursWeekly)
                 return formulaDecimoCuarto(salary, daysWorked)
             }
 
         }
     }
 
-    private fun calculateEquivalent(numberOfHoursWeekly: Int): BigDecimal {
+    private fun calculateSalaryEquivalent(numberOfHoursWeekly: Int): BigDecimal {
         val equivalent =
             numberOfHoursWeekly.toBigDecimal().divide(WEEKLY_HOURS_COMPLETE.toBigDecimal())
                 .multiply(SBU.toBigDecimal())
@@ -275,7 +305,6 @@ class CalculatorsService {
         val sdf = SimpleDateFormat("yyy-MM-dd", Locale.getDefault())
         calendar.time = sdf.parse(date)
         return calendar
-
     }
 
     private fun calculateDaysBetween(
@@ -290,9 +319,6 @@ class CalculatorsService {
         val endMonth = calendarEndDate.get(Calendar.MONTH)
         val endYear = calendarEndDate.get(Calendar.YEAR)
 
-//        println(calendarStartDate.get(Calendar.DAY_OF_MONTH))
-//        println(calendarStartDate.getActualMaximum((Calendar.DAY_OF_MONTH)))
-
         if (startDay == DAYS_31 || isLastDayOfFebruary(calendarStartDate)) {
             startDay = DAYS_IN_MONTH
         }
@@ -300,7 +326,6 @@ class CalculatorsService {
             endDay = DAYS_IN_MONTH
         }
         return ((endYear - startYear) * DAYS_OF_YEAR) + ((endMonth - startMonth) * DAYS_IN_MONTH) + (endDay - startDay)
-
     }
 
 
@@ -330,37 +355,26 @@ class CalculatorsService {
     ): BigDecimal {
         return salary.multiply(numberOfDays.toBigDecimal())
             .divide(DAYS_OF_YEAR.toBigDecimal(), 2, RoundingMode.HALF_UP)
-
     }
 
-    private fun isDecember(startDate: Calendar): Boolean {
+    private fun isFirstDayOfDecember(startDate: Calendar): Boolean {
         return startDate.get(Calendar.MONTH) == Calendar.DECEMBER &&
                 startDate.get(Calendar.DAY_OF_MONTH) == FIRST_DAY_MONTH
     }
 
-    private fun isNovember(endDate: Calendar): Boolean {
+    private fun isLastDayOfNovember(endDate: Calendar): Boolean {
         return endDate.get(Calendar.MONTH) == Calendar.NOVEMBER &&
                 endDate.get(Calendar.DAY_OF_MONTH) == DAYS_IN_MONTH
 
     }
 
     private fun isLastDayOfFebruary(date: Calendar): Boolean {
-        return date.get(Calendar.MONTH) == 1 &&
+        return date.get(Calendar.MONTH) == Calendar.FEBRUARY &&
                 date.get(Calendar.DAY_OF_MONTH) == date.getActualMaximum((Calendar.DAY_OF_MONTH))
     }
 
-    private fun isMarchStartDate(calendarStartDate: Calendar) =
+    private fun isFirstDayOfMarch(calendarStartDate: Calendar) =
         calendarStartDate.get(Calendar.MONTH) == Calendar.MARCH && calendarStartDate.get(Calendar.DAY_OF_MONTH) == 1
-
-    private fun isFebruaryEndDate(calendarEndDate: Calendar) =
-        calendarEndDate.get(Calendar.MONTH) == Calendar.FEBRUARY && calendarEndDate.get(
-            Calendar.DAY_OF_MONTH
-        ) == calendarEndDate.getActualMaximum(Calendar.DAY_OF_MONTH)
-
-    fun getAportacionMensualIESS(salary: BigDecimal): BigDecimal? {
-        val result = salary.multiply(PORCENTAJE_APORTE_IESS_PRIVADO.toBigDecimal())
-        return result.setScale(2, RoundingMode.HALF_UP)
-    }
 
 }
 
