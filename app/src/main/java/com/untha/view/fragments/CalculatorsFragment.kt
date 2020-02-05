@@ -161,7 +161,7 @@ class CalculatorsFragment : BaseFragment() {
         calculator: Category
     ) {
         textView {
-            text = calculator.subtitle
+            text = calculator.subtitle?.toUpperCase()
             textSizeDimen = R.dimen.text_size_content_for_many_characters
             textColor =
                 ContextCompat.getColor(context, R.color.colorTitleCategoryRoute)
@@ -189,5 +189,4 @@ class CalculatorsFragment : BaseFragment() {
             PixelConverter.getScreenDpWidth(context) * Constants.MARGIN_LATERAL_PERCENTAGE_MAIN_ROUTE
         return PixelConverter.toPixels(cardWidthInDps, context)
     }
-
 }
