@@ -56,5 +56,9 @@
     <fragment
         android:id="@+id/calculatorsFragment"
         android:name="com.untha.view.fragments.CalculatorsFragment"
-        android:label="CALCULADORAS"/>
+        android:label="CALCULADORAS" />
+    <fragment
+        android:id="@+id/calculatorBenefitFragment"
+        android:name="com.untha.view.fragments.CalculatorBenefitFragment"
+        android:label="CALCULADORA DE BENEFICIOS" />
 </navigation>

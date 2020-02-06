@@ -116,5 +116,7 @@ object Constants {
     const val TIME_SLEEP: Long = 500
     const val IS_THERE_GOOGLE_PLAY_ERROR = "google-play-error"
 
+    const val ID_CALCULATOR_BENEFICIOS = 16
+
 
 }
