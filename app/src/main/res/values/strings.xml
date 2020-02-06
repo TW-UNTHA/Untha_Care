@@ -62,4 +62,9 @@
     <string name="update">Actualizar</string>
     <string name="dismiss">Descartar</string>
     <string name="startDate">Fecha inicio</string>
+    <string name="endDate">Fecha fin</string>
+    <string name="workday">Jornada</string>
+    <string name="area">Región</string>
+    <string name="salary">Salario</string>
+    <string name="btnCalcular">Calcular</string>
 </resources>
