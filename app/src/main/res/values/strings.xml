@@ -61,4 +61,5 @@
     <string name="application_icon">Ícono de la aplicación</string>
     <string name="update">Actualizar</string>
     <string name="dismiss">Descartar</string>
+    <string name="startDate">Fecha inicio</string>
 </resources>

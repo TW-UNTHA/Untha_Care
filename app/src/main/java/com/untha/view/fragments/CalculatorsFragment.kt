@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
+import androidx.navigation.findNavController
 import com.untha.R
 import com.untha.model.transactionalmodels.Category
 import com.untha.utils.Constants
@@ -33,14 +34,14 @@ import org.jetbrains.anko.verticalLayout
 
 
 class CalculatorsFragment : BaseFragment() {
-    private var calculatorsRoutes: List<Category>? = null
+    private var categoriesCalculator: List<Category>? = null
     private lateinit var mainActivity: MainActivity
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val bundle = arguments
-        calculatorsRoutes = bundle?.get(Constants.CATEGORIES_CALCULATORS) as List<Category>
+        categoriesCalculator = bundle?.get(Constants.CATEGORIES_CALCULATORS) as List<Category>
     }
 
     override fun onCreateView(
@@ -56,7 +57,7 @@ class CalculatorsFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         with(view as _ScrollView) {
             verticalLayout {
-                buildCalculator(view)
+                buildListCalculators(view)
             }.lparams(width = matchParent, height = matchParent)
         }
         mainActivity.customActionBar(
@@ -80,8 +81,8 @@ class CalculatorsFragment : BaseFragment() {
         }.view
     }
 
-    private fun @AnkoViewDslMarker _LinearLayout.buildCalculator(view: View) {
-        calculatorsRoutes?.map { calculator ->
+    private fun @AnkoViewDslMarker _LinearLayout.buildListCalculators(view: View) {
+        categoriesCalculator?.map { calculator ->
             logAnalyticsSelectContentWithId(
                 "${Constants.CLICK_ROUTE_TITLE}${calculator.title}", ContentType.ROUTE
             )
@@ -97,10 +98,24 @@ class CalculatorsFragment : BaseFragment() {
                     buildImageNextStep(view, calculator)
                     buildBlockTextNextSteps(calculator)
                 }
+                setOnClickListener { view ->
+                    onItemClick(calculator, view)
+                }
             }.lparams(matchParent, height = dip(heightFormula.toInt())) {
                 topMargin = calculateTopMargin()
                 rightMargin = calculateLateralMargin() - dip(Constants.SHADOW_PADDING_SIZE)
                 leftMargin = calculateLateralMargin()
+            }
+        }
+    }
+
+    private fun onItemClick(category: Category, itemView: View) {
+        if (category.type == "calculator") {
+            when (category.id) {
+                Constants.ID_CALCULATOR_BENEFICIOS -> {
+                    itemView.findNavController()
+                        .navigate(R.id.calculatorBenefitFragment, null, navOptions, null)
+                }
             }
         }
     }
