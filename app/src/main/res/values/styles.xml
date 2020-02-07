@@ -55,6 +55,12 @@
         <item name="android:fontFamily">@font/proxima_nova_light</item>
     </style>
 
+    <style name="spinnersStyle" parent="@android:style/Widget.Holo.DropDownItem.Spinner">
+        <item name="android:textColor">@color/colorGenericTitle</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:fontFamily">@font/proxima_nova_light</item>
+    </style>
+
 </resources>
 
 
