@@ -69,4 +69,8 @@
     <string name="salary">Remuneración mensual</string>
     <string name="btnCalcular">Calcular</string>
     <string name="description">Sin tomar en cuenta descuento del IESS</string>
+    <string name="wrong_date_start">La fecha de inicio ingresada es incorrecta</string>
+    <string name="wrong_date_end">La fecha de fin ingresada es incorrecta</string>
+    <string name="wrong_date_compare_dates">La fecha fin no puede ser menor que la fecha de inicio</string>
+
 </resources>

@@ -300,7 +300,7 @@ class CalculatorsService {
     }
 
 
-    private fun stringToCalendar(date: String): Calendar {
+    fun stringToCalendar(date: String): Calendar {
         val calendar = Calendar.getInstance()
         val sdf = SimpleDateFormat("yyy-MM-dd", Locale.getDefault())
         calendar.time = sdf.parse(date)
