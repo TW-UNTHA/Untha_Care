@@ -86,7 +86,7 @@ class CalculatorBenefitFragment : BaseFragment() {
                     putInt("idArea", area)
                 }
                 view.findNavController().navigate(
-                    0, bundle,
+                    R.id.calculatorBenefitResultFragment, bundle,
                     navOptions, null
                 )
             }
@@ -95,7 +95,7 @@ class CalculatorBenefitFragment : BaseFragment() {
     }
 
     private fun getWorkday() = if (spinnerWorkday.selectedItemPosition == PARTIAL_TIME)
-        PARTIAL_TIME else PARTIAL_TIME
+        PARTIAL_TIME else COMPLETE_TIME
 
     private fun getHours() = if (spinnerWorkday.selectedItemPosition == PARTIAL_TIME)
         inputPartialHours.text.toString().toInt() else 0
