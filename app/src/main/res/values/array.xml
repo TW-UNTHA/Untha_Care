@@ -20,6 +20,6 @@
     </string-array>
     <string-array name="workday_array">
         <item>Tiempo completo (40 h/semana)</item>
-        <item>Tiempo parcial</item>
+        <item>Tiempo parcial (horas semanales)</item>
     </string-array>
 </resources>

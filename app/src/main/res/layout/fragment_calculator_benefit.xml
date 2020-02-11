@@ -79,7 +79,6 @@
 
         <EditText
             android:id="@+id/inputSalary"
-            style="@android:style/Widget.Holo.EditText"
             android:layout_width="0dp"
             android:layout_height="41dp"
             android:layout_marginStart="100dp"
@@ -150,7 +149,6 @@
             android:layout_marginTop="3dp"
             android:fadeScrollbars="true"
             android:gravity="center_horizontal"
-            android:popupBackground="@color/colorBackgroundFaultContainer"
             android:spinnerMode="dropdown"
             android:text="@string/endDate"
             android:textColor="#602080"
@@ -200,6 +198,7 @@
             android:text="@string/description_end_date"
             android:textColor="#0e0e0e"
             android:textSize="14sp"
+            android:buttonTint="@color/colorBackground"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
