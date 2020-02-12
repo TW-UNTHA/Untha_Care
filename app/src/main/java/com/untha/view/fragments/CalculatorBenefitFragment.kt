@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
 import android.widget.Toast
@@ -26,7 +25,8 @@ class CalculatorBenefitFragment : BaseFragment() {
         const val MONTH_WITH_TWO_DIGITS = 10
         const val PARTIAL_TIME = 1
         const val COMPLETE_TIME = 2
-        const val MAX_PARTIAL_HOURS = 36
+        const val COMPLETE_HOURS = 40
+        const val MAX_HOURS_WEEK = 40
         const val SIERRA_ORIENTE = 2
         const val COSTA_GALAPAGOS = 1
     }
@@ -57,9 +57,6 @@ class CalculatorBenefitFragment : BaseFragment() {
 
         )
         loadAllSpinners()
-
-        changeAppearancePartialHoursThroughtWorkday()
-
         changeStateSpinnersEndDate()
 
         btnCalcular.setOnClickListener {
@@ -67,14 +64,14 @@ class CalculatorBenefitFragment : BaseFragment() {
             val endDate = if (checkBoxEndDate.isChecked) Calendar.getInstance() else getEndDate()
             val validDates = validationDates(startDate, endDate)
             val validSalary = validationSalaryInput()
-            val validWorkday = validationSpinnerWorkday()
+            val validWorkday = validationHours()
             if (validDates && validSalary && validWorkday) {
                 val verifiedStartDate =
                     buildDate(spinnerStartDateYear, spinnerStartDateMonth, spinnerStartDateDay)
                 val verifiedEndDate = endDateToString(endDate)
                 val area = getArea()
-                val hours = getHours()
-                val workday = getWorkday()
+                val hours = inputHours.text.toString().toInt()
+                val workday = getTypeWorkday()
                 val salary = inputSalary.text.toString()
 
                 val bundle = Bundle().apply {
@@ -94,11 +91,9 @@ class CalculatorBenefitFragment : BaseFragment() {
         }
     }
 
-    private fun getWorkday() = if (spinnerWorkday.selectedItemPosition == PARTIAL_TIME)
+    private fun getTypeWorkday() = if (inputHours.text.toString().toInt() < COMPLETE_HOURS)
         PARTIAL_TIME else COMPLETE_TIME
 
-    private fun getHours() = if (spinnerWorkday.selectedItemPosition == PARTIAL_TIME)
-        inputPartialHours.text.toString().toInt() else 0
 
     private fun getArea() = if (spinnerArea.selectedItemPosition == 0)
         SIERRA_ORIENTE else COSTA_GALAPAGOS
@@ -150,41 +145,24 @@ class CalculatorBenefitFragment : BaseFragment() {
         return true
     }
 
-    private fun validationSpinnerWorkday(): Boolean {
-        if (spinnerWorkday.selectedItemPosition == PARTIAL_TIME) {
-            if (inputPartialHours.text.toString().isEmpty()) {
-                showToast(R.string.wrong_number_of_hours_minimun)
-                return false
-            }
-            if (inputPartialHours.text.toString().toInt() == 0) {
-                showToast(R.string.wrong_number_of_hours_zero)
-                return false
-            }
-            val hours = inputPartialHours.text.toString().toInt()
-            if (hours > MAX_PARTIAL_HOURS) {
-                showToast(R.string.wrong_number_of_hours_max)
-            }
+    private fun validationHours(): Boolean {
+        if (inputHours.text.toString().isEmpty()) {
+            showToast(R.string.wrong_number_of_hours_minimun)
+            return false
         }
+        if (inputHours.text.toString().toInt() == 0) {
+            showToast(R.string.wrong_number_of_hours_zero)
+            return false
+        }
+
+        if (inputHours.text.toString().toInt() > MAX_HOURS_WEEK) {
+            showToast(R.string.wrong_number_of_hours_maximum)
+            return false
+        }
+
         return true
     }
 
-    private fun changeAppearancePartialHoursThroughtWorkday() {
-        spinnerWorkday.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-                println("nothing selected")
-            }
-
-            override fun onItemSelected(
-                parent: AdapterView<*>?,
-                view: View?,
-                position: Int,
-                id: Long
-            ) {
-                inputPartialHours.visibility =
-                    if (position == PARTIAL_TIME) View.VISIBLE else View.GONE
-            }
-        }
-    }
 
     private fun changeStateSpinnersEndDate() {
         checkBoxEndDate.setOnClickListener {
@@ -225,7 +203,7 @@ class CalculatorBenefitFragment : BaseFragment() {
         loadYearsAdapter(spinnerStartDateYear)
         loadYearsAdapter(spinnerEndDateYear)
 
-        loadSpinnerData(spinnerWorkday, R.array.workday_array)
+        //loadSpinnerData(spinnerWorkday, R.array.workday_array)
         loadSpinnerData(spinnerArea, R.array.areas_array)
     }
 
@@ -333,9 +311,9 @@ class CalculatorBenefitFragment : BaseFragment() {
         ArrayAdapter.createFromResource(
             context!!,
             idArray,
-            android.R.layout.simple_spinner_item
+            R.layout.spinner_item
         ).also { adapter ->
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_item)
+            adapter.setDropDownViewResource(R.layout.spinner_item)
             spinner.adapter = adapter
 
         }

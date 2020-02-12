@@ -137,4 +137,5 @@ dependencies {
     androidTestImplementation "androidx.test.ext:junit:$test_ext_version"
     androidTestImplementation 'androidx.test:rules:1.2.0-beta01'
     android.defaultConfig.vectorDrawables.useSupportLibrary = true
+    compile 'com.android.support:design:27.0.2'
 }
