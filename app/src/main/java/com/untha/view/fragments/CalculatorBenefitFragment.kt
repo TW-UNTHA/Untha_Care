@@ -26,7 +26,7 @@ class CalculatorBenefitFragment : BaseFragment() {
         const val PARTIAL_TIME = 1
         const val COMPLETE_TIME = 2
         const val COMPLETE_HOURS = 40
-        const val MAX_HOURS_WEEK = 40
+        const val MAX_HOURS_WEEK = 60
         const val SIERRA_ORIENTE = 2
         const val COSTA_GALAPAGOS = 1
     }
@@ -60,34 +60,67 @@ class CalculatorBenefitFragment : BaseFragment() {
         changeStateSpinnersEndDate()
 
         btnCalcular.setOnClickListener {
-            val startDate = getStartDateTransformed()
-            val endDate = if (checkBoxEndDate.isChecked) Calendar.getInstance() else getEndDate()
+
+            if (!validationStartDate()) {
+                return@setOnClickListener
+            }
+            val startDate = transformToCalendarDate(
+                spinnerStartDateYear,
+                spinnerStartDateMonth,
+                spinnerStartDateDay
+            )
+
+
+            var endDate: Calendar
+            if (checkBoxEndDate.isChecked) {
+                endDate = Calendar.getInstance()
+            } else {
+                if (isDaySelectedMajorOfLastDayMonth(
+                        spinnerEndDateYear,
+                        spinnerEndDateMonth,
+                        spinnerEndDateDay
+                    )
+                ) {
+                    showToast(R.string.wrong_date_end)
+                    return@setOnClickListener
+                } else {
+                    endDate = transformToCalendarDate(
+                        spinnerEndDateYear,
+                        spinnerEndDateMonth,
+                        spinnerEndDateDay
+                    )
+                }
+            }
             val validDates = validationDates(startDate, endDate)
             val validSalary = validationSalaryInput()
             val validWorkday = validationHours()
             if (validDates && validSalary && validWorkday) {
-                val verifiedStartDate =
-                    buildDate(spinnerStartDateYear, spinnerStartDateMonth, spinnerStartDateDay)
-                val verifiedEndDate = endDateToString(endDate)
-                val area = getArea()
-                val hours = inputHours.text.toString().toInt()
-                val workday = getTypeWorkday()
-                val salary = inputSalary.text.toString()
-
-                val bundle = Bundle().apply {
-                    putString("startDate", verifiedStartDate)
-                    putString("endDate", verifiedEndDate)
-                    putString("salary", salary)
-                    putInt("hours", hours)
-                    putInt("idWorkday", workday)
-                    putInt("idArea", area)
-                }
+                val bundle = loadBundle(endDate)
                 view.findNavController().navigate(
                     R.id.calculatorBenefitResultFragment, bundle,
                     navOptions, null
                 )
             }
 
+        }
+    }
+
+    private fun loadBundle(endDate: Calendar): Bundle {
+        val verifiedStartDate =
+            buildDate(spinnerStartDateYear, spinnerStartDateMonth, spinnerStartDateDay)
+        val verifiedEndDate = endDateToString(endDate)
+        val area = getArea()
+        val hours = inputHours.text.toString().toInt()
+        val workday = getTypeWorkday()
+        val salary = inputSalary.text.toString()
+
+        return Bundle().apply {
+            putString("startDate", verifiedStartDate)
+            putString("endDate", verifiedEndDate)
+            putString("salary", salary)
+            putInt("hours", hours)
+            putInt("idWorkday", workday)
+            putInt("idArea", area)
         }
     }
 
@@ -104,16 +137,6 @@ class CalculatorBenefitFragment : BaseFragment() {
             .plus(addZero(endDate.get(Calendar.DAY_OF_MONTH)))
     }
 
-    private fun getStartDateTransformed(): Calendar {
-        validationStartDate()
-        val startDate = transformToCalendarDate(
-            spinnerStartDateYear,
-            spinnerStartDateMonth,
-            spinnerStartDateDay
-        )
-        return startDate
-    }
-
     private fun validationDates(startDate: Calendar, endDate: Calendar): Boolean {
         if (startDate.after(endDate)) {
             showToast(R.string.wrong_date_compare_dates)
@@ -123,9 +146,13 @@ class CalculatorBenefitFragment : BaseFragment() {
     }
 
     private fun validationStartDate(): Boolean {
-        val isValidDate =
-            isValidDate(spinnerStartDateYear, spinnerStartDateMonth, spinnerStartDateDay)
-        if (isValidDate) {
+        val isInvalidDate =
+            isDaySelectedMajorOfLastDayMonth(
+                spinnerStartDateYear,
+                spinnerStartDateMonth,
+                spinnerStartDateDay
+            )
+        if (isInvalidDate) {
             showToast(R.string.wrong_date_start)
             return false
         }
@@ -170,6 +197,12 @@ class CalculatorBenefitFragment : BaseFragment() {
                 changeStateSpinners(spinnerEndDateDay, false)
                 changeStateSpinners(spinnerEndDateMonth, false)
                 changeStateSpinners(spinnerEndDateYear, false)
+
+                val calendar = Calendar.getInstance()
+                spinnerEndDateDay.setSelection(calendar.get(Calendar.DAY_OF_MONTH) - 1)
+                spinnerEndDateMonth.setSelection(calendar.get(Calendar.MONTH))
+                spinnerEndDateYear.setSelection(0)
+
             } else {
                 changeStateSpinners(spinnerEndDateDay, true)
                 changeStateSpinners(spinnerEndDateMonth, true)
@@ -178,20 +211,6 @@ class CalculatorBenefitFragment : BaseFragment() {
         }
     }
 
-    private fun getEndDate(): Calendar {
-        var date: Calendar = Calendar.getInstance()
-        if (isValidDate(spinnerEndDateYear, spinnerEndDateMonth, spinnerEndDateDay)
-        ) {
-            showToast(R.string.wrong_date_end)
-        } else {
-            date = transformToCalendarDate(
-                spinnerEndDateYear,
-                spinnerEndDateMonth,
-                spinnerEndDateDay
-            )
-        }
-        return date
-    }
 
     private fun loadAllSpinners() {
         loadDaysSpinner(spinnerStartDateDay)
@@ -241,6 +260,8 @@ class CalculatorBenefitFragment : BaseFragment() {
     private fun changeStateSpinners(spinner: Spinner, state: Boolean) {
         spinner.isEnabled = state
         spinner.isClickable = state
+        spinner.isActivated = state
+
     }
 
     private fun transformationMonth(month: Int): String {
@@ -255,7 +276,7 @@ class CalculatorBenefitFragment : BaseFragment() {
         else number.toString()
     }
 
-    private fun isValidDate(
+    private fun isDaySelectedMajorOfLastDayMonth(
         spinnerYear: Spinner,
         spinnerMonth: Spinner,
         spinnerDay: Spinner
@@ -276,7 +297,7 @@ class CalculatorBenefitFragment : BaseFragment() {
     private fun loadYearsAdapter(spinner: Spinner) {
         spinner.adapter = ArrayAdapter(
             context!!,
-            android.R.layout.simple_list_item_1,
+            R.layout.spinner_item,
             loadSpinnerYear()
         )
     }
@@ -285,7 +306,7 @@ class CalculatorBenefitFragment : BaseFragment() {
     private fun loadDaysSpinner(spinner: Spinner) {
         spinner.adapter = ArrayAdapter(
             context!!,
-            android.R.layout.simple_list_item_1,
+            R.layout.spinner_item,
             loadSpinnerDays()
         )
     }

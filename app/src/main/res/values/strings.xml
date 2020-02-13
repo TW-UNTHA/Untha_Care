@@ -64,11 +64,12 @@
     <string name="startDate">Fecha inicio de contrato</string>
     <string name="endDate">Fecha fin de contrato</string>
     <string name="description_end_date">Sigo trabajando aquí</string>
-    <string name="workday">Tipo de jornada</string>
+    <string name="workday">Jornada laboral</string>
     <string name="area">Región</string>
     <string name="salary">Remuneración mensual</string>
     <string name="btnCalcular">Calcular</string>
     <string name="description">Sin tomar en cuenta descuento del IESS</string>
+    <string name="description_workday">Ingrese sus horas de trabajo a la semana</string>
     <string name="wrong_date_start">La fecha de inicio ingresada es incorrecta</string>
     <string name="wrong_date_end">La fecha de fin ingresada es incorrecta</string>
     <string name="wrong_date_compare_dates">La fecha fin no puede ser menor que la fecha de inicio</string>

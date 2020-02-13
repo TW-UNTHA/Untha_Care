@@ -64,16 +64,17 @@
 
         <Spinner
             android:id="@+id/spinnerArea"
-            style="@style/spinnersStyle"
-            android:layout_width="wrap_content"
+            android:layout_width="302dp"
             android:layout_height="31dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginLeft="24dp"
+            android:layout_marginStart="50dp"
+            android:layout_marginLeft="50dp"
             android:layout_marginTop="20dp"
+            android:layout_marginEnd="50dp"
+            android:layout_marginRight="50dp"
+            android:background="@drawable/btn_dropdown_area"
             android:gravity="center_horizontal"
             android:lineSpacingExtra="3sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.008"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_area" />
 
@@ -128,6 +129,20 @@
             app:layout_constraintTop_toBottomOf="@+id/tv_salary" />
 
         <TextView
+            android:id="@+id/tv_description_workday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginLeft="24dp"
+            android:layout_marginTop="5dp"
+            android:lineSpacingExtra="7sp"
+            android:text="@string/description_workday"
+            android:textColor="#0e0e0e"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_jornada" />
+
+        <TextView
             android:id="@+id/textView6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -147,29 +162,25 @@
 
         <Spinner
             android:id="@+id/spinnerStartDateDay"
-            style="@style/spinnersStyle"
-            android:layout_width="110dp"
+            android:layout_width="80dp"
             android:layout_height="31dp"
             android:layout_marginStart="24dp"
             android:layout_marginLeft="24dp"
-            android:layout_marginTop="5dp"
-            android:background="@android:color/darker_gray"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/btn_dropdown"
             android:fadeScrollbars="true"
             android:gravity="center_horizontal"
             android:spinnerMode="dropdown"
             android:text="@string/endDate"
-            android:textColor="#602080"
-            android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
         <Spinner
             android:id="@+id/spinnerStartDateMonth"
-            style="@style/spinnersStyle"
-            android:layout_width="110dp"
+            android:layout_width="140dp"
             android:layout_height="31dp"
-            android:layout_marginTop="5dp"
-            android:background="@android:color/darker_gray"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/btn_dropdown_xl"
             android:gravity="center_horizontal"
             app:layout_constraintEnd_toStartOf="@+id/spinnerStartDateYear"
             app:layout_constraintStart_toEndOf="@+id/spinnerStartDateDay"
@@ -177,23 +188,24 @@
 
         <Spinner
             android:id="@+id/spinnerStartDateYear"
-            android:layout_width="110dp"
+            android:layout_width="80dp"
             android:layout_height="31dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="15dp"
             android:layout_marginEnd="24dp"
             android:layout_marginRight="24dp"
-            android:background="@drawable/spinner_background"
+            android:background="@drawable/btn_dropdown"
             android:gravity="center"
-            android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
         <Spinner
             android:id="@+id/spinnerEndDateDay"
-            style="@style/spinnersStyle"
-            android:layout_width="0dp"
+            android:layout_width="80dp"
             android:layout_height="31dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginLeft="24dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/btn_dropdown"
             android:gravity="center_horizontal"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/checkBoxEndDate" />
@@ -204,10 +216,11 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginLeft="24dp"
+            android:layout_marginTop="5dp"
+            android:buttonTint="@color/colorBackground"
             android:text="@string/description_end_date"
             android:textColor="#0e0e0e"
             android:textSize="14sp"
-            android:buttonTint="@color/colorBackground"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -215,10 +228,10 @@
 
         <Spinner
             android:id="@+id/spinnerEndDateMonth"
-            style="@style/spinnersStyle"
-            android:layout_width="wrap_content"
+            android:layout_width="140dp"
             android:layout_height="31dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/btn_dropdown_xl"
             android:gravity="center_horizontal"
             app:layout_constraintEnd_toStartOf="@+id/spinnerEndDateYear"
             app:layout_constraintHorizontal_bias="0.502"
@@ -227,12 +240,12 @@
 
         <Spinner
             android:id="@+id/spinnerEndDateYear"
-            style="@style/spinnersStyle"
-            android:layout_width="wrap_content"
+            android:layout_width="80dp"
             android:layout_height="31dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="15dp"
             android:layout_marginEnd="24dp"
             android:layout_marginRight="24dp"
+            android:background="@drawable/btn_dropdown"
             android:gravity="center_horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/checkBoxEndDate" />
@@ -273,9 +286,9 @@
             android:maxLength="2"
             android:visibility="visible"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_jornada" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_description_workday" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>
