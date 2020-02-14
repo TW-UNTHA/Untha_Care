@@ -15,7 +15,6 @@
       "title": "MIS DERECHOS",
       "title_next_step": null,
       "parent_id": null
-
     },
     {
       "id": 3,
@@ -698,27 +697,27 @@
     },
     {
       "id": 16,
-      "image": "home_beneficios",
+      "image": "ic_benefits_calculator",
       "title": "CALCULADORA DE BENEFICIOS",
-      "subtitle": "calcula decimo tercero y cuarto, iess, vacaciones y fondos de reserva",
+      "subtitle": "Calcula: decimo tercero y cuarto, iess, vacaciones y fondos de reserva",
       "title_next_step": "CALCULADORA DE BENEFICIOS",
       "parent_id": null,
       "type": "calculator"
     },
     {
       "id": 17,
-      "image": "home_beneficios",
+      "image": "ic_finiquito_calculator",
       "title": "CALCULADORA DE FINIQUITO",
-      "subtitle": "calcula el valor que debes recibir cuando termina tu relacion laboral",
+      "subtitle": "calcula el pago que debes recibir por tus horas extras",
       "title_next_step": "CALCULADORA DE FINIQUITO",
       "parent_id": null,
       "type": "calculator"
     },
     {
       "id": 18,
-      "image": "home_beneficios",
+      "image": "ic_extra_hours_calculator",
       "title": "CALCULADORA DE HORAS",
-      "subtitle": "calcula el pago que debes recibir por tus horas extras",
+      "subtitle": "calcula del valor que debes recibir cuando termina tu relacion laboral",
       "title_next_step": "CALCULADORA DE HORAS",
       "parent_id": null,
       "type": "calculator"
