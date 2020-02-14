@@ -142,6 +142,13 @@ class CalculatorBenefitFragment : BaseFragment() {
             showToast(R.string.wrong_date_compare_dates)
             return false
         }
+        if (startDate.get(Calendar.YEAR) == endDate.get(Calendar.YEAR) && startDate.get(Calendar.MONTH) == endDate.get(
+                Calendar.MONTH
+            ) && startDate.get(Calendar.DAY_OF_MONTH) == endDate.get(Calendar.DAY_OF_MONTH)
+        ) {
+            showToast(R.string.wrong_date_equal_dates)
+            return false
+        }
         return true
     }
 
