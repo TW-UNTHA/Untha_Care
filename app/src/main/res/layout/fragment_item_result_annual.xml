@@ -36,7 +36,7 @@
             android:layout_marginLeft="4dp"
             android:layout_marginTop="4dp"
             android:gravity="left"
-            android:text="Décimo tercero (pagado 1 vez al año)"
+            android:text="@string/result_decimo_tercero"
             android:textSize="18sp" />
 
         <TextView

@@ -13,6 +13,7 @@ import com.untha.applicationservices.CalculatorsService
 import com.untha.utils.Constants
 import com.untha.view.activities.MainActivity
 import kotlinx.android.synthetic.main.fragment_calculator_benefit.*
+import java.math.RoundingMode
 import java.util.*
 
 class CalculatorBenefitFragment : BaseFragment() {
@@ -112,12 +113,12 @@ class CalculatorBenefitFragment : BaseFragment() {
         val area = getArea()
         val hours = inputHours.text.toString().toInt()
         val workday = getTypeWorkday()
-        val salary = inputSalary.text.toString()
+        val salary = inputSalary.text.toString().toBigDecimal()
 
         return Bundle().apply {
             putString("startDate", verifiedStartDate)
             putString("endDate", verifiedEndDate)
-            putString("salary", salary)
+            putString("salary", salary.toString())
             putInt("hours", hours)
             putInt("idWorkday", workday)
             putInt("idArea", area)
@@ -171,8 +172,8 @@ class CalculatorBenefitFragment : BaseFragment() {
             showToast(R.string.wrong_salary_empty)
             return false
         }
-        val salary = inputSalary.text.toString().toInt()
-        if (salary == 0) {
+        val salary = inputSalary.text.toString().toBigDecimal().setScale(2, RoundingMode.HALF_UP)
+        if (salary == 0.toBigDecimal().setScale(2, RoundingMode.HALF_UP)) {
             showToast(R.string.wrong_salary_zero)
             return false
         }

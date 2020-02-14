@@ -79,4 +79,9 @@
     <string name="wrong_salary_empty">Ingrese la remuneración</string>
     <string name="wrong_number_of_hours_minimun">Ingrese un número de horas </string>
     <string name="wrong_number_of_hours_zero">El número de horas  no puede ser cero </string>
+    <string name="percentage_IESS_information">IESS 9,45% (Empleado)</string>
+    <string name="pay_fondos_reserva_information">Fondos de reserva (a partir de 1 año)</string>
+    <string name="salary_information">Salario a recibir mensual</string>
+    <string name="aditional_pays">Pagos adicionales</string>
+    <string name="result_decimo_tercero">Décimo tercero (pagado 1 vez al año)</string>
 </resources>
