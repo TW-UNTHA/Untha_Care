@@ -161,9 +161,9 @@ class CalculatorsFragment : BaseFragment() {
     ) {
         textView {
             text = calculator.title
-            textSizeDimen = R.dimen.text_size
+            textSizeDimen = R.dimen.text_size_calculators
             textColor =
-                ContextCompat.getColor(context, R.color.colorTitleCategoryRoute)
+                ContextCompat.getColor(context, R.color.colorGenericTitle)
             setTypeface(typeface, Typeface.BOLD)
         }.lparams {
             topMargin = calculateTopMargin()
@@ -176,10 +176,10 @@ class CalculatorsFragment : BaseFragment() {
         calculator: Category
     ) {
         textView {
-            text = calculator.subtitle?.toUpperCase()
-            textSizeDimen = R.dimen.text_size_content_for_many_characters
+            text = calculator.subtitle
+            textSizeDimen = R.dimen.text_size_calculators
             textColor =
-                ContextCompat.getColor(context, R.color.colorTitleCategoryRoute)
+                ContextCompat.getColor(context, R.color.colorGenericTitle)
             typeface = ResourcesCompat.getFont(
                 context.applicationContext,
                 R.font.proxima_nova_light

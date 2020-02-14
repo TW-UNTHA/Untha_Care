@@ -8,5 +8,6 @@
     <dimen name="text_size_question_route">13sp</dimen>
     <dimen name="text_size_question_explanation">11sp</dimen>
     <dimen name="margin_bottom_update_screen">0dp</dimen>
+    <dimen name="text_size_calculators">11sp</dimen>
 
 </resources>
