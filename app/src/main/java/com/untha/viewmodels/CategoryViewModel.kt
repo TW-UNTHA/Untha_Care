@@ -12,10 +12,10 @@ import kotlinx.serialization.json.Json
 import kotlinx.serialization.list
 
 class CategoryViewModel(
-    private val categoryWithRelationsRepository: CategoryWithRelationsRepository,
-    private val categoryMapper: CategoryMapper,
-    private val sharedPreferences: SharedPreferences
-) : ViewModel() {
+        private val categoryWithRelationsRepository: CategoryWithRelationsRepository,
+        private val categoryMapper: CategoryMapper,
+        private val sharedPreferences: SharedPreferences
+    ) : ViewModel() {
 
     var categories: ArrayList<Category> = arrayListOf()
         private set

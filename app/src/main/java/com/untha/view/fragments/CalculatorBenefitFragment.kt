@@ -24,8 +24,8 @@ class CalculatorBenefitFragment : BaseFragment() {
         const val RANGE_LAST_DAY_OF_MONTH = 32
         const val LAST_FIVE_YEARS = 5
         const val MONTH_WITH_TWO_DIGITS = 10
-        const val PARTIAL_TIME = 1
-        const val COMPLETE_TIME = 2
+        const val PARTIAL_TIME = 2
+        const val COMPLETE_TIME = 1
         const val COMPLETE_HOURS = 40
         const val MAX_HOURS_WEEK = 60
         const val SIERRA_ORIENTE = 2

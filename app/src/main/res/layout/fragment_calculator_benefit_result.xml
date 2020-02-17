@@ -23,6 +23,7 @@
             android:layout_marginTop="24dp"
             android:layout_marginEnd="13dp"
             android:layout_marginRight="13dp"
+            android:background="@color/colorCalculatorGroupResult"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.51"
@@ -41,6 +42,7 @@
                 android:layout_marginTop="15dp"
                 android:gravity="center"
                 android:text="@string/percentage_IESS_information"
+                android:textColor="@color/colorCalculatorText"
                 android:textSize="18sp" />
 
             <TextView
@@ -65,6 +67,7 @@
             android:layout_marginTop="25dp"
             android:layout_marginEnd="13dp"
             android:layout_marginRight="13dp"
+            android:background="@color/colorCalculatorGroupResult"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.454"
@@ -81,6 +84,7 @@
                 android:layout_marginLeft="25dp"
                 android:gravity="left"
                 android:text="@string/pay_fondos_reserva_information"
+                android:textColor="@color/colorCalculatorText"
                 android:textSize="18sp" />
 
             <TextView
@@ -105,6 +109,7 @@
             android:layout_marginTop="25dp"
             android:layout_marginEnd="13dp"
             android:layout_marginRight="13dp"
+            android:background="@color/colorCalculatorGroupResult"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.466"
@@ -127,6 +132,7 @@
                 android:layout_marginRight="192dp"
                 android:gravity="left"
                 android:text="@string/salary_information"
+                android:textColor="@color/colorCalculatorText"
                 android:textSize="18sp" />
 
             <TextView
@@ -142,18 +148,6 @@
                 android:textSize="18sp" />
         </RelativeLayout>
 
-        <androidx.viewpager.widget.ViewPager
-            android:id="@+id/vp_tabs"
-            android:layout_width="387dp"
-            android:layout_height="364dp"
-            android:layout_marginStart="12dp"
-            android:layout_marginLeft="12dp"
-            android:layout_marginTop="24dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView12">
-
-        </androidx.viewpager.widget.ViewPager>
 
         <TextView
             android:id="@+id/textView12"
@@ -165,11 +159,52 @@
             android:layout_marginEnd="205dp"
             android:layout_marginRight="205dp"
             android:text="@string/aditional_pays"
+            android:textColor="@color/colorCalculatorText"
             android:textSize="15dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/relativeLayout3" />
+
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/vp_tabs"
+            android:layout_width="408dp"
+            android:layout_height="143dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tl_tabs">
+
+        </androidx.viewpager.widget.ViewPager>
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tl_tabs"
+            android:layout_width="341dp"
+            android:layout_height="47dp"
+            android:layout_marginStart="25dp"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="25dp"
+            android:layout_marginRight="25dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.51"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView12"
+            app:tabIndicatorColor="@color/colorCalculatorText"
+            app:tabTextColor="@color/colorCalculatorText"></com.google.android.material.tabs.TabLayout>
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="409dp"
+            android:layout_height="74dp"
+            android:gravity="left"
+            android:text="@string/calculator_aviso"
+            android:textColor="@color/colorCalculatorText"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/vp_tabs"
+            app:layout_constraintVertical_bias="0.058" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>
