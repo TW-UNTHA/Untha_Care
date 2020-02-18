@@ -31,6 +31,7 @@
           "screen_title": "CONTRATOS",
           "next_step": null,
           "sections": [
+            
             {
               "id": 6,
               "title": "¿Qué debe tener un contrato?",
@@ -201,7 +202,7 @@
               "steps": [
                 {
                   "step_id": null,
-                  "description": "Presenta un oficio con tus datos de identidad y contacto y los de tu empleador/a e indica los motivos por los cuales estás denunciando. Prueba lo que ha pasado, para esto puedes usar grabaciones de llamadas, mensajes de texto, documentos escritos. Cuando presentes una denuncia solicita el número correspondiente para poder darle seguimiento. Debes obtener una respuesta en un plazo máximo de 15 días."
+                  "description": "Presenta un oficio con tus datos de identidad y contacto y los de tu empleador/a e indica los motivos por los cuales estás denunciando. Prueba lo que ha pasado, para esto puedes usar grabaciones de llamadas, mensajes de texto, documentos escritos. Cuando presentes una denuncia solicita el número correspondiente del tramite para poder darle seguimiento. Debes obtener una respuesta en un plazo máximo de 15 días."
                 }
               ]
             }
