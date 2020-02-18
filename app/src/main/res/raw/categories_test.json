@@ -717,7 +717,7 @@
       "id": 18,
       "image": "ic_extra_hours_calculator",
       "title": "CALCULADORA DE HORAS EXTRAS",
-      "subtitle": "Calcula del valor que debes recibir cuando termina tu relación laboral",
+      "subtitle": "Calcula el valor que debes recibir cuando termina tu relación laboral",
       "title_next_step": "CALCULADORA DE HORAS",
       "parent_id": null,
       "type": "calculator"

@@ -14,6 +14,7 @@ import com.untha.model.transactionalmodels.Category
 import com.untha.utils.Constants
 import com.untha.utils.ContentType
 import com.untha.utils.PixelConverter
+import com.untha.utils.UtilsTextToSpeech
 import com.untha.view.activities.MainActivity
 import com.untha.view.extension.loadImageNextStep
 import org.jetbrains.anko.AnkoViewDslMarker
@@ -49,6 +50,8 @@ class CalculatorsFragment : BaseFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        textToSpeech = UtilsTextToSpeech(context!!, null, null)
+
         mainActivity = this.activity as MainActivity
         return createMainLayout()
     }
@@ -100,6 +103,11 @@ class CalculatorsFragment : BaseFragment() {
                 }
                 setOnClickListener { view ->
                     onItemClick(calculator, view)
+                }
+                setOnLongClickListener{
+                    val textToSpeechCalculator = calculator.title.plus("\n\n\n").plus(calculator.subtitle)
+                    textToSpeech!!.speakOut(textToSpeechCalculator)
+
                 }
             }.lparams(matchParent, height = dip(heightFormula.toInt())) {
                 topMargin = calculateTopMargin()
