@@ -9,5 +9,7 @@
     <dimen name="text_size_question_explanation">13sp</dimen>
     <dimen name="margin_bottom_update_screen">20dp</dimen>
     <dimen name="text_size_calculators">15sp</dimen>
+    <dimen name="text_size_calculators_home">15sp</dimen>
+
 
 </resources>

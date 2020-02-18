@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/colorBackgroundMainRoute"
-        tools:context=".view.activities.MainActivity" >
+        tools:context=".view.activities.MainActivity">
 
         <TextView
             android:id="@+id/textView4"
@@ -26,7 +26,7 @@
             android:lineSpacingExtra="3sp"
             android:text="@string/endDate"
             android:textColor="#602080"
-            android:textSize="18sp"
+            android:textSize="@dimen/text_size_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -40,9 +40,9 @@
             android:layout_marginLeft="24dp"
             android:layout_marginTop="20dp"
             android:lineSpacingExtra="3sp"
-            android:text="@string/workday"
             android:textColor="#602080"
-            android:textSize="18sp"
+            android:text="@string/workday"
+            android:textSize="@dimen/text_size_content"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/spinnerEndDateDay" />
 
@@ -56,7 +56,7 @@
             android:lineSpacingExtra="3sp"
             android:text="@string/salary"
             android:textColor="#602080"
-            android:textSize="18sp"
+            android:textSize="@dimen/text_size_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.014"
             app:layout_constraintStart_toStartOf="parent"
@@ -81,7 +81,7 @@
         <EditText
             android:id="@+id/inputSalary"
             android:layout_width="0dp"
-            android:layout_height="41dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="50dp"
             android:layout_marginLeft="50dp"
             android:layout_marginTop="15dp"
@@ -92,7 +92,6 @@
             android:gravity="center"
             android:inputType="numberDecimal"
             android:maxLength="7"
-            android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -108,7 +107,7 @@
             android:lineSpacingExtra="3sp"
             android:text="@string/area"
             android:textColor="#602080"
-            android:textSize="18sp"
+            android:textSize="@dimen/text_size_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.009"
             app:layout_constraintStart_toStartOf="parent"
@@ -124,7 +123,7 @@
             android:lineSpacingExtra="7sp"
             android:text="@string/description"
             android:textColor="#0e0e0e"
-            android:textSize="14sp"
+            android:textSize="@dimen/text_size_content"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_salary" />
 
@@ -138,7 +137,7 @@
             android:lineSpacingExtra="7sp"
             android:text="@string/description_workday"
             android:textColor="#0e0e0e"
-            android:textSize="14sp"
+            android:textSize="@dimen/text_size_content"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_jornada" />
 
@@ -154,7 +153,7 @@
             android:lineSpacingExtra="3sp"
             android:text="@string/startDate"
             android:textColor="#602080"
-            android:textSize="18sp"
+            android:textSize="@dimen/text_size_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -163,7 +162,7 @@
         <Spinner
             android:id="@+id/spinnerStartDateDay"
             android:layout_width="80dp"
-            android:layout_height="31dp"
+            android:layout_height="35dp"
             android:layout_marginStart="24dp"
             android:layout_marginLeft="24dp"
             android:layout_marginTop="15dp"
@@ -178,7 +177,7 @@
         <Spinner
             android:id="@+id/spinnerStartDateMonth"
             android:layout_width="140dp"
-            android:layout_height="31dp"
+            android:layout_height="35dp"
             android:layout_marginTop="15dp"
             android:background="@drawable/btn_dropdown_xl"
             android:gravity="center_horizontal"
@@ -189,7 +188,7 @@
         <Spinner
             android:id="@+id/spinnerStartDateYear"
             android:layout_width="80dp"
-            android:layout_height="31dp"
+            android:layout_height="35dp"
             android:layout_marginTop="15dp"
             android:layout_marginEnd="24dp"
             android:layout_marginRight="24dp"
@@ -201,7 +200,7 @@
         <Spinner
             android:id="@+id/spinnerEndDateDay"
             android:layout_width="80dp"
-            android:layout_height="31dp"
+            android:layout_height="35dp"
             android:layout_marginStart="24dp"
             android:layout_marginLeft="24dp"
             android:layout_marginTop="15dp"
@@ -229,7 +228,7 @@
         <Spinner
             android:id="@+id/spinnerEndDateMonth"
             android:layout_width="140dp"
-            android:layout_height="31dp"
+            android:layout_height="35dp"
             android:layout_marginTop="15dp"
             android:background="@drawable/btn_dropdown_xl"
             android:gravity="center_horizontal"
@@ -241,7 +240,7 @@
         <Spinner
             android:id="@+id/spinnerEndDateYear"
             android:layout_width="80dp"
-            android:layout_height="31dp"
+            android:layout_height="35dp"
             android:layout_marginTop="15dp"
             android:layout_marginEnd="24dp"
             android:layout_marginRight="24dp"
@@ -260,9 +259,11 @@
             android:layout_marginTop="10dp"
             android:layout_marginEnd="24dp"
             android:layout_marginRight="24dp"
+            android:layout_marginBottom="15dp"
             android:background="@drawable/drawable_multiple_option_next_button"
             android:text="@string/btnCalcular"
             android:textColor="@color/colorBackgroundCategoryRoute"
+            android:textSize="@dimen/text_size_content"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
@@ -273,7 +274,7 @@
         <EditText
             android:id="@+id/inputHours"
             android:layout_width="0dp"
-            android:layout_height="41dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="50dp"
             android:layout_marginLeft="50dp"
             android:layout_marginTop="15dp"
@@ -284,6 +285,7 @@
             android:gravity="center"
             android:inputType="number"
             android:maxLength="2"
+            android:textSize="@dimen/text_size_content"
             android:visibility="visible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"

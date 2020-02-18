@@ -169,7 +169,7 @@ class CalculatorsFragment : BaseFragment() {
     ) {
         textView {
             text = calculator.title
-            textSizeDimen = R.dimen.text_size_calculators
+            textSizeDimen = R.dimen.text_size_calculators_home
             textColor =
                 ContextCompat.getColor(context, R.color.colorGenericTitle)
             setTypeface(typeface, Typeface.BOLD)
@@ -185,7 +185,7 @@ class CalculatorsFragment : BaseFragment() {
     ) {
         textView {
             text = calculator.subtitle
-            textSizeDimen = R.dimen.text_size_calculators
+            textSizeDimen = R.dimen.text_size_calculators_home
             textColor =
                 ContextCompat.getColor(context, R.color.colorGenericTitle)
             typeface = ResourcesCompat.getFont(

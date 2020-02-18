@@ -74,7 +74,7 @@ class CalculatorBenefitResultFragment : BaseFragment() {
         val adapter = TabAdapter(childFragmentManager)
         adapter.addFragment(
             TabAnnualFragment(salary, startDate, endDate, idWorkday, idArea, hours),
-            "Anual"
+            "Acumulado"
         )
         adapter.addFragment(TabMonthlyFragment(salary, idWorkday, hours), "Mensual")
         vp_tabs.adapter = adapter
@@ -83,7 +83,7 @@ class CalculatorBenefitResultFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val percentageIESS = calculatorViewModel.getAportacionMensualIESS(salary)
-        tv_IESS.text = percentageIESS
+        tv_IESS.text = "$ ".plus(percentageIESS)
 
         tv_salary.text = (salary.toBigDecimal() - percentageIESS.toBigDecimal()).toString()
         tv_fondos_reserva.text =

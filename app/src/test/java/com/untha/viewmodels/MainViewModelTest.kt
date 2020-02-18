@@ -758,8 +758,8 @@ class MainViewModelTest : KoinTest {
 //                "    }]}"
 //        val inputStream = ByteArrayInputStream(json.toByteArray())
 //        `when`(context.resources).thenReturn(resources)
-//        `when`(context.resources.getIdentifier("com.untha:raw/categories_test",null, null)).thenReturn(R.raw.categories_test)
-//        `when`(resources.openRawResource(R.raw.categories_test)).thenReturn(inputStream)
+//        `when`(context.resources.getIdentifier("com.untha:raw/categories_test_change",null, null)).thenReturn(R.raw.categories_test_change)
+//        `when`(resources.openRawResource(R.raw.categories_test_change)).thenReturn(inputStream)
 //
 //        mainViewModel.loadDefaultCategories(context)
 //
@@ -779,7 +779,8 @@ class MainViewModelTest : KoinTest {
             questionnaireRouteResultService
         )
 
-        val testMethod = mainViewModel.javaClass.getDeclaredMethod("categoriesSavedCallback", String::class.java)
+        val testMethod =
+            mainViewModel.javaClass.getDeclaredMethod("categoriesSavedCallback", String::class.java)
         testMethod.isAccessible = true
 
         testMethod.invoke(mainViewModel, "")
@@ -788,7 +789,7 @@ class MainViewModelTest : KoinTest {
     }
 
     @Test
-    fun `should save categories sections`(){
+    fun `should save categories sections`() {
         val mainViewModel = MainViewModel(
             dbService,
             categoriesService,
@@ -799,7 +800,10 @@ class MainViewModelTest : KoinTest {
             questionnaireRouteResultService
         )
 
-        val methodToTest = mainViewModel.javaClass.getDeclaredMethod("categoriesInformationSaved",String::class.java)
+        val methodToTest = mainViewModel.javaClass.getDeclaredMethod(
+            "categoriesInformationSaved",
+            String::class.java
+        )
         methodToTest.isAccessible = true
 
         methodToTest.invoke(mainViewModel, "")
@@ -808,7 +812,7 @@ class MainViewModelTest : KoinTest {
     }
 
     @Test
-    fun `should save category sections `(){
+    fun `should save category sections `() {
         val mainViewModel = MainViewModel(
             dbService,
             categoriesService,
@@ -819,7 +823,8 @@ class MainViewModelTest : KoinTest {
             questionnaireRouteResultService
         )
 
-        val methodToTest = mainViewModel.javaClass.getDeclaredMethod("categoriesSectionsSaved",String::class.java)
+        val methodToTest =
+            mainViewModel.javaClass.getDeclaredMethod("categoriesSectionsSaved", String::class.java)
         methodToTest.isAccessible = true
 
         methodToTest.invoke(mainViewModel, "")
@@ -829,7 +834,7 @@ class MainViewModelTest : KoinTest {
     }
 
     @Test
-    fun `should save categories sections steps`(){
+    fun `should save categories sections steps`() {
         val mainViewModel = MainViewModel(
             dbService,
             categoriesService,
@@ -840,7 +845,10 @@ class MainViewModelTest : KoinTest {
             questionnaireRouteResultService
         )
 
-        val methodToTest = mainViewModel.javaClass.getDeclaredMethod("categoriesSectionsStepsSaved",String::class.java)
+        val methodToTest = mainViewModel.javaClass.getDeclaredMethod(
+            "categoriesSectionsStepsSaved",
+            String::class.java
+        )
         methodToTest.isAccessible = true
 
         val editor = mock(SharedPreferences.Editor::class.java)

@@ -8,6 +8,7 @@
     <dimen name="text_size_question_route">34sp</dimen>
     <dimen name="text_size_question_explanation">29sp</dimen>
     <dimen name="margin_bottom_update_screen">450dp</dimen>
-    <dimen name="text_size_calculators">17sp</dimen>
+    <dimen name="text_size_calculators">20sp</dimen>
+    <dimen name="text_size_calculators_home">30sp</dimen>
 
 </resources>

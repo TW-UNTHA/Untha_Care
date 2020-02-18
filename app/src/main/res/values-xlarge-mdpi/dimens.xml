@@ -9,5 +9,7 @@
     <dimen name="text_size_question_explanation">29sp</dimen>
     <dimen name="margin_bottom_update_screen">400dp</dimen>
     <dimen name="text_size_calculators">17sp</dimen>
+    <dimen name="text_size_calculators_home">30sp</dimen>
+
 
 </resources>
