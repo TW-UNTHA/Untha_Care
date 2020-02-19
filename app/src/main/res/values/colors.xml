@@ -18,6 +18,7 @@
     <color name="colorBackgroundFaultContainer">#ede9ef</color>
     <color name="colorQuestionText">#4A4A4A</color>
     <color name="colorTextDescription">#000000</color>
+    <color name="colorBlack">#000000</color>
     <color name="colorCalculatorGroupResult">#ece3f1</color>
     <color name="colorCalculatorText">#602080</color>
 

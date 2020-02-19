@@ -27,6 +27,7 @@
         <item name="actionBarStyle">@style/HeaderBar</item>
         <item name="android:textSize">20sp</item>
         <item name="android:textColor">@color/colorQuestionText</item>
+        <item name="android:popupBackground">@color/colorWhiteText</item>
     </style>
 
     <style name="HeaderBar" parent="Widget.AppCompat.Light.ActionBar.Solid.Inverse">
