@@ -35,11 +35,11 @@ class TabAnnualFragment(
         super.onViewCreated(view, savedInstanceState)
 
         tv_decimo_tercero_annual.text =
-            calculatorViewModel.getDecimoTercerSueldoAcumulado(startDate, endDate, salary)
-                .toString()
+            "$".plus(calculatorViewModel.getDecimoTercerSueldoAcumulado(startDate, endDate, salary)
+                .toString())
         tv_decimo_cuarto_annual.text =
-            calculatorViewModel.getDecimoCuartoAcumulado(startDate, endDate, idWorkday,idArea,hours)
-                .toString()
+            "$".plus(calculatorViewModel.getDecimoCuartoAcumulado(startDate, endDate, idWorkday,idArea,hours)
+                .toString())
 
     }
 }

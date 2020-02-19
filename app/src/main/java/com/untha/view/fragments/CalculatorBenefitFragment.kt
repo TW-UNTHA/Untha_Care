@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.navigation.findNavController
 import com.untha.R
 import com.untha.applicationservices.CalculatorsService
+import com.untha.model.transactionalmodels.Category
 import com.untha.utils.Constants
 import com.untha.view.activities.MainActivity
 import kotlinx.android.synthetic.main.fragment_calculator_benefit.*
@@ -19,6 +20,8 @@ import java.util.*
 class CalculatorBenefitFragment : BaseFragment() {
     private lateinit var mainActivity: MainActivity
     private var calculatorService: CalculatorsService = CalculatorsService()
+    private lateinit var categoriesCalculator:  ArrayList<Category>
+
 
     companion object {
         const val RANGE_LAST_DAY_OF_MONTH = 32
@@ -34,6 +37,8 @@ class CalculatorBenefitFragment : BaseFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val bundle = arguments
+        categoriesCalculator = bundle?.get(Constants.CATEGORIES_CALCULATORS) as ArrayList<Category>
     }
 
     override fun onCreateView(
@@ -122,6 +127,10 @@ class CalculatorBenefitFragment : BaseFragment() {
             putInt("hours", hours)
             putInt("idWorkday", workday)
             putInt("idArea", area)
+            putSerializable(
+                Constants.CATEGORIES_CALCULATORS,
+                categoriesCalculator
+            )
         }
     }
 

@@ -32,10 +32,10 @@ class TabMonthlyFragment(
         super.onViewCreated(view, savedInstanceState)
 
         tv_decimo_tercero_monthly.text =
-            calculatorViewModel.getDecimoTerceroMensualizado(salary.toBigDecimal())
-                .toString()
+            "$".plus(calculatorViewModel.getDecimoTerceroMensualizado(salary.toBigDecimal())
+                .toString())
         tv_decimo_cuarto_monthly.text =
-            calculatorViewModel.getDecimoCuartoMensualizado(idWorkday, hours).toString()
+            "$".plus(calculatorViewModel.getDecimoCuartoMensualizado(idWorkday, hours).toString())
 
     }
 }

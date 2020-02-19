@@ -35,14 +35,14 @@ import org.jetbrains.anko.verticalLayout
 
 
 class CalculatorsFragment : BaseFragment() {
-    private var categoriesCalculator: List<Category>? = null
+    private lateinit var categoriesCalculator:  ArrayList<Category>
     private lateinit var mainActivity: MainActivity
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val bundle = arguments
-        categoriesCalculator = bundle?.get(Constants.CATEGORIES_CALCULATORS) as List<Category>
+        categoriesCalculator = bundle?.get(Constants.CATEGORIES_CALCULATORS) as ArrayList<Category>
     }
 
     override fun onCreateView(
@@ -65,7 +65,7 @@ class CalculatorsFragment : BaseFragment() {
         }
         mainActivity.customActionBar(
             Constants.NAME_SCREEN_CALCULATOR,
-            enableCustomBar = false,
+            enableCustomBar = true,
             needsBackButton = true,
             enableHelp = false,
             backMethod = null
@@ -118,11 +118,17 @@ class CalculatorsFragment : BaseFragment() {
     }
 
     private fun onItemClick(category: Category, itemView: View) {
+        val categoriesCalculator = Bundle().apply {
+            putSerializable(
+                Constants.CATEGORIES_CALCULATORS,
+                categoriesCalculator
+            )
+        }
         if (category.type == "calculator") {
             when (category.id) {
                 Constants.ID_CALCULATOR_BENEFICIOS -> {
                     itemView.findNavController()
-                        .navigate(R.id.calculatorBenefitFragment, null, navOptions, null)
+                        .navigate(R.id.calculatorBenefitFragment, categoriesCalculator, navOptions, null)
                 }
             }
         }

@@ -57,6 +57,7 @@
                 android:layout_marginEnd="25dp"
                 android:layout_marginRight="25dp"
                 android:gravity="center"
+                android:textColor="@color/colorCalculatorText"
                 android:textSize="@dimen/text_size_content" />
         </RelativeLayout>
 
@@ -77,19 +78,6 @@
             app:layout_constraintTop_toBottomOf="@+id/relativeLayout2">
 
             <TextView
-                android:id="@+id/textView7"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentLeft="true"
-                android:layout_marginStart="25dp"
-                android:layout_marginLeft="25dp"
-                android:gravity="left"
-                android:text="@string/pay_fondos_reserva_information"
-                android:textColor="@color/colorCalculatorText"
-                android:textSize="@dimen/text_size_content" />
-
-            <TextView
                 android:id="@+id/tv_fondos_reserva_informat"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -97,6 +85,7 @@
                 android:layout_alignParentLeft="true"
                 android:layout_marginStart="25dp"
                 android:layout_marginLeft="25dp"
+                android:layout_marginTop="4dp"
                 android:gravity="left"
                 android:text="@string/pay_fondos_reserva_information"
                 android:textColor="@color/colorCalculatorText"
@@ -113,6 +102,7 @@
                 android:layout_marginEnd="25dp"
                 android:layout_marginRight="25dp"
                 android:foregroundGravity="center"
+                android:textColor="@color/colorCalculatorText"
                 android:textSize="@dimen/text_size_content" />
 
             <TextView
@@ -179,6 +169,7 @@
                 android:layout_marginEnd="25dp"
                 android:layout_marginRight="25dp"
                 android:gravity="center"
+                android:textColor="@color/colorCalculatorText"
                 android:textSize="@dimen/text_size_content" />
         </RelativeLayout>
 
@@ -243,6 +234,7 @@
             android:text="@string/calculator_aviso"
             android:textColor="@color/colorCalculatorText"
             android:textSize="@dimen/text_size_content"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
