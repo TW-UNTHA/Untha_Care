@@ -74,6 +74,7 @@
             android:background="@drawable/btn_dropdown_area"
             android:gravity="center_horizontal"
             android:lineSpacingExtra="3sp"
+            android:popupBackground="@color/colorBackgroundCategoryRoute"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_area" />
@@ -170,6 +171,7 @@
             android:background="@drawable/btn_dropdown"
             android:fadeScrollbars="true"
             android:gravity="center_horizontal"
+            android:popupBackground="@color/colorBackgroundCategoryRoute"
             android:spinnerMode="dropdown"
             android:text="@string/endDate"
             app:layout_constraintStart_toStartOf="parent"
@@ -182,6 +184,7 @@
             android:layout_marginTop="15dp"
             android:background="@drawable/btn_dropdown_xl"
             android:gravity="center_horizontal"
+            android:popupBackground="@color/colorBackgroundCategoryRoute"
             app:layout_constraintEnd_toStartOf="@+id/spinnerStartDateYear"
             app:layout_constraintStart_toEndOf="@+id/spinnerStartDateDay"
             app:layout_constraintTop_toBottomOf="@+id/textView6" />
@@ -195,6 +198,7 @@
             android:layout_marginRight="24dp"
             android:background="@drawable/btn_dropdown"
             android:gravity="center"
+            android:popupBackground="@color/colorBackgroundCategoryRoute"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
@@ -207,6 +211,7 @@
             android:layout_marginTop="15dp"
             android:background="@drawable/btn_dropdown"
             android:gravity="center_horizontal"
+            android:popupBackground="@color/colorBackgroundCategoryRoute"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/checkBoxEndDate" />
 
@@ -233,6 +238,7 @@
             android:layout_marginTop="15dp"
             android:background="@drawable/btn_dropdown_xl"
             android:gravity="center_horizontal"
+            android:popupBackground="@color/colorBackgroundCategoryRoute"
             app:layout_constraintEnd_toStartOf="@+id/spinnerEndDateYear"
             app:layout_constraintHorizontal_bias="0.502"
             app:layout_constraintStart_toEndOf="@+id/spinnerEndDateDay"
@@ -247,6 +253,7 @@
             android:layout_marginRight="24dp"
             android:background="@drawable/btn_dropdown"
             android:gravity="center_horizontal"
+            android:popupBackground="@color/colorBackgroundCategoryRoute"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/checkBoxEndDate" />
 
