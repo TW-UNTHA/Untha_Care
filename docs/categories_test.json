@@ -699,7 +699,7 @@
       "id": 16,
       "image": "ic_benefits_calculator",
       "title": "CALCULADORA DE BENEFICIOS",
-      "subtitle": "Calcula: décimo tercero y cuarto, IESS, vacaciones y fondos de reserva",
+      "subtitle": "Calcula: décimo tercero y cuarto, IESS y fondos de reserva",
       "title_next_step": "CALCULADORA DE BENEFICIOS",
       "parent_id": null,
       "type": "calculator"
@@ -708,7 +708,7 @@
       "id": 17,
       "image": "ic_finiquito_calculator",
       "title": "CALCULADORA DE FINIQUITO",
-      "subtitle": "Calcula el pago que debes recibir por tus horas extras",
+      "subtitle": "Calcula el valor que debes recibir cuando termina tu relación laboral",
       "title_next_step": "CALCULADORA DE FINIQUITO",
       "parent_id": null,
       "type": "calculator"
@@ -717,7 +717,7 @@
       "id": 18,
       "image": "ic_extra_hours_calculator",
       "title": "CALCULADORA DE HORAS EXTRAS",
-      "subtitle": "Calcula el valor que debes recibir cuando termina tu relación laboral",
+      "subtitle": "Calcula el pago que debes recibir por tus horas extras",
       "title_next_step": "CALCULADORA DE HORAS",
       "parent_id": null,
       "type": "calculator"
