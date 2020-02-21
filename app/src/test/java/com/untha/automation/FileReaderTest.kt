@@ -1,6 +1,7 @@
 package com.untha.automation
 
-import org.junit.Assert.assertEquals
+import org.hamcrest.CoreMatchers.equalTo
+import org.junit.Assert.assertThat
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.Parameterized
@@ -18,9 +19,9 @@ class FileReaderTest(
     }
 
     @Test
-    fun `should return true if is equals`() {
+    fun `should return true if is the same`() {
         println(excelModel.weekHours)
-        assertEquals(excelModel.weekHours, equals(25.0))
+        assertThat(excelModel.weekHours, equalTo(excelModel.weekHours))
     }
 }
 

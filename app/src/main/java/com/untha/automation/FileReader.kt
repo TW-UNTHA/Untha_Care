@@ -32,7 +32,7 @@ class FileReader {
 
     fun populationWithExcelData(): Boolean {
         val excelFile =
-            FileInputStream(File("/Users/lapcajilema/Documents/UNTHA/QA_formulasDecimos.xlsx"))
+            FileInputStream(File("QA_formulasDecimos.xlsx"))
         val workbook = XSSFWorkbook(excelFile)
 
         val sheet = workbook.getSheet("CasosDePruebaCsv")
@@ -53,8 +53,8 @@ class FileReader {
                     currentRow.getCell(WEEK_HOURS).numericCellValue,
                     currentRow.getCell(SALARY).numericCellValue.toBigDecimal(),
                     idArea,
-                    currentRow.getCell(START_DATE).stringCellValue,
-                    currentRow.getCell(END_DATE).stringCellValue,
+                    currentRow.getCell(START_DATE).toString(),
+                    currentRow.getCell(END_DATE).toString(),
                     currentRow.getCell(PERCENTAGE_IESS).numericCellValue.toBigDecimal(),
                     currentRow.getCell(FONDOS_RESERVA).numericCellValue.toBigDecimal(),
                     currentRow.getCell(DECIMO_TERCERO).numericCellValue.toBigDecimal(),
