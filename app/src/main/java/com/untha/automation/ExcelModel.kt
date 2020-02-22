@@ -15,6 +15,7 @@ data class ExcelModel(
     @ContextualSerialization
     var finalSalary: BigDecimal,
     var idArea: Int,
+    var idWorkday: Int,
     var startDate: String,
     var endDate: String,
     @ContextualSerialization

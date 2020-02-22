@@ -40,20 +40,10 @@ class CalculatorsService {
         when (isFirstDayOfDecember(calendarStartDate) && isLastDayOfNovember(calendarEndDate)) {
             true -> return salary.setScale(2, RoundingMode.HALF_UP)
 
-            false -> when (calendarStartDate.compareTo(stringToCalendar("$year-12-01")) < 0) {
-                true -> {
-                    val newStartDate = stringToCalendar("$year-12-01")
-                    return calculateDecimoTerceroAcumulado(salary, newStartDate, calendarEndDate)
-                }
+            false ->{
+                val newStartDate = setStartDateDecimoTercero(calendarEndDate, calendarStartDate)
+                return calculateDecimoTerceroAcumulado(salary, newStartDate, calendarEndDate)
 
-                false -> {
-                    return calculateDecimoTerceroAcumulado(
-                        salary,
-                        calendarStartDate,
-                        calendarEndDate
-                    )
-
-                }
             }
 
         }
@@ -367,5 +357,31 @@ class CalculatorsService {
     private fun isFirstDayOfMarch(calendarStartDate: Calendar) =
         calendarStartDate.get(Calendar.MONTH) == Calendar.MARCH && calendarStartDate.get(Calendar.DAY_OF_MONTH) == 1
 
+    private fun setStartDateDecimoTercero(
+        calendarEndDate: Calendar,
+        calendarStartDate: Calendar
+    ): Calendar {
+        val yearCurrent = calendarEndDate.get(Calendar.YEAR)
+        val oneYearBefore = calendarEndDate.get(Calendar.YEAR) - 1
+        val posfixEndDate = "-11-30"
+        val posfixStartDate = "-12-01"
+        var startDate: Calendar
+
+
+        if (calendarEndDate.after(stringToCalendar("$yearCurrent${posfixEndDate}"))) {
+            if (calendarStartDate.after(stringToCalendar("${yearCurrent}${posfixStartDate}"))) {
+                startDate = calendarStartDate
+            } else {
+                startDate = stringToCalendar("$yearCurrent${posfixStartDate}")
+            }
+        } else {
+            if (calendarStartDate.after(stringToCalendar("$oneYearBefore${posfixStartDate}"))) {
+                startDate = calendarStartDate
+            } else {
+                startDate = stringToCalendar("$oneYearBefore${posfixStartDate}")
+            }
+        }
+        return startDate
+    }
 }
 
