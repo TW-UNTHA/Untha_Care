@@ -3,7 +3,6 @@ package com.untha.automation
 import com.untha.applicationservices.CalculatorsService
 import org.hamcrest.CoreMatchers.equalTo
 import org.junit.Assert.assertThat
-import org.junit.Ignore
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.Parameterized
@@ -23,69 +22,72 @@ class FileReaderTest(
     }
 
     @Test
-    fun `should return decimo tercero mensualizado`() {
+    fun `should match decimo tercero mensualizado value excel with result`() {
+        val expected = excelModel.decimoTerceroMensualizado
 
-        val decimoTerceroMensualizado =
+        val resultDecimoTerceroMensualizado =
             calculatorsService.getDecimoTercerSueldoMensualizado(excelModel.finalSalary)
-        assertThat(decimoTerceroMensualizado, equalTo(excelModel.decimoTerceroMensualizado))
+
+        assertThat(resultDecimoTerceroMensualizado, equalTo(expected))
     }
 
     @Test
-    fun `should return decimo cuarto mensualizado`() {
+    fun `should match decimo cuarto mensualizado value excel with result`() {
+        val expected = excelModel.decimoCuartoMensualizado
 
-        val decimoCuartoMensualizado = calculatorsService.getDecimoCuartoSueldoMensualizado(
+        val resultDecimoCuartoMensualizado = calculatorsService.getDecimoCuartoSueldoMensualizado(
             excelModel.idWorkday,
             excelModel.weekHours.toInt()
         )
-        assertThat(decimoCuartoMensualizado, equalTo(excelModel.decimoCuartoMensualizado))
+
+        assertThat(resultDecimoCuartoMensualizado, equalTo(expected))
     }
 
     @Test
-    fun `should return decimo cuarto acumulado`() {
-        val decimoCuarto = calculatorsService.getDecimoCuartoAcumulado(
+    fun `should match decimo cuarto acumulado value excel with result`() {
+        val expected = excelModel.decimoCuartoAcumulado
+
+        val resultDecimoCuarto = calculatorsService.getDecimoCuartoAcumulado(
             excelModel.startDate,
             excelModel.endDate,
             excelModel.idWorkday,
             excelModel.idArea,
             excelModel.weekHours.toInt()
         )
-        assertThat(decimoCuarto, equalTo(excelModel.decimoCuartoAcumulado))
+
+        assertThat(resultDecimoCuarto, equalTo(expected))
     }
 
     @Test
-    fun `should return decimo tercer acumulado`() {
-        val decimoTercero = calculatorsService.getDecimoTercerSueldoAcumulado(
+    fun `should match decimo tercero acumulado value excel with result`() {
+        val expected = excelModel.decimoTerceroAcumulado
+
+        val resultDecimoTercero = calculatorsService.getDecimoTercerSueldoAcumulado(
             excelModel.finalSalary, excelModel.startDate, excelModel.endDate
         )
-        assertThat(decimoTercero, equalTo(excelModel.decimoTerceroAcumulado))
+
+        assertThat(resultDecimoTercero, equalTo(expected))
     }
 
     @Test
-    fun `should return IESS`() {
-        val IESS = calculatorsService.getAportacionMensualIESS(excelModel.finalSalary)
-        assertThat(IESS, equalTo(excelModel.percentageIESS))
+    fun `should match percentage IESS value excel with result`() {
+        val expected = excelModel.percentageIESS
+
+        val resultIESS = calculatorsService.getAportacionMensualIESS(excelModel.finalSalary)
+
+        assertThat(resultIESS, equalTo(expected))
     }
 
     @Test
-    fun `should return fondos de reserva`() {
-        val fondosReserva = calculatorsService.getFondoReservaMensualizado(
+    fun `should match fondos de reserva value excel with result`() {
+        val expected = excelModel.fondosReserva
+
+        val resultFondosReserva = calculatorsService.getFondoReservaMensualizado(
             excelModel.startDate,
             excelModel.endDate,
             excelModel.finalSalary
         )
-        assertThat(fondosReserva, equalTo(excelModel.fondosReserva))
-    }
-
-    @Test
-    fun isStringSame() {
-        val date = "08-Jun-2012"
-        val stringExpected = "2012-06-08"
-
-        val fileReader = FileReader()
-        val result = fileReader.changeFormatDate(date)
-
-        assertThat(result, equalTo(stringExpected))
-
+        assertThat(resultFondosReserva, equalTo(expected))
     }
 }
 

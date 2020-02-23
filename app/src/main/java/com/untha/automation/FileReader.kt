@@ -1,12 +1,12 @@
 package com.untha.automation
 
-import org.apache.poi.xssf.usermodel.XSSFWorkbook
+import jxl.Sheet
+import jxl.Workbook
+import jxl.read.biff.BiffException
+import kotlinx.io.IOException
 import java.io.File
-import java.io.FileInputStream
+import java.math.BigDecimal
 import java.math.RoundingMode
-import java.text.SimpleDateFormat
-import java.util.*
-import kotlin.collections.ArrayList
 
 class FileReader {
 
@@ -31,7 +31,7 @@ class FileReader {
         const val PARCIAL = 2
         const val COMPLETA = 1
         const val HOURS_COMPLETA = 40
-        const val TWO_DIGITS_MONTH = 10
+        const val MAX_ROWS = 999
     }
 
     init {
@@ -39,68 +39,60 @@ class FileReader {
     }
 
     fun populationWithExcelData(): Boolean {
-        val excelFile =
-            FileInputStream(File("QA_formulas_decimos.xlsx"))
-        val workbook = XSSFWorkbook(excelFile)
-
-        val sheet = workbook.getSheet("CasosDePruebaCsv")
-        val rows = sheet.iterator()
-
-        while (rows.hasNext()) {
-            val currentRow = rows.next()
-            if (currentRow.getCell(ITEM) == null) {
-                return true
-            }
-
-            if (!(currentRow.getCell(ITEM).toString() == "#")) {
-                val idArea =
-                    getIdARea(currentRow.getCell(AREA).stringCellValue)
-
-                val idWorkday =
-                    getIdWorkday(currentRow.getCell(WEEK_HOURS).numericCellValue.toInt())
-
+        var workbook: Workbook? = null
+        try {
+            workbook =
+                Workbook.getWorkbook(File("QA_formulas_decimos.xls"))
+            val sheet = workbook.getSheet("CasosDePruebaCsv")
+            for (counterRows in 1..MAX_ROWS) {
+                if (isNullOrEmpty(sheet, counterRows)
+                ) {
+                    return true
+                }
                 val excelModel = ExcelModel(
-                    currentRow.getCell(ITEM).numericCellValue,
-                    currentRow.getCell(WEEK_HOURS).numericCellValue,
-                    currentRow.getCell(SALARY_FINAL).numericCellValue.toBigDecimal().setScale(
-                        2,
-                        RoundingMode.HALF_UP
-                    ),
-                    idArea,
-                    idWorkday,
-                    changeFormatDate(currentRow.getCell(START_DATE).toString()),
-                    changeFormatDate(currentRow.getCell(END_DATE).toString()),
-                    currentRow.getCell(PERCENTAGE_IESS).numericCellValue.toBigDecimal().setScale(
-                        2,
-                        RoundingMode.HALF_UP
-                    ),
-                    currentRow.getCell(FONDOS_RESERVA).numericCellValue.toBigDecimal().setScale(
-                        2,
-                        RoundingMode.HALF_UP
-                    ),
-                    currentRow.getCell(DECIMO_TERCERO).numericCellValue.toBigDecimal().setScale(
-                        2,
-                        RoundingMode.HALF_UP
-                    ),
-                    currentRow.getCell(DECIMO_TERCERO_MONTLY).numericCellValue.toBigDecimal().setScale(
-                        2,
-                        RoundingMode.HALF_UP
-                    ),
-                    currentRow.getCell(DECIMO_CUARTO).numericCellValue.toBigDecimal().setScale(
-                        2,
-                        RoundingMode.HALF_UP
-                    ),
-                    currentRow.getCell(DECIMO_CUARTO_MONTLY).numericCellValue.toBigDecimal().setScale(
-                        2,
-                        RoundingMode.HALF_UP
-                    )
+                    sheet.getCell(ITEM, counterRows).contents.toDouble(),
+                    sheet.getCell(WEEK_HOURS, counterRows).contents.toDouble(),
+                    getValueFormatBigDecimal(sheet, counterRows, SALARY_FINAL),
+                    getIdARea(sheet.getCell(AREA, counterRows).contents),
+                    getIdWorkday(sheet.getCell(WEEK_HOURS, counterRows).contents.toInt()),
+                    sheet.getCell(START_DATE, counterRows).contents,
+                    sheet.getCell(END_DATE, counterRows).contents,
+                    getValueFormatBigDecimal(sheet, counterRows, PERCENTAGE_IESS),
+                    getValueFormatBigDecimal(sheet, counterRows, FONDOS_RESERVA),
+                    getValueFormatBigDecimal(sheet, counterRows, DECIMO_TERCERO),
+                    getValueFormatBigDecimal(sheet, counterRows, DECIMO_TERCERO_MONTLY),
+                    getValueFormatBigDecimal(sheet, counterRows, DECIMO_CUARTO),
+                    getValueFormatBigDecimal(sheet, counterRows, DECIMO_CUARTO_MONTLY)
                 )
                 excelModels.add(excelModel)
             }
+        } catch (e: IOException) {
+            e.printStackTrace()
+        } catch (e: BiffException) {
+            e.printStackTrace()
+        } finally {
+            workbook?.close()
         }
-        excelFile.close()
         return true
     }
+
+    private fun getValueFormatBigDecimal(
+        sheet: Sheet,
+        counterRows: Int,
+        column: Int
+    ): BigDecimal {
+        return sheet.getCell(column, counterRows).contents.toBigDecimal().setScale(
+            2, RoundingMode.HALF_UP
+        )
+    }
+
+    private fun isNullOrEmpty(sheet: Sheet, counterRows: Int): Boolean {
+        return sheet.getCell(ITEM, counterRows).contents == null || sheet.getCell(
+            ITEM,
+            counterRows
+        ).contents.contentEquals("")
+    }
+
 
     private fun getIdARea(area: String) =
         if (area == AREA_COSTA_GALAPAGOS)
@@ -109,26 +101,4 @@ class FileReader {
     private fun getIdWorkday(numberOfHours: Int) =
         if (numberOfHours < HOURS_COMPLETA)
             PARCIAL else COMPLETA
-
-    fun changeFormatDate(date: String): String {
-        val date = SimpleDateFormat("dd-MMMM-yyy").parse(date)
-        val cal = Calendar.getInstance()
-        cal.setTime(date)
-        val calendarMonth = cal.get(Calendar.MONTH) + 1
-        var month = ""
-        if (cal.get(Calendar.MONTH) < TWO_DIGITS_MONTH) {
-            month = "0".plus(calendarMonth)
-        } else {
-            month = calendarMonth.toString()
-        }
-        var dayOfMonth = ""
-        if (cal.get(Calendar.DAY_OF_MONTH) < TWO_DIGITS_MONTH) {
-            dayOfMonth = "0".plus(cal.get(Calendar.DAY_OF_MONTH))
-        } else {
-            dayOfMonth = cal.get(Calendar.DAY_OF_MONTH).toString()
-        }
-        return (cal.get(Calendar.YEAR).toString().plus("-").plus(month).plus("-").plus(dayOfMonth))
-
-
-    }
 }

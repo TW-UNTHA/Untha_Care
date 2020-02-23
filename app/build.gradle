@@ -82,7 +82,6 @@ android {
         abortOnError true
         // if true, only report errors.
         ignoreWarnings true
-        warning 'InvalidPackage'
     }
 }
 
@@ -139,5 +138,5 @@ dependencies {
     androidTestImplementation 'androidx.test:rules:1.2.0-beta01'
     android.defaultConfig.vectorDrawables.useSupportLibrary = true
     implementation 'com.android.support:design:27.0.2'
-    implementation group: 'org.apache.poi', name: 'poi-ooxml', version: '4.0.0'
+    implementation group: 'net.sourceforge.jexcelapi', name: 'jxl', version: '2.6'
 }
