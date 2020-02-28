@@ -139,4 +139,5 @@ dependencies {
     android.defaultConfig.vectorDrawables.useSupportLibrary = true
     implementation 'com.android.support:design:27.0.2'
     implementation group: 'net.sourceforge.jexcelapi', name: 'jxl', version: '2.6'
+    testImplementation 'pl.pragmatists:JUnitParams:1.1.1'
 }

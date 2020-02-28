@@ -1,16 +1,22 @@
 package com.untha.applicationservices
 
+import com.untha.automation.EntriesAnnualLeaveTest
 import junit.framework.Assert.assertEquals
+import junitparams.JUnitParamsRunner
+import junitparams.Parameters
+import junitparams.naming.TestCaseName
 import org.hamcrest.CoreMatchers.instanceOf
 import org.junit.Assert.assertThat
 import org.junit.Before
 import org.junit.Test
+import org.junit.runner.RunWith
 import java.lang.reflect.Method
 import java.math.BigDecimal
 import java.math.RoundingMode
 import java.util.*
+import kotlin.collections.ArrayList
 
-
+@RunWith(JUnitParamsRunner::class)
 class CalculatorsServiceTest {
     val calculatorsService = CalculatorsService()
     lateinit var stringToCalendar: Method
@@ -742,72 +748,207 @@ class CalculatorsServiceTest {
     }
 
     //</editor-fold>
-    // <editor-fold desc="VACACIONES">
+    // <editor-fold desc="VACACIONES ANUALES">
 
     @Test
-    fun `should return 15,00 when startDate is 1 de August 2019 and endDate is 1 August 2020`() {
-        val expectedValue = BigDecimal(15.00).setScale(2, RoundingMode.HALF_UP)
+    fun `should return annual leave days 15 when user is over 18 years of age `() {
+        val expectedNumberOfDays = 15
+        val years = 19
+
+        val result = calculatorsService.getNumberAnnualLeaveDaysPerAge(years)
+
+        assertEquals(expectedNumberOfDays, result)
+    }
+
+    @Test
+    fun `should return annual leave days 20 when user is under the age of 16`() {
+        val expectedNumberOfDays = 20
+        val years = 15
+
+        val result = calculatorsService.getNumberAnnualLeaveDaysPerAge(years)
+
+        assertEquals(expectedNumberOfDays, result)
+    }
+
+    fun getAgeBetween16and18(): List<Int> {
+        return listOf(16, 17, 18)
+    }
+
+    @Test
+    @Parameters(method = "getAgeBetween16and18")
+    @TestCaseName("{method}_with_age_param_{params}")
+    fun `should return annual leave days 18 when user is between 16 and 18 years old `(age: Int) {
+        val expectedNumberOfDays = 18
+
+        val result = calculatorsService.getNumberAnnualLeaveDaysPerAge(age)
+
+        assertEquals(expectedNumberOfDays, result)
+    }
+
+
+    @Test
+    fun `should return annual leave value equivalent to one day when user is under the age of 16`() {
+        val numberOfDays = 20
+        val expectedPercentageDay = numberOfDays.toDouble().div(360.toDouble())
+
+        val result = calculatorsService.getNumberAnnualLeaveDaysPerDay(numberOfDays)
+
+        assertEquals(expectedPercentageDay, result)
+    }
+
+    @Test
+    fun `should return annual leave value equivalent to one day when user is between 16 and 18 years old`() {
+        val numberOfDays = 18
+        val expectedPercentageDay = numberOfDays.toDouble().div(360.toDouble())
+
+        val result = calculatorsService.getNumberAnnualLeaveDaysPerDay(numberOfDays)
+
+        assertEquals(expectedPercentageDay, result)
+    }
+
+    @Test
+    fun `should return annual leave value equivalent to one day when user is over the age of 18`() {
+        val numberOfDays = 15
+        val expectedPercentageDay = numberOfDays.toDouble().div(360.toDouble())
+
+        val result = calculatorsService.getNumberAnnualLeaveDaysPerDay(numberOfDays)
+
+        assertEquals(expectedPercentageDay, result)
+    }
+
+    @Test
+    fun `should return annual leave days 18,0 per year when user is 16 age and has one year`() {
+        val age = 16
         val startDate = "2019-08-01"
         val endDate = "2020-08-01"
+        val expectedNumberAnnualLeaveDays = 18.0
 
-        val result = calculatorsService.getVacations(startDate, endDate)
+        val result = calculatorsService.getNumberAnnualLeaveDay(startDate, endDate, age)
 
-        assertEquals(expectedValue, result)
+        assertEquals(expectedNumberAnnualLeaveDays, result)
     }
 
     @Test
-    fun `should return 16,25 when startDate is 1 de July 2019 and endDate is 1 August 2020`() {
-        val expectedValue = BigDecimal(16.25).setScale(2, RoundingMode.HALF_UP)
-        val startDate = "2019-07-01"
+    fun `should return annual leave days 15,0 per year when user is 19 age and has one year`() {
+        val age = 19
+        val startDate = "2019-08-01"
         val endDate = "2020-08-01"
+        val expectedNumberAnnualLeaveDays = 15.0
 
-        val result = calculatorsService.getVacations(startDate, endDate)
+        val result = calculatorsService.getNumberAnnualLeaveDay(startDate, endDate, age)
 
-        assertEquals(expectedValue, result)
+        assertEquals(expectedNumberAnnualLeaveDays, result)
     }
 
     @Test
-    fun `should return 12,5 when startDate is 1 de July 2019 and endDate is 1 May 2020`() {
-        val expectedValue = BigDecimal(12.5).setScale(2, RoundingMode.HALF_UP)
-        val startDate = "2019-07-01"
-        val endDate = "2020-05-01"
+    fun `should return annual leave days 5,0 per year when user is 19 age and has 4 months`() {
+        val age = 19
+        val startDate = "2019-08-01"
+        val endDate = "2019-12-01"
+        val expectedNumberAnnualLeaveDays = 5.0
 
-        val result = calculatorsService.getVacations(startDate, endDate)
+        val result = calculatorsService.getNumberAnnualLeaveDay(startDate, endDate, age)
 
-        assertEquals(expectedValue, result)
+        assertEquals(expectedNumberAnnualLeaveDays, result)
     }
 
     @Test
-    fun `should return 14,88 when startDate is 1 de March 2020 and endDate is 28 February 2020`() {
-        val expectedValue = BigDecimal(14.88).setScale(2, RoundingMode.HALF_UP)
-        val startDate = "2020-03-01"
-        val endDate = "2021-02-28"
+    fun `should return annual leave days 5,58 per year when user is 19 age and has 4 months`() {
+        val age = 19
+        val startDate = "2019-08-01"
+        val endDate = "2019-12-15"
+        val expectedNumberAnnualLeaveDays = 5.583333333333333
 
-        val result = calculatorsService.getVacations(startDate, endDate)
+        val result = calculatorsService.getNumberAnnualLeaveDay(startDate, endDate, age)
 
-        assertEquals(expectedValue, result)
+        assertEquals(expectedNumberAnnualLeaveDays, result)
     }
 
     @Test
-    fun `should return 35 when startDate is 1 de March 2020 and endDate is 01 July 2022`() {
-        val expectedValue = BigDecimal(35.00).setScale(2, RoundingMode.HALF_UP)
-        val startDate = "2020-03-01"
-        val endDate = "2022-07-01"
+    fun `should return annual leave days 7 per year when user is 19 age and has 4 months`() {
+        val age = 19
+        val startDate = "2019-01-01"
+        val endDate = "2019-12-31"
+        val expectedNumberAnnualLeaveDays = 15.0
 
-        val result = calculatorsService.getVacations(startDate, endDate)
+        val result = calculatorsService.getNumberAnnualLeaveDay(startDate, endDate, age)
 
-        assertEquals(expectedValue, result)
+        assertEquals(expectedNumberAnnualLeaveDays, result)
+    }
+
+
+    @Test
+    fun `should return the new start date 2019-02-01 with last year when number of days is over 360 days`() {
+        val startDate = "2018-02-01"
+        val endDate = "2019-08-31"
+        val expectedStartDate = "2019-02-01"
+
+        val result = calculatorsService.getNewStartDate(startDate, endDate)
+
+        assertEquals(expectedStartDate, result)
     }
 
     @Test
-    fun `should return 45 when startDate is 1 de March 2020 and endDate is 01 March 2023`() {
-        val expectedValue = BigDecimal(45.00).setScale(2, RoundingMode.HALF_UP)
-        val startDate = "2020-03-01"
-        val endDate = "2023-03-01"
+    fun `should return the new start date with last year when number of days is over 720 days`() {
+        val startDate = "2017-02-01"
+        val endDate = "2019-08-31"
+        val expectedStartDate = "2019-02-01"
 
-        val result = calculatorsService.getVacations(startDate, endDate)
+        val result = calculatorsService.getNewStartDate(startDate, endDate)
 
-        assertEquals(expectedValue, result)
+        assertEquals(expectedStartDate, result)
     }
+
+    @Test
+    fun `should return the new start date with last year when number of days is over 3 years`() {
+        val startDate = "2010-02-01"
+        val endDate = "2015-08-31"
+        val expectedStartDate = "2015-02-01"
+
+        val result = calculatorsService.getNewStartDate(startDate, endDate)
+
+        assertEquals(expectedStartDate, result)
+    }
+
+    @Test
+    fun `should return annual leave days 15,0 per year when user is 19 age and has 4 months`() {
+        val age = 19
+        val startDate = "2018-02-01"
+        val endDate = "2019-08-31"
+        val expectedNumberAnnualLeaveDays = 8.75
+
+        val result = calculatorsService.getNumberAnnualLeaveDay(startDate, endDate, age)
+
+        assertEquals(expectedNumberAnnualLeaveDays, result)
+    }
+
+    fun getTestCases(): ArrayList<EntriesAnnualLeaveTest> {
+        var annualLeaveTestCases: ArrayList<EntriesAnnualLeaveTest> = arrayListOf()
+        annualLeaveTestCases.add(EntriesAnnualLeaveTest(19, "2018-02-01", "2019-08-31", 8.75))
+        annualLeaveTestCases.add(EntriesAnnualLeaveTest(18, "2018-02-01", "2019-08-31", 10.5))
+        annualLeaveTestCases.add(EntriesAnnualLeaveTest(17, "2018-02-01", "2019-08-31", 10.5))
+        annualLeaveTestCases.add(EntriesAnnualLeaveTest(16, "2018-02-01", "2019-08-31", 10.5))
+        annualLeaveTestCases.add(EntriesAnnualLeaveTest(15, "2018-02-01", "2019-08-31", 11.67))
+        annualLeaveTestCases.add(EntriesAnnualLeaveTest(15, "2018-02-01", "2018-02-15", 0.777777778))
+        return annualLeaveTestCases
+    }
+
+    @Test
+    @Parameters(method = "getTestCases")
+    @TestCaseName("{method} with params {params}")
+    fun `should return annual leave days`(
+        entriesAnnualLeaveTest: EntriesAnnualLeaveTest
+    ) {
+        val result = calculatorsService.getNumberAnnualLeaveDay(
+            entriesAnnualLeaveTest.startDate,
+            entriesAnnualLeaveTest.endDate,
+            entriesAnnualLeaveTest.age
+        )
+        assertEquals(
+            entriesAnnualLeaveTest.result.toBigDecimal().setScale(2, RoundingMode.HALF_UP),
+            result.toBigDecimal().setScale(2, RoundingMode.HALF_UP)
+        )
+    }
+
     //</editor-fold>
 }

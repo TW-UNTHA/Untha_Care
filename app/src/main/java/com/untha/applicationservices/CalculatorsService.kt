@@ -8,7 +8,6 @@ import com.untha.utils.ConstantsCalculators.MONTHS_OF_YEAR
 import com.untha.utils.ConstantsCalculators.PERCENTAJE_APORTE_FONDOS_RESERVA
 import com.untha.utils.ConstantsCalculators.PERCENTAJE_APORTE_IESS_PRIVADO
 import com.untha.utils.ConstantsCalculators.SBU
-import com.untha.utils.ConstantsCalculators.VACATIONS_ONE_YEAR
 import com.untha.utils.ConstantsCalculators.WEEKLY_HOURS_COMPLETE
 import java.math.BigDecimal
 import java.math.RoundingMode
@@ -22,6 +21,13 @@ class CalculatorsService {
         const val COSTA_GALAPAGOS = 1
         const val COMPLETA = 1
         const val PARCIAL = 2
+        const val EIGHTEEN_AGE = 18
+        const val FIFTEEN_AGE = 15
+        const val SIXTEEN_AGE = 16
+        const val TWENTY_AGE = 20
+        const val START_INDEX = 4
+        const val END_INDEX = 10
+
     }
 
     fun getDecimoTercerSueldoMensualizado(salary: BigDecimal): BigDecimal {
@@ -40,7 +46,7 @@ class CalculatorsService {
         when (isFirstDayOfDecember(calendarStartDate) && isLastDayOfNovember(calendarEndDate)) {
             true -> return salary.setScale(2, RoundingMode.HALF_UP)
 
-            false ->{
+            false -> {
                 val newStartDate = setStartDateDecimoTercero(calendarEndDate, calendarStartDate)
                 return calculateDecimoTerceroAcumulado(salary, newStartDate, calendarEndDate)
 
@@ -49,7 +55,10 @@ class CalculatorsService {
         }
     }
 
-    fun getDecimoCuartoSueldoMensualizado(idWorkday: Int, numberOfHoursWeekly: Int=0): BigDecimal {
+    fun getDecimoCuartoSueldoMensualizado(
+        idWorkday: Int,
+        numberOfHoursWeekly: Int = 0
+    ): BigDecimal {
         if (idWorkday == COMPLETA) {
             return SBU.toBigDecimal().divide(MONTHS_OF_YEAR.toBigDecimal(), 2, RoundingMode.HALF_UP)
         }
@@ -132,13 +141,6 @@ class CalculatorsService {
         }
     }
 
-    fun getVacations(startDate: String, endDate: String): BigDecimal {
-        val numberOfDays =
-            calculateDaysBetween(stringToCalendar(startDate), stringToCalendar(endDate))
-        val equivalentDay = VACATIONS_ONE_YEAR.toBigDecimal().multiply(numberOfDays.toBigDecimal())
-
-        return equivalentDay.divide(DAYS_OF_YEAR.toBigDecimal(), 2, RoundingMode.HALF_UP)
-    }
 
     private fun calculateDecimoCuartoPartialTime(
         calendarEndDate: Calendar,
@@ -380,6 +382,44 @@ class CalculatorsService {
             } else {
                 startDate = stringToCalendar("$oneYearBefore${posfixStartDate}")
             }
+        }
+        return startDate
+    }
+
+    fun getNumberAnnualLeaveDaysPerAge(years: Int): Int {
+        if (years > EIGHTEEN_AGE) {
+            return FIFTEEN_AGE
+        }
+        if (years in SIXTEEN_AGE..EIGHTEEN_AGE)
+            return EIGHTEEN_AGE
+        return TWENTY_AGE
+    }
+
+    fun getNumberAnnualLeaveDaysPerDay(numberOfDays: Int): Double {
+        return numberOfDays.toDouble().div(DAYS_OF_YEAR.toDouble())
+    }
+
+    fun getNumberAnnualLeaveDay(startDate: String, endDate: String, age: Int): Double {
+        val numberAnnualLeaveAtYear = getNumberAnnualLeaveDaysPerAge(age)
+        val numberAnnualLeaveAtDay = getNumberAnnualLeaveDaysPerDay(numberAnnualLeaveAtYear)
+        val startDate = getNewStartDate(startDate, endDate)
+        val numberDayWorked =
+            calculateDaysBetween(stringToCalendar(startDate), stringToCalendar(endDate))
+
+        return numberDayWorked * numberAnnualLeaveAtDay
+    }
+
+    fun getNewStartDate(startDate: String, endDate: String): String {
+
+        val startDateTransform = stringToCalendar(startDate)
+        val endDateTransform = stringToCalendar(endDate)
+        val numberDayWorked = calculateDaysBetween(startDateTransform, endDateTransform)
+        val difference = numberDayWorked / DAYS_OF_YEAR
+        if (numberDayWorked > DAYS_OF_YEAR) {
+            val newYear = startDateTransform.get(Calendar.YEAR) + difference
+
+            val newStartDay = newYear.toString().plus(startDate.substring(START_INDEX, END_INDEX))
+            return newStartDay
         }
         return startDate
     }
