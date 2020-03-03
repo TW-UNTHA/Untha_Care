@@ -9,9 +9,9 @@ import android.widget.Spinner
 import android.widget.Toast
 import androidx.navigation.findNavController
 import com.untha.R
-import com.untha.applicationservices.CalculatorsService
 import com.untha.model.transactionalmodels.Category
 import com.untha.utils.Constants
+import com.untha.utils.stringToCalendar
 import com.untha.view.activities.MainActivity
 import kotlinx.android.synthetic.main.fragment_calculator_benefit.*
 import java.math.RoundingMode
@@ -19,7 +19,6 @@ import java.util.*
 
 class CalculatorBenefitFragment : BaseFragment() {
     private lateinit var mainActivity: MainActivity
-    private var calculatorService: CalculatorsService = CalculatorsService()
     private lateinit var categoriesCalculator:  ArrayList<Category>
 
 
@@ -249,7 +248,7 @@ class CalculatorBenefitFragment : BaseFragment() {
         spinnerDay: Spinner
     ): Calendar {
         val buildDate = buildDate(spinnerYear, spinnerMonth, spinnerDay)
-        return calculatorService.stringToCalendar(buildDate)
+        return stringToCalendar(buildDate)
     }
 
     private fun buildDate(
