@@ -5,11 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.untha.viewmodels.CalculatorViewModel
-import kotlinx.android.synthetic.main.fragment_item_result_annual.*
 import kotlinx.android.synthetic.main.fragment_item_result_monthly.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class TabMonthlyFragment(
+    private val startDate: String,
+    private val endDate: String,
     private val salary: String,
     private val idWorkday: Int,
     private val hours: Int
@@ -32,10 +33,12 @@ class TabMonthlyFragment(
         super.onViewCreated(view, savedInstanceState)
 
         tv_decimo_tercero_monthly.text =
-            "$".plus(calculatorViewModel.getDecimoTerceroMensualizado(salary.toBigDecimal())
-                .toString())
+            "$".plus(
+                calculatorViewModel.getDecimoTerceroMensualizado(startDate,endDate, salary.toDouble())
+                    .toString()
+            )
         tv_decimo_cuarto_monthly.text =
-            "$".plus(calculatorViewModel.getDecimoCuartoMensualizado(idWorkday, hours).toString())
+            "$".plus(calculatorViewModel.getDecimoCuartoMensualizado(idWorkday, hours,startDate,endDate).toString())
 
     }
 }

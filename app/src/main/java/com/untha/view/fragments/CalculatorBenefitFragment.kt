@@ -19,7 +19,7 @@ import java.util.*
 
 class CalculatorBenefitFragment : BaseFragment() {
     private lateinit var mainActivity: MainActivity
-    private lateinit var categoriesCalculator:  ArrayList<Category>
+    private lateinit var categoriesCalculator: ArrayList<Category>
 
 
     companion object {
@@ -59,7 +59,6 @@ class CalculatorBenefitFragment : BaseFragment() {
             needsBackButton = true,
             enableHelp = false,
             backMethod = null
-
         )
         loadAllSpinners()
         changeStateSpinnersEndDate()

@@ -1,14 +1,21 @@
 package com.untha.viewmodels
 
 import androidx.lifecycle.ViewModel
-import com.untha.applicationservices.CalculatorsService
+import com.untha.applicationservices.CalculatorDecimosService
+import com.untha.applicationservices.CalculatorIESSService
+import com.untha.utils.salaryForDaysWorked
 import java.math.BigDecimal
 
 class CalculatorViewModel : ViewModel() {
-    var calculatorService: CalculatorsService = CalculatorsService()
+    var calculatorService: CalculatorDecimosService = CalculatorDecimosService()
+    var calculatorIESSService: CalculatorIESSService = CalculatorIESSService()
 
-    fun getAportacionMensualIESS(salary: String): String {
-        return calculatorService.getAportacionMensualIESS(salary.toBigDecimal()).toString()
+    fun getAportacionMensualIESS(startDate: String, endDate: String, salary: String): String {
+        return calculatorIESSService.getAportacionMensualIESS(
+            startDate,
+            endDate,
+            salary.toBigDecimal()
+        ).toString()
     }
 
     fun getFondoReservaMensualizado(
@@ -16,7 +23,7 @@ class CalculatorViewModel : ViewModel() {
         endDate: String,
         salary: String
     ): BigDecimal? {
-        return calculatorService.getFondoReservaMensualizado(
+        return calculatorIESSService.getFondoReservaMensualizado(
             startDate,
             endDate,
             salary.toBigDecimal()
@@ -51,11 +58,35 @@ class CalculatorViewModel : ViewModel() {
         )
     }
 
-    fun getDecimoTerceroMensualizado(salary: BigDecimal): BigDecimal {
-        return calculatorService.getDecimoTercerSueldoMensualizado(salary)
+    fun getDecimoTerceroMensualizado(
+        startDate: String,
+        endDate: String,
+        salary: Double
+    ): BigDecimal {
+        return calculatorService.getDecimoTercerSueldoFiniquitoMensualizado(startDate, endDate, salary)
     }
 
-    fun getDecimoCuartoMensualizado(idWorkday: Int, numberOfHoursWeekly: Int): BigDecimal {
-        return calculatorService.getDecimoCuartoSueldoMensualizado(idWorkday, numberOfHoursWeekly)
+    fun getDecimoCuartoMensualizado(
+        idWorkday: Int,
+        numberOfHoursWeekly: Int,
+        startDate: String,
+        endDate: String
+    ): BigDecimal {
+        return calculatorService.getDecimoCuartoSueldoMensualizado(
+            idWorkday,
+            numberOfHoursWeekly
+        )
+    }
+
+    fun getSalary(
+        startDate: String,
+        endDate: String,
+        salary: BigDecimal
+    ): BigDecimal {
+        return salaryForDaysWorked(
+            startDate,
+            endDate,
+            salary
+        )
     }
 }

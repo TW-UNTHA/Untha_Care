@@ -1,21 +1,25 @@
 package com.untha.utils
 
-import com.untha.applicationservices.CalculatorsService
+import com.untha.applicationservices.CalculatorDecimosService
+import com.untha.applicationservices.CalculatorDecimosService.Companion.END_INDEX_MONTH
+import com.untha.applicationservices.CalculatorDecimosService.Companion.START_INDEX_YEAR
 import com.untha.utils.ConstantsCalculators.DAYS_31
 import com.untha.utils.ConstantsCalculators.DAYS_IN_MONTH
 import com.untha.utils.ConstantsCalculators.DAYS_OF_YEAR
+import com.untha.utils.ConstantsCalculators.FIRST_DAY_MONTH
+import java.math.BigDecimal
 import java.text.SimpleDateFormat
 import java.util.*
 
 
 fun isFirstDayOfDecember(startDate: Calendar): Boolean {
     return startDate.get(Calendar.MONTH) == Calendar.DECEMBER &&
-            startDate.get(Calendar.DAY_OF_MONTH) == ConstantsCalculators.FIRST_DAY_MONTH
+            startDate.get(Calendar.DAY_OF_MONTH) == FIRST_DAY_MONTH
 }
 
 fun isLastDayOfNovember(endDate: Calendar): Boolean {
     return endDate.get(Calendar.MONTH) == Calendar.NOVEMBER &&
-            endDate.get(Calendar.DAY_OF_MONTH) == ConstantsCalculators.DAYS_IN_MONTH
+            endDate.get(Calendar.DAY_OF_MONTH) == DAYS_IN_MONTH
 
 }
 
@@ -26,10 +30,10 @@ fun isLastDayOfFebruary(date: Calendar): Boolean {
 
 
 fun lastDayOfFebruary(year: Int): Int {
-    val dateFebruary = Calendar.getInstance()
-    dateFebruary[Calendar.MONTH] = Calendar.FEBRUARY
-    dateFebruary[Calendar.YEAR] = year
-    return dateFebruary.getActualMaximum(Calendar.DAY_OF_MONTH)
+    val date = Calendar.getInstance()
+    date[Calendar.MONTH] = Calendar.FEBRUARY
+    date[Calendar.YEAR] = year
+    return date.getActualMaximum(Calendar.DAY_OF_MONTH)
 }
 
 fun isFirstDayOfMarch(calendarStartDate: Calendar) =
@@ -65,18 +69,16 @@ fun stringToCalendar(date: String): Calendar {
 }
 
 fun newStartDatePeriodOfWork(startDate: String, endDate: String): String {
-
     val startDateTransform = stringToCalendar(startDate)
     val endDateTransform = stringToCalendar(endDate)
     val numberDayWorked = calculateNumberOfDayBetween(startDateTransform, endDateTransform)
     val difference = numberDayWorked / DAYS_OF_YEAR
     if (numberDayWorked > DAYS_OF_YEAR) {
         val newYear = startDateTransform.get(Calendar.YEAR) + difference
-
         val newStartDay = newYear.toString().plus(
             startDate.substring(
-                CalculatorsService.START_INDEX,
-                CalculatorsService.END_INDEX
+                CalculatorDecimosService.START_INDEX,
+                CalculatorDecimosService.END_INDEX
             )
         )
         return newStartDay
@@ -97,13 +99,38 @@ fun getAge(birthDate: String, date: String? = null): Int {
 }
 
 fun numberOfAnnualLeavesPerAge(years: Int): Int {
-    if (years >= CalculatorsService.EIGHTEEN_AGE) {
-        return CalculatorsService.FIFTEEN_AGE
+    if (years >= CalculatorDecimosService.EIGHTEEN_AGE) {
+        return CalculatorDecimosService.FIFTEEN_AGE
     }
-    if (years in CalculatorsService.SIXTEEN_AGE..CalculatorsService.SEVENTEEN_AGE)
-        return CalculatorsService.EIGHTEEN_AGE
-    return CalculatorsService.TWENTY_AGE
+    if (years in CalculatorDecimosService.SIXTEEN_AGE..CalculatorDecimosService.SEVENTEEN_AGE)
+        return CalculatorDecimosService.EIGHTEEN_AGE
+    return CalculatorDecimosService.TWENTY_AGE
 }
+
 fun equivalentOfAnnualLeavesToDay(numberOfDays: Int): Double {
     return numberOfDays.toDouble().div(DAYS_OF_YEAR.toDouble())
 }
+
+fun salaryEquivalentPerDay(salary: BigDecimal) = (salary.toDouble()/DAYS_IN_MONTH).toBigDecimal()
+
+fun startDateOfMonth(endDate: String) =
+    endDate.substring(START_INDEX_YEAR, END_INDEX_MONTH).plus("01")
+
+fun salaryForDaysWorked(
+    startDate: String,
+    endDate: String,
+    salaryAtMonth: BigDecimal
+): BigDecimal {
+    val endDateTransformed = stringToCalendar(endDate)
+    val numberDays =
+        calculateNumberOfDayBetween(stringToCalendar(startDate), endDateTransformed)
+    val startDate = if (numberDays > DAYS_IN_MONTH) startDateOfMonth(endDate) else startDate
+
+    val startDateTransformed = stringToCalendar(startDate)
+
+    val numberOfDays = calculateNumberOfDayBetween(startDateTransformed, endDateTransformed)
+    val salaryForDay = salaryEquivalentPerDay(salaryAtMonth)
+    val salaryForDaysWorked = salaryForDay * numberOfDays.toBigDecimal()
+    return salaryForDaysWorked
+}
+

@@ -28,8 +28,8 @@ class FileReader {
         const val DECIMO_CUARTO = 7
         const val DECIMO_CUARTO_MONTLY = 10
         const val END_DATE = 6
-        const val PARCIAL = 2
-        const val COMPLETA = 1
+        const val PARTIAL = 2
+        const val COMPLETE = 1
         const val HOURS_COMPLETA = 40
         const val MAX_ROWS = 999
     }
@@ -100,5 +100,5 @@ class FileReader {
 
     private fun getIdWorkday(numberOfHours: Int) =
         if (numberOfHours < HOURS_COMPLETA)
-            PARCIAL else COMPLETA
+            PARTIAL else COMPLETE
 }

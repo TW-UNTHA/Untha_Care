@@ -2,32 +2,28 @@ package com.untha.applicationservices
 
 import com.untha.utils.ConstantsCalculators.DAYS_OF_YEAR
 import com.untha.utils.ConstantsCalculators.MONTHS_OF_YEAR
-import com.untha.utils.ConstantsCalculators.PERCENTAJE_APORTE_FONDOS_RESERVA
-import com.untha.utils.ConstantsCalculators.PERCENTAJE_APORTE_IESS_PRIVADO
 import com.untha.utils.ConstantsCalculators.SBU
 import com.untha.utils.ConstantsCalculators.WEEKLY_HOURS_COMPLETE
 import com.untha.utils.calculateNumberOfDayBetween
-import com.untha.utils.equivalentOfAnnualLeavesToDay
-import com.untha.utils.getAge
 import com.untha.utils.isFirstDayOfDecember
 import com.untha.utils.isFirstDayOfMarch
 import com.untha.utils.isLastDayOfFebruary
 import com.untha.utils.isLastDayOfNovember
 import com.untha.utils.lastDayOfFebruary
-import com.untha.utils.newStartDatePeriodOfWork
-import com.untha.utils.numberOfAnnualLeavesPerAge
+import com.untha.utils.salaryForDaysWorked
 import com.untha.utils.stringToCalendar
+import com.untha.view.fragments.CalculatorBenefitFragment.Companion.MONTH_WITH_TWO_DIGITS
 import java.math.BigDecimal
 import java.math.RoundingMode
 import java.util.*
 
-class CalculatorsService {
+class CalculatorDecimosService {
 
     companion object {
         const val SIERRA_ORIENTE = 2
         const val COSTA_GALAPAGOS = 1
-        const val COMPLETA = 1
-        const val PARCIAL = 2
+        const val COMPLETE = 1
+        const val PARTIAL = 2
         const val EIGHTEEN_AGE = 18
         const val SEVENTEEN_AGE = 17
         const val FIFTEEN_AGE = 15
@@ -35,13 +31,8 @@ class CalculatorsService {
         const val TWENTY_AGE = 20
         const val START_INDEX = 4
         const val END_INDEX = 10
-
-    }
-
-    fun getDecimoTercerSueldoMensualizado(salary: BigDecimal): BigDecimal {
-        val result: BigDecimal =
-            salary.divide(MONTHS_OF_YEAR.toBigDecimal(), 2, RoundingMode.HALF_UP)
-        return result
+        const val START_INDEX_YEAR = 0
+        const val END_INDEX_MONTH = 8
     }
 
     fun getDecimoTercerSueldoAcumulado(salary: BigDecimal, startDate: String, endDate: String):
@@ -64,7 +55,7 @@ class CalculatorsService {
         idWorkday: Int,
         numberOfHoursWeekly: Int = 0
     ): BigDecimal {
-        if (idWorkday == COMPLETA) {
+        if (idWorkday == COMPLETE) {
             return SBU.toBigDecimal().divide(MONTHS_OF_YEAR.toBigDecimal(), 2, RoundingMode.HALF_UP)
         }
         val equivalentSalary = calculateSalaryEquivalent(numberOfHoursWeekly)
@@ -84,7 +75,7 @@ class CalculatorsService {
         when (idArea) {
             SIERRA_ORIENTE -> {
                 when (idWorkDay) {
-                    COMPLETA -> {
+                    COMPLETE -> {
                         return calculateDecimoCuartoCompleteTime(
                             calendarEndDate,
                             calendarStartDate,
@@ -92,7 +83,7 @@ class CalculatorsService {
                         )
 
                     }
-                    PARCIAL -> {
+                    PARTIAL -> {
                         return calculateDecimoCuartoPartialTime(
                             calendarEndDate,
                             numberOfHoursWeekly,
@@ -104,14 +95,14 @@ class CalculatorsService {
             }
             COSTA_GALAPAGOS -> {
                 when (idWorkDay) {
-                    COMPLETA -> {
+                    COMPLETE -> {
                         return calculateDecimoCuartoCompleteTime(
                             calendarEndDate,
                             calendarStartDate,
                             COSTA_GALAPAGOS
                         )
                     }
-                    PARCIAL -> {
+                    PARTIAL -> {
                         return calculateDecimoCuartoPartialTime(
                             calendarEndDate,
                             numberOfHoursWeekly,
@@ -126,26 +117,6 @@ class CalculatorsService {
         return null
     }
 
-    fun getAportacionMensualIESS(salary: BigDecimal): BigDecimal? {
-        val result = salary.multiply(PERCENTAJE_APORTE_IESS_PRIVADO.toBigDecimal())
-        return result.setScale(2, RoundingMode.HALF_UP)
-    }
-
-    fun getFondoReservaMensualizado(
-        startDate: String,
-        endDate: String,
-        salary: BigDecimal
-    ): BigDecimal? {
-        val numberOfDays =
-            calculateNumberOfDayBetween(stringToCalendar(startDate), stringToCalendar(endDate))
-        if (numberOfDays > DAYS_OF_YEAR) {
-            val result = salary.multiply(PERCENTAJE_APORTE_FONDOS_RESERVA.toBigDecimal())
-            return result.setScale(2, RoundingMode.HALF_UP)
-        } else {
-            return 0.00.toBigDecimal().setScale(2, RoundingMode.HALF_UP)
-        }
-    }
-
 
     private fun calculateDecimoCuartoPartialTime(
         calendarEndDate: Calendar,
@@ -155,6 +126,7 @@ class CalculatorsService {
     ): BigDecimal? {
 
         var startDate: Calendar = Calendar.getInstance()
+
 
         if (area == SIERRA_ORIENTE) {
             startDate = setStartDate(calendarEndDate, calendarStartDate, area)
@@ -169,6 +141,7 @@ class CalculatorsService {
                 }
                 startDate = setStartDate(calendarEndDate, calendarStartDate, area)
             }
+        val date = calendarToString(startDate)
         return calculateDecimoCuarto(
             startDate,
             calendarEndDate,
@@ -197,6 +170,24 @@ class CalculatorsService {
             startDate,
             calendarEndDate
         )
+    }
+
+    private fun calendarToString(date: Calendar): String {
+        return date.get(Calendar.YEAR).toString().plus("-")
+            .plus(transformationMonth(date.get(Calendar.MONTH))).plus("-")
+            .plus(addZero(date.get(Calendar.DAY_OF_MONTH)))
+    }
+
+    private fun transformationMonth(month: Int): String {
+        val positionIncremented = month + 1
+        val addZeroToMonth = addZero(positionIncremented)
+
+        return addZeroToMonth
+    }
+
+    private fun addZero(number: Int): String {
+        return if (number < MONTH_WITH_TWO_DIGITS) ("0").plus(number)
+        else number.toString()
     }
 
     private fun setStartDate(
@@ -335,130 +326,33 @@ class CalculatorsService {
         return startDate
     }
 
-
-
-
-    fun getNumberAnnualLeaveDay(startDate: String, endDate: String, age: Int): Double {
-        val numberAnnualLeaveAtYear = numberOfAnnualLeavesPerAge(age)
-        val numberAnnualLeaveAtDay = equivalentOfAnnualLeavesToDay(numberAnnualLeaveAtYear)
-        val startDate = newStartDatePeriodOfWork(startDate, endDate)
-        val numberDayWorked =
-            calculateNumberOfDayBetween(stringToCalendar(startDate), stringToCalendar(endDate))
-
-        return numberDayWorked * numberAnnualLeaveAtDay
-    }
-
-
-    fun getDailyPayAnnualLeave(salary: Double): BigDecimal {
-        val salaryAtDay = (salary * MONTHS_OF_YEAR) / DAYS_OF_YEAR
-        return salaryAtDay.toBigDecimal()
-    }
-
-    fun getCostOfAnnualLeaveDays(
+    fun getDecimoTercerSueldoFiniquitoMensualizado(
         startDate: String,
         endDate: String,
-        salary: Double,
-        age: Int,
-        daysTaken: Int
+        salaryAtMonth: Double
     ): BigDecimal {
-        val numberAnnualLeaveDays = getNumberAnnualLeaveDay(startDate, endDate, age)
-        val numberAnnualLeaveDaysAvailable = numberAnnualLeaveDays - daysTaken
-        val salaryAtDay = getDailyPayAnnualLeave(salary)
-
-        val result = salaryAtDay.multiply(
-            numberAnnualLeaveDaysAvailable.toBigDecimal().setScale(
+        val salaryForDaysWorked =
+            salaryForDaysWorked(startDate, endDate, salaryAtMonth.toBigDecimal())
+        val result: BigDecimal =
+            salaryForDaysWorked.divide(
+                MONTHS_OF_YEAR.toBigDecimal(),
                 2,
                 RoundingMode.HALF_UP
             )
-        )
-        return result
+
+        return result.setScale(2, RoundingMode.HALF_UP)
     }
 
-
-    fun isBirthdayInPeriodOfWork(startDate: String, endDate: String, birthDate: String): Boolean {
-        val ageStartDate = getAge(birthDate, startDate)
-        val ageEndDate = getAge(birthDate, endDate)
-        if (ageStartDate < ageEndDate) {
-            return true
-        }
-        return false
+    fun getDecimoTercerSueldoMensualizado(salaryAtMonth: BigDecimal): BigDecimal {
+        val result =
+            salaryAtMonth.divide(
+                MONTHS_OF_YEAR.toBigDecimal(),
+                2,
+                RoundingMode.HALF_UP
+            )
+        return result.setScale(2, RoundingMode.HALF_UP)
     }
 
-    fun getNewDate(startDate: String, endDate: String, birthDate: String): String {
-        val startDateTransformed = stringToCalendar(startDate)
-        val endDateTransformed = stringToCalendar(endDate)
-        val birthDateTransformed = stringToCalendar(birthDate)
-        val newBirthdayStartDate = startDateTransformed.get(Calendar.YEAR).toString()
-            .plus(birthDate.substring(START_INDEX, END_INDEX))
-        val newBirthdayEndDate = endDateTransformed.get(Calendar.YEAR).toString()
-            .plus(birthDate.substring(START_INDEX, END_INDEX))
-
-        val isEqualStartDateWithBirthday = newBirthdayStartDate.equals(birthDateTransformed)
-        val isEqualEndDateWithBirthday = endDateTransformed.equals(birthDateTransformed)
-        if (isEqualStartDateWithBirthday || isEqualEndDateWithBirthday) {
-            return endDate
-        }
-        if (isBirthdayInPeriodOfWork(startDate, endDate, birthDate)) {
-            val newBirthdayTransformed = stringToCalendar(newBirthdayStartDate)
-            if (newBirthdayTransformed.after(startDateTransformed)) {
-                return newBirthdayStartDate
-            }
-            return newBirthdayEndDate
-        }
-        return endDate
-    }
-
-    fun getTotalCostFirstPeriod(
-        startDate: String,
-        endDate: String,
-        birthDate: String,
-        salary: Double,
-        daysTaken: Int
-    ): BigDecimal {
-        val endDateByPeriod = getNewDate(startDate, endDate, birthDate)
-
-        val age = getAge(birthDate, startDate)
-        val cost =
-            getCostOfAnnualLeaveDays(startDate, endDateByPeriod, salary, age, daysTaken)
-
-
-        return cost.setScale(2, RoundingMode.HALF_UP)
-    }
-
-    fun getTotalCostSecondPeriod(
-        startDate: String,
-        endDate: String,
-        birthDate: String,
-        salary: Double,
-        daysTaken: Int
-    ): BigDecimal {
-        val startDateByPeriod = getNewDate(startDate, endDate, birthDate)
-        val age = getAge(birthDate, startDateByPeriod)
-
-        val cost =
-            getCostOfAnnualLeaveDays(startDateByPeriod, endDate, salary, age, daysTaken)
-
-        return cost.setScale(2, RoundingMode.HALF_UP)
-    }
-
-    fun getTotalCostPeriod(
-        startDate: String,
-        endDate: String,
-        birthDate: String,
-        salary: Double,
-        daysTaken: Int
-    ): BigDecimal {
-        var cost: BigDecimal
-        val newDate = getNewDate(startDate, endDate, birthDate)
-        cost = getTotalCostFirstPeriod(startDate, endDate, birthDate, salary, daysTaken)
-            .setScale(2, RoundingMode.HALF_UP)
-        if (newDate.equals(startDate) || newDate.equals(endDate)) {
-            return cost
-        }
-        cost += getTotalCostSecondPeriod(startDate, endDate, birthDate, salary, daysTaken)
-
-        return cost.setScale(2, RoundingMode.HALF_UP)
-    }
 
 
 }

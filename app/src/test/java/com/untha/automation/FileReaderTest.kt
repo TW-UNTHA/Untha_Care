@@ -1,17 +1,20 @@
 package com.untha.automation
 
-import com.untha.applicationservices.CalculatorsService
+import com.untha.applicationservices.CalculatorDecimosService
+import com.untha.applicationservices.CalculatorIESSService
 import org.hamcrest.CoreMatchers.equalTo
 import org.junit.Assert.assertThat
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.Parameterized
+import java.math.RoundingMode
 
 @RunWith(Parameterized::class)
 class FileReaderTest(
     private val excelModel: ExcelModel
 ) {
-    val calculatorsService = CalculatorsService()
+    val calculatorsService = CalculatorDecimosService()
+    val calculatorIESSService = CalculatorIESSService()
 
     companion object {
         var manageFile = FileReader()
@@ -26,7 +29,9 @@ class FileReaderTest(
         val expected = excelModel.decimoTerceroMensualizado
 
         val resultDecimoTerceroMensualizado =
-            calculatorsService.getDecimoTercerSueldoMensualizado(excelModel.finalSalary)
+            calculatorsService.getDecimoTercerSueldoMensualizado(
+                excelModel.finalSalary
+            )
 
         assertThat(resultDecimoTerceroMensualizado, equalTo(expected))
     }
@@ -71,9 +76,12 @@ class FileReaderTest(
 
     @Test
     fun `should match percentage IESS value excel with result`() {
-        val expected = excelModel.percentageIESS
-
-        val resultIESS = calculatorsService.getAportacionMensualIESS(excelModel.finalSalary)
+        val expected = excelModel.percentageIESS.setScale(2, RoundingMode.HALF_UP)
+        val resultIESS = calculatorIESSService.getAportacionMensualIESS(
+            excelModel.startDate,
+            excelModel.endDate,
+            excelModel.finalSalary
+        )
 
         assertThat(resultIESS, equalTo(expected))
     }
@@ -82,7 +90,7 @@ class FileReaderTest(
     fun `should match fondos de reserva value excel with result`() {
         val expected = excelModel.fondosReserva
 
-        val resultFondosReserva = calculatorsService.getFondoReservaMensualizado(
+        val resultFondosReserva = calculatorIESSService.getFondoReservaMensualizado(
             excelModel.startDate,
             excelModel.endDate,
             excelModel.finalSalary

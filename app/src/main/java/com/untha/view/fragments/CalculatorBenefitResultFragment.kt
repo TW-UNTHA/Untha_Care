@@ -18,6 +18,7 @@ import com.untha.viewmodels.CalculatorViewModel
 import kotlinx.android.synthetic.main.fragment_calculator_benefit_result.*
 import org.jetbrains.anko.sdk27.coroutines.onClick
 import org.koin.android.viewmodel.ext.android.viewModel
+import java.math.RoundingMode
 import java.util.*
 
 
@@ -89,17 +90,23 @@ class CalculatorBenefitResultFragment : BaseFragment() {
             TabAnnualFragment(salary, startDate, endDate, idWorkday, idArea, hours),
             "Acumulado"
         )
-        adapter.addFragment(TabMonthlyFragment(salary, idWorkday, hours), "Mensual")
+        adapter.addFragment(
+            TabMonthlyFragment(startDate, endDate, salary, idWorkday, hours),
+            "Mensual"
+        )
         vp_tabs.adapter = adapter
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val percentageIESS = calculatorViewModel.getAportacionMensualIESS(salary)
+        val percentageIESS =
+            calculatorViewModel.getAportacionMensualIESS(startDate, endDate, salary)
         tv_IESS.text = "$".plus(percentageIESS)
 
         tv_salary.text =
-            "$".plus((salary.toBigDecimal() - percentageIESS.toBigDecimal()).toString())
+            calculatorViewModel.getSalary(startDate, endDate, salary.toBigDecimal())
+                .setScale(2, RoundingMode.HALF_UP).toString()
+//            "$".plus((salary.toBigDecimal() - percentageIESS.toBigDecimal()).toString())
         tv_fondos_reserva.text =
             "$".plus(
                 calculatorViewModel.getFondoReservaMensualizado(
