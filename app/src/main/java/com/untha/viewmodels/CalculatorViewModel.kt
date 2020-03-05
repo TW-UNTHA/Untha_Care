@@ -10,10 +10,8 @@ class CalculatorViewModel : ViewModel() {
     var calculatorService: CalculatorDecimosService = CalculatorDecimosService()
     var calculatorIESSService: CalculatorIESSService = CalculatorIESSService()
 
-    fun getAportacionMensualIESS(startDate: String, endDate: String, salary: String): String {
+    fun getAportacionMensualIESS( salary: String): String {
         return calculatorIESSService.getAportacionMensualIESS(
-            startDate,
-            endDate,
             salary.toBigDecimal()
         ).toString()
     }
@@ -59,11 +57,9 @@ class CalculatorViewModel : ViewModel() {
     }
 
     fun getDecimoTerceroMensualizado(
-        startDate: String,
-        endDate: String,
-        salary: Double
+        salary: BigDecimal
     ): BigDecimal {
-        return calculatorService.getDecimoTercerSueldoFiniquitoMensualizado(startDate, endDate, salary)
+        return calculatorService.getDecimoTercerSueldoMensualizado(salary)
     }
 
     fun getDecimoCuartoMensualizado(

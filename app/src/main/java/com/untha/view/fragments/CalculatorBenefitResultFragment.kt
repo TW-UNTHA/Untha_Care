@@ -18,7 +18,6 @@ import com.untha.viewmodels.CalculatorViewModel
 import kotlinx.android.synthetic.main.fragment_calculator_benefit_result.*
 import org.jetbrains.anko.sdk27.coroutines.onClick
 import org.koin.android.viewmodel.ext.android.viewModel
-import java.math.RoundingMode
 import java.util.*
 
 

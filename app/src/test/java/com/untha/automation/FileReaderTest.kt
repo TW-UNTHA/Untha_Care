@@ -78,8 +78,6 @@ class FileReaderTest(
     fun `should match percentage IESS value excel with result`() {
         val expected = excelModel.percentageIESS.setScale(2, RoundingMode.HALF_UP)
         val resultIESS = calculatorIESSService.getAportacionMensualIESS(
-            excelModel.startDate,
-            excelModel.endDate,
             excelModel.finalSalary
         )
 

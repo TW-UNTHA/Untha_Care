@@ -14,21 +14,17 @@ class CalculatorIESSServiceTest {
 
     @Test
     fun `should return 37,80 of IESS contribution  when my salary is 400`() {
-        val startDate = "2020-01-01"
-        val endDate = "2020-01-15"
         val salary = 500.00.toBigDecimal()
-        val salaryExpected = BigDecimal.valueOf(233.3333333338)
         val percentageIESSExpected =
-            salaryExpected.multiply(PERCENTAJE_APORTE_IESS_PRIVADO.toBigDecimal())
+            salary.multiply(PERCENTAJE_APORTE_IESS_PRIVADO.toBigDecimal())
                 .setScale(2, RoundingMode.HALF_UP)
 
 
         val result =
-            calculatorIESSService.getAportacionMensualIESS(startDate, endDate, salary)
+            calculatorIESSService.getAportacionMensualIESS(salary)
 
         assertEquals(percentageIESSExpected, result)
     }
-
 
 
     @Test
