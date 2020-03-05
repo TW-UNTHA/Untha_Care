@@ -88,5 +88,7 @@
     <string name="result_decimo_cuarto_annual">Décimo cuarto</string>
     <string name="result_decimo_tercero_monthly">Décimo tercero</string>
     <string name="result_decimo_cuarto_monthly">Décimo cuarto</string>
-    <string name="calculator_aviso">AVISO: Si trabajas mas de 40 horas, deberías recibir pago de horas extras.</string>
+    <string name="calculator_aviso">AVISO: El cálculo del décimo tercer sueldo, es un aproximado, no incluye el valor de horas extras. </string>
+    <string name="calculator_information_accumulated">Estos son los valores acumulados hasta la fecha ingresada.</string>
+    <string name="calculator_information_monthly">Estos son los valores correspondientes que debes recibir cada mes. </string>
 </resources>

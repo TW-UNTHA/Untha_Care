@@ -100,13 +100,11 @@ class CalculatorBenefitResultFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val percentageIESS =
-            calculatorViewModel.getAportacionMensualIESS(startDate, endDate, salary)
+            calculatorViewModel.getAportacionMensualIESS(salary)
         tv_IESS.text = "$".plus(percentageIESS)
 
         tv_salary.text =
-            calculatorViewModel.getSalary(startDate, endDate, salary.toBigDecimal())
-                .setScale(2, RoundingMode.HALF_UP).toString()
-//            "$".plus((salary.toBigDecimal() - percentageIESS.toBigDecimal()).toString())
+            "$".plus((salary.toBigDecimal() - percentageIESS.toBigDecimal()).toString())
         tv_fondos_reserva.text =
             "$".plus(
                 calculatorViewModel.getFondoReservaMensualizado(

@@ -34,11 +34,18 @@ class TabMonthlyFragment(
 
         tv_decimo_tercero_monthly.text =
             "$".plus(
-                calculatorViewModel.getDecimoTerceroMensualizado(startDate,endDate, salary.toDouble())
+                calculatorViewModel.getDecimoTerceroMensualizado(salary.toBigDecimal())
                     .toString()
             )
         tv_decimo_cuarto_monthly.text =
-            "$".plus(calculatorViewModel.getDecimoCuartoMensualizado(idWorkday, hours,startDate,endDate).toString())
+            "$".plus(
+                calculatorViewModel.getDecimoCuartoMensualizado(
+                    idWorkday,
+                    hours,
+                    startDate,
+                    endDate
+                ).toString()
+            )
 
     }
 }

@@ -67,12 +67,10 @@
         android:layout_marginRight="13dp"
         android:background="@color/colorCalculatorGroupResult"
         android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/rl_decimo_tercero_monthly"
-        app:layout_constraintVertical_bias="0.124"
         tools:visibility="visible">
 
         <TextView
@@ -107,5 +105,25 @@
             android:textSize="@dimen/text_size_content" />
 
     </RelativeLayout>
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="13dp"
+        android:layout_marginLeft="13dp"
+        android:layout_marginEnd="13dp"
+        android:layout_marginRight="13dp"
+        android:gravity="left"
+        android:text="@string/calculator_information_monthly"
+        android:textColor="@color/colorCalculatorText"
+        android:textSize="@dimen/text_size_content_next_step"
+        android:textStyle="italic"
+        android:typeface="normal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rl_decimo_cuarto_monthly" />
 </androidx.constraintlayout.widget.ConstraintLayout>
 
