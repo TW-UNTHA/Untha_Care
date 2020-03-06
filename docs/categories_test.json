@@ -712,15 +712,6 @@
       "title_next_step": "CALCULADORA DE FINIQUITO",
       "parent_id": null,
       "type": "calculator"
-    },
-    {
-      "id": 18,
-      "image": "ic_extra_hours_calculator",
-      "title": "CALCULADORA DE HORAS EXTRAS",
-      "subtitle": "Calcula el pago que debes recibir por tus horas extras",
-      "title_next_step": "CALCULADORA DE HORAS",
-      "parent_id": null,
-      "type": "calculator"
     }
   ]
 }
