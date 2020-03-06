@@ -2,8 +2,6 @@ package com.untha.applicationservices
 
 import com.untha.automation.EntriesAnnualLeaveTest
 import com.untha.utils.equivalentOfAnnualLeavesToDay
-import com.untha.utils.getAge
-import com.untha.utils.newStartDatePeriodOfWork
 import com.untha.utils.numberOfAnnualLeavesPerAge
 import junit.framework.Assert.assertEquals
 import junitparams.JUnitParamsRunner
@@ -153,7 +151,7 @@ class CalculatorVacacionesServiceTest {
         val endDate = "2019-08-31"
         val expectedStartDate = "2019-02-01"
 
-        val result = newStartDatePeriodOfWork(startDate, endDate)
+        val result = calculatorVacacionesService.newStartDatePeriodOfWork(startDate, endDate)
 
         assertEquals(expectedStartDate, result)
     }
@@ -164,7 +162,7 @@ class CalculatorVacacionesServiceTest {
         val endDate = "2019-08-31"
         val expectedStartDate = "2019-02-01"
 
-        val result = newStartDatePeriodOfWork(startDate, endDate)
+        val result = calculatorVacacionesService.newStartDatePeriodOfWork(startDate, endDate)
 
         assertEquals(expectedStartDate, result)
     }
@@ -175,7 +173,7 @@ class CalculatorVacacionesServiceTest {
         val endDate = "2015-08-31"
         val expectedStartDate = "2015-02-01"
 
-        val result = newStartDatePeriodOfWork(startDate, endDate)
+        val result = calculatorVacacionesService.newStartDatePeriodOfWork(startDate, endDate)
 
         assertEquals(expectedStartDate, result)
     }
@@ -309,7 +307,7 @@ class CalculatorVacacionesServiceTest {
         val birthDate = "2002-02-01"
         val expectedAge = 18
 
-        val result = getAge(birthDate)
+        val result = calculatorVacacionesService.getAge(birthDate)
 
         assertEquals(expectedAge, result)
     }
@@ -320,7 +318,7 @@ class CalculatorVacacionesServiceTest {
         val startDate = "2019-10-01"
         val expectedAge = 17
 
-        val result = getAge(birthDate, startDate)
+        val result = calculatorVacacionesService.getAge(birthDate, startDate)
 
         assertEquals(expectedAge, result)
     }
@@ -331,7 +329,7 @@ class CalculatorVacacionesServiceTest {
         val endDate = "2020-08-31"
         val expectedAge = 18
 
-        val result = getAge(birthDate, endDate)
+        val result = calculatorVacacionesService.getAge(birthDate, endDate)
 
         assertEquals(expectedAge, result)
     }

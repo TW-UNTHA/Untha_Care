@@ -4,8 +4,6 @@ import com.untha.utils.ConstantsCalculators.DAYS_OF_YEAR
 import com.untha.utils.ConstantsCalculators.MONTHS_OF_YEAR
 import com.untha.utils.calculateNumberOfDayBetween
 import com.untha.utils.equivalentOfAnnualLeavesToDay
-import com.untha.utils.getAge
-import com.untha.utils.newStartDatePeriodOfWork
 import com.untha.utils.numberOfAnnualLeavesPerAge
 import com.untha.utils.stringToCalendar
 import java.math.BigDecimal
@@ -15,19 +13,9 @@ import java.util.*
 class CalculatorVacacionesService {
 
     companion object {
-        const val SIERRA_ORIENTE = 2
-        const val COSTA_GALAPAGOS = 1
-        const val COMPLETE = 1
-        const val PARTIAL = 2
-        const val EIGHTEEN_AGE = 18
-        const val SEVENTEEN_AGE = 17
-        const val FIFTEEN_AGE = 15
-        const val SIXTEEN_AGE = 16
-        const val TWENTY_AGE = 20
+
         const val START_INDEX = 4
         const val END_INDEX = 10
-        const val START_INDEX_YEAR = 0
-        const val END_INDEX_MONTH = 8
     }
 
 
@@ -155,5 +143,36 @@ class CalculatorVacacionesService {
         val salaryAtDay = (salary * MONTHS_OF_YEAR) / DAYS_OF_YEAR
         return salaryAtDay.toBigDecimal()
     }
+
+    fun newStartDatePeriodOfWork(startDate: String, endDate: String): String {
+        val startDateTransform = stringToCalendar(startDate)
+        val endDateTransform = stringToCalendar(endDate)
+        val numberDayWorked = calculateNumberOfDayBetween(startDateTransform, endDateTransform)
+        val difference = numberDayWorked / DAYS_OF_YEAR
+        if (numberDayWorked > DAYS_OF_YEAR) {
+            val newYear = startDateTransform.get(Calendar.YEAR) + difference
+            val newStartDay = newYear.toString().plus(
+                startDate.substring(
+                    CalculatorDecimosService.START_INDEX,
+                    CalculatorDecimosService.END_INDEX
+                )
+            )
+            return newStartDay
+        }
+        return startDate
+    }
+
+    fun getAge(birthDate: String, date: String? = null): Int {
+        val birthDateTransform = stringToCalendar(birthDate)
+        val currentDay: Calendar =
+            if (date.isNullOrEmpty()) Calendar.getInstance() else stringToCalendar(date)
+
+        var age = currentDay.get(Calendar.YEAR) - birthDateTransform.get(Calendar.YEAR)
+        if (currentDay.get(Calendar.DAY_OF_YEAR) < birthDateTransform.get(Calendar.DAY_OF_YEAR)) {
+            age--
+        }
+        return age
+    }
+
 
 }
