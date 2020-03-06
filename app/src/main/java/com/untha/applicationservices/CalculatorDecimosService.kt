@@ -10,6 +10,7 @@ import com.untha.utils.isFirstDayOfMarch
 import com.untha.utils.isLastDayOfFebruary
 import com.untha.utils.isLastDayOfNovember
 import com.untha.utils.lastDayOfFebruary
+import com.untha.utils.numberDaysWorked
 import com.untha.utils.salaryForDaysWorked
 import com.untha.utils.stringToCalendar
 import com.untha.view.fragments.CalculatorBenefitFragment.Companion.MONTH_WITH_TWO_DIGITS
@@ -353,6 +354,22 @@ class CalculatorDecimosService {
         return result.setScale(2, RoundingMode.HALF_UP)
     }
 
+    fun getDecimoCuartoSueldoMensualizadoFiniquito(
+        startDate: String,
+        endDate: String,
+        hoursWorked: Int
+    ): BigDecimal {
+        val idWorkday = if (hoursWorked >= WEEKLY_HOURS_COMPLETE) COMPLETE else PARTIAL
+        val numberDaysWorked = numberDaysWorked(endDate, startDate)
+
+        val salary =
+            if (idWorkday == PARTIAL) calculateSalaryEquivalent(hoursWorked) else SBU.toBigDecimal()
+
+        val divide = (salary.toDouble() / DAYS_OF_YEAR)
+        val result =
+            divide * numberDaysWorked
+        return result.toBigDecimal().setScale(2, RoundingMode.HALF_UP)
+    }
 
 
 }

@@ -28,6 +28,9 @@ fun isLastDayOfFebruary(date: Calendar): Boolean {
             date.get(Calendar.DAY_OF_MONTH) == date.getActualMaximum((Calendar.DAY_OF_MONTH))
 }
 
+fun isFirstDayOfMarch(calendarStartDate: Calendar) =
+    calendarStartDate.get(Calendar.MONTH) == Calendar.MARCH && calendarStartDate.get(Calendar.DAY_OF_MONTH) == 1
+
 
 fun lastDayOfFebruary(year: Int): Int {
     val date = Calendar.getInstance()
@@ -36,8 +39,6 @@ fun lastDayOfFebruary(year: Int): Int {
     return date.getActualMaximum(Calendar.DAY_OF_MONTH)
 }
 
-fun isFirstDayOfMarch(calendarStartDate: Calendar) =
-    calendarStartDate.get(Calendar.MONTH) == Calendar.MARCH && calendarStartDate.get(Calendar.DAY_OF_MONTH) == 1
 
 fun calculateNumberOfDayBetween(
     calendarStartDate: Calendar,
@@ -68,35 +69,7 @@ fun stringToCalendar(date: String): Calendar {
     return calendar
 }
 
-fun newStartDatePeriodOfWork(startDate: String, endDate: String): String {
-    val startDateTransform = stringToCalendar(startDate)
-    val endDateTransform = stringToCalendar(endDate)
-    val numberDayWorked = calculateNumberOfDayBetween(startDateTransform, endDateTransform)
-    val difference = numberDayWorked / DAYS_OF_YEAR
-    if (numberDayWorked > DAYS_OF_YEAR) {
-        val newYear = startDateTransform.get(Calendar.YEAR) + difference
-        val newStartDay = newYear.toString().plus(
-            startDate.substring(
-                CalculatorDecimosService.START_INDEX,
-                CalculatorDecimosService.END_INDEX
-            )
-        )
-        return newStartDay
-    }
-    return startDate
-}
 
-fun getAge(birthDate: String, date: String? = null): Int {
-    val birthDateTransform = stringToCalendar(birthDate)
-    val currentDay: Calendar =
-        if (date.isNullOrEmpty()) Calendar.getInstance() else stringToCalendar(date)
-
-    var age = currentDay.get(Calendar.YEAR) - birthDateTransform.get(Calendar.YEAR)
-    if (currentDay.get(Calendar.DAY_OF_YEAR) < birthDateTransform.get(Calendar.DAY_OF_YEAR)) {
-        age--
-    }
-    return age
-}
 
 fun numberOfAnnualLeavesPerAge(years: Int): Int {
     if (years >= CalculatorDecimosService.EIGHTEEN_AGE) {
@@ -111,7 +84,7 @@ fun equivalentOfAnnualLeavesToDay(numberOfDays: Int): Double {
     return numberOfDays.toDouble().div(DAYS_OF_YEAR.toDouble())
 }
 
-fun salaryEquivalentPerDay(salary: BigDecimal) = (salary.toDouble()/DAYS_IN_MONTH).toBigDecimal()
+fun salaryEquivalentPerDay(salary: BigDecimal) = (salary.toDouble() / DAYS_IN_MONTH).toBigDecimal()
 
 fun startDateOfMonth(endDate: String) =
     endDate.substring(START_INDEX_YEAR, END_INDEX_MONTH).plus("01")
@@ -121,16 +94,31 @@ fun salaryForDaysWorked(
     endDate: String,
     salaryAtMonth: BigDecimal
 ): BigDecimal {
+    val numberDaysWorked = numberDaysWorked(endDate, startDate)
+
+    val salaryForDay = salaryEquivalentPerDay(salaryAtMonth)
+    val salaryForDaysWorked = salaryForDay * numberDaysWorked.toBigDecimal()
+    return salaryForDaysWorked
+}
+
+fun numberDaysWorked(endDate: String, startDate: String): Int {
     val endDateTransformed = stringToCalendar(endDate)
     val numberDays =
         calculateNumberOfDayBetween(stringToCalendar(startDate), endDateTransformed)
     val startDate = if (numberDays > DAYS_IN_MONTH) startDateOfMonth(endDate) else startDate
-
     val startDateTransformed = stringToCalendar(startDate)
 
-    val numberOfDays = calculateNumberOfDayBetween(startDateTransformed, endDateTransformed)
-    val salaryForDay = salaryEquivalentPerDay(salaryAtMonth)
-    val salaryForDaysWorked = salaryForDay * numberOfDays.toBigDecimal()
-    return salaryForDaysWorked
+    val numberBetween = DAYS_IN_MONTH - startDateTransformed.get(Calendar.DAY_OF_MONTH) + 1
+
+    val numberDaysWorked =
+        if (has31Days(endDateTransformed)) numberBetween else calculateNumberOfDayBetween(
+            startDateTransformed,
+            endDateTransformed
+        ) + 1
+    return numberDaysWorked
+}
+
+fun has31Days(date: Calendar): Boolean {
+    return date.get(Calendar.DAY_OF_MONTH) == date.getActualMaximum((Calendar.DAY_OF_MONTH))
 }
 

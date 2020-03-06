@@ -187,7 +187,7 @@ class CalculatorDecimosServiceTest {
         val startDate = "2019-01-01"
         val endDate = "2019-01-15"
         val expectedCostPerDay =
-            BigDecimal.valueOf(233.3333333338).setScale(2, RoundingMode.HALF_UP)
+            BigDecimal.valueOf(250).setScale(2, RoundingMode.HALF_UP)
 
         val result =
             salaryForDaysWorked(startDate, endDate, salary)
@@ -202,7 +202,7 @@ class CalculatorDecimosServiceTest {
         val startDate = "2019-01-01"
         val endDate = "2019-02-15"
         val expectedCostPerDay =
-            BigDecimal.valueOf(233.3333333338).setScale(2, RoundingMode.HALF_UP)
+            BigDecimal.valueOf(250).setScale(2, RoundingMode.HALF_UP)
 
         val result =
             salaryForDaysWorked(startDate, endDate, salary)
@@ -211,19 +211,6 @@ class CalculatorDecimosServiceTest {
         assertEquals(expectedCostPerDay, result)
     }
 
-    @Test
-    fun `should return salary total of month with complete month worked`() {
-        val salary = 500.toBigDecimal()
-        val startDate = "2019-01-01"
-        val endDate = "2019-02-15"
-        val expectedCostPerDay =
-            BigDecimal.valueOf(233.3333333338).setScale(2, RoundingMode.HALF_UP)
-
-        val result =
-            salaryForDaysWorked(startDate, endDate, salary).setScale(2, RoundingMode.HALF_UP)
-
-        assertEquals(expectedCostPerDay, result)
-    }
 
     //</editor-fold>
     // <editor-fold desc="DECIMO TERCERO ACUMULADO">
@@ -717,4 +704,208 @@ class CalculatorDecimosServiceTest {
         assertEquals(expectedValue, result)
     }
     //</editor-fold>
+
+    @Test
+    fun `should return cost of days complete time`() {
+        val startDate = "2019-02-28"
+        val endDate = "2020-02-15"
+        val hoursWorked = 40
+        val expectedCost = 16.67.toBigDecimal().setScale(2, RoundingMode.HALF_UP)
+
+        val result =
+            calculatorsService.getDecimoCuartoSueldoMensualizadoFiniquito(
+                startDate,
+                endDate,
+                hoursWorked
+            )
+
+        assertEquals(expectedCost, result)
+    }
+
+    @Test
+    fun `should return cost of days with date  2020-02-17 complete time`() {
+        val startDate = "2019-02-28"
+        val endDate = "2020-02-17"
+        val hoursWorked = 40
+        val expectedCost = 18.89.toBigDecimal().setScale(2, RoundingMode.HALF_UP)
+
+        val result =
+            calculatorsService.getDecimoCuartoSueldoMensualizadoFiniquito(
+                startDate,
+                endDate,
+                hoursWorked
+            )
+
+        assertEquals(expectedCost, result)
+    }
+
+    @Test
+    fun `should return cost of days with date  2020-03-01 complete time`() {
+        val startDate = "2019-02-28"
+        val endDate = "2020-03-01"
+        val hoursWorked = 40
+        val expectedCost = 1.11.toBigDecimal().setScale(2, RoundingMode.HALF_UP)
+
+        val result =
+            calculatorsService.getDecimoCuartoSueldoMensualizadoFiniquito(
+                startDate,
+                endDate,
+                hoursWorked
+            )
+
+        assertEquals(expectedCost, result)
+    }
+
+    @Test
+    fun `should return cost of days with date 2020-03-30 complete time`() {
+        val startDate = "2019-02-28"
+        val endDate = "2020-01-30"
+        val hoursWorked = 40
+        val expectedCost = 33.33.toBigDecimal().setScale(2, RoundingMode.HALF_UP)
+
+        val result =
+            calculatorsService.getDecimoCuartoSueldoMensualizadoFiniquito(
+                startDate,
+                endDate,
+                hoursWorked
+            )
+
+        assertEquals(expectedCost, result)
+    }
+
+    @Test
+    fun `should return cost of days with date 2020-01-31 complete time`() {
+        val startDate = "2019-02-28"
+        val endDate = "2020-01-31"
+        val hoursWorked = 40
+        val expectedCost = 33.33.toBigDecimal().setScale(2, RoundingMode.HALF_UP)
+
+        val result =
+            calculatorsService.getDecimoCuartoSueldoMensualizadoFiniquito(
+                startDate,
+                endDate,
+                hoursWorked
+            )
+
+        assertEquals(expectedCost, result)
+    }
+
+    @Test
+    fun `should return cost of days with date 2020-02-29 complete time`() {
+        val startDate = "2020-02-28"
+        val endDate = "2020-02-29"
+        val hoursWorked = 40
+        val expectedCost = 3.33.toBigDecimal().setScale(2, RoundingMode.HALF_UP)
+
+        val result =
+            calculatorsService.getDecimoCuartoSueldoMensualizadoFiniquito(
+                startDate,
+                endDate,
+                hoursWorked
+            )
+
+        assertEquals(expectedCost, result)
+    }
+
+    @Test
+    fun `should return cost of days with start date 2019-02-02 end date 2019-02-28 partial time`() {
+        val startDate = "2019-02-02"
+        val endDate = "2019-02-28"
+        val hoursWorked = 20
+        val expectedCost = 16.11.toBigDecimal().setScale(2, RoundingMode.HALF_UP)
+
+        val result =
+            calculatorsService.getDecimoCuartoSueldoMensualizadoFiniquito(
+                startDate,
+                endDate,
+                hoursWorked
+            )
+
+        assertEquals(expectedCost, result)
+    }
+
+    @Test
+    fun `should return cost of days with start date "2019-04-03" end date "2019-04-27" complete time`() {
+        val startDate = "2019-04-03"
+        val endDate = "2019-04-27"
+        val hoursWorked = 40
+        val expectedCost = 27.78.toBigDecimal().setScale(2, RoundingMode.HALF_UP)
+
+        val result =
+            calculatorsService.getDecimoCuartoSueldoMensualizadoFiniquito(
+                startDate,
+                endDate,
+                hoursWorked
+            )
+
+        assertEquals(expectedCost, result)
+    }
+
+    @Test
+    fun `should return cost of days with start date "2019-04-03" end date "2019-04-27" partial time`() {
+        val startDate = "2019-04-03"
+        val endDate = "2019-04-27"
+        val hoursWorked = 20
+        val expectedCost = 13.89.toBigDecimal().setScale(2, RoundingMode.HALF_UP)
+
+        val result =
+            calculatorsService.getDecimoCuartoSueldoMensualizadoFiniquito(
+                startDate,
+                endDate,
+                hoursWorked
+            )
+
+        assertEquals(expectedCost, result)
+    }
+
+    @Test
+    fun `should return cost of days worked decimo tercero`() {
+        val startDate = "2019-01-01"
+        val endDate = "2019-02-28"
+        val salary = 400.toDouble()
+        val expectedCost = 33.33.toBigDecimal().setScale(2, RoundingMode.HALF_UP)
+
+        val result =
+            calculatorsService.getDecimoTercerSueldoFiniquitoMensualizado(
+                startDate,
+                endDate,
+                salary
+            )
+
+        assertEquals(expectedCost, result)
+    }
+
+    @Test
+    fun `should return cost of days worked decimo tercero startDate = "2019-02-02" endDate = "2019-02-28" `() {
+        val startDate = "2019-02-02"
+        val endDate = "2019-02-28"
+        val salary = 400.toDouble()
+        val expectedCost = 32.22.toBigDecimal().setScale(2, RoundingMode.HALF_UP)
+
+        val result =
+            calculatorsService.getDecimoTercerSueldoFiniquitoMensualizado(
+                startDate,
+                endDate,
+                salary
+            )
+
+        assertEquals(expectedCost, result)
+    }
+
+    @Test
+    fun `should return cost of days worked decimo tercero 2019-08-15 2019-08-31`() {
+        val startDate = "2019-08-15"
+        val endDate = "2019-08-31"
+        val salary = 400.toDouble()
+        val expectedCost = 17.78.toBigDecimal().setScale(2, RoundingMode.HALF_UP)
+
+        val result =
+            calculatorsService.getDecimoTercerSueldoFiniquitoMensualizado(
+                startDate,
+                endDate,
+                salary
+            )
+
+        assertEquals(expectedCost, result)
+    }
 }
