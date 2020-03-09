@@ -4,13 +4,17 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
 import android.widget.Spinner
 import android.widget.Toast
 import androidx.navigation.findNavController
 import com.untha.R
 import com.untha.model.transactionalmodels.Category
 import com.untha.utils.Constants
+import com.untha.utils.ConstantsSpinnerCalculators.CURRENT_YEAR
+import com.untha.utils.ConstantsSpinnerCalculators.LAST_FIVE_YEARS
+import com.untha.utils.loadDaysSpinner
+import com.untha.utils.loadSpinnerData
+import com.untha.utils.loadYearsAdapter
 import com.untha.utils.stringToCalendar
 import com.untha.view.activities.MainActivity
 import kotlinx.android.synthetic.main.fragment_calculator_benefit.*
@@ -23,8 +27,6 @@ class CalculatorBenefitFragment : BaseFragment() {
 
 
     companion object {
-        const val RANGE_LAST_DAY_OF_MONTH = 32
-        const val LAST_FIVE_YEARS = 5
         const val MONTH_WITH_TWO_DIGITS = 10
         const val PARTIAL_TIME = 2
         const val COMPLETE_TIME = 1
@@ -228,17 +230,16 @@ class CalculatorBenefitFragment : BaseFragment() {
 
 
     private fun loadAllSpinners() {
-        loadDaysSpinner(spinnerStartDateDay)
-        loadDaysSpinner(spinnerEndDateDay)
+        loadDaysSpinner(spinnerStartDateDay, context!!)
+        loadDaysSpinner(spinnerEndDateDay, context!!)
 
-        loadSpinnerData(spinnerStartDateMonth, R.array.days_array)
-        loadSpinnerData(spinnerEndDateMonth, R.array.days_array)
+        loadSpinnerData(spinnerStartDateMonth, R.array.months_array, context!!)
+        loadSpinnerData(spinnerEndDateMonth, R.array.months_array, context!!)
 
-        loadYearsAdapter(spinnerStartDateYear)
-        loadYearsAdapter(spinnerEndDateYear)
+        loadYearsAdapter(spinnerStartDateYear, CURRENT_YEAR, LAST_FIVE_YEARS,context!!)
+        loadYearsAdapter(spinnerEndDateYear, CURRENT_YEAR, LAST_FIVE_YEARS,context!!)
 
-        //loadSpinnerData(spinnerWorkday, R.array.workday_array)
-        loadSpinnerData(spinnerArea, R.array.areas_array)
+        loadSpinnerData(spinnerArea, R.array.areas_array, context!!)
     }
 
     private fun transformToCalendarDate(
@@ -309,49 +310,4 @@ class CalculatorBenefitFragment : BaseFragment() {
     private fun getLastDayOfMonth(date: Calendar) = date.getActualMaximum((Calendar.DAY_OF_MONTH))
 
 
-    private fun loadYearsAdapter(spinner: Spinner) {
-        spinner.adapter = ArrayAdapter(
-            context!!,
-            R.layout.spinner_item,
-            loadSpinnerYear()
-        )
-    }
-
-
-    private fun loadDaysSpinner(spinner: Spinner) {
-        spinner.adapter = ArrayAdapter(
-            context!!,
-            R.layout.spinner_item,
-            loadSpinnerDays()
-        )
-    }
-
-    private fun loadSpinnerDays(): List<Int> {
-        val days = mutableListOf<Int>()
-        for (day in 1 until RANGE_LAST_DAY_OF_MONTH) {
-            days.add(day)
-        }
-        return days
-    }
-
-    private fun loadSpinnerYear(): List<Int> {
-        val currentYear = Calendar.getInstance().get(Calendar.YEAR)
-        val years = mutableListOf<Int>()
-        for (year in currentYear downTo (currentYear - LAST_FIVE_YEARS)) {
-            years.add(year)
-        }
-        return years
-    }
-
-    private fun loadSpinnerData(spinner: Spinner, idArray: Int) {
-        ArrayAdapter.createFromResource(
-            context!!,
-            idArray,
-            R.layout.spinner_item
-        ).also { adapter ->
-            adapter.setDropDownViewResource(R.layout.spinner_item)
-            spinner.adapter = adapter
-
-        }
-    }
 }
