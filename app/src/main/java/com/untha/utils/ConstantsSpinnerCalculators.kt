@@ -6,4 +6,5 @@ object ConstantsSpinnerCalculators {
     const val MAX_AGE_WORKING = 80
     const val MIN_AGE_WORKING = 10
     const val LAST_FIVE_YEARS = 5
+
 }

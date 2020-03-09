@@ -346,7 +346,7 @@
             app:layout_constraintTop_toBottomOf="@+id/textView9" />
 
         <Button
-            android:id="@+id/btnCalcular"
+            android:id="@+id/btnSiguiente"
             style="@style/ButtonNext"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -357,7 +357,7 @@
             android:layout_marginRight="24dp"
             android:layout_marginBottom="15dp"
             android:background="@drawable/drawable_multiple_option_next_button"
-            android:text="@string/btnCalcular"
+            android:text="@string/next"
             android:textColor="@color/colorBackgroundCategoryRoute"
             android:textSize="@dimen/text_size_content"
             app:layout_constraintBottom_toBottomOf="parent"

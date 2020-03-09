@@ -13,7 +13,6 @@ import com.untha.utils.lastDayOfFebruary
 import com.untha.utils.numberDaysWorked
 import com.untha.utils.salaryForDaysWorked
 import com.untha.utils.stringToCalendar
-import com.untha.view.fragments.CalculatorBenefitFragment.Companion.MONTH_WITH_TWO_DIGITS
 import java.math.BigDecimal
 import java.math.RoundingMode
 import java.util.*
@@ -34,6 +33,7 @@ class CalculatorDecimosService {
         const val END_INDEX = 10
         const val START_INDEX_YEAR = 0
         const val END_INDEX_MONTH = 8
+        const val MONTH_WITH_TWO_DIGITS = 10
     }
 
     fun getDecimoTercerSueldoAcumulado(salary: BigDecimal, startDate: String, endDate: String):

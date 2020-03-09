@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import com.untha.R
 import com.untha.model.transactionalmodels.Category
 import com.untha.utils.Constants
@@ -12,9 +13,20 @@ import com.untha.utils.ConstantsSpinnerCalculators.LAST_FIVE_YEARS
 import com.untha.utils.ConstantsSpinnerCalculators.MAX_AGE_WORKING
 import com.untha.utils.ConstantsSpinnerCalculators.MAX_YEARS_OF_WORK
 import com.untha.utils.ConstantsSpinnerCalculators.MIN_AGE_WORKING
+import com.untha.utils.buildDate
+import com.untha.utils.endDateToString
+import com.untha.utils.getArea
+import com.untha.utils.getTypeWorkday
+import com.untha.utils.isDaySelectedMajorOfLastDayMonth
 import com.untha.utils.loadDaysSpinner
 import com.untha.utils.loadSpinnerData
 import com.untha.utils.loadYearsAdapter
+import com.untha.utils.showToast
+import com.untha.utils.transformToCalendarDate
+import com.untha.utils.validationDates
+import com.untha.utils.validationHours
+import com.untha.utils.validationSalaryInput
+import com.untha.utils.validationStartDate
 import com.untha.view.activities.MainActivity
 import kotlinx.android.synthetic.main.fragment_calculator_benefit.spinnerArea
 import kotlinx.android.synthetic.main.fragment_calculator_benefit.spinnerEndDateDay
@@ -24,6 +36,9 @@ import kotlinx.android.synthetic.main.fragment_calculator_benefit.spinnerStartDa
 import kotlinx.android.synthetic.main.fragment_calculator_benefit.spinnerStartDateMonth
 import kotlinx.android.synthetic.main.fragment_calculator_benefit.spinnerStartDateYear
 import kotlinx.android.synthetic.main.fragment_calculator_finiquito_input_three.*
+import kotlinx.android.synthetic.main.fragment_calculator_finiquito_input_three.btnSiguiente
+import kotlinx.android.synthetic.main.fragment_calculator_finiquito_input_three.inputHours
+import kotlinx.android.synthetic.main.fragment_calculator_finiquito_input_three.inputSalary
 import java.util.*
 
 class CalculatorFiniquitoInputThreeFragment : BaseFragment() {
@@ -74,6 +89,72 @@ class CalculatorFiniquitoInputThreeFragment : BaseFragment() {
         loadYearsAdapter(spinnerBornDateYear, MIN_AGE_WORKING, MAX_AGE_WORKING, context!!)
 
         loadSpinnerData(spinnerArea, R.array.areas_array, context!!)
+
+        btnSiguiente.setOnClickListener {
+            if (!validationStartDate( spinnerStartDateYear,spinnerStartDateMonth, spinnerStartDateDay,
+                    context!!)) {
+                return@setOnClickListener
+            }
+            val startDate = transformToCalendarDate(spinnerStartDateYear, spinnerStartDateMonth,
+                spinnerStartDateDay)
+            val endDate: Calendar
+            if (isDaySelectedMajorOfLastDayMonth(spinnerEndDateYear, spinnerEndDateMonth, spinnerEndDateDay)
+            ) {
+                showToast(R.string.wrong_date_end, context!!)
+                return@setOnClickListener
+            } else {
+                endDate = transformToCalendarDate( spinnerEndDateYear, spinnerEndDateMonth, spinnerEndDateDay)
+            }
+            var bornDate: Calendar
+            var isValidBornDate: Boolean
+            if (isDaySelectedMajorOfLastDayMonth(spinnerBornDateYear,  spinnerBornDateMonth, spinnerBornDateDay
+                )) {
+                showToast(R.string.wrong_date_born, context!!)
+                return@setOnClickListener
+            } else {
+                bornDate = transformToCalendarDate(spinnerEndDateYear, spinnerEndDateMonth, spinnerEndDateDay)
+                isValidBornDate = true
+            }
+
+            if (validationDates(startDate, endDate, context!!) && validationSalaryInput(inputSalary, context!!)
+                && validationHours(inputHours, context!!)
+            ) {
+                if(isValidBornDate){
+                val bundle = loadBundle(endDate, bornDate)
+                view?.findNavController()?.navigate(
+                    R.id.calculatorsFragment, bundle,
+                    navOptions, null
+                )
+                }
+            }
+
+        }
     }
+
+    private fun loadBundle(endDate: Calendar, bornDate: Calendar): Bundle {
+        val verifiedBornDate = endDateToString(bornDate)
+        val verifiedStartDate =
+            buildDate(spinnerStartDateYear, spinnerStartDateMonth, spinnerStartDateDay)
+        val verifiedEndDate = endDateToString(endDate)
+        val area = getArea(spinnerArea)
+        val hours = inputHours.text.toString().toInt()
+        val workday = getTypeWorkday(inputHours)
+        val salary = inputSalary.text.toString().toBigDecimal()
+
+        return Bundle().apply {
+            putString("bornDate", verifiedBornDate)
+            putString("startDate", verifiedStartDate)
+            putString("endDate", verifiedEndDate)
+            putString("salary", salary.toString())
+            putInt("hours", hours)
+            putInt("idWorkday", workday)
+            putInt("idArea", area)
+            putSerializable(
+                Constants.CATEGORIES_CALCULATORS,
+                categoriesCalculator
+            )
+        }
+    }
+
 
 }
