@@ -1,0 +1,371 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scroll_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="0dp"
+    android:fillViewport="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorBackgroundMainRoute"
+        tools:context=".view.activities.MainActivity">
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="13dp"
+            android:layout_marginLeft="13dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="13dp"
+            android:layout_marginRight="13dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ProgressBar
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:progress="75"
+                android:progressDrawable="@drawable/progress_bar" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_jornada"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginLeft="24dp"
+            android:layout_marginTop="15dp"
+            android:lineSpacingExtra="3sp"
+            android:text="@string/workday"
+            android:textColor="#602080"
+            android:textSize="@dimen/text_size_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/spinnerBornDateDay" />
+
+        <TextView
+            android:id="@+id/tv_description_workday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginLeft="24dp"
+            android:layout_marginTop="5dp"
+            android:lineSpacingExtra="7sp"
+            android:text="@string/description_workday"
+            android:textColor="#0e0e0e"
+            android:textSize="@dimen/text_size_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_jornada" />
+
+        <EditText
+            android:id="@+id/inputSalary"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="50dp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="50dp"
+            android:layout_marginRight="50dp"
+            android:background="@drawable/common_google_signin_btn_icon_light_normal_background"
+            android:ems="10"
+            android:gravity="center"
+            android:inputType="numberDecimal"
+            android:maxLength="7"
+            android:textColor="@color/colorBackground"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_description" />
+
+        <TextView
+            android:id="@+id/tv_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginLeft="24dp"
+            android:layout_marginTop="5dp"
+            android:lineSpacingExtra="7sp"
+            android:text="@string/description"
+            android:textColor="#0e0e0e"
+            android:textSize="@dimen/text_size_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_salary" />
+
+        <TextView
+            android:id="@+id/tv_salary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginLeft="24dp"
+            android:layout_marginTop="15dp"
+            android:lineSpacingExtra="3sp"
+            android:text="@string/salary"
+            android:textColor="#602080"
+            android:textSize="@dimen/text_size_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.014"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/inputHours" />
+
+        <EditText
+            android:id="@+id/inputHours"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="50dp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="50dp"
+            android:layout_marginRight="50dp"
+            android:background="@drawable/common_google_signin_btn_icon_light_normal_background"
+            android:ems="10"
+            android:gravity="center"
+            android:inputType="number"
+            android:maxLength="2"
+            android:textColor="@color/colorBackground"
+            android:textSize="@dimen/text_size_content"
+            android:visibility="visible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_description_workday" />
+
+        <Spinner
+            android:id="@+id/spinnerArea"
+            android:layout_width="0dp"
+            android:layout_height="41dp"
+            android:layout_marginStart="50dp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="50dp"
+            android:layout_marginRight="50dp"
+            android:background="@drawable/btn_dropdown_area"
+            android:gravity="center_horizontal"
+            android:lineSpacingExtra="3sp"
+            android:popupBackground="@color/colorBackgroundCategoryRoute"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_area" />
+
+        <TextView
+            android:id="@+id/tv_area"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginLeft="24dp"
+            android:layout_marginTop="15dp"
+            android:lineSpacingExtra="3sp"
+            android:text="@string/area"
+            android:textColor="#602080"
+            android:textSize="@dimen/text_size_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.009"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/spinnerEndDateDay" />
+
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginLeft="24dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="180dp"
+            android:layout_marginRight="180dp"
+            android:lineSpacingExtra="3sp"
+            android:text="@string/startDate"
+            android:textColor="#602080"
+            android:textSize="@dimen/text_size_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/inputSalary" />
+
+        <Spinner
+            android:id="@+id/spinnerStartDateDay"
+            android:layout_width="80dp"
+            android:layout_height="35dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginLeft="24dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/btn_dropdown"
+            android:fadeScrollbars="true"
+            android:gravity="center_horizontal"
+            android:popupBackground="@color/colorBackgroundCategoryRoute"
+            android:spinnerMode="dropdown"
+            android:text="@string/endDate"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView6" />
+
+        <Spinner
+            android:id="@+id/spinnerEndDateYear"
+            android:layout_width="80dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginRight="24dp"
+            android:background="@drawable/btn_dropdown"
+            android:gravity="center_horizontal"
+            android:popupBackground="@color/colorBackgroundCategoryRoute"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginLeft="24dp"
+            android:layout_marginTop="15dp"
+            android:gravity="center_horizontal"
+            android:lineSpacingExtra="3sp"
+            android:text="@string/endDate"
+            android:textColor="#602080"
+            android:textSize="@dimen/text_size_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/spinnerStartDateDay" />
+
+        <Spinner
+            android:id="@+id/spinnerEndDateDay"
+            android:layout_width="80dp"
+            android:layout_height="35dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginLeft="24dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/btn_dropdown"
+            android:gravity="center_horizontal"
+            android:popupBackground="@color/colorBackgroundCategoryRoute"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
+        <Spinner
+            android:id="@+id/spinnerStartDateMonth"
+            android:layout_width="140dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/btn_dropdown_xl"
+            android:gravity="center_horizontal"
+            android:popupBackground="@color/colorBackgroundCategoryRoute"
+            app:layout_constraintEnd_toStartOf="@+id/spinnerStartDateYear"
+            app:layout_constraintHorizontal_bias="0.521"
+            app:layout_constraintStart_toEndOf="@+id/spinnerStartDateDay"
+            app:layout_constraintTop_toBottomOf="@+id/textView6" />
+
+        <Spinner
+            android:id="@+id/spinnerStartDateYear"
+            android:layout_width="80dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginRight="24dp"
+            android:background="@drawable/btn_dropdown"
+            android:gravity="center"
+            android:popupBackground="@color/colorBackgroundCategoryRoute"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView6" />
+
+        <Spinner
+            android:id="@+id/spinnerEndDateMonth"
+            android:layout_width="140dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/btn_dropdown_xl"
+            android:gravity="center_horizontal"
+            android:popupBackground="@color/colorBackgroundCategoryRoute"
+            app:layout_constraintEnd_toStartOf="@+id/spinnerEndDateYear"
+            app:layout_constraintHorizontal_bias="0.521"
+            app:layout_constraintStart_toEndOf="@+id/spinnerEndDateDay"
+            app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
+        <Spinner
+            android:id="@+id/spinnerBornDateDay"
+            android:layout_width="80dp"
+            android:layout_height="35dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginLeft="24dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/btn_dropdown"
+            android:fadeScrollbars="true"
+            android:gravity="center_horizontal"
+            android:popupBackground="@color/colorBackgroundCategoryRoute"
+            android:spinnerMode="dropdown"
+            android:text="@string/endDate"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView9" />
+
+        <Spinner
+            android:id="@+id/spinnerBornDateMonth"
+            android:layout_width="140dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/btn_dropdown_xl"
+            android:gravity="center_horizontal"
+            android:popupBackground="@color/colorBackgroundCategoryRoute"
+            app:layout_constraintEnd_toStartOf="@+id/spinnerBornDateYear"
+            app:layout_constraintStart_toEndOf="@+id/spinnerBornDateDay"
+            app:layout_constraintTop_toBottomOf="@+id/textView9" />
+
+        <TextView
+            android:id="@+id/textView9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginLeft="24dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="180dp"
+            android:layout_marginRight="180dp"
+            android:lineSpacingExtra="3sp"
+            android:text="@string/born_date"
+            android:textColor="#602080"
+            android:textSize="@dimen/text_size_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.093"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+
+        <Spinner
+            android:id="@+id/spinnerBornDateYear"
+            android:layout_width="80dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginRight="24dp"
+            android:background="@drawable/btn_dropdown"
+            android:gravity="center"
+            android:popupBackground="@color/colorBackgroundCategoryRoute"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView9" />
+
+        <Button
+            android:id="@+id/btnCalcular"
+            style="@style/ButtonNext"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginLeft="24dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginRight="24dp"
+            android:layout_marginBottom="15dp"
+            android:background="@drawable/drawable_multiple_option_next_button"
+            android:text="@string/btnCalcular"
+            android:textColor="@color/colorBackgroundCategoryRoute"
+            android:textSize="@dimen/text_size_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/spinnerArea"
+            app:layout_constraintVertical_bias="0.492" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

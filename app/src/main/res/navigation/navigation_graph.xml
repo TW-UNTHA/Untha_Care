@@ -66,4 +66,9 @@
         android:id="@+id/calculatorBenefitResultFragment"
         android:name="com.untha.view.fragments.CalculatorBenefitResultFragment"
         android:label="CALCULADORA DE BENEFICIOS" />
+
+    <fragment
+        android:id="@+id/calculatorFiniquitoFragment"
+        android:name="com.untha.view.fragments.CalculatorFiniquitoInputThreeFragment"
+        android:label="CALCULADORA FINIQUITO" />
 </navigation>
