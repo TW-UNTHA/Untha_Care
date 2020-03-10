@@ -71,4 +71,8 @@
         android:id="@+id/calculatorFiniquitoFragment"
         android:name="com.untha.view.fragments.CalculatorFiniquitoInputThreeFragment"
         android:label="CALCULADORA FINIQUITO" />
+    <fragment
+        android:id="@+id/calculatorFiniquitoInputFourFragment"
+        android:name="com.untha.view.fragments.CalculatorFiniquitoInputFourFragment"
+        android:label="CALCULADORA FINIQUITO" />
 </navigation>

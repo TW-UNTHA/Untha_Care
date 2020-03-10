@@ -122,7 +122,7 @@ class CalculatorFiniquitoInputThreeFragment : BaseFragment() {
                 if(isValidBornDate){
                 val bundle = loadBundle(endDate, bornDate)
                 view?.findNavController()?.navigate(
-                    R.id.calculatorsFragment, bundle,
+                    R.id.calculatorFiniquitoInputFourFragment, bundle,
                     navOptions, null
                 )
                 }
