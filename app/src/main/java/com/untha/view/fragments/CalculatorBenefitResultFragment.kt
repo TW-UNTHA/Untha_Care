@@ -4,19 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import androidx.navigation.findNavController
 import com.google.android.material.tabs.TabLayout
 import com.untha.R
 import com.untha.model.transactionalmodels.Category
 import com.untha.utils.Constants
-import com.untha.utils.ContentType
-import com.untha.utils.FirebaseEvent
 import com.untha.view.activities.MainActivity
 import com.untha.view.adapters.TabAdapter
 import com.untha.viewmodels.CalculatorViewModel
 import kotlinx.android.synthetic.main.fragment_calculator_benefit_result.*
-import org.jetbrains.anko.sdk27.coroutines.onClick
 import org.koin.android.viewmodel.ext.android.viewModel
 import java.util.*
 
@@ -121,30 +116,8 @@ class CalculatorBenefitResultFragment : BaseFragment() {
             enableHelp = false,
             backMethod = null
         )
-        goBackScreenRoutes()
-    }
-
-    private fun goBackScreenRoutes() {
-        val layoutActionBar = mainActivity.supportActionBar?.customView
-        val categoriesCalculator = Bundle().apply {
-            putSerializable(
-                Constants.CATEGORIES_CALCULATORS,
-                categoriesCalculator
-            )
-        }
-
-        val close = layoutActionBar?.findViewById(R.id.icon_go_back_route) as ImageView
-        close.onClick {
-            view?.findNavController()
-                ?.navigate(
-                    R.id.calculatorsFragment,
-                    categoriesCalculator,
-                    navOptionsToBackNavigation,
-                    null
-                )
-            logAnalyticsCustomContentTypeWithId(ContentType.CLOSE, FirebaseEvent.CLOSE)
-        }
-
+        goBackMainScreenCategory(Constants.CATEGORIES_CALCULATORS,
+            categoriesCalculator,R.id.calculatorsFragment, view, mainActivity)
     }
 }
 

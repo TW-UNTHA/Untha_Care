@@ -36,7 +36,6 @@ import kotlinx.android.synthetic.main.fragment_calculator_benefit.spinnerStartDa
 import kotlinx.android.synthetic.main.fragment_calculator_benefit.spinnerStartDateMonth
 import kotlinx.android.synthetic.main.fragment_calculator_benefit.spinnerStartDateYear
 import kotlinx.android.synthetic.main.fragment_calculator_finiquito_input_three.*
-import kotlinx.android.synthetic.main.fragment_calculator_finiquito_input_three.btnSiguiente
 import kotlinx.android.synthetic.main.fragment_calculator_finiquito_input_three.inputHours
 import kotlinx.android.synthetic.main.fragment_calculator_finiquito_input_three.inputSalary
 import java.util.*
@@ -66,13 +65,14 @@ class CalculatorFiniquitoInputThreeFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         mainActivity.customActionBar(
             Constants.NAME_FINIQUITO_CALCULATOR,
-            enableCustomBar = false,
+            enableCustomBar = true,
             needsBackButton = true,
             enableHelp = false,
             backMethod = null
         )
         loadAllSpinners()
-
+        goBackMainScreenCategory(Constants.CATEGORIES_CALCULATORS,
+            categoriesCalculator,R.id.calculatorsFragment, view, mainActivity)
     }
 
     private fun loadAllSpinners() {

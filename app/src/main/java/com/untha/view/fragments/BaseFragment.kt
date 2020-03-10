@@ -2,11 +2,13 @@ package com.untha.view.fragments
 
 import android.os.Bundle
 import android.view.View
+import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavOptions
 import androidx.navigation.findNavController
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.untha.R
+import com.untha.model.transactionalmodels.Category
 import com.untha.model.transactionalmodels.Route
 import com.untha.utils.Constants
 import com.untha.utils.ContentType
@@ -14,6 +16,8 @@ import com.untha.utils.FirebaseEvent
 import com.untha.utils.UtilsTextToSpeech
 import com.untha.view.activities.MainActivity
 import com.untha.viewmodels.BaseQuestionViewModel
+import org.jetbrains.anko.sdk27.coroutines.onClick
+import java.util.*
 
 open class BaseFragment : Fragment() {
 
@@ -157,6 +161,28 @@ open class BaseFragment : Fragment() {
     override fun onPause() {
         textToSpeech?.stop()
         super.onPause()
+    }
+    fun goBackMainScreenCategory(constantCategory: String, categories: ArrayList<Category>,
+                                 idFragment : Int, view: View, mainActivity: MainActivity) {
+        val layoutActionBar = mainActivity.supportActionBar?.customView
+        val categoriesType = Bundle().apply {
+            putSerializable(
+                constantCategory,
+                categories
+            )
+        }
+        val close = layoutActionBar?.findViewById(R.id.icon_go_back_route) as ImageView
+        close.onClick {
+            view?.findNavController()
+                ?.navigate(
+                    idFragment,
+                    categoriesType,
+                    navOptionsToBackNavigation,
+                    null
+                )
+            logAnalyticsCustomContentTypeWithId(ContentType.CLOSE, FirebaseEvent.CLOSE)
+        }
+
     }
 }
 
