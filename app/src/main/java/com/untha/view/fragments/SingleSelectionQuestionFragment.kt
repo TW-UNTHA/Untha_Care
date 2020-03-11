@@ -14,6 +14,7 @@ import com.untha.R
 import com.untha.model.transactionalmodels.Route
 import com.untha.model.transactionalmodels.RouteQuestion
 import com.untha.utils.Constants
+import com.untha.utils.Constants.NAME_SCREEN_CALCULATOR_ROUTE
 import com.untha.utils.ContentType
 import com.untha.utils.FirebaseEvent
 import com.untha.utils.PixelConverter
@@ -22,16 +23,19 @@ import com.untha.view.activities.MainActivity
 import com.untha.view.extension.loadHorizontalProgressBar
 import com.untha.viewmodels.CategoryViewModel
 import com.untha.viewmodels.SingleSelectionQuestionViewModel
+import org.jetbrains.anko.AnkoViewDslMarker
 import org.jetbrains.anko._LinearLayout
 import org.jetbrains.anko.allCaps
 import org.jetbrains.anko.attr
 import org.jetbrains.anko.backgroundColor
 import org.jetbrains.anko.backgroundDrawable
 import org.jetbrains.anko.backgroundResource
+import org.jetbrains.anko.dip
 import org.jetbrains.anko.imageButton
 import org.jetbrains.anko.linearLayout
 import org.jetbrains.anko.margin
 import org.jetbrains.anko.matchParent
+import org.jetbrains.anko.scrollView
 import org.jetbrains.anko.sdk27.coroutines.onClick
 import org.jetbrains.anko.support.v4.UI
 import org.jetbrains.anko.textColor
@@ -48,18 +52,19 @@ class SingleSelectionQuestionFragment : BaseFragment() {
     private var goTo: Int? = null
     private val questionViewModel: SingleSelectionQuestionViewModel by viewModel()
     private val categoryViewModel: CategoryViewModel by viewModel()
-    private var isLabourRoute: Boolean = false
     private var remainingQuestion: Int = 0
     private var questionAdvance: Int = 1
     private var hint: String? = null
+    private lateinit var typeRoute: String
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val bundle = arguments
         goTo = bundle?.get("goTo") as Int
-        isLabourRoute = questionViewModel.isLabourRoute(bundle)
-        route = questionViewModel.loadRoute(isLabourRoute, bundle)
+        typeRoute = questionViewModel.getTypeRoute(bundle)
+
+        route = questionViewModel.loadRoute(typeRoute, bundle)
         questionAdvance += bundle.getInt(Constants.QUESTION_ADVANCE).inc()
         questionViewModel.loadQuestion(goTo, route)
         routeQuestion = questionViewModel.question
@@ -87,7 +92,7 @@ class SingleSelectionQuestionFragment : BaseFragment() {
         }
         with(view as _LinearLayout) {
             val percentageProgressBar = questionViewModel.calculatePercentQuestionsAnswered(
-                questionAdvance, remainingQuestion
+                questionAdvance, remainingQuestion, typeRoute
             )
             verticalLayout {
                 loadHorizontalProgressBar(percentageProgressBar)
@@ -100,20 +105,24 @@ class SingleSelectionQuestionFragment : BaseFragment() {
                 verticalLayout {
                     explanationQuestion()
                 }
-                val sizeOptions = routeQuestion?.options?.size ?: 0
-                if (hasTwoOptions(sizeOptions)) {
-                    linearLayout {
-                        options(styleDisplayOptions(sizeOptions), view)
-                    }.lparams {
-                        topMargin =
-                            calculateHeightComponentsQuestion(Constants.MARGIN_HEIGHT_QUESTION)
-                    }
-                } else {
+                val margin =
+                    calculateHeightComponentsQuestion(Constants.MARGIN_BOTTOM_PERCENTAGE_ANSWERS_LAYOUT)
+
+                scrollView {
                     verticalLayout {
-                        options(styleDisplayOptions(sizeOptions), view)
-                    }.lparams {
-                        topMargin =
-                            calculateHeightComponentsQuestion(Constants.MARGIN_HEIGHT_QUESTION)
+                        drawOptionsAnswer(view)
+                    }
+
+                }.lparams(
+                    width = matchParent,
+                    height = calculateHeightComponentsQuestion(Constants.SIZE_SCROLL_VIEW_SINGLE_OPTION)
+                ) {
+                    bottomMargin = dip(margin)
+                }
+                if (typeRoute == Constants.ROUTE_CALCULATOR) {
+                    verticalLayout {
+
+                        bottomHelpMessage()
                     }
                 }
 
@@ -122,14 +131,44 @@ class SingleSelectionQuestionFragment : BaseFragment() {
                     calculateWidthComponentsQuestion()
             }
         }
+        val nameScreen = if (typeRoute == Constants.ROUTE_CALCULATOR) NAME_SCREEN_CALCULATOR_ROUTE
+        else Constants.NAME_SCREEN_LABOUR_ROUTE
+
         mainActivity.customActionBar(
-            Constants.NAME_SCREEN_LABOUR_ROUTE,
+            nameScreen,
             enableCustomBar = true,
             needsBackButton = true,
             enableHelp = false,
             backMethod = null
         )
         goBackScreenRoutes()
+    }
+
+    private fun @AnkoViewDslMarker _LinearLayout.drawOptionsAnswer(
+        view: View
+    ) {
+        var topMarginCalculated: Int = 0
+        if (typeRoute != Constants.ROUTE_CALCULATOR) {
+            topMarginCalculated =
+                calculateHeightComponentsQuestion(Constants.MARGIN_HEIGHT_QUESTION)
+        }
+        val sizeOptions = routeQuestion?.options?.size ?: 0
+
+        if (hasTwoOptions(sizeOptions)) {
+            linearLayout {
+                optionsAnswer(styleDisplayOptions(sizeOptions), view)
+            }.lparams {
+                topMargin = topMarginCalculated
+
+            }
+        } else {
+            verticalLayout {
+                optionsAnswer(styleDisplayOptions(sizeOptions), view)
+            }.lparams {
+                topMargin = topMarginCalculated
+            }
+        }
+
     }
 
     private fun styleDisplayOptions(numOptions: Int): Int {
@@ -222,9 +261,11 @@ class SingleSelectionQuestionFragment : BaseFragment() {
         textView {
             text = routeQuestion?.content
             textSizeDimen = R.dimen.text_size_question_route
+            textColor =
+                ContextCompat.getColor(context, R.color.colorGenericTitle)
             typeface = ResourcesCompat.getFont(
                 context.applicationContext,
-                R.font.proxima_nova_light
+                R.font.proxima_nova_bold
             )
             gravity = Gravity.CENTER_HORIZONTAL
         }.lparams(width = matchParent, height = matchParent) {
@@ -240,6 +281,8 @@ class SingleSelectionQuestionFragment : BaseFragment() {
             textView {
                 text = routeQuestion?.explanation
                 textSizeDimen = R.dimen.text_size_question_explanation
+                textColor =
+                    ContextCompat.getColor(context, R.color.colorGenericTitle)
                 typeface = ResourcesCompat.getFont(
                     context.applicationContext,
                     R.font.proxima_nova_light
@@ -249,7 +292,30 @@ class SingleSelectionQuestionFragment : BaseFragment() {
         }
     }
 
-    private fun _LinearLayout.options(width: Int, view: View) {
+    private fun _LinearLayout.bottomHelpMessage() {
+        textView {
+            text = routeQuestion?.recommend
+            textSizeDimen = R.dimen.text_size_question_explanation
+            textColor =
+                ContextCompat.getColor(context, R.color.colorGenericTitle)
+            typeface = ResourcesCompat.getFont(
+                context.applicationContext,
+                R.font.helvetica_light_oblique
+            )
+            gravity = Gravity.LEFT
+        }.lparams {
+            rightMargin = dip(calculateOptionContainerWidthMargin()) / 2
+            leftMargin = dip(calculateOptionContainerWidthMargin())
+        }
+    }
+
+    private fun
+            calculateOptionContainerWidthMargin(): Float {
+        val width = PixelConverter.getScreenDpWidth(context)
+        return (width * Constants.MARGIN_LEFT_RIGHT_MULTIPLE_OPTION_SCREEN_PERCENTAGE).toFloat()
+    }
+
+    private fun _LinearLayout.optionsAnswer(width: Int, view: View) {
         routeQuestion?.options?.map { option ->
             verticalLayout {
                 themedButton(theme = R.style.MyButtonStyle) {
@@ -262,26 +328,27 @@ class SingleSelectionQuestionFragment : BaseFragment() {
                     )
                     typeface = ResourcesCompat.getFont(
                         context.applicationContext,
-                        R.font.proxima_nova_bold
+                        R.font.proxima_nova_light
                     )
                     onClick {
                         option.hint?.let {
                             logAnalyticsCustomEvent(it)
                             hint = it
                         }
-                        when {
-                            isLabourRoute -> option.result?.let {
-                                questionViewModel.saveAnswerOption(
-                                    it,
-                                    Constants.FAULT_ANSWER_ROUTE_LABOUR
-                                )
-                            }
-                            else -> option.result?.let {
-                                questionViewModel.saveAnswerOption(
-                                    it,
-                                    Constants.FAULT_ANSWER_ROUTE_VIOLENCE
-                                )
-                            }
+                        var faultAnswer: String = ""
+                        when (typeRoute) {
+                            Constants.ROUTE_LABOUR -> faultAnswer =
+                                Constants.FAULT_ANSWER_ROUTE_LABOUR
+                            Constants.ROUTE_VIOLENCE -> faultAnswer =
+                                Constants.FAULT_ANSWER_ROUTE_VIOLENCE
+                            Constants.ROUTE_CALCULATOR -> faultAnswer =
+                                Constants.FAULT_ANSWER_ROUTE_CALCULATOR
+                        }
+                        option.result?.let {
+                            questionViewModel.saveAnswerOption(
+                                it,
+                                faultAnswer
+                            )
                         }
                         questionViewModel.loadQuestion(option.goTo, route)
                         val routeQuestionGoTo = questionViewModel.question
@@ -289,7 +356,7 @@ class SingleSelectionQuestionFragment : BaseFragment() {
                         val questionGoToInfo = mapOf(
                             "goTo" to option.goTo,
                             "isSingle" to isSingle,
-                            "isLabourRoute" to isLabourRoute,
+                            "getTypeRoute" to typeRoute,
                             "questionAdvance" to questionAdvance
 
                         )

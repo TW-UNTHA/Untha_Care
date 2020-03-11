@@ -165,7 +165,7 @@ class BaseQuestionViewModelTest : KoinTest {
     }
 
     @Test
-    fun `should  load violence route whe the route is violence`() {
+    fun `should  load violence route when the route is violence`() {
         val routeOption = RouteOption("dummy", "dummy", 1, null, null)
         val routeQuestion =
             RouteQuestion(1, "dummy", "dummy", "dummy", null, "dummy", listOf(routeOption))
@@ -180,7 +180,22 @@ class BaseQuestionViewModelTest : KoinTest {
     }
 
     @Test
-    fun `should save complete labour route when it is present and isRouteLabour is true`() {
+    fun `should  load calculator route when the route is calculator`() {
+        val routeOption = RouteOption("dummy", "dummy", 1, null, null)
+        val routeQuestion =
+            RouteQuestion(1, "dummy", "dummy", "dummy", null, "dummy", listOf(routeOption))
+        val route = Route(1, listOf(routeQuestion))
+        val viewModel = BaseQuestionViewModel(sharedPreferences)
+        val mockBundle = mock(Bundle::class.java)
+        `when`(mockBundle.get(Constants.ROUTE_CALCULATOR)).thenReturn(route)
+        MatcherAssert.assertThat(
+            route,
+            CoreMatchers.`is`(viewModel.loadRoute(Constants.ROUTE_CALCULATOR, mockBundle))
+        )
+    }
+
+    @Test
+    fun `should save complete labour route when it is present and the route is labour`() {
         val baseViewModel = BaseQuestionViewModel(sharedPreferences)
         val savedRoute = "R1 R2 R3"
         val editor = mock(SharedPreferences.Editor::class.java)
@@ -202,7 +217,7 @@ class BaseQuestionViewModelTest : KoinTest {
     }
 
     @Test
-    fun `should not save complete labour route when it is not present and isRouteLabour is true`() {
+    fun `should not save complete labour route when it is not present and is labour route `() {
         val baseViewModel = BaseQuestionViewModel(sharedPreferences)
         val savedRoute = "R1 R2 R3"
         val editor = mock(SharedPreferences.Editor::class.java)
@@ -224,7 +239,7 @@ class BaseQuestionViewModelTest : KoinTest {
     }
 
     @Test
-    fun `should save complete violence route when it is present and isRouteLabour is false`() {
+    fun `should save complete violence route when it is present and is violence route`() {
         val baseViewModel = BaseQuestionViewModel(sharedPreferences)
         val savedRoute = "R1 R2 R3"
         val editor = mock(SharedPreferences.Editor::class.java)
