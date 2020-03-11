@@ -11,6 +11,7 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.navigation.findNavController
 import com.bumptech.glide.Glide
 import com.untha.R
+import com.untha.model.transactionalmodels.Category
 import com.untha.model.transactionalmodels.Route
 import com.untha.model.transactionalmodels.RouteQuestion
 import com.untha.utils.Constants
@@ -44,6 +45,7 @@ import org.jetbrains.anko.textView
 import org.jetbrains.anko.themedButton
 import org.jetbrains.anko.verticalLayout
 import org.koin.android.viewmodel.ext.android.viewModel
+import java.util.ArrayList
 
 class SingleSelectionQuestionFragment : BaseFragment() {
     private lateinit var mainActivity: MainActivity
@@ -56,6 +58,8 @@ class SingleSelectionQuestionFragment : BaseFragment() {
     private var questionAdvance: Int = 1
     private var hint: String? = null
     private lateinit var typeRoute: String
+    private  var categories: ArrayList<Category>? = null
+    private var categoriesCalculator: ArrayList<Category>? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -70,6 +74,12 @@ class SingleSelectionQuestionFragment : BaseFragment() {
         routeQuestion = questionViewModel.question
         val optionWithMaxRemaining = routeQuestion?.options?.maxBy { it.remaining }
         remainingQuestion = optionWithMaxRemaining?.remaining ?: 0
+        categories = if (bundle?.get(Constants.CATEGORIES)!=null)
+            bundle?.get(Constants.CATEGORIES) as ArrayList<Category> else null
+        categoriesCalculator = if (bundle?.get(Constants.CATEGORIES_CALCULATORS)!=null)
+            bundle?.get(Constants.CATEGORIES_CALCULATORS) as ArrayList<Category> else null
+
+
     }
 
     override fun onCreateView(
@@ -357,7 +367,9 @@ class SingleSelectionQuestionFragment : BaseFragment() {
                             "goTo" to option.goTo,
                             "isSingle" to isSingle,
                             "getTypeRoute" to typeRoute,
-                            "questionAdvance" to questionAdvance
+                            "questionAdvance" to questionAdvance,
+                            "CATEGORIES" to categories,
+                            "CATEGORIES_CALCULATORS" to categoriesCalculator
 
                         )
                         manageGoToQuestion(questionGoToInfo, route, view, questionViewModel)

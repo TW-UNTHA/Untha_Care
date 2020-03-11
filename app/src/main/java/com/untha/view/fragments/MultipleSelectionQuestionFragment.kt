@@ -15,6 +15,7 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.navigation.findNavController
 import com.bumptech.glide.Glide
 import com.untha.R
+import com.untha.model.transactionalmodels.Category
 import com.untha.model.transactionalmodels.Route
 import com.untha.model.transactionalmodels.RouteOption
 import com.untha.model.transactionalmodels.RouteQuestion
@@ -49,6 +50,7 @@ import org.jetbrains.anko.textView
 import org.jetbrains.anko.verticalLayout
 import org.jetbrains.anko.wrapContent
 import org.koin.android.viewmodel.ext.android.viewModel
+import java.io.Serializable
 
 class MultipleSelectionQuestionFragment : BaseFragment() {
     private val viewModel: MultipleSelectionQuestionViewModel by viewModel()
@@ -64,6 +66,8 @@ class MultipleSelectionQuestionFragment : BaseFragment() {
     private var remainingQuestion: Int = 0
     private var hint: String? = null
     private lateinit var typeRoute: String
+    private var categories: ArrayList<Category>? = null
+    private var categoriesCalculator: ArrayList<Category>? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -78,6 +82,12 @@ class MultipleSelectionQuestionFragment : BaseFragment() {
         routeQuestion = viewModel.question
         val optionWithMaxRemaining = routeQuestion?.options?.maxBy { it.remaining }
         remainingQuestion = optionWithMaxRemaining?.remaining ?: 0
+        categories = if (bundle?.get(Constants.CATEGORIES) != null)
+            bundle?.get(Constants.CATEGORIES) as ArrayList<Category> else null
+
+        categoriesCalculator = if (bundle?.get(Constants.CATEGORIES_CALCULATORS) != null)
+            bundle?.get(Constants.CATEGORIES_CALCULATORS) as ArrayList<Category> else null
+
         loadTitleRoute(typeRoute)
         goBackScreenRoutes()
     }
@@ -108,8 +118,7 @@ class MultipleSelectionQuestionFragment : BaseFragment() {
         val layoutActionBar = (activity as MainActivity).supportActionBar?.customView
         val close = layoutActionBar?.findViewById(R.id.icon_go_back_route) as ImageView
         close.onClick {
-            view?.
-                findNavController()
+            view?.findNavController()
                 ?.navigate(
                     R.id.mainRouteFragment,
                     categoriesRoutes,
@@ -304,14 +313,8 @@ class MultipleSelectionQuestionFragment : BaseFragment() {
                         registerAnalyticsEvent(false)
                         viewModel.loadQuestion(routeQuestion?.goTo, route)
                         val isSingle = viewModel.isSingleQuestion(viewModel.question?.type)
-                        val questionGoToInfo = mapOf(
-                            "goTo" to routeQuestion?.goTo,
-                            "isSingle" to isSingle,
-                            "getTypeRoute" to typeRoute,
-                            "questionAdvance" to questionAdvance
-                        )
+                        val questionGoToInfo = mapParameters(isSingle)
                         manageGoToQuestion(questionGoToInfo, route, view, viewModel)
-
                     }
                 }
                 text = context.getString(R.string.next)
@@ -341,6 +344,17 @@ class MultipleSelectionQuestionFragment : BaseFragment() {
             rightMargin = dip(calculateOptionContainerWidthMargin()) / 2
             leftMargin = dip(calculateOptionContainerWidthMargin())
         }
+    }
+
+    private fun mapParameters(isSingle: Boolean): Map<String, Serializable?> {
+        return mapOf(
+            "goTo" to routeQuestion?.goTo,
+            "isSingle" to isSingle,
+            "getTypeRoute" to typeRoute,
+            "questionAdvance" to questionAdvance,
+            "CATEGORIES" to categories,
+            "CATEGORIES_CALCULATORS" to categoriesCalculator
+        )
     }
 
     private fun marginBottomNext(): Float {

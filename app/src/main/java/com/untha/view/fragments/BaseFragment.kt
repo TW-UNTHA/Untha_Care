@@ -18,6 +18,7 @@ import com.untha.view.activities.MainActivity
 import com.untha.viewmodels.BaseQuestionViewModel
 import org.jetbrains.anko.sdk27.coroutines.onClick
 import java.util.*
+import kotlin.collections.ArrayList
 
 open class BaseFragment : Fragment() {
 
@@ -78,15 +79,24 @@ open class BaseFragment : Fragment() {
         questionViewModel: BaseQuestionViewModel
     ) {
         val goTo = questionGoToInfo["goTo"]
-        val isSingle = questionGoToInfo["isSingle"] as Boolean
         val typeRoute = questionGoToInfo["getTypeRoute"] as String
+        val isSingle = questionGoToInfo["isSingle"] as Boolean
         val questionAdvance = questionGoToInfo["questionAdvance"] as Int
 
         when (goTo) {
             -1 -> {
                 if (typeRoute == Constants.ROUTE_CALCULATOR) {
+
+                    val categories = questionGoToInfo["CATEGORIES"] as ArrayList<Category>
+                    val categoriesCalculator =
+                        questionGoToInfo["CATEGORIES_CALCULATORS"] as ArrayList<Category>
+                    val categoriesBundle = Bundle().apply {
+                        putSerializable(Constants.CATEGORIES, categories)
+                        putSerializable(Constants.CATEGORIES_CALCULATORS, categoriesCalculator)
+                    }
                     view.findNavController().navigate(
-                        R.id.calculatorFiniquitoFragment, null,
+                        R.id.calculatorFiniquitoFragment,
+                        categoriesBundle,
                         navOptions, null
                     )
                 } else {
@@ -95,7 +105,13 @@ open class BaseFragment : Fragment() {
             }
             else -> {
                 val goToBundle: Bundle =
-                    defineBundleData(typeRoute, goTo, route, questionAdvance)
+                    defineBundleData(
+                        typeRoute,
+                        goTo,
+                        route,
+                        questionAdvance,
+                        questionGoToInfo
+                    )
 
                 navigate(isSingle, view, goToBundle)
             }
@@ -106,12 +122,23 @@ open class BaseFragment : Fragment() {
         typeRoute: String,
         goTo: Any?,
         route: Route,
-        questionAdvance: Int
+        questionAdvance: Int,
+        questionGoToInfo: Map<String, Any?>
     ): Bundle {
+        var categories: ArrayList<Category>? = null
+        var categoriesCalculator: ArrayList<Category>? = null
+        if (questionGoToInfo["CATEGORIES"]!=null) {
+            categories = questionGoToInfo["CATEGORIES"] as ArrayList<Category>
+        }
+        if (questionGoToInfo["CATEGORIES_CALCULATORS"]!=null) {
+            categoriesCalculator = questionGoToInfo["CATEGORIES_CALCULATORS"] as ArrayList<Category>
+        }
         return Bundle().apply {
             putInt(Constants.ROUTE_QUESTION_GO_TO, goTo as Int)
             putSerializable(typeRoute, route)
             putInt(Constants.QUESTION_ADVANCE, questionAdvance)
+            putSerializable(Constants.CATEGORIES, categories)
+            putSerializable(Constants.CATEGORIES_CALCULATORS, categoriesCalculator)
         }
     }
 
@@ -162,8 +189,11 @@ open class BaseFragment : Fragment() {
         textToSpeech?.stop()
         super.onPause()
     }
-    fun goBackMainScreenCategory(constantCategory: String, categories: ArrayList<Category>,
-                                 idFragment : Int, view: View, mainActivity: MainActivity) {
+
+    fun goBackMainScreenCategory(
+        constantCategory: String, categories: ArrayList<Category>,
+        idFragment: Int, view: View, mainActivity: MainActivity
+    ) {
         val layoutActionBar = mainActivity.supportActionBar?.customView
         val categoriesType = Bundle().apply {
             putSerializable(

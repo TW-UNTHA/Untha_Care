@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.findNavController
 import com.untha.R
+import com.untha.model.transactionalmodels.Category
 import com.untha.utils.Constants
 import com.untha.utils.ConstantsSpinnerCalculators.CURRENT_YEAR
 import com.untha.utils.ConstantsSpinnerCalculators.LAST_FIVE_YEARS
@@ -41,13 +42,13 @@ import java.util.*
 
 class CalculatorFiniquitoInputThreeFragment : BaseFragment() {
     private lateinit var mainActivity: MainActivity
-//    private lateinit var categoriesCalculator: ArrayList<Category>
+    private lateinit var categoriesCalculator: ArrayList<Category>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-//        val bundle = arguments
-//        categoriesCalculator = bundle?.get(Constants.CATEGORIES_CALCULATORS) as ArrayList<Category>
+        val bundle = arguments
+        categoriesCalculator = bundle?.get(Constants.CATEGORIES_CALCULATORS) as ArrayList<Category>
     }
 
     override fun onCreateView(

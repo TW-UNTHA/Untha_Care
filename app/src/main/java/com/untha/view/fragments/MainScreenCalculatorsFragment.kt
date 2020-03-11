@@ -38,6 +38,7 @@ import org.koin.android.viewmodel.ext.android.viewModel
 
 class MainScreenCalculatorsFragment : BaseFragment() {
     private lateinit var categoriesCalculator: ArrayList<Category>
+    private lateinit var categories: ArrayList<Category>
     private lateinit var mainActivity: MainActivity
     private val routeViewModel: RoutesViewModel by viewModel()
 
@@ -46,6 +47,7 @@ class MainScreenCalculatorsFragment : BaseFragment() {
         super.onCreate(savedInstanceState)
         val bundle = arguments
         categoriesCalculator = bundle?.get(Constants.CATEGORIES_CALCULATORS) as ArrayList<Category>
+        categories = bundle?.get(Constants.CATEGORIES) as ArrayList<Category>
     }
 
     override fun onCreateView(
@@ -122,11 +124,12 @@ class MainScreenCalculatorsFragment : BaseFragment() {
     }
 
     private fun onItemClick(category: Category, itemView: View) {
-        val categoriesCalculator = Bundle().apply {
+        val categoriesBundle = Bundle().apply {
             putSerializable(
                 Constants.CATEGORIES_CALCULATORS,
                 categoriesCalculator
             )
+            putSerializable(Constants.CATEGORIES, categories)
         }
         if (category.type == "calculator") {
             when (category.id) {
@@ -134,7 +137,7 @@ class MainScreenCalculatorsFragment : BaseFragment() {
                     itemView.findNavController()
                         .navigate(
                             R.id.calculatorBenefitFragment,
-                            categoriesCalculator,
+                            categoriesBundle,
                             navOptions,
                             null
                         )
@@ -151,6 +154,11 @@ class MainScreenCalculatorsFragment : BaseFragment() {
                             Constants.ROUTE_CALCULATOR,
                             routeViewModel.loadRouteFromSharedPreferences(Constants.CALCULATOR_ROUTE)
                         )
+                        putSerializable(
+                            Constants.CATEGORIES_CALCULATORS,
+                            categoriesCalculator
+                        )
+                        putSerializable(Constants.CATEGORIES, categories)
                     }
                     itemView.findNavController()
                         .navigate(
