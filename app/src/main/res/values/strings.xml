@@ -72,7 +72,7 @@
     <string name="area">Región donde trabajas</string>
     <string name="salary">Salario mensual</string>
     <string name="vacations">Vacaciones</string>
-    <string name="benefits_description">Recibo mis beneficios de manera</string>
+    <string name="benefits_description">Recibo mis beneficios de manera: </string>
     <string name="btnCalcular">Calcular</string>
     <string name="description">Sin tomar en cuenta descuento del IESS</string>
     <string name="description_workday">Horas trabajadas por semana</string>

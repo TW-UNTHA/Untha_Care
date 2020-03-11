@@ -73,23 +73,6 @@ class CalculatorFiniquitoInputThreeFragment : BaseFragment() {
         loadAllSpinners()
         goBackMainScreenCategory(Constants.CATEGORIES_CALCULATORS,
             categoriesCalculator,R.id.calculatorsFragment, view, mainActivity)
-    }
-
-    private fun loadAllSpinners() {
-        loadDaysSpinner(spinnerStartDateDay, context!!)
-        loadDaysSpinner(spinnerEndDateDay, context!!)
-        loadDaysSpinner(spinnerBornDateDay, context!!)
-
-        loadSpinnerData(spinnerStartDateMonth, R.array.months_array, context!!)
-        loadSpinnerData(spinnerEndDateMonth, R.array.months_array, context!!)
-        loadSpinnerData(spinnerBornDateMonth, R.array.months_array, context!!)
-
-        loadYearsAdapter(spinnerStartDateYear, CURRENT_YEAR, MAX_YEARS_OF_WORK, context!!)
-        loadYearsAdapter(spinnerEndDateYear, CURRENT_YEAR, LAST_FIVE_YEARS, context!!)
-        loadYearsAdapter(spinnerBornDateYear, MIN_AGE_WORKING, MAX_AGE_WORKING, context!!)
-
-        loadSpinnerData(spinnerArea, R.array.areas_array, context!!)
-
         btnSiguiente.setOnClickListener {
             if (!validationStartDate( spinnerStartDateYear,spinnerStartDateMonth, spinnerStartDateDay,
                     context!!)) {
@@ -120,16 +103,35 @@ class CalculatorFiniquitoInputThreeFragment : BaseFragment() {
                 && validationHours(inputHours, context!!)
             ) {
                 if(isValidBornDate){
-                val bundle = loadBundle(endDate, bornDate)
-                view?.findNavController()?.navigate(
-                    R.id.calculatorFiniquitoInputFourFragment, bundle,
-                    navOptions, null
-                )
+                    val bundle = loadBundle(endDate, bornDate)
+                    view?.findNavController()?.navigate(
+                        R.id.calculatorFiniquitoInputFourFragment, bundle,
+                        navOptions, null
+                    )
                 }
             }
 
         }
+
     }
+
+    private fun loadAllSpinners() {
+        loadDaysSpinner(spinnerStartDateDay, context!!)
+        loadDaysSpinner(spinnerEndDateDay, context!!)
+        loadDaysSpinner(spinnerBornDateDay, context!!)
+
+        loadSpinnerData(spinnerStartDateMonth, R.array.months_array, context!!)
+        loadSpinnerData(spinnerEndDateMonth, R.array.months_array, context!!)
+        loadSpinnerData(spinnerBornDateMonth, R.array.months_array, context!!)
+
+        loadYearsAdapter(spinnerStartDateYear, CURRENT_YEAR, MAX_YEARS_OF_WORK, context!!)
+        loadYearsAdapter(spinnerEndDateYear, CURRENT_YEAR, LAST_FIVE_YEARS, context!!)
+        loadYearsAdapter(spinnerBornDateYear, MIN_AGE_WORKING, MAX_AGE_WORKING, context!!)
+
+        loadSpinnerData(spinnerArea, R.array.areas_array, context!!)}
+
+
+
 
     private fun loadBundle(endDate: Calendar, bornDate: Calendar): Bundle {
         val verifiedBornDate = endDateToString(bornDate)

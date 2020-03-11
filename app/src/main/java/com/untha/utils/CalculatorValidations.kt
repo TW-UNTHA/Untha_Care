@@ -69,7 +69,7 @@ fun buildDate(
 }
 
 
-private fun transformationMonth(month: Int): String {
+fun transformationMonth(month: Int): String {
     val positionIncremented = month + 1
     val addZeroToMonth = addZero(positionIncremented)
 
