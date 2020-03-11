@@ -9,10 +9,12 @@ import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
 import com.untha.R
 import com.untha.model.transactionalmodels.Category
 import com.untha.utils.Constants
 import com.untha.utils.ContentType
+import com.untha.utils.FirebaseEvent
 import com.untha.utils.PixelConverter
 import com.untha.utils.UtilsTextToSpeech
 import com.untha.view.activities.MainActivity
@@ -20,14 +22,14 @@ import com.untha.view.extension.loadImageNextStep
 import com.untha.viewmodels.RoutesViewModel
 import org.jetbrains.anko.AnkoViewDslMarker
 import org.jetbrains.anko._LinearLayout
-import org.jetbrains.anko._ScrollView
+import org.jetbrains.anko._RelativeLayout
 import org.jetbrains.anko.backgroundColor
 import org.jetbrains.anko.backgroundDrawable
 import org.jetbrains.anko.dip
 import org.jetbrains.anko.linearLayout
 import org.jetbrains.anko.matchParent
 import org.jetbrains.anko.padding
-import org.jetbrains.anko.scrollView
+import org.jetbrains.anko.relativeLayout
 import org.jetbrains.anko.support.v4.UI
 import org.jetbrains.anko.textColor
 import org.jetbrains.anko.textSizeDimen
@@ -38,7 +40,6 @@ import org.koin.android.viewmodel.ext.android.viewModel
 
 class MainScreenCalculatorsFragment : BaseFragment() {
     private lateinit var categoriesCalculator: ArrayList<Category>
-    private lateinit var categories: ArrayList<Category>
     private lateinit var mainActivity: MainActivity
     private val routeViewModel: RoutesViewModel by viewModel()
 
@@ -47,7 +48,6 @@ class MainScreenCalculatorsFragment : BaseFragment() {
         super.onCreate(savedInstanceState)
         val bundle = arguments
         categoriesCalculator = bundle?.get(Constants.CATEGORIES_CALCULATORS) as ArrayList<Category>
-        categories = bundle?.get(Constants.CATEGORIES) as ArrayList<Category>
     }
 
     override fun onCreateView(
@@ -58,30 +58,45 @@ class MainScreenCalculatorsFragment : BaseFragment() {
         textToSpeech = UtilsTextToSpeech(context!!, null, null)
 
         mainActivity = this.activity as MainActivity
+        mainActivity.supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
         return createMainLayout()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        with(view as _ScrollView) {
+        activity?.let {
+            firebaseAnalytics.setCurrentScreen(
+                it,
+                Constants.CALCULATORS_PAGE,
+                null
+            )
+        }
+        with(view as _RelativeLayout) {
             verticalLayout {
                 buildListCalculators(view)
             }.lparams(width = matchParent, height = matchParent)
         }
-        mainActivity.customActionBar(
+        (activity as MainActivity).customActionBar(
             Constants.NAME_SCREEN_CALCULATOR_ROUTE,
-            enableCustomBar = true,
+            enableCustomBar = false,
             needsBackButton = true,
             enableHelp = false,
-            backMethod = null
+            backMethod = ::navigateToCategory
 
         )
 
     }
 
+    private fun navigateToCategory() {
+        NavHostFragment.findNavController(this)
+            .navigate(R.id.categoryFragment, null, navOptionsToBackNavigation, null)
+        logAnalyticsCustomContentTypeWithId(ContentType.CLOSE, FirebaseEvent.CLOSE)
+    }
+
     private fun createMainLayout(): View {
         return UI {
-            scrollView {
+            relativeLayout {
                 backgroundColor =
                     ContextCompat.getColor(context, R.color.colorBackgroundMainRoute)
                 lparams(width = matchParent, height = matchParent)
@@ -129,7 +144,6 @@ class MainScreenCalculatorsFragment : BaseFragment() {
                 Constants.CATEGORIES_CALCULATORS,
                 categoriesCalculator
             )
-            putSerializable(Constants.CATEGORIES, categories)
         }
         if (category.type == "calculator") {
             when (category.id) {
@@ -158,7 +172,6 @@ class MainScreenCalculatorsFragment : BaseFragment() {
                             Constants.CATEGORIES_CALCULATORS,
                             categoriesCalculator
                         )
-                        putSerializable(Constants.CATEGORIES, categories)
                     }
                     itemView.findNavController()
                         .navigate(

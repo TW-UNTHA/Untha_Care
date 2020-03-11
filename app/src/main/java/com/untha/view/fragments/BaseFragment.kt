@@ -86,12 +86,9 @@ open class BaseFragment : Fragment() {
         when (goTo) {
             -1 -> {
                 if (typeRoute == Constants.ROUTE_CALCULATOR) {
-
-                    val categories = questionGoToInfo["CATEGORIES"] as ArrayList<Category>
                     val categoriesCalculator =
                         questionGoToInfo["CATEGORIES_CALCULATORS"] as ArrayList<Category>
                     val categoriesBundle = Bundle().apply {
-                        putSerializable(Constants.CATEGORIES, categories)
                         putSerializable(Constants.CATEGORIES_CALCULATORS, categoriesCalculator)
                     }
                     view.findNavController().navigate(
@@ -125,11 +122,8 @@ open class BaseFragment : Fragment() {
         questionAdvance: Int,
         questionGoToInfo: Map<String, Any?>
     ): Bundle {
-        var categories: ArrayList<Category>? = null
         var categoriesCalculator: ArrayList<Category>? = null
-        if (questionGoToInfo["CATEGORIES"]!=null) {
-            categories = questionGoToInfo["CATEGORIES"] as ArrayList<Category>
-        }
+
         if (questionGoToInfo["CATEGORIES_CALCULATORS"]!=null) {
             categoriesCalculator = questionGoToInfo["CATEGORIES_CALCULATORS"] as ArrayList<Category>
         }
@@ -137,7 +131,6 @@ open class BaseFragment : Fragment() {
             putInt(Constants.ROUTE_QUESTION_GO_TO, goTo as Int)
             putSerializable(typeRoute, route)
             putInt(Constants.QUESTION_ADVANCE, questionAdvance)
-            putSerializable(Constants.CATEGORIES, categories)
             putSerializable(Constants.CATEGORIES_CALCULATORS, categoriesCalculator)
         }
     }

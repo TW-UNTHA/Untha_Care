@@ -28,7 +28,7 @@ object Constants {
     const val MAIN_VIEW = 0
     const val SMALL_VIEW = 1
     const val PERCENTAGE_SMALL_HEIGHT_LAYOUT = 0.3
-    const val SIZE_SCROLL_VIEW_SINGLE_OPTION = 0.4
+    const val SIZE_SCROLL_VIEW_SINGLE_OPTION = 0.3
     const val MARGIN_SMALL_TOP_PERCENTAGE = 0.01093
     const val REFERENCE_DENSITY = 160
     const val PERCENTAGE_SMALL_RIGHTS = 0.33
@@ -106,6 +106,7 @@ object Constants {
     const val SINGLE_QUESTION_PAGE = "Single Question Page"
     const val MULTIPLE_QUESTION_PAGE: String = "Multiple Question Page"
     const val ROUTES_PAGE = "Routes Page"
+    const val CALCULATORS_PAGE = "Calculators Page"
     const val ROUTE_RESULT_PAGE: String = "Route result page"
     const val HOME_PAGE = "TRH UNIDAS"
     const val FAULT_ANSWER_ROUTE_LABOUR = "fault_answers_labour_route"

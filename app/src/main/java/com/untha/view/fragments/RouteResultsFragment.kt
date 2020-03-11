@@ -400,7 +400,7 @@ class RouteResultsFragment : BaseFragment() {
     private fun @AnkoViewDslMarker _LinearLayout.drawHeaderDescription(textId: Int?) {
         val texto = if (textId == null) {
             if (typeRoute.equals(Constants.ROUTE_LABOUR)) context.getString(R.string.description_labour_result)
-            else context.getString(R.string.description_violence_result) + " $violenceLevel"
+            else context.getString(R.string.description_violence_result)
         } else {
             context.getString(textId)
         }

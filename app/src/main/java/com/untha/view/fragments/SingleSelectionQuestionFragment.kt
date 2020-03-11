@@ -58,7 +58,6 @@ class SingleSelectionQuestionFragment : BaseFragment() {
     private var questionAdvance: Int = 1
     private var hint: String? = null
     private lateinit var typeRoute: String
-    private  var categories: ArrayList<Category>? = null
     private var categoriesCalculator: ArrayList<Category>? = null
 
 
@@ -74,9 +73,8 @@ class SingleSelectionQuestionFragment : BaseFragment() {
         routeQuestion = questionViewModel.question
         val optionWithMaxRemaining = routeQuestion?.options?.maxBy { it.remaining }
         remainingQuestion = optionWithMaxRemaining?.remaining ?: 0
-        categories = if (bundle?.get(Constants.CATEGORIES)!=null)
-            bundle?.get(Constants.CATEGORIES) as ArrayList<Category> else null
-        categoriesCalculator = if (bundle?.get(Constants.CATEGORIES_CALCULATORS)!=null)
+
+        categoriesCalculator = if (bundle?.get(Constants.CATEGORIES_CALCULATORS) != null)
             bundle?.get(Constants.CATEGORIES_CALCULATORS) as ArrayList<Category> else null
 
 
@@ -115,25 +113,13 @@ class SingleSelectionQuestionFragment : BaseFragment() {
                 verticalLayout {
                     explanationQuestion()
                 }
+
                 val margin =
                     calculateHeightComponentsQuestion(Constants.MARGIN_BOTTOM_PERCENTAGE_ANSWERS_LAYOUT)
-
-                scrollView {
-                    verticalLayout {
-                        drawOptionsAnswer(view)
-                    }
-
-                }.lparams(
-                    width = matchParent,
-                    height = calculateHeightComponentsQuestion(Constants.SIZE_SCROLL_VIEW_SINGLE_OPTION)
-                ) {
-                    bottomMargin = dip(margin)
-                }
                 if (typeRoute == Constants.ROUTE_CALCULATOR) {
-                    verticalLayout {
-
-                        bottomHelpMessage()
-                    }
+                    drawOptionsAnswerFromCalculatorRoute(view, margin)
+                } else {
+                    drawOptionsAnswer(view)
                 }
 
             }.lparams(width = matchParent, height = matchParent) {
@@ -151,7 +137,37 @@ class SingleSelectionQuestionFragment : BaseFragment() {
             enableHelp = false,
             backMethod = null
         )
-        goBackScreenRoutes()
+        if (typeRoute == Constants.ROUTE_CALCULATOR) {
+            goBackMainScreenCategory(
+                Constants.CATEGORIES_CALCULATORS,
+                categoriesCalculator!!, R.id.calculatorsFragment, view, mainActivity
+            )
+        } else {
+            goBackScreenRoutes()
+
+        }
+    }
+
+    private fun @AnkoViewDslMarker _LinearLayout.drawOptionsAnswerFromCalculatorRoute(
+        view: View,
+        margin: Int
+    ) {
+        scrollView {
+            verticalLayout {
+                drawOptionsAnswer(view)
+            }
+
+        }.lparams(
+            width = matchParent,
+            height = calculateHeightComponentsQuestion(Constants.SIZE_SCROLL_VIEW_SINGLE_OPTION)
+        ) {
+            bottomMargin = dip(margin)
+        }
+
+        verticalLayout {
+
+            bottomHelpMessage()
+        }
     }
 
     private fun @AnkoViewDslMarker _LinearLayout.drawOptionsAnswer(
@@ -368,7 +384,6 @@ class SingleSelectionQuestionFragment : BaseFragment() {
                             "isSingle" to isSingle,
                             "getTypeRoute" to typeRoute,
                             "questionAdvance" to questionAdvance,
-                            "CATEGORIES" to categories,
                             "CATEGORIES_CALCULATORS" to categoriesCalculator
 
                         )

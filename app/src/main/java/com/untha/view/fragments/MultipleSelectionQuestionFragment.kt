@@ -53,6 +53,7 @@ import org.koin.android.viewmodel.ext.android.viewModel
 import java.io.Serializable
 
 class MultipleSelectionQuestionFragment : BaseFragment() {
+    private lateinit var mainActivity: MainActivity
     private val viewModel: MultipleSelectionQuestionViewModel by viewModel()
     private val categoryViewModel: CategoryViewModel by viewModel()
     private lateinit var route: Route
@@ -66,7 +67,6 @@ class MultipleSelectionQuestionFragment : BaseFragment() {
     private var remainingQuestion: Int = 0
     private var hint: String? = null
     private lateinit var typeRoute: String
-    private var categories: ArrayList<Category>? = null
     private var categoriesCalculator: ArrayList<Category>? = null
 
 
@@ -82,14 +82,11 @@ class MultipleSelectionQuestionFragment : BaseFragment() {
         routeQuestion = viewModel.question
         val optionWithMaxRemaining = routeQuestion?.options?.maxBy { it.remaining }
         remainingQuestion = optionWithMaxRemaining?.remaining ?: 0
-        categories = if (bundle?.get(Constants.CATEGORIES) != null)
-            bundle?.get(Constants.CATEGORIES) as ArrayList<Category> else null
 
         categoriesCalculator = if (bundle?.get(Constants.CATEGORIES_CALCULATORS) != null)
             bundle?.get(Constants.CATEGORIES_CALCULATORS) as ArrayList<Category> else null
 
-        loadTitleRoute(typeRoute)
-        goBackScreenRoutes()
+
     }
 
     private fun loadTitleRoute(typeRoute: String) {
@@ -135,6 +132,7 @@ class MultipleSelectionQuestionFragment : BaseFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        mainActivity = this.activity as MainActivity
         return createMainLayout()
     }
 
@@ -157,8 +155,6 @@ class MultipleSelectionQuestionFragment : BaseFragment() {
                     loadImageAudio()
                 }
                 verticalLayout {
-                    //                    backgroundColor =
-//                        ContextCompat.getColor(context, R.color.link)
                     verticalLayout { question() }
                     verticalLayout { explanationQuestion() }
                     verticalLayout { buildAnswersLayout() }
@@ -173,6 +169,16 @@ class MultipleSelectionQuestionFragment : BaseFragment() {
                 margin =
                     calculateWidthComponentsQuestion()
             }
+        }
+        loadTitleRoute(typeRoute)
+        if (typeRoute == Constants.ROUTE_CALCULATOR) {
+            goBackMainScreenCategory(
+                Constants.CATEGORIES_CALCULATORS,
+                categoriesCalculator!!, R.id.calculatorsFragment, view, mainActivity
+            )
+        } else {
+            goBackScreenRoutes()
+
         }
     }
 
@@ -352,7 +358,6 @@ class MultipleSelectionQuestionFragment : BaseFragment() {
             "isSingle" to isSingle,
             "getTypeRoute" to typeRoute,
             "questionAdvance" to questionAdvance,
-            "CATEGORIES" to categories,
             "CATEGORIES_CALCULATORS" to categoriesCalculator
         )
     }
