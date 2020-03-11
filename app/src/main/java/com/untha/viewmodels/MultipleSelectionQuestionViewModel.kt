@@ -9,13 +9,30 @@ class MultipleSelectionQuestionViewModel(
 ) : BaseQuestionViewModel(sharedPreferences) {
 
     fun getFaultForQuestion(
-        isNoneOfAbove: Boolean, isLabourRoute: Boolean,
+        isNoneOfAbove: Boolean, typeRoute: String,
         options: MutableList<MultipleSelectionOption>
     ) {
-        if (isLabourRoute) {
-            processLabourRouteAnswer(isNoneOfAbove)
+        when (typeRoute) {
+            Constants.ROUTE_LABOUR ->
+                processLabourRouteAnswer(isNoneOfAbove)
+            Constants.ROUTE_VIOLENCE ->
+                processViolenceRouteAnswer(options)
+            Constants.ROUTE_CALCULATOR ->
+                processCalculatorRouteAnswer(isNoneOfAbove)
+        }
+    }
+
+    private fun processCalculatorRouteAnswer(isNoneOfAbove: Boolean) {
+        return if (isNoneOfAbove) {
+            saveAnswerOption(
+                question?.options?.last()?.result ?: "",
+                Constants.FAULT_ANSWER_ROUTE_CALCULATOR
+            )
         } else {
-            processViolenceRouteAnswer(options)
+            saveAnswerOption(
+                question?.options?.first()?.result ?: "",
+                Constants.FAULT_ANSWER_ROUTE_CALCULATOR
+            )
         }
     }
 
@@ -35,14 +52,14 @@ class MultipleSelectionQuestionViewModel(
     }
 
     private fun processViolenceRouteAnswer(options: MutableList<MultipleSelectionOption>) {
-       if( options.filter{it.isSelected && it.code.equals(Constants.VIOLENCE_ROUTE_LOW)}.any()){
-           saveAnswerOption(Constants.VIOLENCE_ROUTE_LOW, Constants.FAULT_ANSWER_ROUTE_VIOLENCE)
+        if (options.filter { it.isSelected && it.code.equals(Constants.VIOLENCE_ROUTE_LOW) }.any()) {
+            saveAnswerOption(Constants.VIOLENCE_ROUTE_LOW, Constants.FAULT_ANSWER_ROUTE_VIOLENCE)
         }
-        if( options.filter{it.isSelected && it.code.equals(Constants.VIOLENCE_ROUTE_MEDIUM)}.any()){
-        saveAnswerOption(Constants.VIOLENCE_ROUTE_MEDIUM , Constants.FAULT_ANSWER_ROUTE_VIOLENCE)
+        if (options.filter { it.isSelected && it.code.equals(Constants.VIOLENCE_ROUTE_MEDIUM) }.any()) {
+            saveAnswerOption(Constants.VIOLENCE_ROUTE_MEDIUM, Constants.FAULT_ANSWER_ROUTE_VIOLENCE)
         }
-        if( options.filter{it.isSelected && it.code.equals(Constants.VIOLENCE_ROUTE_HIGHT)}.any()){
-            saveAnswerOption( Constants.VIOLENCE_ROUTE_HIGHT , Constants.FAULT_ANSWER_ROUTE_VIOLENCE)
+        if (options.filter { it.isSelected && it.code.equals(Constants.VIOLENCE_ROUTE_HIGHT) }.any()) {
+            saveAnswerOption(Constants.VIOLENCE_ROUTE_HIGHT, Constants.FAULT_ANSWER_ROUTE_VIOLENCE)
         }
     }
 

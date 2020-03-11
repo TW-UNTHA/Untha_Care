@@ -60,46 +60,42 @@ class MultipleSelectionQuestionFragment : BaseFragment() {
     private var routeQuestion: RouteQuestion? = null
     private val options = mutableListOf<MultipleSelectionOption>()
     private var position: Int = 0
-    private var isLabourRoute: Boolean = false
     private var questionAdvance: Int = 1
     private var remainingQuestion: Int = 0
     private var hint: String? = null
+    private lateinit var typeRoute: String
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val bundle = arguments
         goTo = bundle?.get(Constants.ROUTE_QUESTION_GO_TO) as Int
-        isLabourRoute = viewModel.isLabourRoute(bundle)
-        route = viewModel.loadRoute(isLabourRoute, bundle)
+        typeRoute = viewModel.getTypeRoute(bundle)
+
+        route = viewModel.loadRoute(typeRoute, bundle)
         viewModel.loadQuestion(goTo, route)
         questionAdvance = bundle.getInt(Constants.QUESTION_ADVANCE).inc()
         routeQuestion = viewModel.question
         val optionWithMaxRemaining = routeQuestion?.options?.maxBy { it.remaining }
         remainingQuestion = optionWithMaxRemaining?.remaining ?: 0
-        loadTitleRoute(isLabourRoute)
+        loadTitleRoute(typeRoute)
         goBackScreenRoutes()
     }
 
-    private fun loadTitleRoute(isLabourRoute: Boolean) {
-        if (isLabourRoute) {
-            (activity as MainActivity).customActionBar(
-                Constants.NAME_SCREEN_LABOUR_ROUTE,
-                enableCustomBar = true,
-                needsBackButton = true,
-                enableHelp = false,
-                backMethod = null
-            )
-        } else {
-            (activity as MainActivity).customActionBar(
-                Constants.NAME_SCREEN_VIOLENCE_ROUTE,
-                enableCustomBar = true,
-                needsBackButton = true,
-                enableHelp = false,
-                backMethod = null
-            )
-
+    private fun loadTitleRoute(typeRoute: String) {
+        val nameScreen = when (typeRoute) {
+            Constants.ROUTE_LABOUR -> Constants.NAME_SCREEN_LABOUR_ROUTE
+            Constants.ROUTE_VIOLENCE -> Constants.NAME_SCREEN_VIOLENCE_ROUTE
+            else -> Constants.NAME_SCREEN_CALCULATOR_ROUTE
         }
+
+        (activity as MainActivity).customActionBar(
+            nameScreen,
+            enableCustomBar = true,
+            needsBackButton = true,
+            enableHelp = false,
+            backMethod = null
+        )
     }
 
     private fun goBackScreenRoutes() {
@@ -112,7 +108,8 @@ class MultipleSelectionQuestionFragment : BaseFragment() {
         val layoutActionBar = (activity as MainActivity).supportActionBar?.customView
         val close = layoutActionBar?.findViewById(R.id.icon_go_back_route) as ImageView
         close.onClick {
-            view?.findNavController()
+            view?.
+                findNavController()
                 ?.navigate(
                     R.id.mainRouteFragment,
                     categoriesRoutes,
@@ -143,7 +140,7 @@ class MultipleSelectionQuestionFragment : BaseFragment() {
         }
         with(view as _LinearLayout) {
             val percentageProgressBar = viewModel.calculatePercentQuestionsAnswered(
-                questionAdvance, remainingQuestion
+                questionAdvance, remainingQuestion, typeRoute
             )
             verticalLayout {
                 loadHorizontalProgressBar(percentageProgressBar)
@@ -151,9 +148,17 @@ class MultipleSelectionQuestionFragment : BaseFragment() {
                     loadImageAudio()
                 }
                 verticalLayout {
-                    question()
-                    buildAnswersLayout()
+                    //                    backgroundColor =
+//                        ContextCompat.getColor(context, R.color.link)
+                    verticalLayout { question() }
+                    verticalLayout { explanationQuestion() }
+                    verticalLayout { buildAnswersLayout() }
+
+
                 }.lparams(height = dip(0), weight = 0.9f, width = matchParent)
+                if (typeRoute == Constants.ROUTE_CALCULATOR) {
+                    verticalLayout { bottomHelpMessage() }
+                }
                 loadNextButton(view)
             }.lparams(width = matchParent, height = matchParent) {
                 margin =
@@ -162,9 +167,25 @@ class MultipleSelectionQuestionFragment : BaseFragment() {
         }
     }
 
+    private fun _LinearLayout.explanationQuestion() {
+        routeQuestion?.explanation?.let {
+            textView {
+                text = routeQuestion?.explanation
+                textSizeDimen = R.dimen.text_size_question_explanation
+                textColor =
+                    ContextCompat.getColor(context, R.color.colorGenericTitle)
+                typeface = ResourcesCompat.getFont(
+                    context.applicationContext,
+                    R.font.proxima_nova_light
+                )
+                gravity = Gravity.CENTER_HORIZONTAL
+            }.lparams(width = matchParent, height = matchParent)
+        }
+    }
+
     private fun calculateWidthComponentsQuestion(): Int {
         val cardHeightInDps =
-            (PixelConverter.getScreenDpWidth(context)) * Constants.MARGIN_SINGLE_SELECTION_QUESTION
+            PixelConverter.getScreenDpWidth(context) * Constants.MARGIN_SINGLE_SELECTION_QUESTION
         return PixelConverter.toPixels(cardHeightInDps, context)
     }
 
@@ -181,6 +202,11 @@ class MultipleSelectionQuestionFragment : BaseFragment() {
     }
 
     private fun @AnkoViewDslMarker _LinearLayout.buildAnswersLayout() {
+        val margin =
+            if (typeRoute == Constants.ROUTE_CALCULATOR)
+                0.toFloat()
+            else calculateHeightComponentsQuestion(Constants.MARGIN_BOTTOM_PERCENTAGE_ANSWERS_LAYOUT)
+
         scrollView {
             verticalLayout {
                 routeQuestion?.options?.let { questionOption ->
@@ -203,11 +229,7 @@ class MultipleSelectionQuestionFragment : BaseFragment() {
                 }
             }
         }.lparams(width = matchParent, height = wrapContent) {
-            bottomMargin =
-                dip(
-                    calculateHeightComponentsQuestion
-                        (Constants.MARGIN_BOTTOM_PERCENTAGE_ANSWERS_LAYOUT)
-                )
+            bottomMargin = dip(margin)
         }
     }
 
@@ -218,7 +240,7 @@ class MultipleSelectionQuestionFragment : BaseFragment() {
             weightSum = Constants.FULL_SCREEN_WEIGHT
             orientation = LinearLayout.HORIZONTAL
             var isNoneOfAbove = true
-            if (!isLabourRoute) {
+            if (typeRoute.equals(Constants.ROUTE_VIOLENCE)) {
                 isNoneOfAbove = false
             }
             loadOption(
@@ -278,14 +300,14 @@ class MultipleSelectionQuestionFragment : BaseFragment() {
                         registerAnalyticsEvent(isNoneOfTheAboveSelected)
 
                     } else {
-                        viewModel.getFaultForQuestion(false, isLabourRoute, options)
+                        viewModel.getFaultForQuestion(false, typeRoute, options)
                         registerAnalyticsEvent(false)
                         viewModel.loadQuestion(routeQuestion?.goTo, route)
                         val isSingle = viewModel.isSingleQuestion(viewModel.question?.type)
                         val questionGoToInfo = mapOf(
                             "goTo" to routeQuestion?.goTo,
                             "isSingle" to isSingle,
-                            "isLabourRoute" to isLabourRoute,
+                            "getTypeRoute" to typeRoute,
                             "questionAdvance" to questionAdvance
                         )
                         manageGoToQuestion(questionGoToInfo, route, view, viewModel)
@@ -306,19 +328,25 @@ class MultipleSelectionQuestionFragment : BaseFragment() {
                         R.drawable.drawable_multiple_option_next_button
                     )
                 gravity = Gravity.CENTER
-            }.lparams(width = matchParent, height = matchParent)
+            }.lparams(
+                width = matchParent,
+                height = dip(calculateHeightComponentsQuestion(Constants.SIZE_IMAGE_PERCENTAGE_AUDIO_QUESTION))
+            )
         }.lparams(
-            width = matchParent, height = dip(0),
+            width = matchParent,
             weight = Constants.NEXT_BUTTON_WEIGHT
         ) {
-            bottomMargin = dip(
-                calculateHeightComponentsQuestion(
-                    Constants.MARGIN_BOTTOM_PERCENTAGE_NEXT_BUTTON
-                )
-            )
+            bottomMargin = dip(marginBottomNext())
+            topMargin = dip(marginBottomNext())
             rightMargin = dip(calculateOptionContainerWidthMargin()) / 2
             leftMargin = dip(calculateOptionContainerWidthMargin())
         }
+    }
+
+    private fun marginBottomNext(): Float {
+        return calculateHeightComponentsQuestion(
+            Constants.MARGIN_BOTTOM_PERCENTAGE_NEXT_BUTTON
+        )
     }
 
     private fun registerAnalyticsEvent(isNoneOfAbove: Boolean) {
@@ -342,9 +370,11 @@ class MultipleSelectionQuestionFragment : BaseFragment() {
             textView {
                 text = routeQuestion?.content
                 textSizeDimen = R.dimen.text_size_content
+                textColor =
+                    ContextCompat.getColor(context, R.color.colorGenericTitle)
                 typeface = ResourcesCompat.getFont(
                     context.applicationContext,
-                    R.font.proxima_nova_light
+                    R.font.proxima_nova_bold
                 )
                 gravity = Gravity.CENTER
             }.lparams(width = wrapContent, height = wrapContent) {
@@ -556,6 +586,23 @@ class MultipleSelectionQuestionFragment : BaseFragment() {
                 )
             textView.textColor =
                 ContextCompat.getColor(ctx, R.color.colorHeaderBackground)
+        }
+    }
+
+    private fun _LinearLayout.bottomHelpMessage() {
+        textView {
+            text = routeQuestion?.recommend
+            textSizeDimen = R.dimen.text_size_question_explanation
+            textColor =
+                ContextCompat.getColor(context, R.color.colorGenericTitle)
+            typeface = ResourcesCompat.getFont(
+                context.applicationContext,
+                R.font.helvetica_light_oblique
+            )
+            gravity = Gravity.LEFT
+        }.lparams {
+            rightMargin = dip(calculateOptionContainerWidthMargin()) / 2
+            leftMargin = dip(calculateOptionContainerWidthMargin())
         }
     }
 }

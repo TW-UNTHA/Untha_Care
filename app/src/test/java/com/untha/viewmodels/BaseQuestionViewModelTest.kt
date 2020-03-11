@@ -21,8 +21,7 @@ import com.untha.model.transactionalmodels.Route
 import com.untha.model.transactionalmodels.RouteOption
 import com.untha.model.transactionalmodels.RouteQuestion
 import com.untha.utils.Constants
-import junit.framework.Assert.assertFalse
-import junit.framework.Assert.assertTrue
+import junit.framework.Assert.*
 import kotlinx.serialization.json.Json
 import org.hamcrest.CoreMatchers
 import org.hamcrest.MatcherAssert
@@ -142,10 +141,11 @@ class BaseQuestionViewModelTest : KoinTest {
 
     @Test
     fun `should return true when is Labour Route`() {
+        val expectedTypeRoute = Constants.ROUTE_LABOUR
         val viewModel = BaseQuestionViewModel(sharedPreferences)
         val mockBundle = mock(Bundle::class.java)
         `when`(mockBundle.containsKey(Constants.ROUTE_LABOUR)).thenReturn(true)
-        assertTrue(viewModel.isLabourRoute(mockBundle))
+        assertEquals(expectedTypeRoute, viewModel.getTypeRoute(mockBundle))
     }
 
     @Test
@@ -157,7 +157,10 @@ class BaseQuestionViewModelTest : KoinTest {
         val viewModel = BaseQuestionViewModel(sharedPreferences)
         val mockBundle = mock(Bundle::class.java)
         `when`(mockBundle.get(Constants.ROUTE_LABOUR)).thenReturn(route)
-        MatcherAssert.assertThat(route, CoreMatchers.`is`(viewModel.loadRoute(true, mockBundle)))
+        MatcherAssert.assertThat(
+            route,
+            CoreMatchers.`is`(viewModel.loadRoute(Constants.ROUTE_LABOUR, mockBundle))
+        )
 
     }
 
@@ -170,7 +173,10 @@ class BaseQuestionViewModelTest : KoinTest {
         val viewModel = BaseQuestionViewModel(sharedPreferences)
         val mockBundle = mock(Bundle::class.java)
         `when`(mockBundle.get(Constants.ROUTE_VIOLENCE)).thenReturn(route)
-        MatcherAssert.assertThat(route, CoreMatchers.`is`(viewModel.loadRoute(false, mockBundle)))
+        MatcherAssert.assertThat(
+            route,
+            CoreMatchers.`is`(viewModel.loadRoute(Constants.ROUTE_VIOLENCE, mockBundle))
+        )
     }
 
     @Test
@@ -185,7 +191,7 @@ class BaseQuestionViewModelTest : KoinTest {
             .thenReturn(editor)
         doNothing().whenever(editor).apply()
 
-        baseViewModel.saveCompleteRouteResult(true)
+        baseViewModel.saveCompleteRouteResult(Constants.ROUTE_LABOUR)
 
         verify(sharedPreferences.edit())
             .putString(
@@ -207,7 +213,7 @@ class BaseQuestionViewModelTest : KoinTest {
             .thenReturn(editor)
         doNothing().whenever(editor).apply()
 
-        baseViewModel.saveCompleteRouteResult(true)
+        baseViewModel.saveCompleteRouteResult(Constants.ROUTE_LABOUR)
 
         verify(sharedPreferences.edit(), never())
             .putString(
@@ -229,7 +235,7 @@ class BaseQuestionViewModelTest : KoinTest {
             .thenReturn(editor)
         doNothing().whenever(editor).apply()
 
-        baseViewModel.saveCompleteRouteResult(false)
+        baseViewModel.saveCompleteRouteResult(Constants.ROUTE_VIOLENCE)
 
         verify(sharedPreferences.edit())
             .putString(
@@ -251,7 +257,7 @@ class BaseQuestionViewModelTest : KoinTest {
             .thenReturn(editor)
         doNothing().whenever(editor).apply()
 
-        baseViewModel.saveCompleteRouteResult(true)
+        baseViewModel.saveCompleteRouteResult(Constants.ROUTE_LABOUR)
 
         verify(sharedPreferences.edit(), never())
             .putString(
@@ -260,5 +266,4 @@ class BaseQuestionViewModelTest : KoinTest {
             )
         verify(editor, never()).apply()
     }
-
 }

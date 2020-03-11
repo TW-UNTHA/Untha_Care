@@ -192,6 +192,20 @@ class MainViewModel(
 
     }
 
+    fun loadDefaultCalculatorRoute(context: Context) {
+        val sharedPreferencesResult = sharedPreferences.getString(Constants.CALCULATOR_ROUTE, "")
+        if (sharedPreferencesResult.isNullOrEmpty()) {
+            val dataFromRawCalculator = context.resources.openRawResource(R.raw.calculator_route)
+                .bufferedReader().use { it.readText() }
+            sharedPreferences.edit()
+                .putString(
+                    Constants.CALCULATOR_ROUTE,
+                    dataFromRawCalculator
+                ).apply()
+        }
+
+    }
+
     fun loadViolenceRoute(owner: LifecycleOwner) {
         routesService.getViolenceRoute()
             .observe(owner, Observer { response ->

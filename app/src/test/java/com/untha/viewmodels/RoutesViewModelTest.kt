@@ -15,6 +15,8 @@ import com.untha.model.services.CategoriesService
 import com.untha.model.services.RoutesService
 import com.untha.model.transactionalmodels.Route
 import com.untha.utils.Constants
+import com.untha.utils.Constants.LABOUR_ROUTE
+import com.untha.utils.Constants.VIOLENCE_ROUTE
 import kotlinx.serialization.json.Json
 import org.hamcrest.CoreMatchers
 import org.hamcrest.CoreMatchers.`is`
@@ -74,7 +76,7 @@ class RoutesViewModelTest : KoinTest {
         )
         Mockito.`when`(sharedPreferences.getString(Constants.VIOLENCE_ROUTE, null)).thenReturn(null)
 
-        val resultRoute = routesViewModel.loadViolenceRouteFromSharedPreferences()
+        val resultRoute = routesViewModel.loadRouteFromSharedPreferences(VIOLENCE_ROUTE)
 
         MatcherAssert.assertThat(resultRoute, CoreMatchers.`is`(Route(0, listOf())))
     }
@@ -112,11 +114,11 @@ class RoutesViewModelTest : KoinTest {
                 "        }\n" +
                 "      ]\n" +
                 "    }]}"
-        Mockito.`when`(sharedPreferences.getString(Constants.VIOLENCE_ROUTE, null))
+        Mockito.`when`(sharedPreferences.getString(VIOLENCE_ROUTE, null))
             .thenReturn(jsonRoute)
         val route = Json.parse(Route.serializer(), jsonRoute)
 
-        val resultRoute = routesViewModel.loadViolenceRouteFromSharedPreferences()
+        val resultRoute = routesViewModel.loadRouteFromSharedPreferences(VIOLENCE_ROUTE)
 
         MatcherAssert.assertThat(resultRoute, CoreMatchers.`is`(route))
     }
@@ -155,11 +157,11 @@ class RoutesViewModelTest : KoinTest {
                 "        }\n" +
                 "      ]\n" +
                 "    }]}"
-        Mockito.`when`(sharedPreferences.getString(Constants.LABOUR_ROUTE, null))
+        Mockito.`when`(sharedPreferences.getString(LABOUR_ROUTE, null))
             .thenReturn(jsonRoute)
         val route = Json.parse(Route.serializer(), jsonRoute)
 
-        val resultRoute = routesViewModel.loadLabourRouteFromSharedPreferences()
+        val resultRoute = routesViewModel.loadRouteFromSharedPreferences(LABOUR_ROUTE)
 
         MatcherAssert.assertThat(resultRoute, CoreMatchers.`is`(route))
     }
@@ -169,9 +171,9 @@ class RoutesViewModelTest : KoinTest {
         val routesViewModel = RoutesViewModel(
             sharedPreferences
         )
-        Mockito.`when`(sharedPreferences.getString(Constants.LABOUR_ROUTE, null)).thenReturn(null)
+        Mockito.`when`(sharedPreferences.getString(LABOUR_ROUTE, null)).thenReturn(null)
 
-        val resultRoute = routesViewModel.loadLabourRouteFromSharedPreferences()
+        val resultRoute = routesViewModel.loadRouteFromSharedPreferences(LABOUR_ROUTE)
 
         MatcherAssert.assertThat(resultRoute, CoreMatchers.`is`(Route(0, listOf())))
     }

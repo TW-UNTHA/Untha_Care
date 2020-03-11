@@ -42,7 +42,7 @@ import org.jetbrains.anko.verticalLayout
 import org.jetbrains.anko.wrapContent
 import org.koin.android.viewmodel.ext.android.viewModel
 
-class WelcomeScreenRoutesFragment : BaseFragment() {
+class MainScreenRoutesFragment : BaseFragment() {
     private lateinit var mainActivity: MainActivity
     private val routeViewModel: RoutesViewModel by viewModel()
     private var secondMessage: String = ""
@@ -168,7 +168,7 @@ class WelcomeScreenRoutesFragment : BaseFragment() {
             }
             setOnClickListener { view ->
                 val bundle = Bundle()
-                bundle.putBoolean(Constants.IS_LABOUR_ROUTE, isLabourRoute)
+                bundle.putString(Constants.IS_LABOUR_ROUTE, typeRoute)
                 view.findNavController()
                     .navigate(R.id.routeResultsFragment, bundle, navOptions, null)
 
@@ -312,7 +312,7 @@ class WelcomeScreenRoutesFragment : BaseFragment() {
                 )
                 putSerializable(
                     Constants.ROUTE_LABOUR,
-                    routeViewModel.loadLabourRouteFromSharedPreferences()
+                    routeViewModel.loadRouteFromSharedPreferences(Constants.LABOUR_ROUTE)
                 )
             }
             view.findNavController()
@@ -327,7 +327,8 @@ class WelcomeScreenRoutesFragment : BaseFragment() {
                 )
                 putSerializable(
                     Constants.ROUTE_VIOLENCE,
-                    routeViewModel.loadViolenceRouteFromSharedPreferences()
+                    routeViewModel.loadRouteFromSharedPreferences(Constants.VIOLENCE_ROUTE)
+                    //VIOLENCE_ROUTE
                 )
             }
             view.findNavController()

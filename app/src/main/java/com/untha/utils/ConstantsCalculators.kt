@@ -10,4 +10,7 @@ object ConstantsCalculators {
     const val WEEKLY_HOURS_COMPLETE = 40
     const val PERCENTAJE_APORTE_IESS_PRIVADO = 0.0945
     const val PERCENTAJE_APORTE_FONDOS_RESERVA = 0.0833
+    const val MESSAGE_BOTTOM =
+        " "
+
 }

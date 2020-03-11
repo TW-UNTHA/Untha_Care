@@ -103,4 +103,6 @@
     <string name="calculator_aviso">AVISO: El cálculo del décimo tercer sueldo, es un aproximado, no incluye el valor de horas extras. </string>
     <string name="calculator_information_accumulated">Estos son los valores acumulados hasta la fecha ingresada.</string>
     <string name="calculator_information_monthly">Estos son los valores correspondientes que debes recibir cada mes. </string>
+    <string name="calculator_information_causal_bottom">En caso de presiones recibidas o dudas sobre los motivos de terminacion, puedes llamar al 1800-266822  o a la UNTHA (0960639550) </string>
+    <string name="calculator_information_compensation_bottom">*Para ser oficialmente sustituta de una persona con discapacidad, debes efectuar el proceso pertinente en el Ministerio de Trabajo </string>
 </resources>

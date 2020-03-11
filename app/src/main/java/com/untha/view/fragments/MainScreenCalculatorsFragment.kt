@@ -17,6 +17,7 @@ import com.untha.utils.PixelConverter
 import com.untha.utils.UtilsTextToSpeech
 import com.untha.view.activities.MainActivity
 import com.untha.view.extension.loadImageNextStep
+import com.untha.viewmodels.RoutesViewModel
 import org.jetbrains.anko.AnkoViewDslMarker
 import org.jetbrains.anko._LinearLayout
 import org.jetbrains.anko._ScrollView
@@ -32,11 +33,13 @@ import org.jetbrains.anko.textColor
 import org.jetbrains.anko.textSizeDimen
 import org.jetbrains.anko.textView
 import org.jetbrains.anko.verticalLayout
+import org.koin.android.viewmodel.ext.android.viewModel
 
 
-class CalculatorsFragment : BaseFragment() {
-    private lateinit var categoriesCalculator:  ArrayList<Category>
+class MainScreenCalculatorsFragment : BaseFragment() {
+    private lateinit var categoriesCalculator: ArrayList<Category>
     private lateinit var mainActivity: MainActivity
+    private val routeViewModel: RoutesViewModel by viewModel()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -64,7 +67,7 @@ class CalculatorsFragment : BaseFragment() {
             }.lparams(width = matchParent, height = matchParent)
         }
         mainActivity.customActionBar(
-            Constants.NAME_SCREEN_CALCULATOR,
+            Constants.NAME_SCREEN_CALCULATOR_ROUTE,
             enableCustomBar = true,
             needsBackButton = true,
             enableHelp = false,
@@ -104,8 +107,9 @@ class CalculatorsFragment : BaseFragment() {
                 setOnClickListener { view ->
                     onItemClick(calculator, view)
                 }
-                setOnLongClickListener{
-                    val textToSpeechCalculator = calculator.title.plus("\n\n\n").plus(calculator.subtitle)
+                setOnLongClickListener {
+                    val textToSpeechCalculator =
+                        calculator.title.plus("\n\n\n").plus(calculator.subtitle)
                     textToSpeech!!.speakOut(textToSpeechCalculator)
 
                 }
@@ -126,9 +130,35 @@ class CalculatorsFragment : BaseFragment() {
         }
         if (category.type == "calculator") {
             when (category.id) {
-                Constants.ID_CALCULATOR_BENEFICIOS -> {
+                Constants.ID_CALCULATOR_BENEFIT -> {
                     itemView.findNavController()
-                        .navigate(R.id.calculatorBenefitFragment, categoriesCalculator, navOptions, null)
+                        .navigate(
+                            R.id.calculatorBenefitFragment,
+                            categoriesCalculator,
+                            navOptions,
+                            null
+                        )
+                }
+                Constants.ID_CALCULATOR_FINIQUIO -> {
+                    val goToBundle = Bundle().apply {
+                        putInt(Constants.REMAINING_QUESTION, Constants.TEMPORAL_LOAD_PROGRESS_BAR)
+                        putInt(Constants.QUESTION_ADVANCE, Constants.COUNT_QUESTION_ADVANCE)
+                        putInt(
+                            Constants.ROUTE_QUESTION_GO_TO,
+                            Constants.START_QUESTION_ROUTE_LABOUR
+                        )
+                        putSerializable(
+                            Constants.ROUTE_CALCULATOR,
+                            routeViewModel.loadRouteFromSharedPreferences(Constants.CALCULATOR_ROUTE)
+                        )
+                    }
+                    itemView.findNavController()
+                        .navigate(
+                            R.id.multipleSelectionQuestionFragment,
+                            goToBundle,
+                            navOptions,
+                            null
+                        )
                 }
             }
         }

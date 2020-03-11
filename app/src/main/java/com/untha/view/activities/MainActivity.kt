@@ -45,12 +45,15 @@ class MainActivity : AppCompatActivity() {
             viewModel.loadViolenceRoute(this)
             viewModel.loadRouteResults(this)
             viewModel.loadQuestionnaireRouteResult(this)
+            viewModel.loadDefaultCalculatorRoute(this)//temporary
+
         } else {
             viewModel.loadDefaultCategories(this)
             viewModel.loadDefaultLabourRoute(this)
             viewModel.loadDefaultViolenceRoute(this)
             viewModel.loadDefaultResult(this)
             viewModel.loadDefaultQuestionnaireRouteResult(this)
+
         }
     }
 

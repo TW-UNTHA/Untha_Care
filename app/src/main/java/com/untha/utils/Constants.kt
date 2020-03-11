@@ -4,10 +4,11 @@ object Constants {
 
     const val LABOUR_ROUTE_PAGE = "Main labour route page"
     const val ROUTE_LABOUR = "ROUTE_LABOUR"
+    const val ROUTE_CALCULATOR = "ROUTE_CALCULATOR"
     const val TYPE_ROUTE = "TYPE_ROUTE"
     const val ROUTE_VIOLENCE = "ROUTE_VIOLENCE"
     const val CATEGORIES_ROUTES = "CATEGORIES_ROUTES"
-    const val CATEGORIES_CALCULATORS= "CATEGORIES_CALCULATORS"
+    const val CATEGORIES_CALCULATORS = "CATEGORIES_CALCULATORS"
     const val ABOUS_US = "ABOUT_US"
     const val CATEGORIES_VERSION = "version"
     const val CATEGORY_PARAMETER = "category"
@@ -27,6 +28,7 @@ object Constants {
     const val MAIN_VIEW = 0
     const val SMALL_VIEW = 1
     const val PERCENTAGE_SMALL_HEIGHT_LAYOUT = 0.3
+    const val SIZE_SCROLL_VIEW_SINGLE_OPTION = 0.4
     const val MARGIN_SMALL_TOP_PERCENTAGE = 0.01093
     const val REFERENCE_DENSITY = 160
     const val PERCENTAGE_SMALL_RIGHTS = 0.33
@@ -47,6 +49,7 @@ object Constants {
     const val MARGIN_LATERAL_PERCENTAGE_MAIN_ROUTE = 0.035
     const val SHADOW_PADDING_SIZE = 5
     const val LABOUR_ROUTE = "labour-route"
+    const val CALCULATOR_ROUTE = "calculator-route"
     const val ROUTE_RESULT = "route-result"
     const val VIOLENCE_ROUTE = "violence-route"
     const val QUESTIONNAIRE_ROUTE = "questionnaire-route"
@@ -56,6 +59,7 @@ object Constants {
     const val POSITION_SLICE_PAGE_THREE = 2
     const val POSITION_SLICE_PAGE_FOUR = 3
     const val MARGIN_SINGLE_SELECTION_QUESTION = 0.010
+    const val MARGIN_SINGLE_SELECTION_QUESTION_CALCULATOR = 0.010
     const val MARGIN_HEIGHT_SELECTION_QUESTION = 0.054
     const val MARGIN_HEIGHT_QUESTION = 0.17
     const val SIZE_IMAGE_PERCENTAGE_AUDIO_ROUTE = ((((50) * 100) / 640) / 100F).toDouble()
@@ -78,7 +82,7 @@ object Constants {
     const val NAME_SCREEN_LABOUR_ROUTE = "DERECHOS LABORALES"
     const val NAME_SCREEN_VIOLENCE_ROUTE = "VIOLENCIA"
     const val NAME_SCREEN_RIGHTS = "MIS DERECHOS"
-    const val NAME_SCREEN_CALCULATOR = "CALCULADORAS"
+    const val NAME_SCREEN_CALCULATOR_ROUTE = "CALCULADORA DE FINIQUITO"
     const val NAME_BENEFITS_CALCULATOR = "CALCULAR BENEFICIOS"
     const val NAME_FINIQUITO_CALCULATOR = "CALCULAR FINIQUITO"
     const val NAME_SCREEN_ROUTES = "RUTAS DE AYUDA"
@@ -106,6 +110,7 @@ object Constants {
     const val HOME_PAGE = "TRH UNIDAS"
     const val FAULT_ANSWER_ROUTE_LABOUR = "fault_answers_labour_route"
     const val FAULT_ANSWER_ROUTE_VIOLENCE = "fault_answers_violence_route"
+    const val FAULT_ANSWER_ROUTE_CALCULATOR = "fault_answers_calculator_route"
     const val REMAINING_QUESTION = "remaining_question"
     const val IS_LABOUR_ROUTE = "is_labour_route"
     const val COMPLETE_LABOUR_ROUTE = "complete_labour_route"
@@ -118,6 +123,8 @@ object Constants {
     const val TIME_SLEEP: Long = 500
     const val IS_THERE_GOOGLE_PLAY_ERROR = "google-play-error"
 
-    const val ID_CALCULATOR_BENEFICIOS = 16
-    const val ID_CALCULATOR_FINIQUITO = 17
+    const val ID_CALCULATOR_BENEFIT = 16
+    const val ID_CALCULATOR_FINIQUIO = 17
+
+
 }

@@ -10,5 +10,6 @@ data class RouteQuestion(
     val explanation: String,
     val goTo: Int?,
     val result: String?,
-    val options: List<RouteOption>
+    val options: List<RouteOption>,
+    val recommend: String? = ""
 ) : java.io.Serializable

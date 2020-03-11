@@ -37,41 +37,52 @@ open class BaseQuestionViewModel(
         return false
     }
 
-    fun isLabourRoute(bundle: Bundle): Boolean {
-        return when {
-            bundle.containsKey(Constants.ROUTE_LABOUR) -> {
-                true
-            }
-            else -> false
+    fun getTypeRoute(bundle: Bundle): String {
+        if (bundle.containsKey(Constants.ROUTE_LABOUR)) {
+            return Constants.ROUTE_LABOUR
         }
+        if (bundle.containsKey(Constants.ROUTE_VIOLENCE)) {
+            return Constants.ROUTE_VIOLENCE
+        }
+        return Constants.ROUTE_CALCULATOR
     }
 
-    fun loadRoute(isLabourRoute: Boolean, bundle: Bundle): Route {
-        return if (isLabourRoute) {
-            bundle.get(Constants.ROUTE_LABOUR) as Route
-        } else {
-            bundle.get(Constants.ROUTE_VIOLENCE) as Route
-        }
+    fun loadRoute(typeRoute: String, bundle: Bundle): Route {
+        println(bundle)
+        return bundle.get(typeRoute) as Route
     }
 
     fun calculatePercentQuestionsAnswered(
         numberOfQuestionAnswered: Int,
-        numberOfRemainingQuestions: Int
+        numberOfRemainingQuestions: Int,
+        typeRoute: String
     ): Int {
-        val totalQuestions = numberOfQuestionAnswered + numberOfRemainingQuestions
+        var questionsMores = 0
+        if (typeRoute == Constants.ROUTE_CALCULATOR) {
+            questionsMores = 2
+
+        }
+
+        val totalQuestions = numberOfQuestionAnswered + numberOfRemainingQuestions + questionsMores
         return numberOfQuestionAnswered * Constants.TOTAL_PROGRESS_BAR / totalQuestions
     }
 
-    fun saveCompleteRouteResult(isLabourRoute: Boolean) {
-        if (isLabourRoute) {
-            loadFaultAnswersFromSharedPreferences(Constants.FAULT_ANSWER_ROUTE_LABOUR)?.let {
-                sharedPreferences.edit().putString(Constants.COMPLETE_LABOUR_ROUTE, it).apply()
+    fun saveCompleteRouteResult(typeRoute: String) {
+        when (typeRoute) {
+            Constants.ROUTE_LABOUR -> {
+                loadFaultAnswersFromSharedPreferences(Constants.FAULT_ANSWER_ROUTE_LABOUR)?.let {
+                    sharedPreferences.edit().putString(Constants.COMPLETE_LABOUR_ROUTE, it).apply()
+                }
             }
-        } else {
-            loadFaultAnswersFromSharedPreferences(Constants.FAULT_ANSWER_ROUTE_VIOLENCE)?.let {
-                sharedPreferences.edit().putString(Constants.COMPLETE_VIOLENCE_ROUTE, it).apply()
+
+            Constants.ROUTE_VIOLENCE -> {
+                loadFaultAnswersFromSharedPreferences(Constants.FAULT_ANSWER_ROUTE_VIOLENCE)?.let {
+                    sharedPreferences.edit().putString(Constants.COMPLETE_VIOLENCE_ROUTE, it)
+                        .apply()
+                }
             }
         }
     }
 }
+
 

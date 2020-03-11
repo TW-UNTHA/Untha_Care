@@ -79,16 +79,23 @@ open class BaseFragment : Fragment() {
     ) {
         val goTo = questionGoToInfo["goTo"]
         val isSingle = questionGoToInfo["isSingle"] as Boolean
-        val isLabourRoute = questionGoToInfo["isLabourRoute"] as Boolean
+        val typeRoute = questionGoToInfo["getTypeRoute"] as String
         val questionAdvance = questionGoToInfo["questionAdvance"] as Int
 
         when (goTo) {
             -1 -> {
-                navigateToResultsScreen(isLabourRoute, view, questionViewModel)
+                if (typeRoute == Constants.ROUTE_CALCULATOR) {
+                    view.findNavController().navigate(
+                        R.id.calculatorFiniquitoFragment, null,
+                        navOptions, null
+                    )
+                } else {
+                    navigateToResultsScreen(typeRoute, view, questionViewModel)
+                }
             }
             else -> {
                 val goToBundle: Bundle =
-                    defineBundleData(isLabourRoute, goTo, route, questionAdvance)
+                    defineBundleData(typeRoute, goTo, route, questionAdvance)
 
                 navigate(isSingle, view, goToBundle)
             }
@@ -96,22 +103,15 @@ open class BaseFragment : Fragment() {
     }
 
     private fun defineBundleData(
-        isLabourRoute: Boolean,
+        typeRoute: String,
         goTo: Any?,
         route: Route,
         questionAdvance: Int
     ): Bundle {
-        return when {
-            isLabourRoute -> Bundle().apply {
-                putInt(Constants.ROUTE_QUESTION_GO_TO, goTo as Int)
-                putSerializable(Constants.ROUTE_LABOUR, route)
-                putInt(Constants.QUESTION_ADVANCE, questionAdvance)
-            }
-            else -> Bundle().apply {
-                putInt(Constants.ROUTE_QUESTION_GO_TO, goTo as Int)
-                putSerializable(Constants.ROUTE_VIOLENCE, route)
-                putInt(Constants.QUESTION_ADVANCE, questionAdvance)
-            }
+        return Bundle().apply {
+            putInt(Constants.ROUTE_QUESTION_GO_TO, goTo as Int)
+            putSerializable(typeRoute, route)
+            putInt(Constants.QUESTION_ADVANCE, questionAdvance)
         }
     }
 
@@ -134,12 +134,12 @@ open class BaseFragment : Fragment() {
     }
 
     private fun navigateToResultsScreen(
-        isLabourRoute: Boolean,
-        view: View, viewModel: BaseQuestionViewModel
+        typeRoute: String,
+        view: View, baseQuestionViewModel: BaseQuestionViewModel
     ) {
-        viewModel.saveCompleteRouteResult(isLabourRoute)
+        baseQuestionViewModel.saveCompleteRouteResult(typeRoute)
         val bundle = Bundle().apply {
-            putBoolean(Constants.IS_LABOUR_ROUTE, isLabourRoute)
+            putString(Constants.IS_LABOUR_ROUTE, typeRoute)
         }
         view.findNavController().navigate(
             R.id.routeResultsFragment, bundle,

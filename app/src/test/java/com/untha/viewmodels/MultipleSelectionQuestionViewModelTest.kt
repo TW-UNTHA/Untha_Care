@@ -61,7 +61,7 @@ class MultipleSelectionQuestionViewModelTest : KoinTest {
 
     @Test
     fun `should return null when the given id does not exist`() {
-        val routeOption = RouteOption("dummy", "dummy", 1,null, null)
+        val routeOption = RouteOption("dummy", "dummy", 1, null, null)
         val routeQuestion =
             RouteQuestion(1, "dummy", "dummy", "dummy", null, "dummy", listOf(routeOption))
         val route = Route(1, listOf(routeQuestion))
@@ -78,12 +78,12 @@ class MultipleSelectionQuestionViewModelTest : KoinTest {
         val questionViewModel = MultipleSelectionQuestionViewModel(
             sharedPreferences
         )
-        val routeOption = RouteOption("dummy", "dummy", 1,"dummy1", null)
-        val routeOption2 = RouteOption("dummy", "dummy", 1,"dummy", null)
+        val routeOption = RouteOption("dummy", "dummy", 1, "dummy1", null)
+        val routeOption2 = RouteOption("dummy", "dummy", 1, "dummy", null)
         val multipleSelectionOptions: MutableList<MultipleSelectionOption> = mutableListOf()
-        multipleSelectionOptions.add(MultipleSelectionOption(0, false, null, "BAJO",1))
-        multipleSelectionOptions.add(MultipleSelectionOption(1, false, null, "MEDIO",1))
-        multipleSelectionOptions.add(MultipleSelectionOption(2, false, null, "ALTO",1))
+        multipleSelectionOptions.add(MultipleSelectionOption(0, false, null, "BAJO", 1))
+        multipleSelectionOptions.add(MultipleSelectionOption(1, false, null, "MEDIO", 1))
+        multipleSelectionOptions.add(MultipleSelectionOption(2, false, null, "ALTO", 1))
 
         val routeQuestion =
             RouteQuestion(
@@ -98,7 +98,9 @@ class MultipleSelectionQuestionViewModelTest : KoinTest {
         val route = Route(1, listOf(routeQuestion))
         questionViewModel.loadQuestion(1, route)
         val defaultAnswers = ""
-        `when`(sharedPreferences.getString(Constants.FAULT_ANSWER_ROUTE_LABOUR, "")).thenReturn(defaultAnswers)
+        `when`(sharedPreferences.getString(Constants.FAULT_ANSWER_ROUTE_LABOUR, "")).thenReturn(
+            defaultAnswers
+        )
         val editor = mock(SharedPreferences.Editor::class.java)
         `when`(sharedPreferences.edit()).thenReturn(editor)
         whenever(
@@ -109,8 +111,9 @@ class MultipleSelectionQuestionViewModelTest : KoinTest {
         ).thenReturn(editor)
         doNothing().whenever(editor).apply()
 
-        questionViewModel.getFaultForQuestion(true,
-            isLabourRoute = true,
+        questionViewModel.getFaultForQuestion(
+            true,
+            typeRoute = Constants.ROUTE_LABOUR,
             options = multipleSelectionOptions
         )
 
@@ -128,8 +131,8 @@ class MultipleSelectionQuestionViewModelTest : KoinTest {
         val questionViewModel = MultipleSelectionQuestionViewModel(
             sharedPreferences
         )
-        val routeOption = RouteOption("dummy", "dummy", 1,"dummy1", null)
-        val routeOption2 = RouteOption("dummy", "dummy", 1,"dummy", null)
+        val routeOption = RouteOption("dummy", "dummy", 1, "dummy1", null)
+        val routeOption2 = RouteOption("dummy", "dummy", 1, "dummy", null)
         val routeQuestion =
             RouteQuestion(
                 1,
@@ -150,7 +153,9 @@ class MultipleSelectionQuestionViewModelTest : KoinTest {
         val route = Route(1, listOf(routeQuestion))
         questionViewModel.loadQuestion(1, route)
         val defaultAnswers = ""
-        `when`(sharedPreferences.getString(Constants.FAULT_ANSWER_ROUTE_LABOUR, "")).thenReturn(defaultAnswers)
+        `when`(sharedPreferences.getString(Constants.FAULT_ANSWER_ROUTE_LABOUR, "")).thenReturn(
+            defaultAnswers
+        )
         val editor = mock(SharedPreferences.Editor::class.java)
         `when`(sharedPreferences.edit()).thenReturn(editor)
         whenever(
@@ -163,7 +168,7 @@ class MultipleSelectionQuestionViewModelTest : KoinTest {
 
         questionViewModel.getFaultForQuestion(
             isNoneOfAbove = false,
-            isLabourRoute = true,
+            typeRoute = Constants.ROUTE_LABOUR,
             options = multipleSelectionOptions
         )
 
@@ -181,8 +186,8 @@ class MultipleSelectionQuestionViewModelTest : KoinTest {
         val questionViewModel = MultipleSelectionQuestionViewModel(
             sharedPreferences
         )
-        val routeOption = RouteOption("dummy", "dummy", 1,"dummy1", null)
-        val routeOption2 = RouteOption("dummy", "dummy", 1,"dummy", null)
+        val routeOption = RouteOption("dummy", "dummy", 1, "dummy1", null)
+        val routeOption2 = RouteOption("dummy", "dummy", 1, "dummy", null)
         val routeQuestion =
             RouteQuestion(
                 1,
@@ -196,18 +201,32 @@ class MultipleSelectionQuestionViewModelTest : KoinTest {
 
         val multipleSelectionOptions: MutableList<MultipleSelectionOption> = mutableListOf()
 
-        multipleSelectionOptions.add(MultipleSelectionOption(0, false, null,
-            Constants.VIOLENCE_ROUTE_LOW, 1))
-        multipleSelectionOptions.add(MultipleSelectionOption(1, true, null,
-            Constants.VIOLENCE_ROUTE_MEDIUM, 1))
-        multipleSelectionOptions.add(MultipleSelectionOption(2, false, null,
-            Constants.VIOLENCE_ROUTE_HIGHT, 1))
+        multipleSelectionOptions.add(
+            MultipleSelectionOption(
+                0, false, null,
+                Constants.VIOLENCE_ROUTE_LOW, 1
+            )
+        )
+        multipleSelectionOptions.add(
+            MultipleSelectionOption(
+                1, true, null,
+                Constants.VIOLENCE_ROUTE_MEDIUM, 1
+            )
+        )
+        multipleSelectionOptions.add(
+            MultipleSelectionOption(
+                2, false, null,
+                Constants.VIOLENCE_ROUTE_HIGHT, 1
+            )
+        )
 
         val route = Route(1, listOf(routeQuestion))
         questionViewModel.loadQuestion(1, route)
         val fault = Constants.VIOLENCE_ROUTE_MEDIUM
         val defaultAnswers = ""
-        `when`(sharedPreferences.getString(Constants.FAULT_ANSWER_ROUTE_VIOLENCE, "")).thenReturn(defaultAnswers)
+        `when`(sharedPreferences.getString(Constants.FAULT_ANSWER_ROUTE_VIOLENCE, "")).thenReturn(
+            defaultAnswers
+        )
         val editor = mock(SharedPreferences.Editor::class.java)
         `when`(sharedPreferences.edit()).thenReturn(editor)
         whenever(
@@ -219,7 +238,7 @@ class MultipleSelectionQuestionViewModelTest : KoinTest {
         doNothing().whenever(editor).apply()
         questionViewModel.getFaultForQuestion(
             isNoneOfAbove = false,
-            isLabourRoute = false,
+            typeRoute = Constants.ROUTE_VIOLENCE,
             options = multipleSelectionOptions
         )
         verify(sharedPreferences.edit())
@@ -236,8 +255,8 @@ class MultipleSelectionQuestionViewModelTest : KoinTest {
         val questionViewModel = MultipleSelectionQuestionViewModel(
             sharedPreferences
         )
-        val routeOption = RouteOption("dummy", "dummy", 1,"dummy1", 1)
-        val routeOption2 = RouteOption("dummy", "dummy", 1,"dummy", 1)
+        val routeOption = RouteOption("dummy", "dummy", 1, "dummy1", 1)
+        val routeOption2 = RouteOption("dummy", "dummy", 1, "dummy", 1)
         val routeQuestion =
             RouteQuestion(
                 1,
@@ -251,18 +270,32 @@ class MultipleSelectionQuestionViewModelTest : KoinTest {
 
         val multipleSelectionOptions: MutableList<MultipleSelectionOption> = mutableListOf()
 
-        multipleSelectionOptions.add(MultipleSelectionOption(0, true, null,
-            Constants.VIOLENCE_ROUTE_LOW, 1))
-        multipleSelectionOptions.add(MultipleSelectionOption(1, false, null,
-            Constants.VIOLENCE_ROUTE_MEDIUM, 1))
-        multipleSelectionOptions.add(MultipleSelectionOption(2, false, null,
-            Constants.VIOLENCE_ROUTE_HIGHT, 1))
+        multipleSelectionOptions.add(
+            MultipleSelectionOption(
+                0, true, null,
+                Constants.VIOLENCE_ROUTE_LOW, 1
+            )
+        )
+        multipleSelectionOptions.add(
+            MultipleSelectionOption(
+                1, false, null,
+                Constants.VIOLENCE_ROUTE_MEDIUM, 1
+            )
+        )
+        multipleSelectionOptions.add(
+            MultipleSelectionOption(
+                2, false, null,
+                Constants.VIOLENCE_ROUTE_HIGHT, 1
+            )
+        )
 
         val route = Route(1, listOf(routeQuestion))
         questionViewModel.loadQuestion(1, route)
         val fault = Constants.VIOLENCE_ROUTE_LOW
         val defaultAnswers = ""
-        `when`(sharedPreferences.getString(Constants.FAULT_ANSWER_ROUTE_VIOLENCE, "")).thenReturn(defaultAnswers)
+        `when`(sharedPreferences.getString(Constants.FAULT_ANSWER_ROUTE_VIOLENCE, "")).thenReturn(
+            defaultAnswers
+        )
         val editor = mock(SharedPreferences.Editor::class.java)
         `when`(sharedPreferences.edit()).thenReturn(editor)
         whenever(
@@ -274,7 +307,7 @@ class MultipleSelectionQuestionViewModelTest : KoinTest {
         doNothing().whenever(editor).apply()
         questionViewModel.getFaultForQuestion(
             isNoneOfAbove = false,
-            isLabourRoute = false,
+            typeRoute = Constants.ROUTE_VIOLENCE,
             options = multipleSelectionOptions
         )
         verify(sharedPreferences.edit())
@@ -284,8 +317,6 @@ class MultipleSelectionQuestionViewModelTest : KoinTest {
             )
         verify(editor).apply()
     }
-
-
 
 
     @Test
@@ -309,7 +340,12 @@ class MultipleSelectionQuestionViewModelTest : KoinTest {
             )
         ).thenReturn(editor)
         doNothing().whenever(editor).apply()
-        option.result?.let { questionViewModel.saveAnswerOption(it, Constants.FAULT_ANSWER_ROUTE_LABOUR) }
+        option.result?.let {
+            questionViewModel.saveAnswerOption(
+                it,
+                Constants.FAULT_ANSWER_ROUTE_LABOUR
+            )
+        }
         verify(sharedPreferences.edit())
             .putString(
                 Constants.FAULT_ANSWER_ROUTE_LABOUR,

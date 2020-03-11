@@ -86,24 +86,23 @@ class RouteResultsFragment : BaseFragment() {
     private val viewModel: RouteResultsViewModel by viewModel()
     private val categoryViewModel: CategoryViewModel by viewModel()
 
-    private var isLabourRoute: Boolean = false
+    //    private var isLabourRoute: Boolean = false
     private var violenceLevel: String? = null
     private var contentAudio: StringBuffer = StringBuffer()
-
+    private lateinit var typeRoute: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel.retrieveRouteResults()
         viewModel.loadQuestionnaire()
-        arguments?.let {
-            isLabourRoute = viewModel.isLabourRoute(it)
-        }
+        val bundle = arguments
+        typeRoute = bundle?.get(Constants.IS_LABOUR_ROUTE) as String
         violenceLevel = viewModel.getHigherViolenceLevel()
     }
 
     override fun onResume() {
         super.onResume()
-        loadTitleRoute(isLabourRoute)
+        loadTitleRoute()
         setCloseButtonAction()
     }
 
@@ -131,7 +130,8 @@ class RouteResultsFragment : BaseFragment() {
         activity?.let {
             firebaseAnalytics.setCurrentScreen(
                 it,
-                Constants.ROUTE_RESULT_PAGE + " " + if (isLabourRoute) LABOUR_TYPE else VIOLENCE_TYPE,
+                Constants.ROUTE_RESULT_PAGE + " " +
+                        if (typeRoute.equals(Constants.ROUTE_LABOUR)) LABOUR_TYPE else VIOLENCE_TYPE,
                 null
             )
         }
@@ -144,8 +144,8 @@ class RouteResultsFragment : BaseFragment() {
     }
 
     private fun areThereFaultsOrRecommendations() =
-        (isLabourRoute && viewModel.routeResults.isNullOrEmpty()) or
-                (!isLabourRoute && violenceLevel.isNullOrEmpty())
+        (typeRoute.equals(Constants.ROUTE_LABOUR) && viewModel.routeResults.isNullOrEmpty()) or
+                (typeRoute.equals(Constants.ROUTE_VIOLENCE) && violenceLevel.isNullOrEmpty())
 
     private fun drawLayoutWithFaults(view: View) {
         viewModel.retrieveAllCategories().observe(this, Observer { queryingCategories ->
@@ -155,14 +155,14 @@ class RouteResultsFragment : BaseFragment() {
                 scrollView {
                     verticalLayout {
                         loadLabourRouteHeader(view)
-                        if (isLabourRoute) {
+                        if (typeRoute.equals(Constants.ROUTE_LABOUR)) {
                             loadRouteResultsByType(view, FAULT_TYPE)
                             //Recommendations
                             loadRouteResultsByType(view, RECOMMENDATION_TYPE)
                             dividerLine()
                         }
                         var questionnaires: List<QuestionnaireRouteResult>? = null
-                        if (isLabourRoute) {
+                        if (typeRoute.equals(Constants.ROUTE_LABOUR)) {
                             questionnaires = viewModel.getQuestionnairesByType(LABOUR_TYPE)
                         } else {
                             violenceLevel?.let {
@@ -189,7 +189,9 @@ class RouteResultsFragment : BaseFragment() {
         with(view as _LinearLayout) {
             verticalLayout {
                 val headerText =
-                    if (isLabourRoute) R.string.not_labour_rights_violated else R.string.not_violence_suffered
+                    if (typeRoute.equals(Constants.ROUTE_LABOUR))
+                        R.string.not_labour_rights_violated
+                    else R.string.not_violence_suffered
                 loadLabourRouteHeader(view, headerText)
                 imageView {
                     val imageUrl = resources.getIdentifier(
@@ -397,7 +399,7 @@ class RouteResultsFragment : BaseFragment() {
 
     private fun @AnkoViewDslMarker _LinearLayout.drawHeaderDescription(textId: Int?) {
         val texto = if (textId == null) {
-            if (isLabourRoute) context.getString(R.string.description_labour_result)
+            if (typeRoute.equals(Constants.ROUTE_LABOUR)) context.getString(R.string.description_labour_result)
             else context.getString(R.string.description_violence_result) + " $violenceLevel"
         } else {
             context.getString(textId)
@@ -531,24 +533,19 @@ class RouteResultsFragment : BaseFragment() {
         }.lparams(width = wrapContent, height = wrapContent)
     }
 
-    private fun loadTitleRoute(isLabourRoute: Boolean) {
-        if (isLabourRoute) {
-            (activity as MainActivity).customActionBar(
-                Constants.NAME_SCREEN_LABOUR_ROUTE,
-                enableCustomBar = true,
-                needsBackButton = false,
-                backMethod = null,
-                enableHelp = false
-            )
-        } else {
-            (activity as MainActivity).customActionBar(
-                Constants.NAME_SCREEN_VIOLENCE_ROUTE,
-                enableCustomBar = true,
-                needsBackButton = false,
-                backMethod = null,
-                enableHelp = false
-            )
-        }
+    private fun loadTitleRoute() {
+        val nameRoute =
+            if (typeRoute.equals(Constants.ROUTE_LABOUR)) Constants.NAME_SCREEN_LABOUR_ROUTE
+            else Constants.NAME_SCREEN_VIOLENCE_ROUTE
+
+        (activity as MainActivity).customActionBar(
+            nameRoute,
+            enableCustomBar = true,
+            needsBackButton = false,
+            backMethod = null,
+            enableHelp = false
+        )
+
     }
 
     override fun isRouteResultScreen(): Boolean {
