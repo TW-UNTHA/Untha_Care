@@ -1,0 +1,90 @@
+{
+  "version": 1,
+  "questions": [
+    {
+      "id": 1,
+      "type": "MultipleOption",
+      "content": "¿Te encuentras en alguna de éstas situaciones?",
+      "explanation": "Necesitamos esta información para calcular tus indemnizaciones",
+      "recommend": "*Para ser oficialmente sustituta de una persona con discapacidad, debes efectuar el proceso pertinente en el Ministerio de Trabajo",
+      "goTo": 2,
+      "result": null,
+      "options": [
+        {
+          "value": "Discapacidad",
+          "remaining": 2,
+          "hint": "R1P8R1",
+          "result": "R1",
+          "goTo": 2
+        },
+        {
+          "value": "A cargo de una persona con discapacidad*",
+          "remaining": 2,
+          "hint": "R1P8R2",
+          "result": "R2",
+          "goTo": 2
+        },
+        {
+          "value": "Embarazo",
+          "remaining": 2,
+          "hint": "R1P8R2",
+          "result": "R3",
+          "goTo": 2
+        },
+        {
+          "value": "Ninguna de las anteriores",
+          "remaining": 2,
+          "hint": "R1P8R2",
+          "result": "R4",
+          "goTo": 2
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "type": "SingleOption",
+      "content": "¿Cuál es el motivo para la terminación del contrato?",
+      "explanation": "",
+      "recommend": "En caso de presiones recibidas o dudas sobre los motivos de terminacion, puedes llamar al 1800-266822  o a la UNTHA (0960639550)",
+      "goTo": -1,
+      "result": "",
+      "options": [
+        {
+          "value": "Renuncia voluntaria(también llamada desahucio)",
+          "remaining": 1,
+          "hint": "R1P21R1",
+          "result": "R5",
+          "goTo": -1
+        },
+        {
+          "value": "Terminación durante el período de prueba(15 días)",
+          "remaining": 1,
+          "hint": "R1P21R2",
+          "result": "R6",
+          "goTo": -1
+        },
+        {
+          "value": "Muerte o incapacidad TRABAJADOR/A",
+          "remaining": 1,
+          "hint": "R1P21R2",
+          "result": "R7",
+          "goTo": -1
+        },
+        {
+          "value": "Muerte o incapacidad EMPLEADOR/A",
+          "remaining": 1,
+          "hint": "R1P21R2",
+          "result": "R8",
+          "goTo": -1
+        },
+        {
+          "value": "Despido intempestivo(Sin previo aviso)",
+          "remaining": 1,
+          "hint": "R1P21R2",
+          "result": "R9",
+          "goTo": -1
+        }
+      ]
+    }
+  ]
+}
