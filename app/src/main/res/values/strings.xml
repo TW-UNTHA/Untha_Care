@@ -89,6 +89,7 @@
     <string name="wrong_salary_empty">Ingrese la remuneración</string>
     <string name="wrong_number_of_hours_minimun">Ingrese un número de horas </string>
     <string name="wrong_number_of_hours_zero">El número de horas  no puede ser cero </string>
+    <string name="wrong_number_of_days_vacations">El número máximo de días de vacaciones tomados no puede exceder de 20</string>
     <string name="percentage_IESS_information">IESS 9,45% (Empleado)</string>
     <string name="pay_fondos_reserva_information">Fondos de reserva</string>
     <string name="pay_fondos_reserva_date">* A partir de 1 año</string>

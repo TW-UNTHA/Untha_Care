@@ -96,7 +96,7 @@ class CalculatorFiniquitoInputThreeFragment : BaseFragment() {
                 showToast(R.string.wrong_date_born, context!!)
                 return@setOnClickListener
             } else {
-                bornDate = transformToCalendarDate(spinnerEndDateYear, spinnerEndDateMonth, spinnerEndDateDay)
+                bornDate = transformToCalendarDate(spinnerBornDateYear, spinnerBornDateMonth, spinnerBornDateDay)
                 isValidBornDate = true
             }
 
