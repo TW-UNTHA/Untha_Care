@@ -147,7 +147,6 @@ class MainScreenCalculatorsFragment : BaseFragment() {
                     textToSpeech!!.speakOut(textToSpeechCalculator)
 
                 }
-
             }
                 .lparams(matchParent, calculateHeightRoute()) {
                     topMargin = calculateTopMargin()
@@ -236,9 +235,9 @@ class MainScreenCalculatorsFragment : BaseFragment() {
     private fun @AnkoViewDslMarker _LinearLayout.loadTitleCalculator(
         calculator: Category
     ) {
+        gravity = Gravity.CENTER
         textView {
             text = calculator.title
-            this.gravity = Gravity.CENTER
             textSizeDimen = R.dimen.text_size_main_component
             textColor =
                 ContextCompat.getColor(context, R.color.colorCalculatorText)
