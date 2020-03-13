@@ -82,13 +82,13 @@ class CalculatorFiniquitoInputFourFragment : BaseFragment() {
         btnCalcular.setOnClickListener {
             val vacationsDaysTaken = if(input_vacations.text.isEmpty()){0}else{input_vacations.text.toString().toInt()}
 
-            if(input_vacations.text.toString().toInt()> MAX_DAYS_OF_VACATION) {
+            if(vacationsDaysTaken> MAX_DAYS_OF_VACATION) {
                 showToast(R.string.wrong_number_of_days_vacations, context!!)
                 return@setOnClickListener
             }
             val bundle = loadBundle(vacationsDaysTaken)
             view?.findNavController()?.navigate(
-                R.id.calculatorsFragment, bundle,
+                R.id.calculatorFiniquitoResultFragment, bundle,
                 navOptions, null
             )
 
@@ -105,6 +105,7 @@ class CalculatorFiniquitoInputFourFragment : BaseFragment() {
         } else {
             input_vacations.text.toString()
         }
+
 
         val decimoTerceroOption =
             getIdFromSelectedOption(decimoTerceroSelected, rb_mensual_decimo_tercero.id)
