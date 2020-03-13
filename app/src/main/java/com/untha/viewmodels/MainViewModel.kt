@@ -319,7 +319,7 @@ class MainViewModel(
                         }
                     }
                     else                  -> {
-                        Timber.e("Error en la llamada de load route resultCalculators $response")
+                        Timber.e("Error en la llamada de load route result Calculators $response")
                     }
                 }
             })

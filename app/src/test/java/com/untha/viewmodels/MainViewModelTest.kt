@@ -631,7 +631,7 @@ class MainViewModelTest : KoinTest {
         val resources = mock(Resources::class.java)
         val json = "{\n" +
                 "  \"version\": 1,\n" +
-                "  \"resultCalculators\": [\n" +
+                "  \"results\": [\n" +
                 "    {\n" +
                 "      \"id\": 1,\n" +
                 "      \"title\": \"BAJO\",\n" +

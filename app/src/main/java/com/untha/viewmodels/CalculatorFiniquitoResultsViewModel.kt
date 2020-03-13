@@ -38,7 +38,7 @@ class CalculatorFiniquitoResultsViewModel(
         val jsonResultDynamic = sharedPreferences.getString(Constants.CALCULATOR_RECOMMEND, "")
         jsonResultDynamic?.let {
             val result = Json.parse(ResultCalculatorWrapper.serializer(), it)
-            resultCalculatorStatic = result.resultCalculators
+            resultCalculatorStatic = result.results
         }
     }
 
