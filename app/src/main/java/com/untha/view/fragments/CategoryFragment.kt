@@ -123,7 +123,6 @@ class CategoryFragment : BaseFragment(),
                         Constants.CATEGORIES_CALCULATORS, calculators
                     )
                     putSerializable(Constants.CATEGORY_PARAMETER, category)
-                    putSerializable(Constants.CATEGORIES, categories)
                 }
                 itemView.findNavController().navigate(
                     R.id.calculatorsFragment,

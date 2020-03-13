@@ -79,6 +79,7 @@
     <string name="description_fondos_reserva">A partir de un año trabajado</string>
     <string name="description_vacation">Dias de vacaciones tomados desde ....</string>
     <string name="description_discounts">Pagos adelantados y otros saldos a descontar</string>
+    <string name="description_calculators">*Todo cálculo está basado en la normativa vigente para febrero del 2020</string>
     <string name="wrong_date_start">La fecha de inicio ingresada es incorrecta</string>
     <string name="wrong_date_born">La fecha de nacimiento ingresada es incorrecta</string>
     <string name="wrong_date_end">La fecha de fin ingresada es incorrecta</string>
