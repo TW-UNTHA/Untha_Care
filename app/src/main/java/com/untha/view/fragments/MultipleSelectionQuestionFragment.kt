@@ -174,7 +174,7 @@ class MultipleSelectionQuestionFragment : BaseFragment() {
         if (typeRoute == Constants.ROUTE_CALCULATOR) {
             goBackMainScreenCategory(
                 Constants.CATEGORIES_CALCULATORS,
-                categoriesCalculator!!, R.id.calculatorsFragment, view, mainActivity
+                categoriesCalculator!!, R.id.calculatorsFragment, mainActivity
             )
         } else {
             goBackScreenRoutes()

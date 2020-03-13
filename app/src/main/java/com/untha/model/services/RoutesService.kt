@@ -12,5 +12,8 @@ interface RoutesService {
     @GET("violence_route.json")
     fun getViolenceRoute(): LiveData<ApiResponse<Route>>
 
+    @GET("calculator_route.json")
+    fun getCalculatorRoute(): LiveData<ApiResponse<Route>>
+
 
 }

@@ -9,7 +9,7 @@ import kotlinx.serialization.json.Json
 class RoutesViewModel(
     private val sharedPreferences: SharedPreferences
 ) : ViewModel() {
-    fun loadRouteFromSharedPreferences(typeRoute:String): Route {
+    fun loadRouteFromSharedPreferences(typeRoute: String): Route {
         val jsonRoute = sharedPreferences.getString(typeRoute, null)
         return if (jsonRoute == null) {
             Route(0, listOf())
@@ -18,11 +18,13 @@ class RoutesViewModel(
         }
     }
 
-    fun deleteAnswersOptionFromSharedPreferences(isLabourRoute: Boolean) {
-        val typeRoute =
-            if (isLabourRoute) Constants.FAULT_ANSWER_ROUTE_LABOUR else Constants.FAULT_ANSWER_ROUTE_VIOLENCE
-
-            sharedPreferences.edit().remove(typeRoute).apply()
+    fun deleteAnswersOptionFromSharedPreferences(typeRoute: String) {
+        val nameRoute = when (typeRoute) {
+            Constants.ROUTE_LABOUR   -> Constants.FAULT_ANSWER_ROUTE_LABOUR
+            Constants.ROUTE_VIOLENCE -> Constants.FAULT_ANSWER_ROUTE_VIOLENCE
+            else                     -> Constants.FAULT_ANSWER_ROUTE_CALCULATOR
+        }
+        sharedPreferences.edit().remove(nameRoute).apply()
     }
 
     fun loadResultFaultAnswersFromSharedPreferences(isLabourRoute: Boolean): String? {

@@ -12,6 +12,7 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.untha.R
+import com.untha.utils.Constants
 import com.untha.viewmodels.MainViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.textSizeDimen
@@ -45,14 +46,18 @@ class MainActivity : AppCompatActivity() {
             viewModel.loadViolenceRoute(this)
             viewModel.loadRouteResults(this)
             viewModel.loadQuestionnaireRouteResult(this)
-            viewModel.loadDefaultCalculatorRoute(this)//temporary
-
+            viewModel.loadCalculatorRoute(this)
+            viewModel.getResultCalculator(this)
+            viewModel.getRecommendCalculator(this)
         } else {
             viewModel.loadDefaultCategories(this)
-            viewModel.loadDefaultLabourRoute(this)
-            viewModel.loadDefaultViolenceRoute(this)
-            viewModel.loadDefaultResult(this)
-            viewModel.loadDefaultQuestionnaireRouteResult(this)
+            viewModel.loadDefaultBase(this, Constants.LABOUR_ROUTE,R.raw.labour_route)
+            viewModel.loadDefaultBase(this, Constants.VIOLENCE_ROUTE,R.raw.violence_route)
+            viewModel.loadDefaultBase(this, Constants.ROUTE_RESULT,R.raw.result)
+            viewModel.loadDefaultBase(this, Constants.QUESTIONNAIRE_ROUTE,R.raw.questionnaire_route_result)
+            viewModel.loadDefaultBase(this, Constants.CALCULATOR_ROUTE,R.raw.calculator_route)
+            viewModel.loadDefaultBase(this, Constants.CALCULATOR_ROUTE_RESULT,R.raw.result_calculator)
+            viewModel.loadDefaultBase(this, Constants.CALCULATOR_RECOMMEND,R.raw.recommend_calculator)
 
         }
     }

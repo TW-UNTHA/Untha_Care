@@ -16,6 +16,8 @@ import com.untha.model.services.RoutesService
 import com.untha.model.transactionalmodels.Route
 import com.untha.utils.Constants
 import com.untha.utils.Constants.LABOUR_ROUTE
+import com.untha.utils.Constants.ROUTE_LABOUR
+import com.untha.utils.Constants.ROUTE_VIOLENCE
 import com.untha.utils.Constants.VIOLENCE_ROUTE
 import kotlinx.serialization.json.Json
 import org.hamcrest.CoreMatchers
@@ -200,7 +202,7 @@ class RoutesViewModelTest : KoinTest {
                 Constants.FAULT_ANSWER_ROUTE_LABOUR
             )
         ).thenReturn(editor)
-        routesViewModel.deleteAnswersOptionFromSharedPreferences(true)
+        routesViewModel.deleteAnswersOptionFromSharedPreferences(ROUTE_LABOUR)
         verify(sharedPreferences.edit()).remove(Constants.FAULT_ANSWER_ROUTE_LABOUR)
         verify(editor).apply()
     }
@@ -227,7 +229,7 @@ class RoutesViewModelTest : KoinTest {
                 Constants.FAULT_ANSWER_ROUTE_VIOLENCE
             )
         ).thenReturn(editor)
-        routesViewModel.deleteAnswersOptionFromSharedPreferences(false)
+        routesViewModel.deleteAnswersOptionFromSharedPreferences(ROUTE_VIOLENCE)
         verify(sharedPreferences.edit()).remove(Constants.FAULT_ANSWER_ROUTE_VIOLENCE)
         verify(editor).apply()
     }

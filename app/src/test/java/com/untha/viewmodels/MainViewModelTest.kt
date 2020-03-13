@@ -486,7 +486,7 @@ class MainViewModelTest : KoinTest {
         ).thenReturn(editor)
         doNothing().whenever(editor).apply()
 
-        mainViewModel.loadDefaultLabourRoute(context)
+        mainViewModel.loadDefaultBase(context, Constants.LABOUR_ROUTE, R.raw.labour_route)
 
         verify(sharedPreferences.edit())
             .putString(
@@ -537,7 +537,7 @@ class MainViewModelTest : KoinTest {
         ).thenReturn(editor)
         doNothing().whenever(editor).apply()
 
-        mainViewModel.loadDefaultResult(context)
+        mainViewModel.loadDefaultBase(context, Constants.ROUTE_RESULT, R.raw.result)
 
         verify(sharedPreferences.edit())
             .putString(
@@ -597,7 +597,7 @@ class MainViewModelTest : KoinTest {
         ).thenReturn(editor)
         doNothing().whenever(editor).apply()
 
-        mainViewModel.loadDefaultViolenceRoute(context)
+        mainViewModel.loadDefaultBase(context, Constants.VIOLENCE_ROUTE, R.raw.violence_route)
 
         verify(sharedPreferences.edit())
             .putString(
@@ -631,7 +631,7 @@ class MainViewModelTest : KoinTest {
         val resources = mock(Resources::class.java)
         val json = "{\n" +
                 "  \"version\": 1,\n" +
-                "  \"results\": [\n" +
+                "  \"resultCalculators\": [\n" +
                 "    {\n" +
                 "      \"id\": 1,\n" +
                 "      \"title\": \"BAJO\",\n" +
@@ -671,7 +671,11 @@ class MainViewModelTest : KoinTest {
         ).thenReturn(editor)
         doNothing().whenever(editor).apply()
 
-        mainViewModel.loadDefaultQuestionnaireRouteResult(context)
+        mainViewModel.loadDefaultBase(
+            context,
+            Constants.QUESTIONNAIRE_ROUTE,
+            R.raw.questionnaire_route_result
+        )
 
         verify(sharedPreferences.edit())
             .putString(

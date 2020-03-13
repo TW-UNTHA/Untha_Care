@@ -185,7 +185,7 @@ open class BaseFragment : Fragment() {
 
     fun goBackMainScreenCategory(
         constantCategory: String, categories: ArrayList<Category>,
-        idFragment: Int, view: View, mainActivity: MainActivity
+        idFragment: Int, mainActivity: MainActivity
     ) {
         val layoutActionBar = mainActivity.supportActionBar?.customView
         val categoriesType = Bundle().apply {

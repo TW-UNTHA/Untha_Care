@@ -1,7 +1,6 @@
 package com.untha.viewmodels
 
 import android.content.SharedPreferences
-import android.os.Bundle
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.untha.model.mappers.CategoryMapper
@@ -104,14 +103,5 @@ class RouteResultsViewModel(
             low != null -> result = low
         }
         return result
-    }
-
-    fun isLabourRoute(bundle: Bundle): Boolean {
-        return when {
-            bundle.getBoolean(Constants.IS_LABOUR_ROUTE) -> {
-                true
-            }
-            else -> false
-        }
     }
 }

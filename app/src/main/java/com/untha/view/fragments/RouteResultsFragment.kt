@@ -86,7 +86,6 @@ class RouteResultsFragment : BaseFragment() {
     private val viewModel: RouteResultsViewModel by viewModel()
     private val categoryViewModel: CategoryViewModel by viewModel()
 
-    //    private var isLabourRoute: Boolean = false
     private var violenceLevel: String? = null
     private var contentAudio: StringBuffer = StringBuffer()
     private lateinit var typeRoute: String

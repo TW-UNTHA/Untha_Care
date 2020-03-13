@@ -6,7 +6,6 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import com.untha.BuildConfig
-import com.untha.R
 import com.untha.model.dbservices.CategoryDbService
 import com.untha.model.mappers.CategoryMapper
 import com.untha.model.models.CategoryInformationModel
@@ -21,6 +20,7 @@ import com.untha.model.services.RoutesService
 import com.untha.model.transactionalmodels.CategoriesWrapper
 import com.untha.model.transactionalmodels.Category
 import com.untha.model.transactionalmodels.QuestionnaireRouteResultWrapper
+import com.untha.model.transactionalmodels.ResultCalculatorWrapper
 import com.untha.model.transactionalmodels.ResultWrapper
 import com.untha.model.transactionalmodels.Route
 import com.untha.utils.Constants
@@ -62,33 +62,13 @@ class MainViewModel(
                             )
                         }
                     }
-                    is ApiErrorResponse -> {
+                    is ApiErrorResponse   -> {
                         Timber.e("Error! $response.errorMessage")
                     }
                 }
             })
     }
 
-    fun loadDefaultCategories(context: Context) {
-        val fileId = context.resources.getIdentifier(
-            "com.untha:raw/" + BuildConfig.CATEGORIES_SOURCE,
-            null,
-            null
-        )
-        val result = context.resources.openRawResource(fileId)
-            .bufferedReader().use { it.readText() }
-        val categoriesWrapper = Json.parse(CategoriesWrapper.serializer(), result)
-        categoriesWrapper.categories.map { category ->
-            categoryModels.add(
-                categoryMapper.mapToModel(
-                    category
-                )
-            )
-        }
-        categoryDbService.saveCategory(
-            categoryModels, ::categoriesSavedCallback
-        )
-    }
 
     private fun categoriesSavedCallback(message: String) {
         Timber.i(message)
@@ -171,39 +151,11 @@ class MainViewModel(
                                 ).apply()
                         }
                     }
-                    else -> {
+                    else                  -> {
                         Timber.e("Error en la llamada de load labour $response")
                     }
                 }
             })
-    }
-
-    fun loadDefaultLabourRoute(context: Context) {
-        val sharedPreferencesResult = sharedPreferences.getString(Constants.LABOUR_ROUTE, "")
-        if (sharedPreferencesResult.isNullOrEmpty()) {
-            val route = context.resources.openRawResource(R.raw.labour_route)
-                .bufferedReader().use { it.readText() }
-            sharedPreferences.edit()
-                .putString(
-                    Constants.LABOUR_ROUTE,
-                    route
-                ).apply()
-        }
-
-    }
-
-    fun loadDefaultCalculatorRoute(context: Context) {
-        val sharedPreferencesResult = sharedPreferences.getString(Constants.CALCULATOR_ROUTE, "")
-        if (sharedPreferencesResult.isNullOrEmpty()) {
-            val dataFromRawCalculator = context.resources.openRawResource(R.raw.calculator_route)
-                .bufferedReader().use { it.readText() }
-            sharedPreferences.edit()
-                .putString(
-                    Constants.CALCULATOR_ROUTE,
-                    dataFromRawCalculator
-                ).apply()
-        }
-
     }
 
     fun loadViolenceRoute(owner: LifecycleOwner) {
@@ -231,26 +183,115 @@ class MainViewModel(
                                 ).apply()
                         }
                     }
-                    else -> {
+                    else                  -> {
                         Timber.e("Error en la llamada de load violence $response")
                     }
                 }
             })
     }
 
-    fun loadDefaultViolenceRoute(context: Context) {
-        val sharedPreferencesResult = sharedPreferences.getString(Constants.VIOLENCE_ROUTE, "")
-        if (sharedPreferencesResult.isNullOrEmpty()) {
-            val route = context.resources.openRawResource(R.raw.violence_route)
-                .bufferedReader().use { it.readText() }
-            sharedPreferences.edit()
-                .putString(
-                    Constants.VIOLENCE_ROUTE,
-                    route
-                ).apply()
-        }
+    fun loadCalculatorRoute(owner: LifecycleOwner) {
+        routesService.getCalculatorRoute()
+            .observe(owner, Observer { response ->
+                when (response) {
+                    is ApiSuccessResponse -> {
+                        val sharedPreferencesResult =
+                            sharedPreferences.getString(Constants.CALCULATOR_ROUTE, "")
+                        if (!sharedPreferencesResult.isNullOrEmpty()) {
+                            val resultWrapperSharedPreferences =
+                                Json.parse(Route.serializer(), sharedPreferencesResult)
+                            if (response.body.version > resultWrapperSharedPreferences.version) {
+                                sharedPreferences.edit()
+                                    .putString(
+                                        Constants.CALCULATOR_ROUTE,
+                                        Json.stringify(Route.serializer(), response.body)
+                                    ).apply()
+                            }
+                        } else {
+                            sharedPreferences.edit()
+                                .putString(
+                                    Constants.CALCULATOR_ROUTE,
+                                    Json.stringify(Route.serializer(), response.body)
+                                ).apply()
+                        }
+                    }
+                    else                  -> {
+                        Timber.e("Error en la llamada de load calculator $response")
+                    }
+                }
+            })
     }
 
+
+    fun getResultCalculator(owner: LifecycleOwner) {
+        resultService.getResultCalculator()
+            .observe(owner, Observer { response ->
+                when (response) {
+                    is ApiSuccessResponse -> {
+                        val sharedPreferencesResult =
+                            sharedPreferences.getString(Constants.CALCULATOR_ROUTE_RESULT, "")
+                        if (!sharedPreferencesResult.isNullOrEmpty()) {
+                            val resultWrapperSharedPreferences =
+                                Json.parse(ResultWrapper.serializer(), sharedPreferencesResult)
+                            if (response.body.version > resultWrapperSharedPreferences.version) {
+                                sharedPreferences.edit()
+                                    .putString(
+                                        Constants.CALCULATOR_ROUTE_RESULT,
+                                        Json.stringify(ResultWrapper.serializer(), response.body)
+                                    ).apply()
+                            }
+                        } else {
+                            sharedPreferences.edit()
+                                .putString(
+                                    Constants.CALCULATOR_ROUTE_RESULT,
+                                    Json.stringify(ResultWrapper.serializer(), response.body)
+                                ).apply()
+                        }
+                    }
+                    else                  -> {
+                        Timber.e("Error en la llamada de load route result calculators $response")
+                    }
+                }
+            })
+    }
+
+    fun getRecommendCalculator(owner: LifecycleOwner) {
+        resultService.getRecommendCalculator()
+            .observe(owner, Observer { response ->
+                when (response) {
+                    is ApiSuccessResponse -> {
+                        val sharedPreferencesResult =
+                            sharedPreferences.getString(Constants.CALCULATOR_RECOMMEND, "")
+                        if (!sharedPreferencesResult.isNullOrEmpty()) {
+                            val resultWrapperSharedPreferences =
+                                Json.parse(ResultWrapper.serializer(), sharedPreferencesResult)
+                            if (response.body.version > resultWrapperSharedPreferences.version) {
+                                sharedPreferences.edit()
+                                    .putString(
+                                        Constants.CALCULATOR_RECOMMEND,
+                                        Json.stringify(
+                                            ResultCalculatorWrapper.serializer(),
+                                            response.body
+                                        )
+                                    ).apply()
+                            }
+                        } else {
+                            sharedPreferences.edit()
+                                .putString(
+                                    Constants.CALCULATOR_RECOMMEND,
+                                    Json.stringify(
+                                        ResultCalculatorWrapper.serializer(),
+                                        response.body
+                                    )
+                                ).apply()
+                        }
+                    }
+                    else                  -> {
+                        Timber.e("Error en la llamada de load recommend Calculator $response")
+                    }
+                }
+            })
+    }
 
     fun loadRouteResults(owner: LifecycleOwner) {
         resultService.getResult()
@@ -277,26 +318,12 @@ class MainViewModel(
                                 ).apply()
                         }
                     }
-                    else -> {
-                        Timber.e("Error en la llamada de load route results $response")
+                    else                  -> {
+                        Timber.e("Error en la llamada de load route resultCalculators $response")
                     }
                 }
             })
     }
-
-    fun loadDefaultResult(context: Context) {
-        val sharedPreferencesResult = sharedPreferences.getString(Constants.ROUTE_RESULT, "")
-        if (sharedPreferencesResult.isNullOrEmpty()) {
-            val result = context.resources.openRawResource(R.raw.result)
-                .bufferedReader().use { it.readText() }
-            sharedPreferences.edit()
-                .putString(
-                    Constants.ROUTE_RESULT,
-                    result
-                ).apply()
-        }
-    }
-
 
     fun loadQuestionnaireRouteResult(owner: LifecycleOwner) {
         questionnaireRouteResultService.getQuestionnaireRouteResult()
@@ -332,21 +359,42 @@ class MainViewModel(
                                 ).apply()
                         }
                     }
-                    is ApiErrorResponse -> {
+                    is ApiErrorResponse   -> {
                         Timber.e("ErrorQUESTIONNAIRE_ROUTE! $response.errorMessage")
                     }
                 }
             })
     }
 
-    fun loadDefaultQuestionnaireRouteResult(context: Context) {
-        val sharedPreferencesResult = sharedPreferences.getString(Constants.QUESTIONNAIRE_ROUTE, "")
+    fun loadDefaultCategories(context: Context) {
+        val fileId = context.resources.getIdentifier(
+            "com.untha:raw/" + BuildConfig.CATEGORIES_SOURCE,
+            null,
+            null
+        )
+        val result = context.resources.openRawResource(fileId)
+            .bufferedReader().use { it.readText() }
+        val categoriesWrapper = Json.parse(CategoriesWrapper.serializer(), result)
+        categoriesWrapper.categories.map { category ->
+            categoryModels.add(
+                categoryMapper.mapToModel(
+                    category
+                )
+            )
+        }
+        categoryDbService.saveCategory(
+            categoryModels, ::categoriesSavedCallback
+        )
+    }
+
+    fun loadDefaultBase(context: Context, keySharePreferences: String, idRawResource: Int) {
+        val sharedPreferencesResult = sharedPreferences.getString(keySharePreferences, "")
         if (sharedPreferencesResult.isNullOrEmpty()) {
-            val result = context.resources.openRawResource(R.raw.questionnaire_route_result)
+            val result = context.resources.openRawResource(idRawResource)
                 .bufferedReader().use { it.readText() }
             sharedPreferences.edit()
                 .putString(
-                    Constants.QUESTIONNAIRE_ROUTE,
+                    keySharePreferences,
                     result
                 ).apply()
         }

@@ -140,7 +140,7 @@ class SingleSelectionQuestionFragment : BaseFragment() {
         if (typeRoute == Constants.ROUTE_CALCULATOR) {
             goBackMainScreenCategory(
                 Constants.CATEGORIES_CALCULATORS,
-                categoriesCalculator!!, R.id.calculatorsFragment, view, mainActivity
+                categoriesCalculator!!, R.id.calculatorsFragment, mainActivity
             )
         } else {
             goBackScreenRoutes()
@@ -361,19 +361,15 @@ class SingleSelectionQuestionFragment : BaseFragment() {
                             logAnalyticsCustomEvent(it)
                             hint = it
                         }
-                        var faultAnswer: String = ""
-                        when (typeRoute) {
-                            Constants.ROUTE_LABOUR -> faultAnswer =
-                                Constants.FAULT_ANSWER_ROUTE_LABOUR
-                            Constants.ROUTE_VIOLENCE -> faultAnswer =
-                                Constants.FAULT_ANSWER_ROUTE_VIOLENCE
-                            Constants.ROUTE_CALCULATOR -> faultAnswer =
-                                Constants.FAULT_ANSWER_ROUTE_CALCULATOR
+                        val nameRoute = when (typeRoute) {
+                            Constants.ROUTE_LABOUR -> Constants.FAULT_ANSWER_ROUTE_LABOUR
+                            Constants.ROUTE_VIOLENCE -> Constants.FAULT_ANSWER_ROUTE_VIOLENCE
+                            else -> Constants.FAULT_ANSWER_ROUTE_CALCULATOR
                         }
                         option.result?.let {
                             questionViewModel.saveAnswerOption(
                                 it,
-                                faultAnswer
+                                nameRoute
                             )
                         }
                         questionViewModel.loadQuestion(option.goTo, route)

@@ -1,0 +1,58 @@
+{
+  "version": 1,
+  "results": [
+    {
+      "id": "F1",
+      "type": "fault",
+      "content": "ADVERTENCIA: Si trabajas 40 horas semanales(jornada completa), debes recibir el pago del salario básico unificado vigente, si trabajas más debes recibir un pago extra por cada hora",
+      "categories": [
+        8
+      ]
+    },
+    {
+      "id": "F2",
+      "type": "fault",
+      "content": "ADVERTENCIA: Eres menor de edad, no esta permitido que trabajes más de 6 horas al día",
+      "categories": [
+        14,
+        11
+      ]
+    },
+    {
+      "id": "F3",
+      "type": "fault",
+      "content": "Si este es el motivo del despido, denuncia a las Direcciones Regionales de Trabajo o Inspectoría de Trabajo. Debes recibir una indemnización de 12 remuneraciones",
+      "categories": [
+        14,
+        12
+      ]
+    },
+    {
+      "id": "F4",
+      "type": "fault",
+      "content": "DESPIDO INTEMPESTIVO: Se debe denunciar en un plazo máximo de tres días después, o se puede perder el derecho a la indemnización",
+      "categories": [
+        14,
+        12
+      ]
+    },
+    {
+      "id": "F5",
+      "type": "fault",
+      "content": "SUSTITUTO: Debe estar registrado previamente en el Ministerio de Trabajo como sustituto de una persona titular de un carnet con 75% de discapacidad o considerado como discapacidad severa.",
+      "categories": [
+        14,
+        12
+      ]
+    },
+    {
+      "id": "F6",
+      "type": "fault",
+      "content": "Estás trabajando más de 40 horas, que es el tiempo máximo de trabajo semanal",
+      "categories": [
+        12,
+        9
+      ]
+    }
+  ]
+}

@@ -116,8 +116,10 @@ class CalculatorBenefitResultFragment : BaseFragment() {
             enableHelp = false,
             backMethod = null
         )
-        goBackMainScreenCategory(Constants.CATEGORIES_CALCULATORS,
-            categoriesCalculator,R.id.calculatorsFragment, view, mainActivity)
+        goBackMainScreenCategory(
+            Constants.CATEGORIES_CALCULATORS,
+            categoriesCalculator, R.id.calculatorsFragment, mainActivity
+        )
     }
 }
 

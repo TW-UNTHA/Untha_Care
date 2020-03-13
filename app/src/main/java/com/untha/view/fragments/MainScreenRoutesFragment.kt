@@ -300,8 +300,7 @@ class MainScreenRoutesFragment : BaseFragment() {
     }
 
     private fun nextButtonClick(view: _LinearLayout) {
-        val isLabourRoute = typeRoute == Constants.ROUTE_LABOUR
-        routeViewModel.deleteAnswersOptionFromSharedPreferences(isLabourRoute)
+        routeViewModel.deleteAnswersOptionFromSharedPreferences(typeRoute!!)
         if (isLabourRoute) {
             val goToBundle = Bundle().apply {
                 putInt(Constants.REMAINING_QUESTION, Constants.TEMPORAL_LOAD_PROGRESS_BAR)

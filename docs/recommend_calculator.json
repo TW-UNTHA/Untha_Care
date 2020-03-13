@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "results": [
+    {
+      "id": "R1",
+      "title": "Seguro de desempleo",
+      "content": "Para acceder al seguro de desempleo debes: •&nbsp;&nbsp;&nbsp; Encontrarte en situación de desempleo por un periodo mínimo de 60 días. •&nbsp;&nbsp;&nbsp; Tener 24 aportaciones no simultáneas en relación de dependencia. •&nbsp;&nbsp;&nbsp; Tener 6 aportaciones  continuas e inmediatamente anteriores a la situación de desempleo. •&nbsp;&nbsp;&nbsp; No ser jubilado(a) •&nbsp;&nbsp;&nbsp; No haber renunciado voluntariamente  "
+    },
+    {
+      "id": "R2",
+      "title": "El cambio de empleador necesita hacer finiquito",
+      "content": "Si hay cambios en tus condiciones de trabajo estipuladas en el contrato tales como: empleador, lugar de trabajo, modalidad de trabajo, jornada, etc. necesitas hacer un acta de finiquito y firmar un nuevo contrato"
+    },
+    {
+      "id": "R3",
+      "title": "No firmar nada en blanco",
+      "content": "Te recomendamos tener un contrato escrito para que lo uses en caso de una falta a tus derechos"
+    },
+    {
+      "id": "R4",
+      "title": "Fondos de reserva",
+      "content": "Tienes derecho a recibir el 8.33% de tu salario a partir del 13vo mes de forma mensual o acumular este beneficio y retirarlo si no has vuelto a encontrar trabajo en los siguientes 2 meses, el IESS está a cargo de este beneficio"
+    }
+  ]
+}
