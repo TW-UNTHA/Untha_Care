@@ -29,11 +29,11 @@ class CalculatorFiniquitoResultsViewModel(
 ) : ViewModel() {
     companion object {
         const val MENSUAL = 1
-        const val ACUMULADO = 2
     }
+    var resultCalculatorRoute: List<RouteResult>? = null
+    var resultCalculatorRecommend: List<ResultCalculator>? = null
+    var resultsSelected: List<String>? = null
 
-    private lateinit var resultDynamic: List<RouteResult>
-    private lateinit var resultCalculatorStatic: List<ResultCalculator>
     private var calculatorDecimosService = CalculatorDecimosService()
     private var calculatorIESSService = CalculatorIESSService()
     private var calculatorVacationsService = CalculatorVacacionesService()
@@ -47,7 +47,7 @@ class CalculatorFiniquitoResultsViewModel(
         val jsonResultDynamic = sharedPreferences.getString(Constants.CALCULATOR_ROUTE_RESULT, "")
         jsonResultDynamic?.let {
             val result = Json.parse(ResultWrapper.serializer(), it)
-            resultDynamic = result.results
+            resultCalculatorRoute = result.results
         }
     }
 
@@ -55,13 +55,13 @@ class CalculatorFiniquitoResultsViewModel(
         val jsonResultDynamic = sharedPreferences.getString(Constants.CALCULATOR_RECOMMEND, "")
         jsonResultDynamic?.let {
             val result = Json.parse(ResultCalculatorWrapper.serializer(), it)
-            resultCalculatorStatic = result.results
+            resultCalculatorRecommend = result.results
         }
     }
 
-    fun answerSelectedCalculatorRoute(): List<String> {
+    fun answerSelectedCalculatorRoute() {
         val results = sharedPreferences.getString(Constants.FAULT_ANSWER_ROUTE_CALCULATOR, "")
-        return results?.split(" ") ?: listOf()
+        resultsSelected = results?.split(" ") ?: listOf()
     }
 
     fun retrieveAllCategories(): LiveData<List<QueryingCategory>> {

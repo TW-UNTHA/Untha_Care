@@ -54,31 +54,31 @@ import org.koin.android.viewmodel.ext.android.viewModel
 class RouteResultsFragment : BaseFragment() {
 
     companion object {
-        private const val HEADER_BOTTOM_MARGIN = 0.039
+        internal const val HEADER_BOTTOM_MARGIN = 0.039
         private const val IMAGE_VIEW_RIGHT_MARGIN = 0.0056
         private const val IMAGE_VIEW_LEFT_MARGIN = 0.014
-        private const val AUDIO_IMAGE_VIEW_WIDTH = 0.111
-        private const val AUDIO_IMAGE_VIEW_HEIGHT = 0.0625
-        private const val AUDIO_IMAGE_VIEW_MARGIN = 0.072
+        internal const val AUDIO_IMAGE_VIEW_WIDTH = 0.111
+        internal const val AUDIO_IMAGE_VIEW_HEIGHT = 0.0625
+        internal const val AUDIO_IMAGE_VIEW_MARGIN = 0.072
         private const val BUTTON_CONTAINER_HEIGHT = 0.11
         private const val CATEGORY_BUTTON_WIDTH = 0.417
         private const val RECOMMENDATION_DESCRIPTION_TOP_BOTTOM_MARGIN = 0.0125
         private const val RECOMMENDATION_DESCRIPTION_LEFT_RIGHT_MARGIN = 0.033
-        private const val CONTAINER_MARGIN_TOP_BOTTOM = 0.022
-        private const val CONTAINER_LATERAL_MARGIN = 0.026
+        internal const val CONTAINER_MARGIN_TOP_BOTTOM = 0.022
+        internal const val CONTAINER_LATERAL_MARGIN = 0.026
         private const val FAULT_BOTTOM_MARGIN = 0.0109
-        private const val DIVIDER_LINE_HEIGHT = 1
-        private const val SECTIONS_TOP_BOTTOM_MARGIN = 0.022
-        private const val DIVIDER_TOP_MARGIN = 0.036
+        internal const val DIVIDER_LINE_HEIGHT = 1
+        internal const val SECTIONS_TOP_BOTTOM_MARGIN = 0.022
+        internal const val DIVIDER_TOP_MARGIN = 0.036
         private const val CATEGORY_CARDS_RIGHT_MARGIN = 0.0167
         private const val FULL_WEIGHT_CATEGORY_BUTTON = 1.0F
         private const val IMAGE_WEIGHT_CATEGORY_BUTTON = 0.2F
         private const val TEXT_WEIGHT_CATEGORY_BUTTON = 0.8F
-        private const val HALF_DIVIDER = 2
+        internal const val HALF_DIVIDER = 2
         private const val NON_FAULT_IMAGE_HEIGHT = 0.342
         private const val VIOLENCE_TYPE = "VIOLENCE"
         private const val LABOUR_TYPE = "LABOUR"
-        private const val RECOMMENDATION_TYPE = "recommendation"
+        internal const val RECOMMENDATION_TYPE = "recommendation"
         private const val FAULT_TYPE = "fault"
         private const val CALCULATOR_ID = 5
     }
