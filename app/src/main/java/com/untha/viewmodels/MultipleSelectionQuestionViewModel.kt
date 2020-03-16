@@ -23,15 +23,24 @@ class MultipleSelectionQuestionViewModel(
     }
 
     private fun processCalculatorRouteAnswer(isNoneOfAbove: Boolean) {
+
         return if (isNoneOfAbove) {
             saveAnswerOption(
                 question?.options?.last()?.result ?: "",
                 Constants.FAULT_ANSWER_ROUTE_CALCULATOR
             )
+            saveAnswerOption(
+                question?.options?.last()?.hint ?: "",
+                Constants.FAULT_ANSWER_ROUTE_CALCULATOR_HINT
+            )
         } else {
             saveAnswerOption(
                 question?.options?.first()?.result ?: "",
                 Constants.FAULT_ANSWER_ROUTE_CALCULATOR
+            )
+            saveAnswerOption(
+                question?.options?.first()?.hint ?: "",
+                Constants.FAULT_ANSWER_ROUTE_CALCULATOR_HINT
             )
         }
     }

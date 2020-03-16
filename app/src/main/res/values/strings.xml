@@ -83,6 +83,7 @@
     <string name="wrong_date_start">La fecha de inicio ingresada es incorrecta</string>
     <string name="wrong_date_born">La fecha de nacimiento ingresada es incorrecta</string>
     <string name="wrong_date_end">La fecha de fin ingresada es incorrecta</string>
+    <string name="wrong_date_trial_period">El límite de periodo de prueba son 15 días, corrija la fecha de fin de contrato</string>
     <string name="wrong_date_compare_dates">La fecha fin no puede ser menor que la fecha de inicio</string>
     <string name="wrong_date_equal_dates">Las fechas no pueden ser iguales</string>
     <string name="wrong_number_of_hours_maximum">Las horas ingresadas no pueden ser mas de 60</string>

@@ -17,8 +17,6 @@ import com.untha.utils.UtilsTextToSpeech
 import com.untha.view.activities.MainActivity
 import com.untha.viewmodels.BaseQuestionViewModel
 import org.jetbrains.anko.sdk27.coroutines.onClick
-import java.util.*
-import kotlin.collections.ArrayList
 
 open class BaseFragment : Fragment() {
 

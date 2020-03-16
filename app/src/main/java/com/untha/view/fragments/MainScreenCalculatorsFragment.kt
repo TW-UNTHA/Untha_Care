@@ -166,6 +166,8 @@ class MainScreenCalculatorsFragment : BaseFragment() {
     }
 
     private fun onItemClick(category: Category, itemView: View) {
+        routeViewModel.deleteAnswersOptionFromSharedPreferences(Constants.ROUTE_CALCULATOR!!)
+
         val categoriesBundle = Bundle().apply {
             putSerializable(
                 Constants.CATEGORIES_CALCULATORS,

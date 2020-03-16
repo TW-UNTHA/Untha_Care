@@ -16,7 +16,7 @@ import org.jetbrains.anko.matchParent
 import org.jetbrains.anko.support.v4.UI
 import org.jetbrains.anko.verticalLayout
 import org.koin.android.viewmodel.ext.android.viewModel
-import java.util.ArrayList
+import java.util.*
 
 class CalculatorFiniquitoResultFragment : BaseFragment() {
     private lateinit var mainActivity: MainActivity

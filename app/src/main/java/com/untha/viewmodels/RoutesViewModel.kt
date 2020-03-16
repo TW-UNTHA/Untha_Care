@@ -22,7 +22,7 @@ class RoutesViewModel(
         val nameRoute = when (typeRoute) {
             Constants.ROUTE_LABOUR   -> Constants.FAULT_ANSWER_ROUTE_LABOUR
             Constants.ROUTE_VIOLENCE -> Constants.FAULT_ANSWER_ROUTE_VIOLENCE
-            else                     -> Constants.FAULT_ANSWER_ROUTE_CALCULATOR
+            else                     -> Constants.FAULT_ANSWER_ROUTE_CALCULATOR_HINT//
         }
         sharedPreferences.edit().remove(nameRoute).apply()
     }

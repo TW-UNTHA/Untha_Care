@@ -45,7 +45,7 @@ import org.jetbrains.anko.textView
 import org.jetbrains.anko.themedButton
 import org.jetbrains.anko.verticalLayout
 import org.koin.android.viewmodel.ext.android.viewModel
-import java.util.ArrayList
+import java.util.*
 
 class SingleSelectionQuestionFragment : BaseFragment() {
     private lateinit var mainActivity: MainActivity
@@ -56,7 +56,7 @@ class SingleSelectionQuestionFragment : BaseFragment() {
     private val categoryViewModel: CategoryViewModel by viewModel()
     private var remainingQuestion: Int = 0
     private var questionAdvance: Int = 1
-    private var hint: String? = null
+    private lateinit var hint: String
     private lateinit var typeRoute: String
     private var categoriesCalculator: ArrayList<Category>? = null
 
@@ -362,15 +362,23 @@ class SingleSelectionQuestionFragment : BaseFragment() {
                             hint = it
                         }
                         val nameRoute = when (typeRoute) {
-                            Constants.ROUTE_LABOUR -> Constants.FAULT_ANSWER_ROUTE_LABOUR
+                            Constants.ROUTE_LABOUR   -> Constants.FAULT_ANSWER_ROUTE_LABOUR
                             Constants.ROUTE_VIOLENCE -> Constants.FAULT_ANSWER_ROUTE_VIOLENCE
-                            else -> Constants.FAULT_ANSWER_ROUTE_CALCULATOR
+                            else                     -> Constants.FAULT_ANSWER_ROUTE_CALCULATOR
                         }
                         option.result?.let {
                             questionViewModel.saveAnswerOption(
                                 it,
                                 nameRoute
                             )
+                        }
+                        if (typeRoute.equals(Constants.ROUTE_CALCULATOR)) {
+                            option.hint.let {
+                                questionViewModel.saveAnswerOption(
+                                    it,
+                                    Constants.FAULT_ANSWER_ROUTE_CALCULATOR_HINT
+                                )
+                            }
                         }
                         questionViewModel.loadQuestion(option.goTo, route)
                         val routeQuestionGoTo = questionViewModel.question

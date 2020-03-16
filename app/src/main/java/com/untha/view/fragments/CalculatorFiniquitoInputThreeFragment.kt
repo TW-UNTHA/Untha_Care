@@ -14,6 +14,7 @@ import com.untha.utils.ConstantsSpinnerCalculators.MAX_AGE_WORKING
 import com.untha.utils.ConstantsSpinnerCalculators.MAX_YEARS_OF_WORK
 import com.untha.utils.ConstantsSpinnerCalculators.MIN_AGE_WORKING
 import com.untha.utils.buildDate
+import com.untha.utils.calculateNumberOfDayBetween
 import com.untha.utils.endDateToString
 import com.untha.utils.getArea
 import com.untha.utils.getTypeWorkday
@@ -28,6 +29,7 @@ import com.untha.utils.validationHours
 import com.untha.utils.validationSalaryInput
 import com.untha.utils.validationStartDate
 import com.untha.view.activities.MainActivity
+import com.untha.viewmodels.CalculatorFiniquitoInputThreeViewModel
 import kotlinx.android.synthetic.main.fragment_calculator_benefit.spinnerArea
 import kotlinx.android.synthetic.main.fragment_calculator_benefit.spinnerEndDateDay
 import kotlinx.android.synthetic.main.fragment_calculator_benefit.spinnerEndDateMonth
@@ -38,11 +40,16 @@ import kotlinx.android.synthetic.main.fragment_calculator_benefit.spinnerStartDa
 import kotlinx.android.synthetic.main.fragment_calculator_finiquito_input_three.*
 import kotlinx.android.synthetic.main.fragment_calculator_finiquito_input_three.inputHours
 import kotlinx.android.synthetic.main.fragment_calculator_finiquito_input_three.inputSalary
+import org.koin.android.viewmodel.ext.android.viewModel
 import java.util.*
 
 class CalculatorFiniquitoInputThreeFragment : BaseFragment() {
     private lateinit var mainActivity: MainActivity
     private lateinit var categoriesCalculator: ArrayList<Category>
+    private val finiquitoViewModel : CalculatorFiniquitoInputThreeViewModel by viewModel()
+    companion object {
+        const val TRIAL_PERIOD =14
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -74,7 +81,11 @@ class CalculatorFiniquitoInputThreeFragment : BaseFragment() {
         loadAllSpinners()
         goBackMainScreenCategory(Constants.CATEGORIES_CALCULATORS,
             categoriesCalculator,R.id.calculatorsFragment, mainActivity)
+
         btnSiguiente.setOnClickListener {
+            val listResult =finiquitoViewModel.answerSelectedCalculatorRoute()
+            val resultCausal = listResult.contains("R3P2R2")
+
             if (!validationStartDate( spinnerStartDateYear,spinnerStartDateMonth, spinnerStartDateDay,
                     context!!)) {
                 return@setOnClickListener
@@ -103,6 +114,12 @@ class CalculatorFiniquitoInputThreeFragment : BaseFragment() {
             if (validationDates(startDate, endDate, context!!) && validationSalaryInput(inputSalary, context!!)
                 && validationHours(inputHours, context!!)
             ) {
+
+                if(resultCausal && calculateNumberOfDayBetween(startDate, endDate)> TRIAL_PERIOD){
+                    showToast(R.string.wrong_date_trial_period, context!!)
+                    return@setOnClickListener
+                }
+
                 if(isValidBornDate){
                     val bundle = loadBundle(endDate, bornDate)
                     view?.findNavController()?.navigate(
