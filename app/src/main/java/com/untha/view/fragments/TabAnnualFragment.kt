@@ -12,7 +12,6 @@ class TabAnnualFragment(
     private val salary: String,
     private val startDate: String,
     private val endDate: String,
-    private val idWorkday: Int,
     private val idArea: Int,
     private val hours: Int
 
@@ -38,7 +37,7 @@ class TabAnnualFragment(
             "$".plus(calculatorViewModel.getDecimoTercerSueldoAcumulado(startDate, endDate, salary)
                 .toString())
         tv_decimo_cuarto_annual.text =
-            "$".plus(calculatorViewModel.getDecimoCuartoAcumulado(startDate, endDate, idWorkday,idArea,hours)
+            "$".plus(calculatorViewModel.getDecimoCuartoAcumulado(startDate, endDate,idArea,hours)
                 .toString())
 
     }

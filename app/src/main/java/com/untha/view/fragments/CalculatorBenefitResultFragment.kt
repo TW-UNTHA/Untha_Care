@@ -27,7 +27,6 @@ class CalculatorBenefitResultFragment : BaseFragment() {
     private lateinit var endDate: String
     private var hours: Int = 0
     private var idArea: Int = 0
-    private var idWorkday: Int = 0
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,7 +35,6 @@ class CalculatorBenefitResultFragment : BaseFragment() {
         salary = bundle?.get("salary") as String
         startDate = bundle?.get("startDate") as String
         endDate = bundle?.get("endDate") as String
-        idWorkday = bundle?.get("idWorkday") as Int
         idArea = bundle?.get("idArea") as Int
         hours = bundle?.get("hours") as Int
         categoriesCalculator = bundle?.get(Constants.CATEGORIES_CALCULATORS) as ArrayList<Category>
@@ -81,11 +79,11 @@ class CalculatorBenefitResultFragment : BaseFragment() {
     private fun setUpViewPager() {
         val adapter = TabAdapter(childFragmentManager)
         adapter.addFragment(
-            TabAnnualFragment(salary, startDate, endDate, idWorkday, idArea, hours),
+            TabAnnualFragment(salary, startDate, endDate, idArea, hours),
             "Acumulado"
         )
         adapter.addFragment(
-            TabMonthlyFragment(startDate, endDate, salary, idWorkday, hours),
+            TabMonthlyFragment(salary, hours),
             "Mensual"
         )
         vp_tabs.adapter = adapter

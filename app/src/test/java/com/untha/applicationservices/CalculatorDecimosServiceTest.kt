@@ -349,9 +349,9 @@ class CalculatorDecimosServiceTest {
     @Test
     fun `should return decimo cuarto mensualizado 33,33 when SBU is 400`() {
         val expectedValue = BigDecimal(33.33).setScale(2, RoundingMode.HALF_UP)
-        val numberOfHours = 30
+        val numberOfHours = 40
 
-        val result = calculatorsService.getDecimoCuartoSueldoMensualizado(COMPLETA)
+        val result = calculatorsService.getDecimoCuartoSueldoMensualizado(numberOfHours)
 
         assertEquals(expectedValue, result)
     }
@@ -361,7 +361,7 @@ class CalculatorDecimosServiceTest {
         val expectedValue = BigDecimal(29.17).setScale(2, RoundingMode.HALF_UP)
         val numberOfHours = 35
 
-        val result = calculatorsService.getDecimoCuartoSueldoMensualizado(PARCIAL, numberOfHours)
+        val result = calculatorsService.getDecimoCuartoSueldoMensualizado( numberOfHours)
 
         assertEquals(expectedValue, result)
     }
@@ -373,12 +373,13 @@ class CalculatorDecimosServiceTest {
         val expectedValue = BigDecimal(400).setScale(2, RoundingMode.HALF_UP)
         val startDate = "2019-08-01"
         val endDate = "2020-07-31"
+        val numberHours = 40
 
         val result = calculatorsService.getDecimoCuartoAcumulado(
             startDate,
             endDate,
-            COMPLETA,
-            SIERRA_ORIENTE
+            SIERRA_ORIENTE,
+            numberHours
         )
 
         assertEquals(expectedValue, result)
@@ -389,12 +390,13 @@ class CalculatorDecimosServiceTest {
         val expectedValue = BigDecimal(285.56).setScale(2, RoundingMode.HALF_UP)
         val startDate = "2019-08-01"
         val endDate = "2020-04-18"
+        val numberHours = 40
 
         val result = calculatorsService.getDecimoCuartoAcumulado(
             startDate,
             endDate,
-            COMPLETA,
-            SIERRA_ORIENTE
+            SIERRA_ORIENTE,
+            numberHours
         )
 
         assertEquals(expectedValue, result)
@@ -405,12 +407,14 @@ class CalculatorDecimosServiceTest {
         val expectedValue = BigDecimal(206.67).setScale(2, RoundingMode.HALF_UP)
         val endDate = "2020-07-31"
         val startDate = "2020-01-25"
+        val numberHours = 40
+
 
         val result = calculatorsService.getDecimoCuartoAcumulado(
             startDate,
             endDate,
-            COMPLETA,
-            SIERRA_ORIENTE
+            SIERRA_ORIENTE,
+            numberHours
         )
 
         assertEquals(expectedValue, result)
@@ -421,12 +425,14 @@ class CalculatorDecimosServiceTest {
         val expectedValue = BigDecimal(166.67).setScale(2, RoundingMode.HALF_UP)
         val startDate = "2019-01-25"
         val endDate = "2020-12-31"
+        val numberHours = 40
+
 
         val result = calculatorsService.getDecimoCuartoAcumulado(
             startDate,
             endDate,
-            COMPLETA,
-            SIERRA_ORIENTE
+            SIERRA_ORIENTE,
+            numberHours
         )
 
         assertEquals(expectedValue, result)
@@ -437,12 +443,13 @@ class CalculatorDecimosServiceTest {
         val expectedValue = BigDecimal(400.00).setScale(2, RoundingMode.HALF_UP)
         val startDate = "2019-08-01"
         val endDate = "2021-07-31"
+        val numberHours = 40
 
         val result = calculatorsService.getDecimoCuartoAcumulado(
             startDate,
             endDate,
-            COMPLETA,
-            SIERRA_ORIENTE
+            SIERRA_ORIENTE,
+            numberHours
         )
 
         assertEquals(expectedValue, result)
@@ -453,12 +460,13 @@ class CalculatorDecimosServiceTest {
         val expectedValue = BigDecimal(32.22).setScale(2, RoundingMode.HALF_UP)
         val startDate = "2019-08-01"
         val endDate = "2021-08-30"
+        val numberHours = 40
 
         val result = calculatorsService.getDecimoCuartoAcumulado(
             startDate,
             endDate,
-            COMPLETA,
-            SIERRA_ORIENTE
+            SIERRA_ORIENTE,
+            numberHours
         )
 
         assertEquals(expectedValue, result)
@@ -474,7 +482,6 @@ class CalculatorDecimosServiceTest {
         val result = calculatorsService.getDecimoCuartoAcumulado(
             startDate,
             endDate,
-            PARCIAL,
             SIERRA_ORIENTE,
             numberHours
         )
@@ -492,7 +499,6 @@ class CalculatorDecimosServiceTest {
         val result = calculatorsService.getDecimoCuartoAcumulado(
             startDate,
             endDate,
-            PARCIAL,
             SIERRA_ORIENTE,
             numberHours
         )
@@ -510,7 +516,6 @@ class CalculatorDecimosServiceTest {
         val result = calculatorsService.getDecimoCuartoAcumulado(
             startDate,
             endDate,
-            PARCIAL,
             SIERRA_ORIENTE,
             numberHours
         )
@@ -523,12 +528,13 @@ class CalculatorDecimosServiceTest {
         val expectedValue = BigDecimal(400.00).setScale(2, RoundingMode.HALF_UP)
         val startDate = "2019-03-01"
         val endDate = "2020-02-29"
+        val numberHours = 40
 
         val result = calculatorsService.getDecimoCuartoAcumulado(
             startDate,
             endDate,
-            COMPLETA,
-            COSTA_GALAPAGOS
+            COSTA_GALAPAGOS,
+            numberHours
         )
 
         assertEquals(expectedValue, result)
@@ -539,12 +545,13 @@ class CalculatorDecimosServiceTest {
         val expectedValue = BigDecimal(396.67).setScale(2, RoundingMode.HALF_UP)
         val startDate = "2019-03-01"
         val endDate = "2020-02-28"
+        val numberHours = 40
 
         val result = calculatorsService.getDecimoCuartoAcumulado(
             startDate,
             endDate,
-            COMPLETA,
-            COSTA_GALAPAGOS
+            COSTA_GALAPAGOS,
+            numberHours
         )
 
         assertEquals(expectedValue, result)
@@ -555,12 +562,13 @@ class CalculatorDecimosServiceTest {
         val expectedValue = BigDecimal(363.33).setScale(2, RoundingMode.HALF_UP)
         val startDate = "2019-04-01"
         val endDate = "2020-02-28"
+        val numberHours = 40
 
         val result = calculatorsService.getDecimoCuartoAcumulado(
             startDate,
             endDate,
-            COMPLETA,
-            COSTA_GALAPAGOS
+            COSTA_GALAPAGOS,
+            numberHours
         )
 
         assertEquals(expectedValue, result)
@@ -571,12 +579,13 @@ class CalculatorDecimosServiceTest {
         val expectedValue = BigDecimal(366.67).setScale(2, RoundingMode.HALF_UP)
         val startDate = "2019-03-15"
         val endDate = "2020-02-15"
+        val numberHours = 40
 
         val result = calculatorsService.getDecimoCuartoAcumulado(
             startDate,
             endDate,
-            COMPLETA,
-            COSTA_GALAPAGOS
+            COSTA_GALAPAGOS,
+            numberHours
         )
 
         assertEquals(expectedValue, result)
@@ -587,12 +596,13 @@ class CalculatorDecimosServiceTest {
         val expectedValue = BigDecimal(36.67).setScale(2, RoundingMode.HALF_UP)
         val startDate = "2019-03-01"
         val endDate = "2021-04-04"
+        val numberHours = 40
 
         val result = calculatorsService.getDecimoCuartoAcumulado(
             startDate,
             endDate,
-            COMPLETA,
-            COSTA_GALAPAGOS
+            COSTA_GALAPAGOS,
+            numberHours
         )
 
         assertEquals(expectedValue, result)
@@ -608,7 +618,6 @@ class CalculatorDecimosServiceTest {
         val result = calculatorsService.getDecimoCuartoAcumulado(
             startDate,
             endDate,
-            PARCIAL,
             COSTA_GALAPAGOS,
             numberOfHours
         )
@@ -626,7 +635,6 @@ class CalculatorDecimosServiceTest {
         val result = calculatorsService.getDecimoCuartoAcumulado(
             startDate,
             endDate,
-            PARCIAL,
             COSTA_GALAPAGOS,
             numberOfHours
         )
@@ -644,7 +652,6 @@ class CalculatorDecimosServiceTest {
         val result = calculatorsService.getDecimoCuartoAcumulado(
             startDate,
             endDate,
-            PARCIAL,
             COSTA_GALAPAGOS,
             numberOfHours
         )
@@ -662,7 +669,6 @@ class CalculatorDecimosServiceTest {
         val result = calculatorsService.getDecimoCuartoAcumulado(
             startDate,
             endDate,
-            PARCIAL,
             SIERRA_ORIENTE,
             numberOfHours
         )
@@ -675,13 +681,14 @@ class CalculatorDecimosServiceTest {
         val expectedValue = BigDecimal(132.22).setScale(2, RoundingMode.HALF_UP)
         val startDate = "2019-12-01"
         val endDate = "2020-11-30"
+        val numberHours = 40
+
 
         val result = calculatorsService.getDecimoCuartoAcumulado(
             startDate,
             endDate,
-            COMPLETA,
-            SIERRA_ORIENTE
-
+            SIERRA_ORIENTE,
+            numberHours
         )
 
         assertEquals(expectedValue, result)
@@ -692,13 +699,13 @@ class CalculatorDecimosServiceTest {
         val expectedValue = BigDecimal(66.67).setScale(2, RoundingMode.HALF_UP)
         val startDate = "2020-01-01"
         val endDate = "2020-10-01"
+        val numberHours = 40
 
         val result = calculatorsService.getDecimoCuartoAcumulado(
             startDate,
             endDate,
-            COMPLETA,
-            SIERRA_ORIENTE
-
+            SIERRA_ORIENTE,
+            numberHours
         )
 
         assertEquals(expectedValue, result)
@@ -862,7 +869,7 @@ class CalculatorDecimosServiceTest {
     fun `should return cost of days worked decimo tercero`() {
         val startDate = "2019-01-01"
         val endDate = "2019-02-28"
-        val salary = 400.toDouble()
+        val salary = 400.toBigDecimal()
         val expectedCost = 33.33.toBigDecimal().setScale(2, RoundingMode.HALF_UP)
 
         val result =
@@ -879,7 +886,7 @@ class CalculatorDecimosServiceTest {
     fun `should return cost of days worked decimo tercero startDate = "2019-02-02" endDate = "2019-02-28" `() {
         val startDate = "2019-02-02"
         val endDate = "2019-02-28"
-        val salary = 400.toDouble()
+        val salary = 400.toBigDecimal()
         val expectedCost = 32.22.toBigDecimal().setScale(2, RoundingMode.HALF_UP)
 
         val result =
@@ -896,7 +903,7 @@ class CalculatorDecimosServiceTest {
     fun `should return cost of days worked decimo tercero 2019-08-15 2019-08-31`() {
         val startDate = "2019-08-15"
         val endDate = "2019-08-31"
-        val salary = 400.toDouble()
+        val salary = 400.toBigDecimal()
         val expectedCost = 17.78.toBigDecimal().setScale(2, RoundingMode.HALF_UP)
 
         val result =

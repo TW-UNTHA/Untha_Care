@@ -9,10 +9,7 @@ import kotlinx.android.synthetic.main.fragment_item_result_monthly.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class TabMonthlyFragment(
-    private val startDate: String,
-    private val endDate: String,
     private val salary: String,
-    private val idWorkday: Int,
     private val hours: Int
 ) : BaseFragment() {
     private val calculatorViewModel: CalculatorViewModel by viewModel()
@@ -40,10 +37,7 @@ class TabMonthlyFragment(
         tv_decimo_cuarto_monthly.text =
             "$".plus(
                 calculatorViewModel.getDecimoCuartoMensualizado(
-                    idWorkday,
-                    hours,
-                    startDate,
-                    endDate
+                    hours
                 ).toString()
             )
 

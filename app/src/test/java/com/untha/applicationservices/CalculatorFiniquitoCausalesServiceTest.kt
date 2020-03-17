@@ -5,7 +5,16 @@ import org.junit.Test
 import java.math.RoundingMode
 
 class CalculatorFiniquitoCausalesServiceTest {
+
+    companion object {
+        const val SIERRA_ORIENTE = 2
+        const val COSTA_GALAPAGOS = 1
+        const val COMPLETA = 1
+        const val PARCIAL = 2
+    }
+
     val calculatorFiniquitoCausalesService = CalculatorFiniquitoCausalesService()
+
     @Test
     fun `should return 25% of the salary if a year was completed `() {
         val salary = 500.toBigDecimal().setScale(2, RoundingMode.HALF_UP)
@@ -190,4 +199,93 @@ class CalculatorFiniquitoCausalesServiceTest {
         )
     }
 
+    @Test
+    fun `should return 3 salaries  if causal is muerte incapacidad empleador before 3 years  `() {
+        val salary = 400.toBigDecimal().setScale(2, RoundingMode.HALF_UP)
+        val result = 1200.toBigDecimal().setScale(2, RoundingMode.HALF_UP)
+        val startDate = "2017-04-15"
+        val endDate = "2020-01-15"
+        val hint = "R3P2R4"
+        assertEquals(
+            result,
+            calculatorFiniquitoCausalesService.getCausalRetribution(
+                hint,
+                salary,
+                startDate,
+                endDate
+            )
+        )
+    }
+
+    @Test
+    fun `should return 4 salaries  if causal is muerte incapacidad empleador and worked 3 years and one day  `() {
+        val salary = 400.toBigDecimal().setScale(2, RoundingMode.HALF_UP)
+        val result = 1600.toBigDecimal().setScale(2, RoundingMode.HALF_UP)
+        val startDate = "2017-04-15"
+        val endDate = "2020-04-16"
+        val hint = "R3P2R4"
+        assertEquals(
+            result,
+            calculatorFiniquitoCausalesService.getCausalRetribution(
+                hint,
+                salary,
+                startDate,
+                endDate
+            )
+        )
+    }
+
+    @Test
+    fun `should return 4 salaries  if causal is muerte incapacidad empleador and worked 3 years and 3 months  `() {
+        val salary = 400.toBigDecimal().setScale(2, RoundingMode.HALF_UP)
+        val result = 1600.toBigDecimal().setScale(2, RoundingMode.HALF_UP)
+        val startDate = "2017-04-15"
+        val endDate = "2020-07-15"
+        val hint = "R3P2R4"
+        assertEquals(
+            result,
+            calculatorFiniquitoCausalesService.getCausalRetribution(
+                hint,
+                salary,
+                startDate,
+                endDate
+            )
+        )
+    }
+
+    @Test
+    fun `should return 25 salaries  if causal is muerte incapacidad empleador and worked 25 years  `() {
+        val salary = 400.toBigDecimal().setScale(2, RoundingMode.HALF_UP)
+        val result = 10000.toBigDecimal().setScale(2, RoundingMode.HALF_UP)
+        val startDate = "1995-04-15"
+        val endDate = "2020-04-15"
+        val hint = "R3P2R4"
+        assertEquals(
+            result,
+            calculatorFiniquitoCausalesService.getCausalRetribution(
+                hint,
+                salary,
+                startDate,
+                endDate
+            )
+        )
+    }
+
+    @Test
+    fun `should return 25 salaries  if causal is muerte incapacidad empleador and worked 25 years and 1 month   `() {
+        val salary = 400.toBigDecimal().setScale(2, RoundingMode.HALF_UP)
+        val result = 10000.toBigDecimal().setScale(2, RoundingMode.HALF_UP)
+        val startDate = "1995-04-15"
+        val endDate = "2020-05-15"
+        val hint = "R3P2R4"
+        assertEquals(
+            result,
+            calculatorFiniquitoCausalesService.getCausalRetribution(
+                hint,
+                salary,
+                startDate,
+                endDate
+            )
+        )
+    }
 }

@@ -44,7 +44,6 @@ class CalculatorFiniquitoInputFourFragment : BaseFragment() {
         endDate = bundle.get("endDate") as String
         salary = bundle.get("salary") as String
         hours = bundle.get("hours") as Int
-        idWorkday = bundle.get("idWorkday") as Int
         idArea = bundle.get("idArea") as Int
 
 
@@ -64,7 +63,7 @@ class CalculatorFiniquitoInputFourFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         mainActivity.customActionBar(
-            Constants.NAME_FINIQUITO_CALCULATOR,
+            Constants.NAME_SCREEN_CALCULATOR_ROUTE,
             enableCustomBar = true,
             needsBackButton = true,
             enableHelp = false,

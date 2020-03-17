@@ -1,5 +1,6 @@
 package com.untha.applicationservices
 
+import com.untha.utils.COMPLETE_HOURS
 import com.untha.utils.ConstantsCalculators.DAYS_OF_YEAR
 import com.untha.utils.ConstantsCalculators.MONTHS_OF_YEAR
 import com.untha.utils.ConstantsCalculators.SBU
@@ -53,9 +54,11 @@ class CalculatorDecimosService {
     }
 
     fun getDecimoCuartoSueldoMensualizado(
-        idWorkday: Int,
         numberOfHoursWeekly: Int = 0
     ): BigDecimal {
+        val idWorkday = if(numberOfHoursWeekly>= COMPLETE_HOURS){
+            COMPLETE}else{
+            PARTIAL}
         if (idWorkday == COMPLETE) {
             return SBU.toBigDecimal().divide(MONTHS_OF_YEAR.toBigDecimal(), 2, RoundingMode.HALF_UP)
         }
@@ -66,13 +69,16 @@ class CalculatorDecimosService {
     fun getDecimoCuartoAcumulado(
         startDate: String,
         endDate: String,
-        idWorkDay: Int,
         idArea: Int,
         numberOfHoursWeekly: Int = 0
-    ): BigDecimal? {
+    ): BigDecimal {
         val calendarStartDate = stringToCalendar(startDate)
         val calendarEndDate = stringToCalendar(endDate)
-
+        val idWorkDay = if(numberOfHoursWeekly>= COMPLETE_HOURS){
+            COMPLETE
+        }else {
+            PARTIAL
+        }
         when (idArea) {
             SIERRA_ORIENTE -> {
                 when (idWorkDay) {
@@ -115,7 +121,7 @@ class CalculatorDecimosService {
             }
 
         }
-        return null
+        return 0.toBigDecimal()
     }
 
 
@@ -124,7 +130,7 @@ class CalculatorDecimosService {
         numberOfHoursWeekly: Int,
         calendarStartDate: Calendar,
         area: Int
-    ): BigDecimal? {
+    ): BigDecimal {
 
         var startDate: Calendar = Calendar.getInstance()
 
@@ -154,7 +160,7 @@ class CalculatorDecimosService {
         calendarEndDate: Calendar,
         calendarStartDate: Calendar,
         area: Int
-    ): BigDecimal? {
+    ): BigDecimal {
         var startDate: Calendar = Calendar.getInstance()
 
         if (area == SIERRA_ORIENTE) {
@@ -235,7 +241,7 @@ class CalculatorDecimosService {
         calendarStartDate: Calendar,
         calendarEndDate: Calendar,
         numberOfHoursWeekly: Int = 0
-    ): BigDecimal? {
+    ): BigDecimal {
 
         val daysWorked: BigDecimal = calculateNumberOfDayBetween(
             calendarStartDate,
@@ -261,7 +267,7 @@ class CalculatorDecimosService {
     private fun formulaDecimoCuarto(
         basicSalary: BigDecimal,
         numberOfDays: BigDecimal
-    ): BigDecimal? {
+    ): BigDecimal {
         val multiplier = basicSalary.multiply(numberOfDays)
         return multiplier.divide(
             DAYS_OF_YEAR.toBigDecimal(),
@@ -330,10 +336,10 @@ class CalculatorDecimosService {
     fun getDecimoTercerSueldoFiniquitoMensualizado(
         startDate: String,
         endDate: String,
-        salaryAtMonth: Double
+        salaryAtMonth: BigDecimal
     ): BigDecimal {
         val salaryForDaysWorked =
-            salaryForDaysWorked(startDate, endDate, salaryAtMonth.toBigDecimal())
+            salaryForDaysWorked(startDate, endDate, salaryAtMonth)
         val result: BigDecimal =
             salaryForDaysWorked.divide(
                 MONTHS_OF_YEAR.toBigDecimal(),

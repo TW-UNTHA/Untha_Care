@@ -17,7 +17,6 @@ import com.untha.utils.buildDate
 import com.untha.utils.calculateNumberOfDayBetween
 import com.untha.utils.endDateToString
 import com.untha.utils.getArea
-import com.untha.utils.getTypeWorkday
 import com.untha.utils.isDaySelectedMajorOfLastDayMonth
 import com.untha.utils.loadDaysSpinner
 import com.untha.utils.loadSpinnerData
@@ -72,7 +71,7 @@ class CalculatorFiniquitoInputThreeFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         mainActivity.customActionBar(
-            Constants.NAME_FINIQUITO_CALCULATOR,
+            Constants.NAME_SCREEN_CALCULATOR_ROUTE,
             enableCustomBar = true,
             needsBackButton = true,
             enableHelp = false,
@@ -158,7 +157,6 @@ class CalculatorFiniquitoInputThreeFragment : BaseFragment() {
         val verifiedEndDate = endDateToString(endDate)
         val area = getArea(spinnerArea)
         val hours = inputHours.text.toString().toInt()
-        val workday = getTypeWorkday(inputHours)
         val salary = inputSalary.text.toString().toBigDecimal()
 
         return Bundle().apply {
@@ -167,7 +165,6 @@ class CalculatorFiniquitoInputThreeFragment : BaseFragment() {
             putString("endDate", verifiedEndDate)
             putString("salary", salary.toString())
             putInt("hours", hours)
-            putInt("idWorkday", workday)
             putInt("idArea", area)
             putSerializable(
                 Constants.CATEGORIES_CALCULATORS,

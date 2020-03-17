@@ -18,6 +18,7 @@ class CalculatorFiniquitoCausalesService {
         const val MIN_YEARS_INTEMPESTIVO = 3
         const val MAX_YEARS_INTEMPESTIVO = 25
         const val ROUNDING_SCALE_MAXIMUN =3
+        const val MUERTE_EMPLEADOR_HINT = "R3P2R4"
 
     }
 
@@ -26,7 +27,7 @@ class CalculatorFiniquitoCausalesService {
         salary: BigDecimal,
         startDate: String,
         endDate: String
-    ): BigDecimal? {
+    ): BigDecimal {
 
         val calendarStartDate = stringToCalendar(startDate)
         val calendarEndDate = stringToCalendar(endDate)
@@ -42,7 +43,7 @@ class CalculatorFiniquitoCausalesService {
             valueOfCausal = TRIAL_PERIOD_RETRIBUTION_OR_EMPLOYEE_DEAD.toBigDecimal()
                 .setScale(2, RoundingMode.HALF_UP)
         }
-        if (hint == INTEMPESTIVO_HINT) {
+        if (hint == INTEMPESTIVO_HINT || hint == MUERTE_EMPLEADOR_HINT) {
             var years =
                 calculateNumberOfDayBetween(calendarStartDate, calendarEndDate).toBigDecimal()
                     .divide(DAYS_OF_YEAR.toBigDecimal(), ROUNDING_SCALE_MAXIMUN, RoundingMode.HALF_UP)

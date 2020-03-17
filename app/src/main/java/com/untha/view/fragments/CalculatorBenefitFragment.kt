@@ -14,7 +14,6 @@ import com.untha.utils.ConstantsSpinnerCalculators.LAST_FIVE_YEARS
 import com.untha.utils.buildDate
 import com.untha.utils.endDateToString
 import com.untha.utils.getArea
-import com.untha.utils.getTypeWorkday
 import com.untha.utils.isDaySelectedMajorOfLastDayMonth
 import com.untha.utils.loadDaysSpinner
 import com.untha.utils.loadSpinnerData
@@ -120,7 +119,6 @@ class CalculatorBenefitFragment : BaseFragment() {
         val verifiedEndDate = endDateToString(endDate)
         val area = getArea(spinnerArea)
         val hours = inputHours.text.toString().toInt()
-        val workday = getTypeWorkday(inputHours)
         val salary = inputSalary.text.toString().toBigDecimal()
 
         return Bundle().apply {
@@ -128,7 +126,6 @@ class CalculatorBenefitFragment : BaseFragment() {
             putString("endDate", verifiedEndDate)
             putString("salary", salary.toString())
             putInt("hours", hours)
-            putInt("idWorkday", workday)
             putInt("idArea", area)
             putSerializable(
                 Constants.CATEGORIES_CALCULATORS,

@@ -40,7 +40,7 @@ class CalculatorIESSService {
         startDate: String,
         endDate: String,
         salary: BigDecimal
-    ): BigDecimal? {
+    ): BigDecimal {
         val numberOfDaysBetweenDates =
             calculateNumberOfDayBetween(stringToCalendar(startDate), stringToCalendar(endDate))
         if (numberOfDaysBetweenDates > DAYS_OF_YEAR) {

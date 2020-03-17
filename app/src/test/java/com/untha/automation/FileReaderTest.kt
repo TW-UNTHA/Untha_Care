@@ -41,7 +41,6 @@ class FileReaderTest(
         val expected = excelModel.decimoCuartoMensualizado
 
         val resultDecimoCuartoMensualizado = calculatorsService.getDecimoCuartoSueldoMensualizado(
-            excelModel.idWorkday,
             excelModel.weekHours.toInt()
         )
 
@@ -55,7 +54,6 @@ class FileReaderTest(
         val resultDecimoCuarto = calculatorsService.getDecimoCuartoAcumulado(
             excelModel.startDate,
             excelModel.endDate,
-            excelModel.idWorkday,
             excelModel.idArea,
             excelModel.weekHours.toInt()
         )

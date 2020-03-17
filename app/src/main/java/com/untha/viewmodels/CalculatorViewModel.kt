@@ -3,7 +3,6 @@ package com.untha.viewmodels
 import androidx.lifecycle.ViewModel
 import com.untha.applicationservices.CalculatorDecimosService
 import com.untha.applicationservices.CalculatorIESSService
-import com.untha.utils.salaryForDaysWorked
 import java.math.BigDecimal
 
 class CalculatorViewModel : ViewModel() {
@@ -43,14 +42,12 @@ class CalculatorViewModel : ViewModel() {
     fun getDecimoCuartoAcumulado(
         startDate: String,
         endDate: String,
-        idWorkDay: Int,
         idArea: Int,
         numberOfHoursWeekly: Int = 0
     ): BigDecimal? {
         return calculatorService.getDecimoCuartoAcumulado(
             startDate,
             endDate,
-            idWorkDay,
             idArea,
             numberOfHoursWeekly
         )
@@ -63,26 +60,11 @@ class CalculatorViewModel : ViewModel() {
     }
 
     fun getDecimoCuartoMensualizado(
-        idWorkday: Int,
-        numberOfHoursWeekly: Int,
-        startDate: String,
-        endDate: String
+        numberOfHoursWeekly: Int
     ): BigDecimal {
         return calculatorService.getDecimoCuartoSueldoMensualizado(
-            idWorkday,
             numberOfHoursWeekly
         )
     }
-
-    fun getSalary(
-        startDate: String,
-        endDate: String,
-        salary: BigDecimal
-    ): BigDecimal {
-        return salaryForDaysWorked(
-            startDate,
-            endDate,
-            salary
-        )
-    }
 }
+

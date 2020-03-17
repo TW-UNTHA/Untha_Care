@@ -136,8 +136,6 @@ fun endDateToString(endDate: Calendar): String {
 fun getArea(spinnerArea : Spinner) = if (spinnerArea.selectedItemPosition == 0)
     SIERRA_ORIENTE else COSTA_GALAPAGOS
 
-fun getTypeWorkday(inputHours: EditText) = if (inputHours.text.toString().toInt() < COMPLETE_HOURS)
-    PARTIAL_TIME else COMPLETE_TIME
 
 fun showToast(idString: Int,context : Context) {
     Toast.makeText(
