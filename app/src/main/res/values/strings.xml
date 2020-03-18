@@ -72,7 +72,16 @@
     <string name="area">Región donde trabajas</string>
     <string name="salary">Salario mensual</string>
     <string name="vacations">Vacaciones</string>
+    <string name="vacations_not_taken">Vacaciones no tomadas</string>
+    <string name="desahucio">Desahucio</string>
+    <string name="indemnizacion">Indemnizacion*</string>
+    <string name="subtotal_finiquito">Sub-Total</string>
+    <string name="discounts_finiquito">Descuentos</string>
+    <string name="total_finiquito">Total (aproximado)</string>
+    <string name="total_description_finiquito">No incluye horas extras</string>
     <string name="benefits_description">Recibo mis beneficios de manera: </string>
+    <string name="finiquito_description_result">Estos son los beneficios que debes recibir al terminar el contrato: </string>
+    <string name="finiquito_description_salary">Salario último mes</string>
     <string name="btnCalcular">Calcular</string>
     <string name="description">Sin tomar en cuenta descuento del IESS</string>
     <string name="description_workday">Horas trabajadas por semana</string>
