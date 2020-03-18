@@ -102,7 +102,7 @@ class CalculatorFiniquitoInputFourFragment : BaseFragment() {
         val discounts = if (input_discounts.text.isEmpty()) {
             0.toString()
         } else {
-            input_vacations.text.toString()
+            input_discounts.text.toString()
         }
 
 

@@ -162,7 +162,7 @@ class CalculatorFiniquitoResultsViewModel(
         )
     }
 
-    fun getDesahucio(hint: String, salary: BigDecimal): BigDecimal {
+    fun getIndemnizacion(hint: String, salary: BigDecimal): BigDecimal {
         return calculatorFiniquitoCompensationService.getCompensation(hint, salary)
     }
 

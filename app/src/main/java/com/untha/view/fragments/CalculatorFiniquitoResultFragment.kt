@@ -35,7 +35,7 @@ import com.untha.utils.getAge
 import com.untha.utils.numberDaysWorked
 import com.untha.view.activities.MainActivity
 import com.untha.viewmodels.CalculatorFiniquitoResultsViewModel
-import kotlinx.android.synthetic.main.fragment_item_result_monthly.view.*
+import kotlinx.android.synthetic.main.fragment_calculator_finiquito_result.view.*
 import org.jetbrains.anko.AnkoViewDslMarker
 import org.jetbrains.anko._LinearLayout
 import org.jetbrains.anko.attr
@@ -55,6 +55,7 @@ import org.jetbrains.anko.textView
 import org.jetbrains.anko.verticalLayout
 import org.jetbrains.anko.wrapContent
 import org.koin.android.viewmodel.ext.android.viewModel
+import java.math.BigDecimal
 import java.util.*
 
 
@@ -74,6 +75,17 @@ class CalculatorFiniquitoResultFragment : BaseFragment() {
     private var fondosReserva: Int = 0
     private var vacationsDaysTaken: Int = 0
     private lateinit var discounts: String
+    private var salaryFiniquito: BigDecimal = 0.toBigDecimal()
+    private var decimoTerceroResult: BigDecimal = 0.toBigDecimal()
+    private var decimoCuartoResult: BigDecimal = 0.toBigDecimal()
+    private var fondosReservaResult: BigDecimal = 0.toBigDecimal()
+    private var vacationsResult: BigDecimal = 0.toBigDecimal()
+    private var listHintIndemnizaciones: List<String> = mutableListOf()
+    private lateinit var causalHint: String
+    private var desahucioResult: BigDecimal = 0.toBigDecimal()
+    private var indemnizaciones: BigDecimal = 0.toBigDecimal()
+    private var subtotalResult: BigDecimal = 0.toBigDecimal()
+    private var total: BigDecimal = 0.toBigDecimal()
 
 
     companion object {
@@ -83,6 +95,7 @@ class CalculatorFiniquitoResultFragment : BaseFragment() {
         const val DESPIDO_INTEMPESTIVO = "F4"
         const val DISABILITY = "F5"
         const val OVER_HOURS_WORKED = "F6"
+        const val TOP_MARGIN_RESULTS_DINAMIC = 40
     }
 
 
@@ -133,7 +146,48 @@ class CalculatorFiniquitoResultFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        drawLayoutResult(view)
+        val layoutInflater =
+            activity!!.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        val layoutResultsFiniquito =
+            layoutInflater.inflate(layout.fragment_calculator_finiquito_result, null)
+        val listResult = calculatorFiniquitoResultsViewModel.hintsSelected
+        calculateTotalFiniquito(listResult)
+
+        drawLayoutResult(view, layoutResultsFiniquito)
+    }
+
+    private fun calculateTotalFiniquito(listResult: List<String>?) {
+        salaryFiniquito = calculatorFiniquitoResultsViewModel.getSalaryLastMonth(
+            salary.toBigDecimal(), endDate, startDate
+        )
+        decimoTerceroResult = calculatorFiniquitoResultsViewModel.getDecimoTercero(
+            decimoTercero, startDate, endDate, salary.toBigDecimal()
+        )
+        decimoCuartoResult = calculatorFiniquitoResultsViewModel.getDecimoCuarto(
+            decimoCuarto, startDate, endDate, idArea, hours
+        )
+        fondosReservaResult = calculatorFiniquitoResultsViewModel.getFondosReserva(
+            fondosReserva, startDate, endDate, salary.toBigDecimal()
+        )
+        vacationsResult = calculatorFiniquitoResultsViewModel.getVacationsNotTaken(
+            vacationsDaysTaken, startDate, endDate, bornDate, salary.toDouble()
+        )
+        listHintIndemnizaciones = getIndemnizacionHint(listResult!!)
+        causalHint = getCausalHint(listResult)
+
+        desahucioResult = calculatorFiniquitoResultsViewModel.getDesahucio(
+            causalHint, salary.toBigDecimal(), startDate, endDate
+        )
+        for (hint in listHintIndemnizaciones) {
+            indemnizaciones += calculatorFiniquitoResultsViewModel.getIndemnizacion(
+                hint,
+                salary.toBigDecimal()
+            )
+        }
+        subtotalResult =
+            salaryFiniquito + decimoTerceroResult + decimoCuartoResult + fondosReservaResult +
+                    (vacationsResult + desahucioResult + indemnizaciones)
+        total = subtotalResult - discounts.toBigDecimal()
     }
 
     private fun createMainLayout(
@@ -147,10 +201,7 @@ class CalculatorFiniquitoResultFragment : BaseFragment() {
         }.view
     }
 
-    private fun drawLayoutResult(view: View) {
-        val layoutInflater =
-            activity!!.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-        val layoutMonthly = layoutInflater.inflate(layout.fragment_item_result_monthly, null)
+    private fun drawLayoutResult(view: View, layoutResultsFiniquito: View) {
         calculatorFiniquitoResultsViewModel.retrieveAllCategories()
             .observe(this, Observer { queryingCategories ->
                 calculatorFiniquitoResultsViewModel.mapCategories(queryingCategories)
@@ -158,9 +209,26 @@ class CalculatorFiniquitoResultFragment : BaseFragment() {
                 with(view as _LinearLayout)
                 {
                     scrollView {
-                        layoutMonthly.tv_decimo_tercero_monthly.text = "555"
-                        addView(layoutMonthly)
+                        layoutResultsFiniquito.tv_salary_finiquito.text = "$ ".plus(salaryFiniquito)
+                        layoutResultsFiniquito.tv_decimo_tercero_finiquito.text =
+                            "$ ".plus(decimoTerceroResult)
+                        layoutResultsFiniquito.tv_decimo_cuarto_finiquito.text =
+                            "$".plus(decimoCuartoResult)
+                        layoutResultsFiniquito.tv_fondos_reserva_finiquito.text =
+                            "$".plus(fondosReservaResult)
+                        layoutResultsFiniquito.tv_vacations_finiquito.text =
+                            "$ ".plus(vacationsResult)
+                        layoutResultsFiniquito.tv_desahucio_finiquito.text =
+                            "$".plus(desahucioResult)
+                        layoutResultsFiniquito.tv_indemnizacion_finiquito.text =
+                            "$".plus(indemnizaciones)
+                        layoutResultsFiniquito.tv_subtotal_finiquito.text =
+                            "$ ".plus(subtotalResult)
+                        layoutResultsFiniquito.tv_discounts_finiquito.text =
+                            "-($ ".plus(discounts).plus(")")
+                        layoutResultsFiniquito.tv_total_finiquito.text = "$ ".plus(total)
                         verticalLayout {
+                            addView(layoutResultsFiniquito)
                             loadHeaderResult(view)
                             loadCalculatorFaults(view)
                             buildRecommend()
@@ -320,6 +388,7 @@ class CalculatorFiniquitoResultFragment : BaseFragment() {
             drawHeaderAudioButton(view)
             drawHeaderDescription()
         }.lparams(width = wrapContent, height = wrapContent) {
+            topMargin =dip(TOP_MARGIN_RESULTS_DINAMIC)
             bottomMargin = dip(calculateComponentsHeight(RouteResultsFragment.HEADER_BOTTOM_MARGIN))
         }
     }
@@ -540,6 +609,32 @@ class CalculatorFiniquitoResultFragment : BaseFragment() {
                 navOptions,
                 null
             )
+    }
+
+    private fun getIndemnizacionHint(listHints: List<String>): List<String> {
+        val listImdemnizaciones: MutableList<String> = mutableListOf()
+        for (hint in listHints) {
+            if (hint == "R3P1R1" || hint == "R3P1R2") {
+                listImdemnizaciones.add(hint)
+            }
+            if (hint == "R3P1R3" || hint == "R3P1R4") {
+                listImdemnizaciones.add(hint)
+            }
+        }
+        return listImdemnizaciones
+    }
+
+    private fun getCausalHint(listHints: List<String>): String {
+        var causal: String = ""
+        for (hint in listHints) {
+            if (hint == "R3P2R1" || hint == "R3P2R2" || hint == "R3P2R3") {
+                causal = hint
+            }
+            if (hint == "R3P2R4" || hint == "R3P2R5") {
+                causal = hint
+            }
+        }
+        return causal
     }
 
 }

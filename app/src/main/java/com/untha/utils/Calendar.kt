@@ -8,6 +8,7 @@ import com.untha.utils.ConstantsCalculators.DAYS_IN_MONTH
 import com.untha.utils.ConstantsCalculators.DAYS_OF_YEAR
 import com.untha.utils.ConstantsCalculators.FIRST_DAY_MONTH
 import java.math.BigDecimal
+import java.math.RoundingMode
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -97,7 +98,7 @@ fun salaryForDaysWorked(
 
     val salaryForDay = salaryEquivalentPerDay(salaryAtMonth)
     val salaryForDaysWorked = salaryForDay * numberDaysWorked.toBigDecimal()
-    return salaryForDaysWorked
+    return salaryForDaysWorked.setScale(2, RoundingMode.HALF_UP)
 }
 
 fun numberDaysWorked(endDate: String, startDate: String): Int {

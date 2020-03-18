@@ -45,7 +45,7 @@ class CalculatorIESSService {
             calculateNumberOfDayBetween(stringToCalendar(startDate), stringToCalendar(endDate))
         if (numberOfDaysBetweenDates > DAYS_OF_YEAR) {
             val numberDaysWorked = numberDaysWorked(endDate, startDate)
-            val salaryForDay = salary.divide(DAYS_IN_MONTH.toBigDecimal())
+            val salaryForDay = salary.divide(DAYS_IN_MONTH.toBigDecimal(),2, RoundingMode.HALF_UP)
             val result =
                 numberDaysWorked.toBigDecimal() * salaryForDay * PERCENTAJE_APORTE_FONDOS_RESERVA.toBigDecimal()
             return result.setScale(2, RoundingMode.HALF_UP)
