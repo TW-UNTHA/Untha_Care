@@ -27,9 +27,11 @@ class CalculatorDecimosService {
         const val PARTIAL = 2
         const val EIGHTEEN_AGE = 18
         const val SEVENTEEN_AGE = 17
-        const val FIFTEEN_AGE = 15
         const val SIXTEEN_AGE = 16
-        const val TWENTY_AGE = 20
+        const val EIGHTEEN_DAYS = 18
+        const val FIFTEEN_AGE = 15
+        const val FIFTEEN_DAYS = 15
+        const val TWENTY_DAYS = 20
         const val START_INDEX = 4
         const val END_INDEX = 10
         const val START_INDEX_YEAR = 0

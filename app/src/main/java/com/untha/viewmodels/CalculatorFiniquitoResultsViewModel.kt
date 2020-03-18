@@ -30,9 +30,11 @@ class CalculatorFiniquitoResultsViewModel(
     companion object {
         const val MENSUAL = 1
     }
-    var resultCalculatorRoute: List<RouteResult>? = null
+
+    var resultCalculatorFaults: List<RouteResult>? = null
     var resultCalculatorRecommend: List<ResultCalculator>? = null
     var resultsSelected: List<String>? = null
+    var hintsSelected: List<String>? = null
 
     private var calculatorDecimosService = CalculatorDecimosService()
     private var calculatorIESSService = CalculatorIESSService()
@@ -47,7 +49,7 @@ class CalculatorFiniquitoResultsViewModel(
         val jsonResultDynamic = sharedPreferences.getString(Constants.CALCULATOR_ROUTE_RESULT, "")
         jsonResultDynamic?.let {
             val result = Json.parse(ResultWrapper.serializer(), it)
-            resultCalculatorRoute = result.results
+            resultCalculatorFaults = result.results
         }
     }
 
@@ -62,6 +64,11 @@ class CalculatorFiniquitoResultsViewModel(
     fun answerSelectedCalculatorRoute() {
         val results = sharedPreferences.getString(Constants.FAULT_ANSWER_ROUTE_CALCULATOR, "")
         resultsSelected = results?.split(" ") ?: listOf()
+    }
+
+    fun answerHintSelectedCalculatorRoute() {
+        val results = sharedPreferences.getString(Constants.FAULT_ANSWER_ROUTE_CALCULATOR_HINT, "")
+        hintsSelected = results?.split(" ") ?: listOf()
     }
 
     fun retrieveAllCategories(): LiveData<List<QueryingCategory>> {

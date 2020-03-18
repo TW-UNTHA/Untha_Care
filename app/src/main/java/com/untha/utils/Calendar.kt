@@ -70,14 +70,13 @@ fun stringToCalendar(date: String): Calendar {
 }
 
 
-
 fun numberOfAnnualLeavesPerAge(years: Int): Int {
     if (years >= CalculatorDecimosService.EIGHTEEN_AGE) {
-        return CalculatorDecimosService.FIFTEEN_AGE
+        return CalculatorDecimosService.FIFTEEN_DAYS
     }
     if (years in CalculatorDecimosService.SIXTEEN_AGE..CalculatorDecimosService.SEVENTEEN_AGE)
-        return CalculatorDecimosService.EIGHTEEN_AGE
-    return CalculatorDecimosService.TWENTY_AGE
+        return CalculatorDecimosService.EIGHTEEN_DAYS
+    return CalculatorDecimosService.TWENTY_DAYS
 }
 
 fun equivalentOfAnnualLeavesToDay(numberOfDays: Int): Double {

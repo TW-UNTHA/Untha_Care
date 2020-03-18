@@ -4,6 +4,7 @@ import com.untha.utils.ConstantsCalculators.DAYS_OF_YEAR
 import com.untha.utils.ConstantsCalculators.MONTHS_OF_YEAR
 import com.untha.utils.calculateNumberOfDayBetween
 import com.untha.utils.equivalentOfAnnualLeavesToDay
+import com.untha.utils.getAge
 import com.untha.utils.numberOfAnnualLeavesPerAge
 import com.untha.utils.stringToCalendar
 import java.math.BigDecimal
@@ -162,17 +163,7 @@ class CalculatorVacacionesService {
         return startDate
     }
 
-    fun getAge(birthDate: String, date: String? = null): Int {
-        val birthDateTransform = stringToCalendar(birthDate)
-        val currentDay: Calendar =
-            if (date.isNullOrEmpty()) Calendar.getInstance() else stringToCalendar(date)
 
-        var age = currentDay.get(Calendar.YEAR) - birthDateTransform.get(Calendar.YEAR)
-        if (currentDay.get(Calendar.DAY_OF_YEAR) < birthDateTransform.get(Calendar.DAY_OF_YEAR)) {
-            age--
-        }
-        return age
-    }
 
 
 }
