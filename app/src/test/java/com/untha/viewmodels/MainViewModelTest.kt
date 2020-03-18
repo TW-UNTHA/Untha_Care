@@ -635,7 +635,7 @@ class MainViewModelTest : KoinTest {
                 "    {\n" +
                 "      \"id\": 1,\n" +
                 "      \"title\": \"BAJO\",\n" +
-                "      \"code\": \"BAJO\",\n" +
+                "      \"result\": \"BAJO\",\n" +
                 "      \"type\": \"VIOLENCE\",\n" +
                 "      \"sections\": [\n" +
                 "        {\n" +

@@ -166,7 +166,10 @@ class MainScreenCalculatorsFragment : BaseFragment() {
     }
 
     private fun onItemClick(category: Category, itemView: View) {
-        routeViewModel.deleteAnswersOptionFromSharedPreferences(Constants.ROUTE_CALCULATOR!!)
+
+        routeViewModel.deleteAnswersOptionFromSharedPreferences(Constants.ROUTE_CALCULATOR)
+//        routeViewModel.deleteAnswersOptionFromSharedPreferences(Constants.FAULT_ANSWER_ROUTE_CALCULATOR)
+//        routeViewModel.deleteAnswersOptionFromSharedPreferences(Constants.FAULT_ANSWER_ROUTE_CALCULATOR_HINT)
 
         val categoriesBundle = Bundle().apply {
             putSerializable(
@@ -175,7 +178,7 @@ class MainScreenCalculatorsFragment : BaseFragment() {
             )
         }
         when (category.id) {
-            Constants.ID_CALCULATOR_BENEFIT -> {
+            Constants.ID_CALCULATOR_BENEFIT  -> {
                 itemView.findNavController()
                     .navigate(
                         R.id.calculatorBenefitFragment,

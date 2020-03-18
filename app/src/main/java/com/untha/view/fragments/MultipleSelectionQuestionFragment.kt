@@ -439,8 +439,7 @@ class MultipleSelectionQuestionFragment : BaseFragment() {
                 isNoneOfAbove,
                 position,
                 actualTextView,
-                option.result,
-                option.remaining
+                option
             )
         }.lparams(
             weight = if (elementsInLayout == 2) Constants.HALF_SCREEN_WEIGHT else
@@ -457,11 +456,10 @@ class MultipleSelectionQuestionFragment : BaseFragment() {
         isNoneOfAbove: Boolean,
         position: Int,
         tv: TextView,
-        code: String?,
-        remaining: Int
+        option: RouteOption
     ) {
         if (!isNoneOfAbove) {
-            options.add(MultipleSelectionOption(position, false, tv, code, remaining))
+            options.add(MultipleSelectionOption(position, false, tv, option.result, option.hint, option.remaining))
         } else {
             noneOfTheAboveTextView = tv
         }

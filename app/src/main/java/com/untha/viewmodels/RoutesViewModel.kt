@@ -19,12 +19,16 @@ class RoutesViewModel(
     }
 
     fun deleteAnswersOptionFromSharedPreferences(typeRoute: String) {
-        val nameRoute = when (typeRoute) {
-            Constants.ROUTE_LABOUR   -> Constants.FAULT_ANSWER_ROUTE_LABOUR
-            Constants.ROUTE_VIOLENCE -> Constants.FAULT_ANSWER_ROUTE_VIOLENCE
-            else                     -> Constants.FAULT_ANSWER_ROUTE_CALCULATOR_HINT//
+        when (typeRoute) {
+            Constants.ROUTE_LABOUR     -> sharedPreferences.edit().remove(Constants.FAULT_ANSWER_ROUTE_LABOUR).apply()
+            Constants.ROUTE_VIOLENCE   -> sharedPreferences.edit().remove(Constants.FAULT_ANSWER_ROUTE_VIOLENCE).apply()
+            Constants.ROUTE_CALCULATOR -> {
+                sharedPreferences.edit().remove(Constants.FAULT_ANSWER_ROUTE_CALCULATOR_HINT)
+                    .apply()
+                sharedPreferences.edit().remove(Constants.FAULT_ANSWER_ROUTE_CALCULATOR)
+                    .apply()
+            }
         }
-        sharedPreferences.edit().remove(nameRoute).apply()
     }
 
     fun loadResultFaultAnswersFromSharedPreferences(isLabourRoute: Boolean): String? {

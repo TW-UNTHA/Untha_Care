@@ -81,9 +81,9 @@ class MultipleSelectionQuestionViewModelTest : KoinTest {
         val routeOption = RouteOption("dummy", "dummy", 1, "dummy1", null)
         val routeOption2 = RouteOption("dummy", "dummy", 1, "dummy", null)
         val multipleSelectionOptions: MutableList<MultipleSelectionOption> = mutableListOf()
-        multipleSelectionOptions.add(MultipleSelectionOption(0, false, null, "BAJO", 1))
-        multipleSelectionOptions.add(MultipleSelectionOption(1, false, null, "MEDIO", 1))
-        multipleSelectionOptions.add(MultipleSelectionOption(2, false, null, "ALTO", 1))
+        multipleSelectionOptions.add(MultipleSelectionOption(0, false, null, "BAJO", "R1P1R1", 1))
+        multipleSelectionOptions.add(MultipleSelectionOption(1, false, null, "MEDIO", "R1P1R2", 1))
+        multipleSelectionOptions.add(MultipleSelectionOption(2, false, null, "ALTO", "R1P1R3", 1))
 
         val routeQuestion =
             RouteQuestion(
@@ -146,9 +146,9 @@ class MultipleSelectionQuestionViewModelTest : KoinTest {
 
         val multipleSelectionOptions: MutableList<MultipleSelectionOption> = mutableListOf()
 
-        multipleSelectionOptions.add(MultipleSelectionOption(0, false, null, "BAJO", 1))
-        multipleSelectionOptions.add(MultipleSelectionOption(1, false, null, "MEDIO", 1))
-        multipleSelectionOptions.add(MultipleSelectionOption(2, false, null, "ALTO", 1))
+        multipleSelectionOptions.add(MultipleSelectionOption(0, false, null, "BAJO", "R1P1R1", 1))
+        multipleSelectionOptions.add(MultipleSelectionOption(1, false, null, "MEDIO", "R1P1R2", 1))
+        multipleSelectionOptions.add(MultipleSelectionOption(2, false, null, "ALTO", "R1P1R3", 1))
 
         val route = Route(1, listOf(routeQuestion))
         questionViewModel.loadQuestion(1, route)
@@ -201,22 +201,23 @@ class MultipleSelectionQuestionViewModelTest : KoinTest {
 
         val multipleSelectionOptions: MutableList<MultipleSelectionOption> = mutableListOf()
 
+
         multipleSelectionOptions.add(
             MultipleSelectionOption(
                 0, false, null,
-                Constants.VIOLENCE_ROUTE_LOW, 1
+                Constants.VIOLENCE_ROUTE_LOW, "R1P1R1", 1
             )
         )
         multipleSelectionOptions.add(
             MultipleSelectionOption(
                 1, true, null,
-                Constants.VIOLENCE_ROUTE_MEDIUM, 1
+                Constants.VIOLENCE_ROUTE_MEDIUM, "R1P1R2", 1
             )
         )
         multipleSelectionOptions.add(
             MultipleSelectionOption(
                 2, false, null,
-                Constants.VIOLENCE_ROUTE_HIGHT, 1
+                Constants.VIOLENCE_ROUTE_HIGHT, "R1P1R3", 1
             )
         )
 
@@ -273,19 +274,19 @@ class MultipleSelectionQuestionViewModelTest : KoinTest {
         multipleSelectionOptions.add(
             MultipleSelectionOption(
                 0, true, null,
-                Constants.VIOLENCE_ROUTE_LOW, 1
+                Constants.VIOLENCE_ROUTE_LOW, "R1P1R1", 1
             )
         )
         multipleSelectionOptions.add(
             MultipleSelectionOption(
                 1, false, null,
-                Constants.VIOLENCE_ROUTE_MEDIUM, 1
+                Constants.VIOLENCE_ROUTE_MEDIUM, "R1P1R2", 1
             )
         )
         multipleSelectionOptions.add(
             MultipleSelectionOption(
                 2, false, null,
-                Constants.VIOLENCE_ROUTE_HIGHT, 1
+                Constants.VIOLENCE_ROUTE_HIGHT, "R1P1R3", 1
             )
         )
 

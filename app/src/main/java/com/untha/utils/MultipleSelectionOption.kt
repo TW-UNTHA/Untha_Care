@@ -6,6 +6,7 @@ data class MultipleSelectionOption(
     val position: Int,
     var isSelected: Boolean,
     var textView: TextView?,
-    var code: String?,
+    var result: String?,
+    var hint: String?,
     var remaining:Int
 )

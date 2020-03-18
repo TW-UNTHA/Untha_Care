@@ -31,8 +31,9 @@ import com.untha.utils.ContentType
 import com.untha.utils.FirebaseEvent
 import com.untha.utils.PixelConverter
 import com.untha.utils.UtilsTextToSpeech
+import com.untha.utils.calculateNumberOfDayBetween
 import com.untha.utils.getAge
-import com.untha.utils.numberDaysWorked
+import com.untha.utils.stringToCalendar
 import com.untha.view.activities.MainActivity
 import com.untha.viewmodels.CalculatorFiniquitoResultsViewModel
 import kotlinx.android.synthetic.main.fragment_calculator_finiquito_result.view.*
@@ -144,6 +145,17 @@ class CalculatorFiniquitoResultFragment : BaseFragment() {
         return createMainLayout()
     }
 
+    private fun createMainLayout(
+    ): View {
+        return UI {
+            verticalLayout {
+                backgroundColor =
+                    ContextCompat.getColor(context, R.color.colorBackgroundMainRoute)
+                lparams(width = matchParent, height = matchParent)
+            }
+        }.view
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val layoutInflater =
@@ -190,16 +202,6 @@ class CalculatorFiniquitoResultFragment : BaseFragment() {
         total = subtotalResult - discounts.toBigDecimal()
     }
 
-    private fun createMainLayout(
-    ): View {
-        return UI {
-            verticalLayout {
-                backgroundColor =
-                    ContextCompat.getColor(context, R.color.colorBackgroundMainRoute)
-                lparams(width = matchParent, height = matchParent)
-            }
-        }.view
-    }
 
     private fun drawLayoutResult(view: View, layoutResultsFiniquito: View) {
         calculatorFiniquitoResultsViewModel.retrieveAllCategories()
@@ -209,27 +211,9 @@ class CalculatorFiniquitoResultFragment : BaseFragment() {
                 with(view as _LinearLayout)
                 {
                     scrollView {
-                        layoutResultsFiniquito.tv_salary_finiquito.text = "$ ".plus(salaryFiniquito)
-                        layoutResultsFiniquito.tv_decimo_tercero_finiquito.text =
-                            "$ ".plus(decimoTerceroResult)
-                        layoutResultsFiniquito.tv_decimo_cuarto_finiquito.text =
-                            "$".plus(decimoCuartoResult)
-                        layoutResultsFiniquito.tv_fondos_reserva_finiquito.text =
-                            "$".plus(fondosReservaResult)
-                        layoutResultsFiniquito.tv_vacations_finiquito.text =
-                            "$ ".plus(vacationsResult)
-                        layoutResultsFiniquito.tv_desahucio_finiquito.text =
-                            "$".plus(desahucioResult)
-                        layoutResultsFiniquito.tv_indemnizacion_finiquito.text =
-                            "$".plus(indemnizaciones)
-                        layoutResultsFiniquito.tv_subtotal_finiquito.text =
-                            "$ ".plus(subtotalResult)
-                        layoutResultsFiniquito.tv_discounts_finiquito.text =
-                            "-($ ".plus(discounts).plus(")")
-                        layoutResultsFiniquito.tv_total_finiquito.text = "$ ".plus(total)
                         verticalLayout {
+                            loadCalculations(layoutResultsFiniquito)
                             addView(layoutResultsFiniquito)
-                            loadHeaderResult(view)
                             loadCalculatorFaults(view)
                             buildRecommend()
                         }
@@ -247,12 +231,38 @@ class CalculatorFiniquitoResultFragment : BaseFragment() {
             })
     }
 
+    private fun loadCalculations(layoutResultsFiniquito: View) {
+        layoutResultsFiniquito.tv_salary_finiquito.text = "$ ".plus(salaryFiniquito)
+        layoutResultsFiniquito.tv_decimo_tercero_finiquito.text =
+            "$ ".plus(decimoTerceroResult)
+        layoutResultsFiniquito.tv_decimo_cuarto_finiquito.text =
+            "$".plus(decimoCuartoResult)
+        layoutResultsFiniquito.tv_fondos_reserva_finiquito.text =
+            "$".plus(fondosReservaResult)
+        layoutResultsFiniquito.tv_vacations_finiquito.text =
+            "$ ".plus(vacationsResult)
+        layoutResultsFiniquito.tv_desahucio_finiquito.text =
+            "$".plus(desahucioResult)
+        layoutResultsFiniquito.tv_indemnizacion_finiquito.text =
+            "$".plus(indemnizaciones)
+        layoutResultsFiniquito.tv_subtotal_finiquito.text =
+            "$ ".plus(subtotalResult)
+        layoutResultsFiniquito.tv_discounts_finiquito.text =
+            "-($ ".plus(discounts).plus(")")
+        layoutResultsFiniquito.tv_total_finiquito.text = "$ ".plus(total)
+    }
+
     private fun @AnkoViewDslMarker _LinearLayout.loadCalculatorFaults(
         view: View
     ) {
         val answersApplicable = mutableListOf<String>()
         getFaultsApplicable(answersApplicable)
-
+        drawMesssage(R.string.notification)
+        if (answersApplicable.isNullOrEmpty()) {
+            loadHeaderResult(view, R.string.description_labour_result_not_found)
+        } else {
+            loadHeaderResult(view, R.string.description_labour_result)
+        }
         calculatorFiniquitoResultsViewModel.resultCalculatorFaults?.map { result ->
             val contains =
                 answersApplicable.let { it!!.contains(result.id) }
@@ -276,8 +286,6 @@ class CalculatorFiniquitoResultFragment : BaseFragment() {
     }
 
     private fun getFaultsApplicable(answersApplicable: MutableList<String>) {
-
-
         if (salary.toBigDecimal() < SBU.toBigDecimal()
             && hours >= WEEKLY_HOURS_COMPLETE
         ) {
@@ -293,7 +301,10 @@ class CalculatorFiniquitoResultFragment : BaseFragment() {
         }
 
         if (calculatorFiniquitoResultsViewModel.resultsSelected!!.contains(PREGNANT_AND_TRIAL_PERIOD)
-            && (numberDaysWorked(endDate, startDate) > TRIAL_PERIOD)
+            && (calculateNumberOfDayBetween(
+                stringToCalendar(startDate),
+                stringToCalendar(endDate)
+            ) > TRIAL_PERIOD)
         ) {
             answersApplicable.add(PREGNANT_AND_TRIAL_PERIOD)
 
@@ -312,6 +323,7 @@ class CalculatorFiniquitoResultFragment : BaseFragment() {
     }
 
     private fun @AnkoViewDslMarker _LinearLayout.buildRecommend() {
+        drawMesssage(R.string.calculator_information_finiquito_recommend)
         calculatorFiniquitoResultsViewModel.resultCalculatorRecommend?.map { result ->
             buildTitleRecommend(result.title)
             buildContentRecommend(result.content)
@@ -381,15 +393,15 @@ class CalculatorFiniquitoResultFragment : BaseFragment() {
     }
 
     private fun @AnkoViewDslMarker _LinearLayout.loadHeaderResult(
-        view: View
+        view: View, idText: Int
     ) {
         linearLayout {
             orientation = LinearLayout.HORIZONTAL
             drawHeaderAudioButton(view)
-            drawHeaderDescription()
+            drawHeaderDescription(idText)
         }.lparams(width = wrapContent, height = wrapContent) {
-            topMargin =dip(TOP_MARGIN_RESULTS_DINAMIC)
             bottomMargin = dip(calculateComponentsHeight(RouteResultsFragment.HEADER_BOTTOM_MARGIN))
+            gravity = Gravity.LEFT
         }
     }
 
@@ -417,12 +429,11 @@ class CalculatorFiniquitoResultFragment : BaseFragment() {
             rightMargin =
                 (dip(calculateComponentsWidth(RouteResultsFragment.AUDIO_IMAGE_VIEW_MARGIN))
                         / RouteResultsFragment.HALF_DIVIDER)
-            leftMargin = dip(calculateComponentsWidth(RouteResultsFragment.AUDIO_IMAGE_VIEW_MARGIN))
         }
     }
 
-    private fun @AnkoViewDslMarker _LinearLayout.drawHeaderDescription() {
-        val texto = context.getString(R.string.description_labour_result)
+    private fun @AnkoViewDslMarker _LinearLayout.drawHeaderDescription(idText: Int) {
+        val texto = context.getString(idText)
         textView {
 
             text = texto
@@ -435,6 +446,23 @@ class CalculatorFiniquitoResultFragment : BaseFragment() {
             width = wrapContent, height =
             dip(calculateComponentsHeight(RouteResultsFragment.AUDIO_IMAGE_VIEW_HEIGHT))
         )
+    }
+
+    private fun @AnkoViewDslMarker _LinearLayout.drawMesssage(idText: Int) {
+        val texto = context.getString(idText)
+        textView {
+
+            text = texto
+            contentAudio.append(texto).append("\n")
+            textSizeDimen = R.dimen.text_size_content
+            typeface =
+                ResourcesCompat.getFont(context.applicationContext, R.font.proxima_nova_bold)
+            textColor = ContextCompat.getColor(context, R.color.colorHeaderBackground)
+        }.lparams(
+            width = wrapContent, height = wrapContent
+        ) {
+            topMargin = dip(TOP_MARGIN_RESULTS_DINAMIC)
+        }
     }
 
     private fun calculateComponentsWidth(widthComponent: Double): Float {

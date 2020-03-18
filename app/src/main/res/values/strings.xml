@@ -14,6 +14,7 @@
         están cumpliendo tus derechos laborales"</string>
     <string name="image_name_route_labour">route_labour_pantalla_inicial</string>
     <string name="description_labour_result">Encontramos incumplimientos a tus derechos laborales:</string>
+    <string name="description_labour_result_not_found">No encontramos incumplimientos a tus derechos laborales:</string>
     <string name="description_violence_result">Has sufrido violencia</string>
     <string name="second_message_route_violence">Voy a hacerte unas preguntas para identificar si
         has sufrido violencia</string>
@@ -117,4 +118,6 @@
     <string name="calculator_information_monthly">Estos son los valores correspondientes que debes recibir cada mes. </string>
     <string name="calculator_information_causal_bottom">En caso de presiones recibidas o dudas sobre los motivos de terminacion, puedes llamar al 1800-266822  o a la UNTHA (0960639550) </string>
     <string name="calculator_information_compensation_bottom">*Para ser oficialmente sustituta de una persona con discapacidad, debes efectuar el proceso pertinente en el Ministerio de Trabajo </string>
+    <string name="calculator_information_finiquito_recommend">RECOMENDACIONES ADICIONALES: </string>
+    <string name="notification">AVISO: </string>
 </resources>
