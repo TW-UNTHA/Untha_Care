@@ -144,3 +144,14 @@ fun showToast(idString: Int,context : Context) {
         Toast.LENGTH_LONG
     ).show()
 }
+fun getAge(birthDate: String, date: String? = null): Int {
+    val birthDateTransform = stringToCalendar(birthDate)
+    val currentDay: Calendar =
+        if (date.isNullOrEmpty()) Calendar.getInstance() else stringToCalendar(date)
+
+    var age = currentDay.get(Calendar.YEAR) - birthDateTransform.get(Calendar.YEAR)
+    if (currentDay.get(Calendar.DAY_OF_YEAR) < birthDateTransform.get(Calendar.DAY_OF_YEAR)) {
+        age--
+    }
+    return age
+}

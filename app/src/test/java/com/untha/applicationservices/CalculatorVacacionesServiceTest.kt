@@ -2,6 +2,7 @@ package com.untha.applicationservices
 
 import com.untha.automation.EntriesAnnualLeaveTest
 import com.untha.utils.equivalentOfAnnualLeavesToDay
+import com.untha.utils.getAge
 import com.untha.utils.numberOfAnnualLeavesPerAge
 import junit.framework.Assert.assertEquals
 import junitparams.JUnitParamsRunner
@@ -307,7 +308,7 @@ class CalculatorVacacionesServiceTest {
         val birthDate = "2002-02-01"
         val expectedAge = 18
 
-        val result = calculatorVacacionesService.getAge(birthDate)
+        val result = getAge(birthDate)
 
         assertEquals(expectedAge, result)
     }
@@ -318,7 +319,7 @@ class CalculatorVacacionesServiceTest {
         val startDate = "2019-10-01"
         val expectedAge = 17
 
-        val result = calculatorVacacionesService.getAge(birthDate, startDate)
+        val result = getAge(birthDate, startDate)
 
         assertEquals(expectedAge, result)
     }
@@ -329,7 +330,7 @@ class CalculatorVacacionesServiceTest {
         val endDate = "2020-08-31"
         val expectedAge = 18
 
-        val result = calculatorVacacionesService.getAge(birthDate, endDate)
+        val result =getAge(birthDate, endDate)
 
         assertEquals(expectedAge, result)
     }

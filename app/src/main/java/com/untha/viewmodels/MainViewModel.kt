@@ -264,7 +264,7 @@ class MainViewModel(
                             sharedPreferences.getString(Constants.CALCULATOR_RECOMMEND, "")
                         if (!sharedPreferencesResult.isNullOrEmpty()) {
                             val resultWrapperSharedPreferences =
-                                Json.parse(ResultWrapper.serializer(), sharedPreferencesResult)
+                                Json.parse(ResultCalculatorWrapper.serializer(), sharedPreferencesResult)
                             if (response.body.version > resultWrapperSharedPreferences.version) {
                                 sharedPreferences.edit()
                                     .putString(
