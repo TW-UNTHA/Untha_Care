@@ -20,6 +20,7 @@ import com.untha.viewmodels.CategoryViewModel
 import com.untha.viewmodels.GenericInfoStepViewModel
 import com.untha.viewmodels.MainViewModel
 import com.untha.viewmodels.MultipleSelectionQuestionViewModel
+import com.untha.viewmodels.NewsViewModel
 import com.untha.viewmodels.RightsViewModel
 import com.untha.viewmodels.RouteResultsViewModel
 import com.untha.viewmodels.RoutesViewModel
@@ -30,7 +31,7 @@ import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 val viewModelsModule = module {
-    viewModel { MainViewModel(get(), get(), get(), get(), get(), get(), get()) }
+    viewModel { MainViewModel(get(), get(), get(), get(), get(), get(), get(),get()) }
     viewModel { CategoryViewModel(get(), get(), get()) }
     viewModel { AboutUsViewModel(get()) }
     viewModel { RightsViewModel(get(), get()) }
@@ -43,6 +44,7 @@ val viewModelsModule = module {
     viewModel { CalculatorViewModel() }
     viewModel { CalculatorFiniquitoResultsViewModel(get(), get(), get()) }
     viewModel { CalculatorFiniquitoInputThreeViewModel(get())}
+    viewModel { NewsViewModel(get())}
 }
 
 val persistenceModule = module {
@@ -78,6 +80,7 @@ val networkModule = module {
     single { RetrofitService().getRetrofitResultService() }
     single { RetrofitService().getRetrofitQuestionnaireRouteResult() }
     single { RetrofitService().getRetrofitVersionService() }
+    single { RetrofitService().getRetrofitNewsService() }
 }
 
 val mapperModule = module {

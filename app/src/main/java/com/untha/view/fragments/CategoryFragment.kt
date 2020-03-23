@@ -42,6 +42,7 @@ class CategoryFragment : BaseFragment(),
     private val categoryViewModel: CategoryViewModel by viewModel()
     private val viewModel: AboutUsViewModel by viewModel()
     private lateinit var mainActivity: MainActivity
+    private var showScreen: Boolean = true
 
 
     override fun onCreateView(
@@ -62,6 +63,21 @@ class CategoryFragment : BaseFragment(),
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        if(arguments!=null){
+            showScreen = arguments?.get("showScreen") as Boolean
+        }
+
+        if (showScreen) {
+            view.findNavController()
+                .navigate(
+                    R.id.newsFragment,
+                    null,
+                    navOptionsToBackNavigation,
+                    null
+                )
+        }
+
         if (!viewModel.loadAboutUsFromSharedPreferences()) {
             view.findNavController()
                 .navigate(
@@ -111,7 +127,7 @@ class CategoryFragment : BaseFragment(),
             category.title, ContentType.CATEGORY
         )
         when (category.id) {
-            RIGHTS_CATEGORY -> itemView.findNavController().navigate(
+            RIGHTS_CATEGORY     -> itemView.findNavController().navigate(
                 R.id.rightsFragment,
                 null,
                 navOptions,
@@ -132,7 +148,7 @@ class CategoryFragment : BaseFragment(),
                 )
             }
 
-            ROUTES_CATEGORY -> {
+            ROUTES_CATEGORY     -> {
 
                 activity?.let {
                     firebaseAnalytics.setCurrentScreen(it, Constants.CLICK_ROUTE_START_TITLE, null)
@@ -152,7 +168,7 @@ class CategoryFragment : BaseFragment(),
                 )
             }
 
-            else -> {
+            else                -> {
                 val categoryBundle = Bundle().apply {
                     putSerializable(Constants.CATEGORY_PARAMETER, category)
                     putSerializable(Constants.CATEGORIES, categories)

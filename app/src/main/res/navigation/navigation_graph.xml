@@ -79,4 +79,8 @@
         android:id="@+id/calculatorFiniquitoResultFragment"
         android:name="com.untha.view.fragments.CalculatorFiniquitoResultFragment"
         android:label="CALCULADORA FINIQUITO" />
+    <fragment
+        android:id="@+id/newsFragment"
+        android:name="com.untha.view.fragments.NewsFragment"
+        android:label="MENSAJE IMPORTANTE" />
 </navigation>

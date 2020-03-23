@@ -1,0 +1,52 @@
+{
+  "version": 1,
+  "show_screen": true,
+  "button_title": "ENTENDIDO",
+  "button_subtitle": "PRESIONA AQUÍ Y CONTINÚA HACIA EL APLICATIVO",
+  "news": [
+    {
+      "id": 1,
+      "show_new": true,
+      "title": "Estamos en emergencia por el coronavirus.<br>Ten en cuenta lo siguiente:",
+      "subtitle": "(desliza la pantalla hasta el final para continuar)",
+      "steps": [
+        {
+          "step_id": 1,
+          "description": "No debes exponerte quédate en tu casa. Según el decreto 1017, se suspende actualmente la jornada laboral para todos los trabajadores, incluido las Trabajadoras Remuneradas del Hogar."
+        },
+        {
+          "step_id": 2,
+          "description": "El empleador/a tiene la obligación de respetar la cuarentena de la Trabajadora Remunerada del Hogar y debe pagarte el salario completo."
+        },
+        {
+          "step_id": 3,
+          "description": "La cuarentena es para protegernos del virus. Puedes acordar con tu empleador/a reponer las horas de trabajo, una vez que haya pasado la emergencia. Sólo debes reponer las horas correspondientes enmarcadas en la ley."
+        },
+        {
+          "step_id": 4,
+          "description": "No estas obligada a cuidar a una persona que tenga coronavirus (COVID-19) ."
+        },
+        {
+          "step_id": 5,
+          "description": "Empleadora/es deben seguir pagando tu seguridad social."
+        },
+        {
+          "step_id": 6,
+          "description": "Si la Trabajadora Remunerada del Hogar, o uno de sus familiares, están enfermas, el empleador/a tiene la obligación de autorizarle licencia de trabajo y pagarle el sueldo, sin necesidad de reponer este tiempo una vez pase la emergencia."
+        },
+        {
+          "step_id": 7,
+          "description": "Si la trabajadora presenta síntomas de Coronavirus, el empleador/a debe llamar al 171."
+        },
+        {
+          "step_id": 8,
+          "description": "Si no cumplen con tus derechos, puedes hacer una denuncia, siguiendo la ruta de derechos laborales que encontrarás en este aplicativo."
+        },
+        {
+          "step_id": 9,
+          "description": "En caso de que la trabajadora en cuarentena sufra violencia de género de su pareja puede llamar al 911."
+        }
+      ]
+    }
+  ]
+}

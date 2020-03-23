@@ -10,6 +10,7 @@ object Constants {
     const val CATEGORIES_ROUTES = "CATEGORIES_ROUTES"
     const val CATEGORIES_CALCULATORS = "CATEGORIES_CALCULATORS"
     const val ABOUS_US = "ABOUT_US"
+    const val NEWS_IS_ALREADY_OPEN = "NEWS_IS_ALREADY_OPEN"
     const val CATEGORIES_VERSION = "version"
     const val CATEGORY_PARAMETER = "category"
     const val CATEGORIES = "CATEGORIES"
@@ -36,6 +37,7 @@ object Constants {
     const val MARGIN_QUESTION_TEXT = 0.014
     const val GENERIC_STEP_MARGIN_MULTIPLIER = 2
     const val SIZE_HEIGHT_NEXT_STEP = 0.22
+    const val SIZE_HEIGHT_NEWS = 0.15
     const val SIZE_LINE_HEIGHT_NEXT_STEP = 3
     const val PERCENTAGE_PADDING_ELEMENT_NEXT_STEP_IMAGE = 15
     const val TOP_MARGIN_NEXT_STEP = 17
@@ -55,6 +57,7 @@ object Constants {
     const val CALCULATOR_RECOMMEND = "calculator-static-result"
     const val VIOLENCE_ROUTE = "violence-route"
     const val QUESTIONNAIRE_ROUTE = "questionnaire-route"
+    const val NEWS = "news"
     const val POSITION_SLICE = "position"
     const val POSITION_SLICE_PAGE_ONE = 0
     const val POSITION_SLICE_PAGE_TWO = 1
@@ -85,6 +88,7 @@ object Constants {
     const val NAME_SCREEN_VIOLENCE_ROUTE = "VIOLENCIA"
     const val NAME_SCREEN_RIGHTS = "MIS DERECHOS"
     const val NAME_SCREEN_CALCULATOR_ROUTE = "CALCULADORA DE FINIQUITO"
+    const val NAME_SCREEN_NEWS = "MENSAJE IMPORTANTE"
     const val NAME_SCREEN_CALCULATORS = "CALCULADORAS"
     const val NAME_BENEFITS_CALCULATOR = "CALCULAR BENEFICIOS"
     const val NAME_SCREEN_ROUTES = "RUTAS DE AYUDA"

@@ -49,6 +49,8 @@ class MainActivity : AppCompatActivity() {
             viewModel.loadCalculatorRoute(this)
             viewModel.getResultCalculator(this)
             viewModel.getRecommendCalculator(this)
+            viewModel.getNews(this)
+
         } else {
             viewModel.loadDefaultCategories(this)
             viewModel.loadDefaultBase(this, Constants.LABOUR_ROUTE,R.raw.labour_route)
@@ -58,7 +60,7 @@ class MainActivity : AppCompatActivity() {
             viewModel.loadDefaultBase(this, Constants.CALCULATOR_ROUTE,R.raw.calculator_route)
             viewModel.loadDefaultBase(this, Constants.CALCULATOR_ROUTE_RESULT,R.raw.result_calculator)
             viewModel.loadDefaultBase(this, Constants.CALCULATOR_RECOMMEND,R.raw.recommend_calculator)
-
+            viewModel.loadDefaultBase(this, Constants.NEWS,R.raw.news)
         }
     }
 
