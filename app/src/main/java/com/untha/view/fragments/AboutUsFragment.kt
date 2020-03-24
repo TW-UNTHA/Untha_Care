@@ -66,10 +66,15 @@ class AboutUsFragment : BaseFragment() {
         val layoutActionBar = (activity as MainActivity).supportActionBar?.customView
         val close = layoutActionBar?.findViewById(R.id.icon_go_back_route) as ImageView
         close.onClick {
+            val bundle = Bundle().apply {
+                putBoolean("showScreen", false)
+            }
+
+
             view?.findNavController()
                 ?.navigate(
                     R.id.categoryFragment,
-                    null,
+                    bundle,
                     navOptionsToBackNavigation,
                     null
                 )

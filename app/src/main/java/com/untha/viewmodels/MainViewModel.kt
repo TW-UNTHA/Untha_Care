@@ -14,13 +14,11 @@ import com.untha.model.models.QueryingCategory
 import com.untha.model.models.SectionModel
 import com.untha.model.models.SectionStepModel
 import com.untha.model.services.CategoriesService
-import com.untha.model.services.NewsService
 import com.untha.model.services.QuestionnaireRouteResultService
 import com.untha.model.services.ResultService
 import com.untha.model.services.RoutesService
 import com.untha.model.transactionalmodels.CategoriesWrapper
 import com.untha.model.transactionalmodels.Category
-import com.untha.model.transactionalmodels.NewsWrapper
 import com.untha.model.transactionalmodels.QuestionnaireRouteResultWrapper
 import com.untha.model.transactionalmodels.ResultCalculatorWrapper
 import com.untha.model.transactionalmodels.ResultWrapper
@@ -38,7 +36,6 @@ class MainViewModel(
     private val sharedPreferences: SharedPreferences,
     private val routesService: RoutesService,
     private val resultService: ResultService,
-    private val newService: NewsService,
     private val questionnaireRouteResultService: QuestionnaireRouteResultService
 ) : ViewModel() {
 
@@ -291,43 +288,6 @@ class MainViewModel(
                     }
                     else                  -> {
                         Timber.e("Error en la llamada de load recommend Calculator $response")
-                    }
-                }
-            })
-    }
-    fun getNews(owner: LifecycleOwner) {
-        newService.getNews()
-            .observe(owner, Observer { response ->
-                when (response) {
-                    is ApiSuccessResponse -> {
-                        val sharedPreferencesResult =
-                            sharedPreferences.getString(Constants.NEWS, "")
-                        if (!sharedPreferencesResult.isNullOrEmpty()) {
-                            val resultWrapperSharedPreferences =
-                                Json.parse(NewsWrapper.serializer(), sharedPreferencesResult)
-                            if (response.body.version > resultWrapperSharedPreferences.version) {
-                                sharedPreferences.edit()
-                                    .putString(
-                                        Constants.NEWS,
-                                        Json.stringify(
-                                            NewsWrapper.serializer(),
-                                            response.body
-                                        )
-                                    ).apply()
-                            }
-                        } else {
-                            sharedPreferences.edit()
-                                .putString(
-                                    Constants.NEWS,
-                                    Json.stringify(
-                                        NewsWrapper.serializer(),
-                                        response.body
-                                    )
-                                ).apply()
-                        }
-                    }
-                    else                  -> {
-                        Timber.e("Error en la llamada de load news $response")
                     }
                 }
             })

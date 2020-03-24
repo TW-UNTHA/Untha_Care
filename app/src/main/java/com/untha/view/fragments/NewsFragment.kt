@@ -14,9 +14,11 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.text.parseAsHtml
+import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import com.untha.R
 import com.untha.model.transactionalmodels.News
+import com.untha.model.transactionalmodels.NewsWrapper
 import com.untha.model.transactionalmodels.Step
 import com.untha.utils.Constants
 import com.untha.utils.PixelConverter
@@ -25,7 +27,11 @@ import com.untha.view.activities.MainActivity
 import com.untha.view.extension.loadHorizontalProgressBarDinamic
 import com.untha.view.extension.loadPlayAndPauseIcon
 import com.untha.view.extension.putImageOnTheWidget
+import com.untha.viewmodels.AboutUsViewModel
+import com.untha.viewmodels.MainViewModel
 import com.untha.viewmodels.NewsViewModel
+import kotlinx.serialization.json.Json
+import me.linshen.retrofit2.adapter.ApiSuccessResponse
 import org.jetbrains.anko.AnkoViewDslMarker
 import org.jetbrains.anko._LinearLayout
 import org.jetbrains.anko.backgroundColor
@@ -58,13 +64,8 @@ class NewsFragment : BaseFragment() {
     var oldProgress = 0
     var indexCurrently = 0
     private lateinit var thread: Thread
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        newsViewModel.loadResultDynamicFromSharePreferences()
-
-        newsViewModel.news
-    }
+    private val viewModel: AboutUsViewModel by viewModel()
+    private val mainViewModel: MainViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -88,6 +89,41 @@ class NewsFragment : BaseFragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        if (newsViewModel.isRetrievingDataFromInternet()) {
+            newsViewModel.getNews().observe(this, Observer { response ->
+                when (response) {
+                    is ApiSuccessResponse -> {
+                        val sharedPreferencesResult =
+                            newsViewModel.sharedPreferences.getString(Constants.NEWS, "")
+                        if (!sharedPreferencesResult.isNullOrEmpty()) {
+                            val resultWrapperSharedPreferences =
+                                Json.parse(NewsWrapper.serializer(), sharedPreferencesResult)
+                            if (response.body.version > resultWrapperSharedPreferences.version) {
+                                newsViewModel.saveSharePreferences(response.body)
+                                newsViewModel.loadResultDynamicFromSharePreferences()
+                                drawNews(view)
+                            }
+                        } else {
+                            newsViewModel.saveSharePreferences(response.body)
+                            newsViewModel.loadResultDynamicFromSharePreferences()
+                            drawNews(view)
+                        }
+                    }
+                    else                  -> {
+                        Timber.e("Error en la llamada de load news $response")
+                    }
+                }
+            })
+        } else {
+            mainViewModel.loadDefaultBase(context!!, Constants.NEWS, R.raw.news)
+            newsViewModel.loadResultDynamicFromSharePreferences()
+            drawNews(view)
+        }
+    }
+
+
+    private fun drawNews(view: View) {
         val informationToSpeech = contentAudioOptions().toString().toLowerCase()
         listParagraph = getListOfText(informationToSpeech)
         textToSpeech = UtilsTextToSpeech(context!!, listParagraph, ::reproduceAudioCallBack)
@@ -134,8 +170,6 @@ class NewsFragment : BaseFragment() {
                 }
             }.lparams(width = matchParent, height = matchParent)
         }
-
-        super.onViewCreated(view, savedInstanceState)
         mainActivity.customActionBar(
             Constants.NAME_SCREEN_NEWS,
             enableCustomBar = false,
@@ -390,13 +424,24 @@ class NewsFragment : BaseFragment() {
                     val bundle = Bundle().apply {
                         putBoolean("showScreen", false)
                     }
-                    view.findNavController()
-                        .navigate(
-                            R.id.categoryFragment,
-                            bundle,
-                            navOptions,
-                            null
-                        )
+
+                    if (!viewModel.loadAboutUsFromSharedPreferences()) {
+                        view.findNavController()
+                            .navigate(
+                                R.id.trhAboutInstructions,
+                                null,
+                                navOptionsToBackNavigation,
+                                null
+                            )
+                    } else {
+                        view.findNavController()
+                            .navigate(
+                                R.id.categoryFragment,
+                                bundle,
+                                navOptions,
+                                null
+                            )
+                    }
                 }
             }.lparams(
                 width = matchParent, height = matchParent

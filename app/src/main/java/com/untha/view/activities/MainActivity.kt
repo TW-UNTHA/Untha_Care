@@ -41,6 +41,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun loadData() {
         if (isInternetAvailable) {
+
             viewModel.retrieveUpdatedCategories(this)
             viewModel.loadLabourRoute(this)
             viewModel.loadViolenceRoute(this)
@@ -49,18 +50,28 @@ class MainActivity : AppCompatActivity() {
             viewModel.loadCalculatorRoute(this)
             viewModel.getResultCalculator(this)
             viewModel.getRecommendCalculator(this)
-            viewModel.getNews(this)
 
         } else {
             viewModel.loadDefaultCategories(this)
-            viewModel.loadDefaultBase(this, Constants.LABOUR_ROUTE,R.raw.labour_route)
-            viewModel.loadDefaultBase(this, Constants.VIOLENCE_ROUTE,R.raw.violence_route)
-            viewModel.loadDefaultBase(this, Constants.ROUTE_RESULT,R.raw.result)
-            viewModel.loadDefaultBase(this, Constants.QUESTIONNAIRE_ROUTE,R.raw.questionnaire_route_result)
-            viewModel.loadDefaultBase(this, Constants.CALCULATOR_ROUTE,R.raw.calculator_route)
-            viewModel.loadDefaultBase(this, Constants.CALCULATOR_ROUTE_RESULT,R.raw.result_calculator)
-            viewModel.loadDefaultBase(this, Constants.CALCULATOR_RECOMMEND,R.raw.recommend_calculator)
-            viewModel.loadDefaultBase(this, Constants.NEWS,R.raw.news)
+            viewModel.loadDefaultBase(this, Constants.LABOUR_ROUTE, R.raw.labour_route)
+            viewModel.loadDefaultBase(this, Constants.VIOLENCE_ROUTE, R.raw.violence_route)
+            viewModel.loadDefaultBase(this, Constants.ROUTE_RESULT, R.raw.result)
+            viewModel.loadDefaultBase(
+                this,
+                Constants.QUESTIONNAIRE_ROUTE,
+                R.raw.questionnaire_route_result
+            )
+            viewModel.loadDefaultBase(this, Constants.CALCULATOR_ROUTE, R.raw.calculator_route)
+            viewModel.loadDefaultBase(
+                this,
+                Constants.CALCULATOR_ROUTE_RESULT,
+                R.raw.result_calculator
+            )
+            viewModel.loadDefaultBase(
+                this,
+                Constants.CALCULATOR_RECOMMEND,
+                R.raw.recommend_calculator
+            )
         }
     }
 

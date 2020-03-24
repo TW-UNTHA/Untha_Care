@@ -20,7 +20,6 @@ import com.untha.utils.PixelConverter
 import com.untha.utils.UtilsTextToSpeech
 import com.untha.view.activities.MainActivity
 import com.untha.view.adapters.CategoryAdapter
-import com.untha.viewmodels.AboutUsViewModel
 import com.untha.viewmodels.CategoryViewModel
 import kotlinx.android.synthetic.main.fragment_category.*
 import org.jetbrains.anko.sdk27.coroutines.onClick
@@ -40,10 +39,8 @@ class CategoryFragment : BaseFragment(),
 
     private lateinit var categoryListAdapter: CategoryAdapter
     private val categoryViewModel: CategoryViewModel by viewModel()
-    private val viewModel: AboutUsViewModel by viewModel()
     private lateinit var mainActivity: MainActivity
     private var showScreen: Boolean = true
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -64,26 +61,15 @@ class CategoryFragment : BaseFragment(),
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        if(arguments!=null){
+        if (arguments != null) {
             showScreen = arguments?.get("showScreen") as Boolean
         }
-
         if (showScreen) {
             view.findNavController()
                 .navigate(
                     R.id.newsFragment,
                     null,
-                    navOptionsToBackNavigation,
-                    null
-                )
-        }
-
-        if (!viewModel.loadAboutUsFromSharedPreferences()) {
-            view.findNavController()
-                .navigate(
-                    R.id.trhAboutInstructions,
-                    null,
-                    navOptionsToBackNavigation,
+                    navOptions,
                     null
                 )
         }

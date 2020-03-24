@@ -31,7 +31,7 @@ import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 val viewModelsModule = module {
-    viewModel { MainViewModel(get(), get(), get(), get(), get(), get(), get(),get()) }
+    viewModel { MainViewModel(get(), get(), get(), get(), get(), get(), get()) }
     viewModel { CategoryViewModel(get(), get(), get()) }
     viewModel { AboutUsViewModel(get()) }
     viewModel { RightsViewModel(get(), get()) }
@@ -43,8 +43,8 @@ val viewModelsModule = module {
     viewModel { UpdateViewModel(get(), get()) }
     viewModel { CalculatorViewModel() }
     viewModel { CalculatorFiniquitoResultsViewModel(get(), get(), get()) }
-    viewModel { CalculatorFiniquitoInputThreeViewModel(get())}
-    viewModel { NewsViewModel(get())}
+    viewModel { CalculatorFiniquitoInputThreeViewModel(get()) }
+    viewModel { NewsViewModel(get(), get()) }
 }
 
 val persistenceModule = module {
