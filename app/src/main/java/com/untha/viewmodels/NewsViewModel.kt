@@ -8,23 +8,25 @@ import com.untha.utils.Constants
 import kotlinx.serialization.json.Json
 
 class NewsViewModel(
-    private val sharedPreferences : SharedPreferences
+    private val sharedPreferences: SharedPreferences
 ) : ViewModel() {
-    var news:List<News>? = null
-    var buttonTitle : String ?=null
-    var buttonSubtitle : String?= null
-    var showScreen : Boolean =false
+    var news: List<News>? = null
+    var buttonTitle: String? = null
+    var buttonSubtitle: String? = null
+    var showScreen: Boolean = false
 
 
     fun loadResultDynamicFromSharePreferences() {
         val jsonResultDynamic = sharedPreferences.getString(Constants.NEWS, "")
-        jsonResultDynamic?.let {
-            val result = Json.parse(NewsWrapper.serializer(), it)
-            news=result.news
-            buttonTitle = result.buttonTitle
-            buttonSubtitle = result.buttonSubtitle
-            showScreen = result.showScreen
+        if (!jsonResultDynamic.equals("")) {
+            jsonResultDynamic?.let {
+                val result = Json.parse(NewsWrapper.serializer(), it)
+                news = result.news
+                buttonTitle = result.buttonTitle
+                buttonSubtitle = result.buttonSubtitle
+                showScreen = result.showScreen
 
+            }
         }
     }
 
