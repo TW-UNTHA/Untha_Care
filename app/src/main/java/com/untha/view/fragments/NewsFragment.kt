@@ -90,6 +90,9 @@ class NewsFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        activity?.let {
+            firebaseAnalytics.setCurrentScreen(it, Constants.NEWS_PAGE, null)
+        }
         if (newsViewModel.isRetrievingDataFromInternet()) {
             newsViewModel.getNews().observe(this, Observer { response ->
                 when (response) {
@@ -101,9 +104,9 @@ class NewsFragment : BaseFragment() {
                                 Json.parse(NewsWrapper.serializer(), sharedPreferencesResult)
                             if (response.body.version > resultWrapperSharedPreferences.version) {
                                 newsViewModel.saveSharePreferences(response.body)
-                                newsViewModel.loadResultDynamicFromSharePreferences()
-                                drawNews(view)
                             }
+                            newsViewModel.loadResultDynamicFromSharePreferences()
+                            drawNews(view)
                         } else {
                             newsViewModel.saveSharePreferences(response.body)
                             newsViewModel.loadResultDynamicFromSharePreferences()

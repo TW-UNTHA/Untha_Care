@@ -10,7 +10,7 @@ object Constants {
     const val CATEGORIES_ROUTES = "CATEGORIES_ROUTES"
     const val CATEGORIES_CALCULATORS = "CATEGORIES_CALCULATORS"
     const val ABOUS_US = "ABOUT_US"
-    const val NEWS_IS_ALREADY_OPEN = "NEWS_IS_ALREADY_OPEN"
+    const val NEWS_PAGE = "News Page"
     const val CATEGORIES_VERSION = "version"
     const val CATEGORY_PARAMETER = "category"
     const val CATEGORIES = "CATEGORIES"
