@@ -1,32 +1,28 @@
 package com.untha.view.fragments
 
-import android.app.Activity
 import android.graphics.Typeface
 import android.os.Bundle
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.text.parseAsHtml
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
+import com.bumptech.glide.Glide
 import com.untha.R
 import com.untha.model.transactionalmodels.News
 import com.untha.model.transactionalmodels.NewsWrapper
 import com.untha.model.transactionalmodels.Step
 import com.untha.utils.Constants
+import com.untha.utils.ContentType
+import com.untha.utils.FirebaseEvent
 import com.untha.utils.PixelConverter
 import com.untha.utils.UtilsTextToSpeech
 import com.untha.view.activities.MainActivity
-import com.untha.view.extension.loadHorizontalProgressBarDinamic
-import com.untha.view.extension.loadPlayAndPauseIcon
-import com.untha.view.extension.putImageOnTheWidget
 import com.untha.viewmodels.AboutUsViewModel
 import com.untha.viewmodels.MainViewModel
 import com.untha.viewmodels.NewsViewModel
@@ -34,21 +30,25 @@ import kotlinx.serialization.json.Json
 import me.linshen.retrofit2.adapter.ApiSuccessResponse
 import org.jetbrains.anko.AnkoViewDslMarker
 import org.jetbrains.anko._LinearLayout
+import org.jetbrains.anko.allCaps
+import org.jetbrains.anko.attr
 import org.jetbrains.anko.backgroundColor
 import org.jetbrains.anko.backgroundDrawable
+import org.jetbrains.anko.backgroundResource
 import org.jetbrains.anko.bottomPadding
 import org.jetbrains.anko.dip
-import org.jetbrains.anko.imageView
+import org.jetbrains.anko.imageButton
 import org.jetbrains.anko.leftPadding
-import org.jetbrains.anko.linearLayout
 import org.jetbrains.anko.matchParent
-import org.jetbrains.anko.relativeLayout
 import org.jetbrains.anko.rightPadding
 import org.jetbrains.anko.scrollView
+import org.jetbrains.anko.sdk27.coroutines.onClick
 import org.jetbrains.anko.support.v4.UI
 import org.jetbrains.anko.textColor
 import org.jetbrains.anko.textSizeDimen
 import org.jetbrains.anko.textView
+import org.jetbrains.anko.themedButton
+import org.jetbrains.anko.topPadding
 import org.jetbrains.anko.verticalLayout
 import org.jetbrains.anko.wrapContent
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -58,12 +58,6 @@ class NewsFragment : BaseFragment() {
     private lateinit var mainActivity: MainActivity
     private val newsViewModel: NewsViewModel by viewModel()
     lateinit var listParagraph: MutableList<String>
-    lateinit var playAndPauseIcon: ImageView
-    private var horizontalProgressBar: ProgressBar? = null
-    private var isPaused = false
-    var oldProgress = 0
-    var indexCurrently = 0
-    private lateinit var thread: Thread
     private val viewModel: AboutUsViewModel by viewModel()
     private val mainViewModel: MainViewModel by viewModel()
 
@@ -129,38 +123,21 @@ class NewsFragment : BaseFragment() {
     private fun drawNews(view: View) {
         val informationToSpeech = contentAudioOptions().toString().toLowerCase()
         listParagraph = getListOfText(informationToSpeech)
-        textToSpeech = UtilsTextToSpeech(context!!, listParagraph, ::reproduceAudioCallBack)
 
         with(view as _LinearLayout) {
             verticalLayout {
-                val imageSizeInDps = (PixelConverter.getScreenDpHeight(context) -
-                        Constants.SIZE_OF_ACTION_BAR) * Constants.GENERIC_PERCENTAGE_PLAYER_HEADER
-                val imageHeight = PixelConverter.toPixels(imageSizeInDps, context)
                 val marginTop = calculateTopMargin()
                 val marginLeft = calculateMarginLeftAndRight()
-                relativeLayout {
-                    imageView {
-                        scaleType = ImageView.ScaleType.FIT_XY
-                        val image = "home_rutas"
-                        putImageOnTheWidget(image, view)
-                        backgroundColor =
-                            ContextCompat.getColor(context, R.color.colorBackgroundMainRoute)
-                    }.lparams(width = matchParent, height = matchParent)
-                    playAndPauseIcon = loadPlayAndPauseIcon(
-                        view
-                    )
-                    playAndPauseIcon.setOnClickListener {
-                        playAndPauseAudio()
-                    }
-                }.lparams(width = ViewGroup.LayoutParams.MATCH_PARENT, height = imageHeight)
-                horizontalProgressBar = loadHorizontalProgressBarDinamic(0)
+                loadImageAudio()
                 scrollView {
                     newsViewModel.news?.map {
                         verticalLayout {
                             drawTitle(it)
                             drawSubtitle(it)
                             buildSteps(it)
-                            buildButtonNextStep(view, newsViewModel)
+                            verticalLayout{
+                            buttonNext(view)
+                            }
                         }
                         backgroundColor =
                             ContextCompat.getColor(context, R.color.colorBackgroundMainRoute)
@@ -180,8 +157,42 @@ class NewsFragment : BaseFragment() {
             enableHelp = false,
             backMethod = null
         )
-        thread = incrementProgressBarThread(horizontalProgressBar)
-        thread.start()
+    }
+
+    private fun _LinearLayout.loadImageAudio() {
+        imageButton {
+            val imageUrl = resources.getIdentifier(
+                "icon_question_audio",
+                "drawable",
+                context.applicationInfo.packageName
+            )
+            Glide.with(this)
+                .load(imageUrl).fitCenter()
+                .into(this)
+            gravity = Gravity.CENTER
+            backgroundResource = attr(R.attr.selectableItemBackgroundBorderless).resourceId
+            val contentQuestion = "${contentAudioOptions()}"
+
+            textToSpeech = UtilsTextToSpeech(context!!, null, null)
+            onClick {
+                textToSpeech?.speakOut(contentQuestion)
+                logAnalyticsCustomContentTypeWithId(ContentType.AUDIO, FirebaseEvent.AUDIO)
+            }
+        }.lparams(
+            width = dip(calculateHeightComponentsQuestion(Constants.SIZE_IMAGE_PERCENTAGE_AUDIO_QUESTION)),
+            height = dip(calculateHeightComponentsQuestion(Constants.SIZE_IMAGE_PERCENTAGE_AUDIO_QUESTION))
+        )
+        {
+            topMargin =
+                dip(calculateHeightComponentsQuestion(Constants.MARGIN_HEIGHT_SELECTION_QUESTION))
+            bottomMargin =
+                dip(calculateHeightComponentsQuestion(Constants.MARGIN_HEIGHT_SELECTION_QUESTION))
+        }
+    }
+
+    private fun calculateHeightComponentsQuestion(heightComponent: Double): Float {
+        return ((PixelConverter.getScreenDpHeight(context) -
+                Constants.SIZE_OF_ACTION_BAR_ROUTE) * heightComponent).toFloat()
     }
 
     private fun @AnkoViewDslMarker _LinearLayout.drawSubtitle(it: News) {
@@ -278,9 +289,9 @@ class NewsFragment : BaseFragment() {
         val contentOptions = StringBuffer()
         newsViewModel.news?.forEach { information: News ->
             information.let {
-                contentOptions.append(information.title)
+                contentOptions.append(information.title.parseAsHtml())
                 contentOptions.append("\n")
-                contentOptions.append(information.subtitle)
+                contentOptions.append(information.subtitle.parseAsHtml())
                 contentOptions.append("\n")
                 information.steps?.forEach { step: Step ->
                     contentOptions.append(step.stepId)
@@ -306,202 +317,57 @@ class NewsFragment : BaseFragment() {
         return listParagraph
     }
 
-    private fun reproduceAudioCallBack(
-        indexParameter: Int,
-        listParagraph: MutableList<String>
-    ): Pair<Boolean, String?> {
-        if (!isPaused) {
-            indexCurrently = indexParameter + 1
-            setProgress(indexCurrently, listParagraph.size)
-        }
-        return if (indexCurrently < listParagraph.size) {
-            isPaused to listParagraph[indexCurrently]
-        } else {
-            textToSpeech?.stop()
-            (context as Activity).runOnUiThread {
-                playAndPauseIcon.apply {
-                    putImageOnTheWidget(Constants.PLAY_ICON, this)
-                }
-            }
-            true to null
-        }
-    }
-
-    private fun setProgress(progress: Int, total: Int) {
-        oldProgress = progress * Constants.PROGRESS_TOTAL / total
-    }
-
-    private fun playAndPauseAudio(
-    ) {
-        val isSpeaking = textToSpeech?.isSpeaking() ?: false
-        if (isSpeaking) {
-            playAndPauseIcon.apply {
-                putImageOnTheWidget(Constants.PLAY_ICON, this)
-            }
-            isPaused = true
-            textToSpeech?.stop()
-        } else {
-            val reproduce = getStringToReproduce()
-            if (reproduce == null) {
-                playAndPauseIcon.apply {
-                    putImageOnTheWidget(Constants.PLAY_ICON, this)
-                }
-                isPaused = true
-                textToSpeech?.stop()
-
-            } else {
-                playAndPauseIcon.apply {
-                    putImageOnTheWidget(Constants.STOP_ICON, this)
-                }
-                textToSpeech?.speakOut(reproduce)
-                isPaused = false
-            }
-        }
-    }
-
-    private fun getStringToReproduce(): String? {
-        return try {
-            listParagraph[indexCurrently]
-        } catch (e: IndexOutOfBoundsException) {
-            restartAudioProgress()
-        }
-    }
-
-    private fun restartAudioProgress(): String {
-        textToSpeech?.restartPosition()
-        indexCurrently = 0
-        oldProgress = 0
-        horizontalProgressBar?.progress = 0
-        thread.interrupt()
-        thread = incrementProgressBarThread(horizontalProgressBar)
-        thread.start()
-        return listParagraph[indexCurrently]
-    }
-
-    private fun incrementProgressBarThread(progressBar: ProgressBar?): Thread {
-        return object : Thread() {
-            override fun run() {
-                progressBar?.let {
-                    var value = 0
-                    while (progressBar.progress < Constants.PROGRESS_TOTAL) {
-                        context?.let {
-                            (context as Activity).runOnUiThread {
-                                if (progressBar.progress >= Constants.PROGRESS_TOTAL) {
-                                    this.interrupt()
-                                } else if (value != oldProgress) {
-                                    value = oldProgress
-                                    progressBar.progress = value
-                                }
-                            }
-                        }
-                        try {
-                            sleep(Constants.TIME_SLEEP)
-                        } catch (e: InterruptedException) {
-                            Timber.e("Se detiene el hilo de la barra de progreso ${e.message}")
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    private fun @AnkoViewDslMarker _LinearLayout.buildButtonNextStep(
-        view: View,
-        newsViewModel: NewsViewModel
-    ): LinearLayout {
-        val heightFormula =
-            (PixelConverter.getScreenDpHeight(context)) * Constants.SIZE_HEIGHT_NEWS
-
-        return linearLayout {
-            orientation = LinearLayout.HORIZONTAL
-            isClickable = true
-            backgroundDrawable = ContextCompat.getDrawable(
-                context, R.drawable.drawable_style_corner_and_shadow_of_button
-            )
-            linearLayout {
-                orientation = LinearLayout.HORIZONTAL
-
-                buildBlockTextNextSteps(newsViewModel)
-
-                setOnClickListener {
-                    val bundle = Bundle().apply {
-                        putBoolean("showScreen", false)
-                    }
-
-                    if (!viewModel.loadAboutUsFromSharedPreferences()) {
-                        view.findNavController()
-                            .navigate(
-                                R.id.trhAboutInstructions,
-                                null,
-                                navOptionsToBackNavigation,
-                                null
-                            )
-                    } else {
-                        view.findNavController()
-                            .navigate(
-                                R.id.categoryFragment,
-                                bundle,
-                                navOptions,
-                                null
-                            )
-                    }
-                }
-            }.lparams(
-                width = matchParent, height = matchParent
-            )
-        }.lparams(
-            width = matchParent, height = dip(heightFormula.toInt())
-        ) {
-            topMargin = dip(Constants.TOP_MARGIN_NEXT_STEP)
-        }
-    }
-
-    private fun @AnkoViewDslMarker _LinearLayout.buildBlockTextNextSteps(
-        newsViewModel: NewsViewModel
-    ) {
-        val widthBlockDp =
-            (PixelConverter.getScreenDpWidth(context)) * Constants.WIDTH_BLOCK_OF_TEXT
-        val widthBlockPixel = PixelConverter.toPixels(widthBlockDp, context)
-        verticalLayout {
-            buildNextStepTitle(newsViewModel.buttonTitle!!)
-            buildNextStepSubtitle(newsViewModel.buttonSubtitle!!)
-        }.lparams(
-            width = matchParent,
-            height = dip(widthBlockPixel)
-        ) {
-            bottomMargin = dip(Constants.TOP_MARGIN_NEXT_STEP)
-        }
-    }
-
-    private fun @AnkoViewDslMarker _LinearLayout.buildNextStepTitle(buttonTitle: String) {
-        textView {
-            gravity = Gravity.CENTER
-            text = buttonTitle
+    private fun _LinearLayout.buttonNext(view: _LinearLayout) {
+        val height = getHeightElementInDp(Constants.HEIGHT_OF_BUTTON)
+        themedButton(theme = R.style.ButtonNext) {
+            text = newsViewModel.buttonTitle
             textSizeDimen = R.dimen.text_size_question_route
-            textColor =
-                ContextCompat.getColor(
+            textColor = ContextCompat.getColor(context, R.color.colorBackgroundCategoryRoute)
+            allCaps = false
+            backgroundDrawable =
+                ContextCompat.getDrawable(
                     context,
-                    R.color.colorGenericTitle
+                    R.drawable.drawable_multiple_option_next_button
                 )
-            setTypeface(typeface, Typeface.BOLD)
-        }.lparams(height = wrapContent, width = matchParent) {
-            rightMargin = dip(calculateTopMargin())
-            bottomMargin = dip(calculateTopMargin()) / Constants.MARGIN_BOTTOM_MIDDLE_NEXT_STEP
-            topMargin = dip(calculateTopMargin())
+            typeface = ResourcesCompat.getFont(
+                context.applicationContext,
+                R.font.proxima_nova_bold
+            )
+            onClick {
+                nextButtonClick(view)
+            }
+        }.lparams(width = matchParent, height = dip(height.toFloat())){
+            topPadding = calculateTopMargin() * Constants.GENERIC_STEP_MARGIN_MULTIPLIER
+            topMargin = calculateTopMargin()
+
         }
+
     }
 
-    fun @AnkoViewDslMarker _LinearLayout.buildNextStepSubtitle(buttonSubtitle: String) {
-        textView {
-            textSizeDimen = R.dimen.text_size
-            gravity = Gravity.CENTER
-            text = buttonSubtitle
-            textColor =
-                ContextCompat.getColor(
-                    context,
-                    R.color.colorGenericTitle
-                )
-            setTypeface(typeface, Typeface.NORMAL)
+    private fun nextButtonClick(view: _LinearLayout) {
+        val bundle = Bundle().apply {
+            putBoolean("showScreen", false)
         }
-    }
+
+        if (!viewModel.loadAboutUsFromSharedPreferences()) {
+            view.findNavController()
+                .navigate(
+                    R.id.trhAboutInstructions,
+                    null,
+                    navOptionsToBackNavigation,
+                    null
+                )
+        } else {
+            view.findNavController()
+                .navigate(
+                    R.id.categoryFragment,
+                    bundle,
+                    navOptions,
+                    null
+                )
+        }
+          }
+    private fun getHeightElementInDp(percentageComponent: Double) =
+        (PixelConverter.getScreenDpHeight(context) -
+                Constants.SIZE_OF_ACTION_BAR_ROUTE) * percentageComponent
 }

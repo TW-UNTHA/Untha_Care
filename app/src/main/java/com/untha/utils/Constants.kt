@@ -37,7 +37,6 @@ object Constants {
     const val MARGIN_QUESTION_TEXT = 0.014
     const val GENERIC_STEP_MARGIN_MULTIPLIER = 2
     const val SIZE_HEIGHT_NEXT_STEP = 0.22
-    const val SIZE_HEIGHT_NEWS = 0.15
     const val SIZE_LINE_HEIGHT_NEXT_STEP = 3
     const val PERCENTAGE_PADDING_ELEMENT_NEXT_STEP_IMAGE = 15
     const val TOP_MARGIN_NEXT_STEP = 17
@@ -64,7 +63,6 @@ object Constants {
     const val POSITION_SLICE_PAGE_THREE = 2
     const val POSITION_SLICE_PAGE_FOUR = 3
     const val MARGIN_SINGLE_SELECTION_QUESTION = 0.010
-    const val MARGIN_SINGLE_SELECTION_QUESTION_CALCULATOR = 0.010
     const val MARGIN_HEIGHT_SELECTION_QUESTION = 0.054
     const val MARGIN_HEIGHT_QUESTION = 0.17
     const val SIZE_IMAGE_PERCENTAGE_AUDIO_ROUTE = ((((50) * 100) / 640) / 100F).toDouble()
