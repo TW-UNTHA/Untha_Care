@@ -25,7 +25,7 @@ android {
         applicationId "com.untha"
         minSdkVersion minsdk_version
         targetSdkVersion targetsdk_version
-        versionCode 5
+        versionCode 6
         versionName "2.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
