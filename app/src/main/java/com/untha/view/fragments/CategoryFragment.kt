@@ -70,7 +70,7 @@ class CategoryFragment : BaseFragment(),
                 .navigate(
                     R.id.newsFragment,
                     null,
-                    navOptions,
+                    null,
                     null
                 )
         }
