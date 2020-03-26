@@ -105,7 +105,11 @@ fun numberDaysWorked(endDate: String, startDate: String): Int {
     val endDateTransformed = stringToCalendar(endDate)
     val numberDays =
         calculateNumberOfDayBetween(stringToCalendar(startDate), endDateTransformed)
-    val startDate = if (numberDays > DAYS_IN_MONTH) startDateOfMonth(endDate) else startDate
+    val startDate =
+        if (numberDays > DAYS_IN_MONTH || stringToCalendar(startDate).get(Calendar.MONTH) != endDateTransformed.get(
+                Calendar.MONTH
+            )
+        ) startDateOfMonth(endDate) else startDate
     val startDateTransformed = stringToCalendar(startDate)
 
     val numberBetween = DAYS_IN_MONTH - startDateTransformed.get(Calendar.DAY_OF_MONTH) + 1

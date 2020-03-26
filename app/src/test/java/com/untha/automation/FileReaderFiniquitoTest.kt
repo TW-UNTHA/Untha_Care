@@ -26,7 +26,7 @@ import org.koin.test.inject
 import org.koin.test.mock.declareMock
 
 @RunWith(Parameterized::class)
-class FileReaderFiniquitoTest ( private val excelModel: ExcelModelFiniquito){
+class FileReaderFiniquitoTest(private val excelModel: ExcelModelFiniquito) {
 
     companion object {
         var manageFile = FileReaderFiniquito()
@@ -38,14 +38,35 @@ class FileReaderFiniquitoTest ( private val excelModel: ExcelModelFiniquito){
 
     @Test
     @Throws(Exception::class)
-    fun subRunner() {
+    fun `decimo tercero`() {
         JUnitCore.runClasses(CalculatorFiniquitoResultViewModelTest::class.java)
-
-        //CalculatorFiniquitoResultViewModelTest().`should match decimo tercero value excel with result`()
+        CalculatorFiniquitoResultViewModelTest().`should match decimo tercero value excel with result`()
     }
 
+    @Test
+    @Throws(Exception::class)
+    fun `decimo cuarto`() {
+        JUnitCore.runClasses(CalculatorFiniquitoResultViewModelTest::class.java)
+        CalculatorFiniquitoResultViewModelTest().`should match decimo cuarto value excel with result`()
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun `fondos de reserva`() {
+        JUnitCore.runClasses(CalculatorFiniquitoResultViewModelTest::class.java)
+        CalculatorFiniquitoResultViewModelTest().`should match fondos de reserva value excel with result`()
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun `vacaciones`() {
+        JUnitCore.runClasses(CalculatorFiniquitoResultViewModelTest::class.java)
+        CalculatorFiniquitoResultViewModelTest().`should match anual leave value excel with result`()
+    }
+
+
     @RunWith(JUnit4::class)
-   inner class CalculatorFiniquitoResultViewModelTest:KoinTest{
+    inner class CalculatorFiniquitoResultViewModelTest : KoinTest {
         private val mockCategoryWithRelationsRepository by inject<CategoryWithRelationsRepository>()
         private val mockCategoryMapper by inject<CategoryMapper>()
         private val sharedPreferences by inject<SharedPreferences>()
@@ -54,7 +75,7 @@ class FileReaderFiniquitoTest ( private val excelModel: ExcelModelFiniquito){
         val rule = InstantTaskExecutorRule()
 
         @Before
-         fun  before() {
+        fun before() {
             startKoin {
                 modules(
                     listOf(
@@ -79,7 +100,7 @@ class FileReaderFiniquitoTest ( private val excelModel: ExcelModelFiniquito){
         @Test
         fun `should match decimo tercero value excel with result`() {
             before()
-            val calculatorFiniquitoResultViewModel =CalculatorFiniquitoResultsViewModel(
+            val calculatorFiniquitoResultViewModel = CalculatorFiniquitoResultsViewModel(
                 sharedPreferences, mockCategoryWithRelationsRepository, mockCategoryMapper
             )
 
@@ -87,7 +108,12 @@ class FileReaderFiniquitoTest ( private val excelModel: ExcelModelFiniquito){
 
 
             val resultDecimoTercero =
-                calculatorFiniquitoResultViewModel.getDecimoTercero(excelModel.decimoTerceroOption,excelModel.startDate, excelModel.endDate, excelModel.salario)
+                calculatorFiniquitoResultViewModel.getDecimoTercero(
+                    excelModel.decimoTerceroOption,
+                    excelModel.startDate,
+                    excelModel.endDate,
+                    excelModel.salario
+                )
             after()
             assertThat(resultDecimoTercero, equalTo(expected))
 
@@ -96,23 +122,67 @@ class FileReaderFiniquitoTest ( private val excelModel: ExcelModelFiniquito){
         @Test
         fun `should match decimo cuarto value excel with result`() {
             before()
-            val calculatorFiniquitoResultViewModel =CalculatorFiniquitoResultsViewModel(
+            val calculatorFiniquitoResultViewModel = CalculatorFiniquitoResultsViewModel(
                 sharedPreferences, mockCategoryWithRelationsRepository, mockCategoryMapper
             )
             val expected = excelModel.decimoCuarto
 
 
             val resultDecimoTercero =
-                calculatorFiniquitoResultViewModel.getDecimoCuarto(excelModel.decimoCuartoOption,excelModel.startDate, excelModel.endDate, excelModel.idArea, excelModel.horasSemana)
+                calculatorFiniquitoResultViewModel.getDecimoCuarto(
+                    excelModel.decimoCuartoOption,
+                    excelModel.startDate,
+                    excelModel.endDate,
+                    excelModel.idArea,
+                    excelModel.horasSemana
+                )
             after()
             assertThat(resultDecimoTercero, equalTo(expected))
         }
+
+        @Test
+        fun `should match fondos de reserva value excel with result`() {
+            before()
+            val calculatorFiniquitoResultViewModel = CalculatorFiniquitoResultsViewModel(
+                sharedPreferences, mockCategoryWithRelationsRepository, mockCategoryMapper
+            )
+            val expected = excelModel.fondosReserva
+
+
+            val resultFondosReserva =
+                calculatorFiniquitoResultViewModel.getFondosReserva(
+                    excelModel.fondosReservaOption,
+                    excelModel.startDate,
+                    excelModel.endDate,
+                    excelModel.salario
+                )
+            after()
+            assertThat(resultFondosReserva, equalTo(expected))
+        }
+
+        @Test
+        fun `should match anual leave value excel with result`() {
+            before()
+            val calculatorFiniquitoResultViewModel = CalculatorFiniquitoResultsViewModel(
+                sharedPreferences, mockCategoryWithRelationsRepository, mockCategoryMapper
+            )
+            val expected = excelModel.vacationPay
+
+
+            val resultAnualLeave =
+                calculatorFiniquitoResultViewModel.getVacationsNotTaken(
+                    excelModel.daysTaken,
+                    excelModel.startDate,
+                    excelModel.endDate,
+                    excelModel.birthDate,
+                    excelModel.salario.toDouble()
+                )
+            after()
+            assertThat(resultAnualLeave, equalTo(expected))
+        }
     }
-
-
-
-
 }
+
 
 
 

@@ -17,6 +17,9 @@ class CalculatorVacacionesService {
 
         const val START_INDEX = 4
         const val END_INDEX = 10
+        const val FIFTEEN_DAYS = 15
+        const val EIGHTEEN_YEARS = 18
+
     }
 
 
@@ -33,27 +36,6 @@ class CalculatorVacacionesService {
     }
 
 
-    fun getCostOfAnnualLeaveDays(
-        startDate: String,
-        endDate: String,
-        salary: Double,
-        age: Int,
-        daysTaken: Int
-    ): BigDecimal {
-        val numberAnnualLeaveDays = getNumberAnnualLeaveDay(startDate, endDate, age)
-        val numberAnnualLeaveDaysAvailable = numberAnnualLeaveDays - daysTaken
-        val salaryAtDay = getDailyPayAnnualLeave(salary)
-
-        val result = salaryAtDay.multiply(
-            numberAnnualLeaveDaysAvailable.toBigDecimal().setScale(
-                2,
-                RoundingMode.HALF_UP
-            )
-        )
-        return result
-    }
-
-
     fun isBirthdayInPeriodOfWork(startDate: String, endDate: String, birthDate: String): Boolean {
         val ageStartDate = getAge(birthDate, startDate)
         val ageEndDate = getAge(birthDate, endDate)
@@ -67,6 +49,7 @@ class CalculatorVacacionesService {
         val startDateTransformed = stringToCalendar(startDate)
         val endDateTransformed = stringToCalendar(endDate)
         val birthDateTransformed = stringToCalendar(birthDate)
+
         val newBirthdayStartDate = startDateTransformed.get(Calendar.YEAR).toString()
             .plus(birthDate.substring(START_INDEX, END_INDEX))
         val newBirthdayEndDate = endDateTransformed.get(Calendar.YEAR).toString()
@@ -87,39 +70,6 @@ class CalculatorVacacionesService {
         return endDate
     }
 
-    fun getTotalCostFirstPeriod(
-        startDate: String,
-        endDate: String,
-        birthDate: String,
-        salary: Double,
-        daysTaken: Int
-    ): BigDecimal {
-        val endDateByPeriod = getNewDate(startDate, endDate, birthDate)
-
-        val age = getAge(birthDate, startDate)
-        val cost =
-            getCostOfAnnualLeaveDays(startDate, endDateByPeriod, salary, age, daysTaken)
-
-
-        return cost.setScale(2, RoundingMode.HALF_UP)
-    }
-
-    fun getTotalCostSecondPeriod(
-        startDate: String,
-        endDate: String,
-        birthDate: String,
-        salary: Double,
-        daysTaken: Int
-    ): BigDecimal {
-        val startDateByPeriod = getNewDate(startDate, endDate, birthDate)
-        val age = getAge(birthDate, startDateByPeriod)
-
-        val cost =
-            getCostOfAnnualLeaveDays(startDateByPeriod, endDate, salary, age, daysTaken)
-
-        return cost.setScale(2, RoundingMode.HALF_UP)
-    }
-
     fun getTotalCostPeriod(
         startDate: String,
         endDate: String,
@@ -127,23 +77,47 @@ class CalculatorVacacionesService {
         salary: Double,
         daysTaken: Int
     ): BigDecimal {
-        var cost: BigDecimal
-        val newDate = getNewDate(startDate, endDate, birthDate)
-        cost = getTotalCostFirstPeriod(startDate, endDate, birthDate, salary, daysTaken)
-            .setScale(2, RoundingMode.HALF_UP)
-        if (newDate.equals(startDate) || newDate.equals(endDate)) {
-            return cost
+
+        val calendarEndDate = stringToCalendar(endDate)
+        var newStartDate: String
+        val numberOfDays = calculateNumberOfDayBetween(stringToCalendar(startDate), calendarEndDate)
+        val equivalentSalary = salary * MONTHS_OF_YEAR / DAYS_OF_YEAR
+
+        if (numberOfDays > DAYS_OF_YEAR) {
+            newStartDate = (calendarEndDate.get(Calendar.YEAR) - 1).toString()
+                .plus(endDate.substring(START_INDEX, END_INDEX))
+        } else {
+            newStartDate = startDate
+
         }
-        cost += getTotalCostSecondPeriod(startDate, endDate, birthDate, salary, daysTaken)
+        val ageFirstPeriod = getAge(birthDate, newStartDate)
+        if (ageFirstPeriod > EIGHTEEN_YEARS) {
+            if (numberOfDays > DAYS_OF_YEAR) {
+                val daysAvailable = (FIFTEEN_DAYS - daysTaken).toDouble()
+                return (daysAvailable * equivalentSalary).toBigDecimal()
+                    .setScale(2, RoundingMode.HALF_UP)
 
-        return cost.setScale(2, RoundingMode.HALF_UP)
+            } else {
+                val constant = FIFTEEN_DAYS.toDouble() / DAYS_OF_YEAR.toDouble()
+                val daysAvailable = (numberOfDays.toDouble() * constant) - daysTaken.toDouble()
+                return (daysAvailable * equivalentSalary).toBigDecimal()
+                    .setScale(2, RoundingMode.HALF_UP)
+            }
+        } else {
+
+            val newDate = getNewDate(newStartDate, endDate, birthDate)
+            var numberAnnualLeaveDays =
+                getNumberAnnualLeaveDay(newStartDate, newDate, ageFirstPeriod)
+
+            val ageSecondPeriod = getAge(birthDate, endDate)
+            numberAnnualLeaveDays += getNumberAnnualLeaveDay(newDate, endDate, ageSecondPeriod)
+            val daysAvailable = (numberAnnualLeaveDays - daysTaken).toDouble()
+            return (daysAvailable * equivalentSalary).toBigDecimal()
+                .setScale(2, RoundingMode.HALF_UP)
+
+        }
     }
 
-
-    fun getDailyPayAnnualLeave(salary: Double): BigDecimal {
-        val salaryAtDay = (salary * MONTHS_OF_YEAR) / DAYS_OF_YEAR
-        return salaryAtDay.toBigDecimal()
-    }
 
     fun newStartDatePeriodOfWork(startDate: String, endDate: String): String {
         val startDateTransform = stringToCalendar(startDate)
@@ -162,8 +136,6 @@ class CalculatorVacacionesService {
         }
         return startDate
     }
-
-
 
 
 }
