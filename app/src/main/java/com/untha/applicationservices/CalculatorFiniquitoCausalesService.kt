@@ -5,7 +5,6 @@ import com.untha.utils.calculateNumberOfDayBetween
 import com.untha.utils.stringToCalendar
 import java.math.BigDecimal
 import java.math.RoundingMode
-import java.util.*
 
 class CalculatorFiniquitoCausalesService {
     companion object {
@@ -31,30 +30,37 @@ class CalculatorFiniquitoCausalesService {
 
         val calendarStartDate = stringToCalendar(startDate)
         val calendarEndDate = stringToCalendar(endDate)
-        val numberOfYears = calculateYears(calendarEndDate, calendarStartDate)
         var valueOfCausal: BigDecimal = BigDecimal.ZERO
 
         if (hint == DESAHUCIO_HINT) {
+            val yearsDesahucio =
+                (calculateNumberOfDayBetween(calendarStartDate, calendarEndDate).toBigDecimal()
+                    .divide(DAYS_OF_YEAR.toBigDecimal(), ROUNDING_SCALE_MAXIMUN, RoundingMode.HALF_DOWN)).toInt()
+
             valueOfCausal = salary.multiply(PERCENTAGE_DESAHUCIO_PER_YEAR.toBigDecimal())
                 .setScale(2, RoundingMode.HALF_UP)
-                .multiply(numberOfYears.toBigDecimal()).setScale(2, RoundingMode.HALF_UP)
+                .multiply(yearsDesahucio.toBigDecimal()).setScale(2, RoundingMode.HALF_UP)
         }
         if (hint == TRIAL_PERIOD_HINT || hint == EMPLOYEE_DEAD_HINT) {
             valueOfCausal = TRIAL_PERIOD_RETRIBUTION_OR_EMPLOYEE_DEAD.toBigDecimal()
                 .setScale(2, RoundingMode.HALF_UP)
         }
+
         if (hint == INTEMPESTIVO_HINT || hint == MUERTE_EMPLEADOR_HINT) {
             var years =
                 calculateNumberOfDayBetween(calendarStartDate, calendarEndDate).toBigDecimal()
                     .divide(DAYS_OF_YEAR.toBigDecimal(), ROUNDING_SCALE_MAXIMUN, RoundingMode.HALF_UP)
+
             if (years <= MIN_YEARS_INTEMPESTIVO.toBigDecimal().setScale(ROUNDING_SCALE_MAXIMUN, RoundingMode.HALF_UP)) {
                 valueOfCausal = salary.multiply(MIN_YEARS_INTEMPESTIVO.toBigDecimal())
                     .setScale(2, RoundingMode.HALF_UP)
             }
-            if (years > MAX_YEARS_INTEMPESTIVO.toBigDecimal().setScale(ROUNDING_SCALE_MAXIMUN, RoundingMode.HALF_UP)) {
+            if (years >= MAX_YEARS_INTEMPESTIVO.toBigDecimal().setScale(ROUNDING_SCALE_MAXIMUN, RoundingMode.HALF_UP)) {
                 valueOfCausal = salary.multiply(MAX_YEARS_INTEMPESTIVO.toBigDecimal())
                     .setScale(2, RoundingMode.HALF_UP)
-            } else {
+
+            } else if(years> MIN_YEARS_INTEMPESTIVO.toBigDecimal() && years < MAX_YEARS_INTEMPESTIVO.toBigDecimal()){
+
                 years = years.setScale(0, RoundingMode.CEILING)
                 valueOfCausal = salary.multiply(years).setScale(2, RoundingMode.HALF_UP)
             }
@@ -63,19 +69,3 @@ class CalculatorFiniquitoCausalesService {
     }
 }
 
-private fun calculateYears(
-    calendarEndDate: Calendar,
-    calendarStartDate: Calendar
-): Int {
-    var years = calendarEndDate.get(Calendar.YEAR) - calendarStartDate.get(Calendar.YEAR)
-
-    if (calendarStartDate.get(Calendar.MONTH) > calendarEndDate.get(Calendar.MONTH) || (calendarStartDate.get(
-            Calendar.MONTH
-        ) == calendarEndDate.get(Calendar.MONTH) && calendarStartDate.get(Calendar.DAY_OF_MONTH) > calendarEndDate.get(
-            Calendar.DAY_OF_MONTH
-        ))
-    ) {
-        return years--
-    }
-    return years
-}

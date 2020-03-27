@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.RelativeLayout
-import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
@@ -121,11 +120,18 @@ class CategoryFragment : BaseFragment(),
                 null
             )
             CALCULATOR_CATEGORY -> {
-                Toast.makeText(
-                    context,
-                    getString(R.string.coming_soon),
-                    Toast.LENGTH_LONG
-                ).show()
+                val categoriesRoutes = Bundle().apply {
+                    putSerializable(
+                        Constants.CATEGORIES_CALCULATORS, calculators
+                    )
+                    putSerializable(Constants.CATEGORY_PARAMETER, category)
+                }
+                itemView.findNavController().navigate(
+                    R.id.calculatorsFragment,
+                    categoriesRoutes,
+                    navOptions,
+                    null
+                )
             }
 
             ROUTES_CATEGORY     -> {

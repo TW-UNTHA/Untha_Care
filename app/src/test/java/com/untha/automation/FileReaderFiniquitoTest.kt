@@ -64,6 +64,24 @@ class FileReaderFiniquitoTest(private val excelModel: ExcelModelFiniquito) {
         CalculatorFiniquitoResultViewModelTest().`should match anual leave value excel with result`()
     }
 
+    @Test
+    @Throws(Exception::class)
+    fun `final salary`() {
+        JUnitCore.runClasses(CalculatorFiniquitoResultViewModelTest::class.java)
+        CalculatorFiniquitoResultViewModelTest().`should match final salary value excel with result`()
+    }
+    @Test
+    @Throws(Exception::class)
+    fun `compensation`() {
+        JUnitCore.runClasses(CalculatorFiniquitoResultViewModelTest::class.java)
+        CalculatorFiniquitoResultViewModelTest().`should match compensation value excel with result`()
+    }
+    @Test
+    @Throws(Exception::class)
+    fun `causal`() {
+        JUnitCore.runClasses(CalculatorFiniquitoResultViewModelTest::class.java)
+        CalculatorFiniquitoResultViewModelTest().`should match causal value excel with result`()
+    }
 
     @RunWith(JUnit4::class)
     inner class CalculatorFiniquitoResultViewModelTest : KoinTest {
@@ -179,6 +197,51 @@ class FileReaderFiniquitoTest(private val excelModel: ExcelModelFiniquito) {
                 )
             after()
             assertThat(resultAnualLeave, equalTo(expected))
+        }
+
+        @Test
+        fun `should match final salary value excel with result`() {
+            before()
+            val calculatorFiniquitoResultViewModel = CalculatorFiniquitoResultsViewModel(
+                sharedPreferences, mockCategoryWithRelationsRepository, mockCategoryMapper
+            )
+            val expected = excelModel.finalSalary
+
+
+            val resultFinalSalary =
+                calculatorFiniquitoResultViewModel.getSalaryLastMonth(excelModel.salario, excelModel.endDate, excelModel.startDate)
+            after()
+            assertThat(resultFinalSalary, equalTo(expected))
+        }
+
+        @Test
+        fun `should match compensation value excel with result`() {
+            before()
+            val calculatorFiniquitoResultViewModel = CalculatorFiniquitoResultsViewModel(
+                sharedPreferences, mockCategoryWithRelationsRepository, mockCategoryMapper
+            )
+            val expected = excelModel.compensation
+
+
+            val resultCompensation =
+                calculatorFiniquitoResultViewModel.getIndemnizacion(excelModel.typeIndemnizacion, excelModel.salario)
+            after()
+            assertThat(resultCompensation, equalTo(expected))
+        }
+
+        @Test
+        fun `should match causal value excel with result`() {
+            before()
+            val calculatorFiniquitoResultViewModel = CalculatorFiniquitoResultsViewModel(
+                sharedPreferences, mockCategoryWithRelationsRepository, mockCategoryMapper
+            )
+            val expected = excelModel.causal
+
+
+            val resultCausal =
+                calculatorFiniquitoResultViewModel.getDesahucio(excelModel.typeCausal,excelModel.salario, excelModel.startDate, excelModel.endDate)
+            after()
+            assertThat(resultCausal, equalTo(expected))
         }
     }
 }
