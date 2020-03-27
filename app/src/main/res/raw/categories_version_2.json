@@ -1,5 +1,5 @@
 {
-  "version": 2,
+  "version": 3,
   "categories": [
     {
       "id": 1,
@@ -292,7 +292,7 @@
               "steps": [
                 {
                   "step_id": 1,
-                  "description": "Tienes derecho a recibir por lo menos un salario básico unificado si trabajas a tiempo completo, es decir: ganar mínimo $394 por trabajar máximo cinco días a la semana o 40 horas semanales. "
+                  "description": "Tienes derecho a recibir por lo menos un salario básico unificado si trabajas a tiempo completo, es decir: ganar mínimo $400 por trabajar máximo cinco días a la semana o 40 horas semanales. "
                 },
                 {
                   "step_id": 2,
@@ -300,7 +300,7 @@
                 },
                 {
                   "step_id": 3,
-                  "description": "Tienes que recibir el pago del décimo tercero o bono navideño que equivale a la doceava parte de las remuneraciones del año calendario. Es decir, si ganas $394, deberás recibir un salario extra o el equivalente a los meses trabajados.  "
+                  "description": "Tienes que recibir el pago del décimo tercero o bono navideño que equivale a la doceava parte de las remuneraciones del año calendario. Es decir, si ganas $400, deberás recibir un salario extra o el equivalente a los meses trabajados.  "
                 },
                 {
                   "step_id": 4,

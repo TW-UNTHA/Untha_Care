@@ -1,5 +1,5 @@
 {
-  "version": 1,
+  "version": 2,
   "questions": [
     {
       "id": 1,
@@ -324,21 +324,21 @@
       "result": null,
       "options": [
         {
-          "value": "$394 o más",
+          "value": "$400 o más",
           "remaining": 7,
           "hint": "R1P10R2",
           "result": null,
           "goTo": 11
         },
         {
-          "value": "Entre $393 y $197",
+          "value": "Entre $399 y $200",
           "remaining": 7,
           "hint": "R1P10R1",
           "result": "F9",
           "goTo": 11
         },
         {
-          "value": "$196 o menos",
+          "value": "$199 o menos",
           "remaining": 7,
           "hint": "R1P10R4",
           "result": "F9",
@@ -540,7 +540,7 @@
           "value": "No",
           "remaining": 0,
           "hint": "R1P18R2",
-          "result": "R5",
+          "result": null,
           "goTo": -1
         }
       ]
