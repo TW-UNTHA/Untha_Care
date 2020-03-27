@@ -1,5 +1,5 @@
 {
-  "version": 3,
+  "version": 4,
   "categories": [
     {
       "id": 1,
@@ -39,7 +39,7 @@
                 },
                 {
                   "step_id": 2,
-                  "description": "Tu horario de trabajo o la duración de tu jornada y los días de trabajo. Es preferible que sea a tiempo completo, es decir 8 horas diaras por 5 días a la semana o tiempo parcial, menos de 6 horas diarias."
+                  "description": "Tu horario de trabajo o la duración de tu jornada y los días de trabajo. Si trabajas menos de 40 horas a la semana se considera como trabajo parcial."
                 },
                 {
                   "step_id": 3,
@@ -70,6 +70,10 @@
                 {
                   "step_id": null,
                   "description": "Ingresa al siguiente vínculo para acceder a contratos modelos de: tiempo completo y tiempo parcial: <a href='http://www.trabajo.gob.ec/modelos-de-contratos-para-trabajadoras-remuneradas-del-hogar-trabajo-domestico'>http://www.trabajo.gob.ec/modelos-de-contratos-para-trabajadoras-remuneradas-del-hogar-trabajo-domestico</a> <br><br> <b>Recuerda</b>, tu empleador no puede despedirte por ninguno de estos motivos: embarazo, edad, apariencia, estado de salud física o mental o por diversidad sexual o religiosa. "
+                },
+                {
+                  "step_id": null,
+                  "description": "<br>AVISO IMPORTANTE:</br> Si hay cambios en tus condiciones de trabajo estipuladas en el contrato, tales como: empleador, lugar de trabajo, modalidad de trabajo, jornada etc., necesitas hacer un acta de finiquito y firmar un nuevo contrato."
                 }
               ]
             }
@@ -188,7 +192,7 @@
               "steps": [
                 {
                   "step_id": null,
-                  "description": "•&nbsp;&nbsp;&nbsp;Direcciones Regionales del Trabajo <br>•&nbsp;&nbsp;&nbsp;Inspectorías de Trabajo <br>•&nbsp;&nbsp;&nbsp;Ventanillas del Ministerio del Trabajo <br>•&nbsp;&nbsp;&nbsp;Llamar al <a href = 'tel:151'>151</a> - Defensoría Pública <br>•&nbsp;&nbsp;&nbsp;Llamar al <a href = 'tel:1800 266822'>1800 266822</a> - Ministerio del trabajo <br>•&nbsp;&nbsp;&nbsp;Enviar un correo a  <a href = 'mailto:denuncias@trabajo.gob.ec'>denuncias@trabajo.gob.ec</a>"
+                  "description": "•&nbsp;&nbsp;&nbsp;Direcciones Regionales del Trabajo <br>•&nbsp;&nbsp;&nbsp;Inspectorías de Trabajo <br>•&nbsp;&nbsp;&nbsp;Ventanillas del Ministerio del Trabajo <br>•&nbsp;&nbsp;&nbsp;Llamar al <a href = 'tel:151'>151</a> - Defensoría Pública <br>•&nbsp;&nbsp;&nbsp;Llamar al <a href = 'tel:1800 266822'>1800 266822</a> - Ministerio del trabajo"
                 }
               ]
             },
@@ -198,7 +202,7 @@
               "steps": [
                 {
                   "step_id": null,
-                  "description": "Presenta un oficio con tus datos de identidad y contacto y los de tu empleador/a e indica los motivos por los cuales estás denunciando. Prueba lo que ha pasado, para esto puedes usar grabaciones de llamadas, mensajes de texto, documentos escritos. Cuando presentes una denuncia solicita el número correspondiente para poder darle seguimiento. Debes obtener una respuesta en un plazo máximo de 15 días."
+                  "description": "Presenta un oficio con tus datos de identidad y contacto y los de tu empleador/a e indica los motivos por los cuales estás denunciando. Prueba lo que ha pasado, para esto puedes usar grabaciones de llamadas, mensajes de texto, documentos escritos. Cuando presentes una denuncia solicita el número correspondiente del trámite para poder darle seguimiento. Debes obtener una respuesta en un plazo máximo de 15 días."
                 }
               ]
             }
