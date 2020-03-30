@@ -15,6 +15,7 @@ import com.untha.model.transactionalmodels.Category
 import com.untha.model.transactionalmodels.Route
 import com.untha.model.transactionalmodels.RouteQuestion
 import com.untha.utils.Constants
+import com.untha.utils.Constants.MARGIN_TOP_TEN
 import com.untha.utils.Constants.NAME_SCREEN_CALCULATOR_ROUTE
 import com.untha.utils.ContentType
 import com.untha.utils.FirebaseEvent
@@ -156,7 +157,7 @@ class SingleSelectionQuestionFragment : BaseFragment() {
 
                     bottomHelpMessage()
                 }.lparams{
-                    topMargin = dip(10)
+                    topMargin = dip(MARGIN_TOP_TEN)
                 }
             }
 

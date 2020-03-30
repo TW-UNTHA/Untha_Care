@@ -50,14 +50,14 @@
       "result": "",
       "options": [
         {
-          "value": "Renuncia voluntaria(también llamada desahucio)",
+          "value": "Renuncia voluntaria (también llamada desahucio)",
           "remaining": 1,
           "hint": "R3P2R1",
           "result": "R1",
           "goTo": -1
         },
         {
-          "value": "Terminación durante el período de prueba(15 días)",
+          "value": "Terminación durante el período de prueba (15 días)",
           "remaining": 1,
           "hint": "R3P2R2",
           "result": "R2",
@@ -78,7 +78,7 @@
           "goTo": -1
         },
         {
-          "value": "Despido intempestivo(Sin previo aviso)",
+          "value": "Despido intempestivo (Sin previo aviso)",
           "remaining": 1,
           "hint": "R3P2R5",
           "result": "F4",

@@ -30,6 +30,7 @@ object Constants {
     const val SMALL_VIEW = 1
     const val PERCENTAGE_SMALL_HEIGHT_LAYOUT = 0.3
     const val MARGIN_SMALL_TOP_PERCENTAGE = 0.01093
+    const val MARGIN_TOP_TEN =10
     const val REFERENCE_DENSITY = 160
     const val PERCENTAGE_SMALL_RIGHTS = 0.33
     const val GENERIC_PERCENTAGE_PLAYER_HEADER = 0.427
