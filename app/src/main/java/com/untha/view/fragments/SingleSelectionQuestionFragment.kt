@@ -114,10 +114,8 @@ class SingleSelectionQuestionFragment : BaseFragment() {
                     explanationQuestion()
                 }
 
-                val margin =
-                    calculateHeightComponentsQuestion(Constants.MARGIN_BOTTOM_PERCENTAGE_ANSWERS_LAYOUT)
                 if (typeRoute == Constants.ROUTE_CALCULATOR) {
-                    drawOptionsAnswerFromCalculatorRoute(view, margin)
+                    drawOptionsAnswerFromCalculatorRoute(view)
                 } else {
                     drawOptionsAnswer(view)
                 }
@@ -149,25 +147,23 @@ class SingleSelectionQuestionFragment : BaseFragment() {
     }
 
     private fun @AnkoViewDslMarker _LinearLayout.drawOptionsAnswerFromCalculatorRoute(
-        view: View,
-        margin: Int
+        view: View
     ) {
         scrollView {
             verticalLayout {
                 drawOptionsAnswer(view)
+                verticalLayout{
+
+                    bottomHelpMessage()
+                }.lparams{
+                    topMargin = dip(10)
+                }
             }
 
         }.lparams(
-            width = matchParent,
-            height = calculateHeightComponentsQuestion(Constants.SIZE_SCROLL_VIEW_SINGLE_OPTION)
-        ) {
-            bottomMargin = dip(margin)
-        }
+            width = matchParent
+        )
 
-        verticalLayout {
-
-            bottomHelpMessage()
-        }
     }
 
     private fun @AnkoViewDslMarker _LinearLayout.drawOptionsAnswer(
