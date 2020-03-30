@@ -12,7 +12,6 @@ const val MONTH_WITH_TWO_DIGITS = 10
 const val MAX_HOURS_WEEK = 60
 const val SIERRA_ORIENTE = 2
 const val COSTA_GALAPAGOS = 1
-const val COMPLETE_HOURS = 40
 const val PARTIAL_TIME = 2
 const val COMPLETE_TIME = 1
 

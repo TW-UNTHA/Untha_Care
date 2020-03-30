@@ -54,6 +54,7 @@ object Constants {
     const val ROUTE_RESULT = "route-result"
     const val CALCULATOR_ROUTE_RESULT = "calculator-dynamic-result"
     const val CALCULATOR_RECOMMEND = "calculator-static-result"
+    const val CONSTANTS = "constants"
     const val VIOLENCE_ROUTE = "violence-route"
     const val QUESTIONNAIRE_ROUTE = "questionnaire-route"
     const val NEWS = "news"

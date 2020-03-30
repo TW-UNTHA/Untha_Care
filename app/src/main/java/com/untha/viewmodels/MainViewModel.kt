@@ -14,11 +14,13 @@ import com.untha.model.models.QueryingCategory
 import com.untha.model.models.SectionModel
 import com.untha.model.models.SectionStepModel
 import com.untha.model.services.CategoriesService
+import com.untha.model.services.ConstantsService
 import com.untha.model.services.QuestionnaireRouteResultService
 import com.untha.model.services.ResultService
 import com.untha.model.services.RoutesService
 import com.untha.model.transactionalmodels.CategoriesWrapper
 import com.untha.model.transactionalmodels.Category
+import com.untha.model.transactionalmodels.ConstantsWrapper
 import com.untha.model.transactionalmodels.QuestionnaireRouteResultWrapper
 import com.untha.model.transactionalmodels.ResultCalculatorWrapper
 import com.untha.model.transactionalmodels.ResultWrapper
@@ -36,7 +38,8 @@ class MainViewModel(
     private val sharedPreferences: SharedPreferences,
     private val routesService: RoutesService,
     private val resultService: ResultService,
-    private val questionnaireRouteResultService: QuestionnaireRouteResultService
+    private val questionnaireRouteResultService: QuestionnaireRouteResultService,
+    private val constantsService: ConstantsService
 ) : ViewModel() {
 
     private val categoryModels: MutableList<CategoryModel> = mutableListOf()
@@ -250,6 +253,44 @@ class MainViewModel(
                     }
                     else                  -> {
                         Timber.e("Error en la llamada de load route result calculators $response")
+                    }
+                }
+            })
+    }
+
+    fun getConstants(owner: LifecycleOwner) {
+        constantsService.getConstants()
+            .observe(owner, Observer { response ->
+                when (response) {
+                    is ApiSuccessResponse -> {
+                        val sharedPreferencesConstantResult =
+                            sharedPreferences.getString(Constants.CONSTANTS, "")
+                        if (!sharedPreferencesConstantResult.isNullOrEmpty()) {
+                            val constantsWrapperSharedPreferences =
+                                Json.parse(ResultCalculatorWrapper.serializer(), sharedPreferencesConstantResult)
+                            if (response.body.version > constantsWrapperSharedPreferences.version) {
+                                sharedPreferences.edit()
+                                    .putString(
+                                        Constants.CONSTANTS,
+                                        Json.stringify(
+                                            ConstantsWrapper.serializer(),
+                                            response.body
+                                        )
+                                    ).apply()
+                            }
+                        } else {
+                            sharedPreferences.edit()
+                                .putString(
+                                    Constants.CONSTANTS,
+                                    Json.stringify(
+                                        ConstantsWrapper.serializer(),
+                                        response.body
+                                    )
+                                ).apply()
+                        }
+                    }
+                    else                  -> {
+                        Timber.e("Error en la llamada de load constants $response")
                     }
                 }
             })

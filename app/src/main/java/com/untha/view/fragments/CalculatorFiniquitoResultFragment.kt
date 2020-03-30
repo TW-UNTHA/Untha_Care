@@ -1,6 +1,7 @@
 package com.untha.view.fragments
 
 import android.content.Context
+import android.content.SharedPreferences
 import android.graphics.Typeface
 import android.os.Bundle
 import android.view.Gravity
@@ -21,11 +22,9 @@ import com.untha.model.transactionalmodels.Category
 import com.untha.model.transactionalmodels.RouteResult
 import com.untha.utils.Constants
 import com.untha.utils.Constants.CALCULATOR_FINIQUITO_RESULT_PAGE
-import com.untha.utils.ConstantsCalculators.SBU
 import com.untha.utils.ConstantsCalculators.SEVENTEEN_AGE
 import com.untha.utils.ConstantsCalculators.SIXTEEN_AGE
 import com.untha.utils.ConstantsCalculators.TRIAL_PERIOD
-import com.untha.utils.ConstantsCalculators.WEEKLY_HOURS_COMPLETE
 import com.untha.utils.ConstantsCalculators.WEEKLY_HOURS_MAXIMUM_LEGAL_MINOR
 import com.untha.utils.ContentType
 import com.untha.utils.FirebaseEvent
@@ -36,6 +35,7 @@ import com.untha.utils.getAge
 import com.untha.utils.stringToCalendar
 import com.untha.view.activities.MainActivity
 import com.untha.viewmodels.CalculatorFiniquitoResultsViewModel
+import com.untha.utils.ConstantsValues
 import kotlinx.android.synthetic.main.fragment_calculator_finiquito_result.view.*
 import org.jetbrains.anko.AnkoViewDslMarker
 import org.jetbrains.anko._LinearLayout
@@ -60,7 +60,7 @@ import java.math.BigDecimal
 import java.util.*
 
 
-class CalculatorFiniquitoResultFragment : BaseFragment() {
+class CalculatorFiniquitoResultFragment(val sharedPreferences: SharedPreferences) : BaseFragment() {
     private lateinit var mainActivity: MainActivity
     private val calculatorFiniquitoResultsViewModel: CalculatorFiniquitoResultsViewModel by viewModel()
     private lateinit var categoriesCalculator: ArrayList<Category>
@@ -87,6 +87,7 @@ class CalculatorFiniquitoResultFragment : BaseFragment() {
     private var indemnizaciones: BigDecimal = 0.toBigDecimal()
     private var subtotalResult: BigDecimal = 0.toBigDecimal()
     private var total: BigDecimal = 0.toBigDecimal()
+    val constantsValues = ConstantsValues(sharedPreferences)
 
 
     companion object {
@@ -286,8 +287,8 @@ class CalculatorFiniquitoResultFragment : BaseFragment() {
     }
 
     private fun getFaultsApplicable(answersApplicable: MutableList<String>) {
-        if (salary.toBigDecimal() < SBU.toBigDecimal()
-            && hours >= WEEKLY_HOURS_COMPLETE
+        if (salary.toBigDecimal() < constantsValues.getSBU().toBigDecimal()
+            && hours >= constantsValues.getCompleteTimeHours()
         ) {
             answersApplicable.add(PAY_NOT_COMPLETE)
         }
@@ -317,7 +318,7 @@ class CalculatorFiniquitoResultFragment : BaseFragment() {
         if (calculatorFiniquitoResultsViewModel.resultsSelected!!.contains(DISABILITY)) {
             answersApplicable.add(DISABILITY)
         }
-        if (hours > WEEKLY_HOURS_COMPLETE) {
+        if (hours > constantsValues.getCompleteTimeHours()) {
             answersApplicable.add(OVER_HOURS_WORKED)
         }
     }

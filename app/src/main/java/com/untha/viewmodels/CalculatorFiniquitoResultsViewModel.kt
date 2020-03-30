@@ -36,8 +36,8 @@ class CalculatorFiniquitoResultsViewModel(
     var resultsSelected: List<String>? = null
     var hintsSelected: List<String>? = null
 
-    private var calculatorDecimosService = CalculatorDecimosService()
-    private var calculatorIESSService = CalculatorIESSService()
+    private var calculatorDecimosService = CalculatorDecimosService(sharedPreferences)
+    private var calculatorIESSService = CalculatorIESSService(sharedPreferences)
     private var calculatorVacationsService = CalculatorVacacionesService()
     private var calculatorFiniquitoCompensationService = CalculatorFiniquitoCompensationService()
     private var calculatorFiniquitoCausalesService = CalculatorFiniquitoCausalesService()

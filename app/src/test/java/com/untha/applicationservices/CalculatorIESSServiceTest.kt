@@ -1,22 +1,81 @@
 package com.untha.applicationservices
 
-import com.untha.utils.ConstantsCalculators.PERCENTAJE_APORTE_IESS_PRIVADO
+import android.content.SharedPreferences
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import com.untha.di.mapperModule
+import com.untha.di.networkModule
+import com.untha.di.persistenceModule
+import com.untha.di.viewModelsModule
+import com.untha.utils.Constants
+import com.untha.utils.ConstantsValues
 import junit.framework.Assert.assertEquals
-import junitparams.JUnitParamsRunner
+import org.junit.After
+import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.junit.runners.JUnit4
+import org.koin.core.context.startKoin
+import org.koin.core.context.stopKoin
+import org.koin.test.KoinTest
+import org.koin.test.inject
+import org.koin.test.mock.declareMock
+import org.mockito.Mockito
 import java.math.BigDecimal
 import java.math.RoundingMode
 
-@RunWith(JUnitParamsRunner::class)
-class CalculatorIESSServiceTest {
-    val calculatorIESSService = CalculatorIESSService()
+@RunWith(JUnit4::class)
+class CalculatorIESSServiceTest : KoinTest{
+
+    private val sharedPreferences by inject<SharedPreferences>()
+    lateinit var calculatorIESSService: CalculatorIESSService
+    companion object{
+        const val PERCENTAGE_APORTE_IESS_PRIVADO = 0.0945
+    }
+
+
+    @get:Rule
+    val rule = InstantTaskExecutorRule()
+
+    @Before
+    fun before() {
+        startKoin {
+            modules(
+                listOf(
+                    persistenceModule,
+                    networkModule,
+                    viewModelsModule,
+                    mapperModule
+                )
+            )
+        }
+        declareMock<SharedPreferences>()
+        calculatorIESSService = CalculatorIESSService(sharedPreferences)
+        val constantsJson ="{\n" +
+                "  \"version\": 1,\n" +
+                "  \"sbu\": 400,\n" +
+                "  \"percentage_iess_afiliado\": 0.0945,\n" +
+                "  \"percentage_fondos_reserva\": 0.0833,\n" +
+                "  \"hours_complete_time\": 40\n" +
+                "\n" +
+                "}"
+
+        ConstantsValues(sharedPreferences)
+
+        Mockito.`when`(sharedPreferences.getString(Constants.CONSTANTS, "")).thenReturn(constantsJson)
+    }
+
+    @After
+    fun after() {
+        stopKoin()
+    }
+
 
     @Test
     fun `should return 37,80 of IESS contribution  when my salary is 400`() {
         val salary = 500.00.toBigDecimal()
         val percentageIESSExpected =
-            salary.multiply(PERCENTAJE_APORTE_IESS_PRIVADO.toBigDecimal())
+            salary.multiply(PERCENTAGE_APORTE_IESS_PRIVADO.toBigDecimal())
                 .setScale(2, RoundingMode.HALF_UP)
 
 

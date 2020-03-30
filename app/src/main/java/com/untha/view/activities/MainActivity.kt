@@ -50,6 +50,8 @@ class MainActivity : AppCompatActivity() {
             viewModel.loadCalculatorRoute(this)
             viewModel.getResultCalculator(this)
             viewModel.getRecommendCalculator(this)
+            viewModel.getConstants(this)
+
 
         } else {
             viewModel.loadDefaultCategories(this)
@@ -72,6 +74,8 @@ class MainActivity : AppCompatActivity() {
                 Constants.CALCULATOR_RECOMMEND,
                 R.raw.recommend_calculator
             )
+            viewModel.loadDefaultBase(this, Constants.CONSTANTS, R.raw.constants)
+
         }
     }
 

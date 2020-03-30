@@ -35,5 +35,9 @@ class RetrofitService {
     fun getRetrofitNewsService(): NewsService{
         return retrofit.create(NewsService::class.java)
     }
+
+    fun getRetrofitConstantsService(): ConstantsService{
+        return retrofit.create(ConstantsService::class.java)
+    }
 }
 

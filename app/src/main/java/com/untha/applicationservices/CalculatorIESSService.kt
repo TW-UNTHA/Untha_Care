@@ -1,24 +1,27 @@
 package com.untha.applicationservices
 
+import android.content.SharedPreferences
 import com.untha.utils.ConstantsCalculators.DAYS_IN_MONTH
 import com.untha.utils.ConstantsCalculators.DAYS_OF_YEAR
-import com.untha.utils.ConstantsCalculators.PERCENTAJE_APORTE_FONDOS_RESERVA
-import com.untha.utils.ConstantsCalculators.PERCENTAJE_APORTE_IESS_PRIVADO
 import com.untha.utils.calculateNumberOfDayBetween
 import com.untha.utils.numberDaysWorked
 import com.untha.utils.stringToCalendar
+import com.untha.utils.ConstantsValues
 import java.math.BigDecimal
 import java.math.RoundingMode
 
-class CalculatorIESSService {
-    companion object{
-        const val SCALE =5
+class CalculatorIESSService(private val sharedPreferences: SharedPreferences) {
+    val constantsValues = ConstantsValues(sharedPreferences)
+
+    companion object {
+        const val SCALE = 5
     }
+
     fun getAportacionMensualIESS(
         salaryAtMonth: BigDecimal
     ): BigDecimal? {
         val result =
-            salaryAtMonth.multiply(PERCENTAJE_APORTE_IESS_PRIVADO.toBigDecimal())
+            salaryAtMonth.multiply(constantsValues.getPercentageIESSAfiliado().toBigDecimal())
 
         return result.setScale(2, RoundingMode.HALF_UP)
     }
@@ -31,7 +34,8 @@ class CalculatorIESSService {
         val numberOfDays =
             calculateNumberOfDayBetween(stringToCalendar(startDate), stringToCalendar(endDate))
         if (numberOfDays > DAYS_OF_YEAR) {
-            val result = salary.multiply(PERCENTAJE_APORTE_FONDOS_RESERVA.toBigDecimal())
+            val result =
+                salary.multiply(constantsValues.getPercentageFondosReserva().toBigDecimal())
             return result.setScale(2, RoundingMode.HALF_UP)
         } else {
             return 0.00.toBigDecimal().setScale(2, RoundingMode.HALF_UP)
@@ -47,9 +51,11 @@ class CalculatorIESSService {
             calculateNumberOfDayBetween(stringToCalendar(startDate), stringToCalendar(endDate))
         if (numberOfDaysBetweenDates > DAYS_OF_YEAR) {
             val numberDaysWorked = numberDaysWorked(endDate, startDate)
-            val salaryForDay = salary.divide(DAYS_IN_MONTH.toBigDecimal(), SCALE, RoundingMode.HALF_UP)
+            val salaryForDay =
+                salary.divide(DAYS_IN_MONTH.toBigDecimal(), SCALE, RoundingMode.HALF_UP)
             val result =
-                numberDaysWorked.toBigDecimal() * salaryForDay * PERCENTAJE_APORTE_FONDOS_RESERVA.toBigDecimal()
+                numberDaysWorked.toBigDecimal() * salaryForDay *
+                        constantsValues.getPercentageFondosReserva().toBigDecimal()
             return result.setScale(2, RoundingMode.HALF_UP)
         }
         return 0.00.toBigDecimal().setScale(2, RoundingMode.HALF_UP)
@@ -65,7 +71,7 @@ class CalculatorIESSService {
         val salaryForDay = salary.divide(DAYS_IN_MONTH.toBigDecimal())
 
         val salaryForDayWorked =
-            salaryForDay * numberDaysWorked.toBigDecimal() * PERCENTAJE_APORTE_IESS_PRIVADO.toBigDecimal()
+            salaryForDay * numberDaysWorked.toBigDecimal() * constantsValues.getPercentageIESSAfiliado().toBigDecimal()
         return salaryForDayWorked.setScale(2, RoundingMode.HALF_UP)
     }
 }

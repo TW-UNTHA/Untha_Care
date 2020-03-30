@@ -1,25 +1,79 @@
 package com.untha.applicationservices
 
+import android.content.SharedPreferences
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import com.untha.di.mapperModule
+import com.untha.di.networkModule
+import com.untha.di.persistenceModule
+import com.untha.di.viewModelsModule
+import com.untha.utils.Constants
 import com.untha.utils.calculateNumberOfDayBetween
 import com.untha.utils.salaryEquivalentPerDay
 import com.untha.utils.salaryForDaysWorked
 import com.untha.utils.startDateOfMonth
 import com.untha.utils.stringToCalendar
+import com.untha.utils.ConstantsValues
 import junit.framework.Assert.assertEquals
-import junitparams.JUnitParamsRunner
-import junitparams.Parameters
-import junitparams.naming.TestCaseName
 import org.hamcrest.CoreMatchers.instanceOf
+import org.junit.After
 import org.junit.Assert.assertThat
+import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.junit.runners.JUnit4
+import org.koin.core.context.startKoin
+import org.koin.core.context.stopKoin
+import org.koin.test.KoinTest
+import org.koin.test.inject
+import org.koin.test.mock.declareMock
+import org.mockito.Mockito
 import java.math.BigDecimal
 import java.math.RoundingMode
 import java.util.*
 
-@RunWith(JUnitParamsRunner::class)
-class CalculatorDecimosServiceTest {
-    val calculatorsService = CalculatorDecimosService()
+@RunWith(JUnit4::class)
+class CalculatorDecimosServiceTest : KoinTest {
+
+    private val sharedPreferences by inject<SharedPreferences>()
+    lateinit var calculatorsService: CalculatorDecimosService
+
+
+    @get:Rule
+    val rule = InstantTaskExecutorRule()
+
+    @Before
+    fun before() {
+        startKoin {
+            modules(
+                listOf(
+                    persistenceModule,
+                    networkModule,
+                    viewModelsModule,
+                    mapperModule
+                )
+            )
+        }
+        declareMock<SharedPreferences>()
+        calculatorsService = CalculatorDecimosService(sharedPreferences)
+        val constantsJson ="{\n" +
+                "  \"version\": 1,\n" +
+                "  \"sbu\": 400,\n" +
+                "  \"percentage_iess_afiliado\": 0.0945,\n" +
+                "  \"percentage_fondos_reserva\": 0.0833,\n" +
+                "  \"hours_complete_time\": 40\n" +
+                "\n" +
+                "}"
+
+        ConstantsValues(sharedPreferences)
+
+        Mockito.`when`(sharedPreferences.getString(Constants.CONSTANTS, "")).thenReturn(constantsJson)
+    }
+
+    @After
+    fun after() {
+        stopKoin()
+    }
 
     companion object {
         const val SIERRA_ORIENTE = 2
@@ -38,7 +92,7 @@ class CalculatorDecimosServiceTest {
 
     @Test
     fun `should return 360  when start date 01 January 2020 and end date 01 January 2021`() {
-        val calculatorsService = CalculatorDecimosService()
+
         val startDate = "2020-01-01"
         val endDate = "2021-01-01"
         val expectedValue = 360
@@ -54,7 +108,6 @@ class CalculatorDecimosServiceTest {
 
     @Test
     fun `should return 44 when start date 1 December 2019 and end date 15 January 2020 `() {
-        val calculatorsService = CalculatorDecimosService()
         val startDate = "2019-12-01"
         val endDate = "2020-01-15"
         val expectedValue = 44
@@ -156,17 +209,43 @@ class CalculatorDecimosServiceTest {
         assertEquals(expectedStartDate, result)
     }
 
-    fun dataMonthlyChristmasBonus(): List<String> {
-        return listOf("2019-02-10", "2019-02-15", "2019-02-20", "2019-02-25", "2019-02-28")
+
+    @Test
+    fun `should return first day of month 2019-02-10`(){
+        val startDate = "2019-02-10"
+        val expectedStartDate = "2019-02-01"
+
+        val result = startDateOfMonth(startDate)
+
+        assertEquals(expectedStartDate, result)
     }
 
     @Test
-    @Parameters(method = "dataMonthlyChristmasBonus")
-    @TestCaseName("{method}_with_date_param_{params}")
-    fun `should return first day of month`(endDate: String) {
+    fun `should return first day of month "2019-02-15"`(){
+        val startDate = "2019-02-15"
         val expectedStartDate = "2019-02-01"
 
-        val result = startDateOfMonth(endDate)
+        val result = startDateOfMonth(startDate)
+
+        assertEquals(expectedStartDate, result)
+    }
+
+    @Test
+    fun `should return first day of month 2019-02-20`() {
+        val startDate = "2019-02-20"
+        val expectedStartDate = "2019-02-01"
+
+        val result = startDateOfMonth(startDate)
+
+        assertEquals(expectedStartDate, result)
+    }
+
+    @Test
+    fun `should return first day of month 2019-02-25`() {
+        val startDate = "2019-02-25"
+        val expectedStartDate = "2019-02-01"
+
+        val result = startDateOfMonth(startDate)
 
         assertEquals(expectedStartDate, result)
     }
@@ -216,6 +295,21 @@ class CalculatorDecimosServiceTest {
     // <editor-fold desc="DECIMO TERCERO ACUMULADO">
     @Test
     fun `should return 500 when start date is 1 December and end date is 30 of November and salary is 500`() {
+        calculatorsService = CalculatorDecimosService(sharedPreferences)
+        val constantsJson ="{\n" +
+                "  \"version\": 1,\n" +
+                "  \"sbu\": 400,\n" +
+                "  \"percentage_iess_afiliado\": 0.0945,\n" +
+                "  \"percentage_fondos_reserva\": 0.0833,\n" +
+                "  \"hours_complete_time\": 40\n" +
+                "\n" +
+                "}"
+
+        ConstantsValues(sharedPreferences)
+
+        Mockito.`when`(sharedPreferences.getString(Constants.CONSTANTS, "")).thenReturn(constantsJson)
+
+
         val salary = 500
         val expectedValue = BigDecimal(500).setScale(2, RoundingMode.HALF_UP)
         val startDate = "2019-12-01"
@@ -348,6 +442,20 @@ class CalculatorDecimosServiceTest {
     // <editor-fold desc="DECIMO CUARTO MENSUALIZADO">
     @Test
     fun `should return decimo cuarto mensualizado 33,33 when SBU is 400`() {
+        calculatorsService = CalculatorDecimosService(sharedPreferences)
+        val constantsJson ="{\n" +
+                "  \"version\": 1,\n" +
+                "  \"sbu\": 400,\n" +
+                "  \"percentage_iess_afiliado\": 0.0945,\n" +
+                "  \"percentage_fondos_reserva\": 0.0833,\n" +
+                "  \"hours_complete_time\": 40\n" +
+                "\n" +
+                "}"
+
+        ConstantsValues(sharedPreferences)
+
+        Mockito.`when`(sharedPreferences.getString(Constants.CONSTANTS, "")).thenReturn(constantsJson)
+
         val expectedValue = BigDecimal(33.33).setScale(2, RoundingMode.HALF_UP)
         val numberOfHours = 40
 
@@ -731,6 +839,7 @@ class CalculatorDecimosServiceTest {
 
     @Test
     fun `should return cost of days with date  2020-02-17 complete time`() {
+        calculatorsService = CalculatorDecimosService(sharedPreferences)
         val startDate = "2019-02-28"
         val endDate = "2020-02-17"
         val hoursWorked = 40

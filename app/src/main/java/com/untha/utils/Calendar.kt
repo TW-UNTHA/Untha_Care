@@ -35,8 +35,10 @@ fun isFirstDayOfMarch(calendarStartDate: Calendar) =
 
 fun lastDayOfFebruary(year: Int): Int {
     val date = Calendar.getInstance()
-    date[Calendar.MONTH] = Calendar.FEBRUARY
-    date[Calendar.YEAR] = year
+    date.set(Calendar.MONTH,Calendar.FEBRUARY)
+    date.set(Calendar.YEAR, year)
+    date.set(Calendar.DAY_OF_MONTH, 1)
+
     return date.getActualMaximum(Calendar.DAY_OF_MONTH)
 }
 

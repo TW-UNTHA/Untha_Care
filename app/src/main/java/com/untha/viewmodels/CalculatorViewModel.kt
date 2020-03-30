@@ -1,13 +1,14 @@
 package com.untha.viewmodels
 
+import android.content.SharedPreferences
 import androidx.lifecycle.ViewModel
 import com.untha.applicationservices.CalculatorDecimosService
 import com.untha.applicationservices.CalculatorIESSService
 import java.math.BigDecimal
 
-class CalculatorViewModel : ViewModel() {
-    var calculatorService: CalculatorDecimosService = CalculatorDecimosService()
-    var calculatorIESSService: CalculatorIESSService = CalculatorIESSService()
+class CalculatorViewModel (val sharedPreferences: SharedPreferences): ViewModel() {
+    var calculatorService: CalculatorDecimosService = CalculatorDecimosService(sharedPreferences)
+    var calculatorIESSService: CalculatorIESSService = CalculatorIESSService(sharedPreferences)
 
     fun getAportacionMensualIESS( salary: String): String {
         return calculatorIESSService.getAportacionMensualIESS(
