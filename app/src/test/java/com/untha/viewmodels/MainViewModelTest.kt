@@ -25,6 +25,7 @@ import com.untha.model.dbservices.CategoryDbService
 import com.untha.model.mappers.CategoryMapper
 import com.untha.model.services.CategoriesService
 import com.untha.model.services.ConstantsService
+import com.untha.model.services.NewsService
 import com.untha.model.services.QuestionnaireRouteResultService
 import com.untha.model.services.ResultService
 import com.untha.model.services.RoutesService
@@ -68,6 +69,7 @@ class MainViewModelTest : KoinTest {
     private val mapper by inject<CategoryMapper>()
     private val sharedPreferences by inject<SharedPreferences>()
     private val constantsService by inject<ConstantsService>()
+    private val newsService by inject<NewsService>()
 
     @get:Rule
     val rule = InstantTaskExecutorRule()
@@ -110,7 +112,8 @@ class MainViewModelTest : KoinTest {
             routesService,
             resultService,
             questionnaireRouteResultService,
-            constantsService
+            constantsService,
+            newsService
         )
         var categoryWrapper = CategoriesWrapper(
             1, listOf(
@@ -151,7 +154,8 @@ class MainViewModelTest : KoinTest {
             routesService,
             resultService,
             questionnaireRouteResultService,
-            constantsService
+            constantsService,
+            newsService
         )
 
         val queryingCategory = MockObjects.mockQueryingCategory()
@@ -176,7 +180,8 @@ class MainViewModelTest : KoinTest {
             routesService,
             resultService,
             questionnaireRouteResultService,
-            constantsService
+            constantsService,
+            newsService
         )
         var categoryWrapper = CategoriesWrapper(
             1, listOf(
@@ -217,7 +222,8 @@ class MainViewModelTest : KoinTest {
             routesService,
             resultService,
             questionnaireRouteResultService,
-            constantsService
+            constantsService,
+            newsService
         )
         var categoryWrapper = CategoriesWrapper(
             1, listOf(
@@ -264,7 +270,8 @@ class MainViewModelTest : KoinTest {
             routesService,
             resultService,
             questionnaireRouteResultService,
-            constantsService
+            constantsService,
+            newsService
         )
         var categoryWrapper = CategoriesWrapper(
             1, listOf(
@@ -314,7 +321,8 @@ class MainViewModelTest : KoinTest {
             routesService,
             resultService,
             questionnaireRouteResultService,
-            constantsService
+            constantsService,
+            newsService
         )
 
         var response = Response.success(route)
@@ -364,7 +372,8 @@ class MainViewModelTest : KoinTest {
             routesService,
             resultService,
             questionnaireRouteResultService,
-            constantsService
+            constantsService,
+            newsService
         )
 
         val response = Response.success(route)
@@ -413,7 +422,8 @@ class MainViewModelTest : KoinTest {
             routesService,
             resultService,
             questionnaireRouteResultService,
-            constantsService
+            constantsService,
+            newsService
         )
 
         val response = Response.success(result)
@@ -458,7 +468,8 @@ class MainViewModelTest : KoinTest {
             routesService,
             resultService,
             questionnaireRouteResultService,
-            constantsService
+            constantsService,
+            newsService
         )
         val context = mock(Context::class.java)
         val resources = mock(Resources::class.java)
@@ -518,7 +529,8 @@ class MainViewModelTest : KoinTest {
             routesService,
             resultService,
             questionnaireRouteResultService,
-            constantsService
+            constantsService,
+            newsService
         )
         val context = mock(Context::class.java)
         val resources = mock(Resources::class.java)
@@ -571,7 +583,8 @@ class MainViewModelTest : KoinTest {
             routesService,
             resultService,
             questionnaireRouteResultService,
-            constantsService
+            constantsService,
+            newsService
         )
         val context = mock(Context::class.java)
         val resources = mock(Resources::class.java)
@@ -640,7 +653,8 @@ class MainViewModelTest : KoinTest {
             routesService,
             resultService,
             questionnaireRouteResultService,
-            constantsService
+            constantsService,
+            newsService
         )
         val context = mock(Context::class.java)
         val resources = mock(Resources::class.java)
@@ -714,7 +728,8 @@ class MainViewModelTest : KoinTest {
             routesService,
             resultService,
             questionnaireRouteResultService,
-            constantsService
+            constantsService,
+            newsService
         )
 
         val response = Response.success(result)
@@ -797,7 +812,8 @@ class MainViewModelTest : KoinTest {
             routesService,
             resultService,
             questionnaireRouteResultService,
-            constantsService
+            constantsService,
+            newsService
         )
 
         val testMethod =
@@ -819,7 +835,8 @@ class MainViewModelTest : KoinTest {
             routesService,
             resultService,
             questionnaireRouteResultService,
-            constantsService
+            constantsService,
+            newsService
         )
 
         val methodToTest = mainViewModel.javaClass.getDeclaredMethod(
@@ -843,7 +860,8 @@ class MainViewModelTest : KoinTest {
             routesService,
             resultService,
             questionnaireRouteResultService,
-            constantsService
+            constantsService,
+            newsService
         )
 
         val methodToTest =
@@ -866,7 +884,8 @@ class MainViewModelTest : KoinTest {
             routesService,
             resultService,
             questionnaireRouteResultService,
-            constantsService
+            constantsService,
+            newsService
         )
 
         val methodToTest = mainViewModel.javaClass.getDeclaredMethod(
