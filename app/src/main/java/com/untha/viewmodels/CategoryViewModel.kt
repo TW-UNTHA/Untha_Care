@@ -7,6 +7,7 @@ import com.untha.model.mappers.CategoryMapper
 import com.untha.model.models.QueryingCategory
 import com.untha.model.repositories.CategoryWithRelationsRepository
 import com.untha.model.transactionalmodels.Category
+import com.untha.model.transactionalmodels.NewsWrapper
 import com.untha.utils.Constants
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.list
@@ -66,5 +67,17 @@ class CategoryViewModel(
             )
         } as ArrayList<Category>
     }
+
+    fun isScreenVisible(): Boolean{
+        val jsonResultDynamic = sharedPreferences.getString(Constants.NEWS, "")
+        if (!jsonResultDynamic.equals("")) {
+            jsonResultDynamic?.let {
+                val result = Json.parse(NewsWrapper.serializer(), it)
+                return result.showScreen
+            }
+        }
+        return false
+    }
+
 
 }

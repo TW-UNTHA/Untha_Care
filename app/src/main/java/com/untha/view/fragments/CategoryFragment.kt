@@ -20,6 +20,7 @@ import com.untha.utils.PixelConverter
 import com.untha.utils.UtilsTextToSpeech
 import com.untha.view.activities.MainActivity
 import com.untha.view.adapters.CategoryAdapter
+import com.untha.viewmodels.AboutUsViewModel
 import com.untha.viewmodels.CategoryViewModel
 import kotlinx.android.synthetic.main.fragment_category.*
 import org.jetbrains.anko.sdk27.coroutines.onClick
@@ -39,6 +40,7 @@ class CategoryFragment : BaseFragment(),
 
     private lateinit var categoryListAdapter: CategoryAdapter
     private val categoryViewModel: CategoryViewModel by viewModel()
+    private val viewModelAboutUs: AboutUsViewModel by viewModel()
     private lateinit var mainActivity: MainActivity
     private var showScreen: Boolean = true
 
@@ -64,7 +66,7 @@ class CategoryFragment : BaseFragment(),
         if (arguments != null) {
             showScreen = arguments?.get("showScreen") as Boolean
         }
-        if (showScreen) {
+        if (categoryViewModel.isScreenVisible() && showScreen) {
             view.findNavController()
                 .navigate(
                     R.id.newsFragment,
@@ -73,6 +75,18 @@ class CategoryFragment : BaseFragment(),
                     null
                 )
         }
+        if(!categoryViewModel.isScreenVisible()){
+            if (!viewModelAboutUs.loadAboutUsFromSharedPreferences()) {
+                view.findNavController()
+                    .navigate(
+                        R.id.trhAboutInstructions,
+                        null,
+                        navOptionsToBackNavigation,
+                        null
+                    )
+            }
+        }
+
         activity?.let {
             firebaseAnalytics.setCurrentScreen(it, Constants.CATEGORY_PAGE, null)
         }

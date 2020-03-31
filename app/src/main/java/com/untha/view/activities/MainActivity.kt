@@ -51,6 +51,7 @@ class MainActivity : AppCompatActivity() {
             viewModel.getResultCalculator(this)
             viewModel.getRecommendCalculator(this)
             viewModel.getConstants(this)
+            viewModel.getNews(this)
 
 
         } else {
@@ -75,6 +76,7 @@ class MainActivity : AppCompatActivity() {
                 R.raw.recommend_calculator
             )
             viewModel.loadDefaultBase(this, Constants.CONSTANTS, R.raw.constants)
+            viewModel.loadDefaultBase(this, Constants.NEWS, R.raw.news)
 
         }
     }
