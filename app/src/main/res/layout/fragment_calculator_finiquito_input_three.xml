@@ -179,8 +179,6 @@
             android:id="@+id/spinnerStartDateDay"
             android:layout_width="80dp"
             android:layout_height="35dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginLeft="24dp"
             android:layout_marginTop="15dp"
             android:background="@drawable/btn_dropdown"
             android:fadeScrollbars="true"
@@ -188,6 +186,7 @@
             android:popupBackground="@color/colorBackgroundCategoryRoute"
             android:spinnerMode="dropdown"
             android:text="@string/endDate"
+            app:layout_constraintEnd_toStartOf="@+id/spinnerStartDateMonth"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
@@ -196,12 +195,11 @@
             android:layout_width="80dp"
             android:layout_height="35dp"
             android:layout_marginTop="15dp"
-            android:layout_marginEnd="24dp"
-            android:layout_marginRight="24dp"
             android:background="@drawable/btn_dropdown"
             android:gravity="center_horizontal"
             android:popupBackground="@color/colorBackgroundCategoryRoute"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/spinnerEndDateMonth"
             app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
         <TextView
@@ -225,12 +223,11 @@
             android:id="@+id/spinnerEndDateDay"
             android:layout_width="80dp"
             android:layout_height="35dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginLeft="24dp"
             android:layout_marginTop="15dp"
             android:background="@drawable/btn_dropdown"
             android:gravity="center_horizontal"
             android:popupBackground="@color/colorBackgroundCategoryRoute"
+            app:layout_constraintEnd_toStartOf="@+id/spinnerEndDateMonth"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
@@ -252,12 +249,11 @@
             android:layout_width="80dp"
             android:layout_height="35dp"
             android:layout_marginTop="15dp"
-            android:layout_marginEnd="24dp"
-            android:layout_marginRight="24dp"
             android:background="@drawable/btn_dropdown"
             android:gravity="center"
             android:popupBackground="@color/colorBackgroundCategoryRoute"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/spinnerStartDateMonth"
             app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
         <Spinner
@@ -277,8 +273,6 @@
             android:id="@+id/spinnerBornDateDay"
             android:layout_width="80dp"
             android:layout_height="35dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginLeft="24dp"
             android:layout_marginTop="15dp"
             android:background="@drawable/btn_dropdown"
             android:fadeScrollbars="true"
@@ -286,6 +280,7 @@
             android:popupBackground="@color/colorBackgroundCategoryRoute"
             android:spinnerMode="dropdown"
             android:text="@string/endDate"
+            app:layout_constraintEnd_toStartOf="@+id/spinnerBornDateMonth"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView9" />
 
@@ -324,12 +319,11 @@
             android:layout_width="80dp"
             android:layout_height="35dp"
             android:layout_marginTop="15dp"
-            android:layout_marginEnd="24dp"
-            android:layout_marginRight="24dp"
             android:background="@drawable/btn_dropdown"
             android:gravity="center"
             android:popupBackground="@color/colorBackgroundCategoryRoute"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/spinnerBornDateMonth"
             app:layout_constraintTop_toBottomOf="@+id/textView9" />
 
         <Button
