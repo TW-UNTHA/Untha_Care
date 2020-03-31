@@ -25,7 +25,6 @@ import com.untha.model.dbservices.CategoryDbService
 import com.untha.model.mappers.CategoryMapper
 import com.untha.model.services.CategoriesService
 import com.untha.model.services.ConstantsService
-import com.untha.model.services.NewsService
 import com.untha.model.services.QuestionnaireRouteResultService
 import com.untha.model.services.ResultService
 import com.untha.model.services.RoutesService

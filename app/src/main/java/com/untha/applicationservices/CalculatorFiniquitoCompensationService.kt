@@ -10,7 +10,6 @@ class CalculatorFiniquitoCompensationService {
         const val HINT_EMBARAZO = "R3P1R3"
         const val HINT_DISCAPACIDAD = "R3P1R1"
         const val HINT_SUSTITUTO = "R3P1R2"
-
     }
 
     fun getCompensation(hint: String, salary: BigDecimal): BigDecimal {

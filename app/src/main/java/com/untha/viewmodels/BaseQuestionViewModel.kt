@@ -48,7 +48,6 @@ open class BaseQuestionViewModel(
     }
 
     fun loadRoute(typeRoute: String, bundle: Bundle): Route {
-        println(bundle)
         return bundle.get(typeRoute) as Route
     }
 

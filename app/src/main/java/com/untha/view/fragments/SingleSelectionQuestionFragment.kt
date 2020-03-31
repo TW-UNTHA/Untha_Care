@@ -5,7 +5,9 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewTreeObserver
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.navigation.findNavController
@@ -153,10 +155,10 @@ class SingleSelectionQuestionFragment : BaseFragment() {
         scrollView {
             verticalLayout {
                 drawOptionsAnswer(view)
-                verticalLayout{
+                verticalLayout {
 
                     bottomHelpMessage()
-                }.lparams{
+                }.lparams {
                     topMargin = dip(MARGIN_TOP_TEN)
                 }
             }
@@ -338,6 +340,22 @@ class SingleSelectionQuestionFragment : BaseFragment() {
         return (width * Constants.MARGIN_LEFT_RIGHT_MULTIPLE_OPTION_SCREEN_PERCENTAGE).toFloat()
     }
 
+    private fun @AnkoViewDslMarker TextView.adjustTextSize() {
+        viewTreeObserver.addOnPreDrawListener(
+            object : ViewTreeObserver.OnPreDrawListener {
+                override fun onPreDraw(): Boolean {
+                    viewTreeObserver.removeOnPreDrawListener(this)
+                    textSizeDimen = if (lineCount <= 2) {
+                        R.dimen.text_size_content
+                    } else {
+                        R.dimen.text_size_content_for_many_characters
+                    }
+                    return true
+                }
+            }
+        )
+    }
+
     private fun _LinearLayout.optionsAnswer(width: Int, view: View) {
         routeQuestion?.options?.map { option ->
             verticalLayout {
@@ -353,15 +371,17 @@ class SingleSelectionQuestionFragment : BaseFragment() {
                         context.applicationContext,
                         R.font.proxima_nova_light
                     )
+                    adjustTextSize()
+
                     onClick {
                         option.hint?.let {
                             logAnalyticsCustomEvent(it)
                             hint = it
                         }
                         val nameRoute = when (typeRoute) {
-                            Constants.ROUTE_LABOUR   -> Constants.FAULT_ANSWER_ROUTE_LABOUR
+                            Constants.ROUTE_LABOUR -> Constants.FAULT_ANSWER_ROUTE_LABOUR
                             Constants.ROUTE_VIOLENCE -> Constants.FAULT_ANSWER_ROUTE_VIOLENCE
-                            else                     -> Constants.FAULT_ANSWER_ROUTE_CALCULATOR
+                            else -> Constants.FAULT_ANSWER_ROUTE_CALCULATOR
                         }
                         option.result?.let {
                             questionViewModel.saveAnswerOption(

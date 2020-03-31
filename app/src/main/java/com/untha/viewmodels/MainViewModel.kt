@@ -267,7 +267,10 @@ class MainViewModel(
                             sharedPreferences.getString(Constants.CONSTANTS, "")
                         if (!sharedPreferencesConstantResult.isNullOrEmpty()) {
                             val constantsWrapperSharedPreferences =
-                                Json.parse(ResultCalculatorWrapper.serializer(), sharedPreferencesConstantResult)
+                                Json.parse(
+                                    ConstantsWrapper.serializer(),
+                                    sharedPreferencesConstantResult
+                                )
                             if (response.body.version > constantsWrapperSharedPreferences.version) {
                                 sharedPreferences.edit()
                                     .putString(
@@ -305,7 +308,10 @@ class MainViewModel(
                             sharedPreferences.getString(Constants.CALCULATOR_RECOMMEND, "")
                         if (!sharedPreferencesResult.isNullOrEmpty()) {
                             val resultWrapperSharedPreferences =
-                                Json.parse(ResultCalculatorWrapper.serializer(), sharedPreferencesResult)
+                                Json.parse(
+                                    ResultCalculatorWrapper.serializer(),
+                                    sharedPreferencesResult
+                                )
                             if (response.body.version > resultWrapperSharedPreferences.version) {
                                 sharedPreferences.edit()
                                     .putString(

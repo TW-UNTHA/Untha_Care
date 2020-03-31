@@ -1,7 +1,6 @@
 package com.untha.view.fragments
 
 import android.content.Context
-import android.content.SharedPreferences
 import android.graphics.Typeface
 import android.os.Bundle
 import android.view.Gravity
@@ -22,20 +21,12 @@ import com.untha.model.transactionalmodels.Category
 import com.untha.model.transactionalmodels.RouteResult
 import com.untha.utils.Constants
 import com.untha.utils.Constants.CALCULATOR_FINIQUITO_RESULT_PAGE
-import com.untha.utils.ConstantsCalculators.SEVENTEEN_AGE
-import com.untha.utils.ConstantsCalculators.SIXTEEN_AGE
-import com.untha.utils.ConstantsCalculators.TRIAL_PERIOD
-import com.untha.utils.ConstantsCalculators.WEEKLY_HOURS_MAXIMUM_LEGAL_MINOR
 import com.untha.utils.ContentType
 import com.untha.utils.FirebaseEvent
 import com.untha.utils.PixelConverter
 import com.untha.utils.UtilsTextToSpeech
-import com.untha.utils.calculateNumberOfDayBetween
-import com.untha.utils.getAge
-import com.untha.utils.stringToCalendar
 import com.untha.view.activities.MainActivity
 import com.untha.viewmodels.CalculatorFiniquitoResultsViewModel
-import com.untha.utils.ConstantsValues
 import kotlinx.android.synthetic.main.fragment_calculator_finiquito_result.view.*
 import org.jetbrains.anko.AnkoViewDslMarker
 import org.jetbrains.anko._LinearLayout
@@ -60,7 +51,7 @@ import java.math.BigDecimal
 import java.util.*
 
 
-class CalculatorFiniquitoResultFragment(val sharedPreferences: SharedPreferences) : BaseFragment() {
+class CalculatorFiniquitoResultFragment : BaseFragment() {
     private lateinit var mainActivity: MainActivity
     private val calculatorFiniquitoResultsViewModel: CalculatorFiniquitoResultsViewModel by viewModel()
     private lateinit var categoriesCalculator: ArrayList<Category>
@@ -87,16 +78,9 @@ class CalculatorFiniquitoResultFragment(val sharedPreferences: SharedPreferences
     private var indemnizaciones: BigDecimal = 0.toBigDecimal()
     private var subtotalResult: BigDecimal = 0.toBigDecimal()
     private var total: BigDecimal = 0.toBigDecimal()
-    val constantsValues = ConstantsValues(sharedPreferences)
 
 
     companion object {
-        const val PAY_NOT_COMPLETE = "F1"
-        const val LEGAL_MINOR_AND_OVER_HOURS_WORKED = "F2"
-        const val PREGNANT_AND_TRIAL_PERIOD = "F3"
-        const val DESPIDO_INTEMPESTIVO = "F4"
-        const val DISABILITY = "F5"
-        const val OVER_HOURS_WORKED = "F6"
         const val TOP_MARGIN_RESULTS_DINAMIC = 40
     }
 
@@ -105,8 +89,6 @@ class CalculatorFiniquitoResultFragment(val sharedPreferences: SharedPreferences
         super.onCreate(savedInstanceState)
         calculatorFiniquitoResultsViewModel.loadResultDynamicFromSharePreferences()
         calculatorFiniquitoResultsViewModel.loadResultStaticFromSharePreferences()
-        calculatorFiniquitoResultsViewModel.answerSelectedCalculatorRoute()
-        calculatorFiniquitoResultsViewModel.answerHintSelectedCalculatorRoute()
 
         loadDataFromBundle()
     }
@@ -256,8 +238,13 @@ class CalculatorFiniquitoResultFragment(val sharedPreferences: SharedPreferences
     private fun @AnkoViewDslMarker _LinearLayout.loadCalculatorFaults(
         view: View
     ) {
-        val answersApplicable = mutableListOf<String>()
-        getFaultsApplicable(answersApplicable)
+        val answersApplicable = calculatorFiniquitoResultsViewModel.getFaultsApplicable(
+            salary,
+            hours,
+            bornDate,
+            startDate,
+            endDate
+        )
         drawMesssage(R.string.notification)
         if (answersApplicable.isNullOrEmpty()) {
             loadHeaderResult(view, R.string.description_labour_result_not_found)
@@ -286,42 +273,6 @@ class CalculatorFiniquitoResultFragment(val sharedPreferences: SharedPreferences
         }
     }
 
-    private fun getFaultsApplicable(answersApplicable: MutableList<String>) {
-        if (salary.toBigDecimal() < constantsValues.getSBU().toBigDecimal()
-            && hours >= constantsValues.getCompleteTimeHours()
-        ) {
-            answersApplicable.add(PAY_NOT_COMPLETE)
-        }
-        if (hours > WEEKLY_HOURS_MAXIMUM_LEGAL_MINOR && (getAge(
-                bornDate,
-                startDate
-            ) in SIXTEEN_AGE..SEVENTEEN_AGE)
-        ) {
-            answersApplicable.add(LEGAL_MINOR_AND_OVER_HOURS_WORKED)
-
-        }
-
-        if (calculatorFiniquitoResultsViewModel.resultsSelected!!.contains(PREGNANT_AND_TRIAL_PERIOD)
-            && (calculateNumberOfDayBetween(
-                stringToCalendar(startDate),
-                stringToCalendar(endDate)
-            ) > TRIAL_PERIOD)
-        ) {
-            answersApplicable.add(PREGNANT_AND_TRIAL_PERIOD)
-
-        }
-
-        if (calculatorFiniquitoResultsViewModel.resultsSelected!!.contains(DESPIDO_INTEMPESTIVO)) {
-            answersApplicable.add(DESPIDO_INTEMPESTIVO)
-        }
-
-        if (calculatorFiniquitoResultsViewModel.resultsSelected!!.contains(DISABILITY)) {
-            answersApplicable.add(DISABILITY)
-        }
-        if (hours > constantsValues.getCompleteTimeHours()) {
-            answersApplicable.add(OVER_HOURS_WORKED)
-        }
-    }
 
     private fun @AnkoViewDslMarker _LinearLayout.buildRecommend() {
         drawMesssage(R.string.calculator_information_finiquito_recommend)
@@ -654,7 +605,7 @@ class CalculatorFiniquitoResultFragment(val sharedPreferences: SharedPreferences
     }
 
     private fun getCausalHint(listHints: List<String>): String {
-        var causal: String = ""
+        var causal = ""
         for (hint in listHints) {
             if (hint == "R3P2R1" || hint == "R3P2R2" || hint == "R3P2R3") {
                 causal = hint

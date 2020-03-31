@@ -7,12 +7,12 @@ import com.untha.di.networkModule
 import com.untha.di.persistenceModule
 import com.untha.di.viewModelsModule
 import com.untha.utils.Constants
+import com.untha.utils.ConstantsValues
 import com.untha.utils.calculateNumberOfDayBetween
 import com.untha.utils.salaryEquivalentPerDay
 import com.untha.utils.salaryForDaysWorked
 import com.untha.utils.startDateOfMonth
 import com.untha.utils.stringToCalendar
-import com.untha.utils.ConstantsValues
 import junit.framework.Assert.assertEquals
 import org.hamcrest.CoreMatchers.instanceOf
 import org.junit.After
