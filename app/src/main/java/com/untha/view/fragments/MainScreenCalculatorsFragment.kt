@@ -110,8 +110,11 @@ class MainScreenCalculatorsFragment : BaseFragment() {
     }
 
     private fun navigateToCategory() {
+        val bundle = Bundle().apply {
+            putBoolean("showScreen", false)
+        }
         NavHostFragment.findNavController(this)
-            .navigate(R.id.categoryFragment, null, navOptionsToBackNavigation, null)
+            .navigate(R.id.categoryFragment, bundle, navOptionsToBackNavigation, null)
         logAnalyticsCustomContentTypeWithId(ContentType.CLOSE, FirebaseEvent.CLOSE)
     }
 

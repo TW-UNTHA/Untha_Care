@@ -14,11 +14,11 @@
         están cumpliendo tus derechos laborales"</string>
     <string name="image_name_route_labour">route_labour_pantalla_inicial</string>
     <string name="description_labour_result">Encontramos incumplimientos a tus derechos laborales:</string>
-    <string name="description_labour_result_not_found">No encontramos incumplimientos a tus derechos laborales:</string>
+    <string name="description_labour_result_not_found">No encontramos incumplimientos a tus derechos laborales</string>
     <string name="description_violence_result">Has sufrido violencia</string>
     <string name="second_message_route_violence">Voy a hacerte unas preguntas para identificar si
         has sufrido violencia</string>
-    <string name="additional_recommendations">Recomendaciones adicionales:</string>
+    <string name="additional_recommendations">Recomendaciones adicionales</string>
     <string name="image_name_route_violence">route_violence_pantalla_inicial</string>
 
 
