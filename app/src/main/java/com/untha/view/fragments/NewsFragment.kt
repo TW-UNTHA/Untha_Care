@@ -99,11 +99,11 @@ class NewsFragment : BaseFragment() {
                             if (response.body.version > resultWrapperSharedPreferences.version) {
                                 newsViewModel.saveSharePreferences(response.body)
                             }
-                            newsViewModel.loadResultDynamicFromSharePreferences()
+                            newsViewModel.loadNewsFromSharePreferences()
                             drawNews(view)
                         } else {
                             newsViewModel.saveSharePreferences(response.body)
-                            newsViewModel.loadResultDynamicFromSharePreferences()
+                            newsViewModel.loadNewsFromSharePreferences()
                             drawNews(view)
                         }
                     }
@@ -114,7 +114,7 @@ class NewsFragment : BaseFragment() {
             })
         } else {
             mainViewModel.loadDefaultBase(context!!, Constants.NEWS, R.raw.news)
-            newsViewModel.loadResultDynamicFromSharePreferences()
+            newsViewModel.loadNewsFromSharePreferences()
             drawNews(view)
         }
     }

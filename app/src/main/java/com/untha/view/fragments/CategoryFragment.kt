@@ -22,6 +22,7 @@ import com.untha.view.activities.MainActivity
 import com.untha.view.adapters.CategoryAdapter
 import com.untha.viewmodels.AboutUsViewModel
 import com.untha.viewmodels.CategoryViewModel
+import com.untha.viewmodels.NewsViewModel
 import kotlinx.android.synthetic.main.fragment_category.*
 import org.jetbrains.anko.sdk27.coroutines.onClick
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -41,6 +42,7 @@ class CategoryFragment : BaseFragment(),
     private lateinit var categoryListAdapter: CategoryAdapter
     private val categoryViewModel: CategoryViewModel by viewModel()
     private val viewModelAboutUs: AboutUsViewModel by viewModel()
+    private val newsViewModel: NewsViewModel by viewModel()
     private lateinit var mainActivity: MainActivity
     private var showScreen: Boolean = true
 
@@ -66,7 +68,7 @@ class CategoryFragment : BaseFragment(),
         if (arguments != null) {
             showScreen = arguments?.get("showScreen") as Boolean
         }
-        if (categoryViewModel.isScreenVisible() && showScreen) {
+        if (newsViewModel.isScreenVisible() && showScreen) {
             view.findNavController()
                 .navigate(
                     R.id.newsFragment,
@@ -75,7 +77,7 @@ class CategoryFragment : BaseFragment(),
                     null
                 )
         }
-        if(!categoryViewModel.isScreenVisible()){
+        if (!newsViewModel.isScreenVisible()) {
             if (!viewModelAboutUs.loadAboutUsFromSharedPreferences()) {
                 view.findNavController()
                     .navigate(

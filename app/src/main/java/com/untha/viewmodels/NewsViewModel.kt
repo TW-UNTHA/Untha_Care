@@ -11,22 +11,20 @@ import kotlinx.serialization.json.Json
 import me.linshen.retrofit2.adapter.ApiResponse
 
 class NewsViewModel(
-     val sharedPreferences: SharedPreferences, private val newService: NewsService
-
+    val sharedPreferences: SharedPreferences,
+    private val newService: NewsService
 ) : ViewModel() {
     var news: List<News>? = null
     var buttonTitle: String? = null
     var buttonSubtitle: String? = null
     var showScreen: Boolean = false
 
-
-
-     fun isRetrievingDataFromInternet(): Boolean {
+    fun isRetrievingDataFromInternet(): Boolean {
         val command = "ping -c 1 google.com"
         return Runtime.getRuntime().exec(command).waitFor() == 0
     }
 
-    fun loadResultDynamicFromSharePreferences() {
+    fun loadNewsFromSharePreferences() {
         val jsonResultDynamic = sharedPreferences.getString(Constants.NEWS, "")
         if (!jsonResultDynamic.equals("")) {
             jsonResultDynamic?.let {
@@ -35,11 +33,11 @@ class NewsViewModel(
                 buttonTitle = result.buttonTitle
                 buttonSubtitle = result.buttonSubtitle
                 showScreen = result.showScreen
-
             }
         }
     }
-    fun saveSharePreferences(responseBody:NewsWrapper){
+
+    fun saveSharePreferences(responseBody: NewsWrapper) {
         sharedPreferences.edit()
             .putString(
                 Constants.NEWS,
@@ -53,8 +51,17 @@ class NewsViewModel(
 
     fun getNews(): LiveData<ApiResponse<NewsWrapper>> {
         return newService.getNews()
-
     }
 
+    fun isScreenVisible(): Boolean {
+        val jsonResultDynamic = sharedPreferences.getString(Constants.NEWS, "")
+        if (!jsonResultDynamic.equals("")) {
+            jsonResultDynamic?.let {
+                val result = Json.parse(NewsWrapper.serializer(), it)
+                return result.showScreen
+            }
+        }
+        return false
+    }
 
 }
