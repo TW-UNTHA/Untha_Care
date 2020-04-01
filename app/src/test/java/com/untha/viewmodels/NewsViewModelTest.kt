@@ -2,6 +2,9 @@ package com.untha.viewmodels
 
 import android.content.SharedPreferences
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
+import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.verify
 import com.nhaarman.mockito_kotlin.whenever
 import com.untha.di.mapperModule
@@ -9,9 +12,13 @@ import com.untha.di.networkModule
 import com.untha.di.persistenceModule
 import com.untha.di.viewModelsModule
 import com.untha.model.services.NewsService
+import com.untha.model.transactionalmodels.CategoriesWrapper
 import com.untha.model.transactionalmodels.NewsWrapper
 import com.untha.utils.Constants
+import com.utils.MockObjects.mockLifecycleOwner
 import kotlinx.serialization.json.Json
+import me.linshen.retrofit2.adapter.ApiResponse
+import org.hamcrest.CoreMatchers
 import org.hamcrest.CoreMatchers.equalTo
 import org.hamcrest.MatcherAssert.assertThat
 import org.junit.After
@@ -28,6 +35,7 @@ import org.koin.test.mock.declareMock
 import org.mockito.Mockito
 import org.mockito.Mockito.`when`
 import org.mockito.Mockito.doNothing
+import retrofit2.Response
 
 @RunWith(JUnit4::class)
 class NewsViewModelTest : KoinTest {
@@ -71,6 +79,7 @@ class NewsViewModelTest : KoinTest {
             )
         }
         declareMock<SharedPreferences>()
+        declareMock<NewsService>()
     }
 
     @After
@@ -80,20 +89,20 @@ class NewsViewModelTest : KoinTest {
 
     @Test
     fun `should not get news results when news result ids are empty`() {
-        val viewModel = NewsViewModel(sharedPreferences, newsService)
+        val newsViewModel = NewsViewModel(sharedPreferences, newsService)
         Mockito.`when`(sharedPreferences.getString(Constants.NEWS, "")).thenReturn("")
 
-        viewModel.isScreenVisible()
+        newsViewModel.isScreenVisible()
 
         verify(sharedPreferences).getString(Constants.NEWS, "")
     }
 
     @Test
     fun `should return false when news result ids are empty`() {
-        val viewModel = NewsViewModel(sharedPreferences, newsService)
+        val newsViewModel = NewsViewModel(sharedPreferences, newsService)
         Mockito.`when`(sharedPreferences.getString(Constants.NEWS, "")).thenReturn("")
 
-        val result = viewModel.isScreenVisible()
+        val result = newsViewModel.isScreenVisible()
 
         assertThat(false, equalTo(result))
         verify(sharedPreferences).getString(Constants.NEWS, "")
@@ -101,10 +110,10 @@ class NewsViewModelTest : KoinTest {
 
     @Test
     fun `should return true when news result ids are not empty`() {
-        val viewModel = NewsViewModel(sharedPreferences, newsService)
+        val newsViewModel = NewsViewModel(sharedPreferences, newsService)
         Mockito.`when`(sharedPreferences.getString(Constants.NEWS, "")).thenReturn(newsJson)
 
-        val result = viewModel.isScreenVisible()
+        val result = newsViewModel.isScreenVisible()
 
         assertThat(true, equalTo(result))
         verify(sharedPreferences).getString(Constants.NEWS, "")
@@ -112,23 +121,23 @@ class NewsViewModelTest : KoinTest {
 
     @Test
     fun `should load news from sharePreferences when news result id is not empty`() {
-        val viewModel = NewsViewModel(sharedPreferences, newsService)
+        val newsViewModel = NewsViewModel(sharedPreferences, newsService)
         val newsExpected = Json.parse(NewsWrapper.serializer(), newsJson)
 
         Mockito.`when`(sharedPreferences.getString(Constants.NEWS, "")).thenReturn(newsJson)
 
-        viewModel.loadNewsFromSharePreferences()
+        newsViewModel.loadNewsFromSharePreferences()
 
-        assertThat(newsExpected.news, equalTo(viewModel.news))
-        assertThat(newsExpected.buttonTitle, equalTo(viewModel.buttonTitle))
-        assertThat(newsExpected.buttonSubtitle, equalTo(viewModel.buttonSubtitle))
-        assertThat(newsExpected.showScreen, equalTo(viewModel.showScreen))
+        assertThat(newsExpected.news, equalTo(newsViewModel.news))
+        assertThat(newsExpected.buttonTitle, equalTo(newsViewModel.buttonTitle))
+        assertThat(newsExpected.buttonSubtitle, equalTo(newsViewModel.buttonSubtitle))
+        assertThat(newsExpected.showScreen, equalTo(newsViewModel.showScreen))
         verify(sharedPreferences).getString(Constants.NEWS, "")
     }
 
     @Test
     fun `should save in shared preferences when news result id is not empty`() {
-        val routesViewModel = NewsViewModel(
+        val newsViewModel = NewsViewModel(
             sharedPreferences,
             newsService
         )
@@ -145,7 +154,7 @@ class NewsViewModelTest : KoinTest {
 
         doNothing().whenever(editor).apply()
 
-        routesViewModel.saveSharePreferences(newsExpected)
+        newsViewModel.saveSharePreferences(newsExpected)
 
         verify(sharedPreferences.edit())
             .putString(
@@ -154,5 +163,25 @@ class NewsViewModelTest : KoinTest {
             )
         verify(editor).apply()
 
+    }
+
+    @Test
+    fun `should call newsService`() {
+        val newsWrapper = Json.parse(NewsWrapper.serializer(), newsJson)
+
+        val newsViewModel = NewsViewModel(
+            sharedPreferences,
+            newsService
+        )
+        var response = Response.success(newsWrapper)
+        var apiResponse = ApiResponse.create(response)
+        val updatedNews = MutableLiveData<ApiResponse<NewsWrapper>>()
+        updatedNews.value = apiResponse
+        Mockito.`when`(newsService.getNews()).thenReturn(updatedNews)
+
+        val result = newsViewModel.getNews()
+
+        assertThat(result as MutableLiveData, CoreMatchers.`is`(updatedNews))
+        verify(newsService).getNews()
     }
 }
