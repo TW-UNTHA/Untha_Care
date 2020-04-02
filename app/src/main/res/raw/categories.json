@@ -1,5 +1,5 @@
 {
-  "version": 4,
+  "version": 5,
   "categories": [
     {
       "id": 1,
@@ -75,7 +75,7 @@
                 },
                 {
                   "step_id": null,
-                  "description": "<b>AVISO IMPORTANTE:</b> Si hay cambios en tus condiciones de trabajo estipuladas en el contrato, tales como: empleador, lugar de trabajo, modalidad de trabajo, jornada etc., necesitas hacer un acta de finiquito y firmar un nuevo contrato."
+                  "description": "<br><b>AVISO IMPORTANTE:</b> Si hay cambios en tus condiciones de trabajo estipuladas en el contrato, tales como: empleador, lugar de trabajo, modalidad de trabajo, jornada etc., necesitas hacer un acta de finiquito y firmar un nuevo contrato."
                 }
               ]
             }
