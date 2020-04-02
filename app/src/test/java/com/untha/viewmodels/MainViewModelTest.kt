@@ -9,6 +9,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LifecycleRegistry
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.nhaarman.mockito_kotlin.any
 import com.nhaarman.mockito_kotlin.doNothing
 import com.nhaarman.mockito_kotlin.mock
@@ -31,7 +32,10 @@ import com.untha.model.services.ResultService
 import com.untha.model.services.RoutesService
 import com.untha.model.transactionalmodels.CategoriesWrapper
 import com.untha.model.transactionalmodels.Category
+import com.untha.model.transactionalmodels.ConstantsWrapper
+import com.untha.model.transactionalmodels.NewsWrapper
 import com.untha.model.transactionalmodels.QuestionnaireRouteResultWrapper
+import com.untha.model.transactionalmodels.ResultCalculatorWrapper
 import com.untha.model.transactionalmodels.ResultWrapper
 import com.untha.model.transactionalmodels.Route
 import com.untha.utils.Constants
@@ -40,6 +44,7 @@ import kotlinx.serialization.json.Json
 import me.linshen.retrofit2.adapter.ApiResponse
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.MatcherAssert.assertThat
+import org.jetbrains.anko.db.REAL
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
@@ -94,6 +99,7 @@ class MainViewModelTest : KoinTest {
         declareMock<ResultService>()
         declareMock<QuestionnaireRouteResultService>()
         declareMock<ConstantsService>()
+        declareMock<NewsService>()
     }
 
     @After
@@ -766,41 +772,43 @@ class MainViewModelTest : KoinTest {
         verify(editor).apply()
     }
 
-//    @Test
-//    fun `should save on db when loading default categories` () {
-//        val context = mock(Context::class.java)
-//
-//        val mainViewModel = MainViewModel(
-//            dbService,
-//            categoriesService,
-//            mapper,
-//            sharedPreferences,
-//            routesService,
-//            resultService,
-//            questionnaireRouteResultService
-//        )
-//
-//        val resources = mock(Resources::class.java)
-//        val json = "{\"version\": 3,\n" +
-//                "  \"categories\":[{\n" +
-//                "      \"id\": 18,\n" +
-//                "      \"image\": \"home_beneficios\",\n" +
-//                "      \"title\": \"CALCULADORA DE HORAS\",\n" +
-//                "      \"subtitle\": \"Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam illum, iure, asperiores natus placeat, eaque voluptatibus reprehenderit aspernatur facere non expedita vel numquam dignissimos! Possimus autem eos voluptatum voluptatem corporis.\",\n" +
-//                "      \"title_next_step\": \"CALCULADORA DE HORAS\",\n" +
-//                "      \"parent_id\": null,\n" +
-//                "      \"type\": \"calculator\"\n" +
-//                "    }]}"
-//        val inputStream = ByteArrayInputStream(json.toByteArray())
-//        `when`(context.resources).thenReturn(resources)
-//        `when`(context.resources.getIdentifier("com.untha:raw/categories_test_change",null, null)).thenReturn(R.raw.categories_test_change)
-//        `when`(resources.openRawResource(R.raw.categories_test_change)).thenReturn(inputStream)
-//
-//        mainViewModel.loadDefaultCategories(context)
-//
-//        verify(dbService, times(1)).saveCategory(anyList(), any())
-//
-//    }
+   @Test
+    fun `should save on db when loading default categories` () {
+        val context = mock(Context::class.java)
+
+        val mainViewModel = MainViewModel(
+            dbService,
+            categoriesService,
+            mapper,
+            sharedPreferences,
+            routesService,
+            resultService,
+            questionnaireRouteResultService,
+            constantsService,
+            newsService
+        )
+
+        val resources = mock(Resources::class.java)
+        val json = "{\"version\": 3,\n" +
+                "  \"categories\":[{\n" +
+                "      \"id\": 18,\n" +
+                "      \"image\": \"home_beneficios\",\n" +
+                "      \"title\": \"CALCULADORA DE HORAS\",\n" +
+                "      \"subtitle\": \"Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam illum, iure, asperiores natus placeat, eaque voluptatibus reprehenderit aspernatur facere non expedita vel numquam dignissimos! Possimus autem eos voluptatum voluptatem corporis.\",\n" +
+                "      \"title_next_step\": \"CALCULADORA DE HORAS\",\n" +
+                "      \"parent_id\": null,\n" +
+                "      \"type\": \"calculator\"\n" +
+                "    }]}"
+        val inputStream = ByteArrayInputStream(json.toByteArray())
+        `when`(context.resources).thenReturn(resources)
+        `when`(context.resources.getIdentifier("com.untha:raw/categories_version_2",null, null)).thenReturn(R.raw.categories_version_2)
+        `when`(resources.openRawResource(R.raw.categories_version_2)).thenReturn(inputStream)
+
+        mainViewModel.loadDefaultCategories(context)
+
+        verify(dbService, times(1)).saveCategory(anyList(), any())
+
+    }
 
     @Test
     fun `should save category information on DB`() {
@@ -916,7 +924,392 @@ class MainViewModelTest : KoinTest {
         verify(editor).apply()
 
     }
+    @Test
+    fun `should save route calculator in shared preferences`() {
+        val mainViewModel = MainViewModel(
+            dbService,
+            categoriesService,
+            mapper,
+            sharedPreferences,
+            routesService,
+            resultService,
+            questionnaireRouteResultService,
+            constantsService,
+            newsService
+        )
+        val context = mock(Context::class.java)
+        val resources = mock(Resources::class.java)
+        val json = "{\n" +
+                "  \"version\": 1,\n" +
+                "  \"questions\": [\n" +
+                "    {\n" +
+                "      \"id\": 1,\n" +
+                "      \"type\": \"MultipleOption\",\n" +
+                "      \"content\": \"¿Te encuentras en alguna de éstas situaciones?\",\n" +
+                "      \"explanation\": \"Necesitamos esta información para calcular tus indemnizaciones\",\n" +
+                "      \"recommend\": \"*Para ser oficialmente sustituta de una persona con discapacidad, debes efectuar el proceso pertinente en el Ministerio de Trabajo\",\n" +
+                "      \"goTo\": 2,\n" +
+                "      \"result\": null,\n" +
+                "      \"options\": [\n" +
+                "        {\n" +
+                "          \"value\": \"Discapacidad\",\n" +
+                "          \"remaining\": 2,\n" +
+                "          \"hint\": \"R3P1R1\",\n" +
+                "          \"result\": \"F5\",\n" +
+                "          \"goTo\": 2\n" +
+                "        },\n" +
+                "        {\n" +
+                "          \"value\": \"A cargo de una persona con discapacidad*\",\n" +
+                "          \"remaining\": 2,\n" +
+                "          \"hint\": \"R3P1R2\",\n" +
+                "          \"result\": \"F5\",\n" +
+                "          \"goTo\": 2\n" +
+                "        },\n" +
+                "        {\n" +
+                "          \"value\": \"Embarazo\",\n" +
+                "          \"remaining\": 2,\n" +
+                "          \"hint\": \"R3P1R3\",\n" +
+                "          \"result\": \"F3\",\n" +
+                "          \"goTo\": 2\n" +
+                "        },\n" +
+                "        {\n" +
+                "          \"value\": \"Ninguna de las anteriores\",\n" +
+                "          \"remaining\": 2,\n" +
+                "          \"hint\": \"R3P1R4\",\n" +
+                "          \"result\": \"R4\",\n" +
+                "          \"goTo\": 2\n" +
+                "        }\n" +
+                "      ]\n" +
+                "    },\n" +
+                "    {\n" +
+                "      \"id\": 2,\n" +
+                "      \"type\": \"SingleOption\",\n" +
+                "      \"content\": \"¿Cuál es el motivo para la terminación del contrato?\",\n" +
+                "      \"explanation\": \"\",\n" +
+                "      \"recommend\": \"En caso de presiones recibidas o dudas sobre los motivos de terminacion, puedes llamar al 1800-266822  o a la UNTHA (0960639550)\",\n" +
+                "      \"goTo\": -1,\n" +
+                "      \"result\": \"\",\n" +
+                "      \"options\": [\n" +
+                "        {\n" +
+                "          \"value\": \"Renuncia voluntaria (también llamada desahucio)\",\n" +
+                "          \"remaining\": 1,\n" +
+                "          \"hint\": \"R3P2R1\",\n" +
+                "          \"result\": \"R1\",\n" +
+                "          \"goTo\": -1\n" +
+                "        },\n" +
+                "        {\n" +
+                "          \"value\": \"Terminación durante el período de prueba (15 días)\",\n" +
+                "          \"remaining\": 1,\n" +
+                "          \"hint\": \"R3P2R2\",\n" +
+                "          \"result\": \"R2\",\n" +
+                "          \"goTo\": -1\n" +
+                "        },\n" +
+                "        {\n" +
+                "          \"value\": \"Muerte o incapacidad TRABAJADOR/A\",\n" +
+                "          \"remaining\": 1,\n" +
+                "          \"hint\": \"R3P2R3\",\n" +
+                "          \"result\": \"R3\",\n" +
+                "          \"goTo\": -1\n" +
+                "        },\n" +
+                "        {\n" +
+                "          \"value\": \"Muerte o incapacidad EMPLEADOR/A\",\n" +
+                "          \"remaining\": 1,\n" +
+                "          \"hint\": \"R3P2R4\",\n" +
+                "          \"result\": \"R5\",\n" +
+                "          \"goTo\": -1\n" +
+                "        },\n" +
+                "        {\n" +
+                "          \"value\": \"Despido intempestivo (Sin previo aviso)\",\n" +
+                "          \"remaining\": 1,\n" +
+                "          \"hint\": \"R3P2R5\",\n" +
+                "          \"result\": \"F4\",\n" +
+                "          \"goTo\": -1\n" +
+                "        }\n" +
+                "      ]\n" +
+                "    }\n" +
+                "  ]\n" +
+                "}"
+        val inputStream = ByteArrayInputStream(json.toByteArray())
+        `when`(context.resources).thenReturn(resources)
+        `when`(resources.openRawResource(R.raw.calculator_route)).thenReturn(inputStream)
+        val editor = mock(SharedPreferences.Editor::class.java)
+        `when`(sharedPreferences.edit()).thenReturn(editor)
+        whenever(
+            editor.putString(
+                Constants.CALCULATOR_ROUTE,
+                json
+            )
+        ).thenReturn(editor)
+        doNothing().whenever(editor).apply()
 
+        mainViewModel.loadDefaultBase(
+            context,
+            Constants.CALCULATOR_ROUTE,
+            R.raw.calculator_route
+        )
+
+        verify(sharedPreferences.edit())
+            .putString(
+                Constants.CALCULATOR_ROUTE,
+                json
+            )
+        verify(editor).apply()
+    }
+
+    @Test
+    fun `should route calculator docs share preferences `() {
+
+        val mockLifeCycleOwner = mockLifecycleOwner()
+
+        val route = Route(1, listOf())
+        val mainViewModel = MainViewModel(
+            dbService,
+            categoriesService,
+            mapper,
+            sharedPreferences,
+            routesService,
+            resultService,
+            questionnaireRouteResultService,
+            constantsService,
+            newsService
+        )
+
+        var response = Response.success(route)
+        var apiResponse = ApiResponse.create(response)
+        val updatedRoute = MutableLiveData<ApiResponse<Route>>()
+        updatedRoute.value = apiResponse
+        `when`(routesService.getCalculatorRoute()).thenReturn(updatedRoute)
+        val observer = mock<Observer<ApiResponse<Route>>>()
+        routesService.getCalculatorRoute().observeForever(observer)
+        val editor = mock(SharedPreferences.Editor::class.java)
+
+        `when`(sharedPreferences.edit()).thenReturn(editor)
+        whenever(
+            editor.putString(
+                Constants.CALCULATOR_ROUTE,
+                Json.stringify(Route.serializer(), route)
+            )
+        ).thenReturn(editor)
+        doNothing().whenever(editor).apply()
+
+        mainViewModel.loadCalculatorRoute(mockLifeCycleOwner)
+
+        verify(observer).onChanged(apiResponse)
+        verify(sharedPreferences.edit())
+            .putString(
+                Constants.CALCULATOR_ROUTE,
+                Json.stringify(
+                    Route.serializer(),
+                    route
+                )
+            )
+        verify(editor).apply()
+
+    }
+
+    @Test
+    fun `should save result wrapper in share preferences `() {
+
+        val mockLifeCycleOwner = mockLifecycleOwner()
+
+        val route = ResultWrapper(1, listOf())
+        val mainViewModel = MainViewModel(
+            dbService,
+            categoriesService,
+            mapper,
+            sharedPreferences,
+            routesService,
+            resultService,
+            questionnaireRouteResultService,
+            constantsService,
+            newsService
+        )
+
+        var response = Response.success(route)
+        var apiResponse = ApiResponse.create(response)
+        val updatedRoute = MutableLiveData<ApiResponse<ResultWrapper>>()
+        updatedRoute.value = apiResponse
+        `when`(resultService.getResultCalculator()).thenReturn(updatedRoute)
+        val observer = mock<Observer<ApiResponse<ResultWrapper>>>()
+        resultService.getResultCalculator().observeForever(observer)
+        val editor = mock(SharedPreferences.Editor::class.java)
+
+        `when`(sharedPreferences.edit()).thenReturn(editor)
+        whenever(
+            editor.putString(
+                Constants.CALCULATOR_ROUTE_RESULT,
+                Json.stringify(ResultWrapper.serializer(), route)
+            )
+        ).thenReturn(editor)
+        doNothing().whenever(editor).apply()
+
+        mainViewModel.getResultCalculator(mockLifeCycleOwner)
+
+        verify(observer).onChanged(apiResponse)
+        verify(sharedPreferences.edit())
+            .putString(
+                Constants.CALCULATOR_ROUTE_RESULT,
+                Json.stringify(
+                    ResultWrapper.serializer(),
+                    route
+                )
+            )
+        verify(editor).apply()
+
+    }
+
+    @Test
+    fun `should save result recommend in share preferences `() {
+
+        val mockLifeCycleOwner = mockLifecycleOwner()
+
+        val route = ResultCalculatorWrapper(1, listOf())
+        val mainViewModel = MainViewModel(
+            dbService,
+            categoriesService,
+            mapper,
+            sharedPreferences,
+            routesService,
+            resultService,
+            questionnaireRouteResultService,
+            constantsService,
+            newsService
+        )
+
+        var response = Response.success(route)
+        var apiResponse = ApiResponse.create(response)
+        val updatedRoute = MutableLiveData<ApiResponse<ResultCalculatorWrapper>>()
+        updatedRoute.value = apiResponse
+        `when`(resultService.getRecommendCalculator()).thenReturn(updatedRoute)
+        val observer = mock<Observer<ApiResponse<ResultCalculatorWrapper>>>()
+        resultService.getRecommendCalculator().observeForever(observer)
+        val editor = mock(SharedPreferences.Editor::class.java)
+
+        `when`(sharedPreferences.edit()).thenReturn(editor)
+        whenever(
+            editor.putString(
+                Constants.CALCULATOR_RECOMMEND,
+                Json.stringify(ResultCalculatorWrapper.serializer(), route)
+            )
+        ).thenReturn(editor)
+        doNothing().whenever(editor).apply()
+
+        mainViewModel.getRecommendCalculator(mockLifeCycleOwner)
+
+        verify(observer).onChanged(apiResponse)
+        verify(sharedPreferences.edit())
+            .putString(
+                Constants.CALCULATOR_RECOMMEND,
+                Json.stringify(
+                    ResultCalculatorWrapper.serializer(),
+                    route
+                )
+            )
+        verify(editor).apply()
+
+    }
+
+    @Test
+    fun `should save constants in share preferences `() {
+
+        val mockLifeCycleOwner = mockLifecycleOwner()
+
+        val route = ConstantsWrapper(1, "400", "0.0945", "0.0833", 40)
+        val mainViewModel = MainViewModel(
+            dbService,
+            categoriesService,
+            mapper,
+            sharedPreferences,
+            routesService,
+            resultService,
+            questionnaireRouteResultService,
+            constantsService,
+            newsService
+        )
+
+        var response = Response.success(route)
+        var apiResponse = ApiResponse.create(response)
+        val updatedRoute = MutableLiveData<ApiResponse<ConstantsWrapper>>()
+        updatedRoute.value = apiResponse
+        `when`(constantsService.getConstants()).thenReturn(updatedRoute)
+        val observer = mock<Observer<ApiResponse<ConstantsWrapper>>>()
+        constantsService.getConstants().observeForever(observer)
+        val editor = mock(SharedPreferences.Editor::class.java)
+
+        `when`(sharedPreferences.edit()).thenReturn(editor)
+        whenever(
+            editor.putString(
+                Constants.CONSTANTS,
+                Json.stringify(ConstantsWrapper.serializer(), route)
+            )
+        ).thenReturn(editor)
+        doNothing().whenever(editor).apply()
+
+        mainViewModel.getConstants(mockLifeCycleOwner)
+
+        verify(observer).onChanged(apiResponse)
+        verify(sharedPreferences.edit())
+            .putString(
+                Constants.CONSTANTS,
+                Json.stringify(
+                    ConstantsWrapper.serializer(),
+                    route
+                )
+            )
+        verify(editor).apply()
+
+    }
+
+    @Test
+    fun `should save news in share preferences `() {
+
+        val mockLifeCycleOwner = mockLifecycleOwner()
+
+        val route = NewsWrapper(1, true, "title", "subtitle", listOf())
+        val mainViewModel = MainViewModel(
+            dbService,
+            categoriesService,
+            mapper,
+            sharedPreferences,
+            routesService,
+            resultService,
+            questionnaireRouteResultService,
+            constantsService,
+            newsService
+        )
+
+        var response = Response.success(route)
+        var apiResponse = ApiResponse.create(response)
+        val updatedRoute = MutableLiveData<ApiResponse<NewsWrapper>>()
+        updatedRoute.value = apiResponse
+        `when`(newsService.getNews()).thenReturn(updatedRoute)
+        val observer = mock<Observer<ApiResponse<NewsWrapper>>>()
+        newsService.getNews().observeForever(observer)
+        val editor = mock(SharedPreferences.Editor::class.java)
+
+        `when`(sharedPreferences.edit()).thenReturn(editor)
+        whenever(
+            editor.putString(
+                Constants.NEWS,
+                Json.stringify(NewsWrapper.serializer(), route)
+            )
+        ).thenReturn(editor)
+        doNothing().whenever(editor).apply()
+
+        mainViewModel.getNews(mockLifeCycleOwner)
+
+        verify(observer).onChanged(apiResponse)
+        verify(sharedPreferences.edit())
+            .putString(
+                Constants.NEWS,
+                Json.stringify(
+                    NewsWrapper.serializer(),
+                    route
+                )
+            )
+        verify(editor).apply()
+
+    }
 }
 
 

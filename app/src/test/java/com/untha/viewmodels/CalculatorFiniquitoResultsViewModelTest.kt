@@ -179,7 +179,7 @@ class CalculatorFiniquitoResultsViewModelTest:KoinTest{
     }
 
     @Test
-    fun `should getDecimoTercero`(){
+    fun `should getDecimoTercero mensualizado`(){
         val finiquitoResultViewModel = CalculatorFiniquitoResultsViewModel(
             sharedPreferences,
             mockCategoryWithRelationsRepository, mockCategoryMapper
@@ -192,5 +192,201 @@ class CalculatorFiniquitoResultsViewModelTest:KoinTest{
         val result =finiquitoResultViewModel.getDecimoTercero(idOption,startDate,endDate,salary)
 
         assertThat(decimoTercero,equalTo(result) )
+    }
+
+    @Test
+    fun `should getDecimoTercero acumulado`(){
+        val finiquitoResultViewModel = CalculatorFiniquitoResultsViewModel(
+            sharedPreferences,
+            mockCategoryWithRelationsRepository, mockCategoryMapper
+        )
+        val idOption = 2
+        val startDate = "2018-01-01"
+        val endDate= "2019-01-15"
+        val salary = 500.toBigDecimal().setScale(2, RoundingMode.HALF_UP)
+        val decimoTercero = 61.11.toBigDecimal().setScale(2, RoundingMode.HALF_UP)
+        val result =finiquitoResultViewModel.getDecimoTercero(idOption,startDate,endDate,salary)
+
+        assertThat(decimoTercero,equalTo(result) )
+    }
+
+    @Test
+    fun `should getDecimoCuarto mensualizado`(){
+        val finiquitoResultViewModel = CalculatorFiniquitoResultsViewModel(
+            sharedPreferences,
+            mockCategoryWithRelationsRepository, mockCategoryMapper
+        )
+        val json = "{\n" +
+                "  \"version\": 1,\n" +
+                "  \"sbu\": 400,\n" +
+                "  \"percentage_iess_afiliado\": 0.0945,\n" +
+                "  \"percentage_fondos_reserva\": 0.0833,\n" +
+                "  \"hours_complete_time\": 40\n" +
+                "}"
+
+        Mockito.`when`(sharedPreferences.getString(Constants.CONSTANTS, "")).thenReturn(json)
+
+        val idOption = CalculatorFiniquitoResultsViewModel.MENSUAL
+        val startDate = "2018-01-01"
+        val endDate= "2019-01-15"
+        val idArea = 1
+        val hoursWorked = 40
+
+        val decimoCuarto = 16.67.toBigDecimal().setScale(2, RoundingMode.HALF_UP)
+        val result =finiquitoResultViewModel.getDecimoCuarto(idOption,startDate,endDate,idArea,hoursWorked)
+
+        assertThat(decimoCuarto,equalTo(result) )
+    }
+
+    @Test
+    fun `should getDecimoCuarto acumulado`(){
+        val finiquitoResultViewModel = CalculatorFiniquitoResultsViewModel(
+            sharedPreferences,
+            mockCategoryWithRelationsRepository, mockCategoryMapper
+        )
+        val json = "{\n" +
+                "  \"version\": 1,\n" +
+                "  \"sbu\": 400,\n" +
+                "  \"percentage_iess_afiliado\": 0.0945,\n" +
+                "  \"percentage_fondos_reserva\": 0.0833,\n" +
+                "  \"hours_complete_time\": 40\n" +
+                "}"
+
+        Mockito.`when`(sharedPreferences.getString(Constants.CONSTANTS, "")).thenReturn(json)
+
+        val idOption = 2
+        val startDate = "2018-01-01"
+        val endDate= "2019-01-15"
+        val idArea = 1
+        val hoursWorked = 30
+
+        val decimoCuarto = 261.67.toBigDecimal().setScale(2, RoundingMode.HALF_UP)
+        val result =finiquitoResultViewModel.getDecimoCuarto(idOption,startDate,endDate,idArea,hoursWorked)
+
+        assertThat(decimoCuarto,equalTo(result) )
+    }
+
+    @Test
+    fun `should fondos de reserva`(){
+        val finiquitoResultViewModel = CalculatorFiniquitoResultsViewModel(
+            sharedPreferences,
+            mockCategoryWithRelationsRepository, mockCategoryMapper
+        )
+        val json = "{\n" +
+                "  \"version\": 1,\n" +
+                "  \"sbu\": 400,\n" +
+                "  \"percentage_iess_afiliado\": 0.0945,\n" +
+                "  \"percentage_fondos_reserva\": 0.0833,\n" +
+                "  \"hours_complete_time\": 40\n" +
+                "}"
+
+        Mockito.`when`(sharedPreferences.getString(Constants.CONSTANTS, "")).thenReturn(json)
+
+        val idOption = CalculatorFiniquitoResultsViewModel.MENSUAL
+        val startDate = "2018-01-01"
+        val endDate= "2019-01-15"
+        val salary = 500.toBigDecimal()
+
+        val fondosReserva = 20.83.toBigDecimal().setScale(2, RoundingMode.HALF_UP)
+        val result =finiquitoResultViewModel.getFondosReserva(idOption,startDate,endDate,salary)
+
+        assertThat(result,equalTo(fondosReserva) )
+    }
+    @Test
+    fun `should get salary last month`(){
+        val finiquitoResultViewModel = CalculatorFiniquitoResultsViewModel(
+            sharedPreferences,
+            mockCategoryWithRelationsRepository, mockCategoryMapper
+        )
+        val startDate = "2018-01-01"
+        val endDate= "2019-01-15"
+        val salary = 500.toBigDecimal()
+
+        val salaryMonth = 250.toBigDecimal().setScale(2, RoundingMode.HALF_UP)
+        val result =finiquitoResultViewModel.getSalaryLastMonth(salary,endDate, startDate)
+
+        assertThat(result,equalTo(salaryMonth) )
+    }
+
+    @Test
+    fun `should get vacation not taken`(){
+        val finiquitoResultViewModel = CalculatorFiniquitoResultsViewModel(
+            sharedPreferences,
+            mockCategoryWithRelationsRepository, mockCategoryMapper
+        )
+        val startDate = "2018-01-01"
+        val endDate= "2019-01-15"
+        val bornDate= "1994-01-13"
+        val salary = 500.toDouble()
+        val daysTaken =5
+
+        val vacationPay = 166.67.toBigDecimal().setScale(2, RoundingMode.HALF_UP)
+        val result =finiquitoResultViewModel.getVacationsNotTaken(daysTaken,startDate, endDate, bornDate, salary)
+
+        assertThat(result,equalTo(vacationPay) )
+    }
+
+    @Test
+    fun `should get indemnizacion`(){
+        val finiquitoResultViewModel = CalculatorFiniquitoResultsViewModel(
+            sharedPreferences,
+            mockCategoryWithRelationsRepository, mockCategoryMapper
+        )
+        val HINT_EMBARAZO = "R3P1R3"
+        val salary = 500.toBigDecimal()
+        val indemnizacionPay = 6000.toBigDecimal().setScale(2, RoundingMode.HALF_UP)
+
+        val result =finiquitoResultViewModel.getIndemnizacion(HINT_EMBARAZO, salary )
+
+        assertThat(result,equalTo(indemnizacionPay) )
+    }
+
+    @Test
+    fun `should get causal value`(){
+        val finiquitoResultViewModel = CalculatorFiniquitoResultsViewModel(
+            sharedPreferences,
+            mockCategoryWithRelationsRepository, mockCategoryMapper
+        )
+        val EMPLOYEE_DEAD_HINT = "R3P2R3"
+        val salary = 500.toBigDecimal()
+        val startDate = "2018-01-01"
+        val endDate= "2019-01-15"
+        val causalPay = 0.toBigDecimal().setScale(2, RoundingMode.HALF_UP)
+
+        val result =finiquitoResultViewModel.getDesahucio(EMPLOYEE_DEAD_HINT, salary, startDate, endDate )
+
+        assertThat(result,equalTo(causalPay) )
+    }
+
+    @Test
+    fun `should get faults`(){
+        val faultsList = ("F1 F2 F3 F4 F5")
+        Mockito.`when`(sharedPreferences.getString(Constants.FAULT_ANSWER_ROUTE_CALCULATOR, "")).thenReturn(faultsList)
+
+        val finiquitoResultViewModel = CalculatorFiniquitoResultsViewModel(
+            sharedPreferences,
+            mockCategoryWithRelationsRepository, mockCategoryMapper
+        )
+        val json = "{\n" +
+                "  \"version\": 1,\n" +
+                "  \"sbu\": 400,\n" +
+                "  \"percentage_iess_afiliado\": 0.0945,\n" +
+                "  \"percentage_fondos_reserva\": 0.0833,\n" +
+                "  \"hours_complete_time\": 40\n" +
+                "}"
+
+        Mockito.`when`(sharedPreferences.getString(Constants.CONSTANTS, "")).thenReturn(json)
+
+        val startDate = "2018-01-14"
+        val endDate= "2019-01-15"
+        val bornDate= "2002-01-13"
+        val salary = "200"
+        val hours = 40
+
+        val faults = mutableListOf("F1", "F2", "F3", "F4", "F5")
+
+        val result =finiquitoResultViewModel.getFaultsApplicable(salary,hours, bornDate ,startDate, endDate)
+
+        assertThat(result,equalTo(faults) )
     }
 }
